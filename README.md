@@ -1,8 +1,23 @@
-# F5 Distributed Cloud Hybrid Security Architecture Deployments
+# F5 Distributed Cloud WAAP Terraform Examples
 
 ## Overview
 
-Examples of hybrid security deployments utilizing F5 Distributed Cloud WAAP in conjunction with the F5 product portfolio.  For more information on the project, please see the following article series [F5 Hybrid Security Architectures: One WAF Engine, Total Flexibility](https://community.f5.com/t5/technical-articles/f5-hybrid-security-architectures-one-waf-engine-total/ta-p/307248)
+Examples of F5 Distributed Cloud (XC) WAAP deployments utilizing Terraform. For more information on the use cases covered by this project, please see the following articles and workflow guides:
+
+* F5 Distributed Cloud WAF
+  | **Use Case Articles** | **Workflow Guides**          |
+  | ----------- | ------------------------------- |
+  | [PLACEHOLDER Deploy WAF Anywhere with F5 Distributed Cloud](https://community.f5.com/t5/technical-articles/deploy-waap-anywhere-with-f5-distributed-cloud/ta-p/313079)    | [PLACEHOLDER Deploy F5 XC WAF on XC Regional Edges](https://community.f5.com/t5/technical-articles/deploy-waap-anywhere-with-f5-distributed-cloud/ta-p/313079)     |
+  |^| [PLACEHOLDER Deploy F5 XC WAF on XC Regional Edges + AppConnect](https://community.f5.com/t5/technical-articles/deploy-waap-anywhere-with-f5-distributed-cloud/ta-p/313079) |
+  |^| [PLACEHOLDER Deploy F5 XC WAF on XC Customer Edges](https://community.f5.com/t5/technical-articles/deploy-waap-anywhere-with-f5-distributed-cloud/ta-p/313079) |
+  |^| [PLACEHOLDER Deploy F5 XC WAF on XC Customer Edges + MultiCloud](https://community.f5.com/t5/technical-articles/deploy-waap-anywhere-with-f5-distributed-cloud/ta-p/313079) |
+  |^| [PLACEHOLDER Deploy F5 XC WAF on Kubernetes](https://community.f5.com/t5/technical-articles/deploy-waap-anywhere-with-f5-distributed-cloud/ta-p/313079) |
+   
+* F5 Distributed Cloud API Security
+* F5 Distributed Cloud Bot Protection
+* F5 Distributed Cloud DoS Protection
+
+  
 
 ## Getting Started
 
@@ -18,11 +33,13 @@ Examples of hybrid security deployments utilizing F5 Distributed Cloud WAAP in c
 * [Terraform Cloud Account](https://developer.hashicorp.com/terraform/tutorials/cloud-get-started)
 * [GitHub Account](https://github.com)
 
-## Assets
+## Selected Workflow
+
+Check the Automation section in your workflow guide for more details.
+
+## List of Existing Assets
 
 * **xc:**        F5 Distributed Cloud WAAP
-* **nap:**       NGINX Ingress Controller for Kubernetes with NGINX App Protect (WAF and API Protection)
-* **bigip:**     F5 BIG-IP (LTM and Advanced WAF)
 * **infra:**     AWS Infrastructure (VPC, IGW, etc.)
 * **eks:**       AWS Elastic Kubernetes Service
 * **arcadia:**   Arcadia Finance test web application and API
@@ -37,14 +54,14 @@ Examples of hybrid security deployments utilizing F5 Distributed Cloud WAAP in c
 
 ## Terraform Cloud
 
-* **Workspaces:** Create a CLI or API workspace for each asset in the workflow chosen. Check your work-flow article for more details
+* **Workspaces:** Create a CLI or API workspace for each asset in the workflow chosen. Check the Automation section in your workflow guide for more details
+
+Example:
 
   | **Workflow** | **Assets/Workspaces**          |
   | ----------- | ------------------------------- |
-  | xc-bigip    | infra, bigip-base, bigip-awaf, juiceshop, xc     |
-  | xc-nap      | infra, eks, nap, arcadia, xc    |
-  | xc-nap-api  | infra, eks, nic, brewz, xc    |
-  | xc-nap-bot  | infra, bigip-base, bigip-awaf, juiceshop, xc     |
+  | xc-waf-anywhere-re    | infra, xc     |
+
   
 
 * **Workspace Sharing:** Under the settings for each Workspace, set the **Remote state sharing** to share with each Workspace created.
@@ -56,7 +73,6 @@ Examples of hybrid security deployments utilizing F5 Distributed Cloud WAAP in c
   | AWS_ACCESS_KEY_ID | Environment | Your AWS Access Key ID |
   | AWS_SECRET_ACCESS_KEY  | Environment | Your AWS Secret Access Key |
   | AWS_SESSION_TOKEN | Environment | Your AWS Session Token |
-  | NGINX_JWT | Environment | Your NGINX JSON Web Token associated with your NGINX license. Set this to **nginx-repo.jwt** |
   | VOLT_API_P12_FILE | Environment | Your F5XC API certificate. Set this to **api.p12** |
   | VES_P12_PASSWORD | Environment | Set this to the password you supplied when creating your F5 XC API certificate |
   | ssh_key | Terraform | Your ssh key for accessing the created BIG-IP and compute assets |
@@ -68,7 +84,6 @@ Examples of hybrid security deployments utilizing F5 Distributed Cloud WAAP in c
 * **Fork and Clone Repo. Navigate to `Actions` tab and enable it.**
 
 * **Actions Secrets:** Create the following GitHub Actions secrets in your forked repo
-  *  NGINX_JWT: The linux base64 encoded NGINX Java Web Token associated with your NGINX Ingress license
   *  P12: The linux base64 encoded F5XC API certificate
   *  TF_API_TOKEN: Your Terraform Cloud API token
   *  TF_CLOUD_ORGANIZATION: Your Terraform Cloud Organization name
@@ -103,13 +118,6 @@ Examples of hybrid security deployments utilizing F5 Distributed Cloud WAAP in c
   * Also update assets boolean value as per your work-flow
 
 
-**STEP 3:** Depending on your work-flow, rename and update related .tfvars. For example in xc-bigip work-flow, update `bigip/terraform.tfvars.examples` to `bigip/terraform.tfvars` and add the following data:
-  * f5_ami_search_name = "F5 BIGIP-16.1.3* PAYG-Adv WAF Plus 25Mbps*" - You must be subscribed to the AMI in the [AWS Marketplace](https://aws.amazon.com/marketplace)
-  * aws_secretmanager_auth = false
-  * create_awaf_config = true
-  * awaf_config_payload = "awaf-config.json"
-
-
 **Step 3:** Rename `xc/terraform.tfvars.examples` to `xc/terraform.tfvars` and add the following data:
   * api_url         = "Your F5XC tenant"
   * xc_tenant       = "Your tenant id available in F5 XC `Administration` section `Tenant Overview` menu"
@@ -118,11 +126,11 @@ Examples of hybrid security deployments utilizing F5 Distributed Cloud WAAP in c
   * xc_waf_blocking = "Set to true to enable blocking"
 
 
-**STEP 5:** Commit and push your build branch to your forked repo
+**STEP 4:** Commit and push your build branch to your forked repo
   * Build will run and can be monitored in the GitHub Actions tab and TF Cloud console
 
 
-**STEP 6:** Once the pipeline completes, verify your assets were deployed or destroyed based on your workflow.  
+**STEP 5:** Once the pipeline completes, verify your assets were deployed or destroyed based on your workflow.  
             **NOTE:**  The autocert process takes time.  It may be 5 to 10 minutes before Let's Encrypt has provided the cert.
 
 
