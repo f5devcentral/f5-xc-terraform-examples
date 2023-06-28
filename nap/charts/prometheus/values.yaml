@@ -1,4 +1,0 @@
----
-prometheus:
-  pushgateway:
-    enabled: false
