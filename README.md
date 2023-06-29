@@ -26,7 +26,6 @@ Examples of F5 Distributed Cloud (XC) WAAP deployments utilizing Terraform. For 
 * [F5 Distributed Cloud Account (F5XC)](https://console.ves.volterra.io/signup/usage_plan)
   * [F5XC API certificate](https://docs.cloud.f5.com/docs/how-to/user-mgmt/credentials)
   * [User Domain delegated](https://docs.cloud.f5.com/docs/how-to/app-networking/domain-delegation)
-* [NGINX Plus with App Protect and Ingress license](https://www.nginx.com/free-trial-connectivity-stack-kubernetes/)
 * [AWS Account](https://aws.amazon.com) - Due to the assets being created, free tier will not work.
   * The F5 BIG-IP AMI being used from the [AWS Marketplace](https://aws.amazon.com/marketplace) must be subscribed to your account
   * Please make sure resources like VPC and Elastic IP's are below the threshold limit in that aws region
