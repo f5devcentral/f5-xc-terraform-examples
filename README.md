@@ -60,7 +60,7 @@ Example:
 
   | **Workflow** | **Assets/Workspaces**          |
   | ----------- | ------------------------------- |
-  | xc-waf-anywhere-re    | infra, xc     |
+  | f5-xc-waf-on-re    | infra, xc     |
 
   
 
