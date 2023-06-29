@@ -8,10 +8,10 @@ Examples of F5 Distributed Cloud (XC) WAAP deployments utilizing Terraform. For 
   | **Demo Guides / DevCentral Articles** | **Use Case / Workflow Guides**          |
   | ----------- | ------------------------------- |
   | [PLACEHOLDER Deploy WAF Anywhere with F5 Distributed Cloud](https://community.f5.com/t5/technical-articles/deploy-waap-anywhere-with-f5-distributed-cloud/ta-p/313079)    | [PLACEHOLDER Deploy F5 XC WAF on XC Regional Edges](https://community.f5.com/t5/technical-articles/deploy-waap-anywhere-with-f5-distributed-cloud/ta-p/313079)     |
-  | | [PLACEHOLDER Deploy F5 XC WAF on XC Regional Edges + AppConnect](https://community.f5.com/t5/technical-articles/deploy-waap-anywhere-with-f5-distributed-cloud/ta-p/313079) |
-  | | [PLACEHOLDER Deploy F5 XC WAF on XC Customer Edges](https://community.f5.com/t5/technical-articles/deploy-waap-anywhere-with-f5-distributed-cloud/ta-p/313079)|
-  | | [PLACEHOLDER Deploy F5 XC WAF on XC Customer Edges + MultiCloud](https://community.f5.com/t5/technical-articles/deploy-waap-anywhere-with-f5-distributed-cloud/ta-p/313079) |
-  | | [PLACEHOLDER Deploy F5 XC WAF on Kubernetes](https://community.f5.com/t5/technical-articles/deploy-waap-anywhere-with-f5-distributed-cloud/ta-p/313079) |
+  | [PLACEHOLDER Deploy WAF Anywhere with F5 Distributed Cloud](https://community.f5.com/t5/technical-articles/deploy-waap-anywhere-with-f5-distributed-cloud/ta-p/313079) | [PLACEHOLDER Deploy F5 XC WAF on XC Regional Edges + AppConnect](https://community.f5.com/t5/technical-articles/deploy-waap-anywhere-with-f5-distributed-cloud/ta-p/313079) |
+  | [PLACEHOLDER Deploy WAF Anywhere with F5 Distributed Cloud](https://community.f5.com/t5/technical-articles/deploy-waap-anywhere-with-f5-distributed-cloud/ta-p/313079)| [PLACEHOLDER Deploy F5 XC WAF on XC Customer Edges](https://community.f5.com/t5/technical-articles/deploy-waap-anywhere-with-f5-distributed-cloud/ta-p/313079)|
+  | [PLACEHOLDER Deploy WAF Anywhere with F5 Distributed Cloud](https://community.f5.com/t5/technical-articles/deploy-waap-anywhere-with-f5-distributed-cloud/ta-p/313079)| [PLACEHOLDER Deploy F5 XC WAF on XC Customer Edges + MultiCloud](https://community.f5.com/t5/technical-articles/deploy-waap-anywhere-with-f5-distributed-cloud/ta-p/313079) |
+  | [PLACEHOLDER Deploy WAF Anywhere with F5 Distributed Cloud](https://community.f5.com/t5/technical-articles/deploy-waap-anywhere-with-f5-distributed-cloud/ta-p/313079)| [Deploy F5 XC WAF on Kubernetes](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/waf/deploy-f5-xc-waf-on-k8s/README.rst) |
    
 * **F5 Distributed Cloud API Security**
 * **F5 Distributed Cloud Bot Protection**
