@@ -98,17 +98,15 @@ Example:
   
   | Workflow          | Branch Name       |
   |------------------ | ------------------|
-  | xc-bigip | deploy-xc-bigip |
-  | xc-nap | deploy-xc-nap |
-  | xcapi-nic | deploy-xcapi-nic |
+  | f5-xc-waf-on-k8s | deploy-f5-xc-waf-on-k8s |
+  | f5-xc-waf-on-re | deploy-f5-xc-waf-on-re|
  
   **DESTROY**
   
   | Workflow          | Branch Name       |
   |------------------ | ------------------|
-  | xc-bigip | destroy-xc-bigip |
-  | xc-nap | destroy-xc-nap |
-  | xcapi-nic | destroy-xcapi-nic |  
+  | f5-xc-waf-on-k8s | destroy-f5-xc-waf-on-k8s |
+  | f5-xc-waf-on-re | destroy-f5-xc-waf-on-re |
 
 **STEP 2:** Rename `infra/terraform.tfvars.examples` to `infra/terraform.tfvars` and add the following data:
   * project_prefix  = "Your project identifier name in **lower case** letters only - this will be applied as a prefix to all assets"
