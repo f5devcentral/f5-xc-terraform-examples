@@ -35,6 +35,8 @@ Examples of F5 Distributed Cloud (XC) WAAP deployments utilizing Terraform. For 
 
 ## Selected Workflow
 
+Example: f5-xc-waf-on-re
+
 Check the Automation section in your workflow guide for more details.
 
 ## List of Existing Assets
