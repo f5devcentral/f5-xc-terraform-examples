@@ -1,11 +1,12 @@
 # F5 WAAP deployment on k8s
-This repo provides configuration files and steps for deploying WAAP on Kubernetes. Please check https://community.f5.com/t5/technical-articles/deploy-waap-anywhere-with-f5-distributed-cloud/ta-p/313079 for more details.
+## Objective : ##
+Use this repo configuration files and work-flow guide for deploying WAAP on Kubernetes. Please check [Deploy WAAP Overview article](https://community.f5.com/t5/technical-articles/deploy-waap-anywhere-with-f5-distributed-cloud/ta-p/313079) or [WAAP on k8s article](https://community.f5.com/t5/technical-articles/deploying-f5-distributed-cloud-waap-on-kubernetes/ta-p/317324) for more details.
 
 ## Architectural diagram : ##
 <img width="500" alt="waap-anywhere-k8s" src="https://github.com/f5devcentral/waap_on_k8s/assets/6093830/b9bce60e-7eea-4f94-8554-9ed8a7afc79d">
 
 
-## Step by step process: ##
+## Step by step process for manual deployment: ##
 #### Prerequisites: ####
 1.  AWS (Amazon Web Services) account with CLI credentials
 2.  eksctl, kubectl and awscli tools already configured in a linux instance
@@ -43,6 +44,11 @@ d. Select network as “Inside and Outside Network” <br />
 
 13.  Create a web application firewall (WAF) with mode as “Blocking” and with default settings.
 14.  Open Load balancer in edit mode and apply this WAF configuration.
+
+
+## Step by step process for deployment using automation scripts: ##
+**Coming soon**
+
 
 ## Development
 
