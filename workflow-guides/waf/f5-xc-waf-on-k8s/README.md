@@ -6,7 +6,7 @@ Use this repo configuration files and work-flow guide for deploying WAAP on Kube
 <img width="500" alt="waap-anywhere-k8s" src="https://github.com/f5devcentral/waap_on_k8s/assets/6093830/b9bce60e-7eea-4f94-8554-9ed8a7afc79d">
 
 
-## Step by step process for manual deployment: ##
+## Manual step by step process for deployment: ##
 #### Prerequisites: ####
 1.  AWS (Amazon Web Services) account with CLI credentials
 2.  eksctl, kubectl and awscli tools already configured in a linux instance
@@ -46,7 +46,7 @@ d. Select network as “Inside and Outside Network” <br />
 14.  Open Load balancer in edit mode and apply this WAF configuration.
 
 
-## Step by step process for deployment using automation scripts: ##
+## Step by step process using automation scripts: ##
 **Coming soon**
 
 
