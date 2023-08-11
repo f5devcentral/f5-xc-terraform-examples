@@ -5,7 +5,7 @@
 Examples of F5 Distributed Cloud (XC) WAAP deployments utilizing Terraform. For more information on the use cases covered by this project, please see the following articles and workflow guides:
 
 * **F5 Distributed Cloud WAF** <br>
- Check this [deploy waf anywhere overview article](https://community.f5.com/t5/technical-articles/deploy-waap-anywhere-with-f5-distributed-cloud/ta-p/313079) for more details. <br>
+ Check this [Deploy waf anywhere DevCentral Overview article](https://community.f5.com/t5/technical-articles/deploy-waap-anywhere-with-f5-distributed-cloud/ta-p/313079) for more details. <br>
 
   | **Use Case / Workflow Guides (SaaS Console, Automation)**                                                                                                                                                |
   |  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
