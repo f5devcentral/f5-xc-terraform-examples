@@ -10,7 +10,7 @@ Use this repo configuration files and work-flow guide for deploying WAAP on Kube
 #### Prerequisites: ####
 1.  AWS (Amazon Web Services) account with CLI credentials
 2.  eksctl, kubectl and awscli tools already configured in a linux instance
-3.  .yml files needed for deployment
+3.  .yml files needed for deployment (these files are available in workflow-guides/waf/f5-xc-waf-on-k8s/assets folder)
 4.  Access to F5 XC account  
 
 #### Steps: ####
