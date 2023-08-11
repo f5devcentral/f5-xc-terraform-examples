@@ -1,4 +1,4 @@
-# F5 WAAP deployment on k8s
+# F5 XC WAAP deployment on k8s
 ## Objective : ##
 Use this repo configuration files and work-flow guide for deploying WAAP on Kubernetes. Please check [Deploy WAAP Overview article](https://community.f5.com/t5/technical-articles/deploy-waap-anywhere-with-f5-distributed-cloud/ta-p/313079) or [WAAP on k8s article](https://community.f5.com/t5/technical-articles/deploying-f5-distributed-cloud-waap-on-kubernetes/ta-p/317324) for more details.
 
