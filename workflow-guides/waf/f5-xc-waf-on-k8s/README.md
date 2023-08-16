@@ -1,6 +1,7 @@
 # F5 Distributed Cloud WAAP deployment on k8s
 ## Objective : ##
 Use this repo configuration files and work-flow guide for deploying WAAP on Kubernetes. Please check [Deploy WAAP Overview article](https://community.f5.com/t5/technical-articles/deploy-waap-anywhere-with-f5-distributed-cloud/ta-p/313079) or [WAAP on k8s article](https://community.f5.com/t5/technical-articles/deploying-f5-distributed-cloud-waap-on-kubernetes/ta-p/317324) for more details.
+Note: If clicking on the links show 403 error, copy the links and open them in new tab.
 
 ## Architectural diagram : ##
 <img width="500" alt="waap-anywhere-k8s" src="https://github.com/f5devcentral/waap_on_k8s/assets/6093830/b9bce60e-7eea-4f94-8554-9ed8a7afc79d">
@@ -20,7 +21,7 @@ Use this repo configuration files and work-flow guide for deploying WAAP on Kube
 2.  Once above command is successful, run below command to obtain kubeconfig. If you want to use existing EKS, then update name and region in below command.
 `aws eks update-kubeconfig --name ce-k8s-new --region ap-southeast-1`
 
-3.  Login to your F5 XC console and navigate to Cloud and Edge sites. Create a new site token and copy the UID.
+3.  Login to your F5 XC console and navigate to "Multi-Cloud Network Connect", next to "Manage" tab "Site Management" menu and then to "Site Tokens" drop-down. Create a new site token and copy the UID.
 4.  Open the ce_k8s.yml file below and update Latitude, Longitude, token ID & other fields (from lines 143-158) as per your infrastructure.
 5.  Execute below command in terminal to deploy CE site - `kubectl apply -f ce_k8s.yml`
 6.  In F5 XC console navigate to Site management --> then to Registrations tab and approve the pending record
