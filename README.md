@@ -14,7 +14,7 @@ Examples of F5 Distributed Cloud (XC) WAAP deployments utilizing Terraform. For 
   | [**Coming soon:**  Deploy WAF Anywhere with F5 Distributed Cloud]() | [**Coming soon:** Deploy F5 XC WAF on XC Regional Edges + AppConnect](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-re-appconnect/README.rst) |
   | [**Coming soon:**  Deploy WAF Anywhere with F5 Distributed Cloud]() | [**Coming soon:** Deploy F5 XC WAF on XC Customer Edges](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-ce/README.rst)                        |
   | [**Coming soon:**  Deploy WAF Anywhere with F5 Distributed Cloud]() | [**Coming soon:** Deploy F5 XC WAF on XC Customer Edges + MultiCloud](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-ce-multicloud/README.rst) |
-  | [Deploying F5 Distributed Cloud WAAP on Kubernetes](https://community.f5.com/t5/technical-articles/deploying-f5-distributed-cloud-waap-on-kubernetes/ta-p/317324) | [Demo guide to Deploy F5 XC WAF on Kubernetes](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-k8s/README.md)                               |
+  | [Deploying F5 Distributed Cloud WAAP on Kubernetes](https://community.f5.com/t5/technical-articles/deploying-f5-distributed-cloud-waap-on-kubernetes/ta-p/317324) | [Demo guide to deploy F5 XC WAF on Kubernetes](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-k8s/README.md)                               |
 
 
 * **F5 Distributed Cloud API Security**
