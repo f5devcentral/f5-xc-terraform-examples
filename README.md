@@ -8,7 +8,7 @@ Examples of F5 Distributed Cloud (XC) WAAP deployments utilizing Terraform. For 
 
 * **F5 Distributed Cloud WAF** 
 
-  | **Use Case / Workflow Guides (SaaS Console, Automation)**                                                                                                                                                |
+  | **DevCentral Overview Articles** | **Use Case / Workflow Guides (SaaS Console, Automation)**                                                                                                                                                |
    | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |  -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [**Coming soon:**  Deploy WAF Anywhere with F5 Distributed Cloud](https://community.f5.com/t5/technical-articles/deploy-waap-anywhere-with-f5-distributed-cloud/ta-p/313079) | [**Coming soon:** Deploy F5 XC WAF on XC Regional Edges](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-re/README.rst)                         |
 | [**Coming soon:**  Deploy WAF Anywhere with F5 Distributed Cloud](https://community.f5.com/t5/technical-articles/deploy-waap-anywhere-with-f5-distributed-cloud/ta-p/313079)   | [**Coming soon:** Deploy F5 XC WAF on XC Regional Edges + AppConnect](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-re-appconnect/README.rst) |
