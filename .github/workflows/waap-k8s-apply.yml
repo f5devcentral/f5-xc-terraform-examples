@@ -3,7 +3,7 @@ name: "WAAP + K8s Apply"
 on:
   push:
     branches:
-      - deploy-waap-k8s
+      - deploy-waap-on-k8s
   pull_request:
 
 jobs:
