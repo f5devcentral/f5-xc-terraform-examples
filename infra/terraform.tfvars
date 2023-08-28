@@ -3,8 +3,8 @@ project_prefix = "jani-waapk8s"
 resource_owner = "jani"
 
 #AWS INFRA
-aws_region     = "us-east-1"
-azs           = ["us-east-1a", "us-east-1b"]
+aws_region     = "ap-south-1"
+azs           = ["ap-south-1a", "ap-south-1b"]
 
 #Assets
 nic = false
