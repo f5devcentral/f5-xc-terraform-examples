@@ -1,4 +1,5 @@
 resource "kubernetes_manifest" "service_details" {
+  namespace = "default"
   manifest = {
     "apiVersion" = "v1"
     "kind" = "Service"
@@ -24,6 +25,8 @@ resource "kubernetes_manifest" "service_details" {
 }
 
 resource "kubernetes_manifest" "serviceaccount_bookinfo_details" {
+  namespace = "default"
+
   manifest = {
     "apiVersion" = "v1"
     "kind" = "ServiceAccount"
@@ -37,6 +40,8 @@ resource "kubernetes_manifest" "serviceaccount_bookinfo_details" {
 }
 
 resource "kubernetes_manifest" "deployment_details_v1" {
+  namespace = "default"
+
   manifest = {
     "apiVersion" = "apps/v1"
     "kind" = "Deployment"
@@ -86,6 +91,8 @@ resource "kubernetes_manifest" "deployment_details_v1" {
 }
 
 resource "kubernetes_manifest" "service_ratings" {
+  namespace = "default"
+
   manifest = {
     "apiVersion" = "v1"
     "kind" = "Service"
@@ -111,6 +118,8 @@ resource "kubernetes_manifest" "service_ratings" {
 }
 
 resource "kubernetes_manifest" "serviceaccount_bookinfo_ratings" {
+  namespace = "default"
+
   manifest = {
     "apiVersion" = "v1"
     "kind" = "ServiceAccount"
@@ -124,6 +133,8 @@ resource "kubernetes_manifest" "serviceaccount_bookinfo_ratings" {
 }
 
 resource "kubernetes_manifest" "deployment_ratings_v1" {
+  namespace = "default"
+
   manifest = {
     "apiVersion" = "apps/v1"
     "kind" = "Deployment"
@@ -173,6 +184,8 @@ resource "kubernetes_manifest" "deployment_ratings_v1" {
 }
 
 resource "kubernetes_manifest" "service_reviews" {
+  namespace = "default"
+
   manifest = {
     "apiVersion" = "v1"
     "kind" = "Service"
@@ -198,6 +211,8 @@ resource "kubernetes_manifest" "service_reviews" {
 }
 
 resource "kubernetes_manifest" "serviceaccount_bookinfo_reviews" {
+  namespace = "default"
+
   manifest = {
     "apiVersion" = "v1"
     "kind" = "ServiceAccount"
@@ -211,6 +226,8 @@ resource "kubernetes_manifest" "serviceaccount_bookinfo_reviews" {
 }
 
 resource "kubernetes_manifest" "deployment_reviews_v1" {
+  namespace = "default"
+
   manifest = {
     "apiVersion" = "apps/v1"
     "kind" = "Deployment"
@@ -286,6 +303,8 @@ resource "kubernetes_manifest" "deployment_reviews_v1" {
 }
 
 resource "kubernetes_manifest" "deployment_reviews_v2" {
+  namespace = "default"
+
   manifest = {
     "apiVersion" = "apps/v1"
     "kind" = "Deployment"
@@ -361,6 +380,8 @@ resource "kubernetes_manifest" "deployment_reviews_v2" {
 }
 
 resource "kubernetes_manifest" "deployment_reviews_v3" {
+  namespace = "default"
+
   manifest = {
     "apiVersion" = "apps/v1"
     "kind" = "Deployment"
@@ -436,6 +457,8 @@ resource "kubernetes_manifest" "deployment_reviews_v3" {
 }
 
 resource "kubernetes_manifest" "service_productpage" {
+  namespace = "default"
+
   manifest = {
     "apiVersion" = "v1"
     "kind" = "Service"
@@ -461,6 +484,8 @@ resource "kubernetes_manifest" "service_productpage" {
 }
 
 resource "kubernetes_manifest" "serviceaccount_bookinfo_productpage" {
+  namespace = "default"
+
   manifest = {
     "apiVersion" = "v1"
     "kind" = "ServiceAccount"
@@ -474,6 +499,8 @@ resource "kubernetes_manifest" "serviceaccount_bookinfo_productpage" {
 }
 
 resource "kubernetes_manifest" "deployment_productpage_v1" {
+  namespace = "default"
+
   manifest = {
     "apiVersion" = "apps/v1"
     "kind" = "Deployment"
