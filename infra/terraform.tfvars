@@ -1,6 +1,6 @@
 #Global
-project_prefix = "Project prefix, this will be applied as a prefix to all assets created"
-resource_owner = "You"
+project_prefix = "jani-waapk8s"
+resource_owner = "jani"
 
 #AWS INFRA
 aws_region     = "us-east-1"
