@@ -7,7 +7,7 @@ provider "kubernetes" {
     token = data.aws_eks_cluster_auth.auth.token
 }
 
-provider     kubectl = {
+provider "kubectl" {
     source  = "gavinbunney/kubectl"
     version = ">= 1.14.0"
 }
