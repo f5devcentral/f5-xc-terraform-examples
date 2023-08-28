@@ -1,36 +1,5 @@
 resource "kubectl_manifest" "bookinfo" {
     yaml_body = <<YAML
-# Copyright Istio Authors
-#
-#   Licensed under the Apache License, Version 2.0 (the "License");
-#   you may not use this file except in compliance with the License.
-#   You may obtain a copy of the License at
-#
-#       http://www.apache.org/licenses/LICENSE-2.0
-#
-#   Unless required by applicable law or agreed to in writing, software
-#   distributed under the License is distributed on an "AS IS" BASIS,
-#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-#   See the License for the specific language governing permissions and
-#   limitations under the License.
-
-##################################################################################################
-# This file defines the services, service accounts, and deployments for the Bookinfo sample.
-#
-# To apply all 4 Bookinfo services, their corresponding service accounts, and deployments:
-#
-#   kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml
-#
-# Alternatively, you can deploy any resource separately:
-#
-#   kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml -l service=reviews # reviews Service
-#   kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml -l account=reviews # reviews ServiceAccount
-#   kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml -l app=reviews,version=v3 # reviews-v3 Deployment
-##################################################################################################
-
-##################################################################################################
-# Details service
-##################################################################################################
 apiVersion: v1
 kind: Service
 metadata:
@@ -81,9 +50,6 @@ spec:
         securityContext:
           runAsUser: 1000
 ---
-##################################################################################################
-# Ratings service
-##################################################################################################
 apiVersion: v1
 kind: Service
 metadata:
@@ -134,9 +100,7 @@ spec:
         securityContext:
           runAsUser: 1000
 ---
-##################################################################################################
-# Reviews service
-##################################################################################################
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -284,9 +248,7 @@ spec:
       - name: tmp
         emptyDir: {}
 ---
-##################################################################################################
-# Productpage services
-##################################################################################################
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -343,4 +305,5 @@ spec:
       - name: tmp
         emptyDir: {}
 ---
-    YAML
+YAML
+}
