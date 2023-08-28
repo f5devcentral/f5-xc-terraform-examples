@@ -160,7 +160,7 @@ jobs:
     needs: terraform_eks
     defaults:
       run:
-        working-directory: ./booksinfo
+        working-directory: ./workflow-guides/waf/f5-xc-waf-on-k8s/booksinfo
     steps:
       - name: Checkout
         uses: actions/checkout@v3
