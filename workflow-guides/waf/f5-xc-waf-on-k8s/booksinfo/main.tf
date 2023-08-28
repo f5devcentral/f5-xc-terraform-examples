@@ -1,562 +1,346 @@
-resource "kubernetes_manifest" "service_details" {
-  namespace = "default"
-  manifest = {
-    "apiVersion" = "v1"
-    "kind" = "Service"
-    "metadata" = {
-      "labels" = {
-        "app" = "details"
-        "service" = "details"
-      }
-      "name" = "details"
-    }
-    "spec" = {
-      "ports" = [
-        {
-          "name" = "http"
-          "port" = 9080
-        },
-      ]
-      "selector" = {
-        "app" = "details"
-      }
-    }
-  }
-}
+resource "kubectl_manifest" "bookinfo" {
+    yaml_body = <<YAML
+# Copyright Istio Authors
+#
+#   Licensed under the Apache License, Version 2.0 (the "License");
+#   you may not use this file except in compliance with the License.
+#   You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS,
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#   See the License for the specific language governing permissions and
+#   limitations under the License.
 
-resource "kubernetes_manifest" "serviceaccount_bookinfo_details" {
-  namespace = "default"
+##################################################################################################
+# This file defines the services, service accounts, and deployments for the Bookinfo sample.
+#
+# To apply all 4 Bookinfo services, their corresponding service accounts, and deployments:
+#
+#   kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml
+#
+# Alternatively, you can deploy any resource separately:
+#
+#   kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml -l service=reviews # reviews Service
+#   kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml -l account=reviews # reviews ServiceAccount
+#   kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml -l app=reviews,version=v3 # reviews-v3 Deployment
+##################################################################################################
 
-  manifest = {
-    "apiVersion" = "v1"
-    "kind" = "ServiceAccount"
-    "metadata" = {
-      "labels" = {
-        "account" = "details"
-      }
-      "name" = "bookinfo-details"
-    }
-  }
-}
-
-resource "kubernetes_manifest" "deployment_details_v1" {
-  namespace = "default"
-
-  manifest = {
-    "apiVersion" = "apps/v1"
-    "kind" = "Deployment"
-    "metadata" = {
-      "labels" = {
-        "app" = "details"
-        "version" = "v1"
-      }
-      "name" = "details-v1"
-    }
-    "spec" = {
-      "replicas" = 1
-      "selector" = {
-        "matchLabels" = {
-          "app" = "details"
-          "version" = "v1"
-        }
-      }
-      "template" = {
-        "metadata" = {
-          "labels" = {
-            "app" = "details"
-            "version" = "v1"
-          }
-        }
-        "spec" = {
-          "containers" = [
-            {
-              "image" = "docker.io/istio/examples-bookinfo-details-v1:1.17.0"
-              "imagePullPolicy" = "IfNotPresent"
-              "name" = "details"
-              "ports" = [
-                {
-                  "containerPort" = 9080
-                },
-              ]
-              "securityContext" = {
-                "runAsUser" = 1000
-              }
-            },
-          ]
-          "serviceAccountName" = "bookinfo-details"
-        }
-      }
-    }
-  }
-}
-
-resource "kubernetes_manifest" "service_ratings" {
-  namespace = "default"
-
-  manifest = {
-    "apiVersion" = "v1"
-    "kind" = "Service"
-    "metadata" = {
-      "labels" = {
-        "app" = "ratings"
-        "service" = "ratings"
-      }
-      "name" = "ratings"
-    }
-    "spec" = {
-      "ports" = [
-        {
-          "name" = "http"
-          "port" = 9080
-        },
-      ]
-      "selector" = {
-        "app" = "ratings"
-      }
-    }
-  }
-}
-
-resource "kubernetes_manifest" "serviceaccount_bookinfo_ratings" {
-  namespace = "default"
-
-  manifest = {
-    "apiVersion" = "v1"
-    "kind" = "ServiceAccount"
-    "metadata" = {
-      "labels" = {
-        "account" = "ratings"
-      }
-      "name" = "bookinfo-ratings"
-    }
-  }
-}
-
-resource "kubernetes_manifest" "deployment_ratings_v1" {
-  namespace = "default"
-
-  manifest = {
-    "apiVersion" = "apps/v1"
-    "kind" = "Deployment"
-    "metadata" = {
-      "labels" = {
-        "app" = "ratings"
-        "version" = "v1"
-      }
-      "name" = "ratings-v1"
-    }
-    "spec" = {
-      "replicas" = 1
-      "selector" = {
-        "matchLabels" = {
-          "app" = "ratings"
-          "version" = "v1"
-        }
-      }
-      "template" = {
-        "metadata" = {
-          "labels" = {
-            "app" = "ratings"
-            "version" = "v1"
-          }
-        }
-        "spec" = {
-          "containers" = [
-            {
-              "image" = "docker.io/istio/examples-bookinfo-ratings-v1:1.17.0"
-              "imagePullPolicy" = "IfNotPresent"
-              "name" = "ratings"
-              "ports" = [
-                {
-                  "containerPort" = 9080
-                },
-              ]
-              "securityContext" = {
-                "runAsUser" = 1000
-              }
-            },
-          ]
-          "serviceAccountName" = "bookinfo-ratings"
-        }
-      }
-    }
-  }
-}
-
-resource "kubernetes_manifest" "service_reviews" {
-  namespace = "default"
-
-  manifest = {
-    "apiVersion" = "v1"
-    "kind" = "Service"
-    "metadata" = {
-      "labels" = {
-        "app" = "reviews"
-        "service" = "reviews"
-      }
-      "name" = "reviews"
-    }
-    "spec" = {
-      "ports" = [
-        {
-          "name" = "http"
-          "port" = 9080
-        },
-      ]
-      "selector" = {
-        "app" = "reviews"
-      }
-    }
-  }
-}
-
-resource "kubernetes_manifest" "serviceaccount_bookinfo_reviews" {
-  namespace = "default"
-
-  manifest = {
-    "apiVersion" = "v1"
-    "kind" = "ServiceAccount"
-    "metadata" = {
-      "labels" = {
-        "account" = "reviews"
-      }
-      "name" = "bookinfo-reviews"
-    }
-  }
-}
-
-resource "kubernetes_manifest" "deployment_reviews_v1" {
-  namespace = "default"
-
-  manifest = {
-    "apiVersion" = "apps/v1"
-    "kind" = "Deployment"
-    "metadata" = {
-      "labels" = {
-        "app" = "reviews"
-        "version" = "v1"
-      }
-      "name" = "reviews-v1"
-    }
-    "spec" = {
-      "replicas" = 1
-      "selector" = {
-        "matchLabels" = {
-          "app" = "reviews"
-          "version" = "v1"
-        }
-      }
-      "template" = {
-        "metadata" = {
-          "labels" = {
-            "app" = "reviews"
-            "version" = "v1"
-          }
-        }
-        "spec" = {
-          "containers" = [
-            {
-              "env" = [
-                {
-                  "name" = "LOG_DIR"
-                  "value" = "/tmp/logs"
-                },
-              ]
-              "image" = "docker.io/istio/examples-bookinfo-reviews-v1:1.17.0"
-              "imagePullPolicy" = "IfNotPresent"
-              "name" = "reviews"
-              "ports" = [
-                {
-                  "containerPort" = 9080
-                },
-              ]
-              "securityContext" = {
-                "runAsUser" = 1000
-              }
-              "volumeMounts" = [
-                {
-                  "mountPath" = "/tmp"
-                  "name" = "tmp"
-                },
-                {
-                  "mountPath" = "/opt/ibm/wlp/output"
-                  "name" = "wlp-output"
-                },
-              ]
-            },
-          ]
-          "serviceAccountName" = "bookinfo-reviews"
-          "volumes" = [
-            {
-              "emptyDir" = {}
-              "name" = "wlp-output"
-            },
-            {
-              "emptyDir" = {}
-              "name" = "tmp"
-            },
-          ]
-        }
-      }
-    }
-  }
-}
-
-resource "kubernetes_manifest" "deployment_reviews_v2" {
-  namespace = "default"
-
-  manifest = {
-    "apiVersion" = "apps/v1"
-    "kind" = "Deployment"
-    "metadata" = {
-      "labels" = {
-        "app" = "reviews"
-        "version" = "v2"
-      }
-      "name" = "reviews-v2"
-    }
-    "spec" = {
-      "replicas" = 1
-      "selector" = {
-        "matchLabels" = {
-          "app" = "reviews"
-          "version" = "v2"
-        }
-      }
-      "template" = {
-        "metadata" = {
-          "labels" = {
-            "app" = "reviews"
-            "version" = "v2"
-          }
-        }
-        "spec" = {
-          "containers" = [
-            {
-              "env" = [
-                {
-                  "name" = "LOG_DIR"
-                  "value" = "/tmp/logs"
-                },
-              ]
-              "image" = "docker.io/istio/examples-bookinfo-reviews-v2:1.17.0"
-              "imagePullPolicy" = "IfNotPresent"
-              "name" = "reviews"
-              "ports" = [
-                {
-                  "containerPort" = 9080
-                },
-              ]
-              "securityContext" = {
-                "runAsUser" = 1000
-              }
-              "volumeMounts" = [
-                {
-                  "mountPath" = "/tmp"
-                  "name" = "tmp"
-                },
-                {
-                  "mountPath" = "/opt/ibm/wlp/output"
-                  "name" = "wlp-output"
-                },
-              ]
-            },
-          ]
-          "serviceAccountName" = "bookinfo-reviews"
-          "volumes" = [
-            {
-              "emptyDir" = {}
-              "name" = "wlp-output"
-            },
-            {
-              "emptyDir" = {}
-              "name" = "tmp"
-            },
-          ]
-        }
-      }
-    }
-  }
-}
-
-resource "kubernetes_manifest" "deployment_reviews_v3" {
-  namespace = "default"
-
-  manifest = {
-    "apiVersion" = "apps/v1"
-    "kind" = "Deployment"
-    "metadata" = {
-      "labels" = {
-        "app" = "reviews"
-        "version" = "v3"
-      }
-      "name" = "reviews-v3"
-    }
-    "spec" = {
-      "replicas" = 1
-      "selector" = {
-        "matchLabels" = {
-          "app" = "reviews"
-          "version" = "v3"
-        }
-      }
-      "template" = {
-        "metadata" = {
-          "labels" = {
-            "app" = "reviews"
-            "version" = "v3"
-          }
-        }
-        "spec" = {
-          "containers" = [
-            {
-              "env" = [
-                {
-                  "name" = "LOG_DIR"
-                  "value" = "/tmp/logs"
-                },
-              ]
-              "image" = "docker.io/istio/examples-bookinfo-reviews-v3:1.17.0"
-              "imagePullPolicy" = "IfNotPresent"
-              "name" = "reviews"
-              "ports" = [
-                {
-                  "containerPort" = 9080
-                },
-              ]
-              "securityContext" = {
-                "runAsUser" = 1000
-              }
-              "volumeMounts" = [
-                {
-                  "mountPath" = "/tmp"
-                  "name" = "tmp"
-                },
-                {
-                  "mountPath" = "/opt/ibm/wlp/output"
-                  "name" = "wlp-output"
-                },
-              ]
-            },
-          ]
-          "serviceAccountName" = "bookinfo-reviews"
-          "volumes" = [
-            {
-              "emptyDir" = {}
-              "name" = "wlp-output"
-            },
-            {
-              "emptyDir" = {}
-              "name" = "tmp"
-            },
-          ]
-        }
-      }
-    }
-  }
-}
-
-resource "kubernetes_manifest" "service_productpage" {
-  namespace = "default"
-
-  manifest = {
-    "apiVersion" = "v1"
-    "kind" = "Service"
-    "metadata" = {
-      "labels" = {
-        "app" = "productpage"
-        "service" = "productpage"
-      }
-      "name" = "productpage"
-    }
-    "spec" = {
-      "ports" = [
-        {
-          "name" = "http"
-          "port" = 9080
-        },
-      ]
-      "selector" = {
-        "app" = "productpage"
-      }
-    }
-  }
-}
-
-resource "kubernetes_manifest" "serviceaccount_bookinfo_productpage" {
-  namespace = "default"
-
-  manifest = {
-    "apiVersion" = "v1"
-    "kind" = "ServiceAccount"
-    "metadata" = {
-      "labels" = {
-        "account" = "productpage"
-      }
-      "name" = "bookinfo-productpage"
-    }
-  }
-}
-
-resource "kubernetes_manifest" "deployment_productpage_v1" {
-  namespace = "default"
-
-  manifest = {
-    "apiVersion" = "apps/v1"
-    "kind" = "Deployment"
-    "metadata" = {
-      "labels" = {
-        "app" = "productpage"
-        "version" = "v1"
-      }
-      "name" = "productpage-v1"
-    }
-    "spec" = {
-      "replicas" = 1
-      "selector" = {
-        "matchLabels" = {
-          "app" = "productpage"
-          "version" = "v1"
-        }
-      }
-      "template" = {
-        "metadata" = {
-          "labels" = {
-            "app" = "productpage"
-            "version" = "v1"
-          }
-        }
-        "spec" = {
-          "containers" = [
-            {
-              "image" = "docker.io/istio/examples-bookinfo-productpage-v1:1.17.0"
-              "imagePullPolicy" = "IfNotPresent"
-              "name" = "productpage"
-              "ports" = [
-                {
-                  "containerPort" = 9080
-                },
-              ]
-              "securityContext" = {
-                "runAsUser" = 1000
-              }
-              "volumeMounts" = [
-                {
-                  "mountPath" = "/tmp"
-                  "name" = "tmp"
-                },
-              ]
-            },
-          ]
-          "serviceAccountName" = "bookinfo-productpage"
-          "volumes" = [
-            {
-              "emptyDir" = {}
-              "name" = "tmp"
-            },
-          ]
-        }
-      }
-    }
-  }
-}
+##################################################################################################
+# Details service
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: details
+  labels:
+    app: details
+    service: details
+spec:
+  ports:
+  - port: 9080
+    name: http
+  selector:
+    app: details
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: bookinfo-details
+  labels:
+    account: details
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: details-v1
+  labels:
+    app: details
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: details
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: details
+        version: v1
+    spec:
+      serviceAccountName: bookinfo-details
+      containers:
+      - name: details
+        image: docker.io/istio/examples-bookinfo-details-v1:1.17.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 9080
+        securityContext:
+          runAsUser: 1000
+---
+##################################################################################################
+# Ratings service
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: ratings
+  labels:
+    app: ratings
+    service: ratings
+spec:
+  ports:
+  - port: 9080
+    name: http
+  selector:
+    app: ratings
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: bookinfo-ratings
+  labels:
+    account: ratings
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ratings-v1
+  labels:
+    app: ratings
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ratings
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: ratings
+        version: v1
+    spec:
+      serviceAccountName: bookinfo-ratings
+      containers:
+      - name: ratings
+        image: docker.io/istio/examples-bookinfo-ratings-v1:1.17.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 9080
+        securityContext:
+          runAsUser: 1000
+---
+##################################################################################################
+# Reviews service
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: reviews
+  labels:
+    app: reviews
+    service: reviews
+spec:
+  ports:
+  - port: 9080
+    name: http
+  selector:
+    app: reviews
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: bookinfo-reviews
+  labels:
+    account: reviews
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reviews-v1
+  labels:
+    app: reviews
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reviews
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: reviews
+        version: v1
+    spec:
+      serviceAccountName: bookinfo-reviews
+      containers:
+      - name: reviews
+        image: docker.io/istio/examples-bookinfo-reviews-v1:1.17.0
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: LOG_DIR
+          value: "/tmp/logs"
+        ports:
+        - containerPort: 9080
+        volumeMounts:
+        - name: tmp
+          mountPath: /tmp
+        - name: wlp-output
+          mountPath: /opt/ibm/wlp/output
+        securityContext:
+          runAsUser: 1000
+      volumes:
+      - name: wlp-output
+        emptyDir: {}
+      - name: tmp
+        emptyDir: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reviews-v2
+  labels:
+    app: reviews
+    version: v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reviews
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: reviews
+        version: v2
+    spec:
+      serviceAccountName: bookinfo-reviews
+      containers:
+      - name: reviews
+        image: docker.io/istio/examples-bookinfo-reviews-v2:1.17.0
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: LOG_DIR
+          value: "/tmp/logs"
+        ports:
+        - containerPort: 9080
+        volumeMounts:
+        - name: tmp
+          mountPath: /tmp
+        - name: wlp-output
+          mountPath: /opt/ibm/wlp/output
+        securityContext:
+          runAsUser: 1000
+      volumes:
+      - name: wlp-output
+        emptyDir: {}
+      - name: tmp
+        emptyDir: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reviews-v3
+  labels:
+    app: reviews
+    version: v3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reviews
+      version: v3
+  template:
+    metadata:
+      labels:
+        app: reviews
+        version: v3
+    spec:
+      serviceAccountName: bookinfo-reviews
+      containers:
+      - name: reviews
+        image: docker.io/istio/examples-bookinfo-reviews-v3:1.17.0
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: LOG_DIR
+          value: "/tmp/logs"
+        ports:
+        - containerPort: 9080
+        volumeMounts:
+        - name: tmp
+          mountPath: /tmp
+        - name: wlp-output
+          mountPath: /opt/ibm/wlp/output
+        securityContext:
+          runAsUser: 1000
+      volumes:
+      - name: wlp-output
+        emptyDir: {}
+      - name: tmp
+        emptyDir: {}
+---
+##################################################################################################
+# Productpage services
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: productpage
+  labels:
+    app: productpage
+    service: productpage
+spec:
+  ports:
+  - port: 9080
+    name: http
+  selector:
+    app: productpage
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: bookinfo-productpage
+  labels:
+    account: productpage
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: productpage-v1
+  labels:
+    app: productpage
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: productpage
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: productpage
+        version: v1
+    spec:
+      serviceAccountName: bookinfo-productpage
+      containers:
+      - name: productpage
+        image: docker.io/istio/examples-bookinfo-productpage-v1:1.17.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 9080
+        volumeMounts:
+        - name: tmp
+          mountPath: /tmp
+        securityContext:
+          runAsUser: 1000
+      volumes:
+      - name: tmp
+        emptyDir: {}
+---
+    YAML

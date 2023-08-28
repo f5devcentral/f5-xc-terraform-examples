@@ -6,10 +6,9 @@ provider "kubernetes" {
     cluster_ca_certificate = base64decode(local.cluster_ca_certificate)
     token = data.aws_eks_cluster_auth.auth.token
 }
-provider "helm" {
-    kubernetes {
-        host = local.host
-        cluster_ca_certificate = base64decode(local.cluster_ca_certificate)
-        token = data.aws_eks_cluster_auth.auth.token  
-    }
+
+provider     kubectl = {
+    source  = "gavinbunney/kubectl"
+    version = ">= 1.14.0"
 }
+
