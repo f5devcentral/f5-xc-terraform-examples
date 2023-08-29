@@ -1,4 +1,4 @@
-resource "kubectl_manifest" "bookinfo" {
+resource "kubectl_manifest" "details-service" {
     yaml_body = <<YAML
 apiVersion: v1
 kind: Service
@@ -13,14 +13,23 @@ spec:
     name: http
   selector:
     app: details
----
+YAML
+}
+
+resource "kubectl_manifest" "sa-details" {
+    yaml_body = <<YAML
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: bookinfo-details
   labels:
     account: details
----
+YAML
+}
+
+
+resource "kubectl_manifest" "details-deployment" {
+    yaml_body = <<YAML
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -49,7 +58,11 @@ spec:
         - containerPort: 9080
         securityContext:
           runAsUser: 1000
----
+YAML
+}
+
+resource "kubectl_manifest" "ratings-service" {
+    yaml_body = <<YAML
 apiVersion: v1
 kind: Service
 metadata:
@@ -63,14 +76,24 @@ spec:
     name: http
   selector:
     app: ratings
----
+YAML
+}
+
+
+resource "kubectl_manifest" "sa-ratings" {
+    yaml_body = <<YAML
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: bookinfo-ratings
   labels:
     account: ratings
----
+YAML
+}
+
+
+resource "kubectl_manifest" "deployment-ratings" {
+    yaml_body = <<YAML
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -99,8 +122,12 @@ spec:
         - containerPort: 9080
         securityContext:
           runAsUser: 1000
----
+YAML
+}
 
+
+resource "kubectl_manifest" "reviews-service" {
+    yaml_body = <<YAML
 apiVersion: v1
 kind: Service
 metadata:
@@ -114,14 +141,24 @@ spec:
     name: http
   selector:
     app: reviews
----
+YAML
+}
+
+
+resource "kubectl_manifest" "sa-reviews" {
+    yaml_body = <<YAML
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: bookinfo-reviews
   labels:
     account: reviews
----
+YAML
+}
+
+
+resource "kubectl_manifest" "deployment-reviews" {
+    yaml_body = <<YAML
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -163,7 +200,12 @@ spec:
         emptyDir: {}
       - name: tmp
         emptyDir: {}
----
+YAML
+}
+
+
+resource "kubectl_manifest" "deployment-reviews2" {
+    yaml_body = <<YAML
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -205,7 +247,12 @@ spec:
         emptyDir: {}
       - name: tmp
         emptyDir: {}
----
+YAML
+}
+
+
+resource "kubectl_manifest" "deployment-reviews3" {
+    yaml_body = <<YAML
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -247,8 +294,12 @@ spec:
         emptyDir: {}
       - name: tmp
         emptyDir: {}
----
+YAML
+}
 
+
+resource "kubectl_manifest" "service-productpage" {
+    yaml_body = <<YAML
 apiVersion: v1
 kind: Service
 metadata:
@@ -262,14 +313,24 @@ spec:
     name: http
   selector:
     app: productpage
----
+YAML
+}
+
+
+resource "kubectl_manifest" "sa-productpage" {
+    yaml_body = <<YAML
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: bookinfo-productpage
   labels:
     account: productpage
----
+YAML
+}
+
+
+resource "kubectl_manifest" "deployment-productpage" {
+    yaml_body = <<YAML
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -304,6 +365,5 @@ spec:
       volumes:
       - name: tmp
         emptyDir: {}
----
 YAML
 }
