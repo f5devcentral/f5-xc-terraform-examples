@@ -19,11 +19,11 @@ Below are the workflow diagrams for two different usecases depending on the way 
 
 **Workflow Representation when application is deployed in Azure VM:**
 
-.. figure:: Assets/WAAP-on-RE-AppConnect-vm.png
+.. figure:: assets/WAAP-on-RE-AppConnect-vm.png
 
 **Workflow Representation when application is deployed in Azure Kubernetes Cluster:**
 
-.. figure:: Assets/WAAP-on-RE-AppConnect-K8s .png
+.. figure:: assets/WAAP-on-RE-AppConnect-K8s .png
 
 Manual step-by-step deployment process:
 ##############################################
@@ -44,7 +44,7 @@ Step 2: Deploy Azure Vnet site
 
 * Login to F5XC Console and navigate to "Multi-Cloud Network Connect" from the homepage. 
 
-.. figure:: Assets/XC_home.JPG
+.. figure:: assets/XC_home.JPG
 
 * Select "Manage > Site Management > Azure VNET Sites" and click on "Add Azure VNET Site". 
 
@@ -54,15 +54,15 @@ Step 2: Deploy Azure Vnet site
 
 * Select New Vnet Parameters and provide the Vnet details like name, IPv4 CIDR block (Ex: 10.0.0.0/16.)
 
-.. figure:: Assets/vnet_details_latest.JPG
+.. figure:: assets/vnet_details_latest.JPG
 
 * Choose Ingress Gateway (One Interface), click on Configure then click Add Item in Ingress Gateway (One Interface) Nodes in AZ. 
 
-.. figure:: Assets/ingress_add_latest.JPG
+.. figure:: assets/ingress_add_latest.JPG
 
 * Choose the appropriate Azure AZ name from the dropdown. In IPv4 Subnet, enter a new subnet address (Ex: 10.0.1.0/24) then click on Apply to save node settings. 
 
-.. figure:: Assets/ingress_cidr_latest.JPG
+.. figure:: assets/ingress_cidr_latest.JPG
 
 * Select the Azure cloud credentials from the dropdown menu which was configured in Step 1. 
 
@@ -96,11 +96,11 @@ Create Virtal Machine and deploy application in it
 
 * Provide all the necessary details in Basics Section like Name of the VM, Region, Availability Zone, Image, Size, Username, Key pair name, Inbound port rules.  
 
-.. figure:: Assets/vm_create_latest.JPG
+.. figure:: assets/vm_create_latest.JPG
 
 * Navigate to Networking section, select the Vnet site in Virtual network and Subnet which was created in step 2. 
 
-.. figure:: Assets/VM_network_latest.JPG
+.. figure:: assets/VM_network_latest.JPG
 
 * Click on “Review and Create”, Review all the necessary parameters and deploy a Virtual Machine.   
 
@@ -125,11 +125,11 @@ Create Kubernetes Cluster and deploy application in it
 
 * Provide all the necessary cluster details and primary node pool fields as needed.
 
-.. figure:: Assets/k8s_create_latest.JPG
+.. figure:: assets/k8s_create_latest.JPG
 
 * Navigate to “Networking” tab and select “Network configuration” as Azure CNI.
 
-.. figure:: Assets/k8s_network_latest.JPG
+.. figure:: assets/k8s_network_latest.JPG
 
 * Select the same Virtual network as that of your Azure Vnet site.
 
@@ -143,18 +143,18 @@ Create Kubernetes Cluster and deploy application in it
 
 * Execute “kubectl get pods” command to check the deployment status of the pods.
 
-.. figure:: Assets/pod_details.JPG
+.. figure:: assets/pod_details.JPG
 
 * Execute “kubectl get node -o wide” command and make a note of the private IP of the node and internal port of the frontend service.
 
-.. figure:: Assets/service_details.JPG
+.. figure:: assets/service_details.JPG
 
 Step 4: Configure HTTP Load Balancer in F5XC console 
 ====================================================
 
 * In F5XC console, Navigate to Multi-Cloud App Connect service. 
 
-.. figure:: Assets/XC_home_latest.JPG
+.. figure:: assets/XC_home_latest.JPG
 
 * Select Manage > Load Balancers > HTTP Load Balancers and click Add HTTP Load Balancer. 
 
@@ -162,7 +162,7 @@ Step 4: Configure HTTP Load Balancer in F5XC console
 
 * From the Load Balancer Type drop-down menu, select HTTP Load Balancer. 
 
-.. figure:: Assets/LB_latest.JPG
+.. figure:: assets/LB_latest.JPG
 
 * Move to Origin Pools section and click Add Item. 
 
@@ -172,19 +172,19 @@ Step 4: Configure HTTP Load Balancer in F5XC console
 
 * Select “IP address of Origin Server on given Sites”, provide the private IP of the virtual machine or Cluster node which you have deployed in Step 3, Choose Azure Vnet Site in Site dropdown same as your Vnet site, choose Outside Network under Select Network from the Site.
 
-.. figure:: Assets/op_details_latest.JPG
+.. figure:: assets/op_details_latest.JPG
 
 * Click on Apply. 
 
 * In Origin server port, provide the port of the deployed application. 
 
-.. figure:: Assets/OP_port.JPG
+.. figure:: assets/OP_port.JPG
 
 * Click Continue and then Apply. 
 
 * In Load Balancer page, Enable WAF and use a WAF blocking policy
 
-.. figure:: Assets/WAF_latest.JPG
+.. figure:: assets/WAF_latest.JPG
 
 * Move to VIP Advertisement field and choose Internet. 
 
