@@ -17,6 +17,7 @@ metadata:
 YAML
 }
 
+
 resource "kubectl_manifest" "role" {
     yaml_body = <<YAML
 apiVersion: rbac.authorization.k8s.io/v1
