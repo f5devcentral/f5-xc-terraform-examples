@@ -6,5 +6,5 @@ variable "tf_cloud_organization" {
 
 variable "ssh_key" {
   type        = string
-  description = "Unneeded for arcadia, only present for warning handling with TF cloud variable set"
+  description = "Only present for warning handling with TF cloud variable set"
 }
