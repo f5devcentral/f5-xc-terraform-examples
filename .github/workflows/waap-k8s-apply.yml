@@ -293,6 +293,10 @@ jobs:
             }
           EOF     
 
+      - name: Terraform fmt
+        id: format
+        run: terraform fmt
+
       - name: Terraform Init
         id: init
         run: terraform init
