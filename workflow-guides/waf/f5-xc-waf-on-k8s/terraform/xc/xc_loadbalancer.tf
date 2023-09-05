@@ -32,7 +32,7 @@ resource "volterra_http_loadbalancer" "k8s-site-demo" {
   domains                         = [var.app_domain]
 
   disable_rate_limit              = true
-  service_policies_from_namespace = true
+  service_policies_from_namespace = false
   disable_waf                     = false
 
   app_firewall {
@@ -44,9 +44,10 @@ resource "volterra_http_loadbalancer" "k8s-site-demo" {
     advertise_where {
       site {
         site {
-          name      = "ce-k8s"
+          name      = var.deployment
           namespace = "system"
         }
+        network = "SITE_NETWORK_INSIDE_AND_OUTSIDE"
       }
     }
   }
