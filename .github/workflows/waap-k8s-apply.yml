@@ -257,8 +257,7 @@ jobs:
               }
             }
           }
-          EOF  
-
+          EOF
       - name: Terraform fmt
         id: format
         run: terraform fmt
