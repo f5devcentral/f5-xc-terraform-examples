@@ -427,15 +427,15 @@ jobs:
     needs: terraform_approve
     defaults:
       run:
-        working-directory: ./workflow-guides/waf/f5-xc-waf-on-k8s/lb-ce
+        working-directory: ./workflow-guides/waf/f5-xc-waf-on-k8s/terraform/lb-ce
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
-      # need to add sleep time here for all deployments to come up
-      - name: Wait
-        id: wait
-        run: sleep 900
+      # Need to add sleep time here for all deployments to come up
+      #- name: Wait
+      #  id: wait
+      #  run: sleep 900
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
@@ -507,7 +507,7 @@ jobs:
     needs: terraform_celb
     defaults:
       run:
-        working-directory: ./workflow-guides/waf/f5-xc-waf-on-k8s/lb-ce/xc
+        working-directory: ./workflow-guides/waf/f5-xc-waf-on-k8s/terraflorm/xc
     steps:
       - name: Checkout
         uses: actions/checkout@v3
