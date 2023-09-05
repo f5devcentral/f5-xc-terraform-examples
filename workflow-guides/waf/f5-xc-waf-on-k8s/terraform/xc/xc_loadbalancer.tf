@@ -45,10 +45,8 @@ resource "volterra_http_loadbalancer" "k8s-site-demo" {
     advertise_where {
       site {
           name      = var.deployment
-          namespace = "system"
       }
     }
-
   }
 
   https_auto_cert {
