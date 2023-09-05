@@ -294,7 +294,11 @@ jobs:
           EOF
       - name: Terraform fmt
         id: format
-        run: terraform fmt
+        run: |
+          pwd
+          terraform fmt
+          ls 
+          cat configmap.tf
 
       - name: Terraform Init
         id: init
