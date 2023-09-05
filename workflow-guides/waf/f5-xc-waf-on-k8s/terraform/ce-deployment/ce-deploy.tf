@@ -180,6 +180,35 @@ subjects:
 YAML
 }
 
+resource "kubectl_manifest" "confimap" {
+    yaml_body = <<YAML
+apiVersion: v1 
+kind: ConfigMap 
+metadata:
+  name: vpm-cfg
+  namespace: ves-system
+data: 
+ config.yaml: | 
+  Vpm:
+    # CHANGE ME
+    ClusterName: ce-k8s
+    ClusterType: ce
+    Config: /etc/vpm/config.yaml
+    DisableModules: ["recruiter"]
+    # CHANGE ME
+    Latitude: 11.3850
+    # CHANGE ME
+    Longitude: 71.4867
+    MauriceEndpoint: https://register.ves.volterra.io
+    MauricePrivateEndpoint: https://register-tls.ves.volterra.io
+    PrivateNIC: eth0
+    SkipStages: ["osSetup", "etcd", "kubelet", "master", "voucher", "workload", "controlWorkload"]
+    # CHANGE ME
+    Token: efffdf66-cfe9-4a65-81a0-2501c4445b1a
+    CertifiedHardware: k8s-minikube-voltmesh
+YAML
+}
+
 
 resource "kubectl_manifest" "StatefulSet" {
     yaml_body = <<YAML
