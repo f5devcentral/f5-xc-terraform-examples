@@ -31,7 +31,7 @@ resource "volterra_http_loadbalancer" "k8s-site-demo" {
   no_challenge                    = true
   domains                         = [var.app_domain]
 
-  advertise_on_public_default_vip = false
+  advertise_custom = true
   disable_rate_limit              = true
   service_policies_from_namespace = true
   disable_waf                     = false
@@ -44,7 +44,10 @@ resource "volterra_http_loadbalancer" "k8s-site-demo" {
   advertise_custom {
     advertise_where {
       site {
-          name      = var.deployment
+        site {
+          name      = "ce-k8s"
+          namespace = "system"
+        }
       }
     }
   }
