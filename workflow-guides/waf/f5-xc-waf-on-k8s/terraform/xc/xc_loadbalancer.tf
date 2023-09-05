@@ -31,7 +31,6 @@ resource "volterra_http_loadbalancer" "k8s-site-demo" {
   no_challenge                    = true
   domains                         = [var.app_domain]
 
-  advertise_custom = true
   disable_rate_limit              = true
   service_policies_from_namespace = true
   disable_waf                     = false
