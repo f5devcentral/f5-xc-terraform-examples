@@ -450,7 +450,7 @@ jobs:
             cloud {
               organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
               workspaces {
-                name = "${{ secrets.TF_CLOUD_WORKSPACE_BOOKINFO }}"
+                name = "${{ secrets.TF_CLOUD_WORKSPACE_CELB }}"
               }
             }
           }
@@ -506,7 +506,7 @@ jobs:
     needs: terraform_celb
     defaults:
       run:
-        working-directory: ./workflow-guides/waf/f5-xc-waf-on-k8s/terraflorm/xc
+        working-directory: ./workflow-guides/waf/f5-xc-waf-on-k8s/terraform/xc
     steps:
       - name: Checkout
         uses: actions/checkout@v3
