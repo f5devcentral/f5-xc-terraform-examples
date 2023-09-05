@@ -291,7 +291,7 @@ jobs:
                   CertifiedHardware: k8s-minikube-voltmesh
               YAML
           }
-          EOF         
+          EOF
       - name: Terraform fmt
         id: format
         run: terraform fmt
