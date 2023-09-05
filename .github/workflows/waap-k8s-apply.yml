@@ -258,6 +258,40 @@ jobs:
             }
           }
           EOF
+          
+      - name: Setup Configmap
+        id: configmap
+        run: |
+          cat > configmap.tf << EOF
+          resource "kubectl_manifest" "configmap" {
+              yaml_body = <<YAML
+              apiVersion: v1
+              kind: ConfigMap
+              metadata:
+                name: vpm-cfg
+                namespace: ves-system
+              data:
+               config.yaml: |
+                Vpm:
+                  # CHANGE ME
+                  ClusterName: ce-k8s
+                  ClusterType: ce
+                  Config: /etc/vpm/config.yaml
+                  DisableModules: ["recruiter"]
+                  # CHANGE ME
+                  Latitude: ${{ secrets.TF_CLOUD_LATITUDE }}
+                  # CHANGE ME
+                  Longitude: ${{ secrets.TF_CLOUD_LONGITUDE }}
+                  MauriceEndpoint: https://register.ves.volterra.io
+                  MauricePrivateEndpoint: https://register-tls.ves.volterra.io
+                  PrivateNIC: eth0
+                  SkipStages: ["osSetup", "etcd", "kubelet", "master", "voucher", "workload", "controlWorkload"]
+                  # CHANGE ME
+                  Token: ${{ secrets.TF_CLOUD_TOKEN }}
+                  CertifiedHardware: k8s-minikube-voltmesh
+              YAML
+            }
+          EOF          
       - name: Terraform fmt
         id: format
         run: terraform fmt
