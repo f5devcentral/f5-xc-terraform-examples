@@ -454,8 +454,7 @@ jobs:
               }
             }
           }
-          EOF          
-
+          EOF
       - name: Terraform Init
         id: init
         run: terraform init
