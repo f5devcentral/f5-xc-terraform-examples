@@ -53,7 +53,6 @@ resource "volterra_http_loadbalancer" "k8s-site-demo" {
   }
 
   http {
-    dns_volterra_managed = true
     port                 = "80"
   }
 
