@@ -52,8 +52,9 @@ resource "volterra_http_loadbalancer" "k8s-site-demo" {
     }
   }
 
-  https_auto_cert {
-    http_redirect = true
+  http {
+    dns_volterra_managed = true
+    port                 = "80"
   }
 
   default_route_pools {
