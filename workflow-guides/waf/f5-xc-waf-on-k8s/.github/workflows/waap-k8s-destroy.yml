@@ -1,12 +1,271 @@
-name: "WAAP + K8s Apply"
+name: "WAF + K8s Destroy"
 
 on:
   push:
     branches:
-      - destroy-waap-k8s
+      - destroy-waf-k8s
   pull_request:
 
 jobs:
+  terraform_xc:
+    name: "F5XC WAAP"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./workflow-guides/waf/f5-xc-waf-on-k8s/terraform/xc
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+      - name: Setup Terraform Backend
+        id: backend
+        run: |
+          cat > backend.tf << EOF
+          terraform { 
+            cloud {
+              organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
+              workspaces {
+                name = "${{ secrets.TF_CLOUD_WORKSPACE_XC }}"
+              }
+            }
+          }
+          EOF
+          echo "${{secrets.P12}}" | base64 -d > api.p12
+      - name: Terraform Init
+        id: init
+        run: terraform init
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Terraform Plan
+        id: plan
+        if: github.event_name == 'pull_request'
+        run: terraform plan -no-color -input=false
+        continue-on-error: true
+
+      - uses: actions/github-script@v6
+        if: github.event_name == 'pull_request'
+        env:
+          PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+            #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+            #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
+            #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+            <details><summary>Show Plan</summary>
+            \`\`\`\n
+            ${process.env.PLAN}
+            \`\`\`
+            </details>
+            *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
+      - name: Terraform Plan Status
+        if: steps.plan.outcome == 'failure'
+        run: exit 1
+
+      - name: Terraform Destroy
+        if: github.ref == 'refs/heads/destroy-waf-k8s' && github.event_name == 'push'
+        run: terraform destroy -auto-approve -input=false
+
+  terraform_approve:
+    name: "Site Registration"
+    runs-on: ubuntu-latest
+    needs: terraform_ce
+    defaults:
+      run:
+        working-directory: ./workflow-guides/waf/f5-xc-waf-on-k8s/terraform/registration
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Setup Terraform Backend
+        id: backend
+        run: |
+          cat > backend.tf << EOF
+          terraform { 
+            cloud {
+              organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
+              workspaces {
+                name = "${{ secrets.TF_CLOUD_WORKSPACE_REG }}"
+              }
+            }
+          }
+          EOF
+          echo "${{secrets.P12}}" | base64 -d > api.p12
+      - name: Terraform Init
+        id: init
+        run: terraform init
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Terraform Plan
+        id: plan
+        if: github.event_name == 'pull_request'
+        run: terraform plan -no-color -input=false
+        continue-on-error: true
+
+      - uses: actions/github-script@v6
+        if: github.event_name == 'pull_request'
+        env:
+          PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const output = `#### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+            #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
+            #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+            <details><summary>Show Plan</summary>
+            \`\`\`\n
+            ${process.env.PLAN}
+            \`\`\`
+            </details>
+            *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
+      - name: Terraform Plan Status
+        if: steps.plan.outcome == 'failure'
+        run: exit 1
+
+      - name: Terraform Destroy
+        if: github.ref == 'refs/heads/destroy-waf-k8s' && github.event_name == 'push'
+        run: terraform destroy -auto-approve -input=false
+
+  terraform_ce:
+    name: "CE Deployment"
+    runs-on: ubuntu-latest
+    needs: terraform_bookinfo
+    defaults:
+      run:
+        working-directory: ./workflow-guides/waf/f5-xc-waf-on-k8s/terraform/ce-deployment
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Setup Terraform Backend
+        id: backend
+        run: |
+          cat > backend.tf << EOF
+          terraform {
+            cloud {
+              organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
+              workspaces {
+                name = "${{ secrets.TF_CLOUD_WORKSPACE_CE }}"
+              }
+            }
+          }
+          EOF
+
+      - name: Setup Configmap
+        id: configmap
+        run: |
+          cat > configmap.tf << EOF
+          resource "kubectl_manifest" "configmap" {
+              yaml_body = <<YAML
+              apiVersion: v1
+              kind: ConfigMap
+              metadata:
+                name: vpm-cfg
+                namespace: ves-system
+              data:
+               config.yaml: |
+                Vpm:
+                  # CHANGE ME
+                  ClusterName: ce-k8s
+                  ClusterType: ce
+                  Config: /etc/vpm/config.yaml
+                  DisableModules: ["recruiter"]
+                  # CHANGE ME
+                  Latitude: ${{ secrets.TF_CLOUD_LATITUDE }}
+                  # CHANGE ME
+                  Longitude: ${{ secrets.TF_CLOUD_LONGITUDE }}
+                  MauriceEndpoint: https://register.ves.volterra.io
+                  MauricePrivateEndpoint: https://register-tls.ves.volterra.io
+                  PrivateNIC: eth0
+                  SkipStages: ["osSetup", "etcd", "kubelet", "master", "voucher", "workload", "controlWorkload"]
+                  # CHANGE ME
+                  Token: ${{ secrets.TF_CLOUD_TOKEN }}
+                  CertifiedHardware: k8s-minikube-voltmesh
+              YAML
+          }
+          EOF
+      - name: Terraform fmt
+        id: format
+        run: terraform fmt
+        
+      - name: Terraform Init
+        id: init
+        run: terraform init
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Terraform Plan
+        id: plan
+        if: github.event_name == 'pull_request'
+        run: terraform plan -no-color -input=false
+        continue-on-error: true
+
+      - uses: actions/github-script@v6
+        if: github.event_name == 'pull_request'
+        env:
+          PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const output = `#### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+            #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
+            #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+            <details><summary>Show Plan</summary>
+            \`\`\`\n
+            ${process.env.PLAN}
+            \`\`\`
+            </details>
+            *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
+      - name: Terraform Plan Status
+        if: steps.plan.outcome == 'failure'
+        run: exit 1
+
+      - name: Terraform Destroy
+        if: github.ref == 'refs/heads/destroy-waf-k8s' && github.event_name == 'push'
+        run: terraform destroy -auto-approve -input=false
+
+
   terraform_eks:
     name: "AWS EKS"
     runs-on: ubuntu-latest
@@ -77,7 +336,7 @@ jobs:
         run: exit 1
 
       - name: Terraform Destroy
-        if: github.ref == 'refs/heads/deploy-waap-k8s' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/destroy-waf-k8s' && github.event_name == 'push'
         run: terraform destroy -auto-approve -input=false
 
   terraform_infra:
@@ -151,5 +410,5 @@ jobs:
         run: exit 1
 
       - name: Terraform Destroy
-        if: github.ref == 'refs/heads/deploy-waap-k8s' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/destroy-waf-k8s' && github.event_name == 'push'
         run: terraform destroy -auto-approve -input=false
