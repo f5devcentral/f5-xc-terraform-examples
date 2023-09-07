@@ -416,16 +416,9 @@ jobs:
         if: steps.plan.outcome == 'failure'
         run: exit 1
 
-      - name: Terraform apply
-        uses: nick-fields/retry@v2
-        with:
-          max_attempts: 3
-          retry_on: error
-          timeout_seconds: 5
-          command: |
-            pwd
-            cd ./workflow-guides/waf/f5-xc-waf-on-k8s/terraform/registration
-            terraform apply -auto-approve -input=false
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/deploy-waap-k8s' && github.event_name == 'push'
+        run: terraform apply -auto-approve -input=false
 
 
   terraform_celb:
