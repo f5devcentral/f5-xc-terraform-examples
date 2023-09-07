@@ -422,8 +422,10 @@ jobs:
           max_attempts: 3
           retry_on: error
           timeout_seconds: 5
-          if: github.ref == 'refs/heads/deploy-waap-k8s' && github.event_name == 'push'
-          command: terraform apply -auto-approve -input=false
+          command: |
+            pwd
+            cd ./workflow-guides/waf/f5-xc-waf-on-k8s/terraform/registration
+            terraform apply -auto-approve -input=false
 
 
   terraform_celb:
