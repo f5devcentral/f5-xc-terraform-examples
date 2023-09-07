@@ -432,11 +432,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      # Need to add sleep time here for CE deployments to come up
-      - name: Waiting for CE
-        id: wait
-        run: sleep 600
-
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
