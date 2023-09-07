@@ -416,9 +416,14 @@ jobs:
         if: steps.plan.outcome == 'failure'
         run: exit 1
 
-      - name: Terraform Apply
-        if: github.ref == 'refs/heads/deploy-waap-k8s' && github.event_name == 'push'
-        run: terraform apply -auto-approve -input=false
+      - name: Terraform apply
+        uses: nick-fields/retry@v2
+        with:
+          max_attempts: 3
+          retry_on: error
+          timeout_seconds: 5
+          if: github.ref == 'refs/heads/deploy-waap-k8s' && github.event_name == 'push'
+          command: terraform apply -auto-approve -input=false
 
 
   terraform_celb:
@@ -432,10 +437,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      # Need to add sleep time here for all deployments to come up
-      #- name: Wait
-      #  id: wait
-      #  run: sleep 900
+      # Need to add sleep time here for CE deployments to come up
+      - name: Waiting for CE
+        id: wait
+        run: sleep 600
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
