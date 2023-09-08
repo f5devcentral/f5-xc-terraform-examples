@@ -16,7 +16,7 @@ Pre-requisites
 - Any cloud platform account (this demo is using Azure)
 
 
-Topology Diagram
+Setup Diagram
 ################
 
 .. figure:: assets/test-setup.png
