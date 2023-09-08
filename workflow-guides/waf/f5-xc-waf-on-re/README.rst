@@ -19,7 +19,7 @@ Pre-requisites
 Topology Diagram
 ################
 
-.. figure:: Assets/test-setup.png
+.. figure:: assets/test-setup.png
 
 WAAP on XC RE Step-by-Step Manual Deployment Process:
 #####################################################
@@ -31,7 +31,7 @@ Here are the steps to deploy the client application in Azure Cloud and load bala
 
 Login to the Azure cloud and go to Virtual Machines. Click on the ``Create`` button.
 
-.. figure:: Assets/azure-vm-create.png
+.. figure:: assets/azure-vm-create.png
 
 Give the below values to create the virtual machine. 
 
@@ -55,7 +55,7 @@ Click on ``Review+Create``  by making other configurations default.
 
 Finally, click on the ``Create`` button, and then go to Resources.
 
-.. figure:: Assets/waap-re-vm-details.png
+.. figure:: assets/waap-re-vm-details.png
 
 Access the VM instance using the public IP of the VM instance through SSH (22), and execute the below commands.
 
@@ -74,10 +74,10 @@ Access the VM instance using the public IP of the VM instance through SSH (22), 
 
 
 * Finally verify that Arcadia is UP.  
-.. figure:: Assets/waap-re-ssh.png
+.. figure:: assets/waap-re-ssh.png
 
 * Access the Arcadia application using IP 8080.
-.. figure:: Assets/arcadia-azure.png
+.. figure:: assets/arcadia-azure.png
 
 2. F5 XC Configuration
 ==========================
@@ -86,31 +86,31 @@ Creating an Origin Pool and WAF Policy:
 **************************************
 Log in to the F5 Distributed Cloud Console and navigate to ``Web App & API Protection``.
 
-.. figure:: Assets/web-module.png
+.. figure:: assets/web-module.png
 
 Navigate to ``Manage`` -> ``Load Balancers`` -> ``Origin Pools``  and click on ``Add Origin Pool``.
 
-.. figure:: Assets/op-create.png
+.. figure:: assets/op-create.png
 
 Give the Origin pool name (Arcadia-azure), the public IP (x.x.x.x) address, and the port (8080) details. Click on ``Save and Exit``.
 
-.. figure:: Assets/op-config.png
+.. figure:: assets/op-config.png
 
 Verify that the Origin pool is created successfully with the name ``Arcadia-azure``.
 
-.. figure:: Assets/op-created.png
+.. figure:: assets/op-created.png
 
 Go to ``Manage`` -> ``App Firewall`` and click on ``Add App Firewall``.
 
-.. figure:: Assets/waf-add.png
+.. figure:: assets/waf-add.png
 
 Give the firewall name as ``re-waf`` and select the Enforcement Mode as ``blocking``. Click on ``Save and Exit``.
 
-.. figure:: Assets/waf-config.png
+.. figure:: assets/waf-config.png
 
 Verify that the APP Firewall is created successfully.
 
-.. figure:: Assets/waf-created.png
+.. figure:: assets/waf-created.png
 
 
 Creating a Load Balancer in F5 XC:
@@ -118,27 +118,27 @@ Creating a Load Balancer in F5 XC:
 
 Log in the F5 Distributed Cloud Console and navigate to ``Web App & API Protection``.
 
-.. figure:: Assets/web-module.png
+.. figure:: assets/web-module.png
 
 Click on ``Add HTTP Load Balancer``.
 
-.. figure:: Assets/add-lb.png
+.. figure:: assets/add-lb.png
 
 Enter LB name **waapre** , domain name **waap-re-test-f5.abc.com**, and select LB type **HTTPS with Automatic Certificate**.
 
-.. figure:: Assets/lb-create.png
+.. figure:: assets/lb-create.png
 
 Associate the created origin pool **arcadia-azure** to LB, enable the WAF, and attach the WAF policy with enforcement mode as ``blocking``.
 
-.. figure:: Assets/lb-op-waf.png
+.. figure:: assets/lb-op-waf.png
 
 Click on ``Save and Exit``.
 
-.. figure:: Assets/save.png
+.. figure:: assets/save.png
 
 Verify that the zone was created successfully.
 
-.. figure:: Assets/lb-created.png
+.. figure:: assets/lb-created.png
 
 That's it! You have created the load balancer successfully!
 
@@ -146,17 +146,17 @@ That's it! You have created the load balancer successfully!
 =============
 Now all the users can access the application on F5 XC through all the regional edges and it provides protection to the backend application based on the configured WAF policies.
 
-.. figure:: Assets/lb-domain-access.png
+.. figure:: assets/lb-domain-access.png
 
 With malicious attacks:
 ***********************
 Click on Login button and send an sql-injection attack. 
 
-.. figure:: Assets/sql-inj.png
+.. figure:: assets/sql-inj.png
 
 Verify that the sql injection is been detected and blocked by F5 XC WAAP.
 
-.. figure:: Assets/sql-inj-detect.png
+.. figure:: assets/sql-inj-detect.png
 
 Conclusion
 ###########
