@@ -1,28 +1,30 @@
-name: "WAF on K8s Apply"
-
+name: waap on re deploy
 on:
-  push:
-    branches:
-      - deploy-waf-k8s
-  pull_request:
+  workflow_dispatch:
+    inputs:
+      msg: 
+        description: 'infra'
+        default: 'deploy'  
 
 jobs:
-  terraform_infra:
-    name: "AWS Infra"
-    runs-on: ubuntu-latest
+  deploy:
+  # This job deals with deployment Arcadia in Azure cloud
+  runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./infra
+        working-directory: ./terraform
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      
+      - uses: actions/checkout@v3
+      #- uses: dcarbone/install-jq-action@v1.0.1
+      #- name: Set environment variable
+      #  run: echo "VES_P12_PASSWORD=shubham9" >> $GITHUB_ENV
+        
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
-      - name: Setup Terraform Backend
+      - name: Setup Terraform Backend for RE
         id: backend
         run: |
           cat > backend.tf << EOF
@@ -30,52 +32,51 @@ jobs:
             cloud {
               organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
               workspaces {
-                name = "${{ secrets.TF_CLOUD_WORKSPACE_INFRA }}"
+                name = "${{ secrets.TF_CLOUD_WORKSPACE_REWAAP_INFRA }}"
               }
             }
           }
           EOF
+
+      - name: Setup Terraform Backend for VM
+        id: backend2
+        run: |
+          cat > backend2.tf << EOF
+          terraform {
+            cloud {
+              organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
+              workspaces {
+                name = "${{ secrets.TF_CLOUD_WORKSPACE_VM }}"
+              }
+            }
+          }
+          EOF
+          echo "${{secrets.P12}}" | base64 -d > api.p12
           
-      - name: Terraform Init
-        id: init
-        run: terraform init
-      
-      - name: Terraform Validate
-        id: validate
-        run: terraform validate -no-color
-
-      - name: Terraform Plan
-        id: plan
-        if: github.event_name == 'pull_request'
-        run: terraform plan -no-color -input=false
-        continue-on-error: true
-
-      - uses: actions/github-script@v6
-        if: github.event_name == 'pull_request'
+      - name: Deploy infra
         env:
-          PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const output = `#### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
-            #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
-            #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
-            <details><summary>Show Plan</summary>
-            \`\`\`\n
-            ${process.env.PLAN}
-            \`\`\`
-            </details>
-            *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: output
-            })
-      - name: Terraform Plan Status
-        if: steps.plan.outcome == 'failure'
-        run: exit 1
-
-      - name: Terraform Apply
-        if: github.ref == 'refs/heads/deploy-waap-k8s' && github.event_name == 'push'
-        run: terraform apply -auto-approve -input=false
+          TF_VAR_azure_subscription_id: ${{ secrets.TF_VAR_AZURE_SUBSCRIPTION_ID }}
+          TF_VAR_azure_subscription_tenant_id: ${{ secrets.TF_VAR_AZURE_SUBSCRIPTION_TENANT_ID }}
+          TF_VAR_azure_service_principal_appid: ${{ secrets.TF_VAR_AZURE_SERVICE_PRINCIPAL_APPID }}
+          TF_VAR_azure_service_principal_password: ${{ secrets.TF_VAR_AZURE_SERVICE_PRINCIPAL_PASSWORD }}
+        run: | 
+          mv backend.tf api.p12 terraform
+          mv backend2.tf terraform/loadbalancer
+          cd terraform
+          terraform init
+          terraform plan 
+          terraform apply -auto-approve 
+          #kubectl get nodes -o wide | awk '{print $6}' > tmp
+          #ip=$(grep -o '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}' tmp)
+          #kubectl get svc -o wide | grep frontend > tmp
+          #port=$(grep -o '[0-9]\{5\}' tmp)
+          #mv api.p12 loadbalancer
+          #cd loadbalancer
+          #terraform init
+          #terraform plan -var private_ip=$ip -var port=$port 
+          #terraform apply -auto-approve        
+      #- name: Upload tfstate file
+      #  uses: actions/upload-artifact@v3
+      #  with:
+      #    name: tfstate
+      #   path: terraform/terraform.tfstate
