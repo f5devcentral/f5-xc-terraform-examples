@@ -18,3 +18,7 @@ variable "xc_namespace" {
   description = "Volterra app namespace where the object will be created. This cannot be system or shared ns."
 }
 
+variable "site_name" {
+  type        = string
+  description = "CE site name to be registered."
+}
