@@ -12,14 +12,15 @@ resource "volterra_origin_pool" "op" {
       }
     }
   }
-  dynamic "origin_servers" {
+  /*dynamic "origin_servers" {
     for_each = local.dns_origin_pool ? [] : [1]
     content {
       public_ip {
         ip = local.origin_server
       } 
     }
-  }
+  }*/
+
   dynamic "origin_servers" {
     for_each = var.k8s_pool ? [1] : [0]
     content {
