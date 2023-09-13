@@ -99,7 +99,12 @@ variable "http_only" {
 variable "serviceName" {
   type        = string
   description = "k8s backend service details"
-  default     = "productpage.default"
+  default     = ""
+}
+variable "serviceport" {
+  type        = string
+  description = "k8s backend service port details"
+  default     = ""
 }
 
 

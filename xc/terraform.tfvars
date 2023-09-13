@@ -7,6 +7,7 @@ xc_waf_blocking = "true"
 
 k8s_pool = "true"
 serviceName = "productpage.default"
+serviceport = "9080"
 site_name = "ce-k8s"
 advertise_sites = "true"
 http_only = "true"
