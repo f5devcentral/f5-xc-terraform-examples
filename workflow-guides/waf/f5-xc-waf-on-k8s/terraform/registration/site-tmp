@@ -1,5 +1,5 @@
 resource "volterra_site_state" "site" {
-  name  = "ce-k8s"
+  name  = var.site_name
   state = "DECOMMISSIONING"
   when  = "delete"
 }

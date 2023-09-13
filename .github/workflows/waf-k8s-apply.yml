@@ -274,7 +274,7 @@ jobs:
                config.yaml: |
                 Vpm:
                   # CHANGE ME
-                  ClusterName: ce-k8s
+                  ClusterName: ${{ secrets.TF_VAR_site_name }}
                   ClusterType: ce
                   Config: /etc/vpm/config.yaml
                   DisableModules: ["recruiter"]
@@ -422,7 +422,7 @@ jobs:
         run: terraform apply -auto-approve -input=false
 
 
-  terraform_celb:
+  .terraform_celb:
     name: "K8s LB Creation"
     runs-on: ubuntu-latest
     needs: terraform_approve
@@ -499,7 +499,7 @@ jobs:
   terraform_xc:
     name: "F5XC WAAP"
     runs-on: ubuntu-latest
-    needs: terraform_celb
+    needs: terraform_approve
     defaults:
       run:
         working-directory: ./xc

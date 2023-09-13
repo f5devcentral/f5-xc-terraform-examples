@@ -111,5 +111,5 @@ variable "serviceport" {
 variable "site_name" {
   type        = string
   description = "CE site name to advertise load balancer."
-  default     = "ce-k8s"
+  default     = ""
 }
