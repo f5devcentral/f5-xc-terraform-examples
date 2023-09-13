@@ -420,6 +420,8 @@ jobs:
       - name: Terraform Apply
         if: github.ref == 'refs/heads/deploy-waf-k8s' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
+        env:
+          TF_VAR_site_name: ${{ secrets.TF_VAR_site_name }}
 
 
   terraform_xc:
