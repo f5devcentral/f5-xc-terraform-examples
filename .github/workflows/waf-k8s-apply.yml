@@ -297,7 +297,6 @@ jobs:
         run: |
           pwd
           terraform fmt
-          ls 
           cat configmap.tf
 
       - name: Terraform Init
@@ -375,7 +374,8 @@ jobs:
           }
           EOF
           echo "${{secrets.P12}}" | base64 -d > api.p12
-          cp ../../../../../xc/terraform.tfvars .
+          pwd
+          cp ../../../../xc/terraform.tfvars .
 
       - name: Terraform Init
         id: init
