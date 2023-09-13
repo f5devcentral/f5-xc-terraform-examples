@@ -3,7 +3,7 @@ name: "WAF on K8s Apply"
 on:
   push:
     branches:
-      - deploy-waap-k8s
+      - deploy-waf-k8s
   pull_request:
 
 jobs:
@@ -77,7 +77,7 @@ jobs:
         run: exit 1
 
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/deploy-waap-k8s' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/deploy-waf-k8s' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
 
   terraform_eks:
@@ -151,7 +151,7 @@ jobs:
         run: exit 1
 
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/deploy-waap-k8s' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/deploy-waf-k8s' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
 
 
@@ -225,7 +225,7 @@ jobs:
         run: exit 1
 
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/deploy-waap-k8s' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/deploy-waf-k8s' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
 
 
@@ -341,7 +341,7 @@ jobs:
         run: exit 1
 
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/deploy-waap-k8s' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/deploy-waf-k8s' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
 
 
@@ -375,6 +375,7 @@ jobs:
           }
           EOF
           echo "${{secrets.P12}}" | base64 -d > api.p12
+          cp ../../../../../xc/terraform.tfvars .
 
       - name: Terraform Init
         id: init
@@ -417,7 +418,7 @@ jobs:
         run: exit 1
 
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/deploy-waap-k8s' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/deploy-waf-k8s' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
 
 
@@ -491,7 +492,7 @@ jobs:
         run: exit 1
 
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/deploy-waap-k8s' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/deploy-waf-k8s' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
 
 
@@ -501,7 +502,7 @@ jobs:
     needs: terraform_celb
     defaults:
       run:
-        working-directory: ./workflow-guides/waf/f5-xc-waf-on-k8s/terraform/xc
+        working-directory: ./xc
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -567,5 +568,5 @@ jobs:
         run: exit 1
 
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/deploy-waap-k8s' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/deploy-waf-k8s' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false

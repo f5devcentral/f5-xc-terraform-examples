@@ -77,7 +77,7 @@ jobs:
         run: exit 1
 
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/deploy-waap-k8s' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/deploy-waf-k8s' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
 
   terraform_eks:
@@ -258,7 +258,7 @@ jobs:
             }
           }
           EOF
-
+          
       - name: Setup Configmap
         id: configmap
         run: |
@@ -375,6 +375,7 @@ jobs:
           }
           EOF
           echo "${{secrets.P12}}" | base64 -d > api.p12
+          cp ../../../../../xc/terraform.tfvars .
 
       - name: Terraform Init
         id: init
@@ -431,11 +432,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
-      # Need to add sleep time here for all deployments to come up
-      - name: Wait
-        id: wait
-        run: sleep 900
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
@@ -506,11 +502,11 @@ jobs:
     needs: terraform_celb
     defaults:
       run:
-        working-directory: ./workflow-guides/waf/f5-xc-waf-on-k8s/terraform/xc
+        working-directory: ./xc
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
+      
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
@@ -534,7 +530,7 @@ jobs:
       - name: Terraform Init
         id: init
         run: terraform init
-
+      
       - name: Terraform Validate
         id: validate
         run: terraform validate -no-color
