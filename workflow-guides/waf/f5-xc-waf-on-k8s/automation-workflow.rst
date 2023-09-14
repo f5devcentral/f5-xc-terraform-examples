@@ -89,7 +89,7 @@ Terraform Cloud
 GitHub
 ------
 
--  **Fork and Clone Repo. Navigate to ``Actions`` tab and enable it.**
+-  Fork and Clone Repo. Navigate to ``Actions`` tab and enable it.
 
 -  **Actions Secrets:** Create the following GitHub Actions secrets in
    your forked repo
