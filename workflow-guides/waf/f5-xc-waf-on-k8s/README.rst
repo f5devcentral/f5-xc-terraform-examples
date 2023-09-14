@@ -14,9 +14,7 @@ the links and open them in new tab.
 
 Architectural diagram :
 -----------------------
-
-.. image::
-/workflow-guides/waf/f5-xc-waf-on-k8s/assets/MicrosoftTeams-image.png
+.. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/MicrosoftTeams-image.png
 
 Manual step by step process for deployment:
 -------------------------------------------
