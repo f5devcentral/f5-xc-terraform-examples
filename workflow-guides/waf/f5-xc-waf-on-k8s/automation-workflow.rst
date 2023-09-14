@@ -15,9 +15,6 @@ Prerequisites
 -  `AWS Account <https://aws.amazon.com>`__ - Due to the assets being
    created, free tier will not work.
 
-   -  The F5 BIG-IP AMI being used from the `AWS
-      Marketplace <https://aws.amazon.com/marketplace>`__ must be
-      subscribed to your account
    -  Please make sure resources like VPC and Elastic IP’s are below the
       threshold limit in that aws region
 
@@ -25,21 +22,23 @@ Prerequisites
    Account <https://developer.hashicorp.com/terraform/tutorials/cloud-get-started>`__
 -  `GitHub Account <https://github.com>`__
 
-Selected Workflow
+Workflow
 -----------------
 
-Example: f5-xc-waf-on-re
+-  For deploying WAF on k8s, please copy the `waf-k8s-apply.yml <.github/workflows/waf-k8s-apply.yml>`__ to root folder .github/workflows folder.
+-  Login to Distributed Cloud, click on `Multi-Cloud-Connect`, navigate to `Site Management` and then to `Site Tokens` as shown below
+.. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/site-token.jpg
+-  Create a site token with your CE site name and copy the ID
 
-Check the Automation section in your workflow guide for more details.
 
-List of Existing Assets
+List of Products Used
 -----------------------
 
--  **xc:** F5 Distributed Cloud WAAP
+-  **xc:** F5 Distributed Cloud WAF
 -  **infra:** AWS Infrastructure (VPC, IGW, etc.)
 -  **eks:** AWS Elastic Kubernetes Service
--  **arcadia:** Arcadia Finance test web application and API
--  **juiceshop:** OWASP Juice Shop test web application
+-  **bookinfo:** Bookinfo test web application and API
+
 
 Tools
 -----
@@ -53,16 +52,12 @@ Terraform Cloud
 ---------------
 
 -  **Workspaces:** Create a CLI or API workspace for each asset in the
-   workflow chosen. Check the Automation section in your workflow guide
-   for more details
+   workflow chosen as shown below.
+.. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/cloud-workspaces.JPG 
 
-Example:
+-  Login to terraform cloud and create below workspaces for storing the terraform state file of each job.
+ infra, xc, eks, bookinfo, registration, k8sce
 
-=============== =====================
-**Workflow**    **Assets/Workspaces**
-=============== =====================
-f5-xc-waf-on-re infra, xc
-=============== =====================
 
 -  **Workspace Sharing:** Under the settings for each Workspace, set the
    **Remote state sharing** to share with each Workspace created.
@@ -97,14 +92,14 @@ f5-xc-waf-on-re infra, xc
    |            | erra | and compute assets                               |
    |            | form |                                                  |
    +------------+------+--------------------------------------------------+
-   | admi       | T    | The source address and subnet in CIDR format of  |
-   | n_src_addr | erra | your administrative workstation                  |
-   |            | form |                                                  |
-   +------------+------+--------------------------------------------------+
    | t          | T    | Your Terraform Cloud Organization name           |
    | f_cloud_or | erra |                                                  |
    | ganization | form |                                                  |
    +------------+------+--------------------------------------------------+
+
+-  Check below image for more info on variable sets
+.. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/variables-set.JPG
+
 
 GitHub
 ------
@@ -114,19 +109,26 @@ GitHub
 -  **Actions Secrets:** Create the following GitHub Actions secrets in
    your forked repo
 
-   -  P12: The linux base64 encoded F5XC API certificate
+   -  P12: The linux base64 encoded F5XC P12 certificate
    -  TF_API_TOKEN: Your Terraform Cloud API token
    -  TF_CLOUD_ORGANIZATION: Your Terraform Cloud Organization name
+   -  TF_CE_LATITUDE: Your CE location latitude
+   -  TF_CE_LONGITUDE: Your CE location longitude
+   -  TF_CE_TOKEN: CE token ID generated in Distributed Cloud
+   -  TF_VAR_SITE_NAME: CE site name to be registered
    -  TF_CLOUD_WORKSPACE\_\ *<Workspace Name>*: Create for each
-      workspace in your workflow
+      workspace in your workflow per each job
 
-      -  EX: TF_CLOUD_WORKSPACE_BIGIP_BASE would be created with the
-         value ``bigip-base``
+      -  EX: TF_CLOUD_WORKSPACE_EKS would be created with the
+         value ``EKS``
+
+-  Check below image for more info on action secrets
+.. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/actions-secrets.JPG
 
 Workflow Runs
 -------------
 
-**STEP 1:** Check out a branch for the workflow you wish to run using
+**STEP 1:** Check out a branch with the branch name as suggested below for the workflow you wish to run using
 the following naming convention.
 
 **DEPLOY**
@@ -134,8 +136,7 @@ the following naming convention.
 ================ =======================
 Workflow         Branch Name
 ================ =======================
-f5-xc-waf-on-k8s deploy-f5-xc-waf-on-k8s
-f5-xc-waf-on-re  deploy-f5-xc-waf-on-re
+f5-xc-waf-on-k8s deploy-waf-k8s
 ================ =======================
 
 **DESTROY**
@@ -143,8 +144,7 @@ f5-xc-waf-on-re  deploy-f5-xc-waf-on-re
 ================ ========================
 Workflow         Branch Name
 ================ ========================
-f5-xc-waf-on-k8s destroy-f5-xc-waf-on-k8s
-f5-xc-waf-on-re  destroy-f5-xc-waf-on-re
+f5-xc-waf-on-k8s destroy-waf-k8s
 ================ ========================
 
 **STEP 2:** Rename ``infra/terraform.tfvars.examples`` to
@@ -162,13 +162,16 @@ F5XC tenant” \* xc_tenant = “Your tenant id available in F5 XC
 ``Administration`` section ``Tenant Overview`` menu” \* xc_namespace =
 “The existing XC namespace where you want to deploy resources” \*
 app_domain = “the FQDN of your app (cert will be autogenerated)” \*
-xc_waf_blocking = “Set to true to enable blocking”
+xc_waf_blocking = “Set to true to enable blocking” \* also update variables 
+of your backend demo application details
 
 **STEP 4:** Commit and push your build branch to your forked repo \*
 Build will run and can be monitored in the GitHub Actions tab and TF
 Cloud console
 
-| **STEP 5:** Once the pipeline completes, verify your assets were
+| **STEP 5:** Once the pipeline completes, verify your CE, Origin Pool and LB were
   deployed or destroyed based on your workflow.
-| **NOTE:** The autocert process takes time. It may be 5 to 10 minutes
-  before Let’s Encrypt has provided the cert.
+
+
+| **STEP 6:** You can login to AWS console. copy the load balancer DNS and send request with XC LB as a Host header which should provide the application response as shown below
+.. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/postman.JPG
