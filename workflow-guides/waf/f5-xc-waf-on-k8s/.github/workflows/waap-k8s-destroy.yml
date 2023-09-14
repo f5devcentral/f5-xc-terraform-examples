@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./workflow-guides/waf/f5-xc-waf-on-k8s/terraform/xc
+        working-directory: ./xc
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -79,11 +79,13 @@ jobs:
       - name: Terraform Destroy
         if: github.ref == 'refs/heads/destroy-waf-k8s' && github.event_name == 'push'
         run: terraform destroy -auto-approve -input=false
-
+        env:
+          TF_VAR_site_name: ${{ secrets.TF_VAR_site_name }}
+          
   terraform_approve:
-    name: "Site Registration"
+    name: "Site Offboarding"
     runs-on: ubuntu-latest
-    needs: terraform_ce
+    needs: terraform_xc
     defaults:
       run:
         working-directory: ./workflow-guides/waf/f5-xc-waf-on-k8s/terraform/registration
@@ -110,6 +112,7 @@ jobs:
           }
           EOF
           echo "${{secrets.P12}}" | base64 -d > api.p12
+          cp ../../../../../xc/terraform.tfvars .
       - name: Terraform Init
         id: init
         run: terraform init
@@ -153,11 +156,13 @@ jobs:
       - name: Terraform Destroy
         if: github.ref == 'refs/heads/destroy-waf-k8s' && github.event_name == 'push'
         run: terraform destroy -auto-approve -input=false
+        env:
+          TF_VAR_site_name: ${{ secrets.TF_VAR_site_name }}
 
   terraform_ce:
-    name: "CE Deployment"
+    name: "CE Destroy"
     runs-on: ubuntu-latest
-    needs: terraform_bookinfo
+    needs: terraform_approve
     defaults:
       run:
         working-directory: ./workflow-guides/waf/f5-xc-waf-on-k8s/terraform/ce-deployment
@@ -199,7 +204,7 @@ jobs:
                config.yaml: |
                 Vpm:
                   # CHANGE ME
-                  ClusterName: ce-k8s
+                  ClusterName: ${{ secrets.TF_VAR_site_name }}
                   ClusterType: ce
                   Config: /etc/vpm/config.yaml
                   DisableModules: ["recruiter"]
@@ -269,6 +274,7 @@ jobs:
   terraform_eks:
     name: "AWS EKS"
     runs-on: ubuntu-latest
+    needs: terraform_ce
     defaults:
       run:
         working-directory: ./eks-cluster
@@ -412,3 +418,89 @@ jobs:
       - name: Terraform Destroy
         if: github.ref == 'refs/heads/destroy-waf-k8s' && github.event_name == 'push'
         run: terraform destroy -auto-approve -input=false
+
+  terraform_site:
+    name: "Site Cleanup"
+    runs-on: ubuntu-latest
+    needs: terraform_infra
+    defaults:
+      run:
+        working-directory: ./workflow-guides/waf/f5-xc-waf-on-k8s/terraform/registration
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Setup Terraform Backend
+        id: backend
+        run: |
+          cat > backend.tf << EOF
+          terraform { 
+            cloud {
+              organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
+              workspaces {
+                name = "${{ secrets.TF_CLOUD_WORKSPACE_REG }}"
+              }
+            }
+          }
+          EOF
+          echo "${{secrets.P12}}" | base64 -d > api.p12
+          cp ../../../../../xc/terraform.tfvars .
+      - name: Terraform Init
+        id: init
+        run: |
+          mv site.tmp site.tf
+          rm locals.tf
+          mv registration.tf registration.tff
+          terraform init
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Terraform Plan
+        id: plan
+        if: github.event_name == 'pull_request'
+        run: terraform plan -no-color -input=false
+        continue-on-error: true
+
+
+      - uses: actions/github-script@v6
+        if: github.event_name == 'pull_request'
+        env:
+          PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const output = `#### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+            #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
+            #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+            <details><summary>Show Plan</summary>
+            \`\`\`\n
+            ${process.env.PLAN}
+            \`\`\`
+            </details>
+            *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
+      - name: Terraform Plan Status
+        if: steps.plan.outcome == 'failure'
+        run: exit 1
+
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/destroy-waf-k8s' && github.event_name == 'push'
+        run: terraform apply -auto-approve -input=false
+        
+      - name: Terraform Destroy
+        if: github.ref == 'refs/heads/destroy-waf-k8s' && github.event_name == 'push'
+        run: terraform destroy -auto-approve -input=false
+        env:
+          TF_VAR_site_name: ${{ secrets.TF_VAR_site_name }}
