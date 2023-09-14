@@ -154,9 +154,7 @@ of your backend demo application details
 Build will run and can be monitored in the GitHub Actions tab and TF
 Cloud console
 
- **STEP 5:** Once the pipeline completes, verify your CE, Origin Pool and LB were
-  deployed or destroyed based on your workflow.
+**STEP 5:** Once the pipeline completes, verify your CE, Origin Pool and LB were deployed or destroyed based on your workflow.
 
-
-| **STEP 6:** You can login to AWS console, copy the load balancer DNS and send request with XC LB as a Host header which should provide the application response as shown below
+**STEP 6:** You can login to AWS console, copy the load balancer DNS and send request with XC LB as a Host header which should provide the application response as shown below
 .. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/postman.JPG
