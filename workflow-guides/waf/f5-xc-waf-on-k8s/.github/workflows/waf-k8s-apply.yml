@@ -279,15 +279,15 @@ jobs:
                   Config: /etc/vpm/config.yaml
                   DisableModules: ["recruiter"]
                   # CHANGE ME
-                  Latitude: ${{ secrets.TF_CLOUD_LATITUDE }}
+                  Latitude: ${{ secrets.TF_CE_LATITUDE }}
                   # CHANGE ME
-                  Longitude: ${{ secrets.TF_CLOUD_LONGITUDE }}
+                  Longitude: ${{ secrets.TF_CE_LONGITUDE }}
                   MauriceEndpoint: https://register.ves.volterra.io
                   MauricePrivateEndpoint: https://register-tls.ves.volterra.io
                   PrivateNIC: eth0
                   SkipStages: ["osSetup", "etcd", "kubelet", "master", "voucher", "workload", "controlWorkload"]
                   # CHANGE ME
-                  Token: ${{ secrets.TF_CLOUD_TOKEN }}
+                  Token: ${{ secrets.TF_CE_TOKEN }}
                   CertifiedHardware: k8s-minikube-voltmesh
               YAML
           }

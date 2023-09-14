@@ -4,8 +4,7 @@ Use this repo configuration files and work-flow guide for deploying WAAP on Kube
 Note: If clicking on the links show 403 error, copy the links and open them in new tab.
 
 ## Architectural diagram : ##
-<img width="500" alt="waap-anywhere-k8s" src="https://github.com/f5devcentral/waap_on_k8s/assets/6093830/b9bce60e-7eea-4f94-8554-9ed8a7afc79d">
-
+.. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/MicrosoftTeams-image.png
 
 ## Manual step by step process for deployment: ##
 #### Prerequisites: ####
