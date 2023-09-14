@@ -88,7 +88,7 @@ d. Select network as “Inside and Outside Network”
 Step by step process using automation scripts:
 ----------------------------------------------
 
-**Coming soon**
+Please refer `automation-workflow.rst <./automation-workflow.rst>`__ for more details.
 
 Development
 -----------
