@@ -64,38 +64,23 @@ Terraform Cloud
 
 -  **Variable Set:** Create a Variable Set with the following values:
 
-   +------------+------+--------------------------------------------------+
-   | **Name**   | **Ty | **Description**                                  |
-   |            | pe** |                                                  |
-   +============+======+==================================================+
-   | AWS_ACC    | Env  | Your AWS Access Key ID                           |
-   | ESS_KEY_ID | iron |                                                  |
-   |            | ment |                                                  |
-   +------------+------+--------------------------------------------------+
-   | A          | Env  | Your AWS Secret Access Key                       |
-   | WS_SECRET_ | iron |                                                  |
-   | ACCESS_KEY | ment |                                                  |
-   +------------+------+--------------------------------------------------+
-   | AWS_SES    | Env  | Your AWS Session Token                           |
-   | SION_TOKEN | iron |                                                  |
-   |            | ment |                                                  |
-   +------------+------+--------------------------------------------------+
-   | VOLT_AP    | Env  | Your F5XC API certificate. Set this to           |
-   | I_P12_FILE | iron | **api.p12**                                      |
-   |            | ment |                                                  |
-   +------------+------+--------------------------------------------------+
-   | VES_P1     | Env  | Set this to the password you supplied when       |
-   | 2_PASSWORD | iron | creating your F5 XC API certificate              |
-   |            | ment |                                                  |
-   +------------+------+--------------------------------------------------+
-   | ssh_key    | T    | Your ssh key for accessing the created BIG-IP    |
-   |            | erra | and compute assets                               |
-   |            | form |                                                  |
-   +------------+------+--------------------------------------------------+
-   | t          | T    | Your Terraform Cloud Organization name           |
-   | f_cloud_or | erra |                                                  |
-   | ganization | form |                                                  |
-   +------------+------+--------------------------------------------------+
+   +------------------------+--------------+------------------------------------------------------+
+   |         **Name**       |  **Type**    |      **Description**                                 |
+   +========================+==============+======================================================+
+   | AWS_ACCESS_KEY_ID      | Environment  | Your AWS Access Key ID                               |
+   +------------------------+--------------+------------------------------------------------------+
+   | AWS_SECRET_ACCESS_KEY  | Environment  | Your AWS Secret Access Key                           |
+   +------------------------+--------------+------------------------------------------------------+
+   | AWS_SESSION_TOKEN      | Environment  | Your AWS Session Token                               | 
+   +------------------------+--------------+------------------------------------------------------+
+   | VOLT_API_P12_FILE      | Environment  |  Your F5XC API certificate. Set this to **api.p12**  |
+   +------------------------+--------------+------------------------------------------------------+
+   | VES_P12_PASSWORD       | Environment  |  Set this to the password you supplied               |
+   +------------------------+--------------+------------------------------------------------------+
+   | ssh_key                | TERRAFORM    |  Your ssh key for accessing the created resources    | 
+   +------------------------+--------------+------------------------------------------------------+
+   | tf_cloud_organization  | TERRAFORM    |  Your Terraform Cloud Organization name              |
+   +------------------------+--------------+------------------------------------------------------+
 
 -  Check below image for more info on variable sets
 .. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/variables-set.JPG
@@ -169,9 +154,9 @@ of your backend demo application details
 Build will run and can be monitored in the GitHub Actions tab and TF
 Cloud console
 
-| **STEP 5:** Once the pipeline completes, verify your CE, Origin Pool and LB were
+ **STEP 5:** Once the pipeline completes, verify your CE, Origin Pool and LB were
   deployed or destroyed based on your workflow.
 
 
-| **STEP 6:** You can login to AWS console. copy the load balancer DNS and send request with XC LB as a Host header which should provide the application response as shown below
+| **STEP 6:** You can login to AWS console, copy the load balancer DNS and send request with XC LB as a Host header which should provide the application response as shown below
 .. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/postman.JPG
