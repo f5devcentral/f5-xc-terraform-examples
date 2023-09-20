@@ -5,8 +5,7 @@ Objective :
 -----------
 
 Use this repo configuration files and work-flow guide for deploying WAAP
-on Kubernetes. Please check `Deploy WAAP Overview
-article <https://community.f5.com/t5/technical-articles/deploy-bot-defense-against-automated-threats-on-regional-edges/ta-p/320270>`__
+on Kubernetes. Please check `Deploy WAAP Overview article <https://community.f5.com/t5/technical-articles/deploy-bot-defense-against-automated-threats-on-regional-edges/ta-p/320270>`__
 or `WAAP on k8s
 article <https://community.f5.com/t5/technical-articles/deploy-bot-defense-against-automated-threats-on-regional-edges/ta-p/320270>`__
 for more details.
