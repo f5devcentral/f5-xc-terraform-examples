@@ -1,163 +1,101 @@
-==================================================
+F5 Distributed Cloud WAAP deployment on k8s
+===========================================
 
-.. contents:: Table of Contents
+Objective :
+-----------
 
-Overview
-#########
-This repo contains detailed information about WAAP (Web Application API Protection) RE (Regional Edge) on F5 Distributed Cloud (XC) Regional Edges use case articles and their execution process. Refer to  `DevCentral Article <https://community.f5.com/t5/technical-articles/deploy-waap-anywhere-with-f5-distributed-cloud/ta-p/313079>`_   for a quick summary and any additional resources."
+Use this repo configuration files and work-flow guide for deploying WAAP
+on Kubernetes. Please check `Deploy WAAP Overview
+article <https://community.f5.com/t5/technical-articles/deploy-waap-anywhere-with-f5-distributed-cloud/ta-p/313079>`__
+or `WAAP on k8s
+article <https://community.f5.com/t5/technical-articles/deploying-f5-distributed-cloud-waap-on-kubernetes/ta-p/317324>`__
+for more details.
 
-**Note:** Even though the scenario here focuses on XC WAF, customers can enable any security services in the same setup, such as API Security, Bot Defense, DoS/DDOS and Fraud, as per their needs.
+Architectural diagram :
+-----------------------
 
-Pre-requisites
-#################
+Manual step by step process for deployment:
+-------------------------------------------
 
-- F5 Distributed Cloud Account (trial is sufficient for most modules).
-- A Web browser to access the F5 Distributed Cloud console.
-- Any cloud platform account (this demo is using Azure)
+Prerequisites:
+^^^^^^^^^^^^^^
 
+1. AWS (Amazon Web Services) account with CLI credentials
+2. eksctl, kubectl and awscli tools already configured in a linux
+   instance
+3. .yml files needed for deployment (these files are available in
+   workflow-guides/waf/f5-xc-waf-on-k8s/assets folder)
+4. Access to F5 XC account
 
-Setup Diagram
-################
+Steps:
+^^^^^^
 
-.. figure:: assets/test-setup.png
+1.  If k8s cluster (EKS) is not already available, then from Linux
+    terminal, check below command to deploy EKS. If needed update it as
+    per you requirements.
+    ``eksctl create cluster --name ce-k8s-new --version 1.21 --region ap-southeast-1 --nodegroup-name standard-workers --node-type t3.xlarge --nodes 1 --managed --kubeconfig admin.conf``
 
-WAAP on XC RE Step-by-Step Manual Deployment Process:
-#####################################################
+2.  Once above command is successful, run below command to obtain
+    kubeconfig. If you want to use existing EKS, then update name and
+    region in below command.
+    ``aws eks update-kubeconfig --name ce-k8s-new --region ap-southeast-1``
 
-Here are the steps to deploy the client application in Azure Cloud and load balancer in F5 Distributed Cloud. Also, it gives you information on how F5 XC is protecting the backend applications that are already public (accessible from the Internet via FQDN or public IP). 
+3.  Login to your F5 XC console and navigate to Cloud and Edge sites.
+    Create a new site token and copy the UID.
 
-1. Deploying Client Application (Arcadia Finance) in Azure Cloud
-========================================================
+4.  Open the ce_k8s.yml file below and update Latitude, Longitude, token
+    ID & other fields (from lines 143-158) as per your infrastructure.
 
-Login to the Azure cloud and go to Virtual Machines. Click on the ``Create`` button.
+5.  Execute below command in terminal to deploy CE site -
+    ``kubectl apply -f ce_k8s.yml``
 
-.. figure:: assets/azure-vm-create.png
+6.  In F5 XC console navigate to Site management –> then to
+    Registrations tab and approve the pending record
 
-Give the below values to create the virtual machine. 
+7.  Wait for 10-15 mins and check all XC related pods are running in
+    ves-system namespace. Also check if this new CE site comes up as
+    online in F5 XC console sites list
 
-*  Subscription details  : User Subscription Name
+8.  From terminal, run below command to deploy bookinfo demo app -
+    ``kubectl apply -l version!=v2,version!=v3 -f https://raw.githubusercontent.com/istio/istio/release-1.16/samples/bookinfo/platform/kube/bookinfo.yaml``
 
-*  Resource group        : Create a new one or select the existing one.      
+9.  Download ce-k8s-lb.yml file from this repo and run this file to
+    create k8s load balancer - ``kubectl apply -f ce-k8s-lb.yml``
 
-*  Virtual machine name  : User choice. (waapre-inst)     
+10. Login to F5 XC console and navigate to load balancer section
 
-*  Region                : User choice.  (East US 2)      
+11. Create an origin pool with below configuration
 
-*  Image                 : Select Nginx Image from marketplace as we are deploying Arcadia application which requires the same.    
+a. Select k8s service name and provide value as “productpage.default”
+b. In Sites section, select newly created CE site from drop-down
+c. In network option, select “Outside network”
+d. Save above config and in port section provide 9080
 
-*  Username              : User choice. (Demouser)  
+12. Create a http LB with below details
 
-*  Password              : User choice.    
+a. Provide some name and domain name
+b. In Origin pool section, select above origin pool
+c. Advertise this as custom VIP and select our newly created CE site
+d. Select network as “Inside and Outside Network”
 
-*  Selected inbound ports: select HTTP (80), HTTPS (443), SSH (22), and 8080 as inbound ports.
+13. Create a web application firewall (WAF) with mode as “Blocking” and
+    with default settings.
+14. Open Load balancer in edit mode and apply this WAF configuration.
 
-Click on ``Review+Create``  by making other configurations default.
+Step by step process using automation scripts:
+----------------------------------------------
 
-Finally, click on the ``Create`` button, and then go to Resources.
+**Coming soon**
 
-.. figure:: assets/waap-re-vm-details.png
+Development
+-----------
 
-Access the VM instance using the public IP of the VM instance through SSH (22), and execute the below commands.
+Outline any requirements to setup a development environment if someone
+would like to contribute. You may also link to another file for this
+information.
 
-* Install Docker
+Support
+-------
 
-  - snap install docker
-
-* Install Arcadia using the below Docker commands.    
-  
-  - docker network create internal    
-  - docker run -dit -h mainapp --name=mainapp --net=internal registry.gitlab.com/arcadia-application/main-app/mainapp:latest   
-  - docker run -dit -h backend --name=backend --net=internal registry.gitlab.com/arcadia-application/back-end/backend:latest  
-  - docker run -dit -h app2 --name=app2 --net=internal registry.gitlab.com/arcadia-application/app2/app2:latest  
-  - docker run -dit -h app3 --name=app3 --net=internal registry.gitlab.com/arcadia-application/app3/app3:latest  
-  - docker run -dit -h nginx --name=nginx --net=internal -p 8080:80 -v /home/Demouser/default.conf:/etc/nginx/conf.d/default.conf registry.gitlab.com/arcadia-application/nginx/nginxoss:latest  
-
-
-* Finally verify that Arcadia is UP.  
-.. figure:: assets/waap-re-ssh.png
-
-* Access the Arcadia application using IP 8080.
-.. figure:: assets/arcadia-azure.png
-
-2. F5 XC Configuration
-==========================
-
-Creating an Origin Pool and WAF Policy:
-**************************************
-Log in to the F5 Distributed Cloud Console and navigate to ``Web App & API Protection``.
-
-.. figure:: assets/web-module.png
-
-Navigate to ``Manage`` -> ``Load Balancers`` -> ``Origin Pools``  and click on ``Add Origin Pool``.
-
-.. figure:: assets/op-create.png
-
-Give the Origin pool name (Arcadia-azure), the public IP (x.x.x.x) address, and the port (8080) details. Click on ``Save and Exit``.
-
-.. figure:: assets/op-config.png
-
-Verify that the Origin pool is created successfully with the name ``Arcadia-azure``.
-
-.. figure:: assets/op-created.png
-
-Go to ``Manage`` -> ``App Firewall`` and click on ``Add App Firewall``.
-
-.. figure:: assets/waf-add.png
-
-Give the firewall name as ``re-waf`` and select the Enforcement Mode as ``blocking``. Click on ``Save and Exit``.
-
-.. figure:: assets/waf-config.png
-
-Verify that the APP Firewall is created successfully.
-
-.. figure:: assets/waf-created.png
-
-
-Creating a Load Balancer in F5 XC:
-********************************
-
-Log in the F5 Distributed Cloud Console and navigate to ``Web App & API Protection``.
-
-.. figure:: assets/web-module.png
-
-Click on ``Add HTTP Load Balancer``.
-
-.. figure:: assets/add-lb.png
-
-Enter LB name **waapre** , domain name **waap-re-test-f5.abc.com**, and select LB type **HTTPS with Automatic Certificate**.
-
-.. figure:: assets/lb-create.png
-
-Associate the created origin pool **arcadia-azure** to LB, enable the WAF, and attach the WAF policy with enforcement mode as ``blocking``.
-
-.. figure:: assets/lb-op-waf.png
-
-Click on ``Save and Exit``.
-
-.. figure:: assets/save.png
-
-Verify that the zone was created successfully.
-
-.. figure:: assets/lb-created.png
-
-That's it! You have created the load balancer successfully!
-
-3. Validation
-=============
-Now all the users can access the application on F5 XC through all the regional edges and it provides protection to the backend application based on the configured WAF policies.
-
-.. figure:: assets/lb-domain-access.png
-
-With malicious attacks:
-***********************
-Click on Login button and send an sql-injection attack. 
-
-.. figure:: assets/sql-inj.png
-
-Verify that the sql injection is been detected and blocked by F5 XC WAAP.
-
-.. figure:: assets/sql-inj-detect.png
-
-Conclusion
-###########
-As you can see, it takes just a few steps and inputs to deploy the application in cloud environments and to create the load balancer with WAF policies, which in the end keeps the backened application safe and secure and makes users and/or customers happy!
+For support, please open a GitHub issue. Note, the code in this
+repository is community supported and is not supported by F5 Networks.
