@@ -5,10 +5,8 @@ Objective :
 -----------
 
 Use this repo configuration files and work-flow guide for deploying WAAP
-on Kubernetes. Please check `Deploy WAAP Overview article <https://community.f5.com/t5/technical-articles/deploy-bot-defense-against-automated-threats-on-regional-edges/ta-p/320270>`__
-or `WAAP on k8s
-article <https://community.f5.com/t5/technical-articles/deploy-bot-defense-against-automated-threats-on-regional-edges/ta-p/320270>`__
-for more details.
+on Kubernetes. Please check `Deploy Bot Defense using Infrastructure as Code (IaC) on Regional Edges with F5 XC <https://community.f5.com/t5/technical-articles/deploy-bot-defense-against-automated-threats-on-regional-edges/ta-p/320270>`__
+article for more details.
 
 Architectural diagram :
 -----------------------
