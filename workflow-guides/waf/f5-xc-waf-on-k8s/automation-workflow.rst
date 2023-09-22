@@ -25,7 +25,8 @@ Prerequisites
 Workflow Steps
 -----------------
 
--  For deploying WAF on k8s, please copy the `waf-k8s-apply.yml <.github/workflows/waf-k8s-apply.yml>`__ to root folder .github/workflows folder.
+-  For deploying WAF on k8s, please copy both yml files in workflow folder to root folder .github/workflows folder.
+   For ex: `waf-k8s-apply.yml <.github/workflows/waf-k8s-apply.yml>`__
 -  Login to Distributed Cloud, click on `Multi-Cloud-Connect`, navigate to `Site Management` and then to `Site Tokens` as shown below
 .. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/site-token.jpg
 -  Create a site token with CE site name (`ce-k8s`) and copy the ID
@@ -175,3 +176,6 @@ Cloud console
 **STEP 6:** You can login to AWS console, copy the load balancer DNS and send request with XC LB as a Host header which should provide the application response as shown below
 
 .. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/postman.JPG
+
+
+**STEP 6:** If you want to destroy the entire setup, checkout a new branch from `deploy-waf-k8s` branch with name `destroy-waf-k8s` which will trigger destroy work-flow to remove all resources
