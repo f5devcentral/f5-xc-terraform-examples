@@ -22,13 +22,13 @@ Prerequisites
    Account <https://developer.hashicorp.com/terraform/tutorials/cloud-get-started>`__
 -  `GitHub Account <https://github.com>`__
 
-Workflow
+Workflow Steps
 -----------------
 
 -  For deploying WAF on k8s, please copy the `waf-k8s-apply.yml <.github/workflows/waf-k8s-apply.yml>`__ to root folder .github/workflows folder.
 -  Login to Distributed Cloud, click on `Multi-Cloud-Connect`, navigate to `Site Management` and then to `Site Tokens` as shown below
 .. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/site-token.jpg
--  Create a site token with your CE site name and copy the ID
+-  Create a site token with CE site name (`ce-k8s`) and copy the ID
 
 
 List of Products Used
