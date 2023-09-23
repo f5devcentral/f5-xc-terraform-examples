@@ -1,27 +1,45 @@
 # Create XC LB config
-
 resource "volterra_origin_pool" "op" {
   name                   = format("%s-xcop-%s", local.project_prefix, local.build_suffix)
   namespace              = var.xc_namespace
   description            = format("Origin pool pointing to origin server %s", local.origin_server)
   dynamic "origin_servers" {
-    for_each = local.dns_origin_pool ? [1] : []
+    for_each = local.dns_origin_pool  ? [1] : []
     content {
       public_name {
         dns_name = local.origin_server
       }
     }
   }
+
   dynamic "origin_servers" {
-    for_each = local.dns_origin_pool ? [] : [1]
+    for_each = local.dns_origin_pool == false && var.k8s_pool == "false" ? [1] : []
     content {
       public_ip {
         ip = local.origin_server
       } 
     }
   }
+
+  dynamic "origin_servers" {
+    for_each = var.k8s_pool ? [1] : []
+    content {
+    k8s_service {
+      service_name  = var.serviceName
+      vk8s_networks = true
+      outside_network = true
+      site_locator {
+        site {
+          name      = var.site_name
+          namespace = "system"
+          }
+        }
+      }
+    }
+  }
+
   no_tls = true
-  port = local.origin_port
+  port = var.k8s_pool ? var.serviceport: local.origin_port
   endpoint_selection     = "LOCAL_PREFERRED"
   loadbalancer_algorithm = "LB_OVERRIDE"
 }
@@ -35,22 +53,50 @@ resource "volterra_http_loadbalancer" "lb_https" {
   description = format("HTTPS loadbalancer object for %s origin server", local.project_prefix)  
   domains = [var.app_domain]
   advertise_on_public_default_vip = true
+
+  dynamic "advertise_custom" {
+    for_each = var.advertise_sites ? [1] : [0]
+    content {
+      advertise_where {
+        site {
+          site {
+            name      = var.site_name
+            namespace = "system"
+          }
+          network = "SITE_NETWORK_INSIDE_AND_OUTSIDE"
+        }
+      }
+    }
+  }
+
   default_route_pools {
       pool {
         name = volterra_origin_pool.op.name
         namespace = var.xc_namespace
       }
       weight = 1
-    }
-  https_auto_cert {
-    add_hsts = false
-    http_redirect = true
-    no_mtls = true
-    enable_path_normalize = true
-    tls_config {
-        default_security = true
+  }
+
+  dynamic "http" {
+    for_each = var.http_only ? [1] : [0]
+    content  {
+        port = "80"
       }
   }
+
+  dynamic "https_auto_cert" {
+    for_each = var.http_only ? [0] : [1]
+    content {
+      add_hsts              = false
+      http_redirect         = true
+      no_mtls               = true
+      enable_path_normalize = true
+      tls_config {
+        default_security = true
+      }
+    }
+  }
+
   app_firewall {
     name = volterra_app_firewall.waap-tf.name
     namespace = var.xc_namespace
