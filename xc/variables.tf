@@ -75,3 +75,41 @@ variable "xc_mud" {
   description = "Enable Malicious User Detection on single LB"
   default     = "false"
 }
+
+# k8s backend
+variable "k8s_pool" {
+  type        = string
+  description = "Whether pool member is k8s backend ?"
+  default     = "false"
+}
+
+variable "advertise_sites" {
+  type        = string
+  description = "Boolean to check if app needs to be advertised on only sites."
+  default     = "false"
+}
+
+variable "http_only" {
+  type        = string
+  description = "If configured on http protocol."
+  default     = "false"
+}
+
+# k8s service name
+variable "serviceName" {
+  type        = string
+  description = "k8s backend service details"
+  default     = ""
+}
+variable "serviceport" {
+  type        = string
+  description = "k8s backend service port details"
+  default     = ""
+}
+
+
+variable "site_name" {
+  type        = string
+  description = "CE site name to advertise load balancer."
+  default     = ""
+}
