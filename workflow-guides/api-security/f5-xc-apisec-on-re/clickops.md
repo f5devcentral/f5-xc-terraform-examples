@@ -15,4 +15,15 @@
 ## Console Workflow
 
 **STEP 1:** Log in to the F5 Distributed Cloud Console and naviate to Web App & API Protection.
+
 ![](assets/Console1.png)
+
+**STEP 2:** From Web App and API Protection Select Manage > Load Balancers > HTTP Load Balancers
+
+![](assets/Console2.png)
+
+**STEP 3** Under Actions click the three dots next to your Load Balancer and select Manage Configuration
+
+![](assets/Console3.png)
+
+**STEP 4** 
