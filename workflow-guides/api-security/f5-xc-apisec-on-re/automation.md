@@ -1,25 +1,15 @@
-# F5 Distributed Cloud API Security 
-
-## Overview
-
-
-## Getting Started
+# F5 Distributed Cloud API Security CICD Deployment
 
 ## Prerequisites
-
-* API deployed 
 
 ### For CI/CD
 
 * [F5 Distributed Cloud Account (F5XC)](https://console.ves.volterra.io/signup/usage_plan)
   * [F5XC API certificate](https://docs.cloud.f5.com/docs/how-to/user-mgmt/credentials)
   * [User Domain delegated](https://docs.cloud.f5.com/docs/how-to/app-networking/domain-delegation)
+  * API Deployed and [Added as a pool in F5 Distributed Cloud](https://docs.cloud.f5.com/docs/how-to/app-networking/origin-pools)
 * [Terraform Cloud Account](https://developer.hashicorp.com/terraform/tutorials/cloud-get-started)
 * [GitHub Account](https://github.com)
-
-### For ClickOps
-
-* Comming Soon!
 
 ## Assets
 
@@ -36,20 +26,20 @@
 * **Workspaces:** Create a CLI or API workspace for each asset in the workflow chosen. Check your work-flow article for more details
 
 
-  | **Workflow** | **Assets/Workspaces**                             |
-  | ------------ | ------------------------------------------------- |
-  | xcapi    | xc-api   |
+  | **Workflow** | **Assets/Workspaces** |
+  | ------------ | --------------------- |
+  | xcapi        | xc-api                |
   
 
 * **Workspace Sharing:** Under the settings for each Workspace, set the **Remote state sharing** to share with each Workspace created.
   
 * **Variable Set:** Create a Variable Set with the following values:
 
-  | **Name**              | **Type**    | **Description**                                                                              |
-  | --------------------- | ----------- | -------------------------------------------------------------------------------------------- |
-  | VOLT_API_P12_FILE     | Environment | Your F5XC API certificate. Set this to **api.p12**                                           |
-  | VES_P12_PASSWORD      | Environment | Set this to the password you supplied when creating your F5 XC API certificate               |
-  | tf_cloud_organization | Terraform   | Your Terraform Cloud Organization name                                                       |
+  | **Name**              | **Type**    | **Description**                                                                |
+  | --------------------- | ----------- | ------------------------------------------------------------------------------ |
+  | VOLT_API_P12_FILE     | Environment | Your F5XC API certificate. Set this to **api.p12**                             |
+  | VES_P12_PASSWORD      | Environment | Set this to the password you supplied when creating your F5 XC API certificate |
+  | tf_cloud_organization | Terraform   | Your Terraform Cloud Organization name                                         |
 
 ## GitHub
 
@@ -68,15 +58,15 @@
 
   **DEPLOY**
   
-  | Workflow     | Branch Name      |
-  | ------------ | ---------------- |
-  | xc-api     | deploy-xcapi  |
+  | Workflow | Branch Name  |
+  | -------- | ------------ |
+  | xc-api   | deploy-xcapi |
  
   **DESTROY**
   
-  | Workflow     | Branch Name       |
-  | ------------ | ----------------- |
-  | xc-api     | destroy-xcapi  |
+  | Workflow | Branch Name   |
+  | -------- | ------------- |
+  | xc-api   | destroy-xcapi |
 
 
 **STEP 2:** Rename `terraform.tfvars.examples` to `terraform.tfvars` and add/modify the following data:
