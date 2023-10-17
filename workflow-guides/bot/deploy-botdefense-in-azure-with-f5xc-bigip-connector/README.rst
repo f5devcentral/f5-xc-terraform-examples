@@ -1,4 +1,4 @@
-Deploy Bot Defense to Protect GCP Applications
+Deploy Bot Defense in Azure with F5XC BIG-IP Connector
 ===========================================
 
 Objective :
