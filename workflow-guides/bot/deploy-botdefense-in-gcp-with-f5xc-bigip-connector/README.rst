@@ -1,4 +1,4 @@
-Deploy Bot Defense for On-prem Applications with F5 Distributed Cloud BIG-IP Connector
+Deploy Bot Defense in GCP with F5 Distributed Cloud BIG-IP Connector
 ===========================================
 
 Objective :
