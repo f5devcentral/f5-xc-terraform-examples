@@ -1,0 +1,32 @@
+#Project Global
+project_prefix = "Project prefix, this will be applied as a prefix to all assets created"
+
+#XC Global
+api_url = "https://<Your Tenant>.console.ves.volterra.io/api"
+xc_tenant = "Your tenant name"
+xc_namespace = "Your XC namespace"
+
+#XC LB
+app_domain = "Your App Domain"
+dns_origin_pool = "false" #Set to true if using an FQDN for the origin server
+origin_server   = "IP or FQDN of your origin"
+origin_port     = "Port of your origin"
+
+#XC API Protection and Discovery
+xc_api_disc = true
+xc_api_pro  = true
+xc_api_spec = ["path to your OAS in XC"]
+#Enable API schema validation
+xc_api_val = true
+#Enable API schema validation on all endpoints
+xc_api_val_all        = true
+xc_api_val_properties = ["PROPERTY_QUERY_PARAMETERS", "PROPERTY_PATH_PARAMETERS", "PROPERTY_CONTENT_TYPE", "PROPERTY_COOKIE_PARAMETERS", "PROPERTY_HTTP_HEADERS", "PROPERTY_HTTP_BODY"]
+#Validation Mode active for endpoint (false = skip)
+xc_api_val_active = true
+#Validation Enforment Type (only one of these should be set to true)
+enforcement_block  = true
+enforcement_report = false
+#Allow access to unprotected endpoints 
+fall_through_mode_allow = false
+#Enable API Validation custom rules
+xc_api_val_custom = false
