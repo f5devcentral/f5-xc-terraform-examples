@@ -8,10 +8,10 @@ Distributed Cloud API Security allows organizations to easily and effectively di
 
 ## Overview
 
-This repo contains detailed information and instructions on Deploying API Security on F5 Distributed Cloud (XC). Refer to [Out of the Shadows: API Discovery and Security](https://community.f5.com/t5/technical-articles/out-of-the-shadows-api-discovery-and-security/ta-p/303789) for a quick summary and any additional resources.
+This repo contains detailed information and instructions on Deploying API Security on F5 Distributed Cloud (XC). Refer to [Out of the Shadows: API Discovery and Security](https://community.f5.com/t5/technical-articles/out-of-the-shadows-api-discovery-and-security/ta-p/303789) for a quick summary and any additional resources."
 
-## Instructions
+## Workflow Instructions
 
-[F5 Distributed Cloud Console Workflow](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/api-security/f5-xc-apisec-on-re/console.md)
+[F5 Distributed Cloud Console Workflow](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/api-security/f5-xc-apisec-on-k8s/console.md)
 
-[F5 Distributed Cloud Automation Workflow](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/api-security/f5-xc-apisec-on-re/automation.md)
+[F5 Distributed Cloud Automation Workflow](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/api-security/f5-xc-apisec-on-k8s/automation.md)
