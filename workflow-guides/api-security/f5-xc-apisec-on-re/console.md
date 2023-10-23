@@ -34,7 +34,10 @@ These instructions are for Deploying API Security on F5 Distributed Cloud (XC) b
 
 **STEP 1** In the `Origins` section of the HTTP Load Balaner creation pane, select `Add Item` to bring up the Origin Pool creation page.
 
-![](assests/../assets/origins-nav.png)![](assets/03-add-origin1.png)
+<p align="middle">
+  <img src="assets/origins-nav.png">
+  <img src="assets/03-add-origin1.png" /> 
+</p>
 
 **STEP 2** In the Origin Pool creation page, under `Origin Pool with Weight Priority` use the `Origin Pool` dropdown to select your pool and then click the `Apply` button at the bottom of the page.
 
