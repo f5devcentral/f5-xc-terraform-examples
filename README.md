@@ -5,7 +5,7 @@
 
 Examples of F5 Distributed Cloud (XC) WAAP deployments utilizing Terraform. For more information on the use cases covered by this project, please see the following articles and workflow guides:
 
-* **F5 Distributed Cloud WAF** 
+* **F5 Distributed Cloud WAF**
 
   | **DevCentral Overview Articles**                                                                                                                          | **Use Case / Workflow Guides (SaaS Console, Automation)**                                                                                                                                                |
   | --------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -17,25 +17,26 @@ Examples of F5 Distributed Cloud (XC) WAAP deployments utilizing Terraform. For 
 
 
 * **F5 Distributed Cloud API Security**
-  | **DevCentral Overview Articles**                                                                                                                                                      | **Use Case / Workflow Guides (SaaS Console, Automation)**                                                                                                                                                                     |
-  | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-  | [Deploy API Security on Regional Edges with F5 Distributed Cloud](https://community.f5.com/t5/technical-articles/out-of-the-shadows-api-discovery-and-security/ta-p/303789)           | [Deploy F5 XC API Security on XC Regional Edges](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/api-security/f5-xc-apisec-on-re/README.md)                                           |
-  | [**Coming soon:**  Deploy API Security Anywhere with F5 Distributed Cloud](https://community.f5.com/t5/technical-articles/deploy-waap-anywhere-with-f5-distributed-cloud/ta-p/313079) | [**Coming soon:** Deploy F5 XC API Security on XC Regional Edges + AppConnect](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/api-security/f5-xc-apisec-on-re-appconnect/README.rst) |
-  | [**Coming soon:**  Deploy API Security Anywhere with F5 Distributed Cloud](https://community.f5.com/t5/technical-articles/deploy-waap-anywhere-with-f5-distributed-cloud/ta-p/313079) | [**Coming soon:** Deploy F5 XC API Security on XC Customer Edges](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/api-security/f5-xc-apisec-on-ce/README.rst)                         |
-  | [**Coming soon:**  Deploy API Security Anywhere with F5 Distributed Cloud](https://community.f5.com/t5/technical-articles/deploy-waap-anywhere-with-f5-distributed-cloud/ta-p/313079) | [Deploy F5 XC API Security on Kubernetes](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/api-security/f5-xc-apisec-on-k8s/README.md)                                                 |
+  | **DevCentral Overview Articles**                                                                                                                                                     | **Use Case / Workflow Guides (SaaS Console, Automation)**                                                                                                                                                                    |
+  | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | [Deploy API Security on Regional Edges with F5 Distributed Cloud](https://community.f5.com/t5/technical-articles/out-of-the-shadows-api-discovery-and-security/ta-p/303789)          | [Deploy F5 XC API Security on XC Regional Edges](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/api-security/f5-xc-apisec-on-re/README.md)                                          |
+  | [**Coming soon:**  Deploy API Security Anywhere with F5 Distributed Cloud](https://community.f5.com/t5/technical-articles/out-of-the-shadows-api-discovery-and-security/ta-p/303789) | [**Coming soon:** Deploy F5 XC API Security on XC Regional Edges + AppConnect](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/api-security/f5-xc-apisec-on-re-appconnect/README.md) |
+  | [**Coming soon:**  Deploy API Security Anywhere with F5 Distributed Cloud](https://community.f5.com/t5/technical-articles/out-of-the-shadows-api-discovery-and-security/ta-p/303789) | [**Coming soon:** Deploy F5 XC API Security on XC Customer Edges](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/api-security/f5-xc-apisec-on-ce/README.md)                         |
+  | [Deploy API Security Anywhere with F5 Distributed Cloud](https://community.f5.com/t5/technical-articles/out-of-the-shadows-api-discovery-and-security/ta-p/303789)                   | [Deploy F5 XC API Security on Kubernetes](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/api-security/f5-xc-apisec-on-k8s/README.md)                                                |
 
 * **F5 Distributed Cloud Bot Protection**
-  | **DevCentral Overview Articles**                                                                                                                                                                                                             | **Use Case / Workflow Guides (SaaS Console, Automation)**                                                                                                                                                                                                                        |
-  | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-  | [**Coming soon:** Deploy Bot Defense on Regional Edges with F5 Distributed Cloud](https://community.f5.com/t5/technical-articles/deploy-bot-defense-as-code-iac-or-saas-console-on-regional-edges/ta-p/320270)                               | [**Coming soon:** Deploy Bot Defense on Regional Edges with F5 Distributed Cloud](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/tree/main/workflow-guides/bot/deploy-botdefense-against-automated-threats-on-regional-edges-with-f5xc)                           |
-  | [**Coming soon:**  Deploy Bot Defense for AWS Cloudfront with F5 Distributed Cloud](https://community.f5.com/t5/technical-articles/deploy-bot-defense-as-code-iac-or-saas-console-for-aws/ta-p/321663)                                       | [**Coming soon:** Deploy F5 XC Bot Defense for AWS Cloudfront with F5 Distributed Cloud](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/tree/main/workflow-guides/bot/deploy-botdefense-for-awscloudfront-distributions-with-f5-distributedcloud)                 |
-  | [**Coming soon:**  Deploy Bot Defense for On-prem Applications Using BIG-IP Connector with F5 Distributed Cloud](https://community.f5.com/t5/technical-articles/deploy-bot-defense-as-code-iac-or-saas-console-for-on-prem-apps/ta-p/321665) | [**Coming soon:** Deploy Bot Defense for On-prem Applications Using BIG-IP Connector for F5 Distributed Cloud](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/tree/main/workflow-guides/bot/deploy-botdefense-for-on-prem-applications-with-f5xc-bigip-connector) |
-  | [**Coming soon:**  Deploy Bot Defense to Protect GCP Applications with F5 Distributed Cloud](https://community.f5.com/t5/technical-articles/deploy-bot-defense-as-code-iac-or-saas-console-for-gcp/ta-p/321667)                              | [**Coming soon:** Deploy Bot Defense to Protect GCP Applications with F5 Distributed Cloud](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/tree/main/workflow-guides/bot/depoy-botdefense-to-protect-gcp-applications)                                            |
+  | **DevCentral Overview Articles**                                                                                                                                                                           | **Use Case / Workflow Guides (SaaS Console, Automation)**                                                                                                                                                                                                        |
+  | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | [Deploy Bot Defense on Regional Edges with F5 Distributed Cloud](https://community.f5.com/t5/technical-articles/deploy-bot-defense-as-code-iac-or-saas-console-on-regional-edges/ta-p/320270)              | [**Coming soon:** Deploy Bot Defense on Regional Edges with F5 Distributed Cloud](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/tree/main/workflow-guides/bot/deploy-botdefense-against-automated-threats-on-regional-edges-with-f5xc)           |
+  | [Deploy Bot Defense for AWS Cloudfront with F5 Distributed Cloud](https://community.f5.com/t5/technical-articles/deploy-bot-defense-as-code-iac-or-saas-console-for-aws/ta-p/321663)                       | [**Coming soon:** Deploy F5 XC Bot Defense for AWS Cloudfront with F5 Distributed Cloud](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/tree/main/workflow-guides/bot/deploy-botdefense-for-awscloudfront-distributions-with-f5-distributedcloud) |
+  | [Deploy Bot Defense in Azure Using BIG-IP Connector with F5 Distributed Cloud](https://community.f5.com/t5/technical-articles/deploy-bot-defense-as-code-iac-or-saas-console-in-azure-with-xc/ta-p/321665) | [**Coming soon:** Deploy Bot Defense in Azure with BIG-IP Connector for F5 Distributed Cloud](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/tree/main/workflow-guides/bot/deploy-botdefense-in-azure-with-f5xc-bigip-connector)                  |
+  | [Deploy Bot Defense in GCP Using BIG-IP Connector for F5 Distributed Cloud](https://community.f5.com/t5/technical-articles/deploy-bot-defense-as-code-iac-or-saas-console-in-gcp-with-xc/ta-p/321667)      | [**Coming soon:** Deploy Bot Defense in GCP Using BIG-IP Connector for F5 Distributed Cloud](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/tree/main/workflow-guides/bot/deploy-botdefense-in-gcp-with-f5xc-bigip-connector)                     |
+
 
 
 * **F5 Distributed Cloud DoS Protection**
 
-  
+
 
 ## Getting Started
 
@@ -81,10 +82,10 @@ Example:
   | --------------- | --------------------- |
   | f5-xc-waf-on-re | infra, xc             |
 
-  
+
 
 * **Workspace Sharing:** Under the settings for each Workspace, set the **Remote state sharing** to share with each Workspace created.
-  
+
 * **Variable Set:** Create a Variable Set with the following values:
 
   | **Name**              | **Type**    | **Description**                                                                 |
@@ -111,17 +112,17 @@ Example:
 
 ## Workflow Runs
 
-**STEP 1:** Check out a branch for the workflow you wish to run using the following naming convention. 
+**STEP 1:** Check out a branch for the workflow you wish to run using the following naming convention.
 
   **DEPLOY**
-  
+
   | Workflow         | Branch Name             |
   | ---------------- | ----------------------- |
   | f5-xc-waf-on-k8s | deploy-f5-xc-waf-on-k8s |
   | f5-xc-waf-on-re  | deploy-f5-xc-waf-on-re  |
- 
+
   **DESTROY**
-  
+
   | Workflow         | Branch Name              |
   | ---------------- | ------------------------ |
   | f5-xc-waf-on-k8s | destroy-f5-xc-waf-on-k8s |
