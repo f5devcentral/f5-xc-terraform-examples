@@ -27,11 +27,17 @@ Steps:
 
 You can use the Kubernetes manifest called airflask.yaml located in the `airline-app directory <https://github.com/f5devcentral/f5-xc-waap-terraform-examples/tree/main/workflow-guides/bot/deploy-botdefense-against-automated-threats-on-regional-edges-with-f5xc/airline-app>`__ to bring up the pod in your vk8s environment
  
-Setting up vk8s:
+Creating your Namespace:
 ================
 
-1. Navigate to *App > Applications > Virtual K8s*.
-2. Create a site.
+1. Logging into your tenant via https://console.ves.volterra.io ensure you have a unique namespace configured. If not, navigate to Administration --> My Namespaces --> Add New
+2. Switch into your newly created namespace
+
+Setting up VK8's
+================
+
+3. Navigate to *App > Applications > Virtual K8s*.
+4. Create a site.
 
 After the site is created:
 ---------------------------
@@ -48,7 +54,7 @@ Setting up the Airline app in vk8s:
 8. Run `kubectl get pods` to verify that an airline pod has been created. The output should resemble the following:
 
 .. image:: assets/kubectlgetpods.png
-   :width: 50%
+   :width: 35%
 
 
 Setting up an HTTP load balancer to front-end the airline app:
