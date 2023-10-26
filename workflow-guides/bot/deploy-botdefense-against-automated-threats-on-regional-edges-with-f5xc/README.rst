@@ -5,8 +5,7 @@ Objective :
 -----------
 
 Use this repo and work-flow guide for deploying XC Bot Defense via our WAAP Connector
-on Kubernetes. Please check `Deploy XC Bot Defense as Code (IaC) or SaaS Console Anywhere <https://community.f5.com/t5/technical-articles/deploy-xc-bot-defense-as-code-iac-or-saas-console-anywhere/ta-p/323272>`__
-article for more details.
+on Kubernetes. This guide will outline the steps for implementing this infrastructure via Console Steps as well as Automated method using Terraform
 
 Architectural diagram :
 -----------------------
