@@ -4,7 +4,7 @@ Deploy Bot Defense against Automated Threats on Regional Edges with F5 XC
 Objective :
 -----------
 
-Use this repo configuration files and work-flow guide for deploying WAAP
+Use this repo and work-flow guide for deploying XC Bot Defense via our WAAP Connector
 on Kubernetes. Please check `Deploy XC Bot Defense as Code (IaC) or SaaS Console Anywhere <https://community.f5.com/t5/technical-articles/deploy-xc-bot-defense-as-code-iac-or-saas-console-anywhere/ta-p/323272>`__
 article for more details.
 
@@ -45,12 +45,25 @@ Setting up the Airline app in vk8s:
 ====================================
 
 7. Run the following command to apply the configuration from the previously downloaded `airflask.yaml <https://github.com/f5devcentral/f5-xc-waap-terraform-examples/tree/main/workflow-guides/bot/deploy-botdefense-against-automated-threats-on-regional-edges-with-f5xc/airline-app>`__ in your working directory: "kubectl apply -f airflask.yaml"
-8. Run `kubectl get pods` to verify that an airline pod has been created. The output should resemble the following
+8. Run `kubectl get pods` to verify that an airline pod has been created. The output should resemble the following:
 
 .. image:: assets/kubectlgetpods.png
-   :scale: 50%
+   :width: 50%
 
 
+Setting up an HTTP load balancer to front-end the airline app:
+------------------------------------------------------
+
+1. Navigate to *App > Manage > LoadBalancers > Origin Pool*.
+2. Click on *Add Origin Pool*.
+3. Name it "airline-origin."
+4. Under *Origin Servers*, click on *Add*.
+5. In the dropdown menu labeled "type of origin server," select the Kubernetes service name of the origin server on the specified sites.
+6. Set the service name to "airline-flask.your-namespacename" (e.g., for my namespace "b-alp," it would be "airline-flask.b-alp"). You can find your namespace name in the top right of the Volterra GUI.
+7. Select "Site" under "Site or Virtual Site."
+8. Choose "sj10-sjc" as the site (limiting the pod to run only on the SJC edge).
+9. Select "vk8s networks on site" as the site network.
+10. Configure a load balancer WAAP bot profile as you normally would, using this origin server.
 
 
 
