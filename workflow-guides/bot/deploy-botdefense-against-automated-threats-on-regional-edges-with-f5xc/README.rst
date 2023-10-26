@@ -5,7 +5,7 @@ Objective :
 -----------
 
 Use this repo configuration files and work-flow guide for deploying WAAP
-on Kubernetes. Please check `Deploy Bot Defense using Infrastructure as Code (IaC) on Regional Edges with F5 XC <https://community.f5.com/t5/technical-articles/deploy-bot-defense-against-automated-threats-on-regional-edges/ta-p/320270>`__
+on Kubernetes. Please check `Deploy XC Bot Defense as Code (IaC) or SaaS Console Anywhere <https://community.f5.com/t5/technical-articles/deploy-xc-bot-defense-as-code-iac-or-saas-console-anywhere/ta-p/323272>`__
 article for more details.
 
 Architectural diagram :
@@ -14,15 +14,13 @@ Architectural diagram :
 Manual step by step process for deployment:
 -------------------------------------------
 
-Prerequisites:
+Console Deployment Prerequisites:
 ^^^^^^^^^^^^^^
 
-1. AWS (Amazon Web Services) account with CLI credentials
-2. eksctl, kubectl and awscli tools already configured in a linux
+1. F5 Distributed Cloud Account (F5XC)
+2. kubectl already configured in a linux
    instance
-3. .yml files needed for deployment (these files are available in
-   workflow-guides/waf/f5-xc-waf-on-k8s/assets folder)
-4. Access to F5 XC account
+3. Access to F5 XC account
 
 Steps:
 ^^^^^^
