@@ -47,7 +47,7 @@ Setting up the Airline app in vk8s:
 7. Run the following command to apply the configuration from the previously downloaded `airflask.yaml <https://github.com/f5devcentral/f5-xc-waap-terraform-examples/tree/main/workflow-guides/bot/deploy-botdefense-against-automated-threats-on-regional-edges-with-f5xc/airline-app>`__ in your working directory: "kubectl apply -f airflask.yaml"
 8. Run `kubectl get pods` to verify that an airline pod has been created. The output should resemble the following
 
-![](assets/kubectlgetpds.png)
+![](assets/kubectlgetpods.png)
 
 
 
