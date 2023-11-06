@@ -1,9 +1,9 @@
-# F5 Distributed Cloud WAAP Terraform Examples
+# F5 Distributed Cloud Terraform Examples
 
 
 ## Overview
 
-Examples of F5 Distributed Cloud (XC) WAAP deployments utilizing Terraform. For more information on the use cases covered by this project, please see the following articles and workflow guides:
+Examples of F5 Distributed Cloud (XC) deployments utilizing Terraform. For more information on the use cases covered by this project, please see the following articles and workflow guides:
 
 * **F5 Distributed Cloud WAF**
 
