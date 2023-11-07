@@ -9,6 +9,12 @@ app_domain = "Your App Domain"
 #XC WAF
 xc_waf_blocking = true
 
+#XC Azure CE site creation
+az_ce_site = ""
+
+#XC Service Discovery
+xc_service_discovery = ""
+
 # pool and LB inputs
 k8s_pool = "false"
 serviceName = ""
