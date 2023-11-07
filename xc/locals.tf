@@ -9,4 +9,10 @@ locals {
   #59origin_port = try(data.tfe_outputs.nap.values.external_port, data.tfe_outputs.nic.values.external_port, "80")
   origin_port = try(data.tfe_outputs.nap[0].values.external_port, data.tfe_outputs.nic[0].values.external_port, "80")
   dns_origin_pool = local.origin_nginx != "" ? true : false 
+  kubeconfig = try(data.tfe_outputs.aks-cluster[0].values.kube_config, "")
+  azure_region        = try(data.tfe_outputs.infra.values.azure_region, "")
+  resource_group_name = try(data.tfe_outputs.infra.values.resource_group_name, "")
+  vnet_name           = try(data.tfe_outputs.infra.values.vnet_name, "")
+  subnet_name         = try(data.tfe_outputs.infra.values.subnet_name, "")
+  subnet_id           = try(data.tfe_outputs.infra.values.subnet_id, "")
 }

@@ -101,15 +101,50 @@ variable "serviceName" {
   description = "k8s backend service details"
   default     = ""
 }
+
 variable "serviceport" {
   type        = string
   description = "k8s backend service port details"
   default     = ""
 }
 
-
 variable "site_name" {
   type        = string
   description = "CE site name to advertise load balancer."
   default     = ""
+}
+
+# Azure CE Site 
+variable "az_ce_site" {
+  type        = string
+  description = "Deploy Azure CE site"
+  default     = "false"
+}
+
+variable "azure_subscription_id" {
+  type    = string
+}
+
+variable "azure_subscription_tenant_id" {
+  type    = string
+}
+
+variable "azure_service_principal_appid" {
+  type    = string
+}
+
+variable "azure_service_principal_password" {
+  type    = string
+}
+
+variable "azure_xc_machine_type" {
+  type    = string
+  default = "Standard_D3_v2"
+}
+
+# XC Service Discovery
+variable "xc_service_discovery" {
+  type        = string
+  description = "Enable service discovery"
+  default     = "false"
 }
