@@ -106,7 +106,7 @@ Workflow         Branch Name
 f5-xc-waf-on-ce  deploy-waf-az-ce
 ================ =======================
 
-Workflow File: `waf-on-ce-az-apply.yml <f5-xc-waap-terraform-examples/.github/workflows/waf-on-ce-az-apply.yml>`__
+Workflow File: `waf-on-ce-az-apply.yml </.github/workflows/waf-on-ce-az-apply.yml>`__
 
 **DESTROY**
 
@@ -116,7 +116,7 @@ Workflow         Branch Name
 f5-xc-waf-on-ce  destroy-waf-az-ce
 ================ ========================
 
-Workflow File: `waf-on-ce-az-destroy.yml <f5-xc-waap-terraform-examples/.github/workflows/waf-on-ce-az-destroy.yml>`__
+Workflow File: `waf-on-ce-az-destroy.yml </.github/workflows/waf-on-ce-az-destroy.yml>`__
 
 **STEP 2:** Rename ``azure/azure-infra/terraform.tfvars.examples`` to ``azure/azure-infra/terraform.tfvars`` and add the following data: 
 
