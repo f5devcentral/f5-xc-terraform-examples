@@ -87,13 +87,13 @@ Setting up an HTTP load balancer to configure XC Bot Defense:
 6. Set the Bot Defense Region to "US"
 7. Under Bot Defense Policy select "Edit Configuration" 
 8. Under Protected App Endpoints select "Configure" and then select "add item"
-9. Give your policy a name of "protect-login"
+9. Give your policy a name of "protect-signin"
 10. Define a description as "credential stuffing protection on login"
 11. Under HTTP Methods add "Put" and "Post"
 12. Under Endpoint Label select "Specify Endpoint Label Category" and set the flow label category to "Authentication" and set the flow label to "login"
 13. Make sure that the Protocol is set to "BOTH" for both HTTP and HTTPS
 14. In the Domain Matcher field select "Any Domain".
-15. Under Path we'll set the Path Match to "Prefix" and in the Prefix field we'll enter "/login" without quotes
+15. Under Path we'll set the Path Match to "Prefix" and in the Prefix field we'll enter "/user/signin" without quotes
 16. In the Traffic Channel section we'll set this to "Web Traffic" since there is no mobile application for this use case
 17. Under Bot Traffic Mitigation Action we'll set this to "Flag" for now to provide insights in the dashboard. Also ensure the Include Mitigation headers is set to "No Headers"
 18. Under Good Bot Detection settings set this to "Allow All Good Bots to Continue to Origin"
@@ -108,7 +108,12 @@ Setting up an HTTP load balancer to configure XC Bot Defense:
 Simulating Bot Traffic with CURL:
 ---------------------------------------
 1. Within this repo you can download the `curl-stuff.sh <https://github.com/karlbort/fork-f5-xc-waap-terraform-examples/blob/main/workflow-guides/bot/deploy-botdefense-against-automated-threats-on-regional-edges-with-f5xc/validation-tools/curl-stuff%20copy.sh>`__ script in the validation-tools directory to run it against your web application to generate some generic Bot Traffic
+2. After you've downloaded the curl-stuff.sh script you can edit the file using a text editor and replace the domain name on line 3 with the DNS name of your application. For example, curl -s 'http://ves-io-your-domain.ac.vh.ves.io/user/signin' -i -X POST -d "username=1&password=1" you would replace the "http://ves-io-your-domain.ac.vh.ves.io" hostname with the DNS name for your newly deployed application. Note** Make sure to keep the /user/signin path of the URI as this is the protected endpoint we configured in the Bot Defense Policy.
+3. Run the CURL script using "sh curl-stuff.sh"
 
+
+Viewing the Results in the Dashboard:
+-------------------------------------
 
 
 
