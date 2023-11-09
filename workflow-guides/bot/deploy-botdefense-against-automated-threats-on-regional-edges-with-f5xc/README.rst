@@ -109,12 +109,15 @@ Simulating Bot Traffic with CURL:
 ---------------------------------------
 1. Within this repo you can download the `curl-stuff.sh <https://github.com/karlbort/fork-f5-xc-waap-terraform-examples/blob/main/workflow-guides/bot/deploy-botdefense-against-automated-threats-on-regional-edges-with-f5xc/validation-tools/curl-stuff%20copy.sh>`__ script in the validation-tools directory to run it against your web application to generate some generic Bot Traffic
 2. After you've downloaded the curl-stuff.sh script you can edit the file using a text editor and replace the domain name on line 3 with the DNS name of your application. For example, curl -s ves-io-your-domain.ac.vh.ves.io/user/signin -i -X POST -d "username=1&password=1" you would replace the "ves-io-your-domain.ac.vh.ves.io" hostname with the DNS name for your newly deployed application. Note** Make sure to keep the /user/signin path of the URI as this is the protected endpoint we configured in the Bot Defense Policy.
-3. Run the CURL script using "sh curl-stuff.sh"
+3. Run the CURL script using "sh curl-stuff.sh" once or twice to generate bot traffic
 
 
 Viewing the Results in the Dashboard:
 -------------------------------------
-
+1. Navigate to Overview > Dashboards > Security Dashboard and if you refresh the page you will see the bot traffic detection results in the Security Dashboard Line View. 
+2. If you scroll down you can see the Top Attack Sources which will contain the source IP Address of your host running the CURL Script
+3. If you look at the Top Attack Paths you can see the /user/signin Path and the Domain of your Application behind the load balancer as well as some other information
+4. 
 
 
 
