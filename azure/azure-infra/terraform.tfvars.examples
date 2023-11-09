@@ -1,0 +1,11 @@
+#Global
+project_prefix = "prefix"
+
+#Azure INFRA
+azure_region = "southeastasia"
+
+#Assets
+nic = false
+nap = false
+bigip = false
+bigip-cis = false

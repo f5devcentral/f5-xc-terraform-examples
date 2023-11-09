@@ -1,8 +1,16 @@
+# Wait for CE site creation
+resource "null_resource" "wait_for_site"{
+  count           =  var.az_ce_site ? 1 : 0
+  depends_on      =  [volterra_tf_params_action.action_apply]
+}
+
 # Create XC LB config
 resource "volterra_origin_pool" "op" {
+  depends_on             = [null_resource.wait_for_site]
   name                   = format("%s-xcop-%s", local.project_prefix, local.build_suffix)
   namespace              = var.xc_namespace
   description            = format("Origin pool pointing to origin server %s", local.origin_server)
+
   dynamic "origin_servers" {
     for_each = local.dns_origin_pool  ? [1] : []
     content {
@@ -30,7 +38,7 @@ resource "volterra_origin_pool" "op" {
       outside_network = true
       site_locator {
         site {
-          name      = var.site_name
+          name      = "${coalesce(var.site_name, local.project_prefix)}"
           namespace = "system"
           }
         }
@@ -45,6 +53,7 @@ resource "volterra_origin_pool" "op" {
 }
 
 resource "volterra_http_loadbalancer" "lb_https" {
+  depends_on             =  [volterra_origin_pool.op]
   name      = format("%s-xclb-%s", local.project_prefix, local.build_suffix)
   namespace = var.xc_namespace
   labels = {
@@ -55,12 +64,12 @@ resource "volterra_http_loadbalancer" "lb_https" {
   advertise_on_public_default_vip = true
 
   dynamic "advertise_custom" {
-    for_each = var.advertise_sites ? [1] : []
+    for_each = var.advertise_sites ? [1] : [0]
     content {
       advertise_where {
         site {
           site {
-            name      = var.site_name
+            name      = "${coalesce(var.site_name, local.project_prefix)}"
             namespace = "system"
           }
           network = "SITE_NETWORK_INSIDE_AND_OUTSIDE"
@@ -78,15 +87,14 @@ resource "volterra_http_loadbalancer" "lb_https" {
   }
 
   dynamic "http" {
-    for_each = var.http_only ? [1] : []
+    for_each = var.http_only ? [1] : [0]
     content  {
         port = "80"
-        dns_volterra_managed = true
       }
   }
 
   dynamic "https_auto_cert" {
-    for_each = var.http_only ? [] : [1]
+    for_each = var.http_only ? [0] : [1]
     content {
       add_hsts              = false
       http_redirect         = true
