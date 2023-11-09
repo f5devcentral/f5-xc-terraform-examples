@@ -109,15 +109,23 @@ Simulating Bot Traffic with CURL:
 ---------------------------------------
 1. Within this repo you can download the `curl-stuff.sh <https://github.com/karlbort/fork-f5-xc-waap-terraform-examples/blob/main/workflow-guides/bot/deploy-botdefense-against-automated-threats-on-regional-edges-with-f5xc/validation-tools/curl-stuff%20copy.sh>`__ Bash script in the validation-tools directory to run it against your web application to generate some generic Bot Traffic
 2. After you've downloaded the curl-stuff.sh script you can edit the file using a text editor and replace the domain name on line 3 with the DNS name of your application. For example, curl -s ves-io-your-domain.ac.vh.ves.io/user/signin -i -X POST -d "username=1&password=1" you would replace the "ves-io-your-domain.ac.vh.ves.io" hostname with the DNS name for your newly deployed application. Note** Make sure to keep the /user/signin path of the URI as this is the protected endpoint we configured in the Bot Defense Policy.
+
 3. Run the CURL script using "sh curl-stuff.sh" once or twice to generate bot traffic
 
 
-Viewing the Results in the Dashboard:
--------------------------------------
-1. Navigate to Overview > Dashboards > Security Dashboard and if you refresh the page you will see the bot traffic detection results in the Security Dashboard Line View. 
+Viewing the Results in the Overview Security Dashboard:
+-------------------------------------------------------
+1. Navigate to Overview > Dashboards > Security Dashboard. This dashboard provides and consolidated view of all of your load balancers and their security events. If you refresh the page you will see the bot traffic detection results.
 2. If you scroll down you can see the Top Attack Sources which will contain the source IP Address of your host running the CURL Script
 3. If you look at the Top Attack Paths you can see the /user/signin Path and the Domain of your Application behind the load balancer as well as some other information
-4. 
+4. Let's dive in deeper by drilling down into your specific load balancer that we've deployed by scrolling to the bottom of this page and selecting the load balancers. This will take you into the WAAP Dashboard for that particular load balancer. 
+
+
+Viewing the Results in your Load Balancer Security Dashboard:
+-------------------------------------------------------
+1. From here you will see many of the same statistics related to Security Events. We can drill down further by selecting the Bot Defense Tab on the top right 
+2. In this Bot Defense view you will see a breakdown of the different traffic types from Good Bots, to Malicious Bots, Human Traffic etc...
+3. To see even more Bot Defense information you can click on the "View in Bot Defense" Button in the top right corner with lots of great information there. 
 
 
 
