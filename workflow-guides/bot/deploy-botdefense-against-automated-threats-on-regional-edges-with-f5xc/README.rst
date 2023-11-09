@@ -35,22 +35,22 @@ Creating your Namespace:
 Setting up VK8's
 ================
 
-3. Navigate to *App > Applications > Virtual K8s*.
-4. Create a site.
+1. Navigate to *App > Applications > Virtual K8s*.
+2. Create a site.
 
 After the site is created:
 ---------------------------
 
-3. Navigate to *Actions > Kubeconfig* to download the kubeconfig, which allows `kubectl` to control the vk8s cluster.
-4. If you don't already have kubectl, download it from `Kubernetes Tools <https://kubernetes.io/docs/tasks/tools/>`_
-5. Move the downloaded file into `~/.kube/config`.
-6. Validate your ability to communicate with vk8s using the command "kubectl get pods". This should show no pods but should not produce an error.
+1. Navigate to *Actions > Kubeconfig* to download the kubeconfig, which allows `kubectl` to control the vk8s cluster.
+2. If you don't already have kubectl, download it from `Kubernetes Tools <https://kubernetes.io/docs/tasks/tools/>`_
+3. Move the downloaded file into `~/.kube/config`.
+4. Validate your ability to communicate with vk8s using the command "kubectl get pods". This should show no pods but should not produce an error.
 
 Setting up the Airline app in vk8s:
 ====================================
 
-7. Run the following command to apply the configuration from the previously downloaded `airflask.yaml <https://github.com/f5devcentral/f5-xc-waap-terraform-examples/tree/main/workflow-guides/bot/deploy-botdefense-against-automated-threats-on-regional-edges-with-f5xc/airline-app>`__ in your working directory: "kubectl apply -f airflask.yaml"
-8. Run `kubectl get pods` to verify that an airline pod has been created. The output should resemble the following:
+1. Run the following command to apply the configuration from the previously downloaded `airflask.yaml <https://github.com/f5devcentral/f5-xc-waap-terraform-examples/tree/main/workflow-guides/bot/deploy-botdefense-against-automated-threats-on-regional-edges-with-f5xc/airline-app>`__ in your working directory: "kubectl apply -f airflask.yaml"
+2. Run `kubectl get pods` to verify that an airline pod has been created. The output should resemble the following:
 
 .. image:: assets/kubectlgetpods.png
    :width: 35%
@@ -68,6 +68,13 @@ Setting up an HTTP load balancer to front-end the airline app:
 7. Select "Site" under "Site or Virtual Site."
 8. Choose "sj10-sjc" as the site (limiting the pod to run only on the SJC edge).
 9. Select "vk8s networks on site" as the site network.
+
+
+Verifying Application Availability via DNS:
+====================================
+1. Verify access to your newly deployed container application by navigating to Web App & API Protection > your-namespace > Manage > Load Balancers and click on Virtual Host Ready under DNS Info Column
+2. Copy the CNAME with the "ves-" prefix and paste it into your web browser to verify the airline application loads appropriately. 
+
 
 Setting up an HTTP load balancer to configure XC Bot Defense:
 -------------------------------------------------------------
