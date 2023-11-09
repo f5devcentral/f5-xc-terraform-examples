@@ -20,11 +20,10 @@ Console Deployment Prerequisites:
 2. kubectl already configured in a linux
    instance
 3. Access to F5 XC account
+4. You will need to download the Kubernetes manifest called airflask.yaml located in the `airline-app directory <https://github.com/f5devcentral/f5-xc-waap-terraform-examples/tree/main/workflow-guides/bot/deploy-botdefense-against-automated-threats-on-regional-edges-with-f5xc/airline-app>`__ to bring up the pod in your vk8s environment
 
 Steps:
 ^^^^^^
-
-You can download the Kubernetes manifest called airflask.yaml located in the `airline-app directory <https://github.com/f5devcentral/f5-xc-waap-terraform-examples/tree/main/workflow-guides/bot/deploy-botdefense-against-automated-threats-on-regional-edges-with-f5xc/airline-app>`__ to bring up the pod in your vk8s environment
  
 Creating your Namespace:
 ================
