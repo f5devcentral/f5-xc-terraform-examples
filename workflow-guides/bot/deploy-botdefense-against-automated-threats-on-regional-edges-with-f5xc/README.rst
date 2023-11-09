@@ -104,8 +104,10 @@ Setting up an HTTP load balancer to configure XC Bot Defense:
 23. Leave the Mobile SDK section at default of "Disable Mobile SDK"
 24. Click Apply and then Save and Exit
 
-Setting up an HTTP load balancer to configure XC Bot Defense:
--------------------------------------------------------------
+
+Validating our Configuration with CURL:
+---------------------------------------
+1. Within this repo you can download the `curl-stuff.sh <https://github.com/karlbort/fork-f5-xc-waap-terraform-examples/blob/main/workflow-guides/bot/deploy-botdefense-against-automated-threats-on-regional-edges-with-f5xc/validation-tools/curl-stuff%20copy.sh>`__ script in the validation-tools directory to run it against your web application to generate some generic Bot Traffic
 
 
 
