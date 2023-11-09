@@ -34,7 +34,7 @@ Creating your Namespace:
 Setting up VK8's
 ================
 
-1. Navigate to *App > Applications > Virtual K8s*.
+1. Navigate to *Distributed Apps > Applications > Virtual K8s*.
 2. Create a site.
 
 After the site is created:
