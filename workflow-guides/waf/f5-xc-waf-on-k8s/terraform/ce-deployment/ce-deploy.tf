@@ -8,6 +8,7 @@ YAML
 }
 
 resource "kubectl_manifest" "sa" {
+    depends_on = [kubectl_manifest.ns]
     yaml_body = <<YAML
 apiVersion: v1
 kind: ServiceAccount
@@ -19,6 +20,7 @@ YAML
 
 
 resource "kubectl_manifest" "role" {
+    depends_on = [kubectl_manifest.ns]
     yaml_body = <<YAML
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -33,6 +35,7 @@ YAML
 }
 
 resource "kubectl_manifest" "role-binding" {
+    depends_on = [kubectl_manifest.ns]
     yaml_body = <<YAML
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
@@ -53,6 +56,7 @@ YAML
 
 
 resource "kubectl_manifest" "daemonset" {
+    depends_on = [kubectl_manifest.ns]
     yaml_body = <<YAML
 apiVersion: apps/v1
 kind: DaemonSet
@@ -88,6 +92,7 @@ YAML
 
 
 resource "kubectl_manifest" "sa2" {
+    depends_on = [kubectl_manifest.ns]
     yaml_body = <<YAML
 apiVersion: v1
 kind: ServiceAccount
@@ -98,6 +103,7 @@ YAML
 }
 
 resource "kubectl_manifest" "role2" {
+    depends_on = [kubectl_manifest.ns]
     yaml_body = <<YAML
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -112,6 +118,7 @@ YAML
 }
 
 resource "kubectl_manifest" "cluster-role" {
+    depends_on = [kubectl_manifest.ns]
     yaml_body = <<YAML
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -126,6 +133,7 @@ YAML
 }
 
 resource "kubectl_manifest" "role-binding2" {
+    depends_on = [kubectl_manifest.ns]
     yaml_body = <<YAML
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
@@ -146,6 +154,7 @@ YAML
 
 
 resource "kubectl_manifest" "ClusterRoleBinding" {
+    depends_on = [kubectl_manifest.ns]
     yaml_body = <<YAML
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -164,6 +173,7 @@ YAML
 
 
 resource "kubectl_manifest" "ClusterRoleBinding2" {
+    depends_on = [kubectl_manifest.ns]
     yaml_body = <<YAML
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -183,6 +193,7 @@ YAML
 
 
 resource "kubectl_manifest" "StatefulSet" {
+    depends_on = [kubectl_manifest.ns]
     yaml_body = <<YAML
 apiVersion: apps/v1
 kind: StatefulSet
@@ -278,6 +289,7 @@ YAML
 
 
 resource "kubectl_manifest" "service" {
+    depends_on = [kubectl_manifest.ns]
     yaml_body = <<YAML
 apiVersion: v1
 kind: Service
