@@ -1,6 +1,6 @@
 #Global
-project_prefix = "prefix"
-resource_owner = "name"
+project_prefix = "jani-waapk8s"
+resource_owner = "jani"
 
 #AWS INFRA
 aws_region     = "ap-south-1"
