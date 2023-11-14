@@ -4,7 +4,7 @@ module "azure_cloud_credentials" {
   source  = "f5devcentral/azure-cloud-credentials/xc"
   version = "0.0.6"
 
-  name                  = local.azure_site_name
+  name                  = (null != var.prefix) ? format("%s-%s", var.prefix, var.name) : var.name
   azure_subscription_id = coalesce(var.xc_azure_subscription_id, var.azure_subscription_id)
   azure_tenant_id       = coalesce(var.xc_azure_tenant_id, var.azure_tenant_id)
   azure_client_id       = coalesce(var.xc_azure_client_id, var.azure_client_id)

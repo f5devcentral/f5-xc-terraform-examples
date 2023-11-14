@@ -9,7 +9,3 @@ provider "volterra" {
   api_p12_file = var.xc_api_p12_file
   url          = var.xc_api_url
 }
-
-locals {
-  aws_site_name = (null != var.prefix) ? format("%s-%s", var.prefix, var.name) : var.name
-}

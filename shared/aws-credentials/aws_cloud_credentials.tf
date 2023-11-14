@@ -4,7 +4,7 @@ module "aws_cloud_credentials" {
   source  = "f5devcentral/aws-cloud-credentials/xc"
   version = "0.0.3"
 
-  name            = local.aws_site_name
+  name            = (null != var.prefix) ? format("%s-%s", var.prefix, var.name) : var.name
   aws_access_key  = var.aws_create_iam_user ? null : coalesce(var.xc_aws_access_key, var.aws_access_key)
   aws_secret_key  = var.aws_create_iam_user ? null : coalesce(var.xc_aws_secret_key, var.aws_secret_key)
 }
