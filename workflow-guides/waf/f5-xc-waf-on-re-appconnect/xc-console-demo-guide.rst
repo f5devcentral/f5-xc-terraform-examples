@@ -31,23 +31,23 @@ This guide explains two diffrent scenarios of deploying application. User can ch
 
 2. Create Kubernetes Cluster and deploy application in it.
 
-Note: Main requirement for this use case is that the application should not be accessible from Internet which means VM or the cluster node should not have public IP/FQDN. 
+Note: Main requirement for this use case is that the application should not be accessible from Internet which means VM or the cluster node should not have public IP/FQDN.
 
 Create Virtal Machine and deploy application in it.
-####################################################
-* Login to the Azure portal with your credentials.  
-* Click on Create and create a new Virtual Machine. In this demo guide, we have used Ubuntu Server 20.04. 
-* While creating Virtual machine, make sure to select the correct subscription and same resource group which was created in step 2. 
-* Provide all the necessary details in Basics Section like Name of the VM, Region, Availability Zone, Image, Size, Username, Key pair name, Inbound port rules.  
+##########################################################
+* Login to the Azure portal with your credentials.
+* Click on Create and create a new Virtual Machine. In this demo guide, we have used Ubuntu Server 20.04.
+* While creating Virtual machine, make sure to select the correct subscription and same resource group which was created in step 2.
+* Provide all the necessary details in Basics Section like Name of the VM, Region, Availability Zone, Image, Size, Username, Key pair name, Inbound port rules. 
 * Navigate to Networking section, select the Virtual network and Subnet which is created in step 2.
-* Click on “Review and Create”, Review all the necessary parameters and deploy a Virtual Machine.   
+* Click on “Review and Create”, Review all the necessary parameters and deploy a Virtual Machine.
 * Login to created Virtual Machine using Public IP and install docker in it.
-* Choose the application you want to use and deploy the application within Virtual Machine. In this scenario, we have deployed DVWA application for testing purpose using below docker command. 
+* Choose the application you want to use and deploy the application within Virtual Machine. In this scenario, we have deployed DVWA application for testing purpose using below docker command.
 
    "docker run -d -p 80:80 vulnerables/web-dvwa"
 
-* We should not have a Public IP address for the VM so disassociate the existing public IP address from the VM and delete it. 
-* Make a note of the private IP of the virtual machine. 
+* We should not have a Public IP address for the VM so disassociate the existing public IP address from the VM and delete it.
+* Make a note of the private IP of the virtual machine.
 
 Create Kubernetes Cluster and deploy application in it.
 ###########################################################
@@ -60,7 +60,6 @@ Create Kubernetes Cluster and deploy application in it.
 * Click “Review + create” and create the cluster.
 * Connect to the created AKS cluster.  
 * Choose your application and deploy it. In this scenario, we are deploying Online boutique application using the `manifest file <https://github.com/GoogleCloudPlatform/microservices-demo/blob/main/release/kubernetes-manifests.yaml>`_. Make changes in the manifest file according to the requirement.
-
 * Execute “kubectl apply -f <your_manifest.yaml>”
 * Execute “kubectl get pods” command to check the deployment status of the pods.
 
