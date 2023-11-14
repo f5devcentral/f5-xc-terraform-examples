@@ -16,10 +16,43 @@ on:
         - destroy
       deployment_name:
         description: 'Deployment name'
-        default: 'teachable-intro'
+        default: 'teachable'
         required: true
         type: string
   workflow_call:
+    inputs:
+      azure_credentials:
+        required: false
+        type: boolean
+      aws_credentials:
+        required: false
+        type: boolean
+      deployment_name:
+        required: true
+        type: string
+    secrets:
+      TF_CLOUD_ORGANIZATION:
+      TF_API_TOKEN:
+      TF_CLOUD_WORKSPACE_HELLO_WORLD:
+      TF_CLOUD_WORKSPACE_XC_CREDENTIALS:
+      TF_CLOUD_WORKSPACE_AZURE_CREDENTIALS:
+      TF_CLOUD_WORKSPACE_AWS_CREDENTIALS:
+      XC_API_URL:
+      AWS_ACCESS_KEY:
+      AWS_SECRET_KEY:
+      XC_AWS_ACCESS_KEY:
+      XC_AWS_SECRET_KEY:
+      AWS_CLOUD_CREDENTIALS_NAME:
+      AZURE_SUBSCRIPTION_ID:
+      AZURE_TENANT_ID:
+      AZURE_CLIENT_ID:
+      AZURE_CLIENT_SECRET:
+      XC_AZURE_SUBSCRIPTION_ID:
+      XC_AZURE_TENANT_ID:
+      XC_AZURE_CLIENT_ID:
+      XC_AZURE_CLIENT_SECRET:
+      AZURE_CLOUD_CREDENTIALS_NAME:
+      P12:
     outputs:
       azure_credentials_name:
         description: "Azure XC Cloud Credentials Name"
@@ -37,7 +70,7 @@ on:
 jobs:
   terraform_cloud:
     name: "Terraform Cloud"
-    if: (inputs.lesson == 'destroy' || inputs.lesson == 'terraform-cloud' || inputs.lesson == 'xc-credentials' || inputs.lesson == 'azure-credentials' || inputs.lesson == 'aws-credentials')
+    if: (inputs.lesson == 'destroy' || inputs.lesson == 'terraform-cloud')
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -84,8 +117,7 @@ jobs:
 
   xc_credentials:
     name: "XC Credentials"
-    if: (inputs.lesson == 'destroy' || inputs.lesson == 'xc-credentials' || inputs.lesson == 'azure-credentials' || inputs.lesson == 'aws-credentials')
-    needs: terraform_cloud
+    if: (inputs.lesson == 'destroy' || inputs.lesson == 'xc-credentials')
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -138,8 +170,7 @@ jobs:
 
   azure_credentials:
     name: "Azure Credentials"
-    if: (inputs.lesson == 'destroy' || inputs.lesson == 'azure-credentials')
-    needs: xc_credentials
+    if: (inputs.lesson == 'destroy' || inputs.lesson == 'azure-credentials' || inputs.azure_credentials == true)
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -213,8 +244,7 @@ jobs:
 
   aws_credentials:
     name: "AWS Credentials"
-    if: (inputs.lesson == 'destroy' || inputs.lesson == 'aws-credentials')
-    needs: xc_credentials
+    if: (inputs.lesson == 'destroy' || inputs.lesson == 'aws-credentials' || inputs.aws_credentials == true)
     runs-on: ubuntu-latest
     defaults:
       run:
