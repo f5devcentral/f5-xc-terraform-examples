@@ -33,20 +33,13 @@ This guide explains two diffrent scenarios of deploying application. User can ch
 
 Note: Main requirement for this use case is that the application should not be accessible from Internet which means VM or the cluster node should not have public IP/FQDN. 
 
-Create Virtal Machine and deploy application in it
-***************************************************
-
+Create Virtal Machine and deploy application in it.
+####################################################
 * Login to the Azure portal with your credentials.  
 * Click on Create and create a new Virtual Machine. In this demo guide, we have used Ubuntu Server 20.04. 
 * While creating Virtual machine, make sure to select the correct subscription and same resource group which was created in step 2. 
 * Provide all the necessary details in Basics Section like Name of the VM, Region, Availability Zone, Image, Size, Username, Key pair name, Inbound port rules.  
-
-.. figure:: assets/vm_create_latest.JPG
-
-* Navigate to Networking section, select the Virtual network and Subnet which is created in step 2. 
-
-.. figure:: assets/VM_network_latest.JPG
-
+* Navigate to Networking section, select the Virtual network and Subnet which is created in step 2.
 * Click on “Review and Create”, Review all the necessary parameters and deploy a Virtual Machine.   
 * Login to created Virtual Machine using Public IP and install docker in it.
 * Choose the application you want to use and deploy the application within Virtual Machine. In this scenario, we have deployed DVWA application for testing purpose using below docker command. 
@@ -56,23 +49,13 @@ Create Virtal Machine and deploy application in it
 * We should not have a Public IP address for the VM so disassociate the existing public IP address from the VM and delete it. 
 * Make a note of the private IP of the virtual machine. 
 
-Create Kubernetes Cluster and deploy application in it
-******************************************************
-
+Create Kubernetes Cluster and deploy application in it.
+###########################################################
 * Login to Azure account and search for “Kubernetes services”.
-
 * Click on Create button and select Create Kubernetes cluster.
-
 * Select the correct subscription and choose the resource group which is created in step 2.
-
 * Provide all the necessary cluster details and primary node pool fields as needed.
-
-.. figure:: assets/k8s_create_latest.JPG
-
 * Navigate to “Networking” tab and select “Network configuration” as Azure CNI.
-
-.. figure:: assets/k8s_network_latest.JPG
-
 * Select the Virtual network which is created in step 2.
 * Click “Review + create” and create the cluster.
 * Connect to the created AKS cluster.  
