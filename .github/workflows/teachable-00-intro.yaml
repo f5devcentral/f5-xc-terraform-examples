@@ -19,6 +19,20 @@ on:
         default: 'teachable-intro'
         required: true
         type: string
+  workflow_call:
+    outputs:
+      azure_credentials_name:
+        description: "Azure XC Cloud Credentials Name"
+        value: ${{ jobs.azure_credentials.outputs.azure_credentials_name }}
+      azure_credentials_namespace:
+        description: "Azure XC Cloud Credentials Namespace"
+        value: ${{ jobs.azure_credentials.outputs.azure_credentials_namespace }}
+      aws_credentials_name:
+        description: "AWS XC Cloud Credentials Name"
+        value: ${{ jobs.aws_credentials.outputs.aws_credentials_name }}
+      aws_credentials_namespace:
+        description: "AWS XC Cloud Credentials Namespace"
+        value: ${{ jobs.aws_credentials.outputs.aws_credentials_namespace }}
 
 jobs:
   terraform_cloud:
