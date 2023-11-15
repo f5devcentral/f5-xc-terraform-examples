@@ -2,18 +2,18 @@ Manual step by step deployment process:
 ===============================================
 
 Pre-requisites
-===========================================
+#####################
 - Access to Azure subscription. 
 - Access to F5 Distributed Cloud account.
 - Install Azure CLI and kubectl command line tool to connect and push the app manifest file to AKS cluster
 - Web browser to access the application.
 
 Step 1: Configure credentials in F5 Distributed Cloud Console for Azure
-=======================================================================
+###########################################################################
 To deploy an Azure Vnet site from F5XC, first we have to configure cloud credentials in XC. Please refer `DevCentral Article <https://community.f5.com/t5/technical-articles/creating-a-credential-in-f5-distributed-cloud-for-azure/ta-p/298316>`_ and follow the steps to configure. 
 
 Step 2: Create Resource group, Vnet and Subnet in Azure 
-===================================================================
+############################################################
 
 * Login to Azure console and search for "Resource groups"
 * Click on Create button, select your subscription, add the resource group name and region
@@ -24,7 +24,7 @@ Step 2: Create Resource group, Vnet and Subnet in Azure
 * Click “Review + create” and "Create"
 
 Step 3: Create resource and deploy an application 
-=================================================
+#######################################################
 This guide explains two diffrent scenarios of deploying application. User can choose any scenario from below to deploy the application according to their need.
 
 1. Create Virtual Machine and deploy application in it.
@@ -34,7 +34,7 @@ This guide explains two diffrent scenarios of deploying application. User can ch
 Note: Main requirement for this use case is that the application should not be accessible from Internet which means VM or the cluster node should not have public IP/FQDN.
 
 Create Virtal Machine and deploy application in it.
-##########################################################
+*******************************************************
 
 * Login to the Azure portal with your credentials.
 * Click on Create and create a new Virtual Machine. In this demo guide, we have used Ubuntu Server 20.04.
@@ -50,7 +50,7 @@ Create Virtal Machine and deploy application in it.
 * Make a note of the private IP of the virtual machine.
 
 Create Kubernetes Cluster and deploy application in it.
-###########################################################
+*************************************************************
 * Login to Azure account and search for “Kubernetes services”.
 * Click on Create button and select Create Kubernetes cluster.
 * Select the correct subscription and choose the resource group which is created in step 2.
@@ -66,7 +66,7 @@ Create Kubernetes Cluster and deploy application in it.
 .. figure:: assets/pod_details.JPG
 
 Step 4: Deploy Azure Vnet site from F5XC console:
-==================================================
+#######################################################
 
 * Login to F5XC Console and navigate to "Multi-Cloud Network Connect" from the homepage.
 * Select "Manage > Site Management > Azure VNET Sites" and click on "Add Azure VNET Site".
