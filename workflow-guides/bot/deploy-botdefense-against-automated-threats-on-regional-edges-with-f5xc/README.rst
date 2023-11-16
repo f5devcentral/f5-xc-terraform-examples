@@ -82,7 +82,7 @@ Setting up an HTTP load balancer to front-end the airline app:
 10. Select "vk8s networks on site" as the site network.
 
 
-.. image:: assets/addoriginpool.png
+.. image:: assets/addoriginpool2.png
    :width: 100%
 
 
