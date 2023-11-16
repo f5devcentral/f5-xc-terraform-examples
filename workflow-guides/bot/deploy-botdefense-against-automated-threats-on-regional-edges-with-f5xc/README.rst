@@ -92,8 +92,10 @@ Verifying Application Availability via DNS:
 2. Copy the CNAME with the "ves-" prefix and paste it into your web browser to verify the airline application loads appropriately. 
 
 
+
 .. image:: assets/airlineapp2.png
    :width: 100%
+
 
 
 Setting up an HTTP load balancer to configure XC Bot Defense:
@@ -105,6 +107,10 @@ Setting up an HTTP load balancer to configure XC Bot Defense:
 4. In the left nagivation go to "Bot Protection"
 5. Enable the Bot Defense Configuration under the drop down menu. (By default, the service is disabled)
 6. Set the Bot Defense Region to "US"
+
+.. image:: assets/bdenable.png
+   :width: 100%
+
 7. Under Bot Defense Policy select "Edit Configuration" 
 8. Under Protected App Endpoints select "Configure" and then select "add item"
 9. Give your policy a name of "protect-signin"
