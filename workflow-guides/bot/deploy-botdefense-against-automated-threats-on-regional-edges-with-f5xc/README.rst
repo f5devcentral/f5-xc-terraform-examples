@@ -148,6 +148,8 @@ Simulating Bot Traffic with CURL:
 
 3. Run the CURL script using "sh curl-stuff.sh" once or twice to generate bot traffic
 
+.. image:: assets/bdcurl2.png
+   :width: 100%
 
 Viewing the Results in the Overview Security Dashboard:
 -------------------------------------------------------
@@ -156,16 +158,16 @@ Viewing the Results in the Overview Security Dashboard:
 3. If you look at the Top Attack Paths you can see the /user/signin Path and the Domain of your Application behind the load balancer as well as some other information
 4. Let's dive in deeper by drilling down into your specific load balancer that we've deployed by scrolling to the bottom of this page and selecting the load balancers. This will take you into the WAAP Dashboard for that particular load balancer. 
 
+.. image:: assets/overviewdashboard.png
+   :width: 100%
 
 Viewing the Results in your Load Balancer Security Dashboard:
 -------------------------------------------------------
 1. From here you will see many of the same statistics related to Security Events. We can drill down further by selecting the Bot Defense Tab on the top right 
 2. In this Bot Defense view you will see a breakdown of the different traffic types from Good Bots, to Malicious Bots, Human Traffic etc...
-3. To see even more Bot Defense information you can click on the "View in Bot Defense" Button in the top right corner with lots of great information there. 
 
-
-
-
+.. image:: assets/lbbddashboard.png
+   :width: 100%
 
 
 Step by step process using automation scripts:
