@@ -9,7 +9,7 @@ on Kubernetes. This guide will outline the steps for implementing this infrastru
 
 Architectural diagram :
 -----------------------
-.. image:: assets/kubectlgetpods.png
+.. image:: assets/diagramRE.png
    :width: 35%
 
 Manual step by step process for deployment:
