@@ -98,7 +98,7 @@ Verifying Application Availability via DNS:
 
 
 
-Setting up an HTTP load balancer to configure XC Bot Defense:
+Setting up an HTTP load balancer to enable XC Bot Defense:
 -------------------------------------------------------------
 
 1. Navigate to Web App & API Protection > Manage > Load Balancers > HTTP Load Balancers
@@ -111,25 +111,35 @@ Setting up an HTTP load balancer to configure XC Bot Defense:
 .. image:: assets/bdenable.png
    :width: 100%
 
-7. Under Bot Defense Policy select "Edit Configuration" 
-8. Under Protected App Endpoints select "Configure" and then select "add item"
-9. Give your policy a name of "protect-signin"
-10. Define a description as "credential stuffing protection on login"
-11. Under HTTP Methods add "Put" and "Post"
-12. Under Endpoint Label select "Specify Endpoint Label Category" and set the flow label category to "Authentication" and set the flow label to "login"
-13. Make sure that the Protocol is set to "BOTH" for both HTTP and HTTPS
-14. In the Domain Matcher field select "Any Domain".
-15. Under Path we'll set the Path Match to "Prefix" and in the Prefix field we'll enter "/user/signin" without quotes
-16. In the Traffic Channel section we'll set this to "Web Traffic" since there is no mobile application for this use case
-17. Under Bot Traffic Mitigation Action we'll set this to "Flag" for now to provide insights in the dashboard. Also ensure the Include Mitigation headers is set to "No Headers"
-18. Under Good Bot Detection settings set this to "Allow All Good Bots to Continue to Origin"
-19. Click Apply, and Apply again to bring you back to the Javascript insertion section. Leave the Javascript download path as /common.js
-20. Set the Web Client Javascript Mode to "Async JS with no-Caching"
-21. Set the Javascript Insertion to "Insert Javascript in All Pages"
-22. Set the Javascript location to "After <head> tag"
-23. Leave the Mobile SDK section at default of "Disable Mobile SDK"
-24. Click Apply and then Save and Exit
+Setting up an HTTP load balancer to configure the XC Bot Defense endpoint policy:
+-------------------------------------------------------------
+1. Under Bot Defense Policy select "Edit Configuration" 
+2. Under Protected App Endpoints select "Configure" and then select "add item"
+3. Give your policy a name of "protect-signin"
+4. Define a description as "credential stuffing protection on signin"
+5. Under HTTP Methods add "Put" and "Post"
+6. Under Endpoint Label select "Specify Endpoint Label Category" and set the flow label category to "Authentication" and set the flow label to "login"
+7. Make sure that the Protocol is set to "BOTH" for both HTTP and HTTPS
+8. In the Domain Matcher field select "Any Domain".
+9. Under Path we'll set the Path Match to "Prefix" and in the Prefix field we'll enter "/user/signin" without quotes
+10. In the Traffic Channel section we'll set this to "Web Traffic" since there is no mobile application for this use case
+11. Under Bot Traffic Mitigation Action we'll set this to "Flag" for now to provide insights in the dashboard. Also ensure the Include Mitigation headers is set to "No Headers"
+12. Under Good Bot Detection settings set this to "Allow All Good Bots to Continue to Origin"
+13. Click Apply, and Apply again to bring you back to the Javascript insertion section. Leave the Javascript download path as /common.js
 
+.. image:: assets/bdpolicy2.png
+   :width: 100%
+
+Setting up an HTTP load balancer to configure the XC Bot Defense Javascript Insertion:
+-------------------------------------------------------------
+1. Set the Web Client Javascript Mode to "Async JS with no-Caching"
+2. Set the Javascript Insertion to "Insert Javascript in All Pages"
+3. Set the Javascript location to "After <head> tag"
+4. Leave the Mobile SDK section at default of "Disable Mobile SDK"
+5. Click Apply and then Save and Exit
+
+.. image:: assets/bdjsinsertion.png
+   :width: 100%
 
 Simulating Bot Traffic with CURL:
 ---------------------------------------
