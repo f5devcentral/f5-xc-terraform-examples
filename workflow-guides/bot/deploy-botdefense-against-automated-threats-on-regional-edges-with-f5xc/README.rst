@@ -35,7 +35,7 @@ Creating your Namespace:
 
 
 .. image:: assets/addnamespace.png
-   :width: 50%
+   :width: 100%
 
 
 Setting up VK8's
@@ -51,6 +51,11 @@ After the site is created:
 2. If you don't already have kubectl, download it from `Kubernetes Tools <https://kubernetes.io/docs/tasks/tools/>`_
 3. Move the downloaded file into `~/.kube/config`.
 4. Validate your ability to communicate with vk8s using the command "kubectl get pods". This should show no pods but should not produce an error.
+
+
+.. image:: assets/downloadkubeconfig.png
+   :width: 50%
+
 
 Setting up the Airline app in vk8s:
 ====================================
