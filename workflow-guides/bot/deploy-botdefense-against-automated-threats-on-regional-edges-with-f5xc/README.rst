@@ -7,7 +7,7 @@ Objective :
 Use this repo and work-flow guide for deploying XC Bot Defense via our WAAP Connector
 on Kubernetes. This guide will outline the steps for implementing this infrastructure via Console Steps as well as Automated method using Terraform
 
-Architectural diagram :
+Bot Defense on RE Architectural Diagram :
 -----------------------
 .. image:: assets/diagramRE.png
    :width: 100%
