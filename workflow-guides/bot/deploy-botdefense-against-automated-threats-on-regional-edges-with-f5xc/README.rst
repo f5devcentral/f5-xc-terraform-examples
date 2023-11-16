@@ -33,6 +33,9 @@ Creating your Namespace:
 1. Logging into your tenant via https://console.ves.volterra.io ensure you have a unique namespace configured. If not, navigate to Administration --> My Namespaces --> Add New
 2. Switch into your newly created namespace
 
+.. image:: assets/addnamespace.png
+   :width: 100%
+
 Setting up VK8's
 ================
 
