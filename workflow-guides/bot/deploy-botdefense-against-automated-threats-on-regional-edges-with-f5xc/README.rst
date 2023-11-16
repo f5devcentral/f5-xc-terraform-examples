@@ -92,6 +92,10 @@ Verifying Application Availability via DNS:
 2. Copy the CNAME with the "ves-" prefix and paste it into your web browser to verify the airline application loads appropriately. 
 
 
+.. image:: assets/airlineapp.png
+   :width: 100%
+
+
 Setting up an HTTP load balancer to configure XC Bot Defense:
 -------------------------------------------------------------
 
