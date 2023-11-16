@@ -70,15 +70,20 @@ Setting up the Airline app in vk8s:
 Setting up an HTTP load balancer to front-end the airline app:
 ------------------------------------------------------
 
-1. Navigate to *App > Manage > LoadBalancers > Origin Pool*.
-2. Click on *Add Origin Pool*.
-3. Name it "airline-origin."
-4. Under *Origin Servers*, click on *Add*.
-5. In the dropdown menu labeled "type of origin server," select the Kubernetes service name of the origin server on the specified sites.
-6. Set the service name to "airline-flask.your-namespacename" (e.g., for my namespace "k-rob," it would be "airline-flask.k-rob"). You can find your namespace name in the top right of the XC GUI.
-7. Select "Site" under "Site or Virtual Site."
-8. Choose "sj10-sjc" as the site (limiting the pod to run only on the SJC edge).
-9. Select "vk8s networks on site" as the site network.
+1. Navigate to *Web App & API Protection > Manage > Load Balancers
+2. Click on Manage Load Balancers and select Origin Pool*.
+3. Click on *Add Origin Pool*.
+4. Name it "airline-origin."
+5. Under *Origin Servers*, click on *Add*.
+6. In the dropdown menu labeled "type of origin server," select the Kubernetes service name of the origin server on the specified sites.
+7. Set the service name to "airline-flask.your-namespacename" (e.g., for my namespace "k-rob," it would be "airline-flask.k-rob"). You can find your namespace name in the top right of the XC GUI.
+8. Select "Site" under "Site or Virtual Site."
+9. Choose "sj10-sjc" as the site (limiting the pod to run only on the SJC edge).
+10. Select "vk8s networks on site" as the site network.
+
+
+.. image:: assets/addoriginpool.png
+   :width: 100%
 
 
 Verifying Application Availability via DNS:
