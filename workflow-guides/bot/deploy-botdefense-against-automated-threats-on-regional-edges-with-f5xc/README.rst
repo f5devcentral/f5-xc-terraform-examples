@@ -10,7 +10,7 @@ on Kubernetes. This guide will outline the steps for implementing this infrastru
 Architectural diagram :
 -----------------------
 .. image:: assets/diagramRE.png
-   :width: 35%
+   :width: 100%
 
 Manual step by step process for deployment:
 -------------------------------------------
