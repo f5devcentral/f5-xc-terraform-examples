@@ -34,7 +34,7 @@ Creating your Namespace:
 2. Switch into your newly created namespace
 
 .. image:: assets/addnamespace.png
-   :width: 100%
+   :width: 35%
 
 Setting up VK8's
 ================
