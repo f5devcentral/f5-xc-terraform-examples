@@ -35,7 +35,7 @@ Creating your Namespace:
 
 
 .. image:: assets/addnamespace.png
-   :width: 100%
+   :width: 50%
 
 
 Setting up VK8's
@@ -54,7 +54,7 @@ After the site is created:
 
 
 .. image:: assets/downloadkubeconfig.png
-   :width: 50%
+   :width: 100%
 
 
 Setting up the Airline app in vk8s:
