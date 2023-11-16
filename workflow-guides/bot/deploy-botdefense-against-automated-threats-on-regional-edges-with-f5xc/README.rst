@@ -92,7 +92,7 @@ Verifying Application Availability via DNS:
 2. Copy the CNAME with the "ves-" prefix and paste it into your web browser to verify the airline application loads appropriately. 
 
 
-.. image:: assets/airlineapp.png
+.. image:: assets/airlineapp2.png
    :width: 100%
 
 
