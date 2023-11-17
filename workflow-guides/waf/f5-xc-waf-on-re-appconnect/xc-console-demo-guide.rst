@@ -15,13 +15,8 @@ To deploy an Azure Vnet site from F5XC, first we have to configure cloud credent
 Step 2: Create Resource group, Vnet and Subnet in Azure 
 **********************************************************
 
-* Login to Azure console and search for "Resource groups"
-* Click on Create button, select your subscription, add the resource group name and region
-* Click “Review + create” and "Create"
-* Search for "Virtual networks" and click Create button
-* Select your subscription, set the above created resource group name, virtual network name and region
-* Navigate to IP addresses tab, Configure your virtual network address space and subnet
-* Click “Review + create” and "Create"
+* **Create Resource group:**   Login to Azure console > search for 'Resource groups' > click 'Create' button then select your subscription, add the resource group name and region > click 'Review + create' and 'Create'
+* **Create Virtual Network:** Search for "Virtual networks" and click 'Create' button then select your subscription, set the above created resource group name, new virtual network name and region > Navigate to 'IP addresses' tab on top > Configure your virtual network address space and subnet > Click “Review + create” and "Create"
 
 Step 3: Create resource and deploy an application 
 *****************************************************
@@ -31,7 +26,7 @@ This guide explains two diffrent scenarios of deploying application. User can ch
 
 2. Create Kubernetes Cluster and deploy application in it.
 
-Note: Main requirement for this use case is that the application should not be accessible from Internet which means VM or the cluster node should not have public IP/FQDN.
+Note: Main requirement for this use case is to have an application which is not accessible from Internet which means VM or the cluster node should not have public IP/FQDN.
 
 **Create Virtal Machine and deploy application in it.**
 
@@ -50,11 +45,11 @@ Note: Main requirement for this use case is that the application should not be a
 
 **Create Kubernetes Cluster and deploy application in it.**
 
-* Login to Azure account and search for “Kubernetes services”.
-* Click on Create button and select Create Kubernetes cluster.
+* Search for 'Kubernetes services'.
+* Click on 'Create' button and select 'Create Kubernetes cluster'.
 * Select the correct subscription and choose the resource group which is created in step 2.
 * Provide all the necessary cluster details and primary node pool fields as needed.
-* Navigate to “Networking” tab and select “Network configuration” as Azure CNI.
+* Navigate to 'Networking' tab and select 'Bring your own virtual network'
 * Select the Virtual network which is created in step 2.
 * Click “Review + create” and create the cluster.
 * Connect to the created AKS cluster.  
@@ -106,3 +101,9 @@ v. Select Kubernetes Credentials as Kubeconfig, and add the Kubeconfig file of A
 * Select the Azure Vnet site created in Step 6
 * Select Network on the site as "Outside Network"
 * In Origin server port add port number "80" of the discovered frontend service , Click continue and then Apply.
+* Enable WAF, create and attach a WAF policy in Blocking mode
+* Scroll down to “Other settings” section: 
+                        a. In VIP Advertisement field select custom 
+                        b. Click Configure and then Add Item 
+                        c. Select Where to Advertise field to site and add the Azure site created in step2 
+                        d. Select Site network to outside, Click Apply, Save and Exit 
