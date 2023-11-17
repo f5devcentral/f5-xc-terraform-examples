@@ -17,11 +17,11 @@ Distributed Cloud <https://https://community.f5.com/t5/technical-articles/deploy
 Setup Diagram
 #############
 
-.. figure:: assets/diagramRE.png
+.. figure:: assets/rediagram2.png
 
 Workflow Instructions
 ######################
 
 `F5 Distributed Cloud Console Workflow <./xc-console-demo-guide.rst>`__
 
-`F5 Distributed Cloud Automation Workflow <./automation-demo-guide.rst>`__
+`COMING SOON** F5 Distributed Cloud Automation Workflow <./automation-demo-guide.rst>`__
