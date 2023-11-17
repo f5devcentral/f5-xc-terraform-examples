@@ -1,4 +1,4 @@
-Getting started with Bot Defense on RE terraform automation**** PLACEHOLDER ONLY
+**** PLACEHOLDER ONLY Getting started with Bot Defense on RE terraform automation
 ---------------
 
 Prerequisites
