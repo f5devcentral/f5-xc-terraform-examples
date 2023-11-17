@@ -1,11 +1,10 @@
-Getting started with WAF on CE terraform automation
+Getting started with Bot Defense on RE terraform automation**** PLACEHOLDER ONLY
 ---------------
 
 Prerequisites
 -------------
 
 -  `F5 Distributed Cloud (F5 XC) Account <https://console.ves.volterra.io/signup/usage_plan>`__
--  `Azure Account <https://azure.microsoft.com/en-in/get-started/azure-portal/>`__ 
 -  `Terraform Cloud Account <https://developer.hashicorp.com/terraform/tutorials/cloud-get-started>`__
 -  `GitHub Account <https://github.com>`__
 
@@ -13,10 +12,7 @@ Prerequisites
 List of Existing Assets
 -----------------------
 
--  **xc:** F5 Distributed Cloud WAF
--  **infra:** Azure Infrastructure
--  **aks:** Azure Kubernetes Service
--  **online boutique:** Online Boutique demo test web application
+-  **xc:** F5 Distributed Cloud Bot Defense
 
 
 Tools
