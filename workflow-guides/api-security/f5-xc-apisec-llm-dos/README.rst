@@ -17,7 +17,7 @@ Distributed Cloud <https://community.f5.com/t5/technical-articles/deploy-waf-any
 Setup Diagram
 #############
 
-.. figure:: assets/overview.jpeg
+.. figure:: assets/LLM_DoS_architecture.png
 
 Workflow Instructions
 ######################
