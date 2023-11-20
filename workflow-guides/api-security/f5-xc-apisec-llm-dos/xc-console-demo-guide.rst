@@ -6,6 +6,7 @@ Prerequisites
 - Access to an AWS account 
 - Access to F5 XC console 
 - A LLM inference engine docker image (for the purpose of this experiment llama.cpp was used)
+- A K8s deployment (referencing the docker image) and service definition for the LLM workload
 - Install Postman for testing the setup 
 
 Deployment Steps
@@ -58,6 +59,13 @@ Note:
 9. Wait until the 'AWS VPC Site' has been successfully deployed
 
 .. figure:: assets/aws_vpc_site_deployed.png
+
+10. In 'Distributed Apps' service, go to 'Managed K8s' -> 'Overview' and download the 'Global Kubeconfig':
+
+.. figure:: assets/global_kubeconfig.png
+
+11. Using the kubectl utility and the 'Global Kubeconfig' file, apply the LLM deployment and service
+Note: For the K8s service to be discovered, the K8s namespace where the LLM workload will be deployed will need to be the same as the existing XC namespace name  
 
 
 
