@@ -1,4 +1,4 @@
-Deploying F5 XC WAF on Customer Edge (Single cloud scenario)
+Protect LLM applications against Model Denial of Service 
 =============================
 
 
