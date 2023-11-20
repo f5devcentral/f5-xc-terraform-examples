@@ -65,7 +65,15 @@ Note:
 .. figure:: assets/global_kubeconfig.png
 
 11. Using the kubectl utility and the 'Global Kubeconfig' file, apply the LLM deployment and service
+
 Note: For the K8s service to be discovered, the K8s namespace where the LLM workload will be deployed will need to be the same as the existing XC namespace name  
+
+12. In 'Web App & API Protection' service, go to 'Manage' -> 'Laod Balancers' -> 'Origin Pools' and add a new 'Origin Pool':
+
+.. figure:: assets/gorigin_pool.png
+
+12. In 'Web App & API Protection' service, go to 'Manage' -> 'Laod Balancers' -> 'HTTP Load Balancers', add a new 'HTTP Load Balancer', add a domain name (configuration not shown here), point to the origin pool created earlier and enable the Web Application Firewall with the default profile:
+
 
 
 
