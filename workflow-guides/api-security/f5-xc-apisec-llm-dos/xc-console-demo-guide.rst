@@ -11,10 +11,10 @@ Prerequisites
 Deployment Steps
 *****************
 
-1. Create credential for AWS by following the steps mentioned in the `Creating a Credential in F5 Distributed Cloud to use with AWS DevCentral article <https://community.f5.com/t5/technical-articles/creating-a-credential-in-f5-distributed-cloud-to-use-with-aws/ta-p/298111>`_ 
+1. Create credential for AWS by following the steps mentioned in the `Creating a Credential in F5 Distributed Cloud to use with AWS <https://community.f5.com/t5/technical-articles/creating-a-credential-in-f5-distributed-cloud-to-use-with-aws/ta-p/298111>`_  DevCentral article
 
 2. In 'Administration' service, go to 'Personal management' -> 'My Namespeaces' and create a new namespace.
-Note: For the K8s service to be discovered, the XC namespace name will need to be the same as the Managed K8s namespace where the LLM workload will be deployed. 
+Note: For the K8s service to be discovered, the XC namespace name will need to be the same as the Managed K8s namespace where the LLM workload will be deployed 
 
 3. In 'Distributed Apps' service, go to 'Manage' -> 'Manage K8s' and create a 'K8s Cluster Role':
 
