@@ -9,18 +9,19 @@ Pre-requisites
 - Web browser to access the application.
 
 Step 1: Configure credentials in F5 Distributed Cloud Console for Azure
-**************************************************************************
+#########################################################################
 To deploy an Azure Vnet site from F5XC, first we have to configure cloud credentials in XC. Please refer `DevCentral Article <https://community.f5.com/t5/technical-articles/creating-a-credential-in-f5-distributed-cloud-for-azure/ta-p/298316>`_ and follow the steps to configure. 
 
 Step 2: Create Resource group, Vnet and Subnet in Azure 
-**********************************************************
+########################################################
 
 * **Create Resource group:**   Login to Azure console > search for 'Resource groups' > click 'Create' button then select your subscription, add the resource group name and region > click 'Review + create' and 'Create'
 * **Create Virtual Network:** Search for "Virtual networks" and click 'Create' button then select your subscription, set the above created resource group name, new virtual network name and region > Navigate to 'IP addresses' tab on top > Configure your virtual network address space and subnet > Click “Review + create” and "Create"
 
 Step 3: Create resource and deploy an application 
-*****************************************************
-This guide explains two diffrent scenarios of deploying application. User can choose any scenario from below to deploy the application according to their need.
+##################################################
+
+This guide explains two different scenarios of deploying application. User can choose any scenario from below to deploy the application according to their need.
 
 1. Create Virtual Machine and deploy application in it.
 
@@ -57,10 +58,10 @@ Note: Main requirement for this use case is to have an application which is not 
 * Execute “kubectl apply -f <your_manifest.yaml>”
 * Execute “kubectl get pods” command to check the deployment status of the pods.
 
-.. figure:: assets/pod_details.JPG
+.. figure:: assets/pods_latest
 
 Step 4: Deploy Azure Vnet site from F5XC console:
-******************************************************
+##################################################
 
 * Login to F5XC Console and navigate to "Multi-Cloud Network Connect" from homepage.
 * Select "Manage > Site Management > Azure VNET Sites" and click on "Add Azure VNET Site".
@@ -76,16 +77,17 @@ Step 4: Deploy Azure Vnet site from F5XC console:
 * Wait for the apply process to complete and the status to change to Applied. 
 
 Step 5: Create origin pool and HTTP LB in F5XC console
-****************************************************************
+########################################################
+
 If you have created Kubernetes Cluster in Step 3, let us create service discovery object first before configuring origin pool and load balancer. Service discovery part can be skipped if application is deployed in Virtual Machine.
 
 **Create service discovery object**
 
-i. Navigate to "Multi-Cloud App Connect" from homepage.
-ii. Select "Manage > Service Discoveries" and Click on "Add Discovery"
-iii. Provide a name, select vnet site created in step 4 and select network type as "Site Local Network"
-iv. Select Discovery Method as "K8S Discovery Configuration"
-v. Select Kubernetes Credentials as Kubeconfig, and add the Kubeconfig file of AKS Cluster created in Step 3, Apply the changes.
+* Navigate to "Multi-Cloud App Connect" from homepage.
+* Select "Manage > Service Discoveries" and Click on "Add Discovery"
+* Provide a name, select vnet site created in step 4 and select network type as "Site Local Network"
+* Select Discovery Method as "K8S Discovery Configuration"
+* Select Kubernetes Credentials as Kubeconfig, and add the Kubeconfig file of AKS Cluster created in Step 3, Apply the changes.
 
 **Configure HTTP Load Balancer and Origin Pool**
 
@@ -96,14 +98,24 @@ v. Select Kubernetes Credentials as Kubeconfig, and add the Kubeconfig file of A
 * In the Origins section, click Add Item to create an origin pool.
 * In the origin pool field dropdown, click Add Item
 * Enter name, in origin server section click Add Item
-* Select “K8s Service Name of Origin Server on given Sites”:
-* Add the service name of frontend microservice as "frontend.default"
-* Select the Azure Vnet site created in Step 6
-* Select Network on the site as "Outside Network"
-* In Origin server port add port number "80" of the discovered frontend service , Click continue and then Apply.
-* Enable WAF, create and attach a WAF policy in Blocking mode
-* Scroll down to “Other settings” section: 
-                        a. In VIP Advertisement field select custom 
-                        b. Click Configure and then Add Item 
-                        c. Select Where to Advertise field to site and add the Azure site created in step2 
-                        d. Select Site network to outside, Click Apply, Save and Exit 
+* If application is deployed in Kubernetes Cluster, Select “K8s Service Name of Origin Server on given Sites” > Add the service name of frontend microservice as "frontend.default" > Select the Azure Vnet site created in Step 6 > Select Network on the site as "Outside Network" > In Origin server port add port number "80" of the discovered frontend service , Click continue and then Apply.
+* If application is deployed in Virtual Machine, Select “IP address of Origin Server on given Sites” > Provide private IP of the virtual machine > Choose Azure Vnet Site in Site dropdown same as your Vnet site > Choose Outside Network under Select Network from the Site > Click on Apply > In Origin server port, provide the port of the deployed application.
+* Click Continue and then Apply. 
+* Enable WAF, create and attach a WAF policy in Blocking mode.
+* Move to VIP Advertisement field and choose Internet. 
+* Save and apply changes.
+
+Step 6: Access the deployed application 
+########################################
+
+* Open a browser. 
+* Access the application using the domain name configured in HTTP load balancer. 
+* Make sure that the application is accessible.
+* Now let us verify applied WAF policy.
+* Generate a XSS attack by adding ?a=<script> tag in the URL along with the domain name and observe that WAF policy blocks the access.
+* Application should not be accessible.
+
+Conclusion
+***********
+By following the above provided steps, one can easily configure WAF(on RE)+Appconnect usecase where CE sites are configured and connected to the closest two REs through IPSEC tunnels. When end user is trying to access the backend private application, they will connect to their closest RE and the request will be inspected by the WAAP security policy. From there, the request will be traversed over XC Global Network and reach the respective CE site through IPSEC tunnel which in turn communicates with the backend application and provides the necessary data.
+
