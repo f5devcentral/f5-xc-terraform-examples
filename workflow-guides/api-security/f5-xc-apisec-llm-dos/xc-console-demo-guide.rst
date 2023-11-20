@@ -45,7 +45,9 @@ Deployment Steps
 
 .. figure:: assets/aws_vpc_site_3.png
 
-Note: add the 'Public SSH Key', step not shown here.
+Note: 
+      1. Add the 'Public SSH Key', step not shown here.
+      2. For this example AWS instance type was set to t3.xlarge 
 
       i. From Azure console search for “Kubernetes services”
       ii. Click on Create button and select "Create Kubernetes cluster"
