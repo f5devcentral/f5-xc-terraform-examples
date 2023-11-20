@@ -10,7 +10,7 @@ on Kubernetes. This guide will outline the steps for implementing this infrastru
 
 Bot Defense on RE Architectural Diagram :
 -----------------------
-.. image:: assets/diagramRE.png
+.. image:: assets/awscfdiag.png
    :width: 100%
 
 Manual step by step process for deployment:
