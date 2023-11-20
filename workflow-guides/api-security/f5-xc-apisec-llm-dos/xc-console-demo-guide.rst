@@ -68,12 +68,31 @@ Note:
 
 Note: For the K8s service to be discovered, the K8s namespace where the LLM workload will be deployed will need to be the same as the existing XC namespace name  
 
-12. In 'Web App & API Protection' service, go to 'Manage' -> 'Laod Balancers' -> 'Origin Pools' and add a new 'Origin Pool':
+12. In 'Web App & API Protection' service, go to 'Manage' -> 'Load Balancers' -> 'Origin Pools' and add a new 'Origin Pool':
 
-.. figure:: assets/gorigin_pool.png
+.. figure:: assets/origin_pool.png
 
-12. In 'Web App & API Protection' service, go to 'Manage' -> 'Laod Balancers' -> 'HTTP Load Balancers', add a new 'HTTP Load Balancer', add a domain name (configuration not shown here), point to the origin pool created earlier and enable the Web Application Firewall with the default profile:
+12. In 'Web App & API Protection' service, go to 'Manage' -> 'Load Balancers' -> 'HTTP Load Balancers', add a new 'HTTP Load Balancer', add a domain name (configuration not shown here), point to the origin pool created earlier and enable the Web Application Firewall with the default profile:
 
+.. figure:: assets/lb_1.png
+
+.. figure:: assets/lb_2.png
+
+13. In the 'API Protection' section, enable the "API Definition", add the Swagger spec file (for the purpose of this demo, we used the OpenAI Swagger spec) and configure 'Validation' of API calls to deny all calls under path 'v1' which are not found within the Swagger spec:
+
+.. figure:: assets/api_sec_1.png
+
+.. figure:: assets/api_sec_2.png
+
+.. figure:: assets/api_sec_3.png
+
+.. figure:: assets/api_sec_4.png
+
+14. In the 'Common Security Controls', enable 'Rate Limiting' and configure a treshold of 4 requests for minute for API Endpoint 'v1/chat/completions'
+
+.. figure:: assets/rate_limit_1.png
+
+.. figure:: assets/rate_limit_2.png
 
 
 
