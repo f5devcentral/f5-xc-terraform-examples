@@ -12,20 +12,28 @@ Deployment Steps
 
 1. Create credential for AWS by following the steps mentioned in the `devcentral article <https://community.f5.com/t5/technical-articles/creating-a-credential-in-f5-distributed-cloud-to-use-with-aws/ta-p/298111>`_ 
 
-2. In 'Distributed Apps' service, go to 'Manage' -> 'Manage K8s' and create a 'K8s Cluster Role'
+2. In 'Distributed Apps' service, go to 'Manage' -> 'Manage K8s' and create a 'K8s Cluster Role':
+
 .. figure:: assets/cluster_role.png
 
-3. In 'Distributed Apps' service, go to 'Manage' -> 'Manage K8s' and create a 'K8s Cluster Role Binding'
+3. In 'Distributed Apps' service, go to 'Manage' -> 'Manage K8s' and create a 'K8s Cluster Role Binding':
+
 .. figure:: assets/cluster_role_bindings.ong
 
-4. In 'Distributed Apps' service, go to 'Manage' -> 'Manage K8s' and create a 'K8s Pod Security Policy'
+4. In 'Distributed Apps' service, go to 'Manage' -> 'Manage K8s' and create a 'K8s Pod Security Policy':
+
 .. figure:: assets/psp_1.png
+
 .. figure:: assets/psp_2.png
+
 .. figure:: assets/psp_3.png
 
-4. In 'Distributed Apps' service, go to 'Manage' -> 'Manage K8s' and create a 'K8s Cluster'
+5. In 'Distributed Apps' service, go to 'Manage' -> 'Manage K8s' and create a 'K8s Cluster':
+
 .. figure:: assets/k8s_cluster_1.png
+
 .. figure:: assets/k8s_cluster_2.png
+
 .. figure:: assets/k8s_cluster_3.png
 
 
