@@ -16,15 +16,15 @@ Deployment Steps
 2. In 'Administration' service, go to 'Personal management' -> 'My Namespeaces' and create a new namespace.
 Note: For the K8s service to be discovered, the XC namespace name will need to be the same as the Managed K8s namespace where the LLM workload will be deployed. 
 
-2. In 'Distributed Apps' service, go to 'Manage' -> 'Manage K8s' and create a 'K8s Cluster Role':
+3. In 'Distributed Apps' service, go to 'Manage' -> 'Manage K8s' and create a 'K8s Cluster Role':
 
 .. figure:: assets/cluster_role.png
 
-3. In 'Distributed Apps' service, go to 'Manage' -> 'Manage K8s' and create a 'K8s Cluster Role Binding':
+4. In 'Distributed Apps' service, go to 'Manage' -> 'Manage K8s' and create a 'K8s Cluster Role Binding':
 
 .. figure:: assets/cluster_role_binding.png
 
-4. In 'Distributed Apps' service, go to 'Manage' -> 'Manage K8s' and create a 'K8s Pod Security Policy':
+5. In 'Distributed Apps' service, go to 'Manage' -> 'Manage K8s' and create a 'K8s Pod Security Policy':
 
 .. figure:: assets/psp_1.png
 
@@ -32,7 +32,7 @@ Note: For the K8s service to be discovered, the XC namespace name will need to b
 
 .. figure:: assets/psp_3.png
 
-5. In 'Distributed Apps' service, go to 'Manage' -> 'Manage K8s' and create a 'K8s Cluster':
+6. In 'Distributed Apps' service, go to 'Manage' -> 'Manage K8s' and create a 'K8s Cluster':
 
 .. figure:: assets/k8s_cluster_1.png
 
@@ -41,7 +41,7 @@ Note: For the K8s service to be discovered, the XC namespace name will need to b
 .. figure:: assets/k8s_cluster_3.png
 
 
-6. In 'Multi-Cloud Network Connect' service, go to 'Manage' -> 'Site Management' and create an 'AWS VPC Site':
+7. In 'Multi-Cloud Network Connect' service, go to 'Manage' -> 'Site Management' and create an 'AWS VPC Site':
 
 .. figure:: assets/aws_vpc_site_1.png
 
@@ -53,9 +53,9 @@ Note:
       1. Add the 'Public SSH Key', step not shown here.
       2. For this example AWS instance type was set to t3.xlarge 
 
-7. In 'Multi-Cloud Network Connect' service, go to 'Manage' -> 'Site Management' and deploy the newly created 'AWS VPC Site'
+8. In 'Multi-Cloud Network Connect' service, go to 'Manage' -> 'Site Management' and deploy the newly created 'AWS VPC Site'
 
-8. Wait until the 'AWS VPC Site' has been successfully deployed
+9. Wait until the 'AWS VPC Site' has been successfully deployed
 
 .. figure:: assets/aws_vpc_site_deployed.png
 
