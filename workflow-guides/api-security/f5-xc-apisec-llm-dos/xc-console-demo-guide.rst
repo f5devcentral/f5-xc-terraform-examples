@@ -37,7 +37,16 @@ Deployment Steps
 .. figure:: assets/k8s_cluster_3.png
 
 
-3. Create Azure AKS cluster. 
+6. In 'Multi-Cloud Network Connect' service, go to 'Manage' -> 'Site Management' and create an 'AWS VPC Site':
+
+.. figure:: assets/aws_vpc_site_1.png
+
+.. figure:: assets/aws_vpc_site_2.png
+
+.. figure:: assets/aws_vpc_site_3.png
+
+Note: add the 'Public SSH Key', step not shown here.
+
       i. From Azure console search for “Kubernetes services”
       ii. Click on Create button and select "Create Kubernetes cluster"
       iii. Select your subscription and set the above created resource group
