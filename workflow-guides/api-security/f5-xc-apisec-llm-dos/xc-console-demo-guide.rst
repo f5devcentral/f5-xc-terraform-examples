@@ -3,24 +3,25 @@ Manual step by step process for the deployment
 
 Prerequisites
 **************
-- Access to Azure portal 
-- Access to F5 XC account 
-- Install Azure Cli and kubectl command line tool to connect and push the app manifest file to AKS cluster 
-- Install postman for testing the setup 
+- Access to an AWS account 
+- Access to F5 XC console  
+- Install Postman for testing the setup 
 
 Deployment Steps
 *****************
 
-1. Create credential for Azure by following the steps mentioned in the `devcentral article <https://community.f5.com/t5/technical-articles/creating-a-credential-in-f5-distributed-cloud-for-azure/ta-p/298316>`_ 
+1. Create credential for AWS by following the steps mentioned in the `devcentral article <https://community.f5.com/t5/technical-articles/creating-a-credential-in-f5-distributed-cloud-to-use-with-aws/ta-p/298111>`_ 
 
-2. Create a Resource group, Virtual network and Subnet
-      i. Login to Azure console and search for "Resource groups"
-      ii. Click on Create button, select your subscription, add the resource group name and region
-      iii. Click “Review + create” and "Create"
-      iv. Search for "Virtual networks" and click Create button
-      v. Select your subscription, set the above created resource group name, virtual network name and region
-      vi. Navigate to IP addresses tab, Configure your virtual network address space and subnet
-      vii. Click “Review + create” and "Create"
+2. In 'Distributed Apps' service, go to 'Manage' -> 'Manage K8s':
+      i. Create K8s Cluster Role
+.. figure:: assets/kubectl.JPG
+      ii. Create K8s Cluster Roles Binding
+.. figure:: assets/kubectl.JPG
+      iii. Create K8s Pod Security Policy
+.. figure:: assets/kubectl.JPG
+      iv. Create K8s Cluster
+.. figure:: assets/kubectl.JPG
+
 
 3. Create Azure AKS cluster. 
       i. From Azure console search for “Kubernetes services”
