@@ -4,13 +4,17 @@ Manual step by step process for the deployment
 Prerequisites
 **************
 - Access to an AWS account 
-- Access to F5 XC console  
+- Access to F5 XC console 
+- A LLM inference engine docker image (for the purpose of this experiment llama.cpp was used)
 - Install Postman for testing the setup 
 
 Deployment Steps
 *****************
 
 1. Create credential for AWS by following the steps mentioned in the `Creating a Credential in F5 Distributed Cloud to use with AWS <https://community.f5.com/t5/technical-articles/creating-a-credential-in-f5-distributed-cloud-to-use-with-aws/ta-p/298111>`_ DevCentral article
+
+2. In 'Administration' service, go to 'Personal management' -> 'My Namespeaces' and create a new namespace.
+Note: For the K8s service to be discovered, the XC namespace name will need to be the same as the Managed K8s namespace where the LLM workload will be deployed. 
 
 2. In 'Distributed Apps' service, go to 'Manage' -> 'Manage K8s' and create a 'K8s Cluster Role':
 
@@ -48,6 +52,14 @@ Deployment Steps
 Note: 
       1. Add the 'Public SSH Key', step not shown here.
       2. For this example AWS instance type was set to t3.xlarge 
+
+7. In 'Multi-Cloud Network Connect' service, go to 'Manage' -> 'Site Management' and deploy the newly created 'AWS VPC Site'
+
+8. Wait until the 'AWS VPC Site' has been successfully deployed
+
+.. figure:: assets/aws_vpc_site_deployed.png
+
+
 
       i. From Azure console search for “Kubernetes services”
       ii. Click on Create button and select "Create Kubernetes cluster"
