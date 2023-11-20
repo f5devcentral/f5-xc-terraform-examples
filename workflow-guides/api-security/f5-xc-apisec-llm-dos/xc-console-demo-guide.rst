@@ -14,7 +14,7 @@ Deployment Steps
 
 2. In 'Distributed Apps' service, go to 'Manage' -> 'Manage K8s' and create a 'K8s Cluster Role':
 
-.. figure:: assets/cluster_role.png
+.. image:: assets/cluster_role.png
 
 3. In 'Distributed Apps' service, go to 'Manage' -> 'Manage K8s' and create a 'K8s Cluster Role Binding':
 
