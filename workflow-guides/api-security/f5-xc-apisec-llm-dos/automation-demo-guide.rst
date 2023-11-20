@@ -1,4 +1,4 @@
-Getting started with WAF on CE terraform automation
+Coming soon - Protect LLM applications against Model Denial of Service terraform automation
 ---------------
 
 Prerequisites
