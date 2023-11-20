@@ -15,10 +15,13 @@ Deployment Steps
 2. In 'Distributed Apps' service, go to 'Manage' -> 'Manage K8s':
       i. Create K8s Cluster Role
 .. figure:: assets/kubectl.JPG
+
       ii. Create K8s Cluster Roles Binding
 .. figure:: assets/kubectl.JPG
+
       iii. Create K8s Pod Security Policy
 .. figure:: assets/kubectl.JPG
+
       iv. Create K8s Cluster
 .. figure:: assets/kubectl.JPG
 
