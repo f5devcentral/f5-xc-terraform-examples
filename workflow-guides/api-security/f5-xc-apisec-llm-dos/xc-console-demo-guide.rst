@@ -88,7 +88,7 @@ Note: For the K8s service to be discovered, the K8s namespace where the LLM work
 
 .. figure:: assets/api_sec_4.png
 
-14. In the 'Common Security Controls', enable 'Rate Limiting' and configure a treshold of 4 requests for minute for API Endpoint 'v1/chat/completions'
+14. In the 'Common Security Controls', enable 'Rate Limiting' and configure a treshold of 4 requests per minute for API Endpoint 'v1/chat/completions'
 
 .. figure:: assets/rate_limit_1.png
 
@@ -107,7 +107,7 @@ Testing
 
 .. figure:: assets/postman_2.png
 
-You can see the 429 'Too many requests' response received from F5 Dsitributed Cloud, enforcing the rate limit configured for '/v1/char/completions' API endpoint.
+You can see the 429 'Too Many Requests' response received from F5 Dsitributed Cloud, enforcing the rate limit configured for '/v1/char/completions' API endpoint.
 
 
 
