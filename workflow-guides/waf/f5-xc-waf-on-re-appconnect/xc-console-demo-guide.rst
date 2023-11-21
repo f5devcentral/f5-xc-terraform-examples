@@ -65,13 +65,14 @@ Step 4: Deploy Azure Vnet site from F5XC console:
 
 * Login to F5XC Console and navigate to "Multi-Cloud Network Connect" from homepage.
 * Select "Manage > Site Management > Azure VNET Sites" and click on "Add Azure VNET Site".
+* Select the Azure cloud credentials from the dropdown menu which was configured in Step 1. 
 * Give a Vnet site name in “Name” field, resource group name in the “Resource Group” field. Do not provide an already existing resource group name.
 * Choose appropriate Azure region from the common value recommendations.
 * Select Existing Vnet Parameters and provide existing Vnet details like resourge group and Vnet name which was created in step 2. 
 * Choose Ingress Gateway (One Interface), click on Configure then click Add Item in Ingress Gateway (One Interface) Nodes in AZ. 
-* Select the Azure cloud credentials from the dropdown menu which was configured in Step 1. 
+* Select Azure AZ name, Existing Subnet and provide subnet name which was created in step 2. Click Apply and Save the config.
 * Add a public SSH key to access the site. (If you don’t have public SSH key, you can generate one using “ssh-keygen” command and then display it with the command “cat ~/.ssh/id_rsa.pub”). 
-* In Advanced Configuration, select Show Advanced Fields then choose Allow access to DNS, SSH services on Site from the dropdown. 
+* In Advanced Configuration, select Show Advanced Fields then choose "Allow access to DNS, SSH services on Site" from the dropdown. 
 * Click Save and Exit. 
 * Click on Apply in Actions column. 
 * Wait for the apply process to complete and the status to change to Applied. 
