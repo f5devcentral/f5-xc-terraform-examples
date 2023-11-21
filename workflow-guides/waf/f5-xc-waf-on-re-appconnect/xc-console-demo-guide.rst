@@ -15,8 +15,8 @@ To deploy an Azure Vnet site from F5XC, first we have to configure cloud credent
 Step 2: Create Resource group, Vnet and Subnet in Azure 
 ########################################################
 
-* **Create Resource group:**   Login to Azure console > search for 'Resource groups' > click 'Create' button then select your subscription, add the resource group name and region > click 'Review + create' and 'Create'
-* **Create Virtual Network:** Search for "Virtual networks" and click 'Create' button then select your subscription, set the above created resource group name, new virtual network name and region > Navigate to 'IP addresses' tab on top > Configure your virtual network address space and subnet > Click “Review + create” and "Create"
+* **Create Resource group:**   Login to Azure console > search for "Resource groups" > click "Create" button then select your subscription, provide resource group name and region > click "Review + create" and "Create"
+* **Create Virtual Network:** Search for "Virtual networks" and click "Create" button then select your subscription, set the above created resource group name, new virtual network name and region > Navigate to "IP addresses" tab on top > Configure your virtual network address space and subnet > Click "Review + create” and "Create"
 
 Step 3: Create resource and deploy an application 
 ##################################################
@@ -39,9 +39,10 @@ Note: Main requirement for this use case is to have an application which is not 
 * Click on “Review and Create”, Review all the necessary parameters and deploy a Virtual Machine.
 * Login to created Virtual Machine using Public IP and install docker in it.
 * Choose the application you want to use and deploy the application within Virtual Machine. In this scenario, we have deployed DVWA application for testing purpose using below docker command.
-"docker run -d -p 80:80 vulnerables/web-dvwa"
+  
+  "docker run -d -p 80:80 vulnerables/web-dvwa"
 
-* We should not have a Public IP address for the VM so disassociate the existing public IP address from the VM and delete it.
+* We should not have Public IP address/FQDN for the VM so disassociate the existing public IP address from the VM and delete it.
 * Make a note of the private IP of the virtual machine.
 
 **Create Kubernetes Cluster and deploy application in it.**
@@ -118,6 +119,11 @@ If you have created Kubernetes Cluster in Step 3, let us create service discover
 .. figure:: assets/op_port.JPG
 
 * If application is deployed in Virtual Machine, Select “IP address of Origin Server on given Sites” > Provide private IP of the virtual machine > Choose Azure Vnet Site in Site dropdown same as your Vnet site > Choose Outside Network under Select Network from the Site > Click on Apply > In Origin server port, provide the port of the deployed application.
+
+.. figure:: assets/vm-op.JPG
+
+.. figure:: assets/vm_port.JPG
+
 * Click Continue and then Apply. 
 * Enable WAF, create and attach a WAF policy in Blocking mode.
 * Move to VIP Advertisement field and choose Internet. 
@@ -142,3 +148,12 @@ Conclusion
 ***********
 By following the above provided steps, one can easily configure WAF(on RE)+Appconnect usecase where CE sites are configured and connected to the closest two REs through IPSEC tunnels. When end user is trying to access the backend private application, they will connect to their closest RE and the request will be inspected by the WAAP security policy. From there, the request will be traversed over XC Global Network and reach the respective CE site through IPSEC tunnel which in turn communicates with the backend application and provides the necessary data.
 
+Step by step process using automation scripts
+**********************************************
+
+Please refer `automation-demo-guide.rst <./automation-demo-guide.rst>`__ for more details.
+
+**Support**
+************
+
+For support, please open a GitHub issue. Note, the code in this repository is community supported and is not supported by F5 Networks. 
