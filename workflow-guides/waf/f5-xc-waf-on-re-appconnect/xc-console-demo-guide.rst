@@ -58,7 +58,7 @@ Note: Main requirement for this use case is to have an application which is not 
 * Execute “kubectl apply -f <your_manifest.yaml>”
 * Execute “kubectl get pods” command to check the deployment status of the pods.
 
-.. figure:: assets/pods_latest
+.. figure:: assets/pods_latest.JPG
 
 Step 4: Deploy Azure Vnet site from F5XC console:
 ##################################################
@@ -111,9 +111,14 @@ Step 6: Access the deployed application
 * Open a browser. 
 * Access the application using the domain name configured in HTTP load balancer. 
 * Make sure that the application is accessible.
+
+.. figure:: assets/botique.JPG
+
 * Now let us verify applied WAF policy.
 * Generate a XSS attack by adding ?a=<script> tag in the URL along with the domain name and observe that WAF policy blocks the access.
 * Application should not be accessible.
+
+.. figure:: assets/waf_block.JPG
 
 Conclusion
 ***********
