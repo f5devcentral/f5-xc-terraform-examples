@@ -69,8 +69,14 @@ Step 4: Deploy Azure Vnet site from F5XC console:
 * Give a Vnet site name in “Name” field, resource group name in the “Resource Group” field. Do not provide an already existing resource group name.
 * Choose appropriate Azure region from the common value recommendations.
 * Select Existing Vnet Parameters and provide existing Vnet details like resourge group and Vnet name which was created in step 2. 
+
+.. figure:: assets/vnet.JPG
+
 * Choose Ingress Gateway (One Interface), click on Configure then click Add Item in Ingress Gateway (One Interface) Nodes in AZ. 
 * Select Azure AZ name, Existing Subnet and provide subnet name which was created in step 2. Click Apply and Save the config.
+
+.. figure:: assets/subnet.JPG
+
 * Add a public SSH key to access the site. (If you don’t have public SSH key, you can generate one using “ssh-keygen” command and then display it with the command “cat ~/.ssh/id_rsa.pub”). 
 * In Advanced Configuration, select Show Advanced Fields then choose "Allow access to DNS, SSH services on Site" from the dropdown. 
 * Click Save and Exit. 
@@ -87,8 +93,14 @@ If you have created Kubernetes Cluster in Step 3, let us create service discover
 * Navigate to "Multi-Cloud App Connect" from homepage.
 * Select "Manage > Service Discoveries" and Click on "Add Discovery"
 * Provide a name, select vnet site created in step 4 and select network type as "Site Local Network"
+
+.. figure:: assets/service_discovery.JPG
+
 * Select Discovery Method as "K8S Discovery Configuration"
 * Select Kubernetes Credentials as Kubeconfig, and add the Kubeconfig file of AKS Cluster created in Step 3, Apply the changes.
+* Services will be discovered by F5XC.
+
+.. figure:: assets/discovered_services.JPG
 
 **Configure HTTP Load Balancer and Origin Pool**
 
@@ -100,6 +112,11 @@ If you have created Kubernetes Cluster in Step 3, let us create service discover
 * In the origin pool field dropdown, click Add Item
 * Enter name, in origin server section click Add Item
 * If application is deployed in Kubernetes Cluster, Select “K8s Service Name of Origin Server on given Sites” > Add the service name of frontend microservice as "frontend.default" > Select the Azure Vnet site created in Step 6 > Select Network on the site as "Outside Network" > In Origin server port add port number "80" of the discovered frontend service , Click continue and then Apply.
+
+.. figure:: assets/k8_op.JPG
+
+.. figure:: assets/op_port.JPG
+
 * If application is deployed in Virtual Machine, Select “IP address of Origin Server on given Sites” > Provide private IP of the virtual machine > Choose Azure Vnet Site in Site dropdown same as your Vnet site > Choose Outside Network under Select Network from the Site > Click on Apply > In Origin server port, provide the port of the deployed application.
 * Click Continue and then Apply. 
 * Enable WAF, create and attach a WAF policy in Blocking mode.
