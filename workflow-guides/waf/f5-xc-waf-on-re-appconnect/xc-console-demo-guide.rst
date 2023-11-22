@@ -144,16 +144,16 @@ Step 6: Access the deployed application
 
 .. figure:: assets/waf_block.JPG
 
+* Observe security event log for more details.
+
+.. figure:: assets/waf_event.JPG
+
+.. figure:: assets/waf_event2.JPG
+
 Conclusion
 ***********
 By following the above provided steps, one can easily configure WAF(on RE)+Appconnect usecase where CE sites are configured and connected to the closest two REs through IPSEC tunnels. When end user is trying to access the backend private application, they will connect to their closest RE and the request will be inspected by the WAAP security policy. From there, the request will be traversed over XC Global Network and reach the respective CE site through IPSEC tunnel which in turn communicates with the backend application and provides the necessary data.
 
-Step by step process using automation scripts
-**********************************************
-
-Please refer `automation-demo-guide.rst <./automation-demo-guide.rst>`__ for more details.
-
 **Support**
 ************
-
 For support, please open a GitHub issue. Note, the code in this repository is community supported and is not supported by F5 Networks. 
