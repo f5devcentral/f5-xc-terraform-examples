@@ -7,8 +7,10 @@ Objective :
 Use this repo and work-flow guide for deploying XC Bot Defense via our WAAP Connector
 on Kubernetes. This guide will outline the steps for implementing this infrastructure via Console Steps as well as Automated method using Terraform
 
-Architectural diagram :
+Bot Defense on RE Architectural Diagram :
 -----------------------
+.. image:: assets/diagramRE.png
+   :width: 100%
 
 Manual step by step process for deployment:
 -------------------------------------------
@@ -31,6 +33,11 @@ Creating your Namespace:
 1. Logging into your tenant via https://console.ves.volterra.io ensure you have a unique namespace configured. If not, navigate to Administration --> My Namespaces --> Add New
 2. Switch into your newly created namespace
 
+
+.. image:: assets/addnamespace.png
+   :width: 50%
+
+
 Setting up VK8's
 ================
 
@@ -45,6 +52,11 @@ After the site is created:
 3. Move the downloaded file into `~/.kube/config`.
 4. Validate your ability to communicate with vk8s using the command "kubectl get pods". This should show no pods but should not produce an error.
 
+
+.. image:: assets/downloadkubeconfig.png
+   :width: 100%
+
+
 Setting up the Airline app in vk8s:
 ====================================
 
@@ -58,15 +70,20 @@ Setting up the Airline app in vk8s:
 Setting up an HTTP load balancer to front-end the airline app:
 ------------------------------------------------------
 
-1. Navigate to *App > Manage > LoadBalancers > Origin Pool*.
-2. Click on *Add Origin Pool*.
-3. Name it "airline-origin."
-4. Under *Origin Servers*, click on *Add*.
-5. In the dropdown menu labeled "type of origin server," select the Kubernetes service name of the origin server on the specified sites.
-6. Set the service name to "airline-flask.your-namespacename" (e.g., for my namespace "k-rob," it would be "airline-flask.k-rob"). You can find your namespace name in the top right of the XC GUI.
-7. Select "Site" under "Site or Virtual Site."
-8. Choose "sj10-sjc" as the site (limiting the pod to run only on the SJC edge).
-9. Select "vk8s networks on site" as the site network.
+1. Navigate to *Web App & API Protection > Manage > Load Balancers
+2. Click on Manage Load Balancers and select Origin Pool*.
+3. Click on *Add Origin Pool*.
+4. Name it "airline-origin."
+5. Under *Origin Servers*, click on *Add*.
+6. In the dropdown menu labeled "type of origin server," select the Kubernetes service name of the origin server on the specified sites.
+7. Set the service name to "airline-flask.your-namespacename" (e.g., for my namespace "k-rob," it would be "airline-flask.k-rob"). You can find your namespace name in the top right of the XC GUI.
+8. Select "Site" under "Site or Virtual Site."
+9. Choose "sj10-sjc" as the site (limiting the pod to run only on the SJC edge).
+10. Select "vk8s networks on site" as the site network.
+
+
+.. image:: assets/addoriginpool2.png
+   :width: 100%
 
 
 Verifying Application Availability via DNS:
@@ -75,7 +92,13 @@ Verifying Application Availability via DNS:
 2. Copy the CNAME with the "ves-" prefix and paste it into your web browser to verify the airline application loads appropriately. 
 
 
-Setting up an HTTP load balancer to configure XC Bot Defense:
+
+.. image:: assets/airlineapp2.png
+   :width: 100%
+
+
+
+Setting up an HTTP load balancer to enable XC Bot Defense:
 -------------------------------------------------------------
 
 1. Navigate to Web App & API Protection > Manage > Load Balancers > HTTP Load Balancers
@@ -84,25 +107,39 @@ Setting up an HTTP load balancer to configure XC Bot Defense:
 4. In the left nagivation go to "Bot Protection"
 5. Enable the Bot Defense Configuration under the drop down menu. (By default, the service is disabled)
 6. Set the Bot Defense Region to "US"
-7. Under Bot Defense Policy select "Edit Configuration" 
-8. Under Protected App Endpoints select "Configure" and then select "add item"
-9. Give your policy a name of "protect-signin"
-10. Define a description as "credential stuffing protection on login"
-11. Under HTTP Methods add "Put" and "Post"
-12. Under Endpoint Label select "Specify Endpoint Label Category" and set the flow label category to "Authentication" and set the flow label to "login"
-13. Make sure that the Protocol is set to "BOTH" for both HTTP and HTTPS
-14. In the Domain Matcher field select "Any Domain".
-15. Under Path we'll set the Path Match to "Prefix" and in the Prefix field we'll enter "/user/signin" without quotes
-16. In the Traffic Channel section we'll set this to "Web Traffic" since there is no mobile application for this use case
-17. Under Bot Traffic Mitigation Action we'll set this to "Flag" for now to provide insights in the dashboard. Also ensure the Include Mitigation headers is set to "No Headers"
-18. Under Good Bot Detection settings set this to "Allow All Good Bots to Continue to Origin"
-19. Click Apply, and Apply again to bring you back to the Javascript insertion section. Leave the Javascript download path as /common.js
-20. Set the Web Client Javascript Mode to "Async JS with no-Caching"
-21. Set the Javascript Insertion to "Insert Javascript in All Pages"
-22. Set the Javascript location to "After <head> tag"
-23. Leave the Mobile SDK section at default of "Disable Mobile SDK"
-24. Click Apply and then Save and Exit
 
+.. image:: assets/bdenable.png
+   :width: 100%
+
+Setting up an HTTP load balancer to configure the XC Bot Defense endpoint policy:
+-------------------------------------------------------------
+1. Under Bot Defense Policy select "Edit Configuration" 
+2. Under Protected App Endpoints select "Configure" and then select "add item"
+3. Give your policy a name of "protect-signin"
+4. Define a description as "credential stuffing protection on signin"
+5. Under HTTP Methods add "Put" and "Post"
+6. Under Endpoint Label select "Specify Endpoint Label Category" and set the flow label category to "Authentication" and set the flow label to "login"
+7. Make sure that the Protocol is set to "BOTH" for both HTTP and HTTPS
+8. In the Domain Matcher field select "Any Domain".
+9. Under Path we'll set the Path Match to "Prefix" and in the Prefix field we'll enter "/user/signin" without quotes
+10. In the Traffic Channel section we'll set this to "Web Traffic" since there is no mobile application for this use case
+11. Under Bot Traffic Mitigation Action we'll set this to "Flag" for now to provide insights in the dashboard. Also ensure the Include Mitigation headers is set to "No Headers"
+12. Under Good Bot Detection settings set this to "Allow All Good Bots to Continue to Origin"
+13. Click Apply, and Apply again to bring you back to the Javascript insertion section. Leave the Javascript download path as /common.js
+
+.. image:: assets/bdpolicy2.png
+   :width: 100%
+
+Setting up an HTTP load balancer to configure the XC Bot Defense Javascript Insertion:
+-------------------------------------------------------------
+1. Set the Web Client Javascript Mode to "Async JS with no-Caching"
+2. Set the Javascript Insertion to "Insert Javascript in All Pages"
+3. Set the Javascript location to "After <head> tag"
+4. Leave the Mobile SDK section at default of "Disable Mobile SDK"
+5. Click Apply and then Save and Exit
+
+.. image:: assets/bdjsinsertion.png
+   :width: 100%
 
 Simulating Bot Traffic with CURL:
 ---------------------------------------
@@ -111,6 +148,8 @@ Simulating Bot Traffic with CURL:
 
 3. Run the CURL script using "sh curl-stuff.sh" once or twice to generate bot traffic
 
+.. image:: assets/bdcurl2.png
+   :width: 100%
 
 Viewing the Results in the Overview Security Dashboard:
 -------------------------------------------------------
@@ -119,16 +158,16 @@ Viewing the Results in the Overview Security Dashboard:
 3. If you look at the Top Attack Paths you can see the /user/signin Path and the Domain of your Application behind the load balancer as well as some other information
 4. Let's dive in deeper by drilling down into your specific load balancer that we've deployed by scrolling to the bottom of this page and selecting the load balancers. This will take you into the WAAP Dashboard for that particular load balancer. 
 
+.. image:: assets/overviewdashboard.png
+   :width: 100%
 
 Viewing the Results in your Load Balancer Security Dashboard:
 -------------------------------------------------------
 1. From here you will see many of the same statistics related to Security Events. We can drill down further by selecting the Bot Defense Tab on the top right 
 2. In this Bot Defense view you will see a breakdown of the different traffic types from Good Bots, to Malicious Bots, Human Traffic etc...
-3. To see even more Bot Defense information you can click on the "View in Bot Defense" Button in the top right corner with lots of great information there. 
 
-
-
-
+.. image:: assets/lbbddashboard.png
+   :width: 100%
 
 
 Step by step process using automation scripts:
