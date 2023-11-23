@@ -1,2 +1,3 @@
-Getting started with WAF on CE terraform automation
----------------
+WAF(on RE)+ AppConnect terraform automation
+--------------------------------------------
+Detailed steps and scripts to deploy WAF (on RE) + AppConnect usecase will be provided soon.
