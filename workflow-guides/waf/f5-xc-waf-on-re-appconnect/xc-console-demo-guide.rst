@@ -152,7 +152,7 @@ Step 6: Access the deployed application
 
 Conclusion
 ***********
-By following the above provided steps, one can easily configure WAF(on RE)+Appconnect usecase where CE sites are configured and connected to the closest two REs through IPSEC tunnels. When end user is trying to access the backend private application, they will connect to their closest RE and the request will be inspected by the WAAP security policy. From there, the request will be traversed over XC Global Network and reach the respective CE site through IPSEC tunnel which in turn communicates with the backend application and provides the necessary data.
+By following the above provided steps, one can easily configure WAF(on RE)+Appconnect usecase. When end user is trying to access the backend private application, user will connect to the closest RE and the request will be inspected by the WAF security policy. From there, the request will be traversed over XC Global Network and reach the respective CE site through IPSEC tunnel which in turn communicates with the backend application and provides the necessary data.
 
 **Support**
 ************
