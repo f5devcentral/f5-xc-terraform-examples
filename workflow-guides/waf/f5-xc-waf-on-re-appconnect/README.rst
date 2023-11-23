@@ -5,7 +5,7 @@ Deploying F5 XC WAF on RE + AppConnect
 
 Overview
 #########
-This guide provides detailed manual configuration steps for WAF (on RE )+ App Connect scenarios along with the terraform scripts to automate the deployment which helps users in configuring CE (Customer Edge) sites, connect the application which is not accessible from the internet and access it securely using F5 Distributed Cloud. For more details on WAF series, please refer to  `Deploy WAF Anywhere Overview Article <https://community.f5.com/t5/technical-articles/deploy-waap-anywhere-with-f5-distributed-cloud/ta-p/313079>`_
+This guide provides detailed manual configuration steps for WAF (on RE )+ AppConnect scenarios along with the terraform scripts to automate the deployment. This helps users in configuring CE (Customer Edge) sites, connect the application which is not accessible from the internet and access it securely using F5 Distributed Cloud. For more details on WAF series, please refer to  `Deploy WAF Anywhere Overview Article <https://community.f5.com/t5/technical-articles/deploy-waap-anywhere-with-f5-distributed-cloud/ta-p/313079>`_
 
 Below two scenarios of deploying application in different resources are covered in thie guide.
 
