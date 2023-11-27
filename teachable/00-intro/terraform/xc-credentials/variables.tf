@@ -7,5 +7,5 @@ variable "xc_api_url" {
 variable "xc_api_p12_file" {
   description = "Path to F5 XC Cloud API certificate"
   type        = string
-  default     = "./api.p12"
+  default     = null
 }

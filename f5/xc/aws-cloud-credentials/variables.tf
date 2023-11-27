@@ -1,13 +1,13 @@
 variable "name" {
   type        = string
   description = "Deployment name"
-  default     = "teachable"
+  default     = ""
 }
 
 variable "prefix" {
   type        = string
   description = "Prefix for resource names"
-  default     = null
+  default     = ""
 }
 
 #------------------------------------------------
@@ -17,13 +17,14 @@ variable "prefix" {
 variable "xc_api_url" {
   description = "F5 XC Cloud API URL"
   type        = string
-  default     = "https://your_xc-cloud_api_url.console.ves.volterra.io/api"
+  sensitive   = true
+  default     = null
 }
 
 variable "xc_api_p12_file" {
   description = "Path to F5 XC Cloud API certificate"
   type        = string
-  default     = "./api.p12"
+  default     = null
 }
 
 #------------------------------------------------
