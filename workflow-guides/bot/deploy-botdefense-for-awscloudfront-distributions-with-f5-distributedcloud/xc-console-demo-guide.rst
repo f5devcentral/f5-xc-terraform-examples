@@ -5,8 +5,9 @@ Deploy Bot Defense against for AWS Cloudfront Distributions with F5 XC
 Objective :
 -----------
 
-Use this repo and work-flow guide for deploying XC Bot Defense via our WAAP Connector
-on Kubernetes. This guide will outline the steps for implementing this infrastructure via Console Steps as well as Automated method using Terraform
+This guide will outline the steps for implementing F5 XC Bot Defense to protect your AWS CloudFront distributions. We will take advantage of AWS Lambda@Edge and the AWS Serverless Application Repository (SAR). This guide will outline the steps for implementing this infrastructure via Console Steps as well as Automated method using Terraform.
+
+
 
 Bot Defense on RE Architectural Diagram :
 -----------------------
@@ -29,7 +30,7 @@ Steps:
 ^^^^^^
  
 Creating your Namespace:
-================
+=======================
 
 1. Logging into your tenant via https://console.ves.volterra.io ensure you have a unique namespace configured. If not, navigate to Administration --> My Namespaces --> Add New
 2. Switch into your newly created namespace
@@ -39,11 +40,17 @@ Creating your Namespace:
    :width: 50%
 
 
-Setting up VK8's
-================
+Create a new Bot Defense application for AWS CloudFront
+=======================================================
 
-1. Navigate to *Distributed Apps > Applications > Virtual K8s*.
-2. Create a site.
+1. Log in to your F5 Distributed Cloud Console
+2. Go to the Dashboard page of XC console and click Bot Defense
+
+
+
+
+2  Verify you are in the correct Namespace. Click Add Application at the top-left of the page.
+2. Add a Name for the Application, and a Description.
 
 After the site is created:
 ---------------------------
