@@ -64,7 +64,7 @@ resource "volterra_http_loadbalancer" "lb_https" {
   advertise_on_public_default_vip = true
 
   dynamic "advertise_custom" {
-    for_each = var.advertise_sites ? [1] : [0]
+    for_each = var.advertise_sites ? [1] : []
     content {
       advertise_where {
         site {
@@ -87,14 +87,14 @@ resource "volterra_http_loadbalancer" "lb_https" {
   }
 
   dynamic "http" {
-    for_each = var.http_only ? [1] : [0]
+    for_each = var.http_only ? [1] : []
     content  {
         port = "80"
       }
   }
 
   dynamic "https_auto_cert" {
-    for_each = var.http_only ? [0] : [1]
+    for_each = var.http_only ? [] : [1]
     content {
       add_hsts              = false
       http_redirect         = true
