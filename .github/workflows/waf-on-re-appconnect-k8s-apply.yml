@@ -2,8 +2,6 @@ name: "F5XC WAF on CE Deploy"
 
 on:
   push:
-    branches:
-      - deploy-waf-on-re-ac
   pull_request:
 
 jobs:
