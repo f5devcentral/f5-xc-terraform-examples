@@ -165,6 +165,7 @@ resource "volterra_http_loadbalancer" "lb_https" {
     for_each = var.xc_bot_def ? [1] : []
     content {
       policy {
+        javascript_mode = "Async JS with no Caching"
         disable_js_insert = false
         js_insert_all_pages {
           javascript_location = "AFTER_HEAD"
