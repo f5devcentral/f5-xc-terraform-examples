@@ -125,86 +125,99 @@ Define Web Client JavaScript Insertion Settings:
 
 Download Config File and AWS Installer Tool:
 ====================================
-1. Verify access to your newly deployed container application by navigating to Web App & API Protection > your-namespace > Manage > Load Balancers and click on Virtual Host Ready under DNS Info Column
-2. Copy the CNAME with the "ves-" prefix and paste it into your web browser to verify the airline application loads appropriately. 
+1. In the Actions column of the table, click the 3 ellipses (…) on your application. Download both the Config File and the AWS Installer.
 
 
+.. image:: assets/awscfg.jpeg
+   :width: 100%
 
-.. image:: assets/airlineapp2.png
+Log in to your AWS Console:
+===========================
+
+1. Login to AWS Console home page.​
+2. Select your preffered AWS Region. In this example we use Northern Virginia (US-EAST-1).
+
+.. image:: assets/aws-login.png
+   :width: 100%
+
+3. Use the search to find Serverless Application Repository and click it
+4. Click Available Applications and search with "F5"
+
+.. image:: assets/f5search.png
+   :width: 100%
+
+5. Click the F5BotDefense tile. This will take you to the Lambda page. Here you will be creating and deploying a Lambda Function
+6. Click Deploy to install the F5 Connector for CloudFront
+7. Deploying the F5 Connector creates a new Lambda Application in your AWS Account.​ AWS sets the name of the new Lambda Application to start with "serverlessrepo-" It is complete when you see the serverlessrepo-F5BotDefense-* of type Lambda Function.​
+
+.. image:: assets/available-lambdas.jpeg
+   :width: 100%
+
+8. You can click on the name to review contents of the installed Lambda Function.​
+
+.. image:: assets/lambda-details.jpeg
    :width: 100%
 
 
+Switch to AWS Cloudshell:
+=========================
 
-Setting up an HTTP load balancer to enable XC Bot Defense:
--------------------------------------------------------------
+1. Configuration of the F5 Connector in AWS is best done via the F5 CLI tool. It is recommended to use the AWS CloudShell in your specified region to avoid any issues.
+2. After starting AWS CloudShell, click Actions and Upload file.
 
-1. Navigate to Web App & API Protection > Manage > Load Balancers > HTTP Load Balancers
-2. Next to your newly created HTTP Load Balancer click on the elipses under "actions" and select "manage configuration"
-3. In the upper right corner of the window click on "edit configuration"
-4. In the left nagivation go to "Bot Protection"
-5. Enable the Bot Defense Configuration under the drop down menu. (By default, the service is disabled)
-6. Set the Bot Defense Region to "US"
-
-.. image:: assets/bdenable.png
+.. image:: assets/awsshell.png
    :width: 100%
 
-Setting up an HTTP load balancer to configure the XC Bot Defense endpoint policy:
--------------------------------------------------------------
-1. Under Bot Defense Policy select "Edit Configuration" 
-2. Under Protected App Endpoints select "Configure" and then select "add item"
-3. Give your policy a name of "protect-signin"
-4. Define a description as "credential stuffing protection on signin"
-5. Under HTTP Methods add "Put" and "Post"
-6. Under Endpoint Label select "Specify Endpoint Label Category" and set the flow label category to "Authentication" and set the flow label to "login"
-7. Make sure that the Protocol is set to "BOTH" for both HTTP and HTTPS
-8. In the Domain Matcher field select "Any Domain".
-9. Under Path we'll set the Path Match to "Prefix" and in the Prefix field we'll enter "/user/signin" without quotes
-10. In the Traffic Channel section we'll set this to "Web Traffic" since there is no mobile application for this use case
-11. Under Bot Traffic Mitigation Action we'll set this to "Flag" for now to provide insights in the dashboard. Also ensure the Include Mitigation headers is set to "No Headers"
-12. Under Good Bot Detection settings set this to "Allow All Good Bots to Continue to Origin"
-13. Click Apply, and Apply again to bring you back to the Javascript insertion section. Leave the Javascript download path as /common.js
+3. Upload the files you downloaded from the F5 XC Console, config.json and f5tool. (Only one file at a time can be uploaded)
 
-.. image:: assets/bdpolicy2.png
-   :width: 100%
+.. image:: assets/upload.png
+   :width: 50%
 
-Setting up an HTTP load balancer to configure the XC Bot Defense Javascript Insertion:
--------------------------------------------------------------
-1. Set the Web Client Javascript Mode to "Async JS with no-Caching"
-2. Set the Javascript Insertion to "Insert Javascript in All Pages"
-3. Set the Javascript location to "After <head> tag"
-4. Leave the Mobile SDK section at default of "Disable Mobile SDK"
-5. Click Apply and then Save and Exit
+4. Run bash f5tool --install <config.json>. Installation can take up to 5 minutes. Note: Copy pasting the command may not work and so type it manually.
 
-.. image:: assets/bdjsinsertion.png
-   :width: 100%
+.. image:: assets/f5tool.png
+   :width: 50%
 
-Simulating Bot Traffic with CURL:
----------------------------------------
-1. Within this repo you can download the `curl-stuff.sh <https://github.com/f5-xc-waap-terraform-examples/tree/main/workflow-guides/bot/deploy-botdefense-against-automated-threats-on-regional-edges-with-f5xc/bot/deploy-botdefense-against-automated-threats-on-regional-edges-with-f5xc/validation-tools/curl-stuff%20copy.sh>`__ Bash script in the validation-tools directory to run it against your web application to generate some generic Bot Traffic
-2. After you've downloaded the curl-stuff.sh script you can edit the file using a text editor and replace the domain name on line 3 with the DNS name of your application. For example, curl -s ves-io-your-domain.ac.vh.ves.io/user/signin -i -X POST -d "username=1&password=1" you would replace the "ves-io-your-domain.ac.vh.ves.io" hostname with the DNS name for your newly deployed application. Note** Make sure to keep the /user/signin path of the URI as this is the protected endpoint we configured in the Bot Defense Policy.
+5. The installation tool saves the previous configuration of each CloudFront Distribution in a file. You can use the F5 tool to restore a saved Distribution config (thus removing F5 Bot Defense).​
 
-3. Run the CURL script using "sh curl-stuff.sh" once or twice to generate bot traffic
+Note**
+Your F5 XC Bot Defense configuration, such as protected endpoints, is sensitive security info and is stored in AWS Secrets Manager. You should delete config.json after CLI installation
 
-.. image:: assets/bdcurl2.png
-   :width: 100%
+Validate CloudFront Distribution Functions:
+===========================================
+1. Navigate to CloudFront > Distributions and select the distribution you are protecting
+2. Go to Behaviors
 
-Viewing the Results in the Overview Security Dashboard:
--------------------------------------------------------
-1. Navigate to Overview > Dashboards > Security Dashboard. This dashboard provides and consolidated view of all of your load balancers and their security events. If you refresh the page you will see the bot traffic detection results.
-2. If you scroll down you can see the Top Attack Sources which will contain the source IP Address of your host running the CURL Script
-3. If you look at the Top Attack Paths you can see the /user/signin Path and the Domain of your Application behind the load balancer as well as some other information
-4. Let's dive in deeper by drilling down into your specific load balancer that we've deployed by scrolling to the bottom of this page and selecting the load balancers. This will take you into the WAAP Dashboard for that particular load balancer. 
+.. image:: assets/awsbehaviors.png
+   :width: 50%
 
-.. image:: assets/overviewdashboard.png
-   :width: 100%
+3. Here under Behaviors is where you specify which request/response is forwarded to the Lambda@Edge Function to process with F5 XC Bot Defense.
 
-Viewing the Results in your Load Balancer Security Dashboard:
--------------------------------------------------------
-1. From here you will see many of the same statistics related to Security Events. We can drill down further by selecting the Bot Defense Tab on the top right 
-2. In this Bot Defense view you will see a breakdown of the different traffic types from Good Bots, to Malicious Bots, Human Traffic etc...
+Note** 
+F5 XC Bot Defense requires us to leverage Viewer Request and Origin Request events. These events need to be available for user to use (IE they have not assigned other Functions)
+The AWS Installer tool that we downloaded from Distributed Cloud Console and ran in the AWS CloudShell configured this for us.
 
-.. image:: assets/lbbddashboard.png
-   :width: 100%
+AWS CloudWatch:
+===============
+
+1. AWS CloudWatch contains logs for Lambda function deployed by F5BotDefense serverless application.​
+2. ​The Log group name starts with /aws/lambda/us-east-1.serverlessrepo-F5BotDefense-F5BotDefense-*.​
+3. The logs of lambda function can be found in the region closest to the location where the function executed
+For troubleshooting, look for error messages contained in the links under Log steams.
+
+View Bot Traffic​:
+=================
+
+1. Now let’s return to F5 XC Console and show the monitoring page
+2. Log in to your F5 Distributed Cloud Console
+3. Go to the Dashboard page of XC console and click Bot Defense.
+4. Make sure you are in the correct Namespace
+5. Under Overview click Monitor
+
+.. image:: assets/bd-monitor.png
+   :width: 50%
+
+6. Here you can monitor and respond to events that are identified as Bot traffic
 
 
 Step by step process using automation scripts:
