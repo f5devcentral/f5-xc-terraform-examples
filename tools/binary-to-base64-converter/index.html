@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Binary to Base64 Converter</title>
+<style>
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  flex: 1;
+}
+
+body, input, button, textarea {
+  font-family: 'Roboto', sans-serif;
+}
+
+.container {
+  width: 800px;
+  margin: 0 auto;
+  flex-grow: 1;
+}
+
+#dropArea {
+  border: 2px dashed #ccc;
+  border-radius: 5px;
+  height: 180px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Roboto', sans-serif;
+  background-color: #FAFCFE;
+  color: #ADBCCE;
+}
+#dropArea.highlight {
+  border-color: #0161D5;
+}
+
+#copyButton {
+  color: #FFFFFF;
+  background-color: #0161D5;
+  padding: 6px 16px 6px 16px;
+  width: 200px;
+  height: 36px;
+  border-radius: 4px;
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.12), 0px 2px 2px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  border-width: 0px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+#copyButton:hover {
+  background-color: #3a84df;
+  cursor: pointer;
+}
+
+#copyButton:active {
+  background-color: #0141a2;
+}
+
+#copyButton, #message {
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: 24px;
+}
+
+#message {
+  color: green;
+  margin-left: 10px; 
+}
+
+#base64Output {
+  margin-top: 24px;
+  width: 100%;
+  border-color: #0161D5;
+  outline-color: #0161D5;
+  border-radius: 4px;
+  padding: 12px;
+}
+
+.icon {
+  height: 59; 
+  margin-bottom: 12px;
+}
+
+footer {
+  font-size: 0.8em;
+  margin-top: 20px;
+  margin-left: 24px;
+  margin-right: 24px;
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Binary to Base64 Converter</h1>
+
+  <div id="dropArea">
+    <svg class="icon" width="59" height="58" viewBox="0 0 59 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M52.5605 30.9738L52.56 30.9773L49.129 51.6005C49.129 51.6007 49.1289 51.601 49.1289 51.6012C49.074 51.9227 48.9072 52.2143 48.6579 52.4246C48.4084 52.635 48.0925 52.7503 47.7661 52.75H47.7657H6.26416C5.9297 52.7476 5.60721 52.6252 5.3554 52.405C5.10366 52.1849 4.93933 51.8818 4.89228 51.5507C4.8922 51.5502 4.89212 51.5496 4.89204 51.549L1.39567 25.3027L1.39566 25.3027C1.36981 25.1088 1.38585 24.9117 1.44269 24.7246C1.49928 24.5384 1.59499 24.3664 1.72341 24.2201C1.79881 24.1366 1.88314 24.0617 1.9749 23.9967C2.20452 23.837 2.47733 23.7509 2.75706 23.75H20.6994C20.9885 23.7508 21.2702 23.8422 21.5047 24.0114C21.7393 24.1805 21.9149 24.4188 22.0071 24.6928C22.0071 24.693 22.0072 24.6933 22.0073 24.6935L23.4506 29.0328L23.5644 29.375H23.925L51.2056 29.375C51.2058 29.375 51.2059 29.375 51.206 29.375C51.4973 29.3755 51.7809 29.4692 52.0151 29.6426L52.0188 29.6452C52.1076 29.7097 52.189 29.7839 52.2614 29.8665C52.3886 30.0176 52.4813 30.1946 52.5331 30.3852C52.5852 30.577 52.5946 30.7779 52.5605 30.9738Z" fill="white" stroke="#0161D5"/>
+      <path d="M24.287 23.9267L24.2868 23.9262L20.7 21.8438V21.3438H20.6995H5.9375V7.31329C5.93875 6.9488 6.08409 6.59959 6.34184 6.34184C6.59959 6.08409 6.9488 5.93875 7.31329 5.9375H46.6867C47.0512 5.93875 47.4004 6.08409 47.6582 6.34184C47.9158 6.59948 48.0611 6.94851 48.0625 7.31283C48.0625 7.31321 48.0625 7.31359 48.0625 7.31397L48.0625 26.9688H25.2982L24.287 23.9267Z" fill="#E5EFFA" stroke="#0161D5"/>
+      <path d="M3.53125 19.063V21.3437H2.75625V21.3437L2.75352 21.3438C2.56372 21.3448 2.37455 21.3597 2.1875 21.3881V20.4383C2.18875 20.0738 2.33409 19.7246 2.59184 19.4668C2.84202 19.2167 3.17839 19.0724 3.53125 19.063Z" fill="white" stroke="#0161D5"/>
+      <path d="M51.8125 20.4383C51.8113 20.0738 51.6659 19.7246 51.4082 19.4668C51.158 19.2167 50.8216 19.0724 50.4688 19.063V26.9688H51.2059H51.2062V27.4688C51.4099 27.4686 51.6129 27.4871 51.8125 27.5237V20.4383ZM51.8125 20.4383V27.0165V20.4383Z" fill="white" stroke="#0161D5"/>
+      <path d="M45.25 2.62647L45.25 3.53125H8.75V2.62579C8.75125 2.2613 8.89659 1.91209 9.15434 1.65434C9.41209 1.39659 9.7613 1.25125 10.1258 1.25H43.8742C44.2387 1.25125 44.5879 1.39659 44.8457 1.65434C45.1033 1.91198 45.2486 2.26101 45.25 2.62533C45.25 2.62571 45.25 2.62609 45.25 2.62647Z" fill="#E5EFFA" stroke="#0161D5"/>
+      <circle cx="49" cy="48" r="10" fill="#0161D5"/>
+      <rect x="47" y="46" width="4" height="6" fill="white"/>
+      <path d="M49 44L53.3301 48.5H44.6699L49 44Z" fill="white"/>
+      <path d="M17.902 19.887C17.6527 19.887 17.44 19.8027 17.264 19.634C17.088 19.458 17 19.238 17 18.974C17 18.6953 17.088 18.4753 17.264 18.314C17.44 18.1453 17.6527 18.061 17.902 18.061C18.1513 18.061 18.364 18.1453 18.54 18.314C18.716 18.4753 18.804 18.6953 18.804 18.974C18.804 19.238 18.716 19.458 18.54 19.634C18.364 19.8027 18.1513 19.887 17.902 19.887Z" fill="#0161D5"/>
+      <path d="M23.4035 19.887C22.9269 19.887 22.4905 19.777 22.0945 19.557C21.7059 19.337 21.3942 19.007 21.1595 18.567C20.9322 18.1197 20.8185 17.555 20.8185 16.873C20.8185 16.1837 20.9285 15.619 21.1485 15.179C21.3759 14.739 21.6839 14.4127 22.0725 14.2C22.4612 13.98 22.9049 13.87 23.4035 13.87C23.9829 13.87 24.4925 13.9947 24.9325 14.244C25.3799 14.4933 25.7319 14.8417 25.9885 15.289C26.2525 15.7363 26.3845 16.2643 26.3845 16.873C26.3845 17.4817 26.2525 18.0133 25.9885 18.468C25.7319 18.9153 25.3799 19.2637 24.9325 19.513C24.4925 19.7623 23.9829 19.887 23.4035 19.887ZM20.1475 21.31V13.936H21.4565V15.322L21.4125 16.884L21.5225 18.446L21.4565 21.31H20.1475ZM23.2495 18.71C23.5795 18.71 23.8729 18.6367 24.1295 18.49C24.3935 18.3433 24.6025 18.1307 24.7565 17.852C24.9105 17.5733 24.9875 17.247 24.9875 16.873C24.9875 16.4917 24.9105 16.1653 24.7565 15.894C24.6025 15.6153 24.3935 15.4027 24.1295 15.256C23.8729 15.1093 23.5795 15.036 23.2495 15.036C22.9195 15.036 22.6225 15.1093 22.3585 15.256C22.0945 15.4027 21.8855 15.6153 21.7315 15.894C21.5775 16.1653 21.5005 16.4917 21.5005 16.873C21.5005 17.247 21.5775 17.5733 21.7315 17.852C21.8855 18.1307 22.0945 18.3433 22.3585 18.49C22.6225 18.6367 22.9195 18.71 23.2495 18.71Z" fill="#0161D5"/>
+      <path d="M28.2233 19.81V12.66L28.8503 13.309H26.5953V12.11H29.6533V19.81H28.2233Z" fill="#0161D5"/>
+      <path d="M31.0817 19.81V18.853L34.1397 15.949C34.3964 15.707 34.5871 15.4943 34.7117 15.311C34.8364 15.1277 34.9171 14.959 34.9537 14.805C34.9977 14.6437 35.0197 14.4933 35.0197 14.354C35.0197 14.002 34.8987 13.7307 34.6567 13.54C34.4147 13.342 34.0591 13.243 33.5897 13.243C33.2157 13.243 32.8747 13.309 32.5667 13.441C32.2661 13.573 32.0057 13.7747 31.7857 14.046L30.7847 13.276C31.0854 12.8727 31.4887 12.561 31.9947 12.341C32.5081 12.1137 33.0801 12 33.7107 12C34.2681 12 34.7521 12.0917 35.1627 12.275C35.5807 12.451 35.8997 12.704 36.1197 13.034C36.3471 13.364 36.4607 13.7563 36.4607 14.211C36.4607 14.4603 36.4277 14.7097 36.3617 14.959C36.2957 15.201 36.1711 15.4577 35.9877 15.729C35.8044 16.0003 35.5367 16.3047 35.1847 16.642L32.5557 19.139L32.2587 18.6H36.7577V19.81H31.0817Z" fill="#0161D5"/>
+    </svg>
+      
+    Drag and drop a file here or click to select a file
+  </div>
+  <input type="file" id="binaryInput" style="display: none;" />
+  
+  <button id="copyButton" onclick="copyToClipboard()">COPY TO CLIPBOARD</button>
+  <span id="message"></span>
+
+  <br>
+
+  <textarea id="base64Output" readonly rows="15" cols="50"  placeholder="Base64 will appear here..."></textarea>
+</div>
+
+<footer>
+  <p>NOTE: This tool serves as an analog of the base64 command, specifically designed to convert binary files to base64 format directly within your browser. It operates entirely offline, ensuring that no data is uploaded or collected during its use. For added convenience and security, you have the option to download this tool and use it on your own PC, maintaining complete control over your data and its processing.</p>
+</footer>
+
+<script>
+function convertToBase64(file) {
+  if (file) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var binaryData = e.target.result;
+      var base64String = window.btoa(binaryData);
+      document.getElementById('base64Output').value = base64String;
+    };
+    reader.readAsBinaryString(file);
+  } else {
+    showMessage('Please select or drop a file.');
+  }
+}
+
+function copyToClipboard() {
+  var base64Text = document.getElementById('base64Output');
+  base64Text.select();
+  document.execCommand('copy');
+  showMessage('Copied to clipboard!');
+}
+
+function showMessage(message) {
+  var messageElement = document.getElementById('message');
+  messageElement.textContent = message;
+  setTimeout(function() {
+    messageElement.textContent = '';
+  }, 3000);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  var dropArea = document.getElementById('dropArea');
+  var fileInput = document.getElementById('binaryInput');
+
+  ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+    dropArea.addEventListener(eventName, preventDefaults, false);
+  });
+
+  ['dragenter', 'dragover'].forEach(eventName => {
+    dropArea.addEventListener(eventName, highlight, false);
+  });
+
+  ['dragleave', 'drop'].forEach(eventName => {
+    dropArea.addEventListener(eventName, unhighlight, false);
+  });
+
+  dropArea.addEventListener('drop', handleDrop, false);
+
+  dropArea.addEventListener('click', function() {
+    fileInput.click();
+  }, false);
+
+  fileInput.addEventListener('change', function() {
+    convertToBase64(fileInput.files[0]);
+  }, false);
+});
+
+function preventDefaults(e) {
+  e.preventDefault();
+  e.stopPropagation();
+}
+
+function highlight(e) {
+  dropArea.classList.add('highlight');
+}
+
+function unhighlight(e) {
+  dropArea.classList.remove('highlight');
+}
+
+function handleDrop(e) {
+  var dt = e.dataTransfer;
+  var file = dt.files[0];
+  convertToBase64(file);
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,160 @@
+name: "Teachable 00-intro Destroy"
+
+on:
+  workflow_dispatch:
+    inputs:
+      destroy_dependencies:
+        description: Destroy dependencies
+        type: boolean
+        required: true
+        default: true
+  workflow_call:
+    inputs:
+      destroy_dependencies:
+        description: Destroy dependencies
+        type: boolean
+        required: true
+        default: true
+    secrets:
+      TF_CLOUD_ORGANIZATION:
+      TF_API_TOKEN:
+      XC_API_URL:
+      XC_P12_PASSWORD:
+      XC_API_P12_FILE:
+      AWS_ACCESS_KEY:
+      AWS_SECRET_KEY:
+      AZURE_SUBSCRIPTION_ID:
+      AZURE_TENANT_ID:
+      AZURE_CLIENT_ID:
+      AZURE_CLIENT_SECRET:
+
+env:
+  TF_CLOUD_WORKSPACE_HELLO_WORLD: "hello-world"
+  TF_CLOUD_WORKSPACE_XC_CREDENTIALS: "xc-credentials"
+  TF_CLOUD_WORKSPACE_AZURE_CREDENTIALS: "azure-cloud-credentials"
+  TF_CLOUD_WORKSPACE_AWS_CREDENTIALS: "aws-cloud-credentials"
+  TF_VAR_name: "teachable"
+  TF_VAR_prefix: ""
+
+jobs:
+  terraform_cloud:
+    name: "Terraform Cloud"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "./teachable/00-intro/terraform/terraform-cloud"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - id: apply_variables 
+        uses: "./.github/actions/apply-variables" 
+        with: 
+          vars_json: "${{ toJSON(vars) }}" 
+          vars_prefix: "TEACHABLE_00_INTRO_TF_VAR_"
+          inputs_json: "${{ toJSON(inputs) }}" 
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Setup Terraform Backend
+        id: backend
+        run: |
+          cat > backend.tf << EOF
+          terraform {
+            cloud {
+              organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
+              workspaces {
+                name = "$TF_CLOUD_WORKSPACE_HELLO_WORLD"
+              }
+            }
+          }
+          EOF
+
+      - name: Terraform Init
+        id: init
+        run: terraform init
+      
+      - name: Terraform Destroy
+        id: destroy
+        run: terraform destroy -auto-approve -input=false
+
+
+  xc_credentials:
+    name: "XC Credentials"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "./teachable/00-intro/terraform/xc-credentials"
+    env:
+      VOLT_API_URL: ${{ secrets.XC_API_URL }}
+      VES_P12_PASSWORD: ${{ secrets.XC_P12_PASSWORD }}
+      
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - id: apply_variables 
+        uses: "./.github/actions/apply-variables" 
+        with: 
+          vars_json: "${{ toJSON(vars) }}" 
+          vars_prefix: "TEACHABLE_00_INTRO_TF_VAR_"
+          inputs_json: "${{ toJSON(inputs) }}" 
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Setup Terraform Backend
+        id: backend
+        run: |
+          echo "${{secrets.XC_API_P12_FILE}}" | base64 -d > api.p12
+          echo VOLT_API_P12_FILE="$PWD/api.p12" >> "$GITHUB_ENV"
+
+          cat > backend.tf << EOF
+          terraform {
+            cloud {
+              organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
+              workspaces {
+                name = "$TF_CLOUD_WORKSPACE_XC_CREDENTIALS"
+              }
+            }
+          }
+          EOF
+
+      - name: Terraform Init
+        id: init
+        run: terraform init
+      
+      - name: Terraform Destroy
+        id: destroy
+        run: terraform destroy -auto-approve -input=false
+
+  aws_credentials: 
+    uses: ./.github/workflows/aws-cloud-credentials-destroy.yaml 
+    if: (inputs.destroy_dependencies == true)
+    secrets: 
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }} 
+      TF_CLOUD_ORGANIZATION: ${{ secrets.TF_CLOUD_ORGANIZATION }} 
+      XC_API_P12_FILE: ${{ secrets.XC_API_P12_FILE }}
+      XC_P12_PASSWORD: ${{ secrets.XC_P12_PASSWORD }}
+      XC_API_URL: ${{ secrets.XC_API_URL }}
+      AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+      AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+
+  azure_credentials: 
+    uses: ./.github/workflows/azure-cloud-credentials-destroy.yaml 
+    if: (inputs.destroy_dependencies == true)
+    secrets: 
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }} 
+      TF_CLOUD_ORGANIZATION: ${{ secrets.TF_CLOUD_ORGANIZATION }} 
+      XC_API_P12_FILE: ${{ secrets.XC_API_P12_FILE }}
+      XC_P12_PASSWORD: ${{ secrets.XC_P12_PASSWORD }}
+      XC_API_URL: ${{ secrets.XC_API_URL }}
+      AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
