@@ -5,7 +5,7 @@ Deploy Bot Defense against for AWS Cloudfront Distributions with F5 XC
 Objective :
 -----------
 
-This guide will outline the steps for implementing F5 XC Bot Defense to protect your AWS CloudFront distributions. We will take advantage of AWS Lambda@Edge and the AWS Serverless Application Repository (SAR). This guide will outline the steps for implementing this infrastructure via Console Steps as well as Automated method using Terraform.
+This guide will outline the steps for implementing F5 XC Bot Defense to protect your AWS CloudFront distributions. We will take advantage of AWS Lambda Edge and the AWS Serverless Application Repository (SAR). This guide will outline the steps for implementing this infrastructure via Console Steps as well as Automated method using Terraform.
 
 
 
@@ -21,10 +21,8 @@ Console Deployment Prerequisites:
 ^^^^^^^^^^^^^^
 
 1. F5 Distributed Cloud Account (F5XC)
-2. kubectl already configured in a linux
-   instance
+2. AWS Cloud Account
 3. Access to F5 XC account
-4. You will need to download the Kubernetes manifest called airflask.yaml located in the `airline-app directory <https://github.com/f5devcentral/f5-xc-waap-terraform-examples/tree/main/workflow-guides/bot/deploy-botdefense-against-automated-threats-on-regional-edges-with-f5xc/airline-app>`__ to bring up the pod in your vk8s environment
 
 Steps:
 ^^^^^^
@@ -46,55 +44,86 @@ Create a new Bot Defense application for AWS CloudFront
 1. Log in to your F5 Distributed Cloud Console
 2. Go to the Dashboard page of XC console and click Bot Defense
 
-
-
-
-2  Verify you are in the correct Namespace. Click Add Application at the top-left of the page.
-2. Add a Name for the Application, and a Description.
-
-After the site is created:
----------------------------
-
-1. Navigate to *Actions > Kubeconfig* to download the kubeconfig, which allows `kubectl` to control the vk8s cluster.
-2. If you don't already have kubectl, download it from `Kubernetes Tools <https://kubernetes.io/docs/tasks/tools/>`_
-3. Move the downloaded file into `~/.kube/config`.
-4. Validate your ability to communicate with vk8s using the command "kubectl get pods". This should show no pods but should not produce an error.
-
-
-.. image:: assets/downloadkubeconfig.png
+.. image:: assets/bdtile.jpeg
    :width: 100%
 
 
-Setting up the Airline app in vk8s:
-====================================
+3.  Verify you are in the correct Namespace. Click Add Application at the top-left of the page.
 
-1. Run the following command to apply the configuration from the previously downloaded `airflask.yaml <https://github.com/f5devcentral/f5-xc-waap-terraform-examples/tree/main/workflow-guides/bot/deploy-botdefense-against-automated-threats-on-regional-edges-with-f5xc/airline-app>`__ in your working directory: "kubectl apply -f airflask.yaml"
-2. Run `kubectl get pods` to verify that an airline pod has been created. The output should resemble the following:
+.. image:: assets/add-app.jpeg
+   :width: 100%
 
-.. image:: assets/kubectlgetpods.png
-   :width: 35%
+4. Add a Name for the Application, and a Description
+5. Select a region (US, EMEA, or APJC)
+6. For Connector Type, select AWS CloudFront
+7. Add a Name for the Application, and a Description
+8. Select a region (US, EMEA, or APJC)
+9. For Connector Type, select AWS CloudFront
+10. Once AWS CloudFront is selected, options appear to configure AWS reference details
 
-
-Setting up an HTTP load balancer to front-end the airline app:
-------------------------------------------------------
-
-1. Navigate to *Web App & API Protection > Manage > Load Balancers
-2. Click on Manage Load Balancers and select Origin Pool*.
-3. Click on *Add Origin Pool*.
-4. Name it "airline-origin."
-5. Under *Origin Servers*, click on *Add*.
-6. In the dropdown menu labeled "type of origin server," select the Kubernetes service name of the origin server on the specified sites.
-7. Set the service name to "airline-flask.your-namespacename" (e.g., for my namespace "k-rob," it would be "airline-flask.k-rob"). You can find your namespace name in the top right of the XC GUI.
-8. Select "Site" under "Site or Virtual Site."
-9. Choose "sj10-sjc" as the site (limiting the pod to run only on the SJC edge).
-10. Select "vk8s networks on site" as the site network.
-
-
-.. image:: assets/addoriginpool2.png
+.. image:: assets/app-drop-down.jpeg
    :width: 100%
 
 
-Verifying Application Availability via DNS:
+Add AWS Reference Information:
+==============================
+
+1. Enter your AWS 12-digit Account Number.
+2. Specify your AWS Configuration and add your CloudFront distribution; a Distribution ID and/or a Distribution Tag. You can add one or more distributions. This information is needed to associate your newly created protected application to your AWS distribution(s).
+
+.. image:: assets/awsid.jpeg
+   :width: 100%
+
+
+Add Protected Endpoints:
+========================
+
+1. Click Configure to define your protected endpoints
+2. Click Add Item
+3. Enter a name and a description to the specific endpoint.​
+4. Specify the Domain Matcher. You can choose any domain or specify a specific host value.​
+5. Specify the Path to the endpoint (such as /login).​
+6. Choose the HTTP Methods for which request will be analyzed by Bot Defense. Multiple methods can be selected.
+7. Select the Client type that will access this endpoint (Web Client).​
+8. Select the Mitigation action to be taken for this endpoint:
+9. Continue (request continues to origin)​
+10. Redirect​. Provide the appropriate Status Code and URI​
+11. Block. Provide the Status Code, Content Type, and Response message
+
+.. image:: assets/endpoints-rules-save.jpeg
+   :width: 100%
+
+12. When done configuring the endpoint, click Apply
+13. To continue, click Apply at the bottom of the page
+
+Define Continue Global Mitigation Action:
+=========================================
+
+1. The Header Name for Continue Mitigation Action field is the header that is added to the request when the Continue mitigation action is selected and Add A Header was selected in the endpoint mitigation configuration screen.
+
+Define Web Client JavaScript Insertion Settings:
+================================================
+
+1. JS Location - Choose the location where to insert the JS in the code:
+   1a. Just After <head> tag​.
+   1b. Just After </title> tag​.
+   1c. Right Before <script> tag.​
+
+2. Under Java Script Insertions.  Select Configure.
+
+.. image:: assets/java-rules.jpeg
+   :width: 100%
+
+3. Click Add Item
+4. Add the Web Client JavaScript Path. You should select paths to HTML pages that end users are likely to visit before they browse to any protected endpoint.
+5. Click Apply
+6. Click Save & Exit to save your protected application configuration.
+
+.. image:: assets/java-rules-saved.jpeg
+   :width: 100%
+
+
+Download Config File and AWS Installer Tool:
 ====================================
 1. Verify access to your newly deployed container application by navigating to Web App & API Protection > your-namespace > Manage > Load Balancers and click on Virtual Host Ready under DNS Info Column
 2. Copy the CNAME with the "ves-" prefix and paste it into your web browser to verify the airline application loads appropriately. 
