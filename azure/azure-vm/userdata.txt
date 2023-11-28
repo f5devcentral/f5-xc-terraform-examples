@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# docker installation
+sudo apt update -y
+sudo apt install docker.io -y
+sudo service docker start
+sudo usermod -a -G docker ec2-user
+
+# commands to deploy arcadia
+docker network create internal
+docker run -dit -h mainapp --name=mainapp --net=internal registry.gitlab.com/arcadia-application/main-app/mainapp:latest
+docker run -dit -h backend --name=backend --net=internal registry.gitlab.com/arcadia-application/back-end/backend:latest
+docker run -dit -h app2 --name=app2 --net=internal registry.gitlab.com/arcadia-application/app2/app2:latest
+docker run -dit -h app3 --name=app3 --net=internal registry.gitlab.com/arcadia-application/app3/app3:latest
+docker run -dit -h nginx --name=nginx --net=internal -p 8080:80 -v /home/Demouser/default.conf:/etc/nginx/conf.d/default.conf registry.gitlab.com/arcadia-application/nginx/nginxoss:latest
