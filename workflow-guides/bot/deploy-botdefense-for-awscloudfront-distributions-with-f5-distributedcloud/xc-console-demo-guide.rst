@@ -214,7 +214,7 @@ View Bot Traffic​:
 4. Make sure you are in the correct Namespace
 5. Under Overview click Monitor
 
-.. image:: assets/bd-monitor.png
+.. image:: assets/bd-monitor.jpeg
    :width: 50%
 
 6. Here you can monitor and respond to events that are identified as Bot traffic
