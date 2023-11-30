@@ -8,7 +8,7 @@ on:
 
 jobs:
   terraform_infra:
-    name: "AWS Infra"
+    name: "Deploy AWS Infra"
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -81,7 +81,7 @@ jobs:
         run: terraform apply -auto-approve -input=false
 
   terraform_eks:
-    name: "AWS EKS"
+    name: "Deploy AWS EKS"
     runs-on: ubuntu-latest
     needs: terraform_infra
     defaults:
@@ -156,7 +156,7 @@ jobs:
 
 
   terraform_bookinfo:
-    name: "Bookinfo"
+    name: "Deploy Bookinfo App"
     runs-on: ubuntu-latest
     needs: terraform_eks
     defaults:
@@ -231,7 +231,7 @@ jobs:
 
 
   terraform_ce:
-    name: "EKS CE Deployment"
+    name: "Deploy EKS CE"
     runs-on: ubuntu-latest
     needs: terraform_bookinfo
     defaults:
@@ -346,7 +346,7 @@ jobs:
 
 
   terraform_xc:
-    name: "F5XC WAF"
+    name: "Deploy F5XC WAF"
     runs-on: ubuntu-latest
     needs: terraform_ce
     defaults:
