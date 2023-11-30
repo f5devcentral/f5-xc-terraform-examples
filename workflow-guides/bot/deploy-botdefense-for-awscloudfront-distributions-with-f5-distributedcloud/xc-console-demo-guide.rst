@@ -5,7 +5,7 @@ Deploy Bot Defense against for AWS Cloudfront Distributions with F5 XC
 Objective :
 -----------
 
-This guide will outline the steps for implementing F5 XC Bot Defense to protect your AWS CloudFront distributions. We will take advantage of AWS Lambda Edge and the AWS Serverless Application Repository (SAR). This guide will outline the steps for implementing this infrastructure via Console Steps as well as Automated method using Terraform.
+This guide will outline the steps for implementing F5 XC Bot Defense to protect your AWS CloudFront distributions. We will take advantage of AWS Lambda Edge and the AWS Serverless Application Repository (SAR). This guide will outline the steps for implementing this infrastructure via Console Steps as well as Automated method using Terraform. This guide also provides a sample application that we will  to protect with F5 XC Bot Defense
 
 
 
@@ -22,13 +22,20 @@ Console Deployment Prerequisites:
 
 1. F5 Distributed Cloud Account (F5XC)
 2. AWS Cloud Account
-3. Access to F5 XC account
+3. eksctl – already installed on your machine. See Installing or updating `eksctl <https://eksctl.io/installation/>`_
+4. kubectl already installed on your machine
+5. AWS CLI already installed on your machine. See documentation `here <https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html>`_
 
 Steps:
 ^^^^^^
- 
-Creating your Namespace:
-=======================
+
+Deploying our Sample Kubernetes Application into AWS EKS:
+=========================================================
+
+1. The first step is to create an IDE with the provided CloudFormation template. The easiest way to do this is using AWS CloudShell in the account you will be running the lab exercises. Open CloudShell with the link below or following this `documentation <https://docs.aws.amazon.com/cloudshell/latest/userguide/getting-started.html#launch-region-shell>`_: https://console.aws.amazon.com/cloudshell/home
+
+Creating your Namespace in F5 XC:
+=================================
 
 1. Logging into your tenant via https://console.ves.volterra.io ensure you have a unique namespace configured. If not, navigate to Administration --> My Namespaces --> Add New
 2. Switch into your newly created namespace
