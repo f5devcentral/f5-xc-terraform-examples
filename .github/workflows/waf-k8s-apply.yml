@@ -12,11 +12,11 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./infra
+        working-directory: ./aws/infra
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
@@ -35,11 +35,11 @@ jobs:
             }
           }
           EOF
-          
+
       - name: Terraform Init
         id: init
         run: terraform init
-      
+
       - name: Terraform Validate
         id: validate
         run: terraform validate -no-color
@@ -86,11 +86,11 @@ jobs:
     needs: terraform_infra
     defaults:
       run:
-        working-directory: ./eks-cluster
+        working-directory: ./aws/eks-cluster
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
@@ -113,7 +113,7 @@ jobs:
       - name: Terraform Init
         id: init
         run: terraform init
-      
+
       - name: Terraform Validate
         id: validate
         run: terraform validate -no-color
@@ -161,7 +161,8 @@ jobs:
     needs: terraform_eks
     defaults:
       run:
-        working-directory: ./workflow-guides/waf/f5-xc-waf-on-k8s/terraform/booksinfo
+        working-directory: ./shared/booksinfo/
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
