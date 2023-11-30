@@ -263,10 +263,6 @@ jobs:
           
       - name: Setup Configmap
         id: configmap
-        env:
-          TF_CE_LATITUDE: ${{ secrets.TF_CE_LATITUDE }}
-          TF_CE_LONGITUDE: ${{ secrets.TF_CE_LONGITUDE }}
-          TF_CE_TOKEN: ${{ secrets.TF_CE_TOKEN }}
         run: |
           cat > configmap.tf << EOF
           resource "kubectl_manifest" "configmap" {
