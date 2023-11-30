@@ -33,7 +33,17 @@ Steps:
 Deploying our Sample Kubernetes Application into AWS EKS:
 =========================================================
 
-1. The first step is to create an IDE with the provided CloudFormation template. The easiest way to do this is using AWS CloudShell in the account you will be running the lab exercises. Open CloudShell with the link below or following this `documentation <https://docs.aws.amazon.com/cloudshell/latest/userguide/getting-started.html#launch-region-shell>`_: https://console.aws.amazon.com/cloudshell/home
+1. First we'll start out with the AWS CLI configured locally on your machine. To check the current user, run the following command: "aws sts get-caller-identity"
+2. Create your Amazon EKS cluster with the following command "eksctl create cluster --name airlineapp-eks --region us-west-2 --fargate"
+3. For the sake of our lab we'll be using the us-west-2 region for our EKS cluster 
+4. Cluster creation takes several minutes. During creation you'll see several lines of output. The last line of output is similar to the following example line.
+
+eg, [...] [✓]  EKS cluster "airlineapp-eks" in "us-west-2" region is ready
+
+6. eksctl created a kubectl config file in ~/.kube or added the new cluster's configuration within an existing config file in ~/.kube on your computer.
+7. After cluster creation is complete, view the AWS CloudFormation stack named "eksctl-airlineapp-eks-cluster" in the AWS `CloudFormation console <https://console.aws.amazon.com/cloudformation>`_ to see all of the resources that were created.
+
+
 
 Creating your Namespace in F5 XC:
 =================================
