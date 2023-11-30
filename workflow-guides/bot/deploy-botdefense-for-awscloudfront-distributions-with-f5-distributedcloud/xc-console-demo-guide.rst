@@ -30,20 +30,39 @@ Console Deployment Prerequisites:
 Steps:
 ^^^^^^
 
-Deploying our Sample Kubernetes Application into AWS EKS:
-=========================================================
+Create your Amazon EKS cluster and nodes:
+=========================================
 
 1. First we'll start out with the AWS CLI configured locally on your machine. To check the current user, run the following command: "aws sts get-caller-identity"
 2. Create your Amazon EKS cluster with the following command "eksctl create cluster --name airlineapp-eks --region us-west-2 --fargate"
 3. For the sake of our lab we'll be using the us-west-2 region for our EKS cluster 
 4. Cluster creation takes several minutes. During creation you'll see several lines of output. The last line of output is similar to the following example line.
 
-eg, [...] [✓]  EKS cluster "airlineapp-eks" in "us-west-2" region is ready
+.. image:: assets/eksready.png
+   :width: 50%
 
 6. eksctl created a kubectl config file in ~/.kube or added the new cluster's configuration within an existing config file in ~/.kube on your computer.
 7. After cluster creation is complete, view the AWS CloudFormation stack named "eksctl-airlineapp-eks-cluster" in the AWS `CloudFormation console <https://console.aws.amazon.com/cloudformation>`_ to see all of the resources that were created.
 
+.. image:: assets/cloudformation2.png
+   :width: 100%
 
+View Kubernetes Resources:
+==========================
+1. View your cluster nodes with "kubectl get nodes -o wide". An example output is as follows
+
+.. image:: assets/getnodes.png
+   :width: 100%
+
+2. View the workloads running on your cluster with "kubectl get pods -A -o wide"
+
+.. image:: assets/getpods2.png
+   :width: 100%
+
+Deploy a Sample Airline Application to the EKS Cluster:
+=======================================================
+1. Create a namespace using the "kubectl create namespace eks-airline-app"
+2. Download the Kubernetes Manifest for our sample Airline application here 
 
 Creating your Namespace in F5 XC:
 =================================
