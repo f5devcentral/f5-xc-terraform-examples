@@ -264,9 +264,9 @@ jobs:
         id: configmap
         env:
           TF_VAR_site_name: ${{ secrets.TF_VAR_site_name }}
-          TF_CE_LATITUDE: {{ secrets.TF_CE_LATITUDE }}
-          TF_CE_LONGITUDE: {{ secrets.TF_CE_LONGITUDE }}
-          TF_CE_TOKEN: {{ secrets.TF_CE_TOKEN }}
+          TF_CE_LATITUDE: ${{ secrets.TF_CE_LATITUDE }}
+          TF_CE_LONGITUDE: ${{ secrets.TF_CE_LONGITUDE }}
+          TF_CE_TOKEN: ${{ secrets.TF_CE_TOKEN }}
         run: |
           cat > configmap.tf << EOF
           resource "kubectl_manifest" "configmap" {
