@@ -236,7 +236,7 @@ jobs:
     needs: terraform_bookinfo
     defaults:
       run:
-        working-directory: ./workflow-guides/waf/f5-xc-waf-on-k8s/terraform/ce-deployment
+        working-directory: ./aws/eks-cluster/ce-deployment
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -262,6 +262,11 @@ jobs:
           
       - name: Setup Configmap
         id: configmap
+        env:
+          TF_VAR_site_name: ${{ secrets.TF_VAR_site_name }}
+          TF_CE_LATITUDE: {{ secrets.TF_CE_LATITUDE }}
+          TF_CE_LONGITUDE: {{ secrets.TF_CE_LONGITUDE }}
+          TF_CE_TOKEN: {{ secrets.TF_CE_TOKEN }}
         run: |
           cat > configmap.tf << EOF
           resource "kubectl_manifest" "configmap" {
@@ -275,20 +280,20 @@ jobs:
                config.yaml: |
                 Vpm:
                   # CHANGE ME
-                  ClusterName: ${{ secrets.TF_VAR_site_name }}
+                  ClusterName: ${{ TF_VAR_site_name }}
                   ClusterType: ce
                   Config: /etc/vpm/config.yaml
                   DisableModules: ["recruiter"]
                   # CHANGE ME
-                  Latitude: ${{ secrets.TF_CE_LATITUDE }}
+                  Latitude: ${{ TF_CE_LATITUDE }}
                   # CHANGE ME
-                  Longitude: ${{ secrets.TF_CE_LONGITUDE }}
+                  Longitude: ${{ TF_CE_LONGITUDE }}
                   MauriceEndpoint: https://register.ves.volterra.io
                   MauricePrivateEndpoint: https://register-tls.ves.volterra.io
                   PrivateNIC: eth0
                   SkipStages: ["osSetup", "etcd", "kubelet", "master", "voucher", "workload", "controlWorkload"]
                   # CHANGE ME
-                  Token: ${{ secrets.TF_CE_TOKEN }}
+                  Token: ${{ TF_CE_TOKEN }}
                   CertifiedHardware: k8s-minikube-voltmesh
               YAML
           }
