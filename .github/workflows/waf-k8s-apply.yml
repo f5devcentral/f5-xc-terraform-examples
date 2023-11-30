@@ -259,7 +259,6 @@ jobs:
             }
           }
           EOF
-
           
       - name: Setup Configmap
         id: configmap
@@ -294,6 +293,12 @@ jobs:
               YAML
           }
           EOF
+        env:
+          TF_VAR_site_name: ${{ secrets.TF_VAR_site_name }}
+          TF_CE_LATITUDE: ${{ secrets.TF_CE_LATITUDE }}
+          TF_CE_LONGITUDE: ${{ secrets.TF_CE_LONGITUDE }}
+          TF_CE_TOKEN: ${{ secrets.TF_CE_TOKEN }}
+          
       - name: Terraform fmt
         id: format
         run: |
