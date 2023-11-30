@@ -25,6 +25,7 @@ Console Deployment Prerequisites:
 3. eksctl – already installed on your machine. See Installing or updating `eksctl <https://eksctl.io/installation/>`_
 4. kubectl already installed on your machine
 5. AWS CLI already installed on your machine. See documentation `here <https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html>`_
+6. Required IAM permissions
 
 Steps:
 ^^^^^^
