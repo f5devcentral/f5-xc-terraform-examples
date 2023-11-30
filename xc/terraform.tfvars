@@ -29,3 +29,5 @@ xc_ddos_pro = false
 
 #XC Malicious User Detection
 xc_mud = false
+
+eks_ce_site = "true"

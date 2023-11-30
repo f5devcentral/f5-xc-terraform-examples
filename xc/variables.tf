@@ -148,3 +148,10 @@ variable "xc_service_discovery" {
   description = "Enable service discovery"
   default     = "false"
 }
+
+# EKS CE Site
+variable "eks_ce_site" {
+  type        = string
+  description = "Whether it's EKS CE site ?"
+  default     = "false"
+}
