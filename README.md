@@ -2,7 +2,6 @@
 
 ## Overview
 
-
 Examples of F5 Distributed Cloud (XC) deployments utilizing Terraform. For more information on the use cases covered by this project, please see the following articles and workflow guides:
 
 * **F5 Distributed Cloud WAF**
@@ -103,7 +102,7 @@ Example:
   | AWS_ACCESS_KEY_ID     | Environment | Your AWS Access Key ID                                                          |
   | AWS_SECRET_ACCESS_KEY | Environment | Your AWS Secret Access Key                                                      |
   | AWS_SESSION_TOKEN     | Environment | Your AWS Session Token                                                          |
-  | VOLT_API_P12_FILE     | Environment | Your F5XC API certificate. Set this to **api.p12**                              |
+  | VOLT_API_P12_FILE     | Environment | Your F5XC API certificate file name. Set this to **api.p12**                    |
   | VES_P12_PASSWORD      | Environment | Set this to the password you supplied when creating your F5 XC API certificate  |
   | ssh_key               | Terraform   | Your ssh key for accessing the created BIG-IP and compute assets                |
   | admin_src_addr        | Terraform   | The source address and subnet in CIDR format of your administrative workstation |
