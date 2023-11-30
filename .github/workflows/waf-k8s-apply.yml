@@ -275,30 +275,24 @@ jobs:
                config.yaml: |
                 Vpm:
                   # CHANGE ME
-                  ClusterName: ${{ TF_VAR_site_name }}
+                  ClusterName: ${{ secrets.TF_VAR_site_name }}
                   ClusterType: ce
                   Config: /etc/vpm/config.yaml
                   DisableModules: ["recruiter"]
                   # CHANGE ME
-                  Latitude: ${{ TF_CE_LATITUDE }}
+                  Latitude: ${{ secrets.TF_CE_LATITUDE }}
                   # CHANGE ME
-                  Longitude: ${{ TF_CE_LONGITUDE }}
+                  Longitude: ${{ secrets.TF_CE_LONGITUDE }}
                   MauriceEndpoint: https://register.ves.volterra.io
                   MauricePrivateEndpoint: https://register-tls.ves.volterra.io
                   PrivateNIC: eth0
                   SkipStages: ["osSetup", "etcd", "kubelet", "master", "voucher", "workload", "controlWorkload"]
                   # CHANGE ME
-                  Token: ${{ TF_CE_TOKEN }}
+                  Token: ${{ secrets.TF_CE_TOKEN }}
                   CertifiedHardware: k8s-minikube-voltmesh
               YAML
           }
           EOF
-        env:
-          TF_VAR_site_name: ${{ secrets.TF_VAR_site_name }}
-          TF_CE_LATITUDE: ${{ secrets.TF_CE_LATITUDE }}
-          TF_CE_LONGITUDE: ${{ secrets.TF_CE_LONGITUDE }}
-          TF_CE_TOKEN: ${{ secrets.TF_CE_TOKEN }}
-          
       - name: Terraform fmt
         id: format
         run: |
