@@ -13,7 +13,6 @@ on:
         - xc-credentials
         - azure-credentials
         - aws-credentials
-        - destroy
       TF_VAR_name:
         description: 'Deployment name'
         required: false
