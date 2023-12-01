@@ -1,0 +1,104 @@
+name: "Azure Networking Destroy"
+
+on:
+  push:
+    branches:
+      - azure-networking
+  workflow_dispatch:
+    inputs:
+      TF_CLOUD_WORKSPACE_AZURE_NETWORKING:
+        description: "TF Cloud Workspace (optional)"
+        required: false
+        type: string
+  workflow_call:
+    inputs:
+      TF_CLOUD_WORKSPACE_AZURE_NETWORKING:
+        description: "TF Cloud Workspace"
+        required: false
+        type: string
+    secrets:
+      TF_API_TOKEN:
+        required: true
+      TF_CLOUD_ORGANIZATION:
+        required: true
+      AZURE_SUBSCRIPTION_ID:
+        required: true
+      AZURE_TENANT_ID:
+        required: true
+      AZURE_CLIENT_ID:
+        required: true
+      AZURE_CLIENT_SECRET:
+        required: true
+
+env:
+  TF_CLOUD_WORKSPACE_AZURE_NETWORKING: "azure-networking"
+  TF_VAR_name: "azure-networking"
+  TF_VAR_prefix: ""
+  TF_VAR_location: "centralus"
+  TF_VAR_resource_group_name: "azure-networking"
+  TF_VAR_create_vnet: "true"
+  TF_VAR_create_resource_group: "true"
+  TF_VAR_create_outside_route_table: "true"
+  TF_VAR_create_outside_security_group: "true"
+  TF_VAR_create_inside_route_table: "true"
+  TF_VAR_create_inside_security_group: "true"
+  TF_VAR_create_udp_security_group_rules: "true"
+  TF_VAR_tags: "{}"
+  TF_VAR_local_subnets: "[\"192.168.1.1\"]"
+  TF_VAR_inside_subnets: "[]"
+  TF_VAR_outside_subnets: "[]"
+  TF_VAR_vnet_cidr: "192.168.1.0/24"
+  TF_VAR_disable_bgp_route_propagation: "false"
+  
+jobs:
+  azure_networking:
+    name: "Azure Networking Destroy"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "./azure/networking"
+    env:
+      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - id: apply_variables 
+        uses: "./.github/actions/apply-variables" 
+        with: 
+          vars_json: "${{ toJSON(vars) }}" 
+          vars_prefix: "AZURE_NETWORKING_TF_VAR_"
+          inputs_json: "${{ toJSON(inputs) }}" 
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Setup Terraform Backend
+        id: backend
+        run: |
+          cat > backend.tf << EOF
+          terraform {
+            cloud {
+              organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
+              workspaces {
+                name = "$TF_CLOUD_WORKSPACE_AZURE_NETWORKING"
+              }
+            }
+          }
+          EOF
+          
+      - name: Terraform Init
+        id: init
+        run: terraform init
+      
+      - name: Terraform Destroy
+        id: destroy
+        run: terraform destroy -auto-approve -input=false
+
+

@@ -1,0 +1,570 @@
+name: "AWS VPC Site Apply"
+
+on:
+  push:
+    branches:
+      - aws-vpc-site
+  workflow_dispatch:
+    inputs:
+      TF_CLOUD_WORKSPACE_AWS_VPC_SITE:
+        description: "TF Cloud Workspace (optional)"
+        required: false
+        type: string
+      TF_VAR_name:
+        description: "Deployment name (optional)"
+        required: false
+        type: string
+      TF_VAR_prefix:
+        description: "Prefix (optional)"
+        required: false
+        type: string
+      TF_VAR_aws_region:
+        description: "AWS Region"
+        required: true
+        default: "us-east-1"
+        type: string
+      TF_VAR_site_type:
+        description: "Site Type"
+        required: true
+        default: "ingress_gw"
+        type: string
+      TF_VAR_master_nodes_az_names:
+        description: "Master Nodes AZ Names"
+        required: true
+        default: "[\"us-east-1a\"]"
+        type: string
+      TF_VAR_vpc_cidr:
+        description: "VPC CIDR"
+        required: true
+        default: "10.10.0.0/16"
+        type: string
+      TF_VAR_local_subnets:
+        description: "Local Subnets"
+        required: true
+        default: "[\"10.10.1.0/24\"]"
+      TF_VAR_aws_cloud_credentials_name:
+        description: "Existing AWS Cloud Credentials Name"
+        required: false
+        default: "aws-cloud-credentials"
+  workflow_call:
+    inputs:
+      TF_CLOUD_WORKSPACE_AWS_VPC_SITE:
+        description: "TF Cloud Workspace"
+        required: false
+        type: string
+      TF_VAR_name:
+        description: "Deployment name"
+        required: false
+        type: string
+      TF_VAR_prefix:
+        description: "Prefix"
+        required: false
+        type: string
+      TF_VAR_aws_region:
+        description: "AWS Region"
+        required: false
+        type: string
+      TF_VAR_aws_cloud_credentials_name:
+          description: "AWS Cloud Credentials Name"
+          required: false
+          type: string
+      TF_VAR_aws_cloud_credentials_namespace:
+        description: "AWS Cloud Credentials Namespace"
+        required: false
+        type: string
+      TF_VAR_aws_cloud_credentials_tenant:
+        description: "AWS Cloud Credentials Tenant"
+        required: false
+        type: string
+      TF_VAR_site_description:
+        description: "Site Description"
+        required: false
+        type: string
+      TF_VAR_site_namespace:
+        description: "Site Namespace"
+        required: false
+        type: string
+      TF_VAR_tags:
+        description: "Tags"
+        required: false
+        type: string
+      TF_VAR_offline_survivability_mode:
+        description: "Offline Survivability Mode"
+        required: false
+        type: string
+      TF_VAR_software_version:
+        description: "Software Version"
+        required: false
+        type: string
+      TF_VAR_operating_system_version:
+        description: "Operating System Version"
+        required: false
+        type: string
+      TF_VAR_site_type:
+        description: "Site Type"
+        required: false
+        type: string
+      TF_VAR_master_nodes_az_names:
+        description: "Master Nodes AZ Names"
+        required: false
+        type: string
+      TF_VAR_nodes_disk_size:
+        description: "Nodes Disk Size"
+        required: false
+        type: string
+      TF_VAR_ssh_key:
+        description: "SSH Key"
+        required: false
+        type: string
+      TF_VAR_instance_type:
+        description: "Instance Type"
+        required: false
+        type: string
+      TF_VAR_jumbo:
+        description: "Jumbo"
+        required: false
+        type: string
+      TF_VAR_direct_connect:
+        description: "Direct Connect"
+        required: false
+        type: string
+      TF_VAR_egress_nat_gw:
+        description: "Egress NAT GW"
+        required: false
+        type: string
+      TF_VAR_egress_virtual_private_gateway:
+        description: "Egress Virtual Private Gateway"
+        required: false
+        type: string
+      TF_VAR_enable_internet_vip:
+        description: "Enable Internet VIP"
+        required: false
+        type: string
+      TF_VAR_allowed_vip_port:
+        description: "Allowed VIP Port"
+        required: false
+        type: string
+      TF_VAR_allowed_vip_port_sli:
+        description: "Allowed VIP Port SLI"
+        required: false
+        type: string
+      TF_VAR_log_receiver:
+        description: "Log Receiver"
+        required: false
+        type: string
+      TF_VAR_vpc_id:
+        description: "VPC ID"
+        required: false
+        type: string
+      TF_VAR_vpc_name:
+        description: "VPC Name"
+        required: false
+        type: string
+      TF_VAR_vpc_allocate_ipv6:
+        description: "VPC Allocate IPv6"
+        required: false
+        type: string
+      TF_VAR_vpc_cidr:
+        description: "VPC CIDR"
+        required: false
+        type: string
+      TF_VAR_create_aws_vpc:
+        description: "Create AWS VPC"
+        required: false
+        type: string
+      TF_VAR_custom_security_group:
+        description: "Custom Security Group"
+        required: false
+        type: string
+      TF_VAR_existing_local_subnets:
+        description: "Existing Local Subnets"
+        required: false
+        type: string
+      TF_VAR_existing_inside_subnets:
+        description: "Existing Inside Subnets"
+        required: false
+        type: string
+      TF_VAR_existing_outside_subnets:
+        description: "Existing Outside Subnets"
+        required: false
+        type: string
+      TF_VAR_existing_workload_subnets:
+        description: "Existing Workload Subnets"
+        required: false
+        type: string
+      TF_VAR_local_subnets:
+        description: "Local Subnets"
+        required: false
+        type: string
+      TF_VAR_inside_subnets:
+        description: "Inside Subnets"
+        required: false
+        type: string
+      TF_VAR_outside_subnets:
+        description: "Outside Subnets"
+        required: false
+        type: string
+      TF_VAR_workload_subnets:
+        description: "Workload Subnets"
+        required: false
+        type: string
+      TF_VAR_local_subnets_ipv6:
+        description: "Local Subnets IPv6"
+        required: false
+        type: string
+      TF_VAR_inside_subnets_ipv6:
+        description: "Inside Subnets IPv6"
+        required: false
+        type: string
+      TF_VAR_outside_subnets_ipv6:
+        description: "Outside Subnets IPv6"
+        required: false
+        type: string
+      TF_VAR_workload_subnets_ipv6:
+        description: "Workload Subnets IPv6"
+        required: false
+        type: string
+      TF_VAR_worker_nodes_per_az:
+        description: "Worker Nodes Per AZ"
+        required: false
+        type: string
+      TF_VAR_block_all_services:
+        description: "Block All Services"
+        required: false
+        type: string
+      TF_VAR_blocked_service:
+        description: "Blocked Service"
+        required: false
+        type: string
+      TF_VAR_apply_action_wait_for_action:
+        description: "Apply Action Wait For Action"
+        required: false
+        type: string
+      TF_VAR_apply_action_ignore_on_update:
+        description: "Apply Action Ignore On Update"
+        required: false
+        type: string
+      TF_VAR_dc_cluster_group_inside_vn:
+        description: "DC Cluster Group Inside VN"
+        required: false
+        type: string
+      TF_VAR_dc_cluster_group_outside_vn:
+        description: "DC Cluster Group Outside VN"
+        required: false
+        type: string
+      TF_VAR_active_forward_proxy_policies_list:
+        description: "Active Forward Proxy Policies List"
+        required: false
+        type: string
+      TF_VAR_forward_proxy_allow_all:
+        description: "Forward Proxy Allow All"
+        required: false
+        type: string
+      TF_VAR_global_network_connections_list:
+        description: "Global Network Connections List"
+        required: false
+        type: string
+      TF_VAR_inside_static_route_list:
+        description: "Inside Static Route List"
+        required: false
+        type: string
+      TF_VAR_outside_static_route_list:
+        description: "Outside Static Route List"
+        required: false
+        type: string
+      TF_VAR_enhanced_firewall_policies_list:
+        description: "Enhanced Firewall Policies List"
+        required: false
+        type: string
+      TF_VAR_active_network_policies_list:
+        description: "Active Network Policies List"
+        required: false
+        type: string
+      TF_VAR_sm_connection_public_ip:
+        description: "SM Connection Public IP"
+        required: false
+        type: string
+      TF_VAR_vpc_instance_tenancy:
+        description: "VPC Instance Tenancy"
+        required: false
+        type: string
+      TF_VAR_vpc_enable_dns_hostnames:
+        description: "VPC Enable DNS Hostnames"
+        required: false
+        type: string
+      TF_VAR_vpc_enable_dns_support:
+        description: "VPC Enable DNS Support"
+        required: false
+        type: string
+      TF_VAR_vpc_enable_network_address_usage_metrics:
+        description: "VPC Enable Network Address Usage Metrics"
+        required: false
+        type: string
+    secrets:
+      TF_API_TOKEN:
+        required: true
+      TF_CLOUD_ORGANIZATION:
+        required: true
+      XC_API_P12_FILE:
+        required: true
+      XC_P12_PASSWORD :
+          required: true
+      XC_API_URL:
+        required: true
+      AWS_ACCESS_KEY:
+        required: true
+      AWS_SECRET_KEY:
+        required: true
+      AWS_SESSION_TOKEN:
+          required: true
+      XC_AWS_CLOUD_CREDENTIALS_NAME:
+        required: false
+    outputs:
+      id:
+        description: "VPC Site Id"
+        value: ${{ jobs.aws_vpc_site.outputs.id }}
+      name:
+        description: "VPC Site Name"
+        value: ${{ jobs.aws_vpc_site.outputs.name }}
+      ssh_private_key_pem:
+        description: "SSH Private Key PEM"
+        value: ${{ jobs.aws_vpc_site.outputs.ssh_private_key_pem }}
+      ssh_private_key_openssh:
+        description: "SSH Private Key OpenSSH"
+        value: ${{ jobs.aws_vpc_site.outputs.ssh_private_key_openssh }}
+      ssh_public_key:
+        description: "SSH Public Key"
+        value: ${{ jobs.aws_vpc_site.outputs.ssh_public_key }}
+      apply_tf_output:
+        description: "Terraform Apply Output"
+        value: ${{ jobs.aws_vpc_site.outputs.apply_tf_output }}
+      apply_tf_output_map:
+        description: "Terraform Apply Output Map"
+        value: ${{ jobs.aws_vpc_site.outputs.apply_tf_output_map }}
+      vpc_id:
+        description: "VPC Id"
+        value: ${{ jobs.aws_vpc_site.outputs.vpc_id }}
+      vpc_cidr:
+        description: "VPC CIDR"
+        value: ${{ jobs.aws_vpc_site.outputs.vpc_cidr }}
+      outside_subnet_ids:
+        description: "Outside Subnet Ids"
+        value: ${{ jobs.aws_vpc_site.outputs.outside_subnet_ids }}
+      outside_route_table_ids:
+        description: "Outside Route Table Ids"
+        value: ${{ jobs.aws_vpc_site.outputs.outside_route_table_ids }}
+      inside_subnet_ids:
+        description: "Inside Subnet Ids"
+        value: ${{ jobs.aws_vpc_site.outputs.inside_subnet_ids }}
+      inside_route_table_ids:
+        description: "Inside Route Table Ids"
+        value: ${{ jobs.aws_vpc_site.outputs.inside_route_table_ids }}
+      workload_subnet_ids:
+        description: "Workload Subnet Ids"
+        value: ${{ jobs.aws_vpc_site.outputs.workload_subnet_ids }}
+      workload_route_table_ids:
+        description: "Workload Route Table Ids"
+        value: ${{ jobs.aws_vpc_site.outputs.workload_route_table_ids }}
+      local_subnet_ids:
+        description: "Local Subnet Ids"
+        value: ${{ jobs.aws_vpc_site.outputs.local_subnet_ids }}
+      local_route_table_ids:
+        description: "Local Route Table Ids"
+        value: ${{ jobs.aws_vpc_site.outputs.local_route_table_ids }}
+      internet_gateway_id:
+        description: "Internet Gateway Id"
+        value: ${{ jobs.aws_vpc_site.outputs.internet_gateway_id }}
+      outside_security_group_id:
+        description: "Outside Security Group Id"
+        value: ${{ jobs.aws_vpc_site.outputs.outside_security_group_id }}
+      inside_security_group_id:
+        description: "Inside Security Group Id"
+        value: ${{ jobs.aws_vpc_site.outputs.inside_security_group_id }}
+      
+env:
+  TF_CLOUD_WORKSPACE_AWS_VPC_SITE: "aws-vpc-site"
+  TF_VAR_aws_region: ""
+  TF_VAR_name: "aws-vpc-site"
+  TF_VAR_prefix: ""
+  TF_VAR_aws_cloud_credentials_namespace: ""
+  TF_VAR_aws_cloud_credentials_tenant: ""
+  TF_VAR_site_description: ""
+  TF_VAR_site_namespace: ""
+  TF_VAR_tags: ""
+  TF_VAR_offline_survivability_mode: ""
+  TF_VAR_software_version: ""
+  TF_VAR_operating_system_version: ""
+  TF_VAR_site_type: ""
+  TF_VAR_master_nodes_az_names: "[]"
+  TF_VAR_nodes_disk_size: ""
+  TF_VAR_ssh_key: ""
+  TF_VAR_instance_type: ""
+  TF_VAR_jumbo: ""
+  TF_VAR_direct_connect: ""
+  TF_VAR_egress_nat_gw: ""
+  TF_VAR_egress_virtual_private_gateway: ""
+  TF_VAR_enable_internet_vip: ""
+  TF_VAR_allowed_vip_port: ""
+  TF_VAR_allowed_vip_port_sli: ""
+  TF_VAR_log_receiver: ""
+  TF_VAR_vpc_id: ""
+  TF_VAR_vpc_name: ""
+  TF_VAR_vpc_allocate_ipv6: ""
+  TF_VAR_vpc_cidr: ""
+  TF_VAR_create_aws_vpc: "" 
+  TF_VAR_custom_security_group: ""
+  TF_VAR_existing_local_subnets: "[]"
+  TF_VAR_existing_inside_subnets: "[]"
+  TF_VAR_existing_outside_subnets: "[]"
+  TF_VAR_existing_workload_subnets: "[]"
+  TF_VAR_local_subnets: "[]"
+  TF_VAR_inside_subnets: "[]"
+  TF_VAR_outside_subnets: "[]"
+  TF_VAR_workload_subnets: "[]"
+  TF_VAR_local_subnets_ipv6: "[]"
+  TF_VAR_inside_subnets_ipv6: "[]"
+  TF_VAR_outside_subnets_ipv6: "[]"
+  TF_VAR_workload_subnets_ipv6: "[]"
+  TF_VAR_worker_nodes_per_az: ""
+  TF_VAR_block_all_services: ""
+  TF_VAR_blocked_service: ""
+  TF_VAR_apply_action_wait_for_action: ""
+  TF_VAR_apply_action_ignore_on_update: ""
+  TF_VAR_dc_cluster_group_inside_vn: ""
+  TF_VAR_dc_cluster_group_outside_vn: ""
+  TF_VAR_active_forward_proxy_policies_list: "[]"
+  TF_VAR_forward_proxy_allow_all: ""
+  TF_VAR_global_network_connections_list: "[]"
+  TF_VAR_inside_static_route_list: "[]"
+  TF_VAR_outside_static_route_list: "[]"
+  TF_VAR_enhanced_firewall_policies_list: "[]"
+  TF_VAR_active_network_policies_list: "[]"
+  TF_VAR_sm_connection_public_ip: ""
+  TF_VAR_vpc_instance_tenancy: ""
+  TF_VAR_vpc_enable_dns_hostnames: ""
+  TF_VAR_vpc_enable_dns_support: ""
+  TF_VAR_vpc_enable_network_address_usage_metrics: ""
+
+jobs:
+  aws_vpc_site:
+    name: "AWS VPC Site Apply"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "./f5/xc/aws-vpc-site"
+    env:
+      VOLT_API_URL: ${{ secrets.XC_API_URL }}
+      VOLT_API_P12_FILE: "./api.p12"
+      VES_P12_PASSWORD: ${{ secrets.XC_P12_PASSWORD }}
+      AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+      AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+      AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+      TF_VAR_aws_cloud_credentials_name: ${{ secrets.XC_AWS_CLOUD_CREDENTIALS_NAME }}
+    outputs:
+      name: ${{ steps.output_vars.outputs.name }}
+      id: ${{ steps.output_vars.outputs.id }}
+      ssh_private_key_pem: ${{ steps.output_vars.outputs.ssh_private_key_pem }}
+      ssh_private_key_openssh: ${{ steps.output_vars.outputs.ssh_private_key_openssh }}
+      ssh_public_key: ${{ steps.output_vars.outputs.ssh_public_key }}
+      apply_tf_output: ${{ steps.output_vars.outputs.apply_tf_output }}
+      apply_tf_output_map: ${{ steps.output_vars.outputs.apply_tf_output_map }}
+      vpc_id: ${{ steps.output_vars.outputs.vpc_id }}
+      vpc_cidr: ${{ steps.output_vars.outputs.vpc_cidr }}
+      outside_subnet_ids: ${{ steps.output_vars.outputs.outside_subnet_ids }}
+      outside_route_table_ids: ${{ steps.output_vars.outputs.outside_route_table_ids }}
+      inside_subnet_ids: ${{ steps.output_vars.outputs.inside_subnet_ids }}
+      inside_route_table_ids: ${{ steps.output_vars.outputs.inside_route_table_ids }}
+      workload_subnet_ids: ${{ steps.output_vars.outputs.workload_subnet_ids }}
+      workload_route_table_ids: ${{ steps.output_vars.outputs.workload_route_table_ids }}
+      local_subnet_ids: ${{ steps.output_vars.outputs.local_subnet_ids }}
+      local_route_table_ids: ${{ steps.output_vars.outputs.local_route_table_ids }}
+      internet_gateway_id: ${{ steps.output_vars.outputs.internet_gateway_id }}
+      outside_security_group_id: ${{ steps.output_vars.outputs.outside_security_group_id }}
+      inside_security_group_id: ${{ steps.output_vars.outputs.inside_security_group_id }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - id: apply_variables 
+        uses: "./.github/actions/apply-variables" 
+        with: 
+          vars_json: "${{ toJSON(vars) }}" 
+          vars_prefix: "AWS_VPC_SITE_TF_VAR_"
+          inputs_json: "${{ toJSON(inputs) }}" 
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Setup Terraform Backend
+        id: backend
+        run: |
+          echo "${{secrets.XC_API_P12_FILE}}" | base64 -d > api.p12
+          echo VOLT_API_P12_FILE="$PWD/api.p12" >> "$GITHUB_ENV"
+
+          cat > backend.tf << EOF
+          terraform {
+            cloud {
+              organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
+              workspaces {
+                name = "$TF_CLOUD_WORKSPACE_AWS_VPC_SITE"
+              }
+            }
+          }
+          EOF
+          
+      - name: Terraform Init
+        id: init
+        run: terraform init
+      
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve -input=false
+
+      - name: Set output vars
+        id: output_vars
+        run: |
+          printf "name=%s\n" $(terraform-bin output -raw name) >> "$GITHUB_OUTPUT"
+          printf "id=%s\n" $(terraform-bin output -raw id) >> "$GITHUB_OUTPUT"
+          printf "ssh_public_key=%s\n" $(terraform-bin output -raw ssh_public_key) >> "$GITHUB_OUTPUT"
+          printf "apply_tf_output_map=%s\n" $(terraform-bin output -json apply_tf_output_map) >> "$GITHUB_OUTPUT"
+          printf "vpc_id=%s\n" $(terraform-bin output -raw vpc_id) >> "$GITHUB_OUTPUT"
+          printf "vpc_cidr=%s\n" $(terraform-bin output -raw vpc_cidr) >> "$GITHUB_OUTPUT"
+          printf "outside_subnet_ids=%s\n" $(terraform-bin output -json outside_subnet_ids) >> "$GITHUB_OUTPUT"
+          printf "outside_route_table_ids=%s\n" $(terraform-bin output -json outside_route_table_ids) >> "$GITHUB_OUTPUT"
+          printf "inside_subnet_ids=%s\n" $(terraform-bin output -json inside_subnet_ids) >> "$GITHUB_OUTPUT"
+          printf "inside_route_table_ids=%s\n" $(terraform-bin output -json inside_route_table_ids) >> "$GITHUB_OUTPUT"
+          printf "workload_subnet_ids=%s\n" $(terraform-bin output -json workload_subnet_ids) >> "$GITHUB_OUTPUT"
+          printf "workload_route_table_ids=%s\n" $(terraform-bin output -json workload_route_table_ids) >> "$GITHUB_OUTPUT"
+          printf "local_subnet_ids=%s\n" $(terraform-bin output -json local_subnet_ids) >> "$GITHUB_OUTPUT"
+          printf "local_route_table_ids=%s\n" $(terraform-bin output -json local_route_table_ids) >> "$GITHUB_OUTPUT"
+          printf "internet_gateway_id=%s\n" $(terraform-bin output -raw internet_gateway_id) >> "$GITHUB_OUTPUT"
+          printf "outside_security_group_id=%s\n" $(terraform-bin output -raw outside_security_group_id) >> "$GITHUB_OUTPUT"
+          printf "inside_security_group_id=%s\n" $(terraform-bin output -raw inside_security_group_id) >> "$GITHUB_OUTPUT"
+
+      - name: Print output vars
+        id: ouput_print
+        run: |
+          echo 'id: ${{ steps.output_vars.outputs.id }}'
+          echo 'name: ${{ steps.output_vars.outputs.name }}'
+          echo 'ssh_public_key: ${{ steps.output_vars.outputs.ssh_public_key }}'
+          echo 'apply_tf_output_map: ${{ steps.output_vars.outputs.apply_tf_output_map }}'
+          echo 'vpc_id: ${{ steps.output_vars.outputs.vpc_id }}'
+          echo 'vpc_cidr: ${{ steps.output_vars.outputs.vpc_cidr }}'
+          echo 'outside_subnet_ids: ${{ steps.output_vars.outputs.outside_subnet_ids }}'
+          echo 'outside_route_table_ids: ${{ steps.output_vars.outputs.outside_route_table_ids }}'
+          echo 'inside_subnet_ids: ${{ steps.output_vars.outputs.inside_subnet_ids }}'
+          echo 'inside_route_table_ids: ${{ steps.output_vars.outputs.inside_route_table_ids }}'
+          echo 'workload_subnet_ids: ${{ steps.output_vars.outputs.workload_subnet_ids }}'
+          echo 'workload_route_table_ids: ${{ steps.output_vars.outputs.workload_route_table_ids }}'
+          echo 'local_subnet_ids: ${{ steps.output_vars.outputs.local_subnet_ids }}'
+          echo 'local_route_table_ids: ${{ steps.output_vars.outputs.local_route_table_ids }}'
+          echo 'internet_gateway_id: ${{ steps.output_vars.outputs.internet_gateway_id }}'
+          echo 'outside_security_group_id: ${{ steps.output_vars.outputs.outside_security_group_id }}'
+          echo 'inside_security_group_id: ${{ steps.output_vars.outputs.inside_security_group_id }}'
+
