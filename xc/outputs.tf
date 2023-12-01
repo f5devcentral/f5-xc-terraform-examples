@@ -12,3 +12,4 @@ output "endpoint" {
 output "az_ce_site_pub_ip" {
   value = var.az_ce_site ? data.azurerm_virtual_machine.az-ce-site[0].public_ip_address : null
 }
+*/
