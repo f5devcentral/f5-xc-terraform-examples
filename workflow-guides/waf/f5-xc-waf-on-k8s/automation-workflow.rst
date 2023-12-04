@@ -173,8 +173,9 @@ Cloud console
 
 **STEP 5:** Once the pipeline completes, verify your CE, Origin Pool and LB were deployed or destroyed based on your workflow.
 
-**STEP 6:** You can login to AWS console, copy the load balancer DNS and send request with XC LB as a Host header which should provide the application response as shown below
+**STEP 6:** Open a linux shell or CMD, login to AWS console with your credentials, download the kubectl file for this load balancer and check services. Copy the load balancer DNS with name "lb-ver" and send request with XC LB FQDN as a Host header which should provide the application response as shown below
 
+.. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/lb.JPG
 .. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/postman.JPG
 
 
