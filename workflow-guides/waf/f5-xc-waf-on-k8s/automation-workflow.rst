@@ -175,7 +175,7 @@ Cloud console
 
 **STEP 6:** Open a linux shell or CMD, login to AWS console with your credentials, download the kubectl file for this load balancer and check services. Copy the load balancer DNS with name "lb-ver" and send request with XC LB FQDN as a Host header which should provide the application response as shown below
 
-.. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/lb.JPG
+.. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/lb.jpg
 .. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/postman.JPG
 
 
