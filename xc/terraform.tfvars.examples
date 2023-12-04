@@ -21,6 +21,7 @@ serviceName = ""
 serviceport = ""
 advertise_sites = "false"
 http_only = "false"
+xc_delegation = ""
 
 #XC AI/ML Settings for MUD, APIP - NOTE: Only set if using AI/ML settings from the shared namespace
 xc_app_type = []
