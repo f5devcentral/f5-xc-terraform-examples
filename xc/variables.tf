@@ -162,8 +162,3 @@ variable "eks_ce_site" {
   default     = "false"
 }
 
-variable "azure" {
-  type        = string
-  description = "for azure related code"
-  default     = "true"
-}
