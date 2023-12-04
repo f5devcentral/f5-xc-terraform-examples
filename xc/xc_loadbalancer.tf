@@ -89,7 +89,8 @@ resource "volterra_http_loadbalancer" "lb_https" {
   dynamic "http" {
     for_each = var.http_only ? [1] : []
     content  {
-        port = "80"
+      dns_volterra_managed = var.xc_delegation
+      port = "80"
       }
   }
 

@@ -148,3 +148,9 @@ variable "xc_service_discovery" {
   description = "Enable service discovery"
   default     = "false"
 }
+
+variable "xc_delegation" {
+  type        = string
+  description = "F5 XC Domain delegation"
+  default     = "false"
+}
