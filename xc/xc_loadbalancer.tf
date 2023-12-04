@@ -11,7 +11,7 @@ resource "null_resource" "wait_for_ekssite"{
 
 # Create XC LB config
 resource "volterra_origin_pool" "op" {
-  depends_on             = [null_resource.wait_for_site]
+  depends_on             = [null_resource.wait_for_site, null_resource.wait_for_ekssite]
   name                   = format("%s-xcop-%s", local.project_prefix, local.build_suffix)
   namespace              = var.xc_namespace
   description            = format("Origin pool pointing to origin server %s", local.origin_server)
