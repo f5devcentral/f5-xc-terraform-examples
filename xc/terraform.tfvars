@@ -5,7 +5,7 @@ xc_namespace = "default"
 app_domain = "cek8s.f5-hyd-demo.com"
 xc_waf_blocking = "true"
 
-azure = "false"
+
 
 k8s_pool = "true"
 serviceName = "productpage.default"
