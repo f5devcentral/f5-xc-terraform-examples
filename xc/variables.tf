@@ -124,22 +124,22 @@ variable "az_ce_site" {
 
 variable "azure_subscription_id" {
   type        = string
-  default     = ""
+  default     = "default"
 }
 
 variable "azure_subscription_tenant_id" {
   type        = string
-  default     = ""
+  default     = "default"
 }
 
 variable "azure_service_principal_appid" {
   type        = string
-  default     = ""
+  default     = "default"
 }
 
 variable "azure_service_principal_password" {
   type        = string
-  default     = ""
+  default     = "default"
 }
 
 variable "azure_xc_machine_type" {
