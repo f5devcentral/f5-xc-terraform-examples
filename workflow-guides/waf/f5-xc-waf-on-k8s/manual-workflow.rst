@@ -67,6 +67,11 @@ d. Select network as “Inside and Outside Network”
 14. Create a web application firewall (WAF) with mode as “Blocking” and
     with default settings.
 15. Open Load balancer in edit mode and apply this WAF configuration.
+16. If want to access this application open a linux shell or CMD, login to AWS console with your credentials, download the kubectl file for this load balancer and check services. 
+17. Copy the load balancer DNS with name "lb-ver" and send request with XC LB FQDN as a Host header which should provide the application response as shown below
+
+.. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/lb.jpg
+.. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/postman.JPG
 
 
 Development
