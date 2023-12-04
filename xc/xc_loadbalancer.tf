@@ -4,6 +4,11 @@ resource "null_resource" "wait_for_site"{
   depends_on      =  [volterra_tf_params_action.action_apply]
 }
 
+resource "null_resource" "wait_for_ekssite"{
+  count           =  var.eks_ce_site ? 1 : 0
+  depends_on      =  [volterra_registration_approval.k8s-ce]
+}
+
 # Create XC LB config
 resource "volterra_origin_pool" "op" {
   depends_on             = [null_resource.wait_for_site]
