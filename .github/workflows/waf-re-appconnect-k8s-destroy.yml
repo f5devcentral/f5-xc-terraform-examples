@@ -1,9 +1,9 @@
-name: "F5XC WAF on CE Destroy"
+name: "F5XC WAF on RE + Appconnect Destroy"
 
 on:
   push:
     branches:
-      - destroy-waf-re-appconnect
+      - destroy-waf-re-ac-k8s
   pull_request:
 
 jobs:  
@@ -80,7 +80,7 @@ jobs:
         run: exit 1
 
       - name: Terraform Destroy
-        if: github.ref == 'refs/heads/destroy-waf-re-appconnect' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/destroy-waf-re-ac-k8s' && github.event_name == 'push'
         run: terraform destroy -auto-approve -input=false
   
   terraform_aks:
@@ -155,7 +155,7 @@ jobs:
         run: exit 1
 
       - name: Terraform Destroy
-        if: github.ref == 'refs/heads/destroy-waf-re-appconnect' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/destroy-waf-re-ac-k8s' && github.event_name == 'push'
         run: terraform destroy -auto-approve -input=false
 
   terraform_infra:
@@ -231,5 +231,5 @@ jobs:
         run: exit 1
 
       - name: Terraform Destroy
-        if: github.ref == 'refs/heads/destroy-waf-re-appconnect' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/destroy-waf-re-ac-k8s' && github.event_name == 'push'
         run: terraform destroy -auto-approve -input=false
