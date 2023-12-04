@@ -18,7 +18,6 @@ data "tfe_outputs" "nic" {
   workspace = "nic"
 }
 
-/*
 data "tfe_outputs" "aks-cluster" {
   count = data.tfe_outputs.infra.values.aks-cluster ? 1 : 0 
   organization = var.tf_cloud_organization
@@ -35,7 +34,7 @@ data "azurerm_virtual_machine" "az-ce-site" {
   depends_on          = [volterra_tf_params_action.action_apply]
   name                = "master-0"
   resource_group_name = format("%s-rg-xc-%s", local.project_prefix, local.build_suffix)
-}*/
+}
 
 data "tfe_outputs" "eks" {
   count               = var.eks_ce_site ? 1 : 0

@@ -121,7 +121,7 @@ variable "az_ce_site" {
   default     = "false"
 }
 
-/*
+
 variable "azure_subscription_id" {
   type        = string
   default     = ""
@@ -146,7 +146,7 @@ variable "azure_xc_machine_type" {
   type    = string
   default = "Standard_D3_v2"
 }
-*/
+
 
 # XC Service Discovery
 variable "xc_service_discovery" {
