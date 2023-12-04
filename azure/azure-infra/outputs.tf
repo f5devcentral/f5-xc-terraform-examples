@@ -46,3 +46,6 @@ output "bigip-cis" {
 output "aks-cluster" {
   value = var.aks-cluster
 }
+output "azure-vm" {
+  value = var.azure-vm
+}

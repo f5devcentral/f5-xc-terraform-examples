@@ -17,7 +17,7 @@ variable "azure_region" {
 
 variable "project_prefix" {
   type        = string
-  description = "This value is inserted at the beginning of each AWS object (alpha-numeric, no special character)"
+  description = "This value is inserted at the beginning of each AWS/Azure object (alpha-numeric, no special character)"
 }
 
 variable "azure_subscription_id" {
@@ -49,5 +49,8 @@ variable "bigip-cis" {
   type = bool
 }
 variable "aks-cluster" {
+  type = bool
+}
+variable "azure-vm" {
   type = bool
 }

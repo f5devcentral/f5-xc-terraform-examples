@@ -19,6 +19,10 @@
 
 ## Terraform Cloud
 
+* **Organization:** Create a new Organization for the Teachable project(s). 
+
+* **Settings**: Under **Settings** select the **General** tab (under **Organization Settings**) and for **Default Execution Mode** select "Local". Under **Security** section select **API Tokens** and create a new Organization Token for your created Organization. You will need this later in the GitHub Actions section.
+
 * **Workspaces:** The following workspaces will be created in Terraform Cloud unless otherwise specified in the Actions Environments.
 
 
@@ -28,7 +32,7 @@
   | teachable-00-intro-apply      | xc-credentials           |
   | aws-cloud-credentials-apply   | aws-cloud-credentials    |
   | azure-cloud-credentials-apply | azure-cloud-credentials  |
-  
+
 ## AWS
 
 **STEP 1:** Log in to your AWS Management Console:
@@ -115,7 +119,7 @@ Securely store this information as it will be needed for authentication and auth
   | XC_AZURE_CLOUD_CREDENTIALS_NAME    | false        | Name of the F5 XC Azure Cloud Credentials to use instead of creating a new one |
 
 
-* **Actions Environemnt:** Create the following GitHub Actions environments in your forked repo if you want to override the defaults.
+* **Actions Environment:** Create the following GitHub Actions environments in your forked repo if you want to override the defaults.
 
 
   | **Name**                             | **Default**             | **Description**                                                              |
@@ -139,7 +143,7 @@ Securely store this information as it will be needed for authentication and auth
   
   | **Lesson**        | **Description**                  |
   | ----------------- | -------------------------------- |
-  | terrafrom-cloud   | Hello World into Terrafrom Cloud |
+  | terraform-cloud   | Hello World into Terraform Cloud |
   | xc-credentials    | XC Credentials                   |
   | azure-credentials | AWS Credentials                  |
   | aws-credentials   | Azure Credentials                |
