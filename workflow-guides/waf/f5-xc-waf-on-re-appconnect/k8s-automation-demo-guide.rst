@@ -36,7 +36,7 @@ Terraform Cloud
    | f5-xc-waf-on-re-ac        | infra, aks-cluster, xc                    |
    +---------------------------+-------------------------------------------+
 
-.. image:: assets/workspaces.JPEG
+.. image:: assets/workspaces.JPG
 
 
 -  **Workspace Sharing:** Under the settings for each Workspace, set the **Remote state sharing** to share with each Workspace created.
@@ -64,7 +64,7 @@ Terraform Cloud
    +------------------------------------------+--------------+------------------------------------------------------+
 
 -  Variable set created in terraform cloud:
-.. image:: assets/variable-set.JPEG
+.. image:: assets/variable-set.JPG
 
 
 GitHub
@@ -85,7 +85,7 @@ GitHub
          value ``aks-cluster``
 
 -  Created GitHub Action Secrets:
-.. image:: assets/action-secret.JPEG
+.. image:: assets/action-secret.JPG
 
 Workflow Runs
 -------------
