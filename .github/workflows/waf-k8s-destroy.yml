@@ -271,7 +271,7 @@ jobs:
 
 
   terraform_eks:
-    name: "AWS EKS"
+    name: "Destroy AWS EKS"
     runs-on: ubuntu-latest
     needs: terraform_bookinfo
     defaults:
@@ -345,7 +345,7 @@ jobs:
         run: terraform destroy -auto-approve -input=false
 
   terraform_infra:
-    name: "AWS Infra"
+    name: "Destroy AWS Infra"
     runs-on: ubuntu-latest
     needs: terraform_eks
     defaults:
