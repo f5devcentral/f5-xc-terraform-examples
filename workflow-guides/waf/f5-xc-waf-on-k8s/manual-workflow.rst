@@ -73,6 +73,8 @@ d. Select network as “Inside and Outside Network”
 .. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/lb.jpg
 .. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/postman.JPG
 
+18. If needed, please delete all resources created manually from bottom to cleanup the infra for ex. XC resources first then EKS and finally AWS resources.
+
 
 Development
 -----------
