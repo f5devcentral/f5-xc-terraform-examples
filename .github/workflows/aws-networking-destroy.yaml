@@ -1,18 +1,18 @@
-name: "AWS XC Cloud Credentials Destroy"
+name: "AWS Networking Destroy"
 
 on:
   push:
     branches:
-      - aws-cloud-credentials
+      - aws-networking
   workflow_dispatch:
     inputs:
-      TF_CLOUD_WORKSPACE_AWS_CREDENTIALS:
+      TF_CLOUD_WORKSPACE_AWS_NETWORKING:
         description: "TF Cloud Workspace (optional)"
         required: false
         type: string
   workflow_call:
     inputs:
-      TF_CLOUD_WORKSPACE_AWS_CREDENTIALS:
+      TF_CLOUD_WORKSPACE_AWS_NETWORKING:
         description: "TF Cloud Workspace"
         required: false
         type: string
@@ -20,12 +20,6 @@ on:
       TF_API_TOKEN:
         required: true
       TF_CLOUD_ORGANIZATION:
-        required: true
-      XC_API_P12_FILE:
-        required: true
-      XC_P12_PASSWORD :
-          required: true
-      XC_API_URL:
         required: true
       AWS_ACCESS_KEY:
         required: true
@@ -35,23 +29,37 @@ on:
         required: true
 
 jobs:
-  aws_credentials:
-    name: "AWS Cloud Credentials"
+  aws_networking:
+    name: "AWS Networking Destroy"
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: "./f5/xc/aws-cloud-credentials"
+        working-directory: "./aws/networking"
     env:
-      TF_VAR_name: "aws-cloud-credentials"
-      TF_VAR_prefix: ""
-      TF_CLOUD_WORKSPACE_AWS_CREDENTIALS: "aws-cloud-credentials"
-      VOLT_API_URL: ${{ secrets.XC_API_URL }}
-      VOLT_API_P12_FILE: "./api.p12"
-      VES_P12_PASSWORD: ${{ secrets.XC_P12_PASSWORD }}
       AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
       AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
       AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
-
+      TF_CLOUD_WORKSPACE_AWS_NETWORKING: "aws-networking"
+      TF_VAR_aws_region: "us-east-1"
+      TF_VAR_name: "aws-networking"
+      TF_VAR_prefix: ""
+      TF_VAR_existing_vpc_id: ""
+      TF_VAR_create_outside_route_table: "true"
+      TF_VAR_create_internet_gateway: "true"
+      TF_VAR_create_outside_security_group: "true"
+      TF_VAR_create_inside_security_group: "true"
+      TF_VAR_create_udp_security_group_rules: "true"
+      TF_VAR_tags: "{}"
+      TF_VAR_az_names: "[\"us-east-1a\"]"
+      TF_VAR_local_subnets: "[\"10.10.11.0/24\"]"
+      TF_VAR_inside_subnets: "[\"10.10.21.0/24\"]"
+      TF_VAR_outside_subnets: "[\"10.10.31.0/24\"]"
+      TF_VAR_workload_subnets: "[\"10.10.41.0/24\"]"
+      TF_VAR_vpc_cidr: "10.10.0.0/16"
+      TF_VAR_vpc_instance_tenancy: "default"
+      TF_VAR_vpc_enable_dns_hostnames: "true"
+      TF_VAR_vpc_enable_dns_support: "true"
+      TF_VAR_vpc_enable_network_address_usage_metrics: "false"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -60,7 +68,7 @@ jobs:
         uses: "./.github/actions/apply-variables" 
         with: 
           vars_json: "${{ toJSON(vars) }}" 
-          vars_prefix: "AWSCC_TF_VAR_"
+          vars_prefix: "AWSN_TF_VAR_"
           inputs_json: "${{ toJSON(inputs) }}" 
 
       - name: Setup Terraform
@@ -71,15 +79,12 @@ jobs:
       - name: Setup Terraform Backend
         id: backend
         run: |
-          echo "${{secrets.XC_API_P12_FILE}}" | base64 -d > api.p12
-          echo VOLT_API_P12_FILE="$PWD/api.p12" >> "$GITHUB_ENV"
-
           cat > backend.tf << EOF
           terraform {
             cloud {
               organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
               workspaces {
-                name = "$TF_CLOUD_WORKSPACE_AWS_CREDENTIALS"
+                name = "$TF_CLOUD_WORKSPACE_AWS_NETWORKING"
               }
             }
           }

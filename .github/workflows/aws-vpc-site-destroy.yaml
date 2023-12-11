@@ -1,18 +1,18 @@
-name: "AWS XC Cloud Credentials Destroy"
+name: "AWS VPC Site Destroy"
 
 on:
   push:
     branches:
-      - aws-cloud-credentials
+      - aws-vpc-site
   workflow_dispatch:
     inputs:
-      TF_CLOUD_WORKSPACE_AWS_CREDENTIALS:
+      TF_CLOUD_WORKSPACE_AWS_VPC_SITE:
         description: "TF Cloud Workspace (optional)"
         required: false
         type: string
   workflow_call:
     inputs:
-      TF_CLOUD_WORKSPACE_AWS_CREDENTIALS:
+      TF_CLOUD_WORKSPACE_AWS_VPC_SITE:
         description: "TF Cloud Workspace"
         required: false
         type: string
@@ -32,25 +32,33 @@ on:
       AWS_SECRET_KEY:
         required: true
       AWS_SESSION_TOKEN:
-        required: true
-
+          required: true
+      XC_AWS_CLOUD_CREDENTIALS_NAME:
+        required: false
+      
 jobs:
-  aws_credentials:
-    name: "AWS Cloud Credentials"
+  aws_vpc_site:
+    name: "AWS VPC Site Destroy"
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: "./f5/xc/aws-cloud-credentials"
+        working-directory: "./f5/xc/aws-vpc-site"
     env:
-      TF_VAR_name: "aws-cloud-credentials"
-      TF_VAR_prefix: ""
-      TF_CLOUD_WORKSPACE_AWS_CREDENTIALS: "aws-cloud-credentials"
       VOLT_API_URL: ${{ secrets.XC_API_URL }}
       VOLT_API_P12_FILE: "./api.p12"
       VES_P12_PASSWORD: ${{ secrets.XC_P12_PASSWORD }}
       AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
       AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
       AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+      TF_VAR_aws_cloud_credentials_name: ${{ secrets.XC_AWS_CLOUD_CREDENTIALS_NAME }}
+      TF_CLOUD_WORKSPACE_AWS_VPC_SITE: "aws-vpc-site"
+      TF_VAR_aws_region: "us-east-1"
+      TF_VAR_name: "aws-vpc-site"
+      TF_VAR_prefix: ""
+      TF_VAR_site_type: "ingress_gw"
+      TF_VAR_master_nodes_az_names: "[\"us-east-1a\"]"
+      TF_VAR_vpc_cidr: "10.10.0.0/16"
+      TF_VAR_local_subnets: "[\"10.10.1.0/24\"]"
 
     steps:
       - name: Checkout
@@ -60,7 +68,7 @@ jobs:
         uses: "./.github/actions/apply-variables" 
         with: 
           vars_json: "${{ toJSON(vars) }}" 
-          vars_prefix: "AWSCC_TF_VAR_"
+          vars_prefix: "AWSVS_TF_VAR_"
           inputs_json: "${{ toJSON(inputs) }}" 
 
       - name: Setup Terraform
@@ -79,7 +87,7 @@ jobs:
             cloud {
               organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
               workspaces {
-                name = "$TF_CLOUD_WORKSPACE_AWS_CREDENTIALS"
+                name = "$TF_CLOUD_WORKSPACE_AWS_VPC_SITE"
               }
             }
           }
@@ -88,7 +96,7 @@ jobs:
       - name: Terraform Init
         id: init
         run: terraform init
-      
+
       - name: Terraform Destroy
         id: destroy
         run: terraform destroy -auto-approve -input=false
