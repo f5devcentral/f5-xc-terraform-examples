@@ -1,10 +1,14 @@
+locals {
+  name = var.prefix != "" ? format("%s-%s", var.prefix, var.name) : var.name
+}
+
 module "xc_azure_vnet" {
   source  = "f5devcentral/azure-vnet-site-networking/xc"
   version = "0.0.1"
 
-  name                            = var.prefix != "" ? format("%s-%s", var.prefix, var.name) : var.name
+  name                            = local.name
   location                        = var.location
-  resource_group_name             = var.resource_group_name
+  resource_group_name             = var.resource_group_name != "" ? var.resource_group_name : local.name
   create_vnet                     = var.create_vnet != "" ? tobool(var.create_vnet) : true
   create_resource_group           = var.create_resource_group != "" ? tobool(var.create_resource_group) : true
   create_outside_route_table      = var.create_outside_route_table != "" ? tobool(var.create_outside_route_table) : true

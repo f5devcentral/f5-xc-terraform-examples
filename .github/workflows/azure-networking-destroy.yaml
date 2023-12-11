@@ -29,26 +29,6 @@ on:
         required: true
       AZURE_CLIENT_SECRET:
         required: true
-
-env:
-  TF_CLOUD_WORKSPACE_AZURE_NETWORKING: "azure-networking"
-  TF_VAR_name: "azure-networking"
-  TF_VAR_prefix: ""
-  TF_VAR_location: "centralus"
-  TF_VAR_resource_group_name: "azure-networking"
-  TF_VAR_create_vnet: "true"
-  TF_VAR_create_resource_group: "true"
-  TF_VAR_create_outside_route_table: "true"
-  TF_VAR_create_outside_security_group: "true"
-  TF_VAR_create_inside_route_table: "true"
-  TF_VAR_create_inside_security_group: "true"
-  TF_VAR_create_udp_security_group_rules: "true"
-  TF_VAR_tags: "{}"
-  TF_VAR_local_subnets: "[\"192.168.1.1\"]"
-  TF_VAR_inside_subnets: "[]"
-  TF_VAR_outside_subnets: "[]"
-  TF_VAR_vnet_cidr: "192.168.1.0/24"
-  TF_VAR_disable_bgp_route_propagation: "false"
   
 jobs:
   azure_networking:
@@ -62,6 +42,24 @@ jobs:
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      TF_CLOUD_WORKSPACE_AZURE_NETWORKING: "azure-networking"
+      TF_VAR_name: "azure-networking"
+      TF_VAR_prefix: ""
+      TF_VAR_location: "centralus"
+      TF_VAR_resource_group_name: "azure-networking"
+      TF_VAR_create_vnet: "true"
+      TF_VAR_create_resource_group: "true"
+      TF_VAR_create_outside_route_table: "true"
+      TF_VAR_create_outside_security_group: "true"
+      TF_VAR_create_inside_route_table: "true"
+      TF_VAR_create_inside_security_group: "true"
+      TF_VAR_create_udp_security_group_rules: "true"
+      TF_VAR_tags: "{}"
+      TF_VAR_local_subnets: "[\"192.168.1.1\"]"
+      TF_VAR_inside_subnets: "[]"
+      TF_VAR_outside_subnets: "[]"
+      TF_VAR_vnet_cidr: "192.168.1.0/24"
+      TF_VAR_disable_bgp_route_propagation: "false"
 
     steps:
       - name: Checkout
@@ -71,7 +69,7 @@ jobs:
         uses: "./.github/actions/apply-variables" 
         with: 
           vars_json: "${{ toJSON(vars) }}" 
-          vars_prefix: "AZURE_NETWORKING_TF_VAR_"
+          vars_prefix: "AZN_TF_VAR_"
           inputs_json: "${{ toJSON(inputs) }}" 
 
       - name: Setup Terraform

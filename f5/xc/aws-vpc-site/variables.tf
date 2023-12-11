@@ -276,7 +276,7 @@ variable "custom_security_group" {
 
 variable "existing_local_subnets" {
   description = "If you want to use existing subnets, provide the subnet IDs here."
-  type        = string
+  type        = list(string)
   default     = []
 }
 

@@ -68,16 +68,6 @@ on:
         description: "AWS XC Cloud Credentials Namespace"
         value: ${{ jobs.aws_credentials.outputs.aws_credentials_namespace }}
 
-env:
-  TF_CLOUD_WORKSPACE_HELLO_WORLD: "hello-world"
-  TF_CLOUD_WORKSPACE_XC_CREDENTIALS: "xc-credentials"
-  TF_CLOUD_WORKSPACE_AZURE_CREDENTIALS: "azure-cloud-credentials"
-  TF_CLOUD_WORKSPACE_AWS_CREDENTIALS: "aws-cloud-credentials"
-  AWS_CLOUD_CREDENTIALS_TF_VAR_name: "aws-cloud-credentials"
-  AZURE_CLOUD_CREDENTIALS_TF_VAR_name: "azure-cloud-credentials"
-  TF_VAR_name: "teachable"
-  TF_VAR_prefix: ""
-
 jobs:
   terraform_cloud:
     name: "Terraform Cloud"
@@ -86,16 +76,50 @@ jobs:
     defaults:
       run:
         working-directory: "./teachable/00-intro/terraform/terraform-cloud"
+    env:
+      TF_VAR_name: "teachable"
+      TF_VAR_prefix: ""
+      TF_CLOUD_WORKSPACE_HELLO_WORLD: "hello-world"
+      TF_CLOUD_WORKSPACE_XC_CREDENTIALS: "xc-credentials"
+      TF_CLOUD_WORKSPACE_AZURE_CREDENTIALS: "azure-cloud-credentials"
+      TF_CLOUD_WORKSPACE_AWS_CREDENTIALS: "aws-cloud-credentials"
+      AWS_CLOUD_CREDENTIALS_TF_VAR_name: "aws-cloud-credentials"
+      AZURE_CLOUD_CREDENTIALS_TF_VAR_name: "azure-cloud-credentials"
+    outputs:
+      TF_VAR_name: ${{ steps.update_output.outputs.TF_VAR_name }}
+      TF_VAR_prefix: ${{ steps.update_output.outputs.TF_VAR_prefix }}
+      TF_CLOUD_WORKSPACE_HELLO_WORLD: ${{ steps.update_output.outputs.TF_CLOUD_WORKSPACE_HELLO_WORLD }}
+      TF_CLOUD_WORKSPACE_XC_CREDENTIALS: ${{ steps.update_output.outputs.TF_CLOUD_WORKSPACE_XC_CREDENTIALS }}
+      TF_CLOUD_WORKSPACE_AZURE_CREDENTIALS: ${{ steps.update_output.outputs.TF_CLOUD_WORKSPACE_AZURE_CREDENTIALS }}
+      TF_CLOUD_WORKSPACE_AWS_CREDENTIALS: ${{ steps.update_output.outputs.TF_CLOUD_WORKSPACE_AWS_CREDENTIALS }}
+      AWS_CLOUD_CREDENTIALS_TF_VAR_name: ${{ steps.update_output.outputs.AWS_CLOUD_CREDENTIALS_TF_VAR_name }}
+      AZURE_CLOUD_CREDENTIALS_TF_VAR_name: ${{ steps.update_output.outputs.AZURE_CLOUD_CREDENTIALS_TF_VAR_name }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
       - id: apply_variables 
+        name: Apply Environment Variables
         uses: "./.github/actions/apply-variables" 
         with: 
           vars_json: "${{ toJSON(vars) }}" 
-          vars_prefix: "TEACHABLE_00_INTRO_TF_VAR_"
+          vars_prefix: "T00_TF_VAR_"
           inputs_json: "${{ toJSON(inputs) }}" 
+
+      - id: update_output
+        name: Update Output
+        shell: bash
+        env:
+          ALL_ENV: ${{ toJSON(env) }}
+        run: |
+          echo "$ALL_ENV" |
+          jq -r ' 
+              to_entries | 
+              .[] | 
+              select(.key) | 
+              select(if .value | type == "string" then .value | length > 0 else .value != null end) | 
+              "\(.key)=\(.value)" 
+          ' >> "$GITHUB_OUTPUT" 
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
@@ -138,17 +162,10 @@ jobs:
     env:
       VOLT_API_URL: ${{ secrets.XC_API_URL }}
       VES_P12_PASSWORD: ${{ secrets.XC_P12_PASSWORD }}
-      
+      TF_CLOUD_WORKSPACE_XC_CREDENTIALS: ${{ needs.terraform_cloud.outputs.TF_CLOUD_WORKSPACE_XC_CREDENTIALS }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
-      - id: apply_variables 
-        uses: "./.github/actions/apply-variables" 
-        with: 
-          vars_json: "${{ toJSON(vars) }}" 
-          vars_prefix: "TEACHABLE_00_INTRO_TF_VAR_"
-          inputs_json: "${{ toJSON(inputs) }}" 
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
@@ -185,12 +202,12 @@ jobs:
         run:  terraform apply -auto-approve -input=false
 
   aws_credentials: 
-    uses: ./.github/workflows/aws-cloud-credentials-apply.yaml 
+    uses: ./.github/workflows/aws-cloud-credentials-apply.yaml
     if: (inputs.lesson == 'aws-credentials')
-    needs: xc_credentials
+    needs: [xc_credentials, terraform_cloud]
     with: 
-      TF_VAR_name: ${{ github.env.AWS_CLOUD_CREDENTIALS_TF_VAR_name }} 
-      TF_VAR_prefix: ${{ github.env.TF_VAR_prefix }}
+      TF_VAR_name: ${{ needs.terraform_cloud.outputs.AWS_CLOUD_CREDENTIALS_TF_VAR_name }} 
+      TF_VAR_prefix: ${{ needs.terraform_cloud.outputs.TF_VAR_prefix }}
     secrets: 
       TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }} 
       TF_CLOUD_ORGANIZATION: ${{ secrets.TF_CLOUD_ORGANIZATION }} 
@@ -206,10 +223,10 @@ jobs:
   azure_credentials: 
     uses: ./.github/workflows/azure-cloud-credentials-apply.yaml 
     if: (inputs.lesson == 'azure-credentials')
-    needs: xc_credentials
+    needs: [xc_credentials, terraform_cloud]
     with: 
-      TF_VAR_name: ${{ github.env.AZURE_CLOUD_CREDENTIALS_TF_VAR_name }} 
-      TF_VAR_prefix: ${{ github.env.TF_VAR_prefix }}
+      TF_VAR_name: ${{ needs.terraform_cloud.outputs.AZURE_CLOUD_CREDENTIALS_TF_VAR_name }} 
+      TF_VAR_prefix: ${{ needs.terraform_cloud.outputs.TF_VAR_prefix }}
     secrets: 
       TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }} 
       TF_CLOUD_ORGANIZATION: ${{ secrets.TF_CLOUD_ORGANIZATION }} 

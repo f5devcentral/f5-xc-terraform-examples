@@ -25,10 +25,10 @@ output "ssh_public_key" {
   value       = module.azure_vnet_site.ssh_public_key
 }
 
-output "apply_tf_output" {
-  description = "Azure VNET Site apply terraform output parameter."
-  value       = module.azure_vnet_site.apply_tf_output
-}
+# output "apply_tf_output" {
+#   description = "Azure VNET Site apply terraform output parameter."
+#   value       = module.azure_vnet_site.apply_tf_output
+# }
 
 output "apply_tf_output_map" {
   description = "Azure VNET Site apply terraform output parameter."

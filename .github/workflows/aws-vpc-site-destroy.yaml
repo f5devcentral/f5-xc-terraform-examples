@@ -10,22 +10,12 @@ on:
         description: "TF Cloud Workspace (optional)"
         required: false
         type: string
-      TF_VAR_aws_cloud_credentials_name:
-        description: "Existing AWS Cloud Credentials Name"
-        required: false
-        type: string
-        default: "aws-cloud-credentials"
   workflow_call:
     inputs:
       TF_CLOUD_WORKSPACE_AWS_VPC_SITE:
         description: "TF Cloud Workspace"
         required: false
         type: string
-      TF_VAR_aws_cloud_credentials_name:
-        description: "Existing AWS Cloud Credentials Name"
-        required: false
-        type: string
-        default: "aws-cloud-credentials"
     secrets:
       TF_API_TOKEN:
         required: true
@@ -46,70 +36,6 @@ on:
       XC_AWS_CLOUD_CREDENTIALS_NAME:
         required: false
       
-env:
-  TF_CLOUD_WORKSPACE_AWS_VPC_SITE: "aws-vpc-site"
-  TF_VAR_aws_region: "us-east-1"
-  TF_VAR_name: "aws-vpc-site"
-  TF_VAR_prefix: ""
-  TF_VAR_aws_cloud_credentials_namespace: ""
-  TF_VAR_aws_cloud_credentials_tenant: ""
-  TF_VAR_site_description: ""
-  TF_VAR_site_namespace: ""
-  TF_VAR_tags: ""
-  TF_VAR_offline_survivability_mode: ""
-  TF_VAR_software_version: ""
-  TF_VAR_operating_system_version: ""
-  TF_VAR_site_type: "ingress_gw"
-  TF_VAR_master_nodes_az_names: "[\"us-east-1a\"]"
-  TF_VAR_nodes_disk_size: ""
-  TF_VAR_ssh_key: ""
-  TF_VAR_instance_type: ""
-  TF_VAR_jumbo: ""
-  TF_VAR_direct_connect: ""
-  TF_VAR_egress_nat_gw: ""
-  TF_VAR_egress_virtual_private_gateway: ""
-  TF_VAR_enable_internet_vip: ""
-  TF_VAR_allowed_vip_port: ""
-  TF_VAR_allowed_vip_port_sli: ""
-  TF_VAR_log_receiver: ""
-  TF_VAR_vpc_id: ""
-  TF_VAR_vpc_name: ""
-  TF_VAR_vpc_allocate_ipv6: ""
-  TF_VAR_vpc_cidr: "10.10.0.0/16"
-  TF_VAR_create_aws_vpc: ""
-  TF_VAR_custom_security_group: ""
-  TF_VAR_existing_local_subnets: "[]"
-  TF_VAR_existing_inside_subnets: "[]"
-  TF_VAR_existing_outside_subnets: "[]"
-  TF_VAR_existing_workload_subnets: "[]"
-  TF_VAR_local_subnets: "[\"10.10.1.0/24\"]"
-  TF_VAR_inside_subnets: "[]"
-  TF_VAR_outside_subnets: "[]"
-  TF_VAR_workload_subnets: "[]"
-  TF_VAR_local_subnets_ipv6: "[]"
-  TF_VAR_inside_subnets_ipv6: "[]"
-  TF_VAR_outside_subnets_ipv6: "[]"
-  TF_VAR_workload_subnets_ipv6: "[]"
-  TF_VAR_worker_nodes_per_az: ""
-  TF_VAR_block_all_services: ""
-  TF_VAR_blocked_service: ""
-  TF_VAR_apply_action_wait_for_action: ""
-  TF_VAR_apply_action_ignore_on_update: ""
-  TF_VAR_dc_cluster_group_inside_vn: ""
-  TF_VAR_dc_cluster_group_outside_vn: ""
-  TF_VAR_active_forward_proxy_policies_list: "[]"
-  TF_VAR_forward_proxy_allow_all: ""
-  TF_VAR_global_network_connections_list: "[]"
-  TF_VAR_inside_static_route_list: "[]"
-  TF_VAR_outside_static_route_list: "[]"
-  TF_VAR_enhanced_firewall_policies_list: "[]"
-  TF_VAR_active_network_policies_list: "[]"
-  TF_VAR_sm_connection_public_ip: ""
-  TF_VAR_vpc_instance_tenancy: ""
-  TF_VAR_vpc_enable_dns_hostnames: ""
-  TF_VAR_vpc_enable_dns_support: ""
-  TF_VAR_vpc_enable_network_address_usage_metrics: ""
-
 jobs:
   aws_vpc_site:
     name: "AWS VPC Site Destroy"
@@ -125,6 +51,14 @@ jobs:
       AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
       AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
       TF_VAR_aws_cloud_credentials_name: ${{ secrets.XC_AWS_CLOUD_CREDENTIALS_NAME }}
+      TF_CLOUD_WORKSPACE_AWS_VPC_SITE: "aws-vpc-site"
+      TF_VAR_aws_region: "us-east-1"
+      TF_VAR_name: "aws-vpc-site"
+      TF_VAR_prefix: ""
+      TF_VAR_site_type: "ingress_gw"
+      TF_VAR_master_nodes_az_names: "[\"us-east-1a\"]"
+      TF_VAR_vpc_cidr: "10.10.0.0/16"
+      TF_VAR_local_subnets: "[\"10.10.1.0/24\"]"
 
     steps:
       - name: Checkout
@@ -134,7 +68,7 @@ jobs:
         uses: "./.github/actions/apply-variables" 
         with: 
           vars_json: "${{ toJSON(vars) }}" 
-          vars_prefix: "AWS_VPC_SITE_TF_VAR_"
+          vars_prefix: "AWSVS_TF_VAR_"
           inputs_json: "${{ toJSON(inputs) }}" 
 
       - name: Setup Terraform

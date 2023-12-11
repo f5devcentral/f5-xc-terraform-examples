@@ -33,10 +33,10 @@ output "ssh_public_key" {
 # AWS Site apply action output parameters
 #-----------------------------------------------------
 
-output "apply_tf_output" {
-  description = "AWS Site apply terraform output parameter."
-  value       = module.aws_vpc_site.apply_tf_output
-}
+# output "apply_tf_output" {
+#   description = "AWS Site apply terraform output parameter."
+#   value       = module.aws_vpc_site.apply_tf_output
+# }
 
 output "apply_tf_output_map" {
   description = "AWS Site apply terraform output parameter."
@@ -49,12 +49,12 @@ output "apply_tf_output_map" {
 
 output "vpc_id" {
   description = "The ID of the VPC."
-  value       = module.aws_vpc_site.vpc_id
+  value       = null != module.aws_vpc_site.vpc_id ? module.aws_vpc_site.vpc_id : ""
 }
 
 output "vpc_cidr" {
   description = "The CIDR block of the VPC."
-  value       = module.aws_vpc_site.vpc_cidr
+  value       = null != module.aws_vpc_site.vpc_cidr ? module.aws_vpc_site.vpc_cidr : ""
 }
 
 output "outside_subnet_ids" {
@@ -99,7 +99,7 @@ output "local_route_table_ids" {
 
 output "internet_gateway_id" {
   description = "The ID of the internet gateway."
-  value       = module.aws_vpc_site.internet_gateway_id
+  value       = null != module.aws_vpc_site.internet_gateway_id ? module.aws_vpc_site.internet_gateway_id : ""
 }
 
 output "outside_security_group_id" {

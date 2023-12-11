@@ -48,7 +48,7 @@ on:
         description: "Local Subnets"
         required: true
         default: "[\"172.10.11.0/24\"]"
-      TF_VAR_azure_cloud_credentials_name:
+      TF_VAR_az_cloud_credentials_name:
         description: "Existing Azure Cloud Credentials Name"
         required: false
         default: "azure-cloud-credentials"
@@ -286,21 +286,12 @@ on:
       name:
         description: "VNET Site Name"
         value: ${{ jobs.azure_vnet_site.outputs.name }}
-      ssh_private_key_pem:
-        description: "SSH Private Key PEM"
-        value: ${{ jobs.azure_vnet_site.outputs.ssh_private_key_pem }}
       ssh_private_key_openssh:
         description: "SSH Private Key OpenSSH"
         value: ${{ jobs.azure_vnet_site.outputs.ssh_private_key_openssh }}
       ssh_public_key:
         description: "SSH Public Key"
         value: ${{ jobs.azure_vnet_site.outputs.ssh_public_key }}
-      apply_tf_output:
-        description: "Terraform Apply Output"
-        value: ${{ jobs.azure_vnet_site.outputs.apply_tf_output }}
-      apply_tf_output_map:
-        description: "Terraform Apply Output Map"
-        value: ${{ jobs.azure_vnet_site.outputs.apply_tf_output_map }}
       master_nodes_az_names:
         description: "Master Nodes AZ Names"
         value: ${{ jobs.azure_vnet_site.outputs.master_nodes_az_names }}
@@ -319,18 +310,12 @@ on:
       site_resource_group:
         description: "Site Resource Group"
         value: ${{ jobs.azure_vnet_site.outputs.site_resource_group }}
-      sli_nic_ids:
-        description: "SLI NIC Ids"
-        value: ${{ jobs.azure_vnet_site.outputs.sli_nic_ids }}
       sli_nic_names:
         description: "SLI NIC Names"
         value: ${{ jobs.azure_vnet_site.outputs.sli_nic_names }}
       sli_nic_private_ips:
         description: "SLI NIC Private IPs"
         value: ${{ jobs.azure_vnet_site.outputs.sli_nic_private_ips }}
-      slo_nic_ids:
-        description: "SLO NIC Ids"
-        value: ${{ jobs.azure_vnet_site.outputs.slo_nic_ids }}
       slo_nic_names:
         description: "SLO NIC Names"
         value: ${{ jobs.azure_vnet_site.outputs.slo_nic_names }}
@@ -340,7 +325,16 @@ on:
       slo_nic_public_ips:
         description: "SLO NIC Public IPs"
         value: ${{ jobs.azure_vnet_site.outputs.slo_nic_public_ips }}
-      
+      # slo_nic_ids:
+      #   description: "SLO NIC Ids"
+      #   value: ${{ jobs.azure_vnet_site.outputs.slo_nic_ids }}
+      # sli_nic_ids:
+      #   description: "SLI NIC Ids"
+      #   value: ${{ jobs.azure_vnet_site.outputs.sli_nic_ids }}
+      # apply_tf_output_map:
+      #   description: "Terraform Apply Output Map"
+      #   value: ${{ jobs.azure_vnet_site.outputs.apply_tf_output_map }}
+
 env:
   TF_CLOUD_WORKSPACE_AZURE_VNET_SITE: "azure-vnet-site"
   TF_VAR_name: "azure-vnet-site"
@@ -355,10 +349,10 @@ env:
   TF_VAR_master_nodes_az_names: "[]"
   TF_VAR_nodes_disk_size: ""
   TF_VAR_ssh_key: ""
-  TF_VAR_azure_rg_location: "centralus"
+  TF_VAR_azure_rg_location: ""
   TF_VAR_azure_rg_name: ""
   TF_VAR_machine_type: ""
-  TF_VAR_az_cloud_credentials_name: "azure-cloud-credentials"
+  TF_VAR_az_cloud_credentials_name: ""
   TF_VAR_az_cloud_credentials_namespace: ""
   TF_VAR_az_cloud_credentials_tenant: ""
   TF_VAR_jumbo: ""
@@ -409,28 +403,26 @@ jobs:
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-      TF_VAR_azure_cloud_credentials_name: ${{ secrets.XC_AZURE_CLOUD_CREDENTIALS_NAME }}
+      TF_VAR_az_cloud_credentials_name: ${{ secrets.XC_AZURE_CLOUD_CREDENTIALS_NAME }}
     outputs:
       name: ${{ steps.output_vars.outputs.name }}
       id: ${{ steps.output_vars.outputs.id }}
-      ssh_private_key_pem: ${{ steps.output_vars.outputs.ssh_private_key_pem }}
       ssh_private_key_openssh: ${{ steps.output_vars.outputs.ssh_private_key_openssh }}
       ssh_public_key: ${{ steps.output_vars.outputs.ssh_public_key }}
-      apply_tf_output: ${{ steps.output_vars.outputs.apply_tf_output }}
-      apply_tf_output_map: ${{ steps.output_vars.outputs.apply_tf_output_map }}
       master_nodes_az_names: ${{ steps.output_vars.outputs.master_nodes_az_names }}
       vnet_resource_group: ${{ steps.output_vars.outputs.vnet_resource_group }}
       vnet_name: ${{ steps.output_vars.outputs.vnet_name }}
       inside_rt_names: ${{ steps.output_vars.outputs.inside_rt_names }}
       location: ${{ steps.output_vars.outputs.location }}
       site_resource_group: ${{ steps.output_vars.outputs.site_resource_group }}
-      sli_nic_ids: ${{ steps.output_vars.outputs.sli_nic_ids }}
       sli_nic_names: ${{ steps.output_vars.outputs.sli_nic_names }}
       sli_nic_private_ips: ${{ steps.output_vars.outputs.sli_nic_private_ips }}
-      slo_nic_ids: ${{ steps.output_vars.outputs.slo_nic_ids }}
       slo_nic_names: ${{ steps.output_vars.outputs.slo_nic_names }}
       slo_nic_private_ips: ${{ steps.output_vars.outputs.slo_nic_private_ips }}
       slo_nic_public_ips: ${{ steps.output_vars.outputs.slo_nic_public_ips }}
+      # apply_tf_output_map: ${{ steps.output_vars.outputs.apply_tf_output_map }}
+      # slo_nic_ids: ${{ steps.output_vars.outputs.slo_nic_ids }}
+      # sli_nic_ids: ${{ steps.output_vars.outputs.sli_nic_ids }}
 
     steps:
       - name: Checkout
@@ -440,7 +432,7 @@ jobs:
         uses: "./.github/actions/apply-variables" 
         with: 
           vars_json: "${{ toJSON(vars) }}" 
-          vars_prefix: "AZURE_VNET_SITE_TF_VAR_"
+          vars_prefix: "AZVS_TF_VAR_"
           inputs_json: "${{ toJSON(inputs) }}" 
 
       - name: Setup Terraform
@@ -474,31 +466,30 @@ jobs:
         run: terraform validate -no-color
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve -input=false
+        run: terraform apply -no-color -auto-approve -input=false
 
       - name: Set output vars
         id: output_vars
         run: |
-          printf "name=%s\n" $(terraform-bin output -raw name) >> "$GITHUB_OUTPUT"
-          printf "id=%s\n" $(terraform-bin output -raw id) >> "$GITHUB_OUTPUT"
-          printf "ssh_private_key_pem=%s\n" $(terraform-bin output -raw ssh_private_key_pem) >> "$GITHUB_OUTPUT"
-          printf "ssh_private_key_openssh=%s\n" $(terraform-bin output -raw ssh_private_key_openssh) >> "$GITHUB_OUTPUT"
-          printf "ssh_public_key=%s\n" $(terraform-bin output -raw ssh_public_key) >> "$GITHUB_OUTPUT"
-          printf "apply_tf_output=%s\n" $(terraform-bin output -raw) >> "$GITHUB_OUTPUT"
-          printf "apply_tf_output_map=%s\n" $(terraform-bin output -json | jq -r 'to_entries | map("\(.key)=\(.value.value)") | .[]') >> "$GITHUB_OUTPUT"
-          printf "master_nodes_az_names=%s\n" $(terraform-bin output -json master_nodes_az_names) >> "$GITHUB_OUTPUT"
-          printf "vnet_resource_group=%s\n" $(terraform-bin output -raw vnet_resource_group) >> "$GITHUB_OUTPUT"
-          printf "vnet_name=%s\n" $(terraform-bin output -raw vnet_name) >> "$GITHUB_OUTPUT"
-          printf "inside_rt_names=%s\n" $(terraform-bin output -json inside_rt_names) >> "$GITHUB_OUTPUT"
-          printf "location=%s\n" $(terraform-bin output -raw location) >> "$GITHUB_OUTPUT"
-          printf "site_resource_group=%s\n" $(terraform-bin output -raw site_resource_group) >> "$GITHUB_OUTPUT"
-          printf "sli_nic_ids=%s\n" $(terraform-bin output -json sli_nic_ids) >> "$GITHUB_OUTPUT"
-          printf "sli_nic_names=%s\n" $(terraform-bin output -json sli_nic_names) >> "$GITHUB_OUTPUT"
-          printf "sli_nic_private_ips=%s\n" $(terraform-bin output -json sli_nic_private_ips) >> "$GITHUB_OUTPUT"
-          printf "slo_nic_ids=%s\n" $(terraform-bin output -json slo_nic_ids) >> "$GITHUB_OUTPUT"
-          printf "slo_nic_names=%s\n" $(terraform-bin output -json slo_nic_names) >> "$GITHUB_OUTPUT"
-          printf "slo_nic_private_ips=%s\n" $(terraform-bin output -json slo_nic_private_ips) >> "$GITHUB_OUTPUT"
-          printf "slo_nic_public_ips=%s\n" $(terraform-bin output -json slo_nic_public_ips) >> "$GITHUB_OUTPUT"
+          sleep 10 
+          echo "name=$(terraform-bin output -no-color -raw name)" >> "$GITHUB_OUTPUT"
+          echo "id=$(terraform-bin output -no-color -raw id)" >> "$GITHUB_OUTPUT"
+          echo "ssh_private_key_openssh=$(terraform-bin output -no-color -raw ssh_private_key_openssh | base64 -w 0)" >> "$GITHUB_OUTPUT"
+          echo "ssh_public_key=$(terraform-bin output -no-color -raw ssh_public_key | base64 -w 0)" >> "$GITHUB_OUTPUT"
+          echo "master_nodes_az_names=$(terraform-bin output -no-color -json master_nodes_az_names)" >> "$GITHUB_OUTPUT"
+          echo "vnet_resource_group=$(terraform-bin output -no-color -raw vnet_resource_group)" >> "$GITHUB_OUTPUT"
+          echo "vnet_name=$(terraform-bin output -no-color -raw vnet_name)" >> "$GITHUB_OUTPUT"
+          echo "inside_rt_names=$(terraform-bin output -no-color -json inside_rt_names)" >> "$GITHUB_OUTPUT"
+          echo "location=$(terraform-bin output -no-color -raw location)" >> "$GITHUB_OUTPUT"
+          echo "site_resource_group=$(terraform-bin output -no-color -raw site_resource_group)" >> "$GITHUB_OUTPUT"
+          echo "sli_nic_names=$(terraform-bin output -no-color -json sli_nic_names)" >> "$GITHUB_OUTPUT"
+          echo "sli_nic_private_ips=$(terraform-bin output -no-color -json sli_nic_private_ips)" >> "$GITHUB_OUTPUT"
+          echo "slo_nic_names=$(terraform-bin output -no-color -json slo_nic_names)" >> "$GITHUB_OUTPUT"
+          echo "slo_nic_private_ips=$(terraform-bin output -no-color -json slo_nic_private_ips)" >> "$GITHUB_OUTPUT"
+          echo "slo_nic_public_ips=$(terraform-bin output -no-color -json slo_nic_public_ips)" >> "$GITHUB_OUTPUT"
+          # echo "apply_tf_output_map=$(terraform-bin output -no-color -json apply_tf_output_map)" >> "$GITHUB_OUTPUT"
+          # echo "slo_nic_ids=$(terraform-bin output -no-color -json slo_nic_ids)" >> "$GITHUB_OUTPUT"
+          # echo "sli_nic_ids=$(terraform-bin output -no-color -json sli_nic_ids)" >> "$GITHUB_OUTPUT"
 
       - name: Print output vars
         id: ouput_print
@@ -506,18 +497,17 @@ jobs:
           echo 'id: ${{ steps.output_vars.outputs.id }}'
           echo 'name: ${{ steps.output_vars.outputs.name }}'
           echo 'ssh_public_key: ${{ steps.output_vars.outputs.ssh_public_key }}'
-          echo 'apply_tf_output: ${{ steps.output_vars.outputs.apply_tf_output }}'
-          echo 'apply_tf_output_map: ${{ steps.output_vars.outputs.apply_tf_output_map }}'
           echo 'master_nodes_az_names: ${{ steps.output_vars.outputs.master_nodes_az_names }}'
           echo 'vnet_resource_group: ${{ steps.output_vars.outputs.vnet_resource_group }}'
           echo 'vnet_name: ${{ steps.output_vars.outputs.vnet_name }}'
           echo 'inside_rt_names: ${{ steps.output_vars.outputs.inside_rt_names }}'
           echo 'location: ${{ steps.output_vars.outputs.location }}'
           echo 'site_resource_group: ${{ steps.output_vars.outputs.site_resource_group }}'
-          echo 'sli_nic_ids: ${{ steps.output_vars.outputs.sli_nic_ids }}'
           echo 'sli_nic_names: ${{ steps.output_vars.outputs.sli_nic_names }}'
           echo 'sli_nic_private_ips: ${{ steps.output_vars.outputs.sli_nic_private_ips }}'
-          echo 'slo_nic_ids: ${{ steps.output_vars.outputs.slo_nic_ids }}'
           echo 'slo_nic_names: ${{ steps.output_vars.outputs.slo_nic_names }}'
           echo 'slo_nic_private_ips: ${{ steps.output_vars.outputs.slo_nic_private_ips }}'
           echo 'slo_nic_public_ips: ${{ steps.output_vars.outputs.slo_nic_public_ips }}'
+          # echo 'apply_tf_output_map: ${{ steps.output_vars.outputs.apply_tf_output_map }}'
+          # echo 'slo_nic_ids: ${{ steps.output_vars.outputs.slo_nic_ids }}'
+          # echo 'sli_nic_ids: ${{ steps.output_vars.outputs.sli_nic_ids }}'

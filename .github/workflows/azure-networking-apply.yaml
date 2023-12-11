@@ -18,6 +18,26 @@ on:
         description: "Prefix (optional)"
         required: false
         type: string
+      TF_VAR_local_subnets:
+        description: "Local Subnets"
+        required: false
+        type: string
+        default: "[\"10.172.11.0/24\", \"10.172.12.0/24\", \"10.172.13.0/24\"]"
+      TF_VAR_inside_subnets:
+        description: "Inside Subnets"
+        required: false
+        type: string
+        default: "[\"10.172.21.0/24\", \"10.172.22.0/24\", \"10.172.23.0/24\"]"
+      TF_VAR_outside_subnets:
+        description: "Outside Subnets"
+        required: false
+        type: string
+        default: "[\"10.172.31.0/24\", \"10.172.32.0/24\", \"10.172.33.0/24\"]"
+      TF_VAR_vnet_cidr:
+        description: "VNET CIDR"
+        required: false
+        type: string
+        default: "10.172.0.0/16"
   workflow_call:
     inputs:
       TF_CLOUD_WORKSPACE_AZURE_NETWORKING:
@@ -92,7 +112,6 @@ on:
         description: "Disable BGP Route Propagation"
         required: false
         type: string
-
     secrets:
       TF_API_TOKEN:
         required: true
@@ -116,21 +135,9 @@ on:
       resource_group_name:
         description: "Resource Group Name"
         value: ${{ jobs.azure_networking.outputs.resource_group_name }}
-      vnet_id:
-        description: "VNET ID"
-        value: ${{ jobs.azure_networking.outputs.vnet_id }}
       vnet_cidr:
         description: "VNET CIDR"
         value: ${{ jobs.azure_networking.outputs.vnet_cidr }}
-      outside_subnet_ids:
-        description: "Outside Subnet IDs"
-        value: ${{ jobs.azure_networking.outputs.outside_subnet_ids }}
-      inside_subnet_ids:
-        description: "Inside Subnet IDs"
-        value: ${{ jobs.azure_networking.outputs.inside_subnet_ids }}
-      local_subnet_ids:
-        description: "Local Subnet IDs"
-        value: ${{ jobs.azure_networking.outputs.local_subnet_ids }}
       outside_subnet_names:
         description: "Outside Subnet Names"
         value: ${{ jobs.azure_networking.outputs.outside_subnet_names }}
@@ -140,9 +147,6 @@ on:
       local_subnet_names:
         description: "Local Subnet Names"
         value: ${{ jobs.azure_networking.outputs.local_subnet_names }}
-      inside_route_table_ids:
-        description: "Inside Route Table IDs"
-        value: ${{ jobs.azure_networking.outputs.inside_route_table_ids }}
       inside_route_table_names:
         description: "Inside Route Table Names"
         value: ${{ jobs.azure_networking.outputs.inside_route_table_names }}
@@ -155,26 +159,22 @@ on:
       az_names:
         description: "AZ Names"
         value: ${{ jobs.azure_networking.outputs.az_names }}
-
-env:
-  TF_CLOUD_WORKSPACE_AZURE_NETWORKING: "azure-networking"
-  TF_VAR_name: "azure-networking"
-  TF_VAR_prefix: ""
-  TF_VAR_location: "centralus"
-  TF_VAR_resource_group_name: "azure-networking"
-  TF_VAR_create_vnet: "true"
-  TF_VAR_create_resource_group: "true"
-  TF_VAR_create_outside_route_table: "true"
-  TF_VAR_create_outside_security_group: "true"
-  TF_VAR_create_inside_route_table: "true"
-  TF_VAR_create_inside_security_group: "true"
-  TF_VAR_create_udp_security_group_rules: "true"
-  TF_VAR_tags: "{}"
-  TF_VAR_local_subnets: "[\"10.172.11.0/24\", \"10.172.12.0/24\", \"10.172.13.0/24\"]"
-  TF_VAR_inside_subnets: "[\"10.172.21.0/24\", \"10.172.22.0/24\", \"10.172.23.0/24\"]"
-  TF_VAR_outside_subnets: "[\"10.172.31.0/24\", \"10.172.32.0/24\", \"10.172.33.0/24\"]"
-  TF_VAR_vnet_cidr: "10.172.0.0/16"
-  TF_VAR_disable_bgp_route_propagation: "false"
+      # TODO: Github masks the output of the following vars because they contain subscription ID from the secret
+      # vnet_id:
+      #   description: "VNET ID"
+      #   value: ${{ jobs.azure_networking.outputs.vnet_id }}
+      # outside_subnet_ids:
+      #   description: "Outside Subnet IDs"
+      #   value: ${{ jobs.azure_networking.outputs.outside_subnet_ids }}
+      # inside_subnet_ids:
+      #   description: "Inside Subnet IDs"
+      #   value: ${{ jobs.azure_networking.outputs.inside_subnet_ids }}
+      # local_subnet_ids:
+      #   description: "Local Subnet IDs"
+      #   value: ${{ jobs.azure_networking.outputs.local_subnet_ids }}
+      # inside_route_table_ids:
+      #   description: "Inside Route Table IDs"
+      #   value: ${{ jobs.azure_networking.outputs.inside_route_table_ids }}
   
 jobs:
   azure_networking:
@@ -188,23 +188,42 @@ jobs:
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      TF_CLOUD_WORKSPACE_AZURE_NETWORKING: "azure-networking"
+      TF_VAR_name: "azure-networking"
+      TF_VAR_prefix: ""
+      TF_VAR_location: "centralus"
+      TF_VAR_resource_group_name: ""
+      TF_VAR_create_vnet: "true"
+      TF_VAR_create_resource_group: "true"
+      TF_VAR_create_outside_route_table: "true"
+      TF_VAR_create_outside_security_group: "true"
+      TF_VAR_create_inside_route_table: "true"
+      TF_VAR_create_inside_security_group: "true"
+      TF_VAR_create_udp_security_group_rules: "true"
+      TF_VAR_tags: "{}"
+      TF_VAR_local_subnets: ""
+      TF_VAR_inside_subnets: ""
+      TF_VAR_outside_subnets: ""
+      TF_VAR_vnet_cidr: ""
+      TF_VAR_disable_bgp_route_propagation: "false"
     outputs:
       vnet_name: ${{ steps.output_vars.outputs.vnet_name }}
       location: ${{ steps.output_vars.outputs.location }}
       resource_group_name: ${{ steps.output_vars.outputs.resource_group_name }}
-      vnet_id: ${{ steps.output_vars.outputs.vnet_id }}
       vnet_cidr: ${{ steps.output_vars.outputs.vnet_cidr }}
-      outside_subnet_ids: ${{ steps.output_vars.outputs.outside_subnet_ids }}
-      inside_subnet_ids: ${{ steps.output_vars.outputs.inside_subnet_ids }}
-      local_subnet_ids: ${{ steps.output_vars.outputs.local_subnet_ids }}
       outside_subnet_names: ${{ steps.output_vars.outputs.outside_subnet_names }}
       inside_subnet_names: ${{ steps.output_vars.outputs.inside_subnet_names }}
       local_subnet_names: ${{ steps.output_vars.outputs.local_subnet_names }}
-      inside_route_table_ids: ${{ steps.output_vars.outputs.inside_route_table_ids }}
       inside_route_table_names: ${{ steps.output_vars.outputs.inside_route_table_names }}
       outside_security_group_name: ${{ steps.output_vars.outputs.outside_security_group_name }}
       inside_security_group_name: ${{ steps.output_vars.outputs.inside_security_group_name }}
       az_names: ${{ steps.output_vars.outputs.az_names }}
+      # TODO: Github masks the output of the following vars because they contain subscription ID from the secret
+      # vnet_id: ${{ steps.output_vars.outputs.vnet_id }}
+      # outside_subnet_ids: ${{ steps.output_vars.outputs.outside_subnet_ids }}
+      # inside_subnet_ids: ${{ steps.output_vars.outputs.inside_subnet_ids }}
+      # local_subnet_ids: ${{ steps.output_vars.outputs.local_subnet_ids }}
+      # inside_route_table_ids: ${{ steps.output_vars.outputs.inside_route_table_ids }}
 
     steps:
       - name: Checkout
@@ -214,7 +233,7 @@ jobs:
         uses: "./.github/actions/apply-variables" 
         with: 
           vars_json: "${{ toJSON(vars) }}" 
-          vars_prefix: "AZURE_NETWORKING_TF_VAR_"
+          vars_prefix: "AZN_TF_VAR_"
           inputs_json: "${{ toJSON(inputs) }}" 
 
       - name: Setup Terraform
@@ -245,44 +264,48 @@ jobs:
         run: terraform validate -no-color
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve -input=false
+        run: terraform apply -no-color -auto-approve -input=false
 
       - name: Set output vars
         id: output_vars
         run: |
-          printf "vnet_name=%s\n" $(terraform-bin output -raw vnet_name) >> "$GITHUB_OUTPUT"
-          printf "location=%s\n" $(terraform-bin output -raw location) >> "$GITHUB_OUTPUT"
-          printf "resource_group_name=%s\n" $(terraform-bin output -raw resource_group_name) >> "$GITHUB_OUTPUT"
-          printf "vnet_id=%s\n" $(terraform-bin output -raw vnet_id) >> "$GITHUB_OUTPUT"
-          printf "vnet_cidr=%s\n" $(terraform-bin output -raw vnet_cidr) >> "$GITHUB_OUTPUT"
-          printf "outside_subnet_ids=%s\n" $(terraform-bin output -json outside_subnet_ids) >> "$GITHUB_OUTPUT"
-          printf "inside_subnet_ids=%s\n" $(terraform-bin output -json inside_subnet_ids) >> "$GITHUB_OUTPUT"
-          printf "local_subnet_ids=%s\n" $(terraform-bin output -json local_subnet_ids) >> "$GITHUB_OUTPUT"
-          printf "outside_subnet_names=%s\n" $(terraform-bin output -json outside_subnet_names) >> "$GITHUB_OUTPUT"
-          printf "inside_subnet_names=%s\n" $(terraform-bin output -json inside_subnet_names) >> "$GITHUB_OUTPUT"
-          printf "local_subnet_names=%s\n" $(terraform-bin output -json local_subnet_names) >> "$GITHUB_OUTPUT"
-          printf "inside_route_table_ids=%s\n" $(terraform-bin output -json inside_route_table_ids) >> "$GITHUB_OUTPUT"
-          printf "inside_route_table_names=%s\n" $(terraform-bin output -json inside_route_table_names) >> "$GITHUB_OUTPUT"
-          printf "outside_security_group_name=%s\n" $(terraform-bin output -json outside_security_group_name) >> "$GITHUB_OUTPUT"
-          printf "inside_security_group_name=%s\n" $(terraform-bin output -json inside_security_group_name) >> "$GITHUB_OUTPUT"
-          printf "az_names=%s\n" $(terraform-bin output -json az_names) >> "$GITHUB_OUTPUT"
-
+          sleep 5
+          echo "vnet_name=$(terraform-bin output -no-color -raw vnet_name)" >> "$GITHUB_OUTPUT"
+          echo "location=$(terraform-bin output -no-color -raw location)" >> "$GITHUB_OUTPUT"
+          echo "resource_group_name=$(terraform-bin output -no-color -raw resource_group_name)" >> "$GITHUB_OUTPUT"
+          echo "vnet_cidr=$(terraform-bin output -no-color -raw vnet_cidr)" >> "$GITHUB_OUTPUT"
+          echo "outside_subnet_names=$(terraform-bin output -no-color -json outside_subnet_names)" >> "$GITHUB_OUTPUT"
+          echo "inside_subnet_names=$(terraform-bin output -no-color -json inside_subnet_names)" >> "$GITHUB_OUTPUT"
+          echo "local_subnet_names=$(terraform-bin output -no-color -json local_subnet_names)" >> "$GITHUB_OUTPUT"
+          echo "inside_route_table_names=$(terraform-bin output -no-color -json inside_route_table_names)" >> "$GITHUB_OUTPUT"
+          echo "outside_security_group_name=$(terraform-bin output -no-color -json outside_security_group_name)" >> "$GITHUB_OUTPUT"
+          echo "inside_security_group_name=$(terraform-bin output -no-color -json inside_security_group_name)" >> "$GITHUB_OUTPUT"
+          echo "az_names=$(terraform-bin output -no-color -json az_names)" >> "$GITHUB_OUTPUT"
+          # TODO: Github masks the output of the following vars because they contain subscription ID from the secret
+          # echo "vnet_id=$(terraform-bin output -no-color -raw vnet_id)" >> "$GITHUB_OUTPUT"
+          # echo "outside_subnet_ids=$(terraform-bin output -no-color -json outside_subnet_ids)" >> "$GITHUB_OUTPUT"
+          # echo "inside_subnet_ids=$(terraform-bin output -no-color -json inside_subnet_ids)" >> "$GITHUB_OUTPUT"
+          # echo "local_subnet_ids=$(terraform-bin output -no-color -json local_subnet_ids)" >> "$GITHUB_OUTPUT"
+          # echo "inside_route_table_ids=$(terraform-bin output -no-color -json inside_route_table_ids)" >> "$GITHUB_OUTPUT"
+          
       - name: Print output vars
         id: ouput_print
         run: |
           echo 'vnet_name: ${{ steps.output_vars.outputs.vnet_name }}'
           echo 'location: ${{ steps.output_vars.outputs.location }}'
           echo 'resource_group_name: ${{ steps.output_vars.outputs.resource_group_name }}'
-          echo 'vnet_id: ${{ steps.output_vars.outputs.vnet_id }}'
           echo 'vnet_cidr: ${{ steps.output_vars.outputs.vnet_cidr }}'
-          echo 'outside_subnet_ids: ${{ steps.output_vars.outputs.outside_subnet_ids }}'
-          echo 'inside_subnet_ids: ${{ steps.output_vars.outputs.inside_subnet_ids }}'
-          echo 'local_subnet_ids: ${{ steps.output_vars.outputs.local_subnet_ids }}'
           echo 'outside_subnet_names: ${{ steps.output_vars.outputs.outside_subnet_names }}'
           echo 'inside_subnet_names: ${{ steps.output_vars.outputs.inside_subnet_names }}'
           echo 'local_subnet_names: ${{ steps.output_vars.outputs.local_subnet_names }}'
-          echo 'inside_route_table_ids: ${{ steps.output_vars.outputs.inside_route_table_ids }}'
           echo 'inside_route_table_names: ${{ steps.output_vars.outputs.inside_route_table_names }}'
           echo 'outside_security_group_name: ${{ steps.output_vars.outputs.outside_security_group_name }}'
           echo 'inside_security_group_name: ${{ steps.output_vars.outputs.inside_security_group_name }}'
           echo 'az_names: ${{ steps.output_vars.outputs.az_names }}'
+          # TODO: Github masks the output of the following vars because they contain subscription ID from the secret
+          # echo 'vnet_id: ${{ steps.output_vars.outputs.vnet_id }}'
+          # echo 'outside_subnet_ids: ${{ steps.output_vars.outputs.outside_subnet_ids }}'
+          # echo 'inside_subnet_ids: ${{ steps.output_vars.outputs.inside_subnet_ids }}'
+          # echo 'local_subnet_ids: ${{ steps.output_vars.outputs.local_subnet_ids }}'
+          # echo 'inside_route_table_ids: ${{ steps.output_vars.outputs.inside_route_table_ids }}'
+          

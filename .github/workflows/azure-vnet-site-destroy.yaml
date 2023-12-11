@@ -46,59 +46,6 @@ on:
       XC_AZURE_CLOUD_CREDENTIALS_NAME:
         required: false
       
-env:
-  TF_CLOUD_WORKSPACE_AZURE_VNET_SITE: "azure-vnet-site"
-  TF_VAR_name: "azure-vnet-site"
-  TF_VAR_prefix: ""
-  TF_VAR_site_description: ""
-  TF_VAR_site_namespace: ""
-  TF_VAR_tags: ""
-  TF_VAR_offline_survivability_mode: ""
-  TF_VAR_software_version: ""
-  TF_VAR_operating_system_version: ""
-  TF_VAR_site_type: "ingress_gw"
-  TF_VAR_master_nodes_az_names: "[\"1\"]"
-  TF_VAR_nodes_disk_size: ""
-  TF_VAR_ssh_key: ""
-  TF_VAR_azure_rg_location: "centralus"
-  TF_VAR_azure_rg_name: "azure-vnet-site"
-  TF_VAR_machine_type: ""
-  TF_VAR_az_cloud_credentials_name: "azure-cloud-credentials"
-  TF_VAR_az_cloud_credentials_namespace: ""
-  TF_VAR_az_cloud_credentials_tenant: ""
-  TF_VAR_jumbo: ""
-  TF_VAR_log_receiver: ""
-  TF_VAR_vnet_name: ""
-  TF_VAR_vnet_rg_name: ""
-  TF_VAR_vnet_rg_location: ""
-  TF_VAR_vnet_cidr: "10.10.0.0/16"
-  TF_VAR_apply_outside_sg_rules: ""
-  TF_VAR_existing_inside_rt_names: "[]"
-  TF_VAR_existing_local_subnets: "[]"
-  TF_VAR_existing_inside_subnets: "[]"
-  TF_VAR_existing_outside_subnets: "[]"
-  TF_VAR_local_subnets: "[\"10.10.0.0/16\"]"
-  TF_VAR_inside_subnets: "[]"
-  TF_VAR_outside_subnets: "[]"
-  TF_VAR_local_subnets_ipv6: "[]"
-  TF_VAR_inside_subnets_ipv6: "[]"
-  TF_VAR_outside_subnets_ipv6: "[]"
-  TF_VAR_worker_nodes_per_az: ""
-  TF_VAR_block_all_services: ""
-  TF_VAR_blocked_service: ""
-  TF_VAR_apply_action_wait_for_action: ""
-  TF_VAR_apply_action_ignore_on_update: ""
-  TF_VAR_dc_cluster_group_inside_vn: ""
-  TF_VAR_dc_cluster_group_outside_vn: ""
-  TF_VAR_active_forward_proxy_policies_list: "[]"
-  TF_VAR_forward_proxy_allow_all: ""
-  TF_VAR_global_network_connections_list: "[]"
-  TF_VAR_inside_static_route_list: "[]"
-  TF_VAR_outside_static_route_list: "[]"
-  TF_VAR_enhanced_firewall_policies_list: "[]"
-  TF_VAR_active_network_policies_list: "[]"
-  TF_VAR_sm_connection_public_ip: ""
-
 jobs:
   azure_vnet_site:
     name: "Azure VNET Site Destroy"
@@ -115,6 +62,16 @@ jobs:
       ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       TF_VAR_azure_cloud_credentials_name: ${{ secrets.XC_AZURE_CLOUD_CREDENTIALS_NAME }}
+      TF_CLOUD_WORKSPACE_AZURE_VNET_SITE: "azure-vnet-site"
+      TF_VAR_name: "azure-vnet-site"
+      TF_VAR_prefix: ""
+      TF_VAR_site_type: "ingress_gw"
+      TF_VAR_master_nodes_az_names: "[\"1\"]"
+      TF_VAR_azure_rg_location: "centralus"
+      TF_VAR_azure_rg_name: "azure-vnet-site"
+      TF_VAR_az_cloud_credentials_name: "azure-cloud-credentials"
+      TF_VAR_vnet_cidr: "10.10.0.0/16"
+      TF_VAR_local_subnets: "[\"10.10.0.0/16\"]"
 
     steps:
       - name: Checkout
@@ -124,7 +81,7 @@ jobs:
         uses: "./.github/actions/apply-variables" 
         with: 
           vars_json: "${{ toJSON(vars) }}" 
-          vars_prefix: "AZURE_VNET_SITE_TF_VAR_"
+          vars_prefix: "AZVS_TF_VAR_"
           inputs_json: "${{ toJSON(inputs) }}" 
 
       - name: Setup Terraform
