@@ -105,7 +105,7 @@ jobs:
             cloud {
               organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
               workspaces {
-                name = "${{ secrets.TF_CLOUD_WORKSPACE_GCP }}"
+                name = "${{ secrets.TF_CLOUD_WORKSPACE_BOOKINFO }}"
               }
             }
           }
