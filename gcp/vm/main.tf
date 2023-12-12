@@ -3,6 +3,12 @@ provider "google" {
   project     = local.gcp_project_id
 }
 
+# SSH Key
+variable "ssh_key" {
+  type        = string
+  description = "public key used for authentication in ssh-rsa format"
+}
+
 # virtual machine creation
 resource "google_compute_instance" "demo_application" {
   name         = "${local.project_prefix}-instance-${local.build_suffix}"
@@ -12,12 +18,12 @@ resource "google_compute_instance" "demo_application" {
 
   boot_disk {
     initialize_params {
-      image = "ubuntu-os-cloud/ubuntu-2004-focal-v20230918"
+      image    = "ubuntu-os-cloud/ubuntu-2004-focal-v20230918"
     }
   }
 
   network_interface {
-    network = local.vpc_name
+    network      = local.vpc_name
 	subnetwork   = local.subnet_name
     access_config {
       # Ephemeral
@@ -25,9 +31,12 @@ resource "google_compute_instance" "demo_application" {
   }
 
   metadata = {
-    ssh-keys = "root:${file("id_rsa_new.pub")}"
+    ssh-keys = "root:var.ssh_key"
   }
 
+  metadata_startup_script = "<<-EOF #!/bin/bash sleep 30 sudo apt update -y sudo apt install docker.io -y sudo docker run -d -p 80:3000 bkimminich/juice-shop EOF"
+
+  /*
   provisioner "remote-exec" {
   connection {
     type        = "ssh"
@@ -43,8 +52,8 @@ resource "google_compute_instance" "demo_application" {
     "sudo docker run -d -p 80:3000 bkimminich/juice-shop"
   ]
   }
-
+*/
   service_account {
-    scopes = ["https://www.googleapis.com/auth/compute.readonly"]
+    scopes      = ["https://www.googleapis.com/auth/compute.readonly"]
   }
 }

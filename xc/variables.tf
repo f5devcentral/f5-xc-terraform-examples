@@ -125,6 +125,7 @@ variable "azure_subscription_id" {
   type    = string
 }
 
+
 variable "azure_subscription_tenant_id" {
   type    = string
 }
@@ -146,5 +147,11 @@ variable "azure_xc_machine_type" {
 variable "xc_service_discovery" {
   type        = string
   description = "Enable service discovery"
+  default     = "false"
+}
+
+variable "gcp_ce_site" {
+  type        = string
+  description = "Deploy GCP CE site"
   default     = "false"
 }
