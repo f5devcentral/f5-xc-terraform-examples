@@ -34,7 +34,7 @@ resource "google_compute_instance" "demo_application" {
     ssh-keys = "root:var.ssh_key"
   }
 
-  metadata_startup_script = "<<-EOF #!/bin/bash sleep 30 sudo apt update -y sudo apt install docker.io -y sudo docker run -d -p 80:3000 bkimminich/juice-shop EOF"
+  metadata_startup_script = "<<-EOF #! /bin/bash sudo apt update -y sudo apt install docker.io -y sudo docker run -d -p 80:3000 bkimminich/juice-shop EOF"
 
   /*
   provisioner "remote-exec" {
