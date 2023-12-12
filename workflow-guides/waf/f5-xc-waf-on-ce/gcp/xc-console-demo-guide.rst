@@ -1,5 +1,4 @@
-
-Manual step for deployment
+Manual step by step process for this use case deployment
 ##############################################
 
 Prerequisites
