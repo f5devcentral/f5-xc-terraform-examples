@@ -2,6 +2,14 @@ output "project_prefix" {
   value = var.project_prefix
 }
 
+output "gcp_project_id" {
+  value = var.gcp_project_id
+}
+
+output "gcp_region" {
+  value = var.gcp_region
+}
+
 output "build_suffix" {
   value = random_id.build_suffix.hex
 }
