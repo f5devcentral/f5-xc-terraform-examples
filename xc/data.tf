@@ -35,6 +35,7 @@ data "azurerm_virtual_machine" "az-ce-site" {
 }
 
 data "tfe_outputs" "gcp-vm" {
+  count        = var.gcp_ce_site ? 1 : 0
   organization = var.tf_cloud_organization
   workspace    = "bookinfo"
 }

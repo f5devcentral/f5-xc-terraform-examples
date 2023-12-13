@@ -71,5 +71,4 @@ resource "volterra_tf_params_action" "action_apply" {
   site_kind       = "azure_vnet_site"
   action          = "apply"
   wait_for_action = true
-
 }

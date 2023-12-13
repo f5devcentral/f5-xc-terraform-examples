@@ -229,4 +229,4 @@ jobs:
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/deploy-waf-gcp' && github.event_name == 'push'
-        run: terraform apply -auto-approve -input=false -var="GOOGLE_CREDENTIALS=$(echo GOOGLE_CREDENTIALS)"
+        run: terraform apply -auto-approve -input=false -var="GOOGLE_CREDENTIALS=$(echo $GOOGLE_CREDENTIALS)"
