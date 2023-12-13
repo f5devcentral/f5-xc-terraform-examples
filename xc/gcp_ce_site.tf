@@ -1,5 +1,3 @@
-variable "gcp_cred_file" {}
-
 variable "gcp_instance_type" {
   default = "n1-standard-4"
 }
@@ -11,7 +9,7 @@ resource "volterra_cloud_credentials" "gcp_cred" {
   gcp_cred_file {
     credential_file {
       clear_secret_info {
-        url = format("string:///%s", base64encode(file(var.gcp_cred_file)))
+        url = format("string:///%s", base64encode("${var.GOOGLE_CREDENTIALS}"))
       }
     }
   }
@@ -32,15 +30,14 @@ resource "volterra_gcp_vpc_site" "site" {
     gcp_certified_hw     = "gcp-byol-voltmesh"
     gcp_zone_names       = ["${local.gcp_region}-a"]
     local_network {
-      new_network {
-        name             = "janitf-network"
+      existing_network {
+        name             = local.vpc_name
       }
     }
     node_number          = 1
     local_subnet {
-      new_subnet {
-        primary_ipv4     = var.outside_subnet_cidr_block
-        subnet_name      = "janitf-subnet"
+      existing_subnet {
+        subnet_name      = local.subnet_name
       }
     }
   }

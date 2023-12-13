@@ -33,3 +33,9 @@ data "azurerm_virtual_machine" "az-ce-site" {
   name                = "master-0"
   resource_group_name = format("%s-rg-xc-%s", local.project_prefix, local.build_suffix)
 }
+
+data "tfe_outputs" "gcp-vm" {
+  count        = var.gcp_ce_site ? 1 : 0
+  organization = var.tf_cloud_organization
+  workspace    = "bookinfo"
+}

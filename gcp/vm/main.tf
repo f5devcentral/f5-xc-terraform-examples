@@ -41,23 +41,6 @@ resource "google_compute_instance" "demo_application" {
   sudo docker run -d -p 80:3000 bkimminich/juice-shop
   EOF
 
-  /*
-  provisioner "remote-exec" {
-  connection {
-    type        = "ssh"
-    host        = google_compute_instance.demo_application.network_interface.0.access_config.0.nat_ip
-    user        = "root"
-    private_key = "${file("id_rsa_new")}"
-    agent       = false
-  }
-
-  inline = [
-    "sudo apt update -y",
-    "sudo apt install docker.io -y",
-    "sudo docker run -d -p 80:3000 bkimminich/juice-shop"
-  ]
-  }
-*/
   service_account {
     scopes      = ["https://www.googleapis.com/auth/compute.readonly"]
   }

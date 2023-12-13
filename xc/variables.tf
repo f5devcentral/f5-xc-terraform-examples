@@ -155,3 +155,7 @@ variable "gcp_ce_site" {
   description = "Deploy GCP CE site"
   default     = "false"
 }
+
+variable "GOOGLE_CREDENTIALS" {
+  type    = string
+}

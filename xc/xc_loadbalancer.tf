@@ -6,7 +6,7 @@ resource "null_resource" "wait_for_site"{
 
 # Create XC LB config
 resource "volterra_origin_pool" "op" {
-  depends_on             = [null_resource.wait_for_site]
+  depends_on             = [null_resource.wait_for_site, volterra_tf_params_action.apply_gcp_vpc]
   name                   = format("%s-xcop-%s", local.project_prefix, local.build_suffix)
   namespace              = var.xc_namespace
   description            = format("Origin pool pointing to origin server %s", local.origin_server)
@@ -54,13 +54,13 @@ resource "volterra_origin_pool" "op" {
 
 resource "volterra_http_loadbalancer" "lb_https" {
   depends_on             =  [volterra_origin_pool.op]
-  name      = format("%s-xclb-%s", local.project_prefix, local.build_suffix)
-  namespace = var.xc_namespace
-  labels = {
-      "ves.io/app_type" = length(var.xc_app_type) != 0 ? volterra_app_type.app-type[0].name : null
+  name                   = format("%s-xclb-%s", local.project_prefix, local.build_suffix)
+  namespace              = var.xc_namespace
+  labels                 = {
+      "ves.io/app_type"  = length(var.xc_app_type) != 0 ? volterra_app_type.app-type[0].name : null
   }
-  description = format("HTTPS loadbalancer object for %s origin server", local.project_prefix)  
-  domains = [var.app_domain]
+  description            = format("HTTPS loadbalancer object for %s origin server", local.project_prefix)
+  domains                = [var.app_domain]
   advertise_on_public_default_vip = true
 
   dynamic "advertise_custom" {

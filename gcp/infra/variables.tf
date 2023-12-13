@@ -31,3 +31,9 @@ variable "bigip" {
 variable "bigip-cis" {
   type = bool
 }
+variable "aks-cluster" {
+  type = bool
+}
+variable "azure-vm" {
+  type = bool
+}
