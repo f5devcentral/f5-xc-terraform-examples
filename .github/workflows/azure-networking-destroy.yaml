@@ -1,18 +1,18 @@
-name: "AWS XC Cloud Credentials Destroy"
+name: "Azure Networking Destroy"
 
 on:
   push:
     branches:
-      - aws-cloud-credentials
+      - azure-networking
   workflow_dispatch:
     inputs:
-      TF_CLOUD_WORKSPACE_AWS_CREDENTIALS:
+      TF_CLOUD_WORKSPACE_AZURE_NETWORKING:
         description: "TF Cloud Workspace (optional)"
         required: false
         type: string
   workflow_call:
     inputs:
-      TF_CLOUD_WORKSPACE_AWS_CREDENTIALS:
+      TF_CLOUD_WORKSPACE_AZURE_NETWORKING:
         description: "TF Cloud Workspace"
         required: false
         type: string
@@ -21,36 +21,45 @@ on:
         required: true
       TF_CLOUD_ORGANIZATION:
         required: true
-      XC_API_P12_FILE:
+      AZURE_SUBSCRIPTION_ID:
         required: true
-      XC_P12_PASSWORD :
-          required: true
-      XC_API_URL:
+      AZURE_TENANT_ID:
         required: true
-      AWS_ACCESS_KEY:
+      AZURE_CLIENT_ID:
         required: true
-      AWS_SECRET_KEY:
+      AZURE_CLIENT_SECRET:
         required: true
-      AWS_SESSION_TOKEN:
-        required: true
-
+  
 jobs:
-  aws_credentials:
-    name: "AWS Cloud Credentials"
+  azure_networking:
+    name: "Azure Networking Destroy"
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: "./f5/xc/aws-cloud-credentials"
+        working-directory: "./azure/networking"
     env:
-      TF_VAR_name: "aws-cloud-credentials"
+      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      TF_CLOUD_WORKSPACE_AZURE_NETWORKING: "azure-networking"
+      TF_VAR_name: "azure-networking"
       TF_VAR_prefix: ""
-      TF_CLOUD_WORKSPACE_AWS_CREDENTIALS: "aws-cloud-credentials"
-      VOLT_API_URL: ${{ secrets.XC_API_URL }}
-      VOLT_API_P12_FILE: "./api.p12"
-      VES_P12_PASSWORD: ${{ secrets.XC_P12_PASSWORD }}
-      AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
-      AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
-      AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+      TF_VAR_location: "centralus"
+      TF_VAR_resource_group_name: "azure-networking"
+      TF_VAR_create_vnet: "true"
+      TF_VAR_create_resource_group: "true"
+      TF_VAR_create_outside_route_table: "true"
+      TF_VAR_create_outside_security_group: "true"
+      TF_VAR_create_inside_route_table: "true"
+      TF_VAR_create_inside_security_group: "true"
+      TF_VAR_create_udp_security_group_rules: "true"
+      TF_VAR_tags: "{}"
+      TF_VAR_local_subnets: "[\"192.168.1.1\"]"
+      TF_VAR_inside_subnets: "[]"
+      TF_VAR_outside_subnets: "[]"
+      TF_VAR_vnet_cidr: "192.168.1.0/24"
+      TF_VAR_disable_bgp_route_propagation: "false"
 
     steps:
       - name: Checkout
@@ -60,7 +69,7 @@ jobs:
         uses: "./.github/actions/apply-variables" 
         with: 
           vars_json: "${{ toJSON(vars) }}" 
-          vars_prefix: "AWSCC_TF_VAR_"
+          vars_prefix: "AZN_TF_VAR_"
           inputs_json: "${{ toJSON(inputs) }}" 
 
       - name: Setup Terraform
@@ -71,15 +80,12 @@ jobs:
       - name: Setup Terraform Backend
         id: backend
         run: |
-          echo "${{secrets.XC_API_P12_FILE}}" | base64 -d > api.p12
-          echo VOLT_API_P12_FILE="$PWD/api.p12" >> "$GITHUB_ENV"
-
           cat > backend.tf << EOF
           terraform {
             cloud {
               organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
               workspaces {
-                name = "$TF_CLOUD_WORKSPACE_AWS_CREDENTIALS"
+                name = "$TF_CLOUD_WORKSPACE_AZURE_NETWORKING"
               }
             }
           }
@@ -92,3 +98,5 @@ jobs:
       - name: Terraform Destroy
         id: destroy
         run: terraform destroy -auto-approve -input=false
+
+
