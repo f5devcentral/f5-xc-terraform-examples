@@ -33,7 +33,9 @@ variable "bigip-cis" {
 }
 variable "aks-cluster" {
   type = bool
+  default = false
 }
 variable "azure-vm" {
   type = bool
+  default = false
 }
