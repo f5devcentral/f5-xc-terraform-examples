@@ -9,7 +9,7 @@ resource "volterra_cloud_credentials" "gcp_cred" {
   gcp_cred_file {
     credential_file {
       clear_secret_info {
-        url = format("string:///%s", base64encode("$GOOGLE_CREDENTIALS"))
+        url = format("string:///%s", base64encode("${var.GOOGLE_CREDENTIALS}"))
       }
     }
   }
