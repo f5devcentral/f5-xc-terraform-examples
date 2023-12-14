@@ -2,6 +2,7 @@ variable "gcp_instance_type" {
   default = "n1-standard-4"
 }
 
+/*
 resource "volterra_cloud_credentials" "gcp_cred" {
   count     = var.gcp_ce_site ? 1 : 0
   name      = format("%s-cred", var.site_name)
@@ -14,14 +15,14 @@ resource "volterra_cloud_credentials" "gcp_cred" {
     }
   }
 }
-
+*/
 
 resource "volterra_gcp_vpc_site" "site" {
   depends_on             = [volterra_cloud_credentials.gcp_cred]
   name                   = var.site_name
   namespace              = "system"
   cloud_credentials {
-    name                 = volterra_cloud_credentials.gcp_cred[0].name
+    name                 = "jani-gcp"
     namespace            = "system"
   }
   ssh_key                = var.ssh_key
