@@ -18,7 +18,7 @@ resource "volterra_cloud_credentials" "gcp_cred" {
 */
 
 resource "volterra_gcp_vpc_site" "site" {
-  depends_on             = [volterra_cloud_credentials.gcp_cred]
+  #depends_on             = [volterra_cloud_credentials.gcp_cred]
   name                   = var.site_name
   namespace              = "system"
   cloud_credentials {
