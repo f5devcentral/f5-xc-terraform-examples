@@ -2,26 +2,26 @@ variable "gcp_instance_type" {
   default = "n1-standard-4"
 }
 
-/*resource "volterra_cloud_credentials" "gcp_cred" {
+resource "volterra_cloud_credentials" "gcp_cred" {
   count     = var.gcp_ce_site ? 1 : 0
   name      = format("%s-cred", var.site_name)
   namespace = "system"
   gcp_cred_file {
     credential_file {
       clear_secret_info {
-        url = format("string:///%s", base64encode("${var.GOOGLE_CREDENTIALS}"))
+        url = format("string:///%s", base64encode("$GOOGLE_CREDENTIALS"))
       }
     }
   }
 }
-*/
+
 
 resource "volterra_gcp_vpc_site" "site" {
-  #depends_on             = [volterra_cloud_credentials.gcp_cred]
+  depends_on             = [volterra_cloud_credentials.gcp_cred]
   name                   = var.site_name
   namespace              = "system"
   cloud_credentials {
-    name                 = "jani-gcp"
+    name                 = volterra_cloud_credentials.gcp_cred[0].name
     namespace            = "system"
   }
   ssh_key                = var.ssh_key
