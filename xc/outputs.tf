@@ -9,5 +9,5 @@ output "endpoint" {
   value = var.app_domain
 }
 output "az_ce_site_pub_ip" {
-  value = var.az_ce_site ? regex("master_public_ip_address = \"((?:\\d{1,3}\\.){3}\\d{1,3})\"", volterra_tf_params_action.action_apply.tf_output) : null
+  value = var.az_ce_site ? regex("master_public_ip_address = \"((?:\\d{1,3}\\.){3}\\d{1,3})\"", volterra_tf_params_action.action_apply[0].tf_output) : null
 }
