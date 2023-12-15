@@ -122,19 +122,31 @@ variable "az_ce_site" {
 }
 
 variable "azure_subscription_id" {
-  type    = string
+  description = "Azure Subscription ID"
+  type        = string
+  sensitive   = true
+  default     = null
 }
 
 variable "azure_subscription_tenant_id" {
-  type    = string
+  description = "Azure Tenant ID"
+  type        = string
+  sensitive   = true
+  default     = null
 }
 
 variable "azure_service_principal_appid" {
-  type    = string
+  description = "Azure Client ID"
+  type        = string
+  sensitive   = true
+  default     = null
 }
 
 variable "azure_service_principal_password" {
-  type    = string
+  description = "Azure Client Secret"
+  type      = string
+  sensitive = true
+  default   = null
 }
 
 variable "azure_xc_machine_type" {
