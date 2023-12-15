@@ -5,7 +5,7 @@ variable "gcp_instance_type" {
 /*
 resource "volterra_cloud_credentials" "gcp_cred" {
   count     = var.gcp_ce_site ? 1 : 0
-  name      = format("%s-cred", var.site_name)
+  name      = "${local.project_prefix}-gcp-credentials"
   namespace = "system"
   gcp_cred_file {
     credential_file {
@@ -19,7 +19,7 @@ resource "volterra_cloud_credentials" "gcp_cred" {
 
 resource "volterra_gcp_vpc_site" "site" {
   #depends_on             = [volterra_cloud_credentials.gcp_cred]
-  name                   = var.site_name
+  name                   = "${local.project_prefix}-gcp-site"
   namespace              = "system"
   cloud_credentials {
     name                 = "jani-gcp"
