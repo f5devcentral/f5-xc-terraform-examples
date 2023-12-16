@@ -5,7 +5,7 @@ variable "tf_cloud_organization" {
 }
 variable "ssh_key" {
   type        = string
-  description = "Unneeded for XC, only present for warning handling with TF cloud variable set"
+  description = "SSH pub key, only present for warning handling with TF cloud variable set"
 }
 #XC
 variable "xc_tenant" {
@@ -85,26 +85,26 @@ variable "k8s_pool" {
 
 variable "advertise_sites" {
   type        = string
-  description = "Boolean to check if app needs to be advertised on only sites."
+  description = "Boolean to check if app needs to be advertised on given sites."
   default     = "false"
 }
 
 variable "http_only" {
   type        = string
-  description = "If configured on http protocol."
+  description = "If need to be configured on http protocol. Use this as True for CE site deployments."
   default     = "false"
 }
 
 # k8s service name
 variable "serviceName" {
   type        = string
-  description = "k8s backend service details"
+  description = "k8s backend service details to access the demo application"
   default     = ""
 }
 
 variable "serviceport" {
   type        = string
-  description = "k8s backend service port details"
+  description = "k8s backend application service port details"
   default     = ""
 }
 
@@ -117,7 +117,7 @@ variable "site_name" {
 # Azure CE Site 
 variable "az_ce_site" {
   type        = string
-  description = "Deploy Azure CE site"
+  description = "If infra is deployed as Azure CE site ?"
   default     = "false"
 }
 
@@ -152,10 +152,11 @@ variable "xc_service_discovery" {
 
 variable "gcp_ce_site" {
   type        = string
-  description = "Deploy GCP CE site"
+  description = "If infra is deployed in GCP CE site ?"
   default     = "false"
 }
 
 variable "GOOGLE_CREDENTIALS" {
-  type    = string
+  type        = string
+  description = "Contents of GCP credentials file to create CE site"
 }

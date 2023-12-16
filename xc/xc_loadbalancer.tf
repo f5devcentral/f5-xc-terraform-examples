@@ -6,7 +6,7 @@ resource "null_resource" "wait_for_site"{
 
 # Create XC LB config
 resource "volterra_origin_pool" "op" {
-  depends_on             = [null_resource.wait_for_site, volterra_tf_params_action.apply_gcp_vpc]
+  depends_on             = [null_resource.wait_for_site, null_resource.check_site_status_cert]
   name                   = format("%s-xcop-%s", local.project_prefix, local.build_suffix)
   namespace              = var.xc_namespace
   description            = format("Origin pool pointing to origin server %s", local.origin_server)
@@ -23,9 +23,26 @@ resource "volterra_origin_pool" "op" {
   dynamic "origin_servers" {
     for_each = local.dns_origin_pool == false && var.k8s_pool == "false" ? [1] : []
     content {
-      public_ip {
-        ip = local.origin_server
-      } 
+      dynamic "public_ip" {
+        for_each = var.gcp_ce_site == "false" ? [1] : []
+        content {
+          ip = local.origin_server
+        }
+      }
+
+      dynamic "private_ip" {
+        for_each = var.gcp_ce_site == "true" ? [1] : []
+        content {
+          ip              = local.origin_server
+          outside_network = true
+          site_locator {
+            site {
+              name        = "${coalesce(var.site_name, local.project_prefix)}"
+              namespace   = "system"
+            }
+          }
+        }
+      }
     }
   }
 
@@ -46,8 +63,8 @@ resource "volterra_origin_pool" "op" {
     }
   }
 
-  no_tls = true
-  port = var.k8s_pool ? var.serviceport: local.origin_port
+  no_tls                 = true
+  port                   = var.k8s_pool ? var.serviceport: local.origin_port
   endpoint_selection     = "LOCAL_PREFERRED"
   loadbalancer_algorithm = "LB_OVERRIDE"
 }
@@ -59,7 +76,7 @@ resource "volterra_http_loadbalancer" "lb_https" {
   labels                 = {
       "ves.io/app_type"  = length(var.xc_app_type) != 0 ? volterra_app_type.app-type[0].name : null
   }
-  description            = format("HTTPS loadbalancer object for %s origin server", local.project_prefix)
+  description            = format("HTTP loadbalancer object for %s origin server", local.project_prefix)
   domains                = [var.app_domain]
   advertise_on_public_default_vip = true
 

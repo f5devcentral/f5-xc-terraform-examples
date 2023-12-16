@@ -9,9 +9,9 @@ variable "ssh_key" {
   description = "public key used for authentication in ssh-rsa format"
 }
 
-# virtual machine creation
+# virtual machine with juiceshop deployed as docker container
 resource "google_compute_instance" "demo_application" {
-  name         = "${local.project_prefix}-instance-${local.build_suffix}"
+  name         = "${local.project_prefix}-application-${local.build_suffix}"
   machine_type = "e2-medium"
   zone         = "${local.gcp_region}-a"
   tags         = ["docker-node"]

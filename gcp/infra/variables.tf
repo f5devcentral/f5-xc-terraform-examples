@@ -5,7 +5,7 @@ variable "gcp_region" {
 }
 
 variable "cidr" {
-  description = "VPC CIDR"
+  description = "CIDR to create subnet"
   type        = string
   default     = "10.0.0.0/16"
 }

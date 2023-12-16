@@ -60,6 +60,7 @@ Examples of F5 Distributed Cloud (XC) deployments utilizing Terraform. For more 
   * Please make sure resources like VPC and Elastic IP's are below the threshold limit in that aws region
 * [Terraform Cloud Account](https://developer.hashicorp.com/terraform/tutorials/cloud-get-started)
 * [GitHub Account](https://github.com)
+* [SSH key pair](https://cloud.google.com/compute/docs/connect/create-ssh-keys)
 
 ## Selected Workflow
 
@@ -99,13 +100,13 @@ Example:
 * **Variable Set:** Create a Variable Set with the following values:
 
   | **Name**              | **Type**    | **Description**                                                                 |
-  | --------------------- | ----------- | ------------------------------------------------------------------------------- |
+  | --------------------- |---------------------------------------------------------------------------------| ------------------------------------------------------------------------------- |
   | AWS_ACCESS_KEY_ID     | Environment | Your AWS Access Key ID                                                          |
   | AWS_SECRET_ACCESS_KEY | Environment | Your AWS Secret Access Key                                                      |
   | AWS_SESSION_TOKEN     | Environment | Your AWS Session Token                                                          |
   | VOLT_API_P12_FILE     | Environment | Your F5XC API certificate. Set this to **api.p12**                              |
   | VES_P12_PASSWORD      | Environment | Set this to the password you supplied when creating your F5 XC API certificate  |
-  | ssh_key               | Terraform   | Your ssh key for accessing the created BIG-IP and compute assets                |
+  | ssh_key               | Terraform   | Your ssh pub key for accessing the created BIG-IP and compute assets            |
   | admin_src_addr        | Terraform   | The source address and subnet in CIDR format of your administrative workstation |
   | tf_cloud_organization | Terraform   | Your Terraform Cloud Organization name                                          |
 
