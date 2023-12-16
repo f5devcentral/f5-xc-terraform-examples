@@ -2,7 +2,6 @@ variable "gcp_instance_type" {
   default = "n1-standard-4"
 }
 
-
 resource "volterra_cloud_credentials" "gcp_cred" {
   count     = var.gcp_ce_site ? 1 : 0
   name      = "${local.project_prefix}-gcp-credentials"
@@ -15,7 +14,6 @@ resource "volterra_cloud_credentials" "gcp_cred" {
     }
   }
 }
-
 
 resource "volterra_gcp_vpc_site" "site" {
   depends_on             = [volterra_cloud_credentials.gcp_cred]
