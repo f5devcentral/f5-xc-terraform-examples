@@ -11,7 +11,7 @@ serviceName = ""
 serviceport = ""
 site_name = "janibasha-gcp-site"
 advertise_sites = "true"
-http_only = "false"
+http_only = "true"
 
 #XC AI/ML Settings for MUD, APIP - NOTE: Only set if using AI/ML settings from the shared namespace
 xc_app_type = []
