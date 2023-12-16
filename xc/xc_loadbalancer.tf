@@ -202,7 +202,7 @@ resource "volterra_http_loadbalancer" "lb_https" {
       timeout = 1000
     }
   }
-
+/*
 #DDoS Configuration
   dynamic "enable_ddos_detection" {
     for_each = var.xc_ddos_pro ? [1] : []
@@ -222,6 +222,7 @@ resource "volterra_http_loadbalancer" "lb_https" {
       }
     }
   }
+  */
   
 #Common Security Controls
 
