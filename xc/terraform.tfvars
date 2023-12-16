@@ -9,7 +9,7 @@ xc_waf_blocking = "true"
 k8s_pool = "false"
 serviceName = ""
 serviceport = ""
-site_name = "ce-gcp"
+site_name = "janibasha-gcp-site"
 advertise_sites = "true"
 http_only = "false"
 
