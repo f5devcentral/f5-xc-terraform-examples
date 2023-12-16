@@ -2,7 +2,7 @@ variable "gcp_instance_type" {
   default = "n1-standard-4"
 }
 
-/*
+
 resource "volterra_cloud_credentials" "gcp_cred" {
   count     = var.gcp_ce_site ? 1 : 0
   name      = "${local.project_prefix}-gcp-credentials"
@@ -10,15 +10,15 @@ resource "volterra_cloud_credentials" "gcp_cred" {
   gcp_cred_file {
     credential_file {
       clear_secret_info {
-        url = format("string:///%s", base64encode("${var.GOOGLE_CREDENTIALS}"))
+        url = format("string:///%s", base64encode(var.GOOGLE_CREDENTIALS))
       }
     }
   }
 }
-*/
+
 
 resource "volterra_gcp_vpc_site" "site" {
-  #depends_on             = [volterra_cloud_credentials.gcp_cred]
+  depends_on             = [volterra_cloud_credentials.gcp_cred]
   name                   = "${local.project_prefix}-gcp-site"
   namespace              = "system"
   cloud_credentials {
