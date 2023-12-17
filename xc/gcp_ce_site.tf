@@ -20,7 +20,7 @@ resource "volterra_gcp_vpc_site" "site" {
   name                   = var.gcp_ce_site
   namespace              = "system"
   cloud_credentials {
-    name                 = volterra_cloud_credentials.gcp_cred.name
+    name                 = volterra_cloud_credentials.gcp_cred[0].name
     namespace            = "system"
   }
   ssh_key                = var.ssh_key
