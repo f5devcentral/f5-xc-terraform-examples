@@ -57,7 +57,7 @@ resource "volterra_tf_params_action" "apply_gcp_vpc" {
 resource "null_resource" "check_site_status_cert" {
   count         = var.gcp_ce_site == "true" ? 1 : 0
   provisioner "local-exec" {
-    command     = format("sudo %s/check_ce_status.sh config/namespaces/system/sites/%s api.p12 %s 3600 cert $VES_P12_PASSWORD", path.module, var.gcp_ce_site, var.xc_tenant)
-    interpreter = ["/usr/bin/env", "bash", "-c"]
+    command     = format("bash ${path.module}/check_ce_status.sh config/namespaces/system/sites/%s api.p12 %s 3600 cert $VES_P12_PASSWORD", var.site_name, var.xc_tenant)
+    #interpreter = ["/usr/bin/env", "bash", "-c"]
   }
 }
