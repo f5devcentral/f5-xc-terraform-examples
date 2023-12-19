@@ -7,9 +7,9 @@ xc_waf_blocking = "true"
 
 # k8s configs
 k8s_pool = "false"
-serviceName = ""
-serviceport = ""
-site_name = "janibasha-gcp-site"
+serviceName = "productpage.default"
+serviceport = "9080"
+site_name = "janibasha-site"
 advertise_sites = "true"
 http_only = "true"
 
