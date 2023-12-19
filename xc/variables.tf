@@ -155,7 +155,7 @@ variable "xc_delegation" {
   default     = "false"
 }
 
-variable "ip_address_on_site" {
+variable "ip_address_on_site_pool" {
   type        = string
   description = "If pool member is Private IP on given sites"
   default     = "false"

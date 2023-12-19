@@ -21,7 +21,7 @@ resource "volterra_origin_pool" "op" {
   }
 
   dynamic "origin_servers" {
-    for_each = local.dns_origin_pool == false && var.k8s_pool == "false" && var.ip_address_on_site == "false"? [1] : []
+    for_each = local.dns_origin_pool == false && var.k8s_pool == "false" && var.ip_address_on_site_pool == "false"? [1] : []
     content {
       public_ip {
         ip = local.origin_server
@@ -46,7 +46,7 @@ resource "volterra_origin_pool" "op" {
     }
   }
   dynamic "origin_servers" {
-    for_each = var.ip_address_on_site ? [1] : []
+    for_each = var.ip_address_on_site_pool ? [1] : []
     content {
       private_ip {
         outside_network = true
