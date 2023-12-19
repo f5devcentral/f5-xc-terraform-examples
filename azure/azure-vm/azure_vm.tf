@@ -112,15 +112,15 @@ resource "azurerm_network_interface" "public" {
 }
 
 resource "azurerm_linux_virtual_machine" "vm_inst_private" {
-  count = local.vm_public_ip ? 0 : 1
-  name                = "vm-waf-demo"
-  resource_group_name = local.resource_group_name
-  location            = local.azure_region
-  size                = "Standard_F2"
-  admin_username      = "Demouser"
-  admin_password      = "Demouser@1234"
+  count                           = local.vm_public_ip ? 0 : 1
+  name                            = "vm-waf-demo"
+  resource_group_name             = local.resource_group_name
+  location                        = local.azure_region
+  size                            = "Standard_F2"
+  admin_username                  = "Demouser"
+  admin_password                  = "Demouser@1234"
   disable_password_authentication = false
-  network_interface_ids = [
+  network_interface_ids           = [
     azurerm_network_interface.nic.id,
   ]
   os_disk {
@@ -134,6 +134,7 @@ resource "azurerm_linux_virtual_machine" "vm_inst_private" {
     version   = "latest"
   }
   user_data = filebase64("./dvwa_userdata.txt")
+}
 
 resource "azurerm_network_interface_security_group_association" "securitygroup" {
   network_interface_id      = azurerm_network_interface.nic.id
