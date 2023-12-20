@@ -18,3 +18,7 @@ variable "azure_service_principal_appid" {
 variable "azure_service_principal_password" {
   type    = string
 }
+variable "source_ip" {
+  type        = string
+  description = "IP address allowed to make ssh connections"
+}
