@@ -1,5 +1,5 @@
 resource "volterra_discovery" "svc-discovery" {
-  count       = var.xc_service_discovery ? 1: 0
+  count       = var.xc_service_discovery ? 1 : 0
   depends_on  = [volterra_tf_params_action.action_apply]
   name        = format("%s-sd-%s", local.project_prefix, local.build_suffix)
   namespace   = "system"
