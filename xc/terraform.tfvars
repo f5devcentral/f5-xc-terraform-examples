@@ -13,7 +13,7 @@ xc_waf_blocking = true
 az_ce_site = "true"
 
 #XC Service Discovery
-xc_service_discovery = ""
+xc_service_discovery = "false"
 
 # pool and LB inputs
 k8s_pool = "false"
