@@ -153,7 +153,9 @@ jobs:
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/deploy-waf-re' && github.event_name == 'push'
-        run: terraform apply -auto-approve -input=false
+        run: |
+          ip=$(curl ipecho.net/plain)
+          terraform apply -auto-approve -var="source_ip=$ip"
 
 
   terraform_xc:

@@ -27,9 +27,3 @@ data "tfe_outputs" "azure-vm" {
   organization = var.tf_cloud_organization
   workspace = "azure-vm"
 }
-data "azurerm_virtual_machine" "az-ce-site" {
-  count               = var.az_ce_site ? 1 : 0
-  depends_on          = [volterra_tf_params_action.action_apply]
-  name                = "master-0"
-  resource_group_name = format("%s-rg-xc-%s", local.project_prefix, local.build_suffix)
-}
