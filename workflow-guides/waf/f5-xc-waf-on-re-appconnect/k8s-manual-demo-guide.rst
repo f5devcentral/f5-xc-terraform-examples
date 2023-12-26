@@ -1,4 +1,4 @@
-Manual step by step deployment process:
+Manual step by step process to deploy application in Kubernetes Cluster:
 ===============================================
 
 Pre-requisites
