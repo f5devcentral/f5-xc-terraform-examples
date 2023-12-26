@@ -54,3 +54,9 @@ variable "aks-cluster" {
 variable "azure-vm" {
   type = bool
 }
+# Azure public IP
+variable "vm_public_ip" {
+  type        = string
+  description = "Assign Public IP"
+  default     = true
+}
