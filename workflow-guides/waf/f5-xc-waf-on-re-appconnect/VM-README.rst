@@ -19,4 +19,4 @@ Workflow Instructions
 
 `F5 Distributed Cloud Console Workflow <./vm-manual-demo-guide.rst>`__
 
-`F5 Distributed Cloud K8s Automation Workflow <./vm-automation-demo-guide.rst>`__
+`F5 Distributed Cloud VM Automation Workflow <./vm-automation-demo-guide.rst>`__
