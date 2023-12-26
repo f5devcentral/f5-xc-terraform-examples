@@ -1,0 +1,310 @@
+name: "AWS Networking Apply"
+
+on:
+  push:
+    branches:
+      - aws-networking
+  workflow_dispatch:
+    inputs:
+      TF_CLOUD_WORKSPACE_AWS_NETWORKING:
+        description: "TF Cloud Workspace (optional)"
+        required: false
+        type: string
+      TF_VAR_name:
+        description: "Deployment name (optional)"
+        required: false
+        type: string
+      TF_VAR_prefix:
+        description: "Prefix (optional)"
+        required: false
+        type: string
+      TF_VAR_local_subnets:
+        description: "Local Subnets"
+        required: false
+        type: string
+        default: "[\"10.172.11.0/24\", \"10.172.12.0/24\", \"10.172.13.0/24\"]"
+      TF_VAR_inside_subnets:
+        description: "Inside Subnets"
+        required: false
+        type: string
+        default: "[\"10.10.21.0/24\", \"10.10.22.0/24\", \"10.10.23.0/24\"]"
+      TF_VAR_outside_subnets:
+        description: "Outside Subnets"
+        required: false
+        type: string
+        default: "[\"10.10.31.0/24\", \"10.10.32.0/24\", \"10.10.33.0/24\"]"
+      TF_VAR_workload_subnets:
+        description: "Workload Subnets"
+        required: false
+        type: string
+        default: "[\"10.10.41.0/24\", \"10.10.42.0/24\", \"10.10.43.0/24\"]"
+      TF_VAR_vnet_cidr:
+        description: "VNET CIDR"
+        required: false
+        type: string
+        default: "10.172.0.0/16"
+      TF_VAR_aws_region:
+        description: "AWS Region"
+        required: false
+        type: string
+        default: "us-east-1"
+  workflow_call:
+    inputs:
+      TF_CLOUD_WORKSPACE_AWS_NETWORKING:
+        description: "TF Cloud Workspace"
+        required: false
+        type: string
+      TF_VAR_name:
+        description: "Deployment name"
+        required: false
+        type: string
+      TF_VAR_prefix:
+        description: "Prefix"
+        required: false
+        type: string
+      TF_VAR_aws_region:
+        description: "AWS Region"
+        required: false
+        type: string
+      TF_VAR_existing_vpc_id:
+        description: "Existing VPC ID"
+        required: false
+        type: string
+      TF_VAR_create_outside_route_table:
+        description: "Create Outside Route Table"
+        required: false
+        type: string
+      TF_VAR_create_internet_gateway:
+        description: "Create Internet Gateway"
+        required: false
+        type: string
+      TF_VAR_create_outside_security_group:
+        description: "Create Outside Security Group"
+        required: false
+        type: string
+      TF_VAR_create_inside_security_group:
+        description: "Create Inside Security Group"
+        required: false
+        type: string
+      TF_VAR_create_udp_security_group_rules:
+        description: "Create UDP Security Group Rules"
+        required: false
+        type: string
+      TF_VAR_tags:
+        description: "Tags"
+        required: false
+        type: string
+      TF_VAR_az_names:
+        description: "AZ Names"
+        required: false
+        type: string
+      TF_VAR_local_subnets:
+        description: "Local Subnets"
+        required: false
+        type: string
+      TF_VAR_inside_subnets:
+        description: "Inside Subnets"
+        required: false
+        type: string
+      TF_VAR_outside_subnets:
+        description: "Outside Subnets"
+        required: false
+        type: string
+      TF_VAR_workload_subnets:
+        description: "Workload Subnets"
+        required: false
+        type: string
+      TF_VAR_vpc_cidr:
+        description: "VPC CIDR"
+        required: false
+        type: string
+      TF_VAR_vpc_instance_tenancy:
+        description: "VPC Instance Tenancy"
+        required: false
+        type: string
+      TF_VAR_vpc_enable_dns_hostnames:
+        description: "VPC Enable DNS Hostnames"
+        required: false
+        type: string
+      TF_VAR_vpc_enable_dns_support:
+        description: "VPC Enable DNS Support"
+        required: false
+        type: string
+      TF_VAR_vpc_enable_network_address_usage_metrics:
+        description: "VPC Enable Network Address Usage Metrics"
+        required: false
+        type: string
+    secrets:
+      TF_API_TOKEN:
+        required: true
+      TF_CLOUD_ORGANIZATION:
+        required: true
+      AWS_ACCESS_KEY:
+        required: true
+      AWS_SECRET_KEY:
+        required: true
+      AWS_SESSION_TOKEN:
+        required: true
+    outputs:
+      vpc_id:
+        description: "VPC ID"
+        value: ${{ jobs.aws_networking.outputs.vpc_id }}
+      vpc_name:
+        description: "VPC Name"
+        value: ${{ jobs.aws_networking.outputs.vpc_name }}
+      vpc_cidr:
+        description: "VPC CIDR"
+        value: ${{ jobs.aws_networking.outputs.vpc_cidr }}
+      outside_subnet_ids:
+        description: "Outside Subnet IDs"
+        value: ${{ jobs.aws_networking.outputs.outside_subnet_ids }}
+      inside_subnet_ids:
+        description: "Inside Subnet IDs"
+        value: ${{ jobs.aws_networking.outputs.inside_subnet_ids }}
+      workload_subnet_ids:
+        description: "Workload Subnet IDs"
+        value: ${{ jobs.aws_networking.outputs.workload_subnet_ids }}
+      local_subnet_ids:
+        description: "Local Subnet IDs"
+        value: ${{ jobs.aws_networking.outputs.local_subnet_ids }}
+      outside_route_table_id:
+        description: "Outside Route Table ID"
+        value: ${{ jobs.aws_networking.outputs.outside_route_table_id }}
+      internet_gateway_id:
+        description: "Internet Gateway ID"
+        value: ${{ jobs.aws_networking.outputs.internet_gateway_id }}
+      outside_security_group_id:
+        description: "Outside Security Group ID"
+        value: ${{ jobs.aws_networking.outputs.outside_security_group_id }}
+      inside_security_group_id:
+        description: "Inside Security Group ID"
+        value: ${{ jobs.aws_networking.outputs.inside_security_group_id }}
+      default_security_group_id:
+        description: "Default Security Group ID"
+        value: ${{ jobs.aws_networking.outputs.default_security_group_id }}
+      az_names:
+        description: "AZ Names"
+        value: ${{ jobs.aws_networking.outputs.az_names }}
+
+jobs:
+  aws_networking:
+    name: "AWS Networking Apply"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "./aws/networking"
+    env:
+      AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+      AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+      AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+      TF_CLOUD_WORKSPACE_AWS_NETWORKING: "aws-networking"
+      TF_VAR_name: "aws-networking"
+      TF_VAR_prefix: ""
+      TF_VAR_aws_region: ""
+      TF_VAR_existing_vpc_id: ""
+      TF_VAR_create_outside_route_table: "true"
+      TF_VAR_create_internet_gateway: "true"
+      TF_VAR_create_outside_security_group: "true"
+      TF_VAR_create_inside_security_group: "true"
+      TF_VAR_create_udp_security_group_rules: "true"
+      TF_VAR_tags: "{}"
+      TF_VAR_az_names: ""
+      TF_VAR_local_subnets: ""
+      TF_VAR_inside_subnets: ""
+      TF_VAR_outside_subnets: ""
+      TF_VAR_workload_subnets: ""
+      TF_VAR_vpc_cidr: "10.10.0.0/16"
+      TF_VAR_vpc_instance_tenancy: "default"
+      TF_VAR_vpc_enable_dns_hostnames: "true"
+      TF_VAR_vpc_enable_dns_support: "true"
+      TF_VAR_vpc_enable_network_address_usage_metrics: "false"
+    outputs:
+      vpc_id: ${{ steps.output_vars.outputs.vpc_id }}
+      vpc_name: ${{ steps.output_vars.outputs.vpc_name }}
+      vpc_cidr: ${{ steps.output_vars.outputs.vpc_cidr }}
+      outside_subnet_ids: ${{ steps.output_vars.outputs.outside_subnet_ids }}
+      inside_subnet_ids: ${{ steps.output_vars.outputs.inside_subnet_ids }}
+      workload_subnet_ids: ${{ steps.output_vars.outputs.workload_subnet_ids }}
+      local_subnet_ids: ${{ steps.output_vars.outputs.local_subnet_ids }}
+      outside_route_table_id: ${{ steps.output_vars.outputs.outside_route_table_id }}
+      internet_gateway_id: ${{ steps.output_vars.outputs.internet_gateway_id }}
+      outside_security_group_id: ${{ steps.output_vars.outputs.outside_security_group_id }}
+      inside_security_group_id: ${{ steps.output_vars.outputs.inside_security_group_id }}
+      default_security_group_id: ${{ steps.output_vars.outputs.default_security_group_id }}
+      az_names: ${{ steps.output_vars.outputs.az_names }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - id: apply_variables 
+        uses: "./.github/actions/apply-variables" 
+        with: 
+          vars_json: "${{ toJSON(vars) }}" 
+          vars_prefix: "AWSN_TF_VAR_"
+          inputs_json: "${{ toJSON(inputs) }}" 
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Setup Terraform Backend
+        id: backend
+        run: |
+          cat > backend.tf << EOF
+          terraform {
+            cloud {
+              organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
+              workspaces {
+                name = "$TF_CLOUD_WORKSPACE_AWS_NETWORKING"
+              }
+            }
+          }
+          EOF
+          
+      - name: Terraform Init
+        id: init
+        run: terraform init
+      
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Terraform Apply
+        run: terraform apply -no-color -auto-approve -input=false
+
+      - name: Set output vars
+        id: output_vars
+        run: |
+          sleep 5
+          echo "vpc_id=$(terraform-bin output -raw -no-color vpc_id)" >> "$GITHUB_OUTPUT"
+          echo "vpc_name=$(terraform-bin output -raw -no-color vpc_name)" >> "$GITHUB_OUTPUT"
+          echo "vpc_cidr=$(terraform-bin output -raw -no-color vpc_cidr)" >> "$GITHUB_OUTPUT"
+          echo "outside_subnet_ids=$(terraform-bin output -json -no-color outside_subnet_ids)" >> "$GITHUB_OUTPUT"
+          echo "inside_subnet_ids=$(terraform-bin output -json -no-color inside_subnet_ids)" >> "$GITHUB_OUTPUT"
+          echo "workload_subnet_ids=$(terraform-bin output -json -no-color workload_subnet_ids)" >> "$GITHUB_OUTPUT"
+          echo "local_subnet_ids=$(terraform-bin output -json -no-color local_subnet_ids)" >> "$GITHUB_OUTPUT"
+          echo "outside_route_table_id=$(terraform-bin output -raw -no-color outside_route_table_id)" >> "$GITHUB_OUTPUT"
+          echo "internet_gateway_id=$(terraform-bin output -raw -no-color internet_gateway_id)" >> "$GITHUB_OUTPUT"
+          echo "outside_security_group_id=$(terraform-bin output -raw -no-color outside_security_group_id)" >> "$GITHUB_OUTPUT"
+          echo "inside_security_group_id=$(terraform-bin output -raw -no-color inside_security_group_id)" >> "$GITHUB_OUTPUT"
+          echo "default_security_group_id=$(terraform-bin output -raw -no-color default_security_group_id)" >> "$GITHUB_OUTPUT"
+          echo "az_names=$(terraform-bin output -json -no-color az_names)" >> "$GITHUB_OUTPUT"
+
+      - name: Print output vars
+        id: ouput_print
+        run: |
+          echo 'vpc_id: ${{ steps.output_vars.outputs.vpc_id }}'
+          echo 'vpc_name: ${{ steps.output_vars.outputs.vpc_name }}'
+          echo 'vpc_cidr: ${{ steps.output_vars.outputs.vpc_cidr }}'
+          echo 'outside_subnet_ids: ${{ steps.output_vars.outputs.outside_subnet_ids }}'
+          echo 'inside_subnet_ids: ${{ steps.output_vars.outputs.inside_subnet_ids }}'
+          echo 'workload_subnet_ids: ${{ steps.output_vars.outputs.workload_subnet_ids }}'
+          echo 'local_subnet_ids: ${{ steps.output_vars.outputs.local_subnet_ids }}'
+          echo 'outside_route_table_id: ${{ steps.output_vars.outputs.outside_route_table_id }}'
+          echo 'internet_gateway_id: ${{ steps.output_vars.outputs.internet_gateway_id }}'
+          echo 'outside_security_group_id: ${{ steps.output_vars.outputs.outside_security_group_id }}'
+          echo 'inside_security_group_id: ${{ steps.output_vars.outputs.inside_security_group_id }}'
+          echo 'default_security_group_id: ${{ steps.output_vars.outputs.default_security_group_id }}'
+          echo 'az_names: ${{ steps.output_vars.outputs.az_names }}'

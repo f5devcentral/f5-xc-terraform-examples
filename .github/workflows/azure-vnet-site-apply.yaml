@@ -1,0 +1,513 @@
+name: "Azure VNET Site Apply"
+
+on:
+  push:
+    branches:
+      - azure-vnet-site
+  workflow_dispatch:
+    inputs:
+      TF_CLOUD_WORKSPACE_AZURE_VNET_SITE:
+        description: "TF Cloud Workspace (optional)"
+        required: false
+        type: string
+      TF_VAR_name:
+        description: "Deployment name (optional)"
+        required: false
+        type: string
+        default: "azure-vnet-site"
+      TF_VAR_prefix:
+        description: "Prefix (optional)"
+        required: false
+        type: string
+      TF_VAR_azure_rg_name:
+        description: "Azure Resource Group name (optional)"
+        required: true
+        type: string
+        default: "azure-vnet-site"
+      TF_VAR_azure_rg_location:
+        description: "Azure Resource Group Location (optional)"
+        required: true
+        default: "centralus"
+        type: string
+      TF_VAR_site_type:
+        description: "Site Type"
+        required: true
+        default: "ingress_gw"
+        type: string
+      TF_VAR_master_nodes_az_names:
+        description: "Master Nodes AZ Names"
+        required: true
+        default: "[\"1\"]"
+        type: string
+      TF_VAR_vnet_cidr:
+        description: "VNET CIDR"
+        required: true
+        default: "172.10.0.0/16"
+        type: string
+      TF_VAR_local_subnets:
+        description: "Local Subnets"
+        required: true
+        default: "[\"172.10.11.0/24\"]"
+      TF_VAR_az_cloud_credentials_name:
+        description: "Existing Azure Cloud Credentials Name"
+        required: false
+        default: "azure-cloud-credentials"
+  workflow_call:
+    inputs:
+      TF_CLOUD_WORKSPACE_AZURE_VNET_SITE:
+        description: "TF Cloud Workspace"
+        required: false
+        type: string
+      TF_VAR_name:
+        description: "Deployment name"
+        required: false
+        type: string
+      TF_VAR_prefix:
+        description: "Prefix"
+        required: false
+        type: string
+      TF_VAR_site_description:
+        description: "Site Description"
+        required: false
+        type: string
+      TF_VAR_site_namespace:
+        description: "Site Namespace"
+        required: false
+        type: string
+      TF_VAR_tags:
+        description: "Tags"
+        required: false
+        type: string
+      TF_VAR_offline_survivability_mode:
+        description: "Offline Survivability Mode"
+        required: false
+        type: string
+      TF_VAR_software_version:
+        description: "Software Version"
+        required: false
+        type: string
+      TF_VAR_operating_system_version:
+        description: "Operating System Version"
+        required: false
+        type: string
+      TF_VAR_site_type:
+        description: "Site Type"
+        required: false
+        type: string
+      TF_VAR_master_nodes_az_names:
+        description: "Master Nodes AZ Names"
+        required: false
+        type: string
+      TF_VAR_nodes_disk_size:
+        description: "Nodes Disk Size"
+        required: false
+        type: string
+      TF_VAR_ssh_key:
+        description: "SSH Key"
+        required: false
+        type: string
+      TF_VAR_azure_rg_location:
+        description: "Azure Resource Group Location"
+        required: false
+        type: string
+      TF_VAR_azure_rg_name:
+        description: "Azure Resource Group Name"
+        required: false
+        type: string
+      TF_VAR_machine_type:
+        description: "Machine Type"
+        required: false
+        type: string
+      TF_VAR_az_cloud_credentials_name:
+        description: "Azure Cloud Credentials Name"
+        required: false
+        type: string
+      TF_VAR_az_cloud_credentials_namespace:
+        description: "Azure Cloud Credentials Namespace"
+        required: false
+        type: string
+      TF_VAR_az_cloud_credentials_tenant:
+        description: "Azure Cloud Credentials Tenant"
+        required: false
+        type: string
+      TF_VAR_jumbo:
+        description: "Jumbo"
+        required: false
+        type: string
+      TF_VAR_log_receiver:
+        description: "Log Receiver"
+        required: false
+        type: string
+      TF_VAR_vnet_name:
+        description: "VNET Name"
+        required: false
+        type: string
+      TF_VAR_vnet_rg_name:
+        description: "VNET Resource Group Name"
+        required: false
+        type: string
+      TF_VAR_vnet_rg_location:
+        description: "VNET Resource Group Location"
+        required: false
+        type: string
+      TF_VAR_vnet_cidr:
+        description: "VNET CIDR"
+        required: false
+        type: string
+      TF_VAR_apply_outside_sg_rules:
+        description: "Apply Outside SG Rules"
+        required: false
+        type: string
+      TF_VAR_existing_inside_rt_names:
+        description: "Existing Inside Route Table Names"
+        required: false
+        type: string
+      TF_VAR_existing_local_subnets:
+        description: "Existing Local Subnets"
+        required: false
+        type: string
+      TF_VAR_existing_inside_subnets:
+        description: "Existing Inside Subnets"
+        required: false
+        type: string
+      TF_VAR_existing_outside_subnets:
+        description: "Existing Outside Subnets"
+        required: false
+        type: string
+      TF_VAR_local_subnets:
+        description: "Local Subnets"
+        required: false
+        type: string
+      TF_VAR_inside_subnets:
+        description: "Inside Subnets"
+        required: false
+        type: string
+      TF_VAR_outside_subnets:
+        description: "Outside Subnets"
+        required: false
+        type: string
+      TF_VAR_local_subnets_ipv6:
+        description: "Local Subnets IPv6"
+        required: false
+        type: string
+      TF_VAR_inside_subnets_ipv6:
+        description: "Inside Subnets IPv6"
+        required: false
+        type: string
+      TF_VAR_outside_subnets_ipv6:
+        description: "Outside Subnets IPv6"
+        required: false
+        type: string
+      TF_VAR_worker_nodes_per_az:
+        description: "Worker Nodes Per AZ"
+        required: false
+        type: string
+      TF_VAR_block_all_services:
+        description: "Block All Services"
+        required: false
+        type: string
+      TF_VAR_blocked_service:
+        description: "Blocked Service"
+        required: false
+        type: string
+      TF_VAR_apply_action_wait_for_action:
+        description: "Apply Action Wait For Action"
+        required: false
+        type: string
+      TF_VAR_apply_action_ignore_on_update:
+        description: "Apply Action Ignore On Update"
+        required: false
+        type: string
+      TF_VAR_dc_cluster_group_inside_vn:
+        description: "DC Cluster Group Inside VN"
+        required: false
+        type: string
+      TF_VAR_dc_cluster_group_outside_vn:
+        description: "DC Cluster Group Outside VN"
+        required: false
+        type: string
+      TF_VAR_active_forward_proxy_policies_list:
+        description: "Active Forward Proxy Policies List"
+        required: false
+        type: string
+      TF_VAR_forward_proxy_allow_all:
+        description: "Forward Proxy Allow All"
+        required: false
+        type: string
+      TF_VAR_global_network_connections_list:
+        description: "Global Network Connections List"
+        required: false
+        type: string
+      TF_VAR_inside_static_route_list:
+        description: "Inside Static Route List"
+        required: false
+        type: string
+      TF_VAR_outside_static_route_list:
+        description: "Outside Static Route List"
+        required: false
+        type: string
+      TF_VAR_enhanced_firewall_policies_list:
+        description: "Enhanced Firewall Policies List"
+        required: false
+        type: string
+      TF_VAR_active_network_policies_list:
+        description: "Active Network Policies List"
+        required: false
+        type: string
+      TF_VAR_sm_connection_public_ip:
+        description: "SM Connection Public IP"
+        required: false
+        type: string
+    secrets:
+      TF_API_TOKEN:
+        required: true
+      TF_CLOUD_ORGANIZATION:
+        required: true
+      XC_API_P12_FILE:
+        required: true
+      XC_P12_PASSWORD :
+          required: true
+      XC_API_URL:
+        required: true
+      AZURE_SUBSCRIPTION_ID:
+        required: true
+      AZURE_TENANT_ID:
+        required: true
+      AZURE_CLIENT_ID:
+        required: true
+      AZURE_CLIENT_SECRET:
+        required: true
+      XC_AZURE_CLOUD_CREDENTIALS_NAME:
+        required: false
+    outputs:
+      id:
+        description: "VNET Site Id"
+        value: ${{ jobs.azure_vnet_site.outputs.id }}
+      name:
+        description: "VNET Site Name"
+        value: ${{ jobs.azure_vnet_site.outputs.name }}
+      ssh_private_key_openssh:
+        description: "SSH Private Key OpenSSH"
+        value: ${{ jobs.azure_vnet_site.outputs.ssh_private_key_openssh }}
+      ssh_public_key:
+        description: "SSH Public Key"
+        value: ${{ jobs.azure_vnet_site.outputs.ssh_public_key }}
+      master_nodes_az_names:
+        description: "Master Nodes AZ Names"
+        value: ${{ jobs.azure_vnet_site.outputs.master_nodes_az_names }}
+      vnet_resource_group:
+        description: "VNET Resource Group"
+        value: ${{ jobs.azure_vnet_site.outputs.vnet_resource_group }}
+      vnet_name:
+        description: "VNET Name"
+        value: ${{ jobs.azure_vnet_site.outputs.vnet_name }}
+      inside_rt_names:
+        description: "Inside Route Table Names"
+        value: ${{ jobs.azure_vnet_site.outputs.inside_rt_names }}
+      location:
+        description: "Location"
+        value: ${{ jobs.azure_vnet_site.outputs.location }}
+      site_resource_group:
+        description: "Site Resource Group"
+        value: ${{ jobs.azure_vnet_site.outputs.site_resource_group }}
+      sli_nic_names:
+        description: "SLI NIC Names"
+        value: ${{ jobs.azure_vnet_site.outputs.sli_nic_names }}
+      sli_nic_private_ips:
+        description: "SLI NIC Private IPs"
+        value: ${{ jobs.azure_vnet_site.outputs.sli_nic_private_ips }}
+      slo_nic_names:
+        description: "SLO NIC Names"
+        value: ${{ jobs.azure_vnet_site.outputs.slo_nic_names }}
+      slo_nic_private_ips:
+        description: "SLO NIC Private IPs"
+        value: ${{ jobs.azure_vnet_site.outputs.slo_nic_private_ips }}
+      slo_nic_public_ips:
+        description: "SLO NIC Public IPs"
+        value: ${{ jobs.azure_vnet_site.outputs.slo_nic_public_ips }}
+      # slo_nic_ids:
+      #   description: "SLO NIC Ids"
+      #   value: ${{ jobs.azure_vnet_site.outputs.slo_nic_ids }}
+      # sli_nic_ids:
+      #   description: "SLI NIC Ids"
+      #   value: ${{ jobs.azure_vnet_site.outputs.sli_nic_ids }}
+      # apply_tf_output_map:
+      #   description: "Terraform Apply Output Map"
+      #   value: ${{ jobs.azure_vnet_site.outputs.apply_tf_output_map }}
+
+env:
+  TF_CLOUD_WORKSPACE_AZURE_VNET_SITE: "azure-vnet-site"
+  TF_VAR_name: "azure-vnet-site"
+  TF_VAR_prefix: ""
+  TF_VAR_site_description: ""
+  TF_VAR_site_namespace: ""
+  TF_VAR_tags: ""
+  TF_VAR_offline_survivability_mode: ""
+  TF_VAR_software_version: ""
+  TF_VAR_operating_system_version: ""
+  TF_VAR_site_type: ""
+  TF_VAR_master_nodes_az_names: "[]"
+  TF_VAR_nodes_disk_size: ""
+  TF_VAR_ssh_key: ""
+  TF_VAR_azure_rg_location: ""
+  TF_VAR_azure_rg_name: ""
+  TF_VAR_machine_type: ""
+  TF_VAR_az_cloud_credentials_name: ""
+  TF_VAR_az_cloud_credentials_namespace: ""
+  TF_VAR_az_cloud_credentials_tenant: ""
+  TF_VAR_jumbo: ""
+  TF_VAR_log_receiver: ""
+  TF_VAR_vnet_name: ""
+  TF_VAR_vnet_rg_name: ""
+  TF_VAR_vnet_rg_location: ""
+  TF_VAR_vnet_cidr: ""
+  TF_VAR_apply_outside_sg_rules: ""
+  TF_VAR_existing_inside_rt_names: "[]"
+  TF_VAR_existing_local_subnets: "[]"
+  TF_VAR_existing_inside_subnets: "[]"
+  TF_VAR_existing_outside_subnets: "[]"
+  TF_VAR_local_subnets: "[]"
+  TF_VAR_inside_subnets: "[]"
+  TF_VAR_outside_subnets: "[]"
+  TF_VAR_local_subnets_ipv6: "[]"
+  TF_VAR_inside_subnets_ipv6: "[]"
+  TF_VAR_outside_subnets_ipv6: "[]"
+  TF_VAR_worker_nodes_per_az: ""
+  TF_VAR_block_all_services: ""
+  TF_VAR_blocked_service: ""
+  TF_VAR_apply_action_wait_for_action: ""
+  TF_VAR_apply_action_ignore_on_update: ""
+  TF_VAR_dc_cluster_group_inside_vn: ""
+  TF_VAR_dc_cluster_group_outside_vn: ""
+  TF_VAR_active_forward_proxy_policies_list: "[]"
+  TF_VAR_forward_proxy_allow_all: ""
+  TF_VAR_global_network_connections_list: "[]"
+  TF_VAR_inside_static_route_list: "[]"
+  TF_VAR_outside_static_route_list: "[]"
+  TF_VAR_enhanced_firewall_policies_list: "[]"
+  TF_VAR_active_network_policies_list: "[]"
+  TF_VAR_sm_connection_public_ip: ""
+
+jobs:
+  azure_vnet_site:
+    name: "Azure VNET Site Apply"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "./f5/xc/azure-vnet-site"
+    env:
+      VOLT_API_URL: ${{ secrets.XC_API_URL }}
+      VOLT_API_P12_FILE: "./api.p12"
+      VES_P12_PASSWORD: ${{ secrets.XC_P12_PASSWORD }}
+      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      TF_VAR_az_cloud_credentials_name: ${{ secrets.XC_AZURE_CLOUD_CREDENTIALS_NAME }}
+    outputs:
+      name: ${{ steps.output_vars.outputs.name }}
+      id: ${{ steps.output_vars.outputs.id }}
+      ssh_private_key_openssh: ${{ steps.output_vars.outputs.ssh_private_key_openssh }}
+      ssh_public_key: ${{ steps.output_vars.outputs.ssh_public_key }}
+      master_nodes_az_names: ${{ steps.output_vars.outputs.master_nodes_az_names }}
+      vnet_resource_group: ${{ steps.output_vars.outputs.vnet_resource_group }}
+      vnet_name: ${{ steps.output_vars.outputs.vnet_name }}
+      inside_rt_names: ${{ steps.output_vars.outputs.inside_rt_names }}
+      location: ${{ steps.output_vars.outputs.location }}
+      site_resource_group: ${{ steps.output_vars.outputs.site_resource_group }}
+      sli_nic_names: ${{ steps.output_vars.outputs.sli_nic_names }}
+      sli_nic_private_ips: ${{ steps.output_vars.outputs.sli_nic_private_ips }}
+      slo_nic_names: ${{ steps.output_vars.outputs.slo_nic_names }}
+      slo_nic_private_ips: ${{ steps.output_vars.outputs.slo_nic_private_ips }}
+      slo_nic_public_ips: ${{ steps.output_vars.outputs.slo_nic_public_ips }}
+      # apply_tf_output_map: ${{ steps.output_vars.outputs.apply_tf_output_map }}
+      # slo_nic_ids: ${{ steps.output_vars.outputs.slo_nic_ids }}
+      # sli_nic_ids: ${{ steps.output_vars.outputs.sli_nic_ids }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - id: apply_variables 
+        uses: "./.github/actions/apply-variables" 
+        with: 
+          vars_json: "${{ toJSON(vars) }}" 
+          vars_prefix: "AZVS_TF_VAR_"
+          inputs_json: "${{ toJSON(inputs) }}" 
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Setup Terraform Backend
+        id: backend
+        run: |
+          echo "${{secrets.XC_API_P12_FILE}}" | base64 -d > api.p12
+          echo VOLT_API_P12_FILE="$PWD/api.p12" >> "$GITHUB_ENV"
+
+          cat > backend.tf << EOF
+          terraform {
+            cloud {
+              organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
+              workspaces {
+                name = "$TF_CLOUD_WORKSPACE_AZURE_VNET_SITE"
+              }
+            }
+          }
+          EOF
+          
+      - name: Terraform Init
+        id: init
+        run: terraform init
+      
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Terraform Apply
+        run: terraform apply -no-color -auto-approve -input=false
+
+      - name: Set output vars
+        id: output_vars
+        run: |
+          sleep 10 
+          echo "name=$(terraform-bin output -no-color -raw name)" >> "$GITHUB_OUTPUT"
+          echo "id=$(terraform-bin output -no-color -raw id)" >> "$GITHUB_OUTPUT"
+          echo "ssh_private_key_openssh=$(terraform-bin output -no-color -raw ssh_private_key_openssh | base64 -w 0)" >> "$GITHUB_OUTPUT"
+          echo "ssh_public_key=$(terraform-bin output -no-color -raw ssh_public_key | base64 -w 0)" >> "$GITHUB_OUTPUT"
+          echo "master_nodes_az_names=$(terraform-bin output -no-color -json master_nodes_az_names)" >> "$GITHUB_OUTPUT"
+          echo "vnet_resource_group=$(terraform-bin output -no-color -raw vnet_resource_group)" >> "$GITHUB_OUTPUT"
+          echo "vnet_name=$(terraform-bin output -no-color -raw vnet_name)" >> "$GITHUB_OUTPUT"
+          echo "inside_rt_names=$(terraform-bin output -no-color -json inside_rt_names)" >> "$GITHUB_OUTPUT"
+          echo "location=$(terraform-bin output -no-color -raw location)" >> "$GITHUB_OUTPUT"
+          echo "site_resource_group=$(terraform-bin output -no-color -raw site_resource_group)" >> "$GITHUB_OUTPUT"
+          echo "sli_nic_names=$(terraform-bin output -no-color -json sli_nic_names)" >> "$GITHUB_OUTPUT"
+          echo "sli_nic_private_ips=$(terraform-bin output -no-color -json sli_nic_private_ips)" >> "$GITHUB_OUTPUT"
+          echo "slo_nic_names=$(terraform-bin output -no-color -json slo_nic_names)" >> "$GITHUB_OUTPUT"
+          echo "slo_nic_private_ips=$(terraform-bin output -no-color -json slo_nic_private_ips)" >> "$GITHUB_OUTPUT"
+          echo "slo_nic_public_ips=$(terraform-bin output -no-color -json slo_nic_public_ips)" >> "$GITHUB_OUTPUT"
+          # echo "apply_tf_output_map=$(terraform-bin output -no-color -json apply_tf_output_map)" >> "$GITHUB_OUTPUT"
+          # echo "slo_nic_ids=$(terraform-bin output -no-color -json slo_nic_ids)" >> "$GITHUB_OUTPUT"
+          # echo "sli_nic_ids=$(terraform-bin output -no-color -json sli_nic_ids)" >> "$GITHUB_OUTPUT"
+
+      - name: Print output vars
+        id: ouput_print
+        run: |
+          echo 'id: ${{ steps.output_vars.outputs.id }}'
+          echo 'name: ${{ steps.output_vars.outputs.name }}'
+          echo 'ssh_public_key: ${{ steps.output_vars.outputs.ssh_public_key }}'
+          echo 'master_nodes_az_names: ${{ steps.output_vars.outputs.master_nodes_az_names }}'
+          echo 'vnet_resource_group: ${{ steps.output_vars.outputs.vnet_resource_group }}'
+          echo 'vnet_name: ${{ steps.output_vars.outputs.vnet_name }}'
+          echo 'inside_rt_names: ${{ steps.output_vars.outputs.inside_rt_names }}'
+          echo 'location: ${{ steps.output_vars.outputs.location }}'
+          echo 'site_resource_group: ${{ steps.output_vars.outputs.site_resource_group }}'
+          echo 'sli_nic_names: ${{ steps.output_vars.outputs.sli_nic_names }}'
+          echo 'sli_nic_private_ips: ${{ steps.output_vars.outputs.sli_nic_private_ips }}'
+          echo 'slo_nic_names: ${{ steps.output_vars.outputs.slo_nic_names }}'
+          echo 'slo_nic_private_ips: ${{ steps.output_vars.outputs.slo_nic_private_ips }}'
+          echo 'slo_nic_public_ips: ${{ steps.output_vars.outputs.slo_nic_public_ips }}'
+          # echo 'apply_tf_output_map: ${{ steps.output_vars.outputs.apply_tf_output_map }}'
+          # echo 'slo_nic_ids: ${{ steps.output_vars.outputs.slo_nic_ids }}'
+          # echo 'sli_nic_ids: ${{ steps.output_vars.outputs.sli_nic_ids }}'

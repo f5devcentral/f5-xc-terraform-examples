@@ -1,0 +1,99 @@
+name: "AWS Networking Destroy"
+
+on:
+  push:
+    branches:
+      - aws-networking
+  workflow_dispatch:
+    inputs:
+      TF_CLOUD_WORKSPACE_AWS_NETWORKING:
+        description: "TF Cloud Workspace (optional)"
+        required: false
+        type: string
+  workflow_call:
+    inputs:
+      TF_CLOUD_WORKSPACE_AWS_NETWORKING:
+        description: "TF Cloud Workspace"
+        required: false
+        type: string
+    secrets:
+      TF_API_TOKEN:
+        required: true
+      TF_CLOUD_ORGANIZATION:
+        required: true
+      AWS_ACCESS_KEY:
+        required: true
+      AWS_SECRET_KEY:
+        required: true
+      AWS_SESSION_TOKEN:
+        required: true
+
+jobs:
+  aws_networking:
+    name: "AWS Networking Destroy"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "./aws/networking"
+    env:
+      AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+      AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+      AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+      TF_CLOUD_WORKSPACE_AWS_NETWORKING: "aws-networking"
+      TF_VAR_aws_region: "us-east-1"
+      TF_VAR_name: "aws-networking"
+      TF_VAR_prefix: ""
+      TF_VAR_existing_vpc_id: ""
+      TF_VAR_create_outside_route_table: "true"
+      TF_VAR_create_internet_gateway: "true"
+      TF_VAR_create_outside_security_group: "true"
+      TF_VAR_create_inside_security_group: "true"
+      TF_VAR_create_udp_security_group_rules: "true"
+      TF_VAR_tags: "{}"
+      TF_VAR_az_names: "[\"us-east-1a\"]"
+      TF_VAR_local_subnets: "[\"10.10.11.0/24\"]"
+      TF_VAR_inside_subnets: "[\"10.10.21.0/24\"]"
+      TF_VAR_outside_subnets: "[\"10.10.31.0/24\"]"
+      TF_VAR_workload_subnets: "[\"10.10.41.0/24\"]"
+      TF_VAR_vpc_cidr: "10.10.0.0/16"
+      TF_VAR_vpc_instance_tenancy: "default"
+      TF_VAR_vpc_enable_dns_hostnames: "true"
+      TF_VAR_vpc_enable_dns_support: "true"
+      TF_VAR_vpc_enable_network_address_usage_metrics: "false"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - id: apply_variables 
+        uses: "./.github/actions/apply-variables" 
+        with: 
+          vars_json: "${{ toJSON(vars) }}" 
+          vars_prefix: "AWSN_TF_VAR_"
+          inputs_json: "${{ toJSON(inputs) }}" 
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Setup Terraform Backend
+        id: backend
+        run: |
+          cat > backend.tf << EOF
+          terraform {
+            cloud {
+              organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
+              workspaces {
+                name = "$TF_CLOUD_WORKSPACE_AWS_NETWORKING"
+              }
+            }
+          }
+          EOF
+          
+      - name: Terraform Init
+        id: init
+        run: terraform init
+      
+      - name: Terraform Destroy
+        id: destroy
+        run: terraform destroy -auto-approve -input=false
