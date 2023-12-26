@@ -33,7 +33,7 @@ Terraform Cloud
    +---------------------------+-------------------------------------------+
    |         **Workflow**      |  **Assets/Workspaces**                    |
    +===========================+===========================================+
-   | f5-xc-waf-on-re-ac        | infra, aks-cluster, xc                    |
+   | f5-xc-waf-on-re-appconnect| infra, aks-cluster, xc                    |
    +---------------------------+-------------------------------------------+
 
 .. image:: assets/workspaces.JPG
