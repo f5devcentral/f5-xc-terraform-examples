@@ -1,5 +1,5 @@
-Manual step by step process to deploy application in VM:
-===============================================
+Manual step by step process to deploy application in VM
+=======================================================
 
 Pre-requisites
 ******************
@@ -23,8 +23,6 @@ Step 3: Create Virtual Machine and deploy application in it
 
 Note: Main requirement for this use case is to have an application which is not accessible from Internet which means VM should not have public IP/FQDN.
 
-**Create Virtal Machine and deploy application in it.**
-
 * Login to the Azure portal with your credentials.
 * Click on Create and create a new Virtual Machine. In this demo guide, we have used Ubuntu Server 20.04.
 * While creating Virtual machine, make sure to select the correct subscription and same resource group which was created in step 2.
@@ -32,8 +30,7 @@ Note: Main requirement for this use case is to have an application which is not 
 * Navigate to Networking section, select the Virtual network and Subnet which is created in step 2.
 * Click on “Review and Create”, Review all the necessary parameters and deploy a Virtual Machine.
 * SSH to created Virtual Machine using Public IP and install docker in it.
-* Choose the application you want to use and deploy the application within Virtual Machine. In this scenario, we have deployed DVWA application for testing purpose using below docker command.
-  
+* Choose the application you want to use and deploy the application within Virtual Machine. In this scenario, we have deployed DVWA application for testing purpose using docker command: 
   "docker run -d -p 80:80 vulnerables/web-dvwa"
 
 * We should not have Public IP address/FQDN for the VM so disassociate the existing public IP address from the VM and delete it.
@@ -65,8 +62,6 @@ Step 4: Deploy Azure Vnet site from F5XC console:
 Step 5: Create origin pool and HTTP LB in F5XC console
 ########################################################
 
-**Configure HTTP Load Balancer and Origin Pool**
-
 * Select Manage > Load Balancers > HTTP Load Balancers and click Add HTTP Load Balancer
 * Enter a name for the new load balancer. Optionally, select a label and enter a description.
 * In the Domains field, enter a domain name
@@ -74,7 +69,7 @@ Step 5: Create origin pool and HTTP LB in F5XC console
 * In the Origins section, click Add Item to create an origin pool.
 * In the origin pool field dropdown, click Add Item
 * Enter name, in origin server section click Add Item
-* If application is deployed in Virtual Machine, Select “IP address of Origin Server on given Sites” > Provide private IP of the virtual machine > Choose Azure Vnet Site in Site dropdown same as your Vnet site > Choose Outside Network under Select Network from the Site > Click on Apply > In Origin server port, provide the port of the deployed application.
+* Select “IP address of Origin Server on given Sites” > Provide private IP of the virtual machine > Choose Azure Vnet Site in Site dropdown same as your Vnet site > Choose Outside Network under Select Network from the Site > Click on Apply > In Origin server port, provide the port of the deployed application.
 
 .. figure:: assets/vm-op.JPG
 
@@ -92,19 +87,19 @@ Step 6: Access the deployed application
 * Access the application using the domain name configured in HTTP load balancer. 
 * Make sure that the application is accessible.
 
-.. figure:: assets/botique.JPG
+.. figure:: assets/b.JPG
 
 * Now let us verify applied WAF policy.
 * Generate a XSS attack by adding ?a=<script> tag in the URL along with the domain name and observe that WAF policy blocks the access.
 * Application should not be accessible.
 
-.. figure:: assets/waf_block.JPG
+.. figure:: assets/w.JPG
 
 * Observe security event log for more details.
 
-.. figure:: assets/waf_event.JPG
+.. figure:: assets/w.JPG
 
-.. figure:: assets/waf_event2.JPG
+.. figure:: assets/w.JPG
 
 Conclusion
 ***********
