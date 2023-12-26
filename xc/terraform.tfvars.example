@@ -1,16 +1,16 @@
 #XC Global
-api_url = "https://treino.console.ves.volterra.io/api"
-xc_tenant = "treino-ufahspac"
-xc_namespace = "ce-re-sites"
+api_url = "https://<Your Tenant>.console.ves.volterra.io/api"
+xc_tenant = "Your tenant name"
+xc_namespace = "Your XC namespace"
 
 #XC LB
-app_domain = "acvm.f5-hyd-demo.com"
+app_domain = "Your App Domain"
 
 #XC WAF
 xc_waf_blocking = true
 
 #XC Azure CE site creation
-az_ce_site = "true"
+az_ce_site = "false"
 
 #XC Service Discovery
 xc_service_discovery = "false"
@@ -20,9 +20,9 @@ k8s_pool = "false"
 serviceName = ""
 serviceport = ""
 advertise_sites = "false"
-http_only = "true"
-xc_delegation = "true"
-ip_address_on_site_pool = "true"
+http_only = "false"
+xc_delegation = "false"
+ip_address_on_site_pool = "false"
 
 #XC AI/ML Settings for MUD, APIP - NOTE: Only set if using AI/ML settings from the shared namespace
 xc_app_type = []
