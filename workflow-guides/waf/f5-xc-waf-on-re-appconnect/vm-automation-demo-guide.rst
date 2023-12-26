@@ -35,7 +35,7 @@ Terraform Cloud
    | f5-xc-waf-on-re-ac        | infra, azure-vm, xc                    |
    +---------------------------+-------------------------------------------+
 
-.. image:: 
+.. image:: assets/workspaces-vm.JPG
 
 
 -  **Workspace Sharing:** Under the settings for each Workspace, set the **Remote state sharing** to share with each Workspace created.
@@ -84,7 +84,7 @@ GitHub
          value ``azure-vm``
 
 -  Created GitHub Action Secrets:
-.. image:: assets/.JPG
+.. image:: assets/action-secret-vm.JPG
 
 Workflow Runs
 -------------
@@ -150,7 +150,7 @@ Workflow File: `waf-re-ac-vm-destroy.yml </.github/workflows/waf-re-ac-vm-destro
 
 - Build will run and can be monitored in the GitHub Actions tab and TF Cloud console
 
-.. image:: assets/deploy.JPG
+.. image:: assets/deploy-vm.JPG
 
 **STEP 5:** Once the pipeline completes, verify your Aure infra, VM, CE site, Origin Pool and LB were deployed. (**Note:** CE sites will take 15-20 mins to come online)
 
@@ -158,4 +158,4 @@ Workflow File: `waf-re-ac-vm-destroy.yml </.github/workflows/waf-re-ac-vm-destro
 
 **Note:** If you want to destroy the entire setup, checkout a branch with name ``destroy-waf-re-ac-vm`` and push the repo code to it which will trigger destroy workflow and will remove all created resources
 
-.. image:: assets/destroy.JPG
+.. image:: assets/destroy-vm.JPG
