@@ -95,21 +95,21 @@ the following naming convention.
 
 **DEPLOY**
 
-================ =======================
-Workflow         Branch Name
-================ =======================
-f5-xc-waf-on-ce  deploy-waf-re-ac-k8s
-================ =======================
+========================== =======================
+Workflow                    Branch Name
+========================== =======================
+f5-xc-waf-on-re-appconnect  deploy-waf-re-ac-k8s
+========================== =======================
 
 Workflow File: `waf-re-ac-k8s-apply.yml </.github/workflows/waf-re-ac-k8s-apply.yml>`__
 
 **DESTROY**
 
-================ ========================
-Workflow         Branch Name
-================ ========================
-f5-xc-waf-on-ce  destroy-waf-re-ac-k8s
-================ ========================
+=========================== ========================
+Workflow                     Branch Name
+=========================== ========================
+f5-xc-waf-on-re-appconnect  destroy-waf-re-ac-k8s
+=========================== ========================
 
 Workflow File: `waf-re-ac-k8s-destroy.yml </.github/workflows/waf-re-ac-k8s-destroy.yml>`__
 
