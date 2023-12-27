@@ -1,11 +1,11 @@
-Manual step by step deployment process:
-===============================================
+Manual step by step process to deploy application in VM
+=======================================================
 
 Pre-requisites
 ******************
 - Access to Azure subscription. 
 - Access to F5 Distributed Cloud account.
-- Install Azure CLI and kubectl command line tool to connect and push the app manifest file to AKS cluster
+- Install Azure CLI or Putty to SSH to VM
 - Web browser to access the application.
 
 Step 1: Configure credentials in F5 Distributed Cloud Console for Azure
@@ -18,18 +18,10 @@ Step 2: Create Resource group, Vnet and Subnet in Azure
 * **Create Resource group:**   Login to Azure console > search for "Resource groups" > click "Create" button then select your subscription, provide resource group name and region > click "Review + create" and "Create"
 * **Create Virtual Network:** Search for "Virtual networks" and click "Create" button then select your subscription, set the above created resource group name, new virtual network name and region > Navigate to "IP addresses" tab on top > Configure your virtual network address space and subnet > Click "Review + create” and "Create"
 
-Step 3: Create resource and deploy an application 
+Step 3: Create Virtual Machine and deploy application in it
 ##################################################
 
-This guide explains two different scenarios of deploying application. User can choose any scenario from below to deploy the application according to their need.
-
-1. Create Virtual Machine and deploy application in it.
-
-2. Create Kubernetes Cluster and deploy application in it.
-
-Note: Main requirement for this use case is to have an application which is not accessible from Internet which means VM or the cluster node should not have public IP/FQDN.
-
-**Create Virtal Machine and deploy application in it.**
+Note: Main requirement for this use case is to have an application which is not accessible from Internet which means VM should not have public IP/FQDN.
 
 * Login to the Azure portal with your credentials.
 * Click on Create and create a new Virtual Machine. In this demo guide, we have used Ubuntu Server 20.04.
@@ -37,29 +29,12 @@ Note: Main requirement for this use case is to have an application which is not 
 * Provide all the necessary details in Basics Section like Name of the VM, Region, Availability Zone, Image, Size, Username, Key pair name, Inbound port rules. 
 * Navigate to Networking section, select the Virtual network and Subnet which is created in step 2.
 * Click on “Review and Create”, Review all the necessary parameters and deploy a Virtual Machine.
-* Login to created Virtual Machine using Public IP and install docker in it.
-* Choose the application you want to use and deploy the application within Virtual Machine. In this scenario, we have deployed DVWA application for testing purpose using below docker command.
-  
+* SSH to created Virtual Machine using Public IP and install docker in it.
+* Choose the application you want to use and deploy the application within Virtual Machine. In this scenario, we have deployed DVWA application for testing purpose using docker command: 
   "docker run -d -p 80:80 vulnerables/web-dvwa"
 
 * We should not have Public IP address/FQDN for the VM so disassociate the existing public IP address from the VM and delete it.
 * Make a note of the private IP of the virtual machine.
-
-**Create Kubernetes Cluster and deploy application in it.**
-
-* Search for 'Kubernetes services'.
-* Click on 'Create' button and select 'Create Kubernetes cluster'.
-* Select the correct subscription and choose the resource group which is created in step 2.
-* Provide all the necessary cluster details and primary node pool fields as needed.
-* Navigate to 'Networking' tab and select 'Bring your own virtual network'
-* Select the Virtual network which is created in step 2.
-* Click “Review + create” and create the cluster.
-* Connect to the created AKS cluster.  
-* Choose your application and deploy it. In this scenario, we are deploying Online boutique application using the `manifest file <https://github.com/GoogleCloudPlatform/microservices-demo/blob/main/release/kubernetes-manifests.yaml>`_. Make changes in the manifest file according to the requirement.
-* Execute “kubectl apply -f <your_manifest.yaml>”
-* Execute “kubectl get pods” command to check the deployment status of the pods.
-
-.. figure:: assets/pods_latest.JPG
 
 Step 4: Deploy Azure Vnet site from F5XC console:
 ##################################################
@@ -87,24 +62,6 @@ Step 4: Deploy Azure Vnet site from F5XC console:
 Step 5: Create origin pool and HTTP LB in F5XC console
 ########################################################
 
-If you have created Kubernetes Cluster in Step 3, let us create service discovery object first before configuring origin pool and load balancer. Service discovery part can be skipped if application is deployed in Virtual Machine.
-
-**Create service discovery object**
-
-* Navigate to "Multi-Cloud App Connect" from homepage.
-* Select "Manage > Service Discoveries" and Click on "Add Discovery"
-* Provide a name, select vnet site created in step 4 and select network type as "Site Local Network"
-
-.. figure:: assets/service_discovery.JPG
-
-* Select Discovery Method as "K8S Discovery Configuration"
-* Select Kubernetes Credentials as Kubeconfig, and add the Kubeconfig file of AKS Cluster created in Step 3, Apply the changes.
-* Services will be discovered by F5XC.
-
-.. figure:: assets/discovered_services.JPG
-
-**Configure HTTP Load Balancer and Origin Pool**
-
 * Select Manage > Load Balancers > HTTP Load Balancers and click Add HTTP Load Balancer
 * Enter a name for the new load balancer. Optionally, select a label and enter a description.
 * In the Domains field, enter a domain name
@@ -112,13 +69,7 @@ If you have created Kubernetes Cluster in Step 3, let us create service discover
 * In the Origins section, click Add Item to create an origin pool.
 * In the origin pool field dropdown, click Add Item
 * Enter name, in origin server section click Add Item
-* If application is deployed in Kubernetes Cluster, Select “K8s Service Name of Origin Server on given Sites” > Add the service name of frontend microservice as "frontend.default" > Select the Azure Vnet site created in Step 6 > Select Network on the site as "Outside Network" > In Origin server port add port number "80" of the discovered frontend service , Click continue and then Apply.
-
-.. figure:: assets/k8_op.JPG
-
-.. figure:: assets/op_port.JPG
-
-* If application is deployed in Virtual Machine, Select “IP address of Origin Server on given Sites” > Provide private IP of the virtual machine > Choose Azure Vnet Site in Site dropdown same as your Vnet site > Choose Outside Network under Select Network from the Site > Click on Apply > In Origin server port, provide the port of the deployed application.
+* Select “IP address of Origin Server on given Sites” > Provide private IP of the virtual machine > Choose Azure Vnet Site in Site dropdown same as your Vnet site > Choose Outside Network under Select Network from the Site > Click on Apply > In Origin server port, provide the port of the deployed application.
 
 .. figure:: assets/vm-op.JPG
 
@@ -136,19 +87,19 @@ Step 6: Access the deployed application
 * Access the application using the domain name configured in HTTP load balancer. 
 * Make sure that the application is accessible.
 
-.. figure:: assets/botique.JPG
+.. figure:: assets/DVWA.JPG
 
 * Now let us verify applied WAF policy.
 * Generate a XSS attack by adding ?a=<script> tag in the URL along with the domain name and observe that WAF policy blocks the access.
 * Application should not be accessible.
 
-.. figure:: assets/waf_block.JPG
+.. figure:: assets/dvwa-block.JPG
 
 * Observe security event log for more details.
 
-.. figure:: assets/waf_event.JPG
+.. figure:: assets/waf-block-vm.JPG
 
-.. figure:: assets/waf_event2.JPG
+.. figure:: assets/waf-block2-vm.JPG
 
 Conclusion
 ***********
