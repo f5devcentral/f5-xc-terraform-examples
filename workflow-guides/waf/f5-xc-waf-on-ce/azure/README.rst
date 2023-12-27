@@ -25,3 +25,7 @@ Workflow Instructions
 `F5 Distributed Cloud Console Workflow <./xc-console-demo-guide.rst>`__
 
 `F5 Distributed Cloud Automation Workflow <./automation-demo-guide.rst>`__
+
+To deploy setup in AWS, please refer to `AWS Workflow Guide <https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-ce/aws/README.rst>`__
+
+To deploy setup in GCP, please refer to `GCP Workflow Guide <https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-ce/gcp/README.rst>`__

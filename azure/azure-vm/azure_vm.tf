@@ -6,8 +6,7 @@ resource "azurerm_network_interface" "nic" {
     name                          = "internal"
     subnet_id                     = local.subnet_id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.puip.id
-
+    public_ip_address_id          = local.vm_public_ip ? azurerm_public_ip.puip[0].id : null
   }
 }
 
@@ -51,6 +50,7 @@ resource "azurerm_network_security_group" "nsg" {
 }
 
 resource "azurerm_linux_virtual_machine" "vm_inst" {
+  count = local.vm_public_ip ? 1 : 0
   name                = "waf-re-vm"
   resource_group_name = local.resource_group_name
   location            = local.azure_region
@@ -87,12 +87,13 @@ resource "azurerm_linux_virtual_machine" "vm_inst" {
       user     = "Demouser"
       password = "Demouser1234"
       agent    = false
-      host     = azurerm_linux_virtual_machine.vm_inst.public_ip_address
+      host     = azurerm_linux_virtual_machine.vm_inst[0].public_ip_address
     }
   }
 }
 
 resource "azurerm_public_ip" "puip" {
+  count = local.vm_public_ip ? 1 : 0
   name                = "waf-public-ip"
   location            = local.azure_region
   resource_group_name = local.resource_group_name
@@ -108,6 +109,31 @@ resource "azurerm_network_interface" "public" {
     subnet_id                     = local.subnet_id
     private_ip_address_allocation = "Dynamic"
   }
+}
+
+resource "azurerm_linux_virtual_machine" "vm_inst_private" {
+  count                           = local.vm_public_ip ? 0 : 1
+  name                            = "vm-waf-demo"
+  resource_group_name             = local.resource_group_name
+  location                        = local.azure_region
+  size                            = "Standard_F2"
+  admin_username                  = "Demouser"
+  admin_password                  = "Demouser@1234"
+  disable_password_authentication = false
+  network_interface_ids           = [
+    azurerm_network_interface.nic.id,
+  ]
+  os_disk {
+    caching              = "ReadWrite"
+    storage_account_type = "Standard_LRS"
+  }
+  source_image_reference {
+    publisher = "Canonical"
+    offer     = "0001-com-ubuntu-server-jammy"
+    sku       = "22_04-lts"
+    version   = "latest"
+  }
+  user_data = filebase64("./dvwa_userdata.txt")
 }
 
 resource "azurerm_network_interface_security_group_association" "securitygroup" {

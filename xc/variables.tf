@@ -160,3 +160,15 @@ variable "xc_service_discovery" {
   description = "Enable service discovery"
   default     = "false"
 }
+
+variable "xc_delegation" {
+  type        = string
+  description = "F5 XC Domain delegation"
+  default     = "false"
+}
+
+variable "ip_address_on_site_pool" {
+  type        = string
+  description = "If pool member is Private IP on given sites"
+  default     = "false"
+}
