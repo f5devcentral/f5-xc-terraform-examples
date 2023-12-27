@@ -154,7 +154,9 @@ Workflow File: `waf-re-ac-vm-destroy.yml </.github/workflows/waf-re-ac-vm-destro
 
 **STEP 5:** Once the pipeline completes, verify your Aure infra, VM, CE site, Origin Pool and LB were deployed. (**Note:** CE sites will take 15-20 mins to come online)
 
-**STEP 6:** To validate the test infra, copy the domain name configured in Load balancer and access it in the browser, You should be able to access the demo application as shown in the image below:
+**STEP 6:** To validate the test infra, copy the domain name configured in Load balancer and access it in the browser, You should be able to access the demo application as shown in the image below
+
+.. image:: assets/DVWA.JPG
 
 **Note:** If you want to destroy the entire setup, checkout a branch with name ``destroy-waf-re-ac-vm`` and push the repo code to it which will trigger destroy workflow and will remove all created resources
 
