@@ -20,3 +20,5 @@ Workflow Instructions
 `F5 Distributed Cloud Console Workflow <./vm-manual-demo-guide.rst>`__
 
 `F5 Distributed Cloud VM Automation Workflow <./vm-automation-demo-guide.rst>`__
+
+If you want to deploy application in K8s, please refer to `K8s Workflow Guide <https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-re-appconnect/k8s/README.rst>`__
