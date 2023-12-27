@@ -87,19 +87,19 @@ Step 6: Access the deployed application
 * Access the application using the domain name configured in HTTP load balancer. 
 * Make sure that the application is accessible.
 
-.. figure:: assets/b.JPG
+.. figure:: assets/DVWA.JPG
 
 * Now let us verify applied WAF policy.
 * Generate a XSS attack by adding ?a=<script> tag in the URL along with the domain name and observe that WAF policy blocks the access.
 * Application should not be accessible.
 
-.. figure:: assets/w.JPG
+.. figure:: assets/dvwa-block.JPG
 
 * Observe security event log for more details.
 
-.. figure:: assets/w.JPG
+.. figure:: assets/waf-block-vm.JPG
 
-.. figure:: assets/w.JPG
+.. figure:: assets/waf-block2-vm.JPG
 
 Conclusion
 ***********
