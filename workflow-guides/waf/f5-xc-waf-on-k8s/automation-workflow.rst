@@ -179,4 +179,4 @@ Cloud console
 .. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/postman.JPG
 
 
-**STEP 6:** If you want to destroy the entire setup, checkout/create a new branch from ``deploy-waf-k8s`` branch with name ``destroy-waf-k8s`` which will trigger destroy work-flow to remove all resources
+**STEP 7:** If you want to destroy the entire setup, checkout/create a new branch from ``deploy-waf-k8s`` branch with name ``destroy-waf-k8s`` which will trigger destroy work-flow to remove all resources
