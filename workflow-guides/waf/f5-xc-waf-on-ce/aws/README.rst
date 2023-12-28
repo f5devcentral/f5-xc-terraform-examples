@@ -17,7 +17,7 @@ Distributed Cloud <https://community.f5.com/t5/technical-articles/deploy-waf-any
 Setup Diagram
 #############
 
-.. figure:: assets/aws-eks-infra-2.jpg
+.. figure:: Assets/aws-eks-infra-2.jpg
 
 Workflow Instructions
 ######################
