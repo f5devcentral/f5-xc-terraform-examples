@@ -138,8 +138,31 @@ variable "azure_service_principal_appid" {
 }
 
 variable "azure_service_principal_password" {
+  description = "Azure Subscription ID"
   type        = string
-  default     = "default"
+  sensitive   = true
+  default     = null
+}
+
+variable "azure_subscription_tenant_id" {
+  description = "Azure Tenant ID"
+  type        = string
+  sensitive   = true
+  default     = null
+}
+
+variable "azure_service_principal_appid" {
+  description = "Azure Client ID"
+  type        = string
+  sensitive   = true
+  default     = null
+}
+
+variable "azure_service_principal_password" {
+  description = "Azure Client Secret"
+  type      = string
+  sensitive = true
+  default   = null
 }
 
 variable "azure_xc_machine_type" {
@@ -155,10 +178,23 @@ variable "xc_service_discovery" {
   default     = "false"
 }
 
+
 # EKS CE Site
 variable "eks_ce_site" {
   type        = string
   description = "Whether it's EKS CE site ?"
+  default     = "false"
+}
+
+variable "xc_delegation" {
+  type        = string
+  description = "F5 XC Domain delegation"
+  default     = "false"
+}
+
+variable "ip_address_on_site_pool" {
+  type        = string
+  description = "If pool member is Private IP on given sites"
   default     = "false"
 }
 

@@ -49,3 +49,6 @@ output "aks-cluster" {
 output "azure-vm" {
   value = var.azure-vm
 }
+output "vm_public_ip" {
+  value = var.vm_public_ip
+}

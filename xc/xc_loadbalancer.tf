@@ -26,7 +26,7 @@ resource "volterra_origin_pool" "op" {
   }
 
   dynamic "origin_servers" {
-    for_each = local.dns_origin_pool == false && var.k8s_pool == "false" ? [1] : []
+    for_each = local.dns_origin_pool == false && var.k8s_pool == "false" && var.ip_address_on_site_pool == "false"? [1] : []
     content {
       public_ip {
         ip = local.origin_server
@@ -50,7 +50,21 @@ resource "volterra_origin_pool" "op" {
       }
     }
   }
-
+  dynamic "origin_servers" {
+    for_each = var.ip_address_on_site_pool ? [1] : []
+    content {
+      private_ip {
+        outside_network = true
+        ip = local.origin_server
+        site_locator {
+        site {
+          name      = "${coalesce(var.site_name, local.project_prefix)}"
+          namespace = "system"
+          }
+        }
+      }
+    }
+  }
   no_tls = true
   port = var.k8s_pool ? var.serviceport: local.origin_port
   endpoint_selection     = "LOCAL_PREFERRED"
@@ -94,7 +108,8 @@ resource "volterra_http_loadbalancer" "lb_https" {
   dynamic "http" {
     for_each = var.http_only ? [1] : []
     content  {
-        port = "80"
+      dns_volterra_managed = var.xc_delegation
+      port = "80"
       }
   }
 
@@ -212,7 +227,9 @@ resource "volterra_http_loadbalancer" "lb_https" {
   dynamic "enable_ddos_detection" {
     for_each = var.xc_ddos_pro ? [1] : []
     content {
-      enable_auto_mitigation = true
+      enable_auto_mitigation {
+        block = true
+      }
     }
   }
   dynamic "ddos_mitigation_rules" {

@@ -29,6 +29,7 @@ data "tfe_outputs" "azure-vm" {
   workspace = "azure-vm"
 }
 
+
 data "azurerm_virtual_machine" "az-ce-site" {
   count               = var.az_ce_site ? 1 : 0
   depends_on          = [volterra_tf_params_action.action_apply]
@@ -41,3 +42,4 @@ data "tfe_outputs" "eks" {
   organization        = var.tf_cloud_organization
   workspace           = "eks"
 }
+

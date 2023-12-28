@@ -58,6 +58,14 @@
   | TF_VAR_prefix                      | null                    | Prefix for the resources                  |
   | TF_CLOUD_WORKSPACE_AWS_CREDENTIALS | azure-cloud-credentials | Name of the Terraform Cloud workspace     |
 
+
+## Worflow Outputs
+
+  | **Name**                    | **Description**                          |
+  | --------------------------- | ---------------------------------------- |
+  | azure_credentials_name      | Name of the Azure Cloud Credentials      |
+  | azure_credentials_namespace | Namespace of the Azure Cloud Credentials |
+
 ## Workflow Runs
 
 **STEP 1:** Open GitHub Actions and select the "Azure XC Cloud Credentials Apply" workflow. Click "Run Workflow" and select the branch you want to run the workflow on.

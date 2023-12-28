@@ -1,0 +1,115 @@
+name: "Azure VNET Site Destroy"
+
+on:
+  push:
+    branches:
+      - azure-vnet-site
+  workflow_dispatch:
+    inputs:
+      TF_CLOUD_WORKSPACE_AZURE_VNET_SITE:
+        description: "TF Cloud Workspace (optional)"
+        required: false
+        type: string
+      TF_VAR_azure_cloud_credentials_name:
+        description: "Existing Azure Cloud Credentials Name"
+        required: false
+        default: "azure-cloud-credentials"
+  workflow_call:
+    inputs:
+      TF_CLOUD_WORKSPACE_AZURE_VNET_SITE:
+        description: "TF Cloud Workspace"
+        required: false
+        type: string
+      TF_VAR_az_cloud_credentials_name:
+        description: "Azure Cloud Credentials Name"
+        required: false
+        type: string
+    secrets:
+      TF_API_TOKEN:
+        required: true
+      TF_CLOUD_ORGANIZATION:
+        required: true
+      XC_API_P12_FILE:
+        required: true
+      XC_P12_PASSWORD :
+          required: true
+      XC_API_URL:
+        required: true
+      AZURE_SUBSCRIPTION_ID:
+        required: true
+      AZURE_TENANT_ID:
+        required: true
+      AZURE_CLIENT_ID:
+        required: true
+      AZURE_CLIENT_SECRET:
+        required: true
+      XC_AZURE_CLOUD_CREDENTIALS_NAME:
+        required: false
+      
+jobs:
+  azure_vnet_site:
+    name: "Azure VNET Site Destroy"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "./f5/xc/azure-vnet-site"
+    env:
+      VOLT_API_URL: ${{ secrets.XC_API_URL }}
+      VOLT_API_P12_FILE: "./api.p12"
+      VES_P12_PASSWORD: ${{ secrets.XC_P12_PASSWORD }}
+      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      TF_VAR_azure_cloud_credentials_name: ${{ secrets.XC_AZURE_CLOUD_CREDENTIALS_NAME }}
+      TF_CLOUD_WORKSPACE_AZURE_VNET_SITE: "azure-vnet-site"
+      TF_VAR_name: "azure-vnet-site"
+      TF_VAR_prefix: ""
+      TF_VAR_site_type: "ingress_gw"
+      TF_VAR_master_nodes_az_names: "[\"1\"]"
+      TF_VAR_azure_rg_location: "centralus"
+      TF_VAR_azure_rg_name: "azure-vnet-site"
+      TF_VAR_az_cloud_credentials_name: "azure-cloud-credentials"
+      TF_VAR_vnet_cidr: "10.10.0.0/16"
+      TF_VAR_local_subnets: "[\"10.10.0.0/16\"]"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - id: apply_variables 
+        uses: "./.github/actions/apply-variables" 
+        with: 
+          vars_json: "${{ toJSON(vars) }}" 
+          vars_prefix: "AZVS_TF_VAR_"
+          inputs_json: "${{ toJSON(inputs) }}" 
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Setup Terraform Backend
+        id: backend
+        run: |
+          echo "${{secrets.XC_API_P12_FILE}}" | base64 -d > api.p12
+          echo VOLT_API_P12_FILE="$PWD/api.p12" >> "$GITHUB_ENV"
+
+          cat > backend.tf << EOF
+          terraform {
+            cloud {
+              organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
+              workspaces {
+                name = "$TF_CLOUD_WORKSPACE_AZURE_VNET_SITE"
+              }
+            }
+          }
+          EOF
+          
+      - name: Terraform Init
+        id: init
+        run: terraform init
+
+      - name: Terraform Destroy
+        id: destroy
+        run: terraform destroy -auto-approve -input=false
