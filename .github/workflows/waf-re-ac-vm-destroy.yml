@@ -156,9 +156,7 @@ jobs:
 
       - name: Terraform Destroy
         if: github.ref == 'refs/heads/destroy-waf-re-ac-vm' && github.event_name == 'push'
-        run: |
-          ip=$(curl ipecho.net/plain)
-          terraform destroy -auto-approve -var="source_ip=$ip"
+        run: terraform destroy -auto-approve -input=false
 
   terraform_infra:
     name: "Azure Infra"
