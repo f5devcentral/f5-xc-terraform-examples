@@ -26,17 +26,6 @@ resource "azurerm_network_security_group" "nsg" {
     destination_address_prefix = "*"
   }
   security_rule {
-    name                       = "ssh"
-    priority                   = 104
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "22"
-    source_address_prefix      = var.source_ip
-    destination_address_prefix = "*"
-  }
-  security_rule {
     name                       = "http"
     priority                   = 103
     direction                  = "Inbound"
@@ -77,19 +66,6 @@ resource "azurerm_linux_virtual_machine" "vm_inst" {
     version   = "latest"
   }
   user_data = filebase64("./userdata.txt")
-
-  provisioner "file" {
-    source      = "default.conf"
-    destination = "/home/Demouser/default.conf"
-
-    connection {
-      type     = "ssh"
-      user     = "Demouser"
-      password = "Demouser1234"
-      agent    = false
-      host     = azurerm_linux_virtual_machine.vm_inst[0].public_ip_address
-    }
-  }
 }
 
 resource "azurerm_public_ip" "puip" {
@@ -140,3 +116,4 @@ resource "azurerm_network_interface_security_group_association" "securitygroup" 
   network_interface_id      = azurerm_network_interface.nic.id
   network_security_group_id = azurerm_network_security_group.nsg.id
 }
+
