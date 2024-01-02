@@ -10,3 +10,5 @@ nic = false
 nap = false
 bigip = false
 bigip-cis = false
+aks-cluster = false
+azure-vm = false
