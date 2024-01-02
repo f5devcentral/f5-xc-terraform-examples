@@ -122,20 +122,32 @@ variable "az_ce_site" {
 }
 
 variable "azure_subscription_id" {
-  type    = string
+  description = "Azure Subscription ID"
+  type        = string
+  sensitive   = true
+  default     = null
 }
 
 
 variable "azure_subscription_tenant_id" {
-  type    = string
+  description = "Azure Tenant ID"
+  type        = string
+  sensitive   = true
+  default     = null
 }
 
 variable "azure_service_principal_appid" {
-  type    = string
+  description = "Azure Client ID"
+  type        = string
+  sensitive   = true
+  default     = null
 }
 
 variable "azure_service_principal_password" {
-  type    = string
+  description = "Azure Client Secret"
+  type      = string
+  sensitive = true
+  default   = null
 }
 
 variable "azure_xc_machine_type" {
@@ -159,4 +171,17 @@ variable "gcp_ce_site" {
 variable "GOOGLE_CREDENTIALS" {
   type        = string
   description = "Contents of GCP credentials file to create CE site"
+}
+
+
+variable "xc_delegation" {
+  type        = string
+  description = "F5 XC Domain delegation"
+  default     = "false"
+}
+
+variable "ip_address_on_site_pool" {
+  type        = string
+  description = "If pool member is Private IP on given sites"
+  default     = "false"
 }

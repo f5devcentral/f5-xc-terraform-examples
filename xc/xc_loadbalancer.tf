@@ -21,7 +21,7 @@ resource "volterra_origin_pool" "op" {
   }
 
   dynamic "origin_servers" {
-    for_each = local.dns_origin_pool == false && var.k8s_pool == "false" ? [1] : []
+    for_each = local.dns_origin_pool == false && var.k8s_pool == "false" && var.ip_address_on_site_pool == "false"? [1] : []
     content {
       dynamic "public_ip" {
         for_each = var.gcp_ce_site == "false" ? [1] : []
@@ -63,8 +63,24 @@ resource "volterra_origin_pool" "op" {
     }
   }
 
-  no_tls                 = true
-  port                   = var.k8s_pool ? var.serviceport: local.origin_port
+
+  dynamic "origin_servers" {
+    for_each = var.ip_address_on_site_pool ? [1] : []
+    content {
+      private_ip {
+        outside_network = true
+        ip = local.origin_server
+        site_locator {
+        site {
+          name      = "${coalesce(var.site_name, local.project_prefix)}"
+          namespace = "system"
+          }
+        }
+      }
+    }
+  }
+  no_tls = true
+  port = var.k8s_pool ? var.serviceport: local.origin_port
   endpoint_selection     = "LOCAL_PREFERRED"
   loadbalancer_algorithm = "LB_OVERRIDE"
 }
@@ -106,7 +122,8 @@ resource "volterra_http_loadbalancer" "lb_https" {
   dynamic "http" {
     for_each = var.http_only ? [1] : []
     content  {
-        port = "80"
+      dns_volterra_managed = var.xc_delegation
+      port = "80"
       }
   }
 

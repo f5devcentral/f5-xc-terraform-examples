@@ -1,4 +1,4 @@
-# Teachable - 00-mcn-networkconnect
+# Teachable - 01-MCN-NetworkConnect
 
 ## Prerequisites
 
