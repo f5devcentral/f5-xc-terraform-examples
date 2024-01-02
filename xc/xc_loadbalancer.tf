@@ -70,7 +70,7 @@ resource "volterra_origin_pool" "op" {
 }
 
 resource "volterra_http_loadbalancer" "lb_https" {
-  depends_on             =  [volterra_origin_pool.op]
+  depends_on             =  [volterra_origin_pool.op, volterra_tf_params_action.apply_gcp_vpc]
   name                   = format("%s-xclb-%s", local.project_prefix, local.build_suffix)
   namespace              = var.xc_namespace
   labels                 = {
