@@ -74,11 +74,14 @@ GitHub
    -  TF_CLOUD_WORKSPACE\_\ *<Workspace Name>*: Create for each
       workspace in your workflow per each job
 
-      -  EX: TF_CLOUD_WORKSPACE_INFRA would be created with the
+      -  TF_CLOUD_WORKSPACE_INFRA would be created with the
          value ``infra``
 
--  Created GitHub Action Secrets:
-.. image:: assets/action-secret.JPG
+      -  TF_CLOUD_WORKSPACE_APP would be created with the
+         value ``juiceshop``
+
+      -  TF_CLOUD_WORKSPACE_XC would be created with the
+         value ``xc``
 
 
 Workflow Runs
@@ -144,16 +147,19 @@ Workflow File: `gcp-waf-ce-destroy.yml </.github/workflows/gcp-waf-ce-destroy.ya
 
 **STEP 4:** Commit and push your build branch to your forked repo
 
-- Build will run and can be monitored in the GitHub Actions tab and TF Cloud console
+- Build will run and can be monitored in the GitHub Actions tab and TF Cloud console. If it's failed because of intermittent issue, rerun the work-flow again.
 
 .. image:: assets/workflow-output.JPG
 
-**STEP 5:** Once the pipeline completes, verify your CE, Origin Pool and LB were deployed or destroyed based on your workflow. (**Note:** CE sites will take 15-20 mins to come online)
+**STEP 5:** Once the pipeline completes, verify your CE, Origin Pool and LB were deployed. (**Note:** CE sites will take 15-20 mins to come online)
 
-**STEP 6:** To validate the test infra, copy the public IP of CE site in `GCP CE Site View mode` and send a request with XC LB domain as a `Host` header, You should be able to access the demo application as shown in the image below:
+.. image:: assets/gcp-site.JPG
+
+
+**STEP 6:** Once CE site is online and to validate the test infra & demo app accessibility, copy the public IP of CE site in `GCP CE Site View mode` and send a request with XC LB domain as a `Host` header, You should be able to access the demo application as shown in the image below:
 
 .. image:: assets/gcp-ce-ip.jpg
-.. image:: assets/postman.JPG
+.. image:: assets/postman.jpg
 
 
 **Note:** If you want to destroy the entire setup, checkout a branch with name ``destroy-waf-gcp`` which will trigger destroy workflow and will remove all created resources
