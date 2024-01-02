@@ -1,6 +1,7 @@
 #Global
 project_prefix = "janibasha"
 
+
 #Azure INFRA
 gcp_region = "asia-south1"
 gcp_project_id = "f5-gcs-5611-mktg-secsols"
