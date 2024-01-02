@@ -8,6 +8,7 @@ Prerequisites
 -  `GCP Account <https://cloud.google.com/docs/get-started>`__
 -  `Terraform Cloud Account <https://developer.hashicorp.com/terraform/tutorials/cloud-get-started>`__
 -  `GitHub Account <https://github.com>`__
+-  `SSH key pair <https://cloud.google.com/compute/docs/connect/create-ssh-keys>`__
 
 
 List of Existing Assets
@@ -92,21 +93,21 @@ the following naming convention.
 
 **DEPLOY**
 
-================             =======================
-Workflow                        Branch Name
-================             =======================
-Deploy F5 XC WAF on GCP CE      deploy-waf-gcp
-================             =======================
+================================               =======================
+Workflow                                         Branch Name
+================================               =======================
+Deploy F5 XC WAF on GCP CE                       deploy-waf-gcp
+================================               =======================
 
 Workflow File: `gcp-waf-ce-apply.yaml </.github/workflows/gcp-waf-ce-apply.yaml>`__
 
 **DESTROY**
 
-================             =======================
-Workflow                        Branch Name
-================             =======================
-Destroy F5 XC WAF on GCP CE      deploy-waf-gcp
-================             =======================
+================================               =======================
+Workflow                                         Branch Name
+================================               =======================
+Destroy F5 XC WAF on GCP CE                      destroy-waf-gcp
+================================               =======================
 
 Workflow File: `gcp-waf-ce-destroy.yml </.github/workflows/gcp-waf-ce-destroy.yaml>`__
 
