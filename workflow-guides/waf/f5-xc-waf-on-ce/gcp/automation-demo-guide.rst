@@ -31,7 +31,7 @@ Terraform Cloud
 ---------------
 
 -  **Workspaces:** Create CLI or API workspaces for each asset in the
-   workflow.
+   workflow. ``NOTE: Please use unique workspaces for each work-flow and don't club them with other use cases as you may run into conflicting cloud resource and provider errors.``
 
    +---------------------------+-------------------------------------------+
    |         **Workflow**      |  **Assets/Workspaces**                    |
