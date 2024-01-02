@@ -1,7 +1,7 @@
 #Global
 project_prefix = "prefix"
 
-#Azure INFRA
+# INFRA
 gcp_region = "asia-south1"
 gcp_project_id = "project-id"
 
