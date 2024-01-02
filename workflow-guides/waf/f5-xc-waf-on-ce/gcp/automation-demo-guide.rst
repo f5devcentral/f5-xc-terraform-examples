@@ -72,6 +72,8 @@ GitHub
    -  P12: The linux base64 encoded F5XC P12 certificate
    -  TF_API_TOKEN: Your Terraform Cloud API token
    -  TF_CLOUD_ORGANIZATION: Your Terraform Cloud Organization name
+   -  GOOGLE_CREDENTIALS: Your GCP credentials file content
+   -  SSH_KEY: Your ssh key file without spaces
    -  TF_CLOUD_WORKSPACE\_\ *<Workspace Name>*: Create for each
       workspace in your workflow per each job
 
