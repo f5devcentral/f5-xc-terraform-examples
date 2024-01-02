@@ -150,7 +150,7 @@ Workflow File: `gcp-waf-ce-destroy.yml </.github/workflows/gcp-waf-ce-destroy.ya
 
 **STEP 4:** Commit and push your build branch to your forked repo
 
-- Build will run and can be monitored in the GitHub Actions tab and TF Cloud console. If it's failed because of intermittent issue, rerun the work-flow again.
+- Build will run and can be monitored in the GitHub Actions tab and TF Cloud console. ``If CICD failed because of intermittent timing issue, rerun the work-flow again.``
 
 .. image:: assets/workflow-output.JPG
 
