@@ -164,3 +164,5 @@ Workflow File: `gcp-waf-ce-destroy.yml </.github/workflows/gcp-waf-ce-destroy.ya
 
 
 **Note:** If you want to destroy the entire setup, checkout a branch with name ``destroy-waf-gcp`` which will trigger destroy workflow and will remove all created resources
+
+.. image:: assets/destroy.png
