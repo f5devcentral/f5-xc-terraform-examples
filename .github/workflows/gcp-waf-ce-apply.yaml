@@ -82,7 +82,7 @@ jobs:
 
 
   terraform_app:
-    name: "Deploy app in GCP VM"
+    name: "GCP VM"
     runs-on: ubuntu-latest
     needs: terraform_infra
     defaults:
