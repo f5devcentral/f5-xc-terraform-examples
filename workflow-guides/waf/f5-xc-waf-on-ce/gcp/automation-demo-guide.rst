@@ -165,6 +165,6 @@ Workflow File: `gcp-waf-ce-destroy.yml </.github/workflows/gcp-waf-ce-destroy.ya
 .. image:: assets/postman.jpg
 
 
-**Note:** If you want to destroy the entire setup, checkout a branch with name ``destroy-waf-gcp`` (using current deploy-waf-gcp branch) which will trigger destroy workflow and will remove all created resources
+**STEP 7:** If you want to destroy the entire setup, checkout a branch with name ``destroy-waf-gcp`` (using current deploy-waf-gcp branch) which will trigger destroy workflow and will remove all created resources
 
 .. image:: assets/destroy.png
