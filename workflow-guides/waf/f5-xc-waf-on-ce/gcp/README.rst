@@ -17,6 +17,7 @@ Setup Diagram
 
 .. figure:: assets/ce-waf-gcp.jpeg
 
+
 Workflow Instructions
 ######################
 

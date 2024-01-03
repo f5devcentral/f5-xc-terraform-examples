@@ -29,7 +29,6 @@ data "tfe_outputs" "azure-vm" {
   workspace = "azure-vm"
 }
 
-
 data "azurerm_virtual_machine" "az-ce-site" {
   count               = var.az_ce_site ? 1 : 0
   depends_on          = [volterra_tf_params_action.action_apply]
@@ -37,9 +36,14 @@ data "azurerm_virtual_machine" "az-ce-site" {
   resource_group_name = format("%s-rg-xc-%s", local.project_prefix, local.build_suffix)
 }
 
+data "tfe_outputs" "gcp-vm" {
+  count        = var.gcp_ce_site ? 1 : 0
+  organization = var.tf_cloud_organization
+  workspace    = "bookinfo"
+}
+
 data "tfe_outputs" "eks" {
   count               = var.eks_ce_site ? 1 : 0
   organization        = var.tf_cloud_organization
   workspace           = "eks"
 }
-
