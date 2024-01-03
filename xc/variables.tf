@@ -121,7 +121,23 @@ variable "az_ce_site" {
   default     = "false"
 }
 
+
 variable "azure_subscription_id" {
+  type        = string
+  default     = "default"
+}
+
+variable "azure_subscription_tenant_id" {
+  type        = string
+  default     = "default"
+}
+
+variable "azure_service_principal_appid" {
+  type        = string
+  default     = "default"
+}
+
+variable "azure_service_principal_password" {
   description = "Azure Subscription ID"
   type        = string
   sensitive   = true
@@ -155,12 +171,14 @@ variable "azure_xc_machine_type" {
   default = "Standard_D3_v2"
 }
 
+
 # XC Service Discovery
 variable "xc_service_discovery" {
   type        = string
   description = "Enable service discovery"
   default     = "false"
 }
+
 
 variable "gcp_ce_site" {
   type        = string
@@ -173,6 +191,13 @@ variable "GOOGLE_CREDENTIALS" {
   description = "Contents of GCP credentials file to create CE site"
 }
 
+
+# EKS CE Site
+variable "eks_ce_site" {
+  type        = string
+  description = "Whether it's EKS CE site ?"
+  default     = "false"
+}
 
 variable "xc_delegation" {
   type        = string

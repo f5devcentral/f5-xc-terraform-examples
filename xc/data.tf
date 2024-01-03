@@ -17,6 +17,7 @@ data "tfe_outputs" "nic" {
   organization = var.tf_cloud_organization
   workspace = "nic"
 }
+
 data "tfe_outputs" "aks-cluster" {
   count = data.tfe_outputs.infra.values.aks-cluster ? 1 : 0 
   organization = var.tf_cloud_organization
@@ -27,6 +28,7 @@ data "tfe_outputs" "azure-vm" {
   organization = var.tf_cloud_organization
   workspace = "azure-vm"
 }
+
 data "azurerm_virtual_machine" "az-ce-site" {
   count               = var.az_ce_site ? 1 : 0
   depends_on          = [volterra_tf_params_action.action_apply]
@@ -38,4 +40,10 @@ data "tfe_outputs" "gcp-vm" {
   count        = var.gcp_ce_site ? 1 : 0
   organization = var.tf_cloud_organization
   workspace    = "bookinfo"
+}
+
+data "tfe_outputs" "eks" {
+  count               = var.eks_ce_site ? 1 : 0
+  organization        = var.tf_cloud_organization
+  workspace           = "eks"
 }

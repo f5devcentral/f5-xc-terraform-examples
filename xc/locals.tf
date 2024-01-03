@@ -18,4 +18,7 @@ locals {
   subnet_id           = try(data.tfe_outputs.infra.values.subnet_id, "")
   gcp_region          = try(data.tfe_outputs.infra.values.gcp_region, "")
   vpc_name            = try(data.tfe_outputs.infra.values.vpc_name, "")
+  host                = try(data.tfe_outputs.eks[0].values.cluster_endpoint, "")
+  aws_region          = try(data.tfe_outputs.infra.values.aws_region, "")
+  cluster_name        = try(data.tfe_outputs.eks[0].values.cluster_name, "")
 }

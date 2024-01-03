@@ -1,6 +1,0 @@
-# temporary file which is needed for site cleanup
-resource "volterra_site_state" "site" {
-  name  = var.site_name
-  state = "DECOMMISSIONING"
-  when  = "delete"
-}
