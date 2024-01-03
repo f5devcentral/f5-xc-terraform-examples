@@ -175,8 +175,10 @@ Cloud console
 
 **STEP 6:** Open a linux shell or CMD, login to AWS console with your credentials, download the kubectl file for this load balancer and check services. Copy the load balancer DNS with name "lb-ver" and send request with XC LB FQDN as a Host header which should provide the application response as shown below
 
+
 .. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/lb.JPG
+
 .. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/postman.JPG
 
 
-**STEP 6:** If you want to destroy the entire setup, checkout a new branch from ``deploy-waf-k8s`` branch with name ``destroy-waf-k8s`` which will trigger destroy work-flow to remove all resources
+**STEP 7:** If you want to destroy the entire setup, checkout/create a new branch from ``deploy-waf-k8s`` branch with name ``destroy-waf-k8s`` which will trigger destroy work-flow to remove all resources

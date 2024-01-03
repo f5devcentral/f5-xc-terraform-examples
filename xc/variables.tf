@@ -121,7 +121,23 @@ variable "az_ce_site" {
   default     = "false"
 }
 
+
 variable "azure_subscription_id" {
+  type        = string
+  default     = "default"
+}
+
+variable "azure_subscription_tenant_id" {
+  type        = string
+  default     = "default"
+}
+
+variable "azure_service_principal_appid" {
+  type        = string
+  default     = "default"
+}
+
+variable "azure_service_principal_password" {
   description = "Azure Subscription ID"
   type        = string
   sensitive   = true
@@ -154,10 +170,19 @@ variable "azure_xc_machine_type" {
   default = "Standard_D3_v2"
 }
 
+
 # XC Service Discovery
 variable "xc_service_discovery" {
   type        = string
   description = "Enable service discovery"
+  default     = "false"
+}
+
+
+# EKS CE Site
+variable "eks_ce_site" {
+  type        = string
+  description = "Whether it's EKS CE site ?"
   default     = "false"
 }
 
@@ -172,3 +197,4 @@ variable "ip_address_on_site_pool" {
   description = "If pool member is Private IP on given sites"
   default     = "false"
 }
+
