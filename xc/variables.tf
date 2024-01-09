@@ -167,6 +167,7 @@ variable "gcp_ce_site" {
 variable "GOOGLE_CREDENTIALS" {
   type        = string
   description = "Contents of GCP credentials file to create CE site"
+  default     = "false"
 }
 
 
