@@ -16,7 +16,7 @@ resource "volterra_cloud_credentials" "gcp_cred" {
 }
 
 resource "volterra_gcp_vpc_site" "site" {
-  depends_on             = [volterra_cloud_credentials.gcp_cred]
+  count     = var.gcp_ce_site ? 1 : 0
   name                   = var.site_name
   namespace              = "system"
   cloud_credentials {
@@ -47,7 +47,8 @@ resource "volterra_gcp_vpc_site" "site" {
 }
 
 resource "volterra_tf_params_action" "apply_gcp_vpc" {
-  site_name        = volterra_gcp_vpc_site.site.name
+  count     = var.gcp_ce_site ? 1 : 0
+  site_name        = volterra_gcp_vpc_site.site[0].name
   site_kind        = "gcp_vpc_site"
   action           = "apply"
   wait_for_action  = true
