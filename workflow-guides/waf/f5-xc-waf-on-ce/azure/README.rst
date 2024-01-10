@@ -1,4 +1,4 @@
-Deploying F5 XC WAF on Customer Edge (Azure cloud scenario)
+Deploying F5 XC WAF on Customer Edge (hosted in Azure cloud)
 =============================
 
 
