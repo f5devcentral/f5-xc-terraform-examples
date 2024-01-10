@@ -146,7 +146,7 @@ Workflow File: `waf-re-destroy.yml </.github/workflows/waf-re-destroy.yml>`__
 
 -  advertise_sites = "set to false if want to advertise on public"
 
-Rest keep all the values as it is.
+Keep the rest of the values as they are.
 
 **STEP 4:** Commit and push your build branch to your forked repo 
 

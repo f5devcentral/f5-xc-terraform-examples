@@ -152,7 +152,7 @@ Workflow File: `waf-on-ce-az-destroy.yml </.github/workflows/waf-on-ce-az-destro
 
 -  xc_service_discovery = "set to true if want to create service discovery object in XC console"
 
-Keep rest of the value as false.
+Keep the rest of the values as they are.
 
 **STEP 4:** Commit and push your build branch to your forked repo 
 
