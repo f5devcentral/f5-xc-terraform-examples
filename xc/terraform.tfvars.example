@@ -44,9 +44,3 @@ xc_mud = false
 
 # CE configs
 gcp_ce_site = "false"
-
-
-azure_subscription_id = ""
-azure_subscription_tenant_id = ""
-azure_service_principal_appid = ""
-azure_service_principal_password = ""

@@ -121,27 +121,32 @@ variable "az_ce_site" {
   default     = "false"
 }
 
-
 variable "azure_subscription_id" {
-  type        = string
-  default     = "default"
-}
-
-variable "azure_subscription_tenant_id" {
-  type        = string
-  default     = "default"
-}
-
-variable "azure_service_principal_appid" {
-  type        = string
-  default     = "default"
-}
-
-variable "azure_service_principal_password" {
   description = "Azure Subscription ID"
   type        = string
   sensitive   = true
   default     = null
+}
+
+variable "azure_subscription_tenant_id" {
+  description = "Azure Tenant ID"
+  type        = string
+  sensitive   = true
+  default     = null
+}
+
+variable "azure_service_principal_appid" {
+  description = "Azure Client ID"
+  type        = string
+  sensitive   = true
+  default     = null
+}
+
+variable "azure_service_principal_password" {
+  description = "Azure Client Secret"
+  type      = string
+  sensitive = true
+  default   = null
 }
 
 variable "azure_xc_machine_type" {
