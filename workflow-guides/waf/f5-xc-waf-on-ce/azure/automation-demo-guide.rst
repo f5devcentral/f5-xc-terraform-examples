@@ -124,7 +124,7 @@ Workflow File: `waf-on-ce-az-destroy.yml </.github/workflows/waf-on-ce-az-destro
 
 -  azure_region = “Azure Region/Location” ex. "southeastasia"
 
--  Also update assets boolean value as per your workflow
+-  Also update assets boolean value as per your workflow, here set aks-cluster to true
 
 **Step 3:** Rename ``xc/terraform.tfvars.examples`` to ``xc/terraform.tfvars`` and add the following data: 
 
@@ -151,6 +151,8 @@ Workflow File: `waf-on-ce-az-destroy.yml </.github/workflows/waf-on-ce-az-destro
 -  az_ce_site = "set to true if want to deploy azure CE site"
 
 -  xc_service_discovery = "set to true if want to create service discovery object in XC console"
+
+Keep rest of the value as false.
 
 **STEP 4:** Commit and push your build branch to your forked repo 
 
