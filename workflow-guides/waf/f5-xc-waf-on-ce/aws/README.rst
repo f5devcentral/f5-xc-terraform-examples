@@ -1,4 +1,4 @@
-Deploying F5 XC WAF on Customer Edge in AWS
+Deploying F5 XC WAF on Customer Edge hosted in AWS Cloud
 =============================
 
 
