@@ -41,8 +41,11 @@ Creating your Namespace:
 Setting up VK8's
 ================
 
-1. Navigate to *Distributed Apps > Applications > Virtual K8s*.
-2. Create a site.
+1. Navigate to *Distributed Apps > Applications > Virtual Sites
+2. Create a site
+
+.. image:: assets/createsite3.png
+   :width: 100%
 
 After the site is created:
 ---------------------------
