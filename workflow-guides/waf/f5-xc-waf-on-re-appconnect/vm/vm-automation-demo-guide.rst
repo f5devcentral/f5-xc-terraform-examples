@@ -136,7 +136,7 @@ Workflow File: `waf-re-ac-vm-destroy.yml </.github/workflows/waf-re-ac-vm-destro
 
 -  xc_waf_blocking = “Set to true as we need to enforce block mode if any vulnerability occurs”
 
--  advertise_sites = "Set to true as we want to advertise on public"
+-  advertise_sites = "Set to false as we want to advertise on public"
 
 -  http_only = "set to true as we need to advertise LB on http protocol"
 
