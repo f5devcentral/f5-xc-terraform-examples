@@ -41,3 +41,6 @@ xc_ddos_pro = false
 
 #XC Malicious User Detection
 xc_mud = false
+
+# CE configs
+gcp_ce_site = "false"

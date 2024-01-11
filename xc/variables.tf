@@ -5,7 +5,7 @@ variable "tf_cloud_organization" {
 }
 variable "ssh_key" {
   type        = string
-  description = "Unneeded for XC, only present for warning handling with TF cloud variable set"
+  description = "SSH pub key, only present for warning handling with TF cloud variable set"
 }
 #XC
 variable "xc_tenant" {
@@ -85,26 +85,26 @@ variable "k8s_pool" {
 
 variable "advertise_sites" {
   type        = string
-  description = "Boolean to check if app needs to be advertised on only sites."
+  description = "Boolean to check if app needs to be advertised on given sites."
   default     = "false"
 }
 
 variable "http_only" {
   type        = string
-  description = "If configured on http protocol."
+  description = "If need to be configured on http protocol. Use this as True for CE site deployments."
   default     = "false"
 }
 
 # k8s service name
 variable "serviceName" {
   type        = string
-  description = "k8s backend service details"
+  description = "k8s backend service details to access the demo application"
   default     = ""
 }
 
 variable "serviceport" {
   type        = string
-  description = "k8s backend service port details"
+  description = "k8s backend application service port details"
   default     = ""
 }
 
@@ -117,7 +117,7 @@ variable "site_name" {
 # Azure CE Site 
 variable "az_ce_site" {
   type        = string
-  description = "Deploy Azure CE site"
+  description = "If infra is deployed as Azure CE site ?"
   default     = "false"
 }
 
@@ -154,10 +154,32 @@ variable "azure_xc_machine_type" {
   default = "Standard_D3_v2"
 }
 
+
 # XC Service Discovery
 variable "xc_service_discovery" {
   type        = string
   description = "Enable service discovery"
+  default     = "false"
+}
+
+
+variable "gcp_ce_site" {
+  type        = string
+  description = "If infra is deployed in GCP CE site ?"
+  default     = "false"
+}
+
+variable "GOOGLE_CREDENTIALS" {
+  type        = string
+  description = "Contents of GCP credentials file to create CE site"
+  default     = "false"
+}
+
+
+# EKS CE Site
+variable "eks_ce_site" {
+  type        = string
+  description = "Whether it's EKS CE site ?"
   default     = "false"
 }
 

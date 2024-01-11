@@ -4,9 +4,14 @@ resource "null_resource" "wait_for_site"{
   depends_on      =  [volterra_tf_params_action.action_apply]
 }
 
+resource "null_resource" "wait_for_ekssite"{
+  count           =  var.eks_ce_site ? 1 : 0
+  depends_on      =  [volterra_registration_approval.k8s-ce]
+}
+
 # Create XC LB config
 resource "volterra_origin_pool" "op" {
-  depends_on             = [null_resource.wait_for_site]
+  depends_on             = [null_resource.wait_for_site, null_resource.check_site_status_cert, null_resource.wait_for_ekssite]
   name                   = format("%s-xcop-%s", local.project_prefix, local.build_suffix)
   namespace              = var.xc_namespace
   description            = format("Origin pool pointing to origin server %s", local.origin_server)
@@ -23,9 +28,26 @@ resource "volterra_origin_pool" "op" {
   dynamic "origin_servers" {
     for_each = local.dns_origin_pool == false && var.k8s_pool == "false" && var.ip_address_on_site_pool == "false"? [1] : []
     content {
-      public_ip {
-        ip = local.origin_server
-      } 
+      dynamic "public_ip" {
+        for_each = var.gcp_ce_site == "false" ? [1] : []
+        content {
+          ip = local.origin_server
+        }
+      }
+
+      dynamic "private_ip" {
+        for_each = var.gcp_ce_site == "true" ? [1] : []
+        content {
+          ip              = local.origin_server
+          outside_network = true
+          site_locator {
+            site {
+              name        = "${coalesce(var.site_name, local.project_prefix)}"
+              namespace   = "system"
+            }
+          }
+        }
+      }
     }
   }
 
@@ -45,6 +67,8 @@ resource "volterra_origin_pool" "op" {
       }
     }
   }
+
+
   dynamic "origin_servers" {
     for_each = var.ip_address_on_site_pool ? [1] : []
     content {
@@ -67,14 +91,14 @@ resource "volterra_origin_pool" "op" {
 }
 
 resource "volterra_http_loadbalancer" "lb_https" {
-  depends_on             =  [volterra_origin_pool.op]
-  name      = format("%s-xclb-%s", local.project_prefix, local.build_suffix)
-  namespace = var.xc_namespace
-  labels = {
-      "ves.io/app_type" = length(var.xc_app_type) != 0 ? volterra_app_type.app-type[0].name : null
+  depends_on             =  [volterra_origin_pool.op, volterra_tf_params_action.apply_gcp_vpc]
+  name                   = format("%s-xclb-%s", local.project_prefix, local.build_suffix)
+  namespace              = var.xc_namespace
+  labels                 = {
+      "ves.io/app_type"  = length(var.xc_app_type) != 0 ? volterra_app_type.app-type[0].name : null
   }
-  description = format("HTTPS loadbalancer object for %s origin server", local.project_prefix)  
-  domains = [var.app_domain]
+  description            = format("HTTP loadbalancer object for %s origin server", local.project_prefix)
+  domains                = [var.app_domain]
   advertise_on_public_default_vip = true
 
   dynamic "advertise_custom" {
@@ -239,6 +263,7 @@ resource "volterra_http_loadbalancer" "lb_https" {
       }
     }
   }
+
   
 #Common Security Controls
 
@@ -266,5 +291,3 @@ resource "volterra_http_loadbalancer" "lb_https" {
     }
   }
 }
-
-

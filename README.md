@@ -1,9 +1,9 @@
 # F5 Distributed Cloud Terraform Examples
 
-
 ## Overview
 
 Examples of F5 Distributed Cloud (XC) deployments utilizing Terraform. For more information on the use cases covered by this project, please see the following articles and workflow guides:
+
 
 * **F5 Distributed Cloud WAF**
 
@@ -14,7 +14,7 @@ Examples of F5 Distributed Cloud (XC) deployments utilizing Terraform. For more 
   | [Deploy WAF on any Edge with F5 Distributed Cloud](https://community.f5.com/t5/technical-articles/deploy-waf-on-any-edge-with-f5-distributed-cloud/ta-p/313079) | [Deploy F5 XC WAF on XC Regional Edges + AppConnect in K8s (SaaS Console, Automation)](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-re-appconnect/k8s/README.rst) |
   | [Deploy WAF on any Edge with F5 Distributed Cloud](https://community.f5.com/t5/technical-articles/deploy-waf-on-any-edge-with-f5-distributed-cloud/ta-p/313079) | [Demo guide to deploy F5 XC WAF on XC Customer Edge in AWS (SaaS Console)](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-ce/aws/README.rst)                            |
   | [Deploy WAF on any Edge with F5 Distributed Cloud](https://community.f5.com/t5/technical-articles/deploy-waf-on-any-edge-with-f5-distributed-cloud/ta-p/313079) | [Demo guide to deploy F5 XC WAF on XC Customer Edge in Azure (SaaS Console, Automation)](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-ce/azure/README.rst)                            |
-  | [Deploy WAF on any Edge with F5 Distributed Cloud](https://community.f5.com/t5/technical-articles/deploy-waf-on-any-edge-with-f5-distributed-cloud/ta-p/313079) | [Demo guide to deploy F5 XC WAF on XC Customer Edge in GCP (SaaS Console)](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-ce/gcp/README.rst)                            |
+  | [Deploy WAF on any Edge with F5 Distributed Cloud](https://community.f5.com/t5/technical-articles/deploy-waf-on-any-edge-with-f5-distributed-cloud/ta-p/313079) | [Demo guide to deploy F5 XC WAF on XC Customer Edge in GCP (SaaS Console, Automation)](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-ce/gcp/README.rst)                            |
   | [Deploy WAF on any Edge with F5 Distributed Cloud](https://community.f5.com/t5/technical-articles/deploy-waf-on-any-edge-with-f5-distributed-cloud/ta-p/313079) | [**Coming soon:** Deploy F5 XC WAF on XC Customer Edges + MultiCloud](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-ce-multicloud/README.rst) |
   | [Deploy WAF on any Edge with F5 Distributed Cloud](https://community.f5.com/t5/technical-articles/deploy-waf-on-any-edge-with-f5-distributed-cloud/ta-p/313079) | [Demo guide to deploy F5 XC WAF on Kubernetes (SaaS Console, Automation)](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-k8s/README.rst)       |
 
@@ -106,7 +106,7 @@ Example:
   | AWS_ACCESS_KEY_ID     | Environment | Your AWS Access Key ID                                                          |
   | AWS_SECRET_ACCESS_KEY | Environment | Your AWS Secret Access Key                                                      |
   | AWS_SESSION_TOKEN     | Environment | Your AWS Session Token                                                          |
-  | VOLT_API_P12_FILE     | Environment | Your F5XC API certificate. Set this to **api.p12**                              |
+  | VOLT_API_P12_FILE     | Environment | Your F5XC API certificate file name. Set this to **api.p12**                    |
   | VES_P12_PASSWORD      | Environment | Set this to the password you supplied when creating your F5 XC API certificate  |
   | ssh_key               | Terraform   | Your ssh key for accessing the created BIG-IP and compute assets                |
   | admin_src_addr        | Terraform   | The source address and subnet in CIDR format of your administrative workstation |

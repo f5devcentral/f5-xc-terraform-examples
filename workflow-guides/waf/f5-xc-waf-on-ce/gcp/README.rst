@@ -17,6 +17,7 @@ Setup Diagram
 
 .. figure:: assets/ce-waf-gcp.jpeg
 
+
 Workflow Instructions
 ######################
 
@@ -24,6 +25,9 @@ Workflow Instructions
 
 `F5 Distributed Cloud Automation Workflow <./automation-demo-guide.rst>`__
 
+
+Additional Related Resources
+######################
 To deploy setup in AWS, please refer to `AWS Workflow Guide <https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-ce/aws/README.rst>`__
 
 To deploy setup in Azure, please refer to `Azure Workflow Guide <https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-ce/azure/README.rst>`__

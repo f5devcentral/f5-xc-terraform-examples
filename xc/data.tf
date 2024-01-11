@@ -27,3 +27,13 @@ data "tfe_outputs" "azure-vm" {
   organization = var.tf_cloud_organization
   workspace = "azure-vm"
 }
+data "tfe_outputs" "gcp-vm" {
+  count        = var.gcp_ce_site ? 1 : 0
+  organization = var.tf_cloud_organization
+  workspace    = "bookinfo"
+}
+data "tfe_outputs" "eks" {
+  count               = var.eks_ce_site ? 1 : 0
+  organization        = var.tf_cloud_organization
+  workspace           = "eks"
+}
