@@ -70,7 +70,7 @@ Setting up the Airline app in vk8s:
    :width: 35%
 
 
-Setting up an HTTP load balancer to front-end the airline app:
+Adding the Airline App as a selectable Origin Pool:
 ------------------------------------------------------
 
 1. Navigate to *Web App & API Protection > Manage > Load Balancers
@@ -88,6 +88,22 @@ Setting up an HTTP load balancer to front-end the airline app:
 .. image:: assets/addoriginpool2.png
    :width: 100%
 
+
+Setting up an HTTP load balancer to front-end the airline app
+-------------------------------------------------------------
+1. Navigate to Web App & API Protection > Manage > Load Balancers > HTTP Load Balancers and click on "Add HTTP Load Balancer" in the top left corner
+2. Give you LB a name of "airline-lb"
+3. Add a description of "bot defense for airline app"
+4. Under "Domains and LB Type" create a ficticious domain called airline-app.lb
+5. Under "Load Balancer Type" select "HTTP LB" and leave the "automatically manage DNS requests" unchecked
+6. Set the "HTTP Listen Port Choice" to HTTP Listen Port and Listen Port to 80
+7. Under "Orgins" add your recently created origin pool called "airline-origin"
+8. Scroll to the bottom under "Other Settings" and configure as shown in screenshot below
+
+.. image:: assets/lbothersettings.png
+   :width: 100%
+
+9. Save and Exit
 
 Verifying Application Availability via DNS:
 ====================================
