@@ -5,7 +5,7 @@ Deploy Bot Defense against for AWS Cloudfront Distributions with F5 XC
 Objective :
 -----------
 
-This guide will outline the steps for implementing F5 XC Bot Defense to protect your AWS CloudFront distributions. We will take advantage of AWS Lambda Edge and the AWS Serverless Application Repository (SAR). This guide will outline the steps for implementing this infrastructure via Console Steps as well as Automated method using Terraform. This guide also provides a sample application that we will  to protect with F5 XC Bot Defense
+This guide will outline the steps for implementing F5 XC Bot Defense to protect your AWS CloudFront distributions. We will be deploying our sample application into AWS EKS (Elastic Kubernetes Service) which we will then front-end this application with AWS Cloudfront. We'll leverage F5 XC to setup and download our Bot Defense Connector which will be deployed via an AWS Lambda Edge and the AWS Serverless Application Repository (SAR). This guide will outline the steps for implementing this infrastructure via Console Steps as well as Automated method using Terraform.
 
 
 
@@ -33,18 +33,22 @@ Steps:
 Create your Amazon EKS cluster and nodes:
 =========================================
 
-1. First we'll start out with the AWS CLI configured locally on your machine. To check the current user, run the following command: "aws sts get-caller-identity"
-2. Create your Amazon EKS cluster with the following command "eksctl create cluster --name airlineapp-eks --region us-west-2 --fargate"
+1. First we'll start out with the AWS CLI configured locally on your machine. To check the current user, run the following command: "aws sts get-caller-identity". If you get any errors when running this command you'll need to login to your Account and click on CLI or Programatic Access. You'll need to paste the credentials into your CLI. Once you've refreshed your credentials frun the "aws sts get-caller-identity" command again. 
+
+.. image:: assets/awscreds.png
+   :width: 100%
+2. Next, lets use the "aws configure" command to specify our region as us-west-2. You can just use the enter key to maintain the key values but when it gets to the aws region make sure you change it to us-west-2.
+3. Create your Amazon EKS cluster with the following command "eksctl create cluster --name airlineapp-eks --region us-west-2" 
 3. For the sake of our lab we'll be using the us-west-2 region for our EKS cluster 
 4. Cluster creation takes several minutes. During creation you'll see several lines of output. The last line of output is similar to the following example line.
 
-.. image:: assets/eksready.png
-   :width: 50%
+.. image:: assets/clusteroutput1.png
+   :width: 100%
 
 6. eksctl created a kubectl config file in ~/.kube or added the new cluster's configuration within an existing config file in ~/.kube on your computer.
 7. After cluster creation is complete, view the AWS CloudFormation stack named "eksctl-airlineapp-eks-cluster" in the AWS `CloudFormation console <https://console.aws.amazon.com/cloudformation>`_ to see all of the resources that were created.
 
-.. image:: assets/cloudformation2.png
+.. image:: assets/c.png
    :width: 100%
 
 View Kubernetes Resources:
