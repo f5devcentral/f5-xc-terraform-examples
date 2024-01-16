@@ -112,10 +112,7 @@ Create a new Bot Defense application for AWS CloudFront
 4. Add a Name for the Application, and a Description
 5. Select a region (US, EMEA, or APJC)
 6. For Connector Type, select AWS CloudFront
-7. Add a Name for the Application, and a Description
-8. Select a region (US, EMEA, or APJC)
-9. For Connector Type, select AWS CloudFront
-10. Once AWS CloudFront is selected, options appear to configure AWS reference details
+7. Once AWS CloudFront is selected, click configure to add the configure AWS reference details
 
 .. image:: assets/app-drop-down.jpeg
    :width: 100%
@@ -124,8 +121,7 @@ Create a new Bot Defense application for AWS CloudFront
 Add AWS Reference Information:
 ==============================
 
-1. Enter your AWS 12-digit Account Number.
-2. Specify your AWS Configuration and add your CloudFront distribution; a Distribution ID and/or a Distribution Tag. You can add one or more distributions. This information is needed to associate your newly created protected application to your AWS distribution(s).
+1. Specify your AWS Configuration and add your CloudFront Distribution ID. You can add one or more distributions. This information is needed to associate your newly created protected application to your AWS distribution(s).
 
 .. image:: assets/awsid.jpeg
    :width: 100%
@@ -136,15 +132,14 @@ Add Protected Endpoints:
 
 1. Click Configure to define your protected endpoints
 2. Click Add Item
-3. Enter a name and a description to the specific endpoint.​
-4. Specify the Domain Matcher. You can choose any domain or specify a specific host value.​
-5. Specify the Path to the endpoint (such as /login).​
-6. Choose the HTTP Methods for which request will be analyzed by Bot Defense. Multiple methods can be selected.
-7. Select the Client type that will access this endpoint (Web Client).​
-8. Select the Mitigation action to be taken for this endpoint:
-9. Continue (request continues to origin)​
-10. Redirect​. Provide the appropriate Status Code and URI​
-11. Block. Provide the Status Code, Content Type, and Response message
+3. Enter sigin for the Name​
+4. For the Domain Matcher we'll choose any domain
+5. Specify the Path to the endpoint as /user/signin
+6. Choose the HTTP Methods of POST and PUT
+7. Endpoint Label should specify endpoint label with a category of authentication and a flow label of login
+7. Select the Client type that will access this endpoint as Web Client
+8. Select the Mitigation action to be taken for this endpoint as "Continue" to flag but not block the traffic
+9. Leave include automation info at "no-header"
 
 .. image:: assets/endpoints-rules-save.jpeg
    :width: 100%
@@ -152,18 +147,14 @@ Add Protected Endpoints:
 12. When done configuring the endpoint, click Apply
 13. To continue, click Apply at the bottom of the page
 
-Define Continue Global Mitigation Action:
-=========================================
-
-1. The Header Name for Continue Mitigation Action field is the header that is added to the request when the Continue mitigation action is selected and Add A Header was selected in the endpoint mitigation configuration screen.
-
 Define Web Client JavaScript Insertion Settings:
 ================================================
 
 1. JS Location - Choose the location where to insert the JS in the code:
-   1a. Just After <head> tag​.
-   1b. Just After </title> tag​.
-   1c. Right Before <script> tag.​
+   1a. Leave the default of /common.js for the path
+   1b. Leave web client JS mode at default Async JS without caching
+   1c. JS Location should be "after <head> tag
+   
 
 2. Under Java Script Insertions.  Select Configure.
 
@@ -171,7 +162,11 @@ Define Web Client JavaScript Insertion Settings:
    :width: 100%
 
 3. Click Add Item
-4. Add the Web Client JavaScript Path. You should select paths to HTML pages that end users are likely to visit before they browse to any protected endpoint.
+4. Add the Web Client JavaScript Path and we'll insert the JS on all pages with the following configuration
+
+.. image:: assets/jsallpages.png
+   :width: 100%
+
 5. Click Apply
 6. Click Save & Exit to save your protected application configuration.
 
