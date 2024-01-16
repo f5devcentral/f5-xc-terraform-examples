@@ -171,7 +171,7 @@ Simulating Bot Traffic with CURL:
 
 3. Run the CURL script using "sh curl-stuff.sh" once or twice to generate bot traffic
 
-.. image:: assets/bdcurl2.png
+.. image:: assets/curl-stuff.png
    :width: 100%
 
 Viewing the Results in the Overview Security Dashboard:
