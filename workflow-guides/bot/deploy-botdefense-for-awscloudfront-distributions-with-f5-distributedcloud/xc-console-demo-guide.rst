@@ -37,10 +37,11 @@ Create your Amazon EKS cluster and nodes:
 
 .. image:: assets/awscreds.png
    :width: 100%
+
 2. Next, lets use the "aws configure" command to specify our region as us-west-2. You can just use the enter key to maintain the key values but when it gets to the aws region make sure you change it to us-west-2.
 3. Create your Amazon EKS cluster with the following command "eksctl create cluster --name airlineapp-eks --region us-west-2" 
-3. For the sake of our lab we'll be using the us-west-2 region for our EKS cluster 
-4. Cluster creation takes several minutes. During creation you'll see several lines of output. The last line of output is similar to the following example line.
+4. For the sake of our lab we'll be using the us-west-2 region for our EKS cluster 
+5. Cluster creation takes several minutes. During creation you'll see several lines of output. The last line of output is similar to the following example line.
 
 .. image:: assets/clusteroutput1.png
    :width: 100%
@@ -69,7 +70,12 @@ Deploy our Sample Airline Application to the EKS Cluster:
 
 Create CloudFront Distribution:
 ===============================
-1. Go to the AWS Console, search the services for CloudFront and create a new distribution. Configure the distribution with the following settings:
+1. Go to the AWS Console, search the services for CloudFront and create a new distribution. Configure the distribution with the following settings: 
+   1.1. Origin Domain Name: Your ELB DNS name displayed from the "kubectl get services -n eks-airline-app" command
+   1.2. Origin Protocol: HTTP Only (since ELB communicates over HTTP with your pods)
+   1.3. HTTP Port: 80
+   1.4. Origin Path: N/A
+   1.5. 
 
 
 Creating your Namespace in F5 XC:
