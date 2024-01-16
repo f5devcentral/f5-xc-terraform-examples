@@ -68,6 +68,9 @@ Deploy our Sample Airline Application to the EKS Cluster:
 3. From CLI Navigate to the directory containing the container image YAML file and run the command "kubectl apply -f eks-airflask.yaml -n eks-airline-app".
 4. Once this command has finished executing you can find the externally available Elastic Load Balancer's external IP by running the command "kubectl get services -n eks-airline-app". Copy the external dns name and paste it into a browser to ensure the eks application is available via the ELB
 
+.. image:: assets/getservice.png
+   :width: 100%
+
 Create CloudFront Distribution:
 ===============================
 1. Go to the AWS Console, search the services for CloudFront and create a new distribution.  (Unless specified below leave at default configuration value) 
@@ -82,6 +85,10 @@ Create CloudFront Distribution:
 10. Under "settings" for the price class choose North America and Europe Only
 11. Supported HTTP Versions choose HTTP2 and HTTP3
 12. Click "Create Distribution"
+13. Once your Cloudfront Distribution is complete you will see you newly created distribution ID as well as the cloudfront domain name assigned to it. Ensure the application is available via the new Cloudfront domain name. 
+
+.. image:: assets/cloudfront.png
+   :width: 100%
 
 Creating your Namespace in F5 XC:
 =================================
@@ -104,33 +111,33 @@ Create a new Bot Defense application for AWS CloudFront
    :width: 100%
 
 
-3.  Verify you are in the correct Namespace. Click Add Application at the top-left of the page.
+3.  Verify you are in the correct Namespace. Under Manage > Applications > click on "Add Application" at the top-left of the page.
 
 .. image:: assets/add-app.jpeg
    :width: 100%
 
-4. Add a Name for the Application, and a Description
-5. Select a region (US, EMEA, or APJC)
-6. For Connector Type, select AWS CloudFront
+4. Add a Name for the Application of eks-airline-app, and a Description of "bot defense for cloudfront distribution of eks-airline-app"
+5. For Connector Type, select AWS CloudFront
+6. Under Amazon Cloudfront click "edit configuration"
 7. Once AWS CloudFront is selected, click configure to add the configure AWS reference details
 
-.. image:: assets/app-drop-down.jpeg
+.. image:: assets/connectortype.png
    :width: 100%
 
 
 Add AWS Reference Information:
 ==============================
 
-1. Specify your AWS Configuration and add your CloudFront Distribution ID. You can add one or more distributions. This information is needed to associate your newly created protected application to your AWS distribution(s).
+1. Specify your AWS Configuration and select AWS CloudFront by Distribution ID. Then click "edit configuration" and add your distribution ID then click Apply. Your ID can be obtained via the AWS Console under the cloudfront service. This information is needed to associate your newly created protected application to your AWS distribution(s).
 
-.. image:: assets/awsid.jpeg
+.. image:: assets/distid.png
    :width: 100%
 
 
 Add Protected Endpoints:
 ========================
 
-1. Click Configure to define your protected endpoints
+1. Under "Protected Endpoint" click configure to define your protected endpoints
 2. Click Add Item
 3. Enter sigin for the Name​
 4. For the Domain Matcher we'll choose any domain
@@ -141,7 +148,7 @@ Add Protected Endpoints:
 8. Select the Mitigation action to be taken for this endpoint as "Continue" to flag but not block the traffic
 9. Leave include automation info at "no-header"
 
-.. image:: assets/endpoints-rules-save.jpeg
+.. image:: assets/endpoints.png
    :width: 100%
 
 12. When done configuring the endpoint, click Apply
