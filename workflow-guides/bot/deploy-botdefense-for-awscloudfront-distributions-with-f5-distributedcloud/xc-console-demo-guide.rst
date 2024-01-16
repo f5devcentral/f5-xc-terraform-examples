@@ -70,13 +70,18 @@ Deploy our Sample Airline Application to the EKS Cluster:
 
 Create CloudFront Distribution:
 ===============================
-1. Go to the AWS Console, search the services for CloudFront and create a new distribution. Configure the distribution with the following settings: 
-   1.1. Origin Domain Name: Your ELB DNS name displayed from the "kubectl get services -n eks-airline-app" command
-   1.2. Origin Protocol: HTTP Only (since ELB communicates over HTTP with your pods)
-   1.3. HTTP Port: 80
-   1.4. Origin Path: N/A
-   1.5. 
-
+1. Go to the AWS Console, search the services for CloudFront and create a new distribution.  (Unless specified below leave at default configuration value) 
+2. Origin Domain Name: Your ELB DNS name displayed from the "kubectl get services -n eks-airline-app" command
+3. Origin Protocol: HTTP Only (since ELB communicates over HTTP with your pods)
+4. HTTP Port: 80
+5. Name your distribution cloudfront-eks-airline
+6. Set the "allowed HTTP Options to "GET, HEAD, OPTIONS, PUT, POST, PATCH, DELETE
+7. Under Cache key and Origin requests select cache policy and origin request policy
+8. Select the pre-built cache policy of "caching disabled". Do not configure and origin request policy
+9. Under Web Application Firewall select "Do not enable"
+10. Under "settings" for the price class choose North America and Europe Only
+11. Supported HTTP Versions choose HTTP2 and HTTP3
+12. Click "Create Distribution"
 
 Creating your Namespace in F5 XC:
 =================================
