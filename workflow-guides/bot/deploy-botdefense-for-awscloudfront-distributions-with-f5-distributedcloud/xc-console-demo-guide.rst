@@ -54,12 +54,12 @@ View Kubernetes Resources:
 1. View your cluster nodes with "kubectl get nodes -o wide". An example output is as follows
 
 .. image:: assets/getnodes2.png
-   :width: 100%
+   :width: 50%
 
 2. View the workloads running on your cluster with "kubectl get pods -A -o wide"
 
 .. image:: assets/getpods3.png
-   :width: 100%
+   :width: 50%
 
 Deploy our Sample Airline Application to the EKS Cluster:
 =======================================================
@@ -88,7 +88,7 @@ Create CloudFront Distribution:
 13. Once your Cloudfront Distribution is complete you will see you newly created distribution ID as well as the cloudfront domain name assigned to it. Ensure the application is available via the new Cloudfront domain name. 
 
 .. image:: assets/cloudfront.png
-   :width: 100%
+   :width: 50%
 
 Creating your Namespace in F5 XC:
 =================================
@@ -237,24 +237,29 @@ Switch to AWS Cloudshell:
 Validate CloudFront Distribution Functions:
 ===========================================
 1. Navigate to CloudFront > Distributions and select the distribution you are protecting
-2. Go to Behaviors
+2. Go to Behaviors and you should see the JS injection at /common.js, and the endpoint we are protecting /user/signin
 
-.. image:: assets/awsbehaviors.png
+.. image:: assets/cloudfront-behaviors.png
    :width: 50%
 
-3. Here under Behaviors is where you specify which request/response is forwarded to the Lambda@Edge Function to process with F5 XC Bot Defense.
-
-Note** 
-F5 XC Bot Defense requires us to leverage Viewer Request and Origin Request events. These events need to be available for user to use (IE they have not assigned other Functions)
-The AWS Installer tool that we downloaded from Distributed Cloud Console and ran in the AWS CloudShell configured this for us.
 
 AWS CloudWatch:
 ===============
 
 1. AWS CloudWatch contains logs for Lambda function deployed by F5BotDefense serverless application.​
-2. ​The Log group name starts with /aws/lambda/us-east-1.serverlessrepo-F5BotDefense-F5BotDefense-*.​
+2. ​The Log group name starts with /aws/lambda/us-east-1.serverlessrepo-F5BotDefense-F5BotDefense-*.​ if you search for "F5BotDefense" it will populate with the log group
 3. The logs of lambda function can be found in the region closest to the location where the function executed
 For troubleshooting, look for error messages contained in the links under Log steams.
+
+.. image:: assets/cloudwatchlogs.png
+   :width: 50%
+
+Simulating Bot Traffic with CURL:
+=================================
+
+1. Within this repo you can download the curl-stuff.sh Bash script in the validation-tools directory to run it against your web application to generate some generic Bot Traffic
+2. After you've downloaded the `curl-stuff.sh <https://github.com/karlbort/fork-f5-xc-waap-terraform-examples/tree/main/workflow-guides/bot/deploy-botdefense-for-awscloudfront-distributions-with-f5-distributedcloud/validation-tools/curl-stuff.sh>`__ bash script you can edit the file using a text editor and replace the domain name on line 3 with the DNS name and path of your application. For example, curl -s ves-io-your-domain.ac.vh.ves.io/user/signin -i -X POST -d "username=1&password=1" you would replace the "ves-io-your-domain.ac.vh.ves.io" hostname with the DNS name for your newly deployed Cloudfront protected application. Note** Make sure to keep the /user/signin path of the URI as this is the protected endpoint we configured in the Bot Defense Policy.
+3. Run the CURL script using "sh curl-stuff.sh" once or twice to generate bot traffic
 
 View Bot Traffic​:
 =================
