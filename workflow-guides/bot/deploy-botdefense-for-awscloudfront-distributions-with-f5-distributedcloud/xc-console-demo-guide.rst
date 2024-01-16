@@ -140,45 +140,44 @@ Add Protected Endpoints:
 1. Under "Protected Endpoint" click configure to define your protected endpoints
 2. Click Add Item
 3. Enter sigin for the Name​
-4. For the Domain Matcher we'll choose any domain
-5. Specify the Path to the endpoint as /user/signin
-6. Choose the HTTP Methods of POST and PUT
-7. Endpoint Label should specify endpoint label with a category of authentication and a flow label of login
-8. Select the Client type that will access this endpoint as Web Client
-9. Select the Mitigation action to be taken for this endpoint as "Continue" to flag but not block the traffic
-10. Leave include automation info at "no-header"
+4. Add a description of "prevent unwanted automation on signin"
+5. For the Domain Matcher we'll choose any domain
+6. Specify the Path to the endpoint as /user/signin
+7. Choose the HTTP Methods of POST and PUT
+8. Endpoint Label should specify endpoint label with a category of "Authentication" and a flow label of "login"
+9. Select the Client type that will access this endpoint as Web Client
+10. Select the Mitigation action to be taken for this endpoint as "Continue" to flag but not block the traffic
+11. Leave "Include Automation" info at no-header
 
 .. image:: assets/endpoints.png
    :width: 100%
 
-12. When done configuring the endpoint, click Apply
-13. To continue, click Apply at the bottom of the page
+12. To continue, click Apply at the bottom of the page
 
 Define Web Client JavaScript Insertion Settings:
 ================================================
 
-1. JS Location - Choose the location where to insert the JS in the code:
-   1a. Leave the default of /common.js for the path
-   1b. Leave web client JS mode at default Async JS without caching
-   1c. JS Location should be "after <head> tag
+1. Under Java Script Insertions.  Select Configure.
    
-
-2. Under Java Script Insertions.  Select Configure.
-
-.. image:: assets/java-rules.jpeg
+.. image:: assets/jsinsertion.png
    :width: 100%
 
-3. Click Add Item
-4. Add the Web Client JavaScript Path and we'll insert the JS on all pages with the following configuration
+2. Web client Javascript Path: Leave the default of /common.js for the path
+3. Web client Javascript Mode: Leave web client JS mode at default Async JS without caching
+4. Javascript Location: JS Location should be "after <head> tag"
 
-.. image:: assets/jsallpages.png
+
+3. Javascript Insertion Paths: Click Add Item
+4. Name: All Pages
+5. Description: "inject js on all pages"
+6. Domain Matcher: "any domain"
+7. Path: Select "prefix" with a path of "/"
+
+.. image:: assets/jsinjectpath.png
    :width: 100%
 
 5. Click Apply
 6. Click Save & Exit to save your protected application configuration.
-
-.. image:: assets/java-rules-saved.jpeg
-   :width: 100%
 
 
 Download Config File and AWS Installer Tool:
