@@ -182,10 +182,9 @@ Define Web Client JavaScript Insertion Settings:
 
 Download Config File and AWS Installer Tool:
 ====================================
-1. In the Actions column of the table, click the 3 ellipses (…) on your application. Download both the Config File and the AWS Installer.
+1. Back in the Bot Defense Dashboard under  Manage > Applications In the Actions column next to your newly created Cloudfront Connector, click the 3 ellipses (…) on your application. Download both the Config File and the AWS Installer.
 
-
-.. image:: assets/awscfg.jpeg
+.. image:: assets/download.png
    :width: 100%
 
 Log in to your AWS Console:
@@ -234,11 +233,6 @@ Switch to AWS Cloudshell:
 
 .. image:: assets/f5tool.png
    :width: 50%
-
-5. The installation tool saves the previous configuration of each CloudFront Distribution in a file. You can use the F5 tool to restore a saved Distribution config (thus removing F5 Bot Defense).​
-
-Note**
-Your F5 XC Bot Defense configuration, such as protected endpoints, is sensitive security info and is stored in AWS Secrets Manager. You should delete config.json after CLI installation
 
 Validate CloudFront Distribution Functions:
 ===========================================
