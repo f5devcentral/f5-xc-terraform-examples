@@ -144,9 +144,9 @@ Add Protected Endpoints:
 5. Specify the Path to the endpoint as /user/signin
 6. Choose the HTTP Methods of POST and PUT
 7. Endpoint Label should specify endpoint label with a category of authentication and a flow label of login
-7. Select the Client type that will access this endpoint as Web Client
-8. Select the Mitigation action to be taken for this endpoint as "Continue" to flag but not block the traffic
-9. Leave include automation info at "no-header"
+8. Select the Client type that will access this endpoint as Web Client
+9. Select the Mitigation action to be taken for this endpoint as "Continue" to flag but not block the traffic
+10. Leave include automation info at "no-header"
 
 .. image:: assets/endpoints.png
    :width: 100%
