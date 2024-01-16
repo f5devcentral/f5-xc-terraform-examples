@@ -48,25 +48,29 @@ Create your Amazon EKS cluster and nodes:
 6. eksctl created a kubectl config file in ~/.kube or added the new cluster's configuration within an existing config file in ~/.kube on your computer.
 7. After cluster creation is complete, view the AWS CloudFormation stack named "eksctl-airlineapp-eks-cluster" in the AWS `CloudFormation console <https://console.aws.amazon.com/cloudformation>`_ to see all of the resources that were created.
 
-.. image:: assets/c.png
-   :width: 100%
-
 View Kubernetes Resources:
 ==========================
 1. View your cluster nodes with "kubectl get nodes -o wide". An example output is as follows
 
-.. image:: assets/getnodes.png
+.. image:: assets/getnodes2.png
    :width: 100%
 
 2. View the workloads running on your cluster with "kubectl get pods -A -o wide"
 
-.. image:: assets/getpods2.png
+.. image:: assets/getpods3.png
    :width: 100%
 
-Deploy a Sample Airline Application to the EKS Cluster:
+Deploy our Sample Airline Application to the EKS Cluster:
 =======================================================
 1. Create a namespace using the "kubectl create namespace eks-airline-app"
-2. Download the Kubernetes Manifest for our sample Airline application here 
+2. Download the Kubernetes Manifest made custom for AWS EKS using our sample Airline application `here <https://github.com/karlbort/fork-f5-xc-waap-terraform-examples/blob/main/workflow-guides/bot/deploy-botdefense-for-awscloudfront-distributions-with-f5-distributedcloud/airline-app/eks-airflask.yaml>`_ and save it to a directory
+3. From CLI Navigate to the directory containing the container image YAML file and run the command "kubectl apply -f eks-airflask.yaml -n eks-airline-app".
+4. Once this command has finished executing you can find the externally available Elastic Load Balancer's external IP by running the command "kubectl get services -n eks-airline-app". Copy the external dns name and paste it into a browser to ensure the eks application is available via the ELB
+
+Create CloudFront Distribution:
+===============================
+1. Go to the AWS Console, search the services for CloudFront and create a new distribution. Configure the distribution with the following settings:
+
 
 Creating your Namespace in F5 XC:
 =================================
