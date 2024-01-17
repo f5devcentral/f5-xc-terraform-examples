@@ -240,7 +240,7 @@ Validate CloudFront Distribution Functions:
 2. Go to Behaviors and you should see the JS injection at /common.js, and the endpoint we are protecting /user/signin
 
 .. image:: assets/cloudfront-behaviors.png
-   :width: 50%
+   :width: 100%
 
 
 AWS CloudWatch:
@@ -252,14 +252,17 @@ AWS CloudWatch:
 For troubleshooting, look for error messages contained in the links under Log steams.
 
 .. image:: assets/cloudwatchlogs.png
-   :width: 50%
+   :width: 100%
 
 Simulating Bot Traffic with CURL:
 =================================
 
 1. Within this repo you can download the curl-stuff.sh Bash script in the validation-tools directory to run it against your web application to generate some generic Bot Traffic
-2. After you've downloaded the `curl-stuff.sh <https://github.com/karlbort/fork-f5-xc-waap-terraform-examples/tree/main/workflow-guides/bot/deploy-botdefense-for-awscloudfront-distributions-with-f5-distributedcloud/validation-tools/curl-stuff.sh>`__ bash script you can edit the file using a text editor and replace the domain name on line 3 with the DNS name and path of your application. For example, curl -s ves-io-your-domain.ac.vh.ves.io/user/signin -i -X POST -d "username=1&password=1" you would replace the "ves-io-your-domain.ac.vh.ves.io" hostname with the DNS name for your newly deployed Cloudfront protected application. Note** Make sure to keep the /user/signin path of the URI as this is the protected endpoint we configured in the Bot Defense Policy.
-3. Run the CURL script using "sh curl-stuff.sh" once or twice to generate bot traffic
+2. After you've downloaded the `curl-stuff.sh <https://github.com/karlbort/fork-f5-xc-waap-terraform-examples/tree/main/workflow-guides/bot/deploy-botdefense-for-awscloudfront-distributions-with-f5-distributedcloud/validation-tools/curl-stuff.sh>`__ bash script you can edit the file using a text editor and replace the ".cloudfront.net" domain name on line 3 with the DNS name and path of your actual Cloudfront Distribution for your application. For example, curl -s https://abcdefg.cloudfront.net/user/signin -i -X POST -d "username=1&password=1" you would replace the "abcdefg.cloudfront.net" hostname with the DNS name for your newly deployed Cloudfront protected application. Note** Make sure to keep the /user/signin path of the URI as this is the protected endpoint we configured in the Bot Defense Policy.
+3. Run the CURL script using "sh curl-stuff.sh" once or twice to generate bot traffic. Or you can always just copy the CURL command out of the script and manually enter it into a command prompt a few times.
+
+.. image:: assets/cloudfront-curl.png
+   :width: 75%
 
 View Bot Traffic​:
 =================
@@ -271,7 +274,7 @@ View Bot Traffic​:
 5. Under Overview click Monitor
 
 .. image:: assets/bd-monitor.jpeg
-   :width: 50%
+   :width: 75%
 
 6. Here you can monitor and respond to events that are identified as Bot traffic
 
