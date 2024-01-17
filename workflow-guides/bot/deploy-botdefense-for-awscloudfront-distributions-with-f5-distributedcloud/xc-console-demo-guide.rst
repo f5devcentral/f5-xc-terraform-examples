@@ -64,7 +64,7 @@ View Kubernetes Resources:
 Deploy our Sample Airline Application to the EKS Cluster:
 =======================================================
 1. Create a namespace using the "kubectl create namespace eks-airline-app"
-2. Download the Kubernetes Manifest made custom for AWS EKS using our sample Airline application `here <https://github.com/karlbort/fork-f5-xc-waap-terraform-examples/blob/main/workflow-guides/bot/deploy-botdefense-for-awscloudfront-distributions-with-f5-distributedcloud/airline-app/eks-airflask.yaml>`_ and save it to a directory
+2. Download the Kubernetes Manifest made custom for AWS EKS using our sample Airline application `here <https://github.com/karlbort/f5-xc-waap-terraform-examples/blob/main/workflow-guides/bot/deploy-botdefense-for-awscloudfront-distributions-with-f5-distributedcloud/airline-app/eks-airflask.yaml>`_ and save it to a directory
 3. From CLI Navigate to the directory containing the container image YAML file and run the command "kubectl apply -f eks-airflask.yaml -n eks-airline-app".
 4. Once this command has finished executing you can find the externally available Elastic Load Balancer's external IP by running the command "kubectl get services -n eks-airline-app". Copy the external dns name and paste it into a browser to ensure the eks application is available via the ELB
 
@@ -258,7 +258,7 @@ Simulating Bot Traffic with CURL:
 =================================
 
 1. Within this repo you can download the curl-stuff.sh Bash script in the validation-tools directory to run it against your web application to generate some generic Bot Traffic
-2. After you've downloaded the `curl-stuff.sh <https://github.com/karlbort/fork-f5-xc-waap-terraform-examples/tree/main/workflow-guides/bot/deploy-botdefense-for-awscloudfront-distributions-with-f5-distributedcloud/validation-tools/curl-stuff.sh>`__ bash script you can edit the file using a text editor and replace the ".cloudfront.net" domain name on line 3 with the DNS name and path of your actual Cloudfront Distribution for your application. For example, curl -s https://abcdefg.cloudfront.net/user/signin -i -X POST -d "username=1&password=1" you would replace the "abcdefg.cloudfront.net" hostname with the DNS name for your newly deployed Cloudfront protected application. Note** Make sure to keep the /user/signin path of the URI as this is the protected endpoint we configured in the Bot Defense Policy.
+2. After you've downloaded the `curl-stuff.sh <https://github.com/karlbort/f5-xc-waap-terraform-examples/tree/main/workflow-guides/bot/deploy-botdefense-for-awscloudfront-distributions-with-f5-distributedcloud/validation-tools/curl-stuff.sh>`__ bash script you can edit the file using a text editor and replace the ".cloudfront.net" domain name on line 3 with the DNS name and path of your actual Cloudfront Distribution for your application. For example, curl -s https://abcdefg.cloudfront.net/user/signin -i -X POST -d "username=1&password=1" you would replace the "abcdefg.cloudfront.net" hostname with the DNS name for your newly deployed Cloudfront protected application. Note** Make sure to keep the /user/signin path of the URI as this is the protected endpoint we configured in the Bot Defense Policy.
 3. Run the CURL script using "sh curl-stuff.sh" once or twice to generate bot traffic. Or you can always just copy the CURL command out of the script and manually enter it into a command prompt a few times.
 
 .. image:: assets/cloudfront-curl.png
