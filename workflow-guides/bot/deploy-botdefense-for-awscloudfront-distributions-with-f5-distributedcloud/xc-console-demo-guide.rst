@@ -1,5 +1,5 @@
 
-Deploy Bot Defense against for AWS Cloudfront Distributions with F5 XC
+Deploy Bot Defense for AWS Cloudfront Distributions with F5 XC
 ===========================================
 
 Objective :
