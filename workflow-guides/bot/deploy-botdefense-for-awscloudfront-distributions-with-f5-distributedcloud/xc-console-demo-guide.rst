@@ -267,14 +267,14 @@ Simulating Bot Traffic with CURL:
 View Bot Traffic​:
 =================
 
-1. Now let’s return to F5 XC Console and show the monitoring page
+1. Now let’s return to F5 XC Console and show the monitoring page over Overview > Monitor
 2. Log in to your F5 Distributed Cloud Console
 3. Go to the Dashboard page of XC console and click Bot Defense.
 4. Make sure you are in the correct Namespace
-5. Under Overview click Monitor
+5. Under Overview click Monitor and you can see our the bot detections of our newly protected Cloudfront Application. 
 
-.. image:: assets/bd-monitor.jpeg
-   :width: 75%
+.. image:: assets/bd-mon.png
+   :width: 100%
 
 6. Here you can monitor and respond to events that are identified as Bot traffic
 
