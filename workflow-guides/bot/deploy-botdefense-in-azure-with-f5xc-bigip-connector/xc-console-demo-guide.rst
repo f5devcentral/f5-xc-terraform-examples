@@ -1,11 +1,11 @@
 
-Deploy Bot Defense for AWS Cloudfront Distributions with F5 XC
-===========================================
+Deploy Bot Defense for Azure with F5 XC BIG-IP Connector
+========================================================
 
 Objective :
 -----------
 
-This guide will outline the steps for implementing F5 XC Bot Defense to protect your Azure workloads using our BIG-IP Connector. We will be deploying our sample application into Azure AKS (Azure Kubernetes Service) which we will then deploy into Azure and front-end this application with F5's BIG-IP configured with out XC Bot Defense Connector. We'll leverage F5 XC to setup and download our Bot Defense Connector which will be deployed directly to the BIG-IP. This guide will outline the steps for implementing this infrastructure via Console Steps as well as Automated method using Terraform.
+This guide will outline the steps for implementing F5 XC Bot Defense to protect your Azure workloads using our BIG-IP Connector. We will be deploying our sample application into Azure AKS (Azure Kubernetes Service) which we will then deploy into Azure and front-end this application with F5's BIG-IP configured with our XC Bot Defense Connector. We'll leverage F5 XC to setup and download our Bot Defense Connector which will be deployed directly to the BIG-IP. This guide will outline the steps for implementing this infrastructure via Console Steps as well as Automated method using Terraform.
 
 
 
