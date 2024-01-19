@@ -5,13 +5,13 @@ Deploy Bot Defense for AWS Cloudfront Distributions with F5 XC
 Objective :
 -----------
 
-This guide will outline the steps for implementing F5 XC Bot Defense to protect your AWS CloudFront distributions. We will be deploying our sample application into AWS EKS (Elastic Kubernetes Service) which we will then front-end this application with AWS Cloudfront. We'll leverage F5 XC to setup and download our Bot Defense Connector which will be deployed via an AWS Lambda Edge and the AWS Serverless Application Repository (SAR). This guide will outline the steps for implementing this infrastructure via Console Steps as well as Automated method using Terraform.
+This guide will outline the steps for implementing F5 XC Bot Defense to protect your Azure workloads using our BIG-IP Connector. We will be deploying our sample application into Azure AKS (Azure Kubernetes Service) which we will then deploy into Azure and front-end this application with F5's BIG-IP configured with out XC Bot Defense Connector. We'll leverage F5 XC to setup and download our Bot Defense Connector which will be deployed directly to the BIG-IP. This guide will outline the steps for implementing this infrastructure via Console Steps as well as Automated method using Terraform.
 
 
 
 Bot Defense on RE Architectural Diagram :
 -----------------------
-.. image:: assets/awscfdiag.png
+.. image:: assets/azurebd.png
    :width: 100%
 
 Manual step by step process for deployment:
