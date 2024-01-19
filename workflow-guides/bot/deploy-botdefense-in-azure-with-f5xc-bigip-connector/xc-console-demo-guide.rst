@@ -5,12 +5,12 @@ Deploy Bot Defense for Azure with F5 XC BIG-IP Connector
 Objective :
 -----------
 
-This guide will outline the steps for implementing F5 XC Bot Defense to protect your Azure workloads using our BIG-IP Connector. We will be deploying our sample application into Azure AKS (Azure Kubernetes Service) which we will then deploy into Azure and front-end this application with F5's BIG-IP configured with our XC Bot Defense Connector. We'll leverage F5 XC to setup and download our Bot Defense Connector which will be deployed directly to the BIG-IP. This guide will outline the steps for implementing this infrastructure via Console Steps as well as Automated method using Terraform.
+This guide will outline the steps for implementing F5 XC Bot Defense to protect your Azure workloads using our BIG-IP Connector. First we will be deploying our sample application into Azure AKS (Azure Kubernetes Service). Then we will deploy into Azure and front-end this application with F5's BIG-IP configured with our XC Bot Defense Connector. We'll leverage F5 XC to setup and download our Bot Defense Connector which will be deployed directly to the BIG-IP. This guide will outline the steps for implementing this infrastructure via Console Steps as well as Automated method using Terraform.
 
 
 
-Bot Defense on RE Architectural Diagram :
------------------------
+Bot Defense for Azure Architectural Diagram :
+=============================================
 .. image:: assets/azurebd.png
    :width: 100%
 
@@ -21,17 +21,17 @@ Console Deployment Prerequisites:
 ^^^^^^^^^^^^^^
 
 1. F5 Distributed Cloud Account (F5XC)
-2. AWS Cloud Account
-3. eksctl – already installed on your machine. See Installing or updating `eksctl <https://eksctl.io/installation/>`_
-4. kubectl already installed on your machine
-5. AWS CLI already installed on your machine. See documentation `here <https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html>`_
-6. Required IAM permissions
+2. Azure Cloud Account (If you don't have an Azure subscription, create an Azure free account before you begin)
+3. 
+4. 
+5. 
+6. 
 
 Steps:
 ^^^^^^
 
-Create your Amazon EKS cluster and nodes:
-=========================================
+Create an Azure Resource Group
+==============================
 
 1. First we'll start out with the AWS CLI configured locally on your machine. To check the current user, run the following command: "aws sts get-caller-identity". If you get any errors when running this command you'll need to login to your Account and click on CLI or Programatic Access. You'll need to paste the credentials into your CLI. Once you've refreshed your credentials frun the "aws sts get-caller-identity" command again. 
 
