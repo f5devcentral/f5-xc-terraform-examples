@@ -13,6 +13,6 @@ data "aws_instances" "my_worker_nodes" {
 
 data "aws_instance" "ec2_subnets" {
   depends_on = [aws_eks_addon.cluster-addons]
-  count    = var.desired_size
+  count    = skip_ha_az_node_group ? var.desired_size : 2
   instance_id = data.aws_instances.my_worker_nodes.ids[count.index]
 }
