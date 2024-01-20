@@ -80,3 +80,15 @@ variable "aks-cluster" {
 variable "azure-vm" {
   type = bool
 }
+variable "aws_access_key" {
+  description = "AWS Access Key ID"
+  type        = string
+  sensitive   = true
+  default     = null
+}
+variable "aws_secret_key" {
+  description = "AWS Secret Key ID"
+  type        = string
+  sensitive   = true
+  default     = null
+}

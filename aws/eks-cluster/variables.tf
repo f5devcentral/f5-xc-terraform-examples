@@ -39,6 +39,54 @@ variable "ssh_key" {
   description = "Unneeded for EKS, only present for warning handling with TF cloud variable set"
 }
 
+variable "skip_ha_az_node_group" {
+  type        = bool
+  description = "Skipping creation of Instances in Availability Zones in AWS Region"
+  default     = false
+}
+
+variable "desired_size" {
+  type        = number
+  description = "Desired size of the nodes in Node Group of EKS Cluster"
+  default     = 2
+}
+
+variable "max_size" {
+  type        = number
+  description = "Maximum size of the nodes in Node Group of EKS Cluster"
+  default     = 3
+}
+
+variable "min_size" {
+  type        = number
+  description = "Maximum size of the nodes in Node Group of EKS Cluster"
+  default     = 1
+}
+
+variable "skip_private_subnet_creation" {
+ type         = bool
+ description  = "This creates in Nodes for EKS Cluster in Public Subnet instead of Private Subnet"
+ default      = false
+}
+
+variable "allow_all_ingress_traffic_to_cluster" {
+ type         = bool
+ description  = "Acception all Traffic to the instance created by EKS Cluster Nodes"
+ default      = false
+}
+variable "aws_access_key" {
+  description = "AWS Access Key ID"
+  type        = string
+  sensitive   = true
+  default     = null
+}
+
+variable "aws_secret_key" {
+  description = "AWS Secret Key ID"
+  type        = string
+  sensitive   = true
+  default     = null
+}
 
 
 
