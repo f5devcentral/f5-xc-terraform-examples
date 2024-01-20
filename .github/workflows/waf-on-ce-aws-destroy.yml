@@ -303,13 +303,3 @@ jobs:
       - name: Terraform Destroy
         if: github.ref == 'refs/heads/destroy-waf-aws-ce' && github.event_name == 'push'
         run: terraform destroy -auto-approve -input=false
-        
-<<<<<<< HEAD
-  
-=======
-    
-      
-        
-
-  
->>>>>>> 06d81f8cb92a0ae254e231f83877e817af2734c5
