@@ -56,7 +56,7 @@ resource "null_resource" "after" {
   depends_on = ["null_resource.delay"]
 }
 
-resource "volterra_tf_params_action" "vpc_apply" {
+resource "volterra_tf_params_action" "example" {
   count = var.aws_ce_site ? 1 : 0
   depends_on       = [null_resource.after]
   site_name        = "${coalesce(var.site_name, local.project_prefix)}"
@@ -68,7 +68,7 @@ resource "volterra_tf_params_action" "vpc_apply" {
 
 resource "null_resource" "check_site_status_cert2" {
   count         = var.aws_ce_site == "true" ? 1 : 0
-  depends_on       = [volterra_tf_params_action.vpc_apply]
+  depends_on       = [volterra_tf_params_action.example]
   provisioner "local-exec" {
     command     = format("bash ${path.module}/check_ce_status.sh config/namespaces/system/sites/%s api.p12 %s 3600 cert $VES_P12_PASSWORD", var.site_name, var.xc_tenant)
   }
