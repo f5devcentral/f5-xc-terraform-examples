@@ -35,7 +35,7 @@ AZ2 = 10.0.16.0/20
   networks        = [
     {
       name     = "management"
-      new_bits = 8
+      new_bits = 6
       #10.0.0.0/28
       #10.0.16.0/28
     },
@@ -53,7 +53,7 @@ AZ2 = 10.0.16.0/20
     },
     {
       name     = "app-cidr"
-      new_bits = 4
+      new_bits = 2
       #10.0.1.0/24 EC2
       #10.0.17.0/24 EKS
     }
