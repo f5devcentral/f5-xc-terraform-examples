@@ -11,7 +11,7 @@ resource "null_resource" "wait_for_ekssite"{
 
 resource "null_resource" "wait_for_aws_ce_site"{
   count           =  var.aws_ce_site ? 1 : 0
-  depends_on      =  [volterra_tf_params_action.vpc_apply]
+  depends_on      =  [volterra_tf_params_action.example]
 }
 
 # Create XC LB config
