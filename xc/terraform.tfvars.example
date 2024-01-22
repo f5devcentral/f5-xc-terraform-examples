@@ -45,4 +45,3 @@ xc_mud = false
 # CE configs
 gcp_ce_site = "false"
 aws_ce_site = "false"
-aws_eks_cluster = false

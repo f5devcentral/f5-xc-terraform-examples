@@ -175,7 +175,7 @@ Keep the rest of the values as they are.
 
 **STEP 6:** To validate the test infra, copy the public IP of CE site (**Note:** In terraform cloud click on `xc-deploy` workspace and select `Outputs` tab to get the public of azure CE site) and send a request with XC LB domain as a `Host` header, You should be able to access the demo application as shown in the image below:
 
-.. image:: assets/testing.JPG
+.. image:: Assets/testing_logs.jpg
 
 **Note:** If you want to destroy the entire setup, checkout a branch with name ``destroy-waf-aws-ce`` and push the repo code to it which will trigger destroy workflow and will remove all created resources.
 
