@@ -38,7 +38,7 @@ data "tfe_outputs" "eks" {
   workspace           = "eks"
 }
 data "tfe_outputs" "aws_eks_cluster" {
-  count               = var.aws_eks_cluster ? 1 : 0
+  count               = var.aws_ce_site ? 1 : 0
   organization        = var.tf_cloud_organization
   workspace           = "aws_eks_cluster"
 }

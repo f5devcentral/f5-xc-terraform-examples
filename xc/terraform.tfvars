@@ -47,4 +47,3 @@ gcp_ce_site = "false"
 
 #AWS CE Site creation
 aws_ce_site = "true"
-aws_eks_cluster = true

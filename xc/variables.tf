@@ -202,12 +202,6 @@ variable "aws_ce_site" {
   default     = "false"
 }
 
-variable "aws_eks_cluster" {
-  type        = string
-  description = "Whether it's EKS site for AWS CE ?"
-  default     = "false"
-}
-
 variable "aws_access_key" {
   description = "AWS Access Key ID"
   type        = string
