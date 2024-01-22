@@ -30,13 +30,12 @@ Tools
 Terraform Cloud
 ---------------
 
--  **Workspaces:** Create CLI or API workspaces for each asset in the
-   workflow.
+-  **Workspaces:** Create CLI or API workspaces for each asset in the workflow as mentioned below.
 
    +---------------------------+-------------------------------------------+
    |         **Workflow**      |  **Assets/Workspaces**                    |
    +===========================+===========================================+
-   | F5 XC WAF on CE Deploy    | infra, aws-eks-cluster, boutique_app, xc-ce-site  |
+   | F5 XC WAF on CE Deploy    | infra, aws_eks_cluster, boutique_app, xc-ce-site  |
    +---------------------------+-------------------------------------------+
 
 .. image:: Assets/workspace.jpg
@@ -163,7 +162,7 @@ Workflow File: `waf-on-ce-aws-destroy.yml </.github/workflows/waf-on-ce-aws-dest
 
 -  advertise_sites = "set to true to advertise on public"
 
--  http_only = "set to true to deploy a http loadbalancer"
+-  http_only = "set to true to deploy a http loadbalancer."
 
 
 Keep the rest of the values as they are.
