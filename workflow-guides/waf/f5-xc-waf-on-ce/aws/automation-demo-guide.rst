@@ -174,7 +174,7 @@ Keep the rest of the values as they are.
 
 - Build will run and can be monitored in the GitHub Actions tab and TF Cloud console
 
-.. image:: Assets/deploy_pipeline.JPG
+.. image:: Assets/deploy_pipeline.jpg
 
 **STEP 5:** Once the pipeline completes, verify your CE, Origin Pool and LB were deployed or destroyed based on your workflow. (**Note:** CE sites will take 15-20 mins to come online)
 
@@ -184,5 +184,5 @@ Keep the rest of the values as they are.
 
 **Note:** If you want to destroy the entire setup, checkout a branch with name ``destroy-waf-ce`` and push the repo code to it which will trigger destroy workflow and will remove all created resources
 
-.. image:: assets/destroy_pipeline.JPG
+.. image:: assets/destroy_pipeline.jpg
 
