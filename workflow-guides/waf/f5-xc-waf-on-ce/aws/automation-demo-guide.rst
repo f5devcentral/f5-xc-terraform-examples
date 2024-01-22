@@ -122,7 +122,7 @@ Workflow                        Branch Name
 F5 XC WAF on CE Destroy         destroy-waf-aws-ce
 ========================        =======================
 
-Workflow File: `waf-on-ce-az-destroy.yml </.github/workflows/waf-on-ce-aws-destroy.yml>`__
+Workflow File: `waf-on-ce-aws-destroy.yml </.github/workflows/waf-on-ce-aws-destroy.yml>`__
 
 **STEP 2:** Rename ``aws/infra/terraform.tfvars.examples`` to ``aws/infra/terraform.tfvars`` and add the following data: 
 
@@ -140,7 +140,7 @@ Workflow File: `waf-on-ce-az-destroy.yml </.github/workflows/waf-on-ce-aws-destr
 -  desired_size = "set to number 1"
 -  max_size = "set to number 1"
 -  min_size = "set to number 1"
--  skip_private_subnet_creation = "set the boolean to true to deploy the create the EC2 Worker Nodes in Public Subnets"
+-  skip_private_subnet_creation = "set the boolean to true to deploy EKS Cluster Nodes in Public Subnets"
 -  allow_all_ingress_traffic_to_cluster = "Set the boolean to true to accept the traffic from F5 XC VPC Site(master)"
 
 **Step 4:** Rename ``xc/terraform.tfvars.examples`` to ``xc/terraform.tfvars`` and add the following data: 
@@ -157,15 +157,13 @@ Workflow File: `waf-on-ce-az-destroy.yml </.github/workflows/waf-on-ce-aws-destr
 
 -  aws_ce_site = "set to true to deploy AWS CE site"
 
--  aws_eks_cluster = "k8s service name of frontend microservice"
+-  aws_eks_cluster = "To gather the resources from Terraform Cloud Workspace that required for created AWS VPC site in F5 XC"
 
--  ip_address_on_site_pool = "k8s service port of frontend microservice"
+-  ip_address_on_site_pool = "Set to true to configured the Private IP address of the EKS Cluster Nodes"
 
--  advertise_sites = "set to false if want to advertise on public"
+-  advertise_sites = "set to true to advertise on public"
 
--  http_only = "set to true if want to deploy a http loadbalancer, for https lb set it to false"
-
--  az_ce_site = "set to true if want to deploy azure CE site"
+-  http_only = "set to true to deploy a http loadbalancer"
 
 
 Keep the rest of the values as they are.
@@ -182,7 +180,9 @@ Keep the rest of the values as they are.
 
 .. image:: assets/testing.JPG
 
-**Note:** If you want to destroy the entire setup, checkout a branch with name ``destroy-waf-ce`` and push the repo code to it which will trigger destroy workflow and will remove all created resources
+**Note:** If you want to destroy the entire setup, checkout a branch with name ``destroy-waf-aws-ce`` and push the repo code to it which will trigger destroy workflow and will remove all created resources.
 
-.. image:: assets/destroy_pipeline.jpg
+.. image:: Assets/destroy_pipeline.jpg
+
+**Note:** Due to timing issue there might be chance of not deleting the AWS VPC site. Please remove the VPS site while deploying Infra again.
 
