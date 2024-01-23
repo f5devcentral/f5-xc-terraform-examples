@@ -32,11 +32,11 @@ Terraform Cloud
 
 -  **Workspaces:** Create CLI or API workspaces for each asset in the workflow as mentioned below.
 
-   +---------------------------+-------------------------------------------+
-   |         **Workflow**      |  **Assets/Workspaces**                    |
-   +===========================+===========================================+
-   | F5 XC WAF on CE Deploy    | infra, aws_eks_cluster, boutique_app, xc-ce-site  |
-   +---------------------------+-------------------------------------------+
+   +---------------------------+-----------------------------------------------------+
+   |         **Workflow**      |  **Assets/Workspaces**                              |
+   +===========================+=====================================================+
+   | F5 XC WAF on CE Deploy    | infra, aws_eks_cluster, boutique_app, xc-ce-site    |
+   +---------------------------+-----------------------------------------------------+
 
 .. image:: Assets/workspace.jpg
 

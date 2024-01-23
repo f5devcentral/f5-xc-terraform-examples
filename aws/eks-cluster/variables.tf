@@ -41,7 +41,7 @@ variable "ssh_key" {
 
 variable "skip_ha_az_node_group" {
   type        = bool
-  description = "Skipping creation of Instances in Availability Zones in AWS Region"
+  description = "Whether to create 2nd Node Group or not, True implies not to create 2nd Node Group"
   default     = false
 }
 

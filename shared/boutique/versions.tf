@@ -1,11 +1,9 @@
 terraform {
   required_version = ">= 0.14.0"
   required_providers {
-    volterra = {
-      source = "volterraedge/volterra"
-      version = "0.11.29"
-    }
-    kubectl = {
+    aws = ">= 4"
+
+	kubectl = {
       source  = "gavinbunney/kubectl"
       version = ">= 1.7.0"
     }

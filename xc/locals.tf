@@ -11,7 +11,7 @@ locals {
   #59origin_port = try(data.tfe_outputs.nap.values.external_port, data.tfe_outputs.nic.values.external_port, "80")
   aws_ec2_subnet = try(data.tfe_outputs.aws_eks_cluster[0].values.subnets_of_ec2[0], "")
   aws_ec2_azs = try(data.tfe_outputs.aws_eks_cluster[0].values.availability_zones_ec2[0], "")
-  origin_port = try(data.tfe_outputs.nap[0].values.external_port, data.tfe_outputs.nic[0].values.external_port, data.tfe_outputs.azure-vm[0].values.arcadia_port, data.tfe_outputs.aws_eks_cluster[0].values.boutique_port, "80")
+  origin_port = try(data.tfe_outputs.nap[0].values.external_port, data.tfe_outputs.nic[0].values.external_port, data.tfe_outputs.azure-vm[0].values.arcadia_port, data.tfe_outputs.app[0].values.boutique_port, "80")
   dns_origin_pool = local.origin_nginx != "" ? true : false 
   vpc_id              = try(data.tfe_outputs.infra.values.vpc_id, "")
   kubeconfig = try(data.tfe_outputs.aks-cluster[0].values.kube_config, "")

@@ -41,8 +41,3 @@ output "availability_zones_ec2" {
   description = "Availability zones of deployed instances in orderly format"
   value = [for i in range(length(data.aws_instances.my_worker_nodes.ids)) : data.aws_instance.ec2_subnets[i].availability_zone]
 }
-
-output "boutique_port" {
-   value       = 30019
-   description = "Boutique application opened port"
-}
