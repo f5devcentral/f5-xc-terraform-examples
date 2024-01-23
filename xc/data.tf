@@ -42,7 +42,7 @@ data "tfe_outputs" "aws_eks_cluster" {
   organization        = var.tf_cloud_organization
   workspace           = "aws_eks_cluster"
 }
-data "tfe_outputs" "app" {
+data "tfe_outputs" "app-deploy" {
   count               = var.aws_ce_site ? 1 : 0
   organization        = var.tf_cloud_organization
   workspace           = "boutique_app"
