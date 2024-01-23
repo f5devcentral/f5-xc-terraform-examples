@@ -156,6 +156,8 @@ Workflow File: `waf-on-ce-aws-destroy.yml </.github/workflows/waf-on-ce-aws-dest
 
 -  aws_ce_site = "set to true to deploy AWS CE site"
 
+-  site_name = "Provide a name for AWS VPC site"
+
 -  ip_address_on_site_pool = "Set to true to configured the Private IP address of the EKS Cluster Nodes"
 
 -  advertise_sites = "set to true to advertise on public"

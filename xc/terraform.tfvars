@@ -9,7 +9,7 @@ xc_waf_blocking = "true"
 k8s_pool = "false"
 serviceName = "10.218.11.245"
 serviceport = "9080"
-site_name = "chthonda-site"
+site_name = "chthonda-waf-site"
 advertise_sites = "true"
 http_only = "true"
 
@@ -37,4 +37,3 @@ xc_mud = false
 
 #Origin pool
 ip_address_on_site_pool = true
-aws_eks_cluster = true
