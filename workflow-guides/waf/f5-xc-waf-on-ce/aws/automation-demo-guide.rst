@@ -81,9 +81,6 @@ GitHub
 -  **Actions Secrets:** Create the following GitHub Actions secrets in
    your forked repo
 
-   -  AWS_ACCESS_KEY_ID: AWS Access Key ID
-   -  AWS_SECRET_ACCESS_KEY: AWS Secret Access Key
-   -  AWS_SESSION_TOKEN: AWS Session Token
    -  P12: The linux base64 encoded F5XC P12 certificate
    -  SSH_KEY: ssh key for accessing the created resources
    -  TF_API_TOKEN: Your Terraform Cloud API token
@@ -95,7 +92,7 @@ GitHub
    
 
 -  Created GitHub Action Secrets:
-.. image:: Assets/secrets_github.jpg
+.. image:: Assets/secrets_github2.jpg
 
 Workflow Runs
 -------------
