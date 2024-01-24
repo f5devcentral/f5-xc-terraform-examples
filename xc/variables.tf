@@ -194,3 +194,24 @@ variable "ip_address_on_site_pool" {
   description = "If pool member is Private IP on given sites"
   default     = "false"
 }
+
+# EKS CE Site with F5 XC Volt Mesh
+variable "aws_ce_site" {
+  type        = string
+  description = "Whether it's EKS site for AWS CE ?"
+  default     = "false"
+}
+
+variable "aws_access_key" {
+  description = "AWS Access Key ID"
+  type        = string
+  sensitive   = true
+  default     = null
+}
+
+variable "aws_secret_key" {
+  description = "AWS Secret Key ID"
+  type        = string
+  sensitive   = true
+  default     = null
+}

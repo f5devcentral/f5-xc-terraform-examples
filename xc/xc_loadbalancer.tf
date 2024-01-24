@@ -9,9 +9,14 @@ resource "null_resource" "wait_for_ekssite"{
   depends_on      =  [volterra_registration_approval.k8s-ce]
 }
 
+resource "null_resource" "wait_for_aws_ce_site"{
+  count           =  var.aws_ce_site ? 1 : 0
+  depends_on      =  [volterra_tf_params_action.example]
+}
+
 # Create XC LB config
 resource "volterra_origin_pool" "op" {
-  depends_on             = [null_resource.wait_for_site, null_resource.check_site_status_cert, null_resource.wait_for_ekssite]
+  depends_on             = [null_resource.wait_for_site, null_resource.check_site_status_cert2, null_resource.check_site_status_cert, null_resource.wait_for_ekssite, null_resource.wait_for_aws_ce_site]
   name                   = format("%s-xcop-%s", local.project_prefix, local.build_suffix)
   namespace              = var.xc_namespace
   description            = format("Origin pool pointing to origin server %s", local.origin_server)
