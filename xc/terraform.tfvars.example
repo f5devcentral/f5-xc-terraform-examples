@@ -45,3 +45,4 @@ xc_mud = false
 # CE configs
 gcp_ce_site = "false"
 aws_ce_site = "false"
+site_name = "waf-on-ce"
