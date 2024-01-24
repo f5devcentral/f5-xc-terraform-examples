@@ -18,14 +18,13 @@ Manual step by step process for deployment:
 -------------------------------------------
 
 Console Deployment Prerequisites:
-^^^^^^^^^^^^^^
+=================================
 
 1. F5 Distributed Cloud Account (F5XC)
-2. Azure Cloud Account (If you don't have an Azure subscription, create an Azure free account before you begin)
+2. Azure Cloud Account (If you don't have an Azure subscription, create an Azure free account before you begin `here <https://portal.azure.com/>_`) 
 3. 
 4. 
-5. 
-6. 
+
 
 Steps:
 ^^^^^^
