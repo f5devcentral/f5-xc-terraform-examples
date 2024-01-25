@@ -37,6 +37,7 @@ Signing into Azure CLI
 1. From CLI run the "az login" command
 2. If the Azure CLI can open your default browser, it initiates authorization code flow and opens the default browser to load an Azure sign-in page
 3. Sign in with your account credentials in the browser
+4. If you have multiple Azure subscriptions, select the appropriate subscription ID in which the resources should be billed using the az account set command
 
 .. image:: assets/azlogin.png
    :width: 100%
@@ -44,38 +45,33 @@ Signing into Azure CLI
 Create an Azure Resource Group
 ==============================
 
-1. First we'll start out with the AWS CLI configured locally on your machine. To check the current user, run the following command: "aws sts get-caller-identity". If you get any errors when running this command you'll need to login to your Account and click on CLI or Programatic Access. You'll need to paste the credentials into your CLI. Once you've refreshed your credentials frun the "aws sts get-caller-identity" command again. 
+1.Create a resource group using the "az group create --name az-xcbotdefense --location westus2" command
 
-.. image:: assets/awscreds.png
+.. image:: assets/azresourcegroup3.png
    :width: 100%
 
-2. Next, lets use the "aws configure" command to specify our region as us-west-2. You can just use the enter key to maintain the key values but when it gets to the aws region make sure you change it to us-west-2.
-3. Create your Amazon EKS cluster with the following command "eksctl create cluster --name airlineapp-eks --region us-west-2" 
-4. For the sake of our lab we'll be using the us-west-2 region for our EKS cluster 
-5. Cluster creation takes several minutes. During creation you'll see several lines of output. The last line of output is similar to the following example line.
+Create an AKS (Azure Kubernetes Service Cluster
+===============================================
 
-.. image:: assets/clusteroutput1.png
-   :width: 100%
+1. To create an AKS cluster, use the az aks create command. The following example creates a cluster named "aks-airlineapp-cluster" with one node and enables a system-assigned managed identity
+2. Copy paste the command "az aks create --resource-group az-xcbotdefense --name aks-airlineapp-cluster --enable-managed-identity --node-count 1" 
+3. After a few minutes, the command completes and returns JSON-formatted information about the cluster
 
-6. eksctl created a kubectl config file in ~/.kube or added the new cluster's configuration within an existing config file in ~/.kube on your computer.
-7. After cluster creation is complete, view the AWS CloudFormation stack named "eksctl-airlineapp-eks-cluster" in the AWS `CloudFormation console <https://console.aws.amazon.com/cloudformation>`_ to see all of the resources that were created.
-
-View Kubernetes Resources:
+Connect to the Cluster:
 ==========================
-1. View your cluster nodes with "kubectl get nodes -o wide". An example output is as follows
 
-.. image:: assets/getnodes2.png
-   :width: 50%
+1. Configure kubectl to connect to your Kubernetes cluster using the az aks get-credentials command. This command downloads credentials and configures the Kubernetes CLI to use them.
+2. Copy paste the following command into cli "az aks get-credentials --resource-group az-xcbotdefense --name aks-airlineapp-cluster"
+3. Verify the connection to your cluster using the "kubectl get nodes" command. This command returns a list of the cluster nodes.
+4. The following sample output shows the single node created in the previous steps. Make sure the node status is Ready.
 
-2. View the workloads running on your cluster with "kubectl get pods -A -o wide"
+.. image:: assets/getnodes.png
+   :width: 100%
 
-.. image:: assets/getpods3.png
-   :width: 50%
-
-Deploy our Sample Airline Application to the EKS Cluster:
-=======================================================
+Deploy our Sample Airline Application to the AKS Cluster:
+=========================================================
 1. Create a namespace using the "kubectl create namespace eks-airline-app"
-2. Download the Kubernetes Manifest made custom for AWS EKS using our sample Airline application `here <https://github.com/karlbort/f5-xc-waap-terraform-examples/blob/main/workflow-guides/bot/deploy-botdefense-for-awscloudfront-distributions-with-f5-distributedcloud/airline-app/eks-airflask.yaml>`_ and save it to a directory
+2. Download the Kubernetes Manifest made custom for AKS using our sample Airline application `here <https://github.com/karlbort/f5-xc-waap-terraform-examples/blob/main/workflow-guides/bot/deploy-botdefense-for-awscloudfront-distributions-with-f5-distributedcloud/airline-app/eks-airflask.yaml>`_ and save it to a directory
 3. From CLI Navigate to the directory containing the container image YAML file and run the command "kubectl apply -f eks-airflask.yaml -n eks-airline-app".
 4. Once this command has finished executing you can find the externally available Elastic Load Balancer's external IP by running the command "kubectl get services -n eks-airline-app". Copy the external dns name and paste it into a browser to ensure the eks application is available via the ELB
 
