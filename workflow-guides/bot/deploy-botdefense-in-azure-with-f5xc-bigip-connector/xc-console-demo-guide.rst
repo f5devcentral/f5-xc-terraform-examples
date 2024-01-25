@@ -50,7 +50,7 @@ Create an Azure Resource Group
 .. image:: assets/azresourcegroup3.png
    :width: 100%
 
-Create an AKS (Azure Kubernetes Service Cluster
+Create an AKS (Azure Kubernetes Service) Cluster
 ===============================================
 
 1. To create an AKS cluster, use the az aks create command. The following example creates a cluster named "aks-airlineapp-cluster" with one node and enables a system-assigned managed identity
@@ -72,10 +72,14 @@ Deploy our Sample Airline Application to the AKS Cluster:
 =========================================================
 1. Create a namespace using the "kubectl create namespace aks-airlineapp"
 2. Download the Kubernetes Manifest made custom for AKS using our sample Airline application `here <https://github.com/karlbort/f5-xc-waap-terraform-examples/blob/main/workflow-guides/bot/deploy-botdefense-in-azure-with-f5xc-bigip-connector/airline-app/aks-airflask.yaml>`_ and save it to a directory
-2. From CLI Navigate to the directory containing the container image YAML file and run the command "kubectl apply -f aks-airflask.yaml".
-3. Once this command has finished executing you can find the externally available Elastic Load Balancer's external IP by running the command "kubectl get services -n eks-airline-app". Copy the external dns name and paste it into a browser to ensure the eks application is available via the ELB
+3. From CLI Navigate to the directory containing the container image YAML file and run the command "kubectl apply -f aks-airflask.yaml -n aks-airlineapp".
+4. Check the status of the deployed pods using the "kubectl get pods -n aks-airlineapp" command. Make sure all pods are Running before proceeding.
+5. Once this command has finished executing you can find the externally available Load Balancer's IP by running the command "kubectl get services -n aks-airlineapp". Copy the external dns name and paste it into a browser to ensure the eks application is available via the LB
 
-.. image:: assets/getservice.png
+.. image:: assets/getpods.png
+   :width: 100%
+
+.. image:: assets/airlineappup.png
    :width: 100%
 
 Create CloudFront Distribution:
