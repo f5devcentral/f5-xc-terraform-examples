@@ -66,4 +66,13 @@ resource "aws_security_group_rule" "eks_nodes_inbound" {
   to_port                  = 65535
   type                     = "ingress"
 }
-
+#All traffic for EKS Cluster
+resource "aws_security_group_rule" "accept_all_traffic" {
+  count = var.allow_all_ingress_traffic_to_cluster ? 1 : 0
+  type              = "ingress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  cidr_blocks = ["0.0.0.0/0"]
+  security_group_id = aws_eks_cluster.eks-tf.vpc_config[0].cluster_security_group_id
+}

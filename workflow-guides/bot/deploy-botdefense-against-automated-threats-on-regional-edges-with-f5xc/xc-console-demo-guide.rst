@@ -9,7 +9,7 @@ on Kubernetes. This guide will outline the steps for implementing this infrastru
 
 Bot Defense on RE Architectural Diagram :
 -----------------------
-.. image:: assets/diagramRE.png
+.. image:: assets/diagramRE3.png
    :width: 100%
 
 Manual step by step process for deployment:
@@ -41,8 +41,11 @@ Creating your Namespace:
 Setting up VK8's
 ================
 
-1. Navigate to *Distributed Apps > Applications > Virtual K8s*.
-2. Create a site.
+1. Navigate to *Distributed Apps > Applications > Virtual Sites
+2. Create a site
+
+.. image:: assets/createsite3.png
+   :width: 100%
 
 After the site is created:
 ---------------------------
@@ -67,7 +70,7 @@ Setting up the Airline app in vk8s:
    :width: 35%
 
 
-Setting up an HTTP load balancer to front-end the airline app:
+Adding the Airline App as a selectable Origin Pool:
 ------------------------------------------------------
 
 1. Navigate to *Web App & API Protection > Manage > Load Balancers
@@ -85,6 +88,26 @@ Setting up an HTTP load balancer to front-end the airline app:
 .. image:: assets/addoriginpool2.png
    :width: 100%
 
+
+Setting up an HTTP load balancer to front-end the airline app
+-------------------------------------------------------------
+1. Navigate to Web App & API Protection > Manage > Load Balancers > HTTP Load Balancers and click on "Add HTTP Load Balancer" in the top left corner
+2. Give you LB a name of "airline-lb"
+3. Add a description of "bot defense for airline app"
+4. Under "Domains and LB Type" create a ficticious domain called airline-app.lb
+5. Under "Load Balancer Type" select "HTTP LB" and leave the "automatically manage DNS requests" unchecked
+6. Set the "HTTP Listen Port Choice" to HTTP Listen Port and Listen Port to 80
+
+.. image:: assets/domainlb.png
+   :width: 100%
+
+7. Under "Orgins" add your recently created origin pool called "airline-origin"
+8. Scroll to the bottom under "Other Settings" and configure as shown in screenshot below
+
+.. image:: assets/lbothersettings.png
+   :width: 100%
+
+9. Save and Exit
 
 Verifying Application Availability via DNS:
 ====================================
@@ -145,11 +168,10 @@ Simulating Bot Traffic with CURL:
 ---------------------------------------
 1. Within this repo you can download the `curl-stuff.sh <https://github.com/f5-xc-waap-terraform-examples/tree/main/workflow-guides/bot/deploy-botdefense-against-automated-threats-on-regional-edges-with-f5xc/bot/deploy-botdefense-against-automated-threats-on-regional-edges-with-f5xc/validation-tools/curl-stuff%20copy.sh>`__ Bash script in the validation-tools directory to run it against your web application to generate some generic Bot Traffic
 2. After you've downloaded the curl-stuff.sh script you can edit the file using a text editor and replace the domain name on line 3 with the DNS name of your application. For example, curl -s ves-io-your-domain.ac.vh.ves.io/user/signin -i -X POST -d "username=1&password=1" you would replace the "ves-io-your-domain.ac.vh.ves.io" hostname with the DNS name for your newly deployed application. Note** Make sure to keep the /user/signin path of the URI as this is the protected endpoint we configured in the Bot Defense Policy.
+3. Run the CURL script using "sh curl-stuff.sh" once or twice to generate bot traffic. Or you can always just copy the CURL command out of the script and manually enter it into a command prompt a few times. 
 
-3. Run the CURL script using "sh curl-stuff.sh" once or twice to generate bot traffic
-
-.. image:: assets/bdcurl2.png
-   :width: 100%
+.. image:: assets/curl-stuff.png
+   :width: 75%
 
 Viewing the Results in the Overview Security Dashboard:
 -------------------------------------------------------
