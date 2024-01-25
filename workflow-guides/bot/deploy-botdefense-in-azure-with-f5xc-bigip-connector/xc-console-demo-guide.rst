@@ -70,10 +70,10 @@ Connect to the Cluster:
 
 Deploy our Sample Airline Application to the AKS Cluster:
 =========================================================
-1. Create a namespace using the "kubectl create namespace eks-airline-app"
-2. Download the Kubernetes Manifest made custom for AKS using our sample Airline application `here <https://github.com/karlbort/f5-xc-waap-terraform-examples/blob/main/workflow-guides/bot/deploy-botdefense-for-awscloudfront-distributions-with-f5-distributedcloud/airline-app/eks-airflask.yaml>`_ and save it to a directory
-3. From CLI Navigate to the directory containing the container image YAML file and run the command "kubectl apply -f eks-airflask.yaml -n eks-airline-app".
-4. Once this command has finished executing you can find the externally available Elastic Load Balancer's external IP by running the command "kubectl get services -n eks-airline-app". Copy the external dns name and paste it into a browser to ensure the eks application is available via the ELB
+1. Create a namespace using the "kubectl create namespace aks-airlineapp"
+2. Download the Kubernetes Manifest made custom for AKS using our sample Airline application `here <https://github.com/karlbort/f5-xc-waap-terraform-examples/blob/main/workflow-guides/bot/deploy-botdefense-in-azure-with-f5xc-bigip-connector/airline-app/aks-airflask.yaml>`_ and save it to a directory
+2. From CLI Navigate to the directory containing the container image YAML file and run the command "kubectl apply -f aks-airflask.yaml".
+3. Once this command has finished executing you can find the externally available Elastic Load Balancer's external IP by running the command "kubectl get services -n eks-airline-app". Copy the external dns name and paste it into a browser to ensure the eks application is available via the ELB
 
 .. image:: assets/getservice.png
    :width: 100%
