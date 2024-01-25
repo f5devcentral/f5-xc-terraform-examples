@@ -2,7 +2,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: airline-flask
-  namespace: aks-airline-app
+  namespace: aks-airlineapp
 spec:
   replicas: 1
   selector:
