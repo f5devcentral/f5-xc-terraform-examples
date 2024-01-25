@@ -24,12 +24,22 @@ Console Deployment Prerequisites:
 2. Azure Cloud Account (If you don't have an Azure subscription, create an Azure free account before you begin `here <https://portal.azure.com/>`_) 
 3. Azure CLI: Install the Azure CLI on your local machine. You can download it from the official Azure `CLI website <https://learn.microsoft.com/en-us/cli/azure/install-azure-cli>`_
 4. kubectl: Install kubectl on your local machine. You can find installation instructions on the `kubectl installation page <https://kubernetes.io/docs/tasks/tools/>`_
-5. Helm: Install Helm on your local machine. Helm is used to deploy the F5 BIG-IP Controller. You can find Helm installation instructions on the `Helm website <https://helm.sh/docs/intro/install/>`_
-6. F5 BIG-IP Controller License:
+
 
 
 Steps:
 ^^^^^^
+
+
+Signing into Azure CLI
+======================
+
+1. From CLI run the "az login" command
+2. If the Azure CLI can open your default browser, it initiates authorization code flow and opens the default browser to load an Azure sign-in page
+3. Sign in with your account credentials in the browser
+
+.. image:: assets/azlogin.png
+   :width: 100%
 
 Create an Azure Resource Group
 ==============================
