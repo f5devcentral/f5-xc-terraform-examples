@@ -76,7 +76,7 @@ Deploy our Sample Airline Application to the AKS Cluster:
 4. Check the status of the deployed pods using the "kubectl get pods -n aks-airlineapp" command. Make sure all pods are Running before proceeding.
 5. Once this command has finished executing you can find the externally available Load Balancer's IP by running the command "kubectl get services -n aks-airlineapp". Copy the external dns name and paste it into a browser to ensure the eks application is available via the LB
 
-.. image:: assets/getpods.png
+.. image:: assets/getpods2.png
    :width: 100%
 
 .. image:: assets/airlineappup.png
