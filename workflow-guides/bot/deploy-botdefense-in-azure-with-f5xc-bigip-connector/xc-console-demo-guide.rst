@@ -82,21 +82,20 @@ Deploy our Sample Airline Application to the AKS Cluster:
 .. image:: assets/airlineappup.png
    :width: 100%
 
-Create CloudFront Distribution:
-===============================
-1. Go to the AWS Console, search the services for CloudFront and create a new distribution.  (Unless specified below leave at default configuration value) 
-2. Origin Domain Name: Your ELB DNS name displayed from the "kubectl get services -n eks-airline-app" command
-3. Origin Protocol: HTTP Only (since ELB communicates over HTTP with your pods)
-4. HTTP Port: 80
-5. Name your distribution cloudfront-eks-airline
-6. Set the "allowed HTTP Options to "GET, HEAD, OPTIONS, PUT, POST, PATCH, DELETE
-7. Under Cache key and Origin requests select cache policy and origin request policy
-8. Select the pre-built cache policy of "caching disabled". Do not configure and origin request policy
-9. Under Web Application Firewall select "Do not enable"
-10. Under "settings" for the price class choose North America and Europe Only
-11. Supported HTTP Versions choose HTTP2 and HTTP3
-12. Click "Create Distribution"
-13. Once your Cloudfront Distribution is complete you will see you newly created distribution ID as well as the cloudfront domain name assigned to it. Ensure the application is available via the new Cloudfront domain name. 
+Deploy F5 BIG-IP Virtual Appliance:
+==================================
+1. Go to the Azure Console, search the services for Marketplace then search for "F5" and select "F5 BIG-IP Virtual Edition - BEST"
+2. This will open the "Create a virtual machine" page where we need to fill out the required information. 
+3. Under the Resource Group select from the drop-down menu the same resource group that we deployed our AKS application into "az-xcbotdefense"
+4. For the instance details "virtual machine name" we'll name it "f5xc-bigip-botdefense"
+5. Make sure that the region is set to "(US) West US 2"
+6. Set "Availability Options" to "No infrastructure redundancy required"
+7. Set the "security type" to standard and leave the image as the one we've selected. Also keep the VM architecture at x64
+8. Set the VM Size to "Standard_B2s"
+9. For the administrator account select "password", set the username to "admin", choose a password for your admin account
+10. Under inbound rules, select none, we'll allow the necessary mgmt traffic later.
+11. Click next, and accept the defaults under "disks" and hit next again
+12. Here on the networking tab, 
 
 .. image:: assets/cloudfront.png
    :width: 50%
