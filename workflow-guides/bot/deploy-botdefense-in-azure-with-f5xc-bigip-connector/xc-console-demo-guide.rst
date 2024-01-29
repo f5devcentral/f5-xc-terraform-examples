@@ -90,34 +90,45 @@ Deploy F5 BIG-IP Virtual Appliance:
 4. For the instance details "virtual machine name" we'll name it "f5xc-bigip-botdefense"
 5. Make sure that the region is set to "(US) West US 2"
 6. Set "Availability Options" to "No infrastructure redundancy required"
-7. Set the "security type" to standard and leave the image as the one we've selected. Also keep the VM architecture at x64
-8. Set the VM Size to "Standard_B2s"
-9. For the administrator account select "password", set the username to "admin", choose a password for your admin account
-10. Under inbound rules, select none, we'll allow the necessary mgmt traffic later.
+7. Set the "security type" to standard and leave the image as the "F5 BIG-IP Best" image. Also keep the VM architecture at x64
+8. Set the VM Size to "Standard_B2ms"
+9. For the administrator account select "password", set the username to anything of your choosing, choose a password for the account
+10. Under inbound rules, select "none", we'll add some additional ports in future steps
+
+.. image:: assets/vmbasics3.png
+   :width: 75%
+
 11. Click next, and accept the defaults under "disks" and hit next again
-12. Here on the networking tab, 
+12. Note*** consider provisioning new vnet and network security group during resource group creation phase and assigning cluster/pod to those resources and selecting them here as well. Here on the networking tab, select the virtual network that starts with "aks-vnet" directly underneath the name "xxx-az-xcbotdefense_aks_airlineapp-cluster"
+13. Public IP setting should be "(new) f5xc-bigip-botdefense-ip"
+14. Set the NIC network security group to "basic". We'll go into the network security group after and add the required ports. 
+15. Under public inbound ports leave it set to "none"
+16. Leave the defaults and load balancing options to "none"
+17. Accept all other defaults and click next through the remaining options and select "create"
+18. Once the vm resources are done provisioning clicking on the "go to resource" button and review the BIG-IP resources that have been created 
 
-.. image:: assets/cloudfront.png
-   :width: 50%
+.. image:: assets/vmcomplete.png
+   :width: 100%
 
-Creating your Namespace in F5 XC:
-=================================
+Create Inbound Traffic Rules:
+=============================
 
-1. Logging into your tenant via https://console.ves.volterra.io ensure you have a unique namespace configured. If not, navigate to Administration --> My Namespaces --> Add New
-2. Switch into your newly created namespace
+1. In the Azure portal, click on the hamburger menu in the top left and select "Resource Groups" then filter for our RG "az-xcbotdefense" and select it
+2. Filter for our our network security group we created called "abcdefg" and click on it
+3. In the left menu, under Settings, click Inbound security rules. Click "add". Under the source IP you can select "myIPAddress" from the drop down, leave the source port at "*", set the destination port to 22, with protocol of TCP and click add. 
+4. Repeat these steps, using 8443 as the Destination port range. This allows management traffic for port 8443/tcp to reach the BIG-IP VE.
+
+.. image:: assets/nsgadd3.png
+   :width: 75%
 
 
-.. image:: assets/addnamespace.png
-   :width: 50%
+Create a pool and add members to it:
+====================================
 
+1. Log in to your F5 BIG-IP VE appliance with https://<external-ip-address>:8443
+2. On the Main tab, click Local Traffic -> Pools
 
-Create a new Bot Defense application for AWS CloudFront
-=======================================================
-
-1. Log in to your F5 Distributed Cloud Console
-2. Go to the Dashboard page of XC console and click Bot Defense
-
-.. image:: assets/bdtile.jpeg
+.. image:: assets/trafficpools.png
    :width: 100%
 
 
