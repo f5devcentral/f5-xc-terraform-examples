@@ -126,7 +126,11 @@ Create a pool and add members to it:
 ====================================
 
 1. Log in to your F5 BIG-IP VE appliance with https://<external-ip-address>:8443
-2. On the Main tab, click Local Traffic -> Pools
+2. On the Main tab, click Local Traffic -> Pools --> Create New
+3. In the Name field, type airlineapp_web_pool
+4. For Health Monitors, move http from the Available to the Active list
+5. Leave the load balancing method at the default setting of Round Robin
+6. In the New Members section, in the Address field, type the IP address of the application server 
 
 .. image:: assets/trafficpools.png
    :width: 100%
