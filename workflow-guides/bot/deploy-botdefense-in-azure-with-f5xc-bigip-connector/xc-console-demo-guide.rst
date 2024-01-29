@@ -39,8 +39,8 @@ Signing into Azure CLI
 3. Sign in with your account credentials in the browser
 4. If you have multiple Azure subscriptions, select the appropriate subscription ID in which the resources should be billed using the az account set command
 
-.. image:: assets/azlogin.png
-   :width: 100%
+.. image:: assets/azlogin2.png
+   :width: 75%
 
 Create an Azure Resource Group
 ==============================
@@ -49,6 +49,8 @@ Create an Azure Resource Group
 
 .. image:: assets/azresourcegroup3.png
    :width: 100%
+
+2. Next lets create our vnet and subnet resources in that group using the following command "az network vnet create --resource-group az-xcbotdefense --name az-xcbotdefense-vnet --subnet-name az-xcbotdefense-subnet"
 
 Create an AKS (Azure Kubernetes Service) Cluster
 ===============================================
@@ -74,7 +76,7 @@ Deploy our Sample Airline Application to the AKS Cluster:
 2. Download the Kubernetes Manifest made custom for AKS using our sample Airline application `here <https://github.com/karlbort/f5-xc-waap-terraform-examples/blob/main/workflow-guides/bot/deploy-botdefense-in-azure-with-f5xc-bigip-connector/airline-app/aks-airflask.yaml>`_ and save it to a directory
 3. From CLI Navigate to the directory containing the container image YAML file and run the command "kubectl apply -f aks-airflask.yaml -n aks-airlineapp".
 4. Check the status of the deployed pods using the "kubectl get pods -n aks-airlineapp" command. Make sure all pods are Running before proceeding.
-5. Once this command has finished executing you can find the externally available Load Balancer's IP by running the command "kubectl get services -n aks-airlineapp". Copy the external dns name and paste it into a browser to ensure the eks application is available via the LB
+5. Once this command has finished executing you can find the externally available Load Balancer's IP by running the command "kubectl get services -n aks-airlineapp". Copy the external dns name and paste it into a browser to ensure the eks application is available
 
 .. image:: assets/getpods2.png
    :width: 100%
@@ -99,7 +101,7 @@ Deploy F5 BIG-IP Virtual Appliance:
    :width: 75%
 
 11. Click next, and accept the defaults under "disks" and hit next again
-12. Note*** consider provisioning new vnet and network security group during resource group creation phase and assigning cluster/pod to those resources and selecting them here as well. Here on the networking tab, select the virtual network that starts with "aks-vnet" directly underneath the name "xxx-az-xcbotdefense_aks_airlineapp-cluster"
+12. Your virtual network and subnet should be pre-populated with az-xcbotdefense-vnet and az-xcbotdefense-subnet respectively. 
 13. Public IP setting should be "(new) f5xc-bigip-botdefense-ip"
 14. Set the NIC network security group to "basic". We'll go into the network security group after and add the required ports. 
 15. Under public inbound ports leave it set to "none"
@@ -130,13 +132,16 @@ Create a pool and add members to it:
 3. In the Name field, type airlineapp_web_pool
 4. For Health Monitors, move http from the Available to the Active list
 5. Leave the load balancing method at the default setting of Round Robin
-6. In the New Members section, in the Address field, type the IP address of the application server 
+6. In the New Members section, name should be aks-airlineapp, type the IP address of the application server, and set the port to 80/http
 
 .. image:: assets/trafficpools.png
    :width: 100%
 
 
-3.  Verify you are in the correct Namespace. Under Manage > Applications > click on "Add Application" at the top-left of the page.
+Create a Virtual Server:
+=======================
+
+
 
 .. image:: assets/add-app.jpeg
    :width: 100%
@@ -206,7 +211,7 @@ Define Web Client JavaScript Insertion Settings:
 
 
 Download Config File and AWS Installer Tool:
-====================================
+===========================================
 1. Back in the Bot Defense Dashboard under  Manage > Applications In the Actions column next to your newly created Cloudfront Connector, click the 3 ellipses (…) on your application. Download both the Config File and the AWS Installer.
 
 .. image:: assets/download.png
