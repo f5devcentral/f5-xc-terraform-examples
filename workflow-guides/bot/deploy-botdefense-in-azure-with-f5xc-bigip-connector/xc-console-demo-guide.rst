@@ -45,12 +45,16 @@ Signing into Azure CLI
 Create an Azure Resource Group
 ==============================
 
-1.Create a resource group using the "az group create --name az-xcbotdefense --location westus2" command
+1.Create a resource group using the "az group create --name az-xcbotdefense-rg --location westus2" command
 
 .. image:: assets/azresourcegroup3.png
    :width: 100%
 
-2. Next lets create our vnet and subnet resources in that group using the following command "az network vnet create --resource-group az-xcbotdefense --name az-xcbotdefense-vnet --subnet-name az-xcbotdefense-subnet"
+2. Next lets create our vnet and subnet resources in that group using the following command "az network vnet create --resource-group az-xcbotdefense-rg --name az-xcbotdefense-vnet  --address-prefixes 10.252.0.0/16 --subnet-name az-xcbotdefense-subnet --subnet-prefix 10.252.1.0/24"
+3. Now let's create the route-table with the "az network route-table create --name az-xcbotdefense-rt --resource-group az-xcbotdefense-rg --location westus2" command
+4. We'll add a route to get to the aks cluster vnet "az network route-table route create --name az-xcbotdefense-aks-route --resource-group az-xcbotdefense-rg --route-table-name az-xcbotdefense-rt --address-prefix 10.224.0.5/32 --next-hop-type VirtualAppliance --next-hop-ip-address 10.224.0.5"
+5. Add a route for outbound internet traffic "az network route-table route create --name az-xcbotdefense-inet-route --resource-group az-xcbotdefense-rg --route-table-name az-xcbotdefense-rt --address-prefix 0.0.0.0/0 --next-hop-type Internet"
+6. NOTE*** We'll bind the route table to the subnet within the XC Console
 
 Create an AKS (Azure Kubernetes Service) Cluster
 ===============================================
