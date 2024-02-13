@@ -45,7 +45,7 @@ Signing into Azure CLI
 Create an Azure Resource Group
 ==============================
 
-1.Create a resource group using the "az group create --name az-xcbotdefense-rg --location westus2" command
+1.Create a resource group from CLI using the "az group create --name az-xcbotdefense-rg --location westus2" command
 
 .. image:: assets/azresourcegroup3.png
    :width: 100%
@@ -54,20 +54,28 @@ Create an Azure Resource Group
 3. Now let's create the route-table with the "az network route-table create --name az-xcbotdefense-rt --resource-group az-xcbotdefense-rg --location westus2" command
 4. We'll add a route to get to the aks cluster vnet "az network route-table route create --name az-xcbotdefense-aks-route --resource-group az-xcbotdefense-rg --route-table-name az-xcbotdefense-rt --address-prefix 10.224.0.5/32 --next-hop-type VirtualAppliance --next-hop-ip-address 10.224.0.5"
 5. Add a route for outbound internet traffic "az network route-table route create --name az-xcbotdefense-inet-route --resource-group az-xcbotdefense-rg --route-table-name az-xcbotdefense-rt --address-prefix 0.0.0.0/0 --next-hop-type Internet"
-6. NOTE*** We'll bind the route table to the subnet within the XC Console
+6. Now let's login to the Azure Portal and in the upper left hamburger menu click on "Resource Groups". Then Filter the results by searching for "az-xcbotdefense" RG
 
-Create an AKS (Azure Kubernetes Service) Cluster
+.. image:: assets/az-rg.png
+   :width: 75%
+
+7. Next we'll click on the az-xcbotdefense-rg group and click on the az-xcbotdefense-vnet "virtual network". On the left navigation of the virtual network under settings click on "subnets" and click into the the az-xcbotdefense-subnet. From here you'll select the "route table" drop down menu and search for "az-xcbotdefense-rt" and associate it and save. 
+
+.. image:: assets/subnet-rt.png
+   :width: 100%
+
+Create the AKS (Azure Kubernetes Service) Cluster
 ===============================================
 
-1. To create an AKS cluster, use the az aks create command. The following example creates a cluster named "aks-airlineapp-cluster" with one node and enables a system-assigned managed identity
-2. Copy paste the command "az aks create --resource-group az-xcbotdefense --name aks-airlineapp-cluster --enable-managed-identity --node-count 1" 
+1. To create an AKS cluster, use the az aks create command. The following example creates a cluster named "az-xcbotdefense-cluster" with one node and enables a system-assigned managed identity
+2. Copy paste the command "az aks create --resource-group az-xcbotdefense-rg --name az-xcbotdefense-cluster --enable-managed-identity --node-count 1" 
 3. After a few minutes, the command completes and returns JSON-formatted information about the cluster
 
 Connect to the Cluster:
 ==========================
 
-1. Configure kubectl to connect to your Kubernetes cluster using the az aks get-credentials command. This command downloads credentials and configures the Kubernetes CLI to use them.
-2. Copy paste the following command into cli "az aks get-credentials --resource-group az-xcbotdefense --name aks-airlineapp-cluster"
+1. Configure kubectl to connect to your Kubernetes cluster using the "az aks get-credentials" command. This command downloads credentials and configures the Kubernetes CLI to use them.
+2. Copy paste the following command into cli "az aks get-credentials --resource-group az-xcbotdefense-rg --name az-xcbotdefense-cluster"
 3. Verify the connection to your cluster using the "kubectl get nodes" command. This command returns a list of the cluster nodes.
 4. The following sample output shows the single node created in the previous steps. Make sure the node status is Ready.
 
