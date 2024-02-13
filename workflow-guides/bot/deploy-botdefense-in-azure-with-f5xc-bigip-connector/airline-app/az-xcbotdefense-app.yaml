@@ -13,7 +13,7 @@ spec:
       labels:
         app: airline-flask
     spec:
-      containers:     
+      containers:
         - name: airline-flask
           image: ghcr.io/b3nnnn/airline-flask:latest
           ports:
@@ -31,12 +31,14 @@ spec:
                   apiVersion: v1
                   fieldPath: status.hostIP
       nodeSelector:
-        kubernetes.io/os: linux 
+        kubernetes.io/os: linux
 ---
 kind: Service
 apiVersion: v1
 metadata:
   name: airline-flask
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 spec:
   ports:
     - protocol: TCP
