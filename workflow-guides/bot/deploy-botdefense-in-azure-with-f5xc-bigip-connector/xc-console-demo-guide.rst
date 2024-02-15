@@ -85,7 +85,7 @@ Deploy our Sample Airline Application to the AKS Cluster:
 Create VNET Peering:
 ====================
 
-1. Navigate to the Azure Portal and find "Resource groups" and filter by "az-xcbotdefense-rg1" so that we can see the resource group we created manually as well as the resource group automatically created by the aks cluster deployment.
+1. Navigate to the Azure Portal and in the upper left hamburger menu click on "Resource Groups". Then create a Filter of "az-xcbotdefense-rg1" so that we can see the resource group we created manually as well as the resource group automatically created by the aks cluster deployment.
 2. Let's start with our configuration in the "MC_az-xcbotdefense-rg1_az-xcbotdefense-cluster2_westus2" cluster created resource group. Within the resource group navigate to the aks-vnet-123xxx > settings > peerings > add 
 3. Starting with "This Virtual Network" and enter the Peering link name of "aks-vnet-to-az-xcbotdefense-vnet1" 
 4. Check "allow aks-vnet-123xxx to access the peered virtual network"
@@ -121,32 +121,96 @@ Create BIG-IP VM:
 Create NSG for AZ-XCBOTDEFENSE-SUBNET1:
 ======================================= 
 
-1. navigate to resource groups > az-xcbotdefense-rg1 > az-xcbotdefense-bigip1-nsg > settings > inbound security virtualNetworks
-2. Add Source "myipaddress" destination "any" service, custom, destination port ranges 8443, protocol tcp, action allow, Save 
-3. Repeat the process and add Source "myipaddress" destination "any" service, SSH, action allow, Save
-4. Repeat the process and add Source "any" destination "any" service, HTTP, action allow, Save
+***NOTE Update NSG WITH SPECIFIC IP's
+1. Navigate to resource groups > az-xcbotdefense-rg1 > az-xcbotdefense-bigip1-nsg > settings > inbound security rules
+2. Add Source "myipaddress" destination "any" service, custom, destination port ranges 8443, protocol tcp, action allow, save 
+3. Repeat the process and add Source "myipaddress" destination "any" service, SSH, action allow, save
+4. Repeat the process and add Source "any" destination "any" service, HTTP, action allow, save
 5. Repeat the process and add Source IP Address "10.224.0.0/16" Destination IP Address, 10.248.1.0/24, service "custom", destination port ranges *, protocol any, action allow, Save
 6. Repeat the process and add Source "Any", Destination "Any", Service "HTTPS", Action allow, Save
 
 
-Route Table Creating:
-====================
+Create Route Table for BIG-IP to AKS:
+=====================================
 
-3. Now let's create the route-table with the "az network route-table create --name az-xcbotdefense-rt --resource-group az-xcbotdefense-rg --location westus2" command
-4. We'll add a route to get to the aks cluster vnet "az network route-table route create --name az-xcbotdefense-aks-route --resource-group az-xcbotdefense-rg --route-table-name az-xcbotdefense-rt --address-prefix 10.224.0.5/32 --next-hop-type VirtualAppliance --next-hop-ip-address 10.224.0.5"
-5. Add a route for outbound internet traffic "az network route-table route create --name az-xcbotdefense-inet-route --resource-group az-xcbotdefense-rg --route-table-name az-xcbotdefense-rt --address-prefix 0.0.0.0/0 --next-hop-type Internet"
-6. Now let's login to the Azure Portal and in the upper left hamburger menu click on "Resource Groups". Then Filter the results by searching for "az-xcbotdefense" RG
-
-.. image:: assets/az-rg.png
-   :width: 75%
-
-7. Next we'll click on the az-xcbotdefense-rg group and click on the az-xcbotdefense-vnet "virtual network". On the left navigation of the virtual network under settings click on "subnets" and click into the the az-xcbotdefense-subnet. From here you'll select the "route table" drop down menu and search for "az-xcbotdefense-rt" and associate it and save. 
+1. Now let's create the route-table for the BIG-IP to reach AKS using the following command "az network route-table create --name az-xcbotdefense-rt1 --resource-group az-xcbotdefense-rg1 --location westus2".
+2. We'll add a route to get to the aks cluster vnet "az network route-table route create --name az-xcbotdefense-aks-route --resource-group az-xcbotdefense-rg1 --route-table-name az-xcbotdefense-rt1 --address-prefix 10.224.0.0/24 --next-hop-type VirtualAppliance --next-hop-ip-address 10.224.0.5"
+3. Add a route for outbound internet traffic "az network route-table route create --name az-xcbotdefense-inet-route --resource-group az-xcbotdefense-rg1 --route-table-name az-xcbotdefense-rt1 --address-prefix 0.0.0.0/0 --next-hop-type Internet"
+4. Now browse to the resource group az-xcbotdefense-rg1 > az-xcbotdefense-vnet1 > settings > subnets > az-xcbotdefense-subnet1 > route table > az-xcbotdefense-rt1 > save
 
 .. image:: assets/subnet-rt.png
    :width: 100%
 
+ADD ROUTE TABLE ENTRY FOR AKS TO BIG-IP:
+========================================
+
+1. We are going to configure this route entry from the Azure Portal. Navigate to resource groups > MC_az-xcbotdefense-rg1_az-xcbotdefense-cluster_westus2 > aks-agentpool-123xxx-routetable > settings > routes > add 
+2. Route name "aks-to-bigip", Destination type "IP Addresses", Destination IP "10.248.1.0/24", Next hop type, "virtual appliance", Next hop address "10.248.1.10"
+7. Click Add
+
+Add Port:80 NSG Entry To AKS NSG:
+=================================
+
+1. Browse to resource MC_az-xcbotdefense-rg1_az-xcbotdefense-cluster_westus2 > aks-agentpool-123456-nsg > settings > inbound security virtualNetworks
+2. Add source any, destination IP Addresses > 10.224.0.5 , service HTTP, and click add
 
 
+LOGIN TO BIG-IP AND CREATE SERVICE POOL:
+========================================
+
+1. Navigate to resource group az-xcbotdefense-rg1 > az-xcbotdefense-bigip1 and note the public IP Address on the overview page in the networking section
+2. Open a browser and enter https://yourpublicip:8443 (replacing "your public ip with you guessed it... your pub BIG-IP... IP")
+3. Login with the credentials your provided for username "f5admin"
+4. Under the Main tab go to local traffic > pools > create 
+5. Name "az-xcbotdefense-app1", Health Monitors "tcp"
+6. Leave the default load balancing method at "Round Robin", add the node name of "az-xcbotdefense-app1", address paste the external ip from previous steps "10.224.0.5", set service port to "80 HTTP", Add, finished
+7. If you refresh your page the status should turn green indicating successful health monitor to the aks app. 
+
+Create BIG-IP Virtual Server:
+=============================
+
+1. First thing you will need to grab here is the private address in that's been assigned to your BIG-IP. Navigate to resource groups > az-xcbotdefense-rg1 > az-xcbotdefense-bigip1 and not the private IP address under the networking section. 
+2. Within the BIG-IP navigate to Local traffic > virtual servers > CREATE
+2. Name "az-xcbotdefense-vip1", source address, 0.0.0.0/0, Destination Address/Mask, 10.248.1.10/32 (Private IP of BIG-IP from previous step), service port 80 http 
+3. set the HTTP Profile (Client) to "http", HTTP Profile (server) "use client profile"
+4. set "Source Address Translation to "AutoMap" 
+5. Under resources set the Default Pool to "az-xcbotdefense-app1" and click finished
+6. Verify you can access your AKS App through the BIG-IP by going to http://bigippublicip and it should load the F5 Airline Application 
+
+
+Adding XC Bot Defense Connector to Virtual Server:
+==================================================
+
+1. Login to your XC Console at https://login.ves.volterra.io/
+2. Click on the Bot Defense Tile and go to manage > applications > add application 
+3. Name az-xcbotdefense-connector1, Description, 
+4. Application Region, US, Connector Type, F5 BIG-IP iApp (v17.0 or greater) 
+5. Click the Elipses and copy all of the ID's, keys, hostnames, and headers and save them into a file 
+6. Login to the BIG-IP and click on the distributed Cloud services > Bot Defense > Create
+7. Enter profile name "az-xcbotdefense-connector1"
+8. Paste Application ID, Tenant ID, API Hostname, API Key, and Telemetry Header Prefix from XC Console 
+9. Leave the default JS Insertion Configuration settings of /customer.js, After <head>, Async with no caching
+10. Under protected endpoints, enter the private IP you used for your virtual server destination 10.248.1.x, set the path to /user/signin, set the endpoint label to Login, and check "ANY Method" checkbox with mitigation action of "block", click Add to add the rule
+11, Under the Advanced Features, click the plus sign next to "protection pool" and name it "az-xcbotdefense-ibd1"
+12. add a health monitor of https, under node name call it ibd-webus.fastcache.net, address ibd-webus.fastcache.net, service port 443 https, click add and finished
+13. Back on the Bot Defense profile page set the ssl profile to "serverssl" and click finished
+
+
+Binding the XC Bot Profile to the Virtual Sever:
+================================================
+ 
+1. Within the BIG-IP navigate to Local Traffic > Virtual Servers > az-xcbotdefense-vip1 > and click on the tab at the top called "distributed Cloud Services"
+2. Change the Bot Defense drop down from "disabled" to "enabled" then select the "az-xcbotdefense-connector1" profile and click update 
+3. Now that we've applied the Bot Defense Connector to our Virtual Server Lets test it out. 
+
+
+Simulating Bot Traffic with CURL:
+=================================
+
+1. Within this repo you can download the `curl-stuff.sh <https://github.com/karlbort/f5-xc-waap-terraform-examples/tree/main/workflow-guides/bot/deploy-botdefense-for-awscloudfront-distributions-with-f5-distributedcloud/validation-tools/curl-stuff.sh>`_ Bash script in the validation-tools directory to run it against your web application to generate some generic Bot Traffic
+2. After you've downloaded the curl-stuff.sh script you can edit the file using a text editor and replace the domain name on line 3 with the public IP Address of your BIG-IP. For example, curl -s http://x.x.x.x/u
+
+---------------------------------------------------------------
 
 
 Deploy F5 BIG-IP Virtual Appliance:
