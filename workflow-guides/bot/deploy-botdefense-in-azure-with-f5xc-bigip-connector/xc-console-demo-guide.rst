@@ -42,15 +42,96 @@ Signing into Azure CLI
 .. image:: assets/azlogin2.png
    :width: 75%
 
-Create an Azure Resource Group
-==============================
+Create Azure Resource Group and Networks
+=========================================
 
-1.Create a resource group from CLI using the "az group create --name az-xcbotdefense-rg --location westus2" command
+1.Create resource group from CLI using the "az group create --name az-xcbotdefense-rg1 --location westus2" command
 
 .. image:: assets/azresourcegroup3.png
    :width: 100%
 
-2. Next lets create our vnet and subnet resources in that group using the following command "az network vnet create --resource-group az-xcbotdefense-rg --name az-xcbotdefense-vnet  --address-prefixes 10.252.0.0/16 --subnet-name az-xcbotdefense-subnet --subnet-prefix 10.252.1.0/24"
+2. Next lets create our vnet and subnet resources in that group using the following command "az network vnet create --resource-group az-xcbotdefense-rg1 --name az-xcbotdefense-vnet1  --address-prefixes 10.248.0.0/16 --subnet-name az-xcbotdefense-subnet1 --subnet-prefix 10.248.1.0/24"
+
+Create the AKS (Azure Kubernetes Service) Cluster
+=================================================
+
+1. To create an AKS cluster, we'll use the az aks create command. The following example creates a cluster named "az-xcbotdefense-cluster1" with one node and enables a system-assigned managed identity
+2. Copy paste the command "az aks create --resource-group az-xcbotdefense-rg1 --name az-xcbotdefense-cluster1 --enable-managed-identity --node-count 1 --generate-ssh-keys" 
+3. After a few minutes, the command completes and returns JSON-formatted information about the cluster
+
+Connect to the Cluster:
+==========================
+
+1. Configure kubectl to connect to your Kubernetes cluster using the az aks get-credentials command. This command downloads credentials and configures the Kubernetes CLI to use them.
+2. Copy paste the following command into cli "az aks get-credentials --resource-group az-xcbotdefense-rg1 --name az-xcbotdefense-cluster1"
+3. Verify the connection to your cluster using the "kubectl get nodes" command. This command returns a list of the cluster nodes.
+4. The following sample output shows the single node created in the previous steps. Make sure the node status is Ready.
+
+.. image:: assets/getnodes.png
+   :width: 100%
+
+Deploy our Sample Airline Application to the AKS Cluster:
+=========================================================
+
+1. Create a namespace using "kubectl create namespace az-xcbotdefense-namespace1"
+2. Download the Kubernetes .yaml file for AKS using our sample Airline application `here <https://github.com/karlbort/f5-xc-waap-terraform-examples/blob/main/workflow-guides/bot/deploy-botdefense-in-azure-with-f5xc-bigip-connector/airline-app/az-xcbotdefense-app.yaml>`_ and save it to a working directory
+3. From CLI Navigate to the directory containing the container image YAML file and run the command "kubectl apply -f az-xcbotdefense-app.yaml -n az-xcbotdefense-namespace1".
+4. Check the status of the deployed pods using the "kubectl get pods -n az-xcbotdefense-namespace1" command. Make sure all pods are Running before proceeding.
+5. Once this command has finished executing you can find the ingress IP by running the command "kubectl get services -n az-xcbotdefense-namespace". Copy the external dns name as we'll be using this as the backend of our BIG-IP Virtual Server.
+
+.. image:: assets/getpods2.png
+   :width: 100%
+
+Create VNET Peering:
+====================
+
+1. Navigate to the Azure Portal and find "Resource groups" and filter by "az-xcbotdefense-rg1" so that we can see the resource group we created manually as well as the resource group automatically created by the aks cluster deployment.
+2. Let's start with our configuration in the "MC_az-xcbotdefense-rg1_az-xcbotdefense-cluster2_westus2" cluster created resource group. Within the resource group navigate to the aks-vnet-123xxx > settings > peerings > add 
+3. Starting with "This Virtual Network" and enter the Peering link name of "aks-vnet-to-az-xcbotdefense-vnet1" 
+4. Check "allow aks-vnet-123xxx to access the peered virtual network"
+5. Check "allow aks-vnet-123456 to receive forwarded traffic from the peered virtual network"
+6. Under "Remote virtual network" enter the peering link name of "az-xcbotdefense-vnet1-to-aks-vnet" 
+7. Make sure you have the correct subsription selected and then find the remote virtual network in the dropdown by typing "az-xcbotdefense-vnet1"
+8. select "allows az-xcbotdefense-vnet1" to access aks-vnet and "allow az-xcbotdefense-vnet1 to receive forwarded traffic from aks-vnet"
+9. Click Add and refresh the peerings page until the peering status shows "connected"
+10. Navigate to your other resource group az-xcbotdefense-rg1 > az-xcbotdefense-vnet1 > peerings > and confirm it shows peerings status "connected". If not, you will need to configure the same on this vnet side but in reverse.
+
+Create BIG-IP VM:
+=================
+
+1. Go to the Azure Console, search the services for "Marketplace" then search for "F5" and select "F5 BIG-IP Virtual Edition - BEST"
+2. This will open the "Create a virtual machine" page where we need to fill out the required information.
+3. Under the Resource Group select from the drop-down menu the same resource group that we created "az-xcbotdefense-rg1"
+4. For the instance details "virtual machine name" we'll name it "az-xcbotdefense-bigip1"
+5. Make sure that the region is set to "(US) West US 2"
+6. Set "Availability Options" to "No infrastructure redundancy required"
+7. Set the "security type" to standard and leave the image as the "F5 BIG-IP Best" image. Also keep the VM architecture at x64
+8. Set the VM Size to "Standard_D4s_v3"
+9. For the administrator account select "password", set the username to f5admin, choose a password for the account
+10. Under inbound rules, select "none", we'll add some additional ports in future steps
+11. Click next, and accept the defaults under "disks" and hit next again to the networking tab
+12. Your virtual network and subnet should be pre-populated with az-xcbotdefense-vnet1 and az-xcbotdefense-subnet1 respectively. If not, please select them now. 
+13. Public IP setting should be "(new) f5xc-bigip-botdefense-ip"
+14. Set the NIC network security group to "basic". We'll go into the network security group after and add the required ports.
+15. Under public inbound ports leave it set to "none"
+16. Leave the defaults and load balancing options to "none"
+17. Accept all other defaults and click next through the remaining options and select "create"
+18. Once the vm resources are done provisioning click on the "go to resource" button and review the BIG-IP resources that have been created
+
+Create NSG for AZ-XCBOTDEFENSE-SUBNET1:
+======================================= 
+
+1. navigate to resource groups > az-xcbotdefense-rg1 > az-xcbotdefense-bigip1-nsg > settings > inbound security virtualNetworks
+2. Add Source "myipaddress" destination "any" service, custom, destination port ranges 8443, protocol tcp, action allow, Save 
+3. Repeat the process and add Source "myipaddress" destination "any" service, SSH, action allow, Save
+4. Repeat the process and add Source "any" destination "any" service, HTTP, action allow, Save
+5. Repeat the process and add Source IP Address "10.224.0.0/16" Destination IP Address, 10.248.1.0/24, service "custom", destination port ranges *, protocol any, action allow, Save
+6. Repeat the process and add Source "Any", Destination "Any", Service "HTTPS", Action allow, Save
+
+
+Route Table Creating:
+====================
+
 3. Now let's create the route-table with the "az network route-table create --name az-xcbotdefense-rt --resource-group az-xcbotdefense-rg --location westus2" command
 4. We'll add a route to get to the aks cluster vnet "az network route-table route create --name az-xcbotdefense-aks-route --resource-group az-xcbotdefense-rg --route-table-name az-xcbotdefense-rt --address-prefix 10.224.0.5/32 --next-hop-type VirtualAppliance --next-hop-ip-address 10.224.0.5"
 5. Add a route for outbound internet traffic "az network route-table route create --name az-xcbotdefense-inet-route --resource-group az-xcbotdefense-rg --route-table-name az-xcbotdefense-rt --address-prefix 0.0.0.0/0 --next-hop-type Internet"
@@ -64,34 +145,9 @@ Create an Azure Resource Group
 .. image:: assets/subnet-rt.png
    :width: 100%
 
-Create the AKS (Azure Kubernetes Service) Cluster
-===============================================
 
-1. To create an AKS cluster, use the az aks create command. The following example creates a cluster named "az-xcbotdefense-cluster" with one node and enables a system-assigned managed identity
-2. Copy paste the command "az aks create --resource-group az-xcbotdefense-rg --name az-xcbotdefense-cluster --enable-managed-identity --node-count 1" 
-3. After a few minutes, the command completes and returns JSON-formatted information about the cluster
 
-Connect to the Cluster:
-==========================
 
-1. Configure kubectl to connect to your Kubernetes cluster using the "az aks get-credentials" command. This command downloads credentials and configures the Kubernetes CLI to use them.
-2. Copy paste the following command into cli "az aks get-credentials --resource-group az-xcbotdefense-rg --name az-xcbotdefense-cluster"
-3. Verify the connection to your cluster using the "kubectl get nodes" command. This command returns a list of the cluster nodes.
-4. The following sample output shows the single node created in the previous steps. Make sure the node status is Ready.
-
-.. image:: assets/getnodes.png
-   :width: 100%
-
-Deploy our Sample Airline Application to the AKS Cluster:
-=========================================================
-1. Create a namespace using the "kubectl create namespace az-xcbotdefense-namespace"
-2. Download the Kubernetes Manifest made custom for AKS using our sample Airline application `here <https://github.com/karlbort/f5-xc-waap-terraform-examples/blob/main/workflow-guides/bot/deploy-botdefense-in-azure-with-f5xc-bigip-connector/airline-app/az-xcbotdefense-app.yaml>`_ and save it to a directory
-3. From CLI Navigate to the directory containing the container image YAML file and run the command "kubectl apply -f az-xcbotdefense-app.yaml -n az-xcbotdefense-namespace".
-4. Check the status of the deployed pods using the "kubectl get pods -n az-xcbotdefense-namespace" command. Make sure all pods are Running before proceeding.
-5. Once this command has finished executing you can find the Load Balancer's IP by running the command "kubectl get services -n az-xcbotdefense-namespace". Copy the external dns name as we'll be using this as the backend of our BIG-IP Virtual Server.
-
-.. image:: assets/getpods2.png
-   :width: 100%
 
 Deploy F5 BIG-IP Virtual Appliance:
 ==================================
