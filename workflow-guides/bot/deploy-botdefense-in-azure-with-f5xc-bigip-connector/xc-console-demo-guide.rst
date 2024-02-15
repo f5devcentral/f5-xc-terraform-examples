@@ -43,8 +43,8 @@ Signing into Azure CLI
 Create Azure Resource Group and Networks
 =========================================
 
-1.Create resource group from CLI using the "az group create --name az-xcbotdefense-rg1 --location westus2" command
-2. Next lets create our vnet and subnet resources in that group using the following command "az network vnet create --resource-group az-xcbotdefense-rg1 --name az-xcbotdefense-vnet1  --address-prefixes 10.248.0.0/16 --subnet-name az-xcbotdefense-subnet1 --subnet-prefix 10.248.1.0/24"
+1. Create resource group from CLI using the "az group create --name az-xcbotdefense-rg1 --location westus2" command
+2. Create our vnet and subnet resources in that group using the following command "az network vnet create --resource-group az-xcbotdefense-rg1 --name az-xcbotdefense-vnet1  --address-prefixes 10.248.0.0/16 --subnet-name az-xcbotdefense-subnet1 --subnet-prefix 10.248.1.0/24"
 
 
 Create the AKS (Azure Kubernetes Service) Cluster
@@ -115,14 +115,13 @@ Create BIG-IP VM:
 Create NSG for AZ-XCBOTDEFENSE-SUBNET1:
 ======================================= 
 
-***NOTE Update NSG WITH SPECIFIC IP's
 1. Navigate to resource groups > az-xcbotdefense-rg1 > az-xcbotdefense-bigip1-nsg > settings > inbound security rules
 2. Add Source "myipaddress" destination "any" service, custom, destination port ranges 8443, protocol tcp, action allow, save 
 3. Repeat the process and add Source "myipaddress" destination "any" service, SSH, action allow, save
 4. Repeat the process and add Source "any" destination "any" service, HTTP, action allow, save
 5. Repeat the process and add Source IP Address "10.224.0.0/16" Destination IP Address, 10.248.1.0/24, service "custom", destination port ranges *, protocol any, action allow, Save
 6. Repeat the process and add Source "Any", Destination "Any", Service "HTTPS", Action allow, Save
-
+7. ***NOTE Update NSG WITH SPECIFIC IP's
 
 Create Route Table for BIG-IP to AKS:
 =====================================
