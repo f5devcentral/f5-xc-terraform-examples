@@ -39,18 +39,11 @@ Signing into Azure CLI
 3. Sign in with your account credentials in the browser
 4. If you have multiple Azure subscriptions, select the appropriate subscription ID in which the resources should be billed using the az account set command
 
-.. image:: assets/azlogin2.png
-   :width: 75%
-
 
 Create Azure Resource Group and Networks
 =========================================
 
 1.Create resource group from CLI using the "az group create --name az-xcbotdefense-rg1 --location westus2" command
-
-.. image:: assets/azresourcegroup3.png
-   :width: 100%
-
 2. Next lets create our vnet and subnet resources in that group using the following command "az network vnet create --resource-group az-xcbotdefense-rg1 --name az-xcbotdefense-vnet1  --address-prefixes 10.248.0.0/16 --subnet-name az-xcbotdefense-subnet1 --subnet-prefix 10.248.1.0/24"
 
 
@@ -70,9 +63,6 @@ Connect to the Cluster:
 3. Verify the connection to your cluster using the "kubectl get nodes" command. This command returns a list of the cluster nodes.
 4. The following sample output shows the single node created in the previous steps. Make sure the node status is Ready.
 
-.. image:: assets/getnodes.png
-   :width: 100%
-
 
 Deploy our Sample Airline Application to the AKS Cluster:
 =========================================================
@@ -82,9 +72,6 @@ Deploy our Sample Airline Application to the AKS Cluster:
 3. From CLI Navigate to the directory containing the container image YAML file and run the command "kubectl apply -f az-xcbotdefense-app.yaml -n az-xcbotdefense-namespace1".
 4. Check the status of the deployed pods using the "kubectl get pods -n az-xcbotdefense-namespace1" command. Make sure all pods are Running before proceeding.
 5. Once this command has finished executing you can find the ingress IP by running the command "kubectl get services -n az-xcbotdefense-namespace". Copy the external dns name as we'll be using this as the backend of our BIG-IP Virtual Server.
-
-.. image:: assets/getpods2.png
-   :width: 100%
 
 
 Create VNET Peering:
@@ -172,6 +159,7 @@ Create BIG-IP Service Pool :
 6. Leave the default load balancing method at "Round Robin", add the node name of "az-xcbotdefense-app1", address paste the external ip from previous steps "10.224.0.5", set service port to "80 HTTP", Add, finished
 7. If you refresh your page the status should turn green indicating successful health monitor to the aks app. 
 
+
 Create BIG-IP Virtual Server:
 =============================
 
@@ -208,6 +196,7 @@ Binding the XC Bot Profile to the Virtual Sever:
 1. Within the BIG-IP navigate to Local Traffic > Virtual Servers > az-xcbotdefense-vip1 > and click on the tab at the top called "distributed Cloud Services"
 2. Change the Bot Defense drop down from "disabled" to "enabled" then select the "az-xcbotdefense-connector1" profile and click update 
 3. Now that we've applied the Bot Defense Connector to our Virtual Server Lets test it out. 
+
 
 Validating the Java Script Injection:
 =====================================
