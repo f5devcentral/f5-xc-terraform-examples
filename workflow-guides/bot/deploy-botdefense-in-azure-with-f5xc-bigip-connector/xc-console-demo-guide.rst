@@ -135,6 +135,10 @@ Create BIG-IP VM:
 7. Set the "security type" to standard and leave the image as the "F5 BIG-IP Best" image. Also keep the VM architecture at x64
 8. Set the VM Size to "Standard_D4s_v3"
 9. For the administrator account select "password", set the username to f5admin, choose a password for the account
+
+.. image:: assets/bigip-create1.png
+   :width: 75%
+
 10. Under inbound rules, select "none", we'll add some additional ports in future steps
 11. Click next, and accept the defaults under "disks" and hit next again to the networking tab
 12. Your virtual network and subnet should be pre-populated with az-xcbotdefense-vnet1 and az-xcbotdefense-subnet1 respectively. If not, please select them now. 
@@ -142,8 +146,15 @@ Create BIG-IP VM:
 14. Set the NIC network security group to "basic". We'll go into the network security group after and add the required ports.
 15. Under public inbound ports leave it set to "none"
 16. Leave the defaults and load balancing options to "none"
+
+.. image:: assets/bigip-create2.png
+   :width: 75%
+
 17. Accept all other defaults and click next through the remaining options and select "create"
-18. Once the vm resources are done provisioning click on the "go to resource" button and review the BIG-IP resources that have been created
+18. Once the vm resources are done provisioning click on the "go to resource" button and review the BIG-IP resources that have been created. Note** Copy/paste your private and public IP Addresses and store them for later. 
+
+.. image:: assets/bigip-create3.png
+   :width: 75%
 
 
 Create NSG for AZ-XCBOTDEFENSE-SUBNET1:
