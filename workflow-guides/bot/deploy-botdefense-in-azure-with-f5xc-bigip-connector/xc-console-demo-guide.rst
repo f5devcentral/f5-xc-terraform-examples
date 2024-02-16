@@ -72,6 +72,9 @@ Connect to the Cluster:
 3. Verify the connection to your cluster using the "kubectl get nodes" command. This command returns a list of the cluster nodes.
 4. The following sample output shows the single node created in the previous steps. Make sure the node status is Ready.
 
+.. image:: assets/kubectl-getnodes3.png
+   :width: 100%
+
 
 Deploy our Sample Airline Application to the AKS Cluster:
 =========================================================
