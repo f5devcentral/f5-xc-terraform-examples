@@ -83,7 +83,7 @@ Deploy our Sample Airline Application to the AKS Cluster:
 2. Download the Kubernetes .yaml file for AKS using our sample Airline application `here <https://github.com/karlbort/f5-xc-waap-terraform-examples/blob/main/workflow-guides/bot/deploy-botdefense-in-azure-with-f5xc-bigip-connector/airline-app/az-xcbotdefense-app.yaml>`_ and save it to a working directory
 3. From CLI Navigate to the directory containing the container image YAML file and run the command "kubectl apply -f az-xcbotdefense-app.yaml -n az-xcbotdefense-namespace1".
 4. Check the status of the deployed pods using the "kubectl get pods -n az-xcbotdefense-namespace1" command. Make sure all pods are Running before proceeding.
-5. Once this command has finished executing you can find the ingress IP by running the command "kubectl get services -n az-xcbotdefense-namespace". Copy the external dns name as we'll be using this as the backend of our BIG-IP Virtual Server.
+5. Once this command has finished executing you can find the ingress IP by running the command "kubectl get services -n az-xcbotdefense-namespace1". Copy the external dns name as we'll be using this as the backend of our BIG-IP Virtual Server.
 
 
 Create VNET Peering:
