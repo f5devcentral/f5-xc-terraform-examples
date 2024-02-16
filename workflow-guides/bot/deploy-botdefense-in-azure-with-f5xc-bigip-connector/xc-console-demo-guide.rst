@@ -49,7 +49,7 @@ Create Azure Resource Group and Networks
 1. Create resource group from CLI using the "az group create --name az-xcbotdefense-rg1 --location westus2" command
 2. Create our vnet and subnet resources in that group using the following command "az network vnet create --resource-group az-xcbotdefense-rg1 --name az-xcbotdefense-vnet1  --address-prefixes 10.248.0.0/16 --subnet-name az-xcbotdefense-subnet1 --subnet-prefix 10.248.1.0/24"
 
-.. image:: assets/rg-create.png
+.. image:: assets/rg-create2.png
    :width: 100%
 
 
