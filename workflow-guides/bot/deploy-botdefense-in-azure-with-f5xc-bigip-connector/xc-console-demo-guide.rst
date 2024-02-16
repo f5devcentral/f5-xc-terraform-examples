@@ -197,12 +197,14 @@ Add Route Table Entry For AKS to BIG-IP:
    :width: 100%
 
 
-Add Port:80 NSG Entry To AKS NSG:
+Add Inbound HTTP Rule to AKS NSG:
 =================================
 
-1. Browse to resource MC_az-xcbotdefense-rg1_az-xcbotdefense-cluster_westus2 > aks-agentpool-123456-nsg > settings > inbound security virtualNetworks
-2. Add source any, destination IP Addresses > 10.224.0.5 , service HTTP, and click add
+1. Browse to resource MC_az-xcbotdefense-rg1_az-xcbotdefense-cluster_westus2 > aks-agentpool-123456-nsg > settings > inbound security rules
+2. Add source "ip addresses", source ip addresses/cidr 10.248.1.0/24, destination "IP Addresses", destination ip addresses/cidr "10.224.0.0/16" , service HTTP, and click add
 
+.. image:: assets/aks-nsg1.png
+   :width: 100%
 
 Create BIG-IP Service Pool :
 ============================
