@@ -94,7 +94,7 @@ Create VNET Peering:
 
 1. Navigate to the Azure Portal and in the upper left hamburger menu click on "Resource Groups". Then create a Filter of "az-xcbotdefense-rg1" so that we can see the resource group we created manually as well as the resource group automatically created by the aks cluster deployment.
 
-.. image:: assets/az-rg1.png
+.. image:: assets/az-rg1-2.png
    :width: 75%
 
 2. Let's start with our configuration in the "MC_az-xcbotdefense-rg1_az-xcbotdefense-cluster2_westus2" cluster created resource group. Within the resource group navigate to the aks-vnet-123xxx > settings > peerings > add 
