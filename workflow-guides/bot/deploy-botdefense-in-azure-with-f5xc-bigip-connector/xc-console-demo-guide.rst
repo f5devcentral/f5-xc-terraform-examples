@@ -98,14 +98,25 @@ Create VNET Peering:
    :width: 75%
 
 2. Let's start with our configuration in the "MC_az-xcbotdefense-rg1_az-xcbotdefense-cluster2_westus2" cluster created resource group. Within the resource group navigate to the aks-vnet-123xxx > settings > peerings > add 
+
+.. image:: assets/aks-peering2.png
+   :width: 75%
+
 3. Starting with "This Virtual Network" and enter the Peering link name of "aks-vnet-to-az-xcbotdefense-vnet1" 
 4. Check "allow aks-vnet-123xxx to access the peered virtual network"
 5. Check "allow aks-vnet-123456 to receive forwarded traffic from the peered virtual network"
 6. Under "Remote virtual network" enter the peering link name of "az-xcbotdefense-vnet1-to-aks-vnet" 
 7. Make sure you have the correct subsription selected and then find the remote virtual network in the dropdown by typing "az-xcbotdefense-vnet1"
 8. select "allows az-xcbotdefense-vnet1" to access aks-vnet and "allow az-xcbotdefense-vnet1 to receive forwarded traffic from aks-vnet"
+
+.. image:: assets/vnet-peering.png
+   :width: 75%
+
 9. Click Add and refresh the peerings page until the peering status shows "connected"
 10. Navigate to your other resource group az-xcbotdefense-rg1 > az-xcbotdefense-vnet1 > peerings > and confirm it shows peerings status "connected". If not, you will need to configure the same on this vnet side but in reverse.
+
+.. image:: assets/connected-peer.png
+   :width: 75%
 
 
 Create BIG-IP VM:
