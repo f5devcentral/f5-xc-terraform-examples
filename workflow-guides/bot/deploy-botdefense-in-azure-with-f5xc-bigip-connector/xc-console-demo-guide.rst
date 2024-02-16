@@ -123,6 +123,10 @@ Create BIG-IP VM:
 =================
 
 1. Go to the Azure Console, search the services for "Marketplace" then search for "F5" and select "F5 BIG-IP Virtual Edition - BEST"
+
+.. image:: assets/bigip-vm.png
+   :width: 75%
+
 2. This will open the "Create a virtual machine" page where we need to fill out the required information.
 3. Under the Resource Group select from the drop-down menu the same resource group that we created "az-xcbotdefense-rg1"
 4. For the instance details "virtual machine name" we'll name it "az-xcbotdefense-bigip1"
