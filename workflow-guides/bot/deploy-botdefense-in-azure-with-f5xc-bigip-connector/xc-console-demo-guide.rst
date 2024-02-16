@@ -209,14 +209,20 @@ Add Inbound HTTP Rule to AKS NSG:
 Create BIG-IP Service Pool :
 ============================
 
-1. Navigate to resource group az-xcbotdefense-rg1 > az-xcbotdefense-bigip1 and note the public IP Address on the overview page in the networking section
-2. Open a browser and enter Log in with https://<external-ip-address>:8443 (replacing "external-ip-address" with you guessed it... your pub BIG-IP... IP")
-3. Login with the credentials your provided for username "f5admin"
-4. Under the Main tab go to local traffic > pools > create 
-5. Name "az-xcbotdefense-app1", Health Monitors "tcp"
-6. Leave the default load balancing method at "Round Robin", add the node name of "az-xcbotdefense-app1", address paste the external ip from previous steps "10.224.0.5", set service port to "80 HTTP", Add, finished
-7. If you refresh your page the status should turn green indicating successful health monitor to the aks app. 
+1. NOTE** You will need the external IP Address of your cluster from "kubectl get services -n az-xcbotdefense-namespace1"
+2. Navigate to resource group az-xcbotdefense-rg1 > az-xcbotdefense-bigip1 and note the public IP Address on the overview page in the networking section
+3. Open a browser and access big-ip with https://<external-ip-address>:8443 (replacing "external-ip-address" with you guessed it... your pub BIG-IP... IP")
+4. Login with the credentials your provided for username "f5admin"
+5. Under the Main tab go to local traffic > pools > create 
+6. Name "az-xcbotdefense-app1", Health Monitors "tcp"
+7. Leave the default load balancing method at "Round Robin", add the node name of "az-xcbotdefense-app1", in the address field, paste the external ip from previous steps "10.224.0.5", set service port to "80 HTTP", Add, finished
+8. If you refresh your page the status should turn green indicating successful health monitor to the aks app. 
 
+.. image:: assets/bigip-pool.png
+   :width: 100%
+
+.. image:: assets/bigip-pool-green.png
+   :width: 100%
 
 Create BIG-IP Virtual Server:
 =============================
