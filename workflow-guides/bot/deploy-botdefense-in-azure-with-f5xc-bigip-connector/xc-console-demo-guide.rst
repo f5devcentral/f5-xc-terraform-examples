@@ -39,6 +39,9 @@ Signing into Azure CLI
 3. Sign in with your account credentials in the browser
 4. If you have multiple Azure subscriptions, select the appropriate subscription ID in which the resources should be billed using the az account set command
 
+.. image:: assets/az-login3.png
+   :width: 100%
+
 
 Create Azure Resource Group and Networks
 =========================================
