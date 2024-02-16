@@ -43,6 +43,13 @@ Examples of F5 Distributed Cloud (XC) deployments utilizing Terraform. For more 
 * **F5 Distributed Cloud DoS Protection**
 
 
+* **F5 Distributed Cloud Secure Multi-Cloud Networking (MCN)**
+
+  | **DevCentral Overview Articles**                                                                                                                                                                           | **Use Case / Workflow Guides (SaaS Console, Automation)**                                                                                                                                                                                                        |
+    | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | [**Coming soon:** Deploy S-MCN Overview Article](https://community.f5.com) | [**Coming soon:** Deploy S-MCN as Code (IaC) or Saas Console Anywhere](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/tree/main/workflow-guides/s-mcn) |
+
+
 * **F5 Distributed Cloud Multi-Cloud Networking (MCN) Teachable** 
 
 
