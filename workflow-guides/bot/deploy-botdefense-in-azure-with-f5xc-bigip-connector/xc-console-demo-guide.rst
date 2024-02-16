@@ -60,7 +60,7 @@ Create the AKS (Azure Kubernetes Service) Cluster
 2. Copy paste the command "az aks create --resource-group az-xcbotdefense-rg1 --name az-xcbotdefense-cluster1 --enable-managed-identity --node-count 1 --generate-ssh-keys" 
 3. After a few minutes, the command completes and returns JSON-formatted information about the cluster
 
-.. image:: assets/az-aks-create2.png
+.. image:: assets/az-aks-create-2.png
    :width: 100%
 
 
