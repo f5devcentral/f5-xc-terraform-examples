@@ -182,13 +182,19 @@ Create Route Table for BIG-IP to AKS:
 3. Add a route for outbound internet traffic "az network route-table route create --name az-xcbotdefense-inet-route --resource-group az-xcbotdefense-rg1 --route-table-name az-xcbotdefense-rt1 --address-prefix 0.0.0.0/0 --next-hop-type Internet"
 4. Now browse to the resource group az-xcbotdefense-rg1 > az-xcbotdefense-vnet1 > settings > subnets > az-xcbotdefense-subnet1 > route table > az-xcbotdefense-rt1 > save
 
+.. image:: assets/rt1-subnet1.png
+   :width: 100%
 
 Add Route Table Entry For AKS to BIG-IP:
 ========================================
 
-1. We are going to configure this route entry from the Azure Portal. Navigate to resource groups > MC_az-xcbotdefense-rg1_az-xcbotdefense-cluster_westus2 > aks-agentpool-123xxx-routetable > settings > routes > add 
-2. Route name "aks-to-bigip", Destination type "IP Addresses", Destination IP "10.248.1.0/24", Next hop type, "virtual appliance", Next hop address "10.248.1.10"
-3. Click Add
+1. NOTE*** You will need the internal ip-address (10.248.1.x) of your big-ip which can be found from > resource groups > az-xcbotdefense-rg1 > az-xcbotdefense-bigip1 > networking > Private ip-address
+2. We are going to configure this route entry from the Azure Portal. Navigate to resource groups > MC_az-xcbotdefense-rg1_az-xcbotdefense-cluster_westus2 > aks-agentpool-123xxx-routetable > settings > routes > add 
+3. Route name "aks-to-bigip", Destination type "IP Addresses", Destination IP "10.248.1.0/24", Next hop type, "virtual appliance", Next hop address "<use-internal-bigip-address>"
+4. Click Add
+
+.. image:: assets/route-aks-to-bigip.png
+   :width: 100%
 
 
 Add Port:80 NSG Entry To AKS NSG:
