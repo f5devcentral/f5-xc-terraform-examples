@@ -85,6 +85,9 @@ Deploy our Sample Airline Application to the AKS Cluster:
 4. Check the status of the deployed pods using the "kubectl get pods -n az-xcbotdefense-namespace1" command. Make sure all pods are Running before proceeding.
 5. Once this command has finished executing you can find the ingress IP by running the command "kubectl get services -n az-xcbotdefense-namespace1". Copy the external dns name as we'll be using this as the backend of our BIG-IP Virtual Server.
 
+.. image:: assets/kubectl-apply3.png
+   :width: 100%
+
 
 Create VNET Peering:
 ====================
