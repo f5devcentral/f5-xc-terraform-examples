@@ -154,19 +154,25 @@ Create BIG-IP VM:
 18. Once the vm resources are done provisioning click on the "go to resource" button and review the BIG-IP resources that have been created. Note** Copy/paste your private and public IP Addresses and store them for later. 
 
 .. image:: assets/bigip-create3.png
-   :width: 75%
+   :width: 100%
 
 
-Create NSG for AZ-XCBOTDEFENSE-SUBNET1:
+Create Inbound NSG for AZ-XCBOTDEFENSE-SUBNET1:
 ======================================= 
 
-1. Navigate to resource groups > az-xcbotdefense-rg1 > az-xcbotdefense-bigip1-nsg > settings > inbound security rules
-2. Add Source "myipaddress" destination "any" service, custom, destination port ranges 8443, protocol tcp, action allow, save 
-3. Repeat the process and add Source "myipaddress" destination "any" service, SSH, action allow, save
-4. Repeat the process and add Source "any" destination "any" service, HTTP, action allow, save
+1. Navigate to resource groups > az-xcbotdefense-rg1 > az-xcbotdefense-bigip1-nsg > settings > "inbound security rules"
+2. Add Source "myipaddress" destination "IP Addresses", Destination IP Address/CIDR "10.248.1.0/24",  service "custom", destination port ranges "8443", protocol tcp, action allow, save 
+
+.. image:: assets/bigip-nsg1.png
+   :width: 100%
+
+3. Repeat the process and add Add Source "myipaddress", destination "IP Addresses", Destination IP Address/CIDR "10.248.1.0/24", service "SSH", action allow, save
+4. Repeat the process and add Source "any", destination "10.248.1.0/24" service "HTTP", action "allow", save
 5. Repeat the process and add Source IP Address "10.224.0.0/16" Destination IP Address, 10.248.1.0/24, service "custom", destination port ranges *, protocol any, action allow, Save
-6. Repeat the process and add Source "Any", Destination "Any", Service "HTTPS", Action allow, Save
-7. ***NOTE Update NSG WITH SPECIFIC IP's
+6. Repeat the process and add Source "Any", Destination "IP Addresses", Destination IP Address/CIDR "10.248.1.0/24, Service "HTTPS", Action allow, Save
+
+.. image:: assets/bigip-nsg2.png
+   :width: 100%
 
 Create Route Table for BIG-IP to AKS:
 =====================================
