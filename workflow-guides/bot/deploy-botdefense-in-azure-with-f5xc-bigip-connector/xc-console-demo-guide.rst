@@ -229,21 +229,42 @@ Create BIG-IP Virtual Server:
 
 1. First thing you will need to grab here is the private address in that's been assigned to your BIG-IP. Navigate to resource groups > az-xcbotdefense-rg1 > az-xcbotdefense-bigip1 and not the private IP address under the networking section. 
 2. Within the BIG-IP navigate to Local traffic > virtual servers > CREATE
-2. Name "az-xcbotdefense-vip1", source address, 0.0.0.0/0, Destination Address/Mask, 10.248.1.10/32 (Private IP of BIG-IP from previous step), service port 80 http 
-3. set the HTTP Profile (Client) to "http", HTTP Profile (server) "use client profile"
-4. set "Source Address Translation to "AutoMap" 
-5. Under resources set the Default Pool to "az-xcbotdefense-app1" and click finished
-6. Verify you can access your AKS App through the BIG-IP by going to http://bigippublicip and it should load the F5 Airline Application 
+3. Name "az-xcbotdefense-vip1", source address, 0.0.0.0/0, Destination Address/Mask, enter "<bigip-private-ip>/32" (Private IP of BIG-IP from previous step), service port 80 http 
+4. set the HTTP Profile (Client) to "http", HTTP Profile (server) "use client profile"
 
+.. image:: assets/bigip-vip1-1.png
+   :width: 100%
+
+5. set "Source Address Translation to "AutoMap" 
+6. Under resources set the Default Pool to "az-xcbotdefense-app1" and click finished
+7. Verify you can access your AKS App through the BIG-IP by going to http://bigippublicip and it should load the F5 Airline Application 
+
+.. image:: assets/bigip-vip1-2.png
+   :width: 100%
 
 Creating the XC Bot Defense Profile on BIG-IP:
 ==============================================
 
 1. Login to your XC Console at https://login.ves.volterra.io/
 2. Click on the Bot Defense Tile and go to manage > applications > add application 
-3. Name az-xcbotdefense-connector1, Description, 
-4. Application Region, US, Connector Type, F5 BIG-IP iApp (v17.0 or greater) 
+
+.. image:: assets/xc-bot-tile.png
+   :width: 100%
+
+.. image:: assets/bot-manage.png
+   :width: 100%
+
+3. Use the name "az-xcbotdefense-connector1" and a description of "XC Bot Defense Connector for BIG-IP in Azure" 
+4. Set the Application Region to "US", Connector Type "F5 BIG-IP iApp (v17.0 or greater) > save and exit
+
+.. image:: assets/bigip-connector-add.png
+   :width: 100%
+
 5. Click the Elipses and copy all of the ID's, keys, hostnames, and headers and save them into a file 
+
+.. image:: assets/connector-manage.png
+   :width: 100%
+
 6. Login to the BIG-IP and click on the distributed Cloud services > Bot Defense > Create
 7. Enter profile name "az-xcbotdefense-connector1"
 8. Paste Application ID, Tenant ID, API Hostname, API Key, and Telemetry Header Prefix from XC Console 
