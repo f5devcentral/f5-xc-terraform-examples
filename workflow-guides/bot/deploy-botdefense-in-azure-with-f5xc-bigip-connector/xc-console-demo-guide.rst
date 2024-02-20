@@ -277,10 +277,27 @@ Creating the XC Bot Defense Profile:
 7. Enter profile name "az-xcbotdefense-profile1"
 8. Paste Application ID, Tenant ID, API Hostname, API Key, and Telemetry Header Prefix from XC Console 
 9. Leave the default JS Insertion Configuration settings of /customer.js, After <head>, Async with no caching
-10. Under protected endpoints, enter the private IP you used for your virtual server destination 10.248.1.x, set the path to /user/signin, set the endpoint label to Login, and check "ANY Method" checkbox with mitigation action of "block", click Add to add the rule
+
+.. image:: assets/bigip-bdprofile1-3.png
+   :width: 100%
+
+10. Under protected endpoints, enter the public IP for your BIG-IP/Application, set the path to /user/signin, set the endpoint label to Login, and check "PUT" and "POST" checkbox with mitigation action of "block", don't forgest to click "Add" to add the rule
+
+.. image:: assets/protected-endpoints.png
+   :width: 100%
+
 11, Under the Advanced Features, click the plus sign next to "protection pool" and name it "az-xcbotdefense-ibd1"
 12. add a health monitor of https, under node name call it ibd-webus.fastcache.net, address ibd-webus.fastcache.net, service port 443 https, click add and finished
 13. Back on the Bot Defense profile page set the ssl profile to "serverssl" and click finished
+
+.. image:: assets/bd-protection-pool1.png
+   :width: 100%
+
+.. image:: assets/bd-protectionpool1-1.png
+   :width: 100%
+
+.. image:: assets/bd-protectionpool1-2.png
+   :width: 100%
 
 
 Binding the XC Bot Profile to the Virtual Sever:
