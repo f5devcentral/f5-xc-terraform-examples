@@ -286,9 +286,9 @@ Creating the XC Bot Defense Profile:
 .. image:: assets/protected-endpoints.png
    :width: 100%
 
-11, Under the Advanced Features, click the plus sign next to "protection pool" and name it "az-xcbotdefense-ibd1"
+11, Under the Advanced Features, click the plus sign next to "protection pool" and name it "ibd-webus.fastcache.net"
 12. add a health monitor of https, under node name call it ibd-webus.fastcache.net, address ibd-webus.fastcache.net, service port 443 https, click add and finished
-13. Back on the Bot Defense profile page set the ssl profile to "serverssl" and click finished
+13. Back on the Bot Defense profile page select the newly created profile from the menu and set the ssl profile to "serverssl" and click finished
 
 .. image:: assets/bd-protection-pool1.png
    :width: 100%
