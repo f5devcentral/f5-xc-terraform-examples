@@ -245,11 +245,12 @@ Create BIG-IP Virtual Server:
 .. image:: assets/f5air.png
    :width: 100%
 
-Creating the XC Bot Defense Profile on BIG-IP:
+Creating the XC Bot Defense Profile:
 ==============================================
 
-1. Login to your XC Console at https://login.ves.volterra.io/
-2. Click on the Bot Defense Tile and go to manage > applications > add application 
+1. Logging into your tenant via https://console.ves.volterra.io ensure you have a unique namespace configured. If not, navigate to Administration --> My Namespaces --> Add New
+2. Switch into your newly created namespace
+3. Click on the Bot Defense Tile and go to manage > applications > add application 
 
 .. image:: assets/xc-bot-tile.png
    :width: 100%
@@ -257,7 +258,7 @@ Creating the XC Bot Defense Profile on BIG-IP:
 .. image:: assets/bot-manage.png
    :width: 100%
 
-3. Use the name "az-xcbotdefense-connector1" and a description of "XC Bot Defense Connector for BIG-IP in Azure" 
+3. Use the name "az-xcbotdefense-profile1" and a description of "XC Bot Defense Connector for BIG-IP in Azure" 
 4. Set the Application Region to "US", Connector Type "F5 BIG-IP iApp (v17.0 or greater) > save and exit
 
 .. image:: assets/bigip-connector-add.png
@@ -268,7 +269,11 @@ Creating the XC Bot Defense Profile on BIG-IP:
 .. image:: assets/connector-manage.png
    :width: 100%
 
-6. Login to the BIG-IP and click on the distributed Cloud services > Bot Defense > Create
+6. Now Login to your BIG-IP and click on the distributed Cloud services > Bot Defense > Create
+
+.. image:: assets/bigip-bdprofile1.png
+   :width: 100%
+
 7. Enter profile name "az-xcbotdefense-profile1"
 8. Paste Application ID, Tenant ID, API Hostname, API Key, and Telemetry Header Prefix from XC Console 
 9. Leave the default JS Insertion Configuration settings of /customer.js, After <head>, Async with no caching
