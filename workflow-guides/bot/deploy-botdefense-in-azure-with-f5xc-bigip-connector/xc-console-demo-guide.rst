@@ -326,8 +326,12 @@ Validating the Java Script Injection:
 Simulating Bot Traffic with CURL:
 =================================
 
-1. Within this repo you can download the `curl-stuff.sh <https://github.com/karlbort/f5-xc-waap-terraform-examples/tree/main/workflow-guides/bot/deploy-botdefense-for-awscloudfront-distributions-with-f5-distributedcloud/validation-tools/curl-stuff.sh>`_ Bash script in the validation-tools directory to run it against your web application to generate some generic Bot Traffic
-2. After you've downloaded the curl-stuff.sh script you can edit the file using a text editor and replace the domain name on line 3 with the public IP Address of your BIG-IP. For example, curl -s http://x.x.x.x/u
+1. Within this repo you can download the `curl-stuff.sh <https://github.com/karlbort/f5-xc-waap-terraform-examples/blob/main/workflow-guides/bot/deploy-botdefense-in-azure-with-f5xc-bigip-connector/validation-tools/curl-stuff.sh>`_ Bash script in the validation-tools directory to run it against your web application to generate some generic Bot Traffic
+2. After you've downloaded the curl-stuff.sh script you can edit the file using a text editor and replace the domain name on line 3 with the public IP Address of your BIG-IP. For example, curl -s http://x.x.x.x/user/signin NOTE*** ensure that you maintain the "/user/signin" path as this is the protected endpoint we configured in our profile.
+3. Run the curl script with sh curl-stuff.sh. Note the failure response in the screenshot below
+
+.. image:: assets/curl-stuff2.png
+   :width: 100%
 
 
 View Bot Traffic​:
@@ -340,6 +344,8 @@ View Bot Traffic​:
 5. Under Overview click Monitor and you can see our the bot detections of our newly protected Cloudfront Application. 
 6. Here you can monitor and respond to events that are identified as Bot traffic
 
+.. image:: assets/bdmonitor.png
+   :width: 100%
 
 Step by step process using automation scripts:
 ----------------------------------------------
