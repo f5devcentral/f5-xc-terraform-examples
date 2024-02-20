@@ -266,7 +266,7 @@ Creating the XC Bot Defense Profile on BIG-IP:
    :width: 100%
 
 6. Login to the BIG-IP and click on the distributed Cloud services > Bot Defense > Create
-7. Enter profile name "az-xcbotdefense-connector1"
+7. Enter profile name "az-xcbotdefense-profile1"
 8. Paste Application ID, Tenant ID, API Hostname, API Key, and Telemetry Header Prefix from XC Console 
 9. Leave the default JS Insertion Configuration settings of /customer.js, After <head>, Async with no caching
 10. Under protected endpoints, enter the private IP you used for your virtual server destination 10.248.1.x, set the path to /user/signin, set the endpoint label to Login, and check "ANY Method" checkbox with mitigation action of "block", click Add to add the rule
