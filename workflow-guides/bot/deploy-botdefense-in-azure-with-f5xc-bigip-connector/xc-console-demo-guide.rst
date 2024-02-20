@@ -307,6 +307,8 @@ Binding the XC Bot Profile to the Virtual Sever:
 2. Change the Bot Defense drop down from "disabled" to "enabled" then select the "az-xcbotdefense-connector1" profile and click update 
 3. Now that we've applied the Bot Defense Connector to our Virtual Server Lets test it out. 
 
+.. image:: assets/vip-bdprofile2.png
+   :width: 100%
 
 Validating the Java Script Injection:
 =====================================
@@ -316,6 +318,9 @@ Validating the Java Script Injection:
 3. This opens the developer tools on the right. Under the "elements" tab expand the <head> tag
 4. Within the <head> tag you should see three lines containing the following: 1) src="/customer1.js?matcher", 2) src="/customer1.js?single"></script>, 3) src="/customer1.js?async"
 5. This confirms that the Javascript is being injected appropriately into your aks application via the BIG-IP
+
+.. image:: assets/jsverification.png
+   :width: 100%
 
 
 Simulating Bot Traffic with CURL:
