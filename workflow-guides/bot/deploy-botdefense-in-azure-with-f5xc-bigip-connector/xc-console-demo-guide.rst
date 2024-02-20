@@ -242,6 +242,9 @@ Create BIG-IP Virtual Server:
 .. image:: assets/bigip-vip1-2.png
    :width: 100%
 
+.. image:: assets/f5air.png
+   :width: 100%
+
 Creating the XC Bot Defense Profile on BIG-IP:
 ==============================================
 
