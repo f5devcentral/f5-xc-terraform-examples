@@ -1,5 +1,5 @@
 
-Deploy Bot Defense for Azure with F5 XC BIG-IP Connector
+Deploy Bot Defense for GCP with F5 XC BIG-IP Connector
 ========================================================
 
 Objective :
