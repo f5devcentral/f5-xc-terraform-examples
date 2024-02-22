@@ -5,7 +5,7 @@ Deploy Bot Defense for GCP with F5 XC BIG-IP Connector
 Objective :
 -----------
 
-This guide will outline the steps for implementing F5 XC Bot Defense to protect your GCP Kubernetes workloads using our BIG-IP Connector. First we will be deploying our sample application into GCP GKS (Google Kubernetes Service). Then we will deploy into Azure and front-end this application with F5's BIG-IP virtual appliance configured with our XC Bot Defense Connector. We'll leverage F5 XC to setup and download our Bot Defense Connector which will be deployed directly to the BIG-IP virtual appliance. This guide will outline the steps for implementing this infrastructure via Console Steps as well as Automated method using Terraform.
+This guide will outline the steps for implementing F5 XC Bot Defense to protect your GCP Kubernetes workloads using our BIG-IP Connector. First we will be deploying our sample application into GCP GKS (Google Kubernetes Service). Then we will deploy into GCP and front-end this application with F5's BIG-IP virtual appliance configured with our XC Bot Defense Connector. We'll leverage F5 XC to setup and download our Bot Defense Connector which will be deployed directly to the BIG-IP virtual appliance. This guide will outline the steps for implementing this infrastructure via Console Steps as well as Automated method using Terraform.
 
 
 
