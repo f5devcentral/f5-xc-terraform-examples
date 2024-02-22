@@ -9,7 +9,7 @@ This guide will outline the steps for implementing F5 XC Bot Defense to protect 
 
 
 
-Bot Defense for Azure Architectural Diagram :
+Bot Defense for GCP Architectural Diagram :
 -----------------------
 .. image:: assets/bot-gcp.png
    :width: 100%
