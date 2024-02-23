@@ -47,8 +47,10 @@ Examples of F5 Distributed Cloud (XC) deployments utilizing Terraform. For more 
 
   | **DevCentral Overview Articles**                                                                                                                                                                           | **Use Case / Workflow Guides (SaaS Console, Automation)**                                                                                                                                                                                                        |
     | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-  | [**Coming soon:** Deploy S-MCN Overview Article](https://community.f5.com) | [**Coming soon:** Deploy S-MCN as Code (IaC) or Saas Console Anywhere](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/tree/main/workflow-guides/s-mcn) |
-
+  | [**Coming soon:** Deploy S-MCN On Any Edge Using F5 Distributed Cloud](https://community.f5.com) | N/A - Refer to DevCentral article with linked YouTube video |
+  | [**Coming soon:** Deploy Distributed Cloud WAAP Security Easily Using Multiple CE's](#) | [**Coming soon:** Deploy Distributed Cloud WAAP Security Easily Using Multiple CE's (Automation)](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/tree/main/workflow-guides/s-mcn) |
+  | [**Coming soon:** Deploy App To App Connectivity Seamlessly Using Distributed Cloud](https://community.f5.com) | [**Coming soon:** Deploy App To App Connectivity Seamlessly Using Distributed Cloud (Automation)](#) |
+  
 
 * **F5 Distributed Cloud Multi-Cloud Networking (MCN) Teachable** 
 
