@@ -52,7 +52,7 @@ Examples of F5 Distributed Cloud (XC) deployments utilizing Terraform. For more 
   | [**Coming soon:** Deploy App To App Connectivity Seamlessly Using Distributed Cloud](https://community.f5.com) | [**Coming soon:** Deploy App To App Connectivity Seamlessly Using Distributed Cloud (Automation)](#) |
   
 
-* **F5 Distributed Cloud Multi-Cloud Networking (MCN) Teachable** 
+* **F5 Distributed Cloud Teachable** 
 
 
   | **Teachable Courses**                                                                                                                                                                           | **Use Case / Workflow Resources (Automation, SaaS Console)**                                                                                                                                                                                                        |
