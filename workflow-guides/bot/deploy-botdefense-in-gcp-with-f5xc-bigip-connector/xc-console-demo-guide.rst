@@ -21,8 +21,8 @@ Console Deployment Prerequisites:
 ^^^^^^^^^^^^^^
 
 1. F5 Distributed Cloud Account (F5XC)
-2. GCP Cloud Account (If you don't have an GCP subscription, create an GCP free account before you begin `here <https://console.cloud.google.com/freetrial/signup/>`_) 
-3. Gcloud CLI: Install the Gcloud CLI on your local machine. You can download it from  `CLI website <https://cloud.google.com/sdk/docs/install>`_
+2. GCP Cloud Account (If you don't have an GCP subscription, create an GCP free account before you begin `here <https://console.cloud.google.com/freetrial/signup/>`_)
+3. Gcloud CLI: Install the Gcloud CLI on your local machine using option b) from `Gcloud CLI website <https://cloud.google.com/sdk/docs/install>`_
 4. kubectl: Install kubectl on your local machine. You can find installation instructions on the `kubectl installation page <https://kubernetes.io/docs/tasks/tools/>`_
 
 
@@ -34,23 +34,18 @@ Steps:
 Signing into Gcloud CLI
 ======================
 
-1. From CLI after extracting the Gcloud tar.gz package in the desired directory and running the "./google-cloud-sdk/bin/gcloud init" command, the "az login" command
-2. If the Azure CLI can open your default browser, it initiates authorization code flow and opens the default browser to load an Azure sign-in page
-3. Sign in with your account credentials in the browser
-4. If you have multiple Azure subscriptions, select the appropriate subscription ID in which the resources should be billed using the az account set command
+1. Ensure you've followed the deployment prerequisites to install Gcloud CLI from `Gcloud CLI website <https://cloud.google.com/sdk/docs/install>`_ using option b)
+2. After installation, initialize Gcloud CLI with the "gcloud init" command. Choose your user account, project, and set the default compute/region to us-west1. `Initializing Gcloud Documentation <https://cloud.google.com/sdk/docs/initializing>`_
 
-.. image:: assets/az-login3.png
+.. image:: assets/gcloudinit.png
    :width: 100%
 
 
-Create Azure Resource Group and Networks
-=========================================
+Create a new Google Cloud Project
+==================================
 
-1. Create resource group from CLI using the "az group create --name az-xcbotdefense-rg1 --location westus2" command
-2. Create our vnet and subnet resources in that group using the following command "az network vnet create --resource-group az-xcbotdefense-rg1 --name az-xcbotdefense-vnet1  --address-prefixes 10.248.0.0/16 --subnet-name az-xcbotdefense-subnet1 --subnet-prefix 10.248.1.0/24"
-
-.. image:: assets/rg-create2.png
-   :width: 100%
+1. Browse to the `Google Cloud Console <https://console.cloud.google.com/>`_ 
+2. In the Google Cloud console, on the project selector page, select or create a `Google Cloud project <https://cloud.google.com/resource-manager/docs/creating-managing-projects>`_
 
 
 Create the AKS (Azure Kubernetes Service) Cluster
