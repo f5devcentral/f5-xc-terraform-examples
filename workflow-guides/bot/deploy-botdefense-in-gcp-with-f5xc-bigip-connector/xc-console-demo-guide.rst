@@ -48,10 +48,10 @@ Create a new Google Cloud Project
 2. In the Google Cloud console, on the project selector page, select or create a `Google Cloud project <https://cloud.google.com/resource-manager/docs/creating-managing-projects>`_
 
 
-Create the AKS (Azure Kubernetes Service) Cluster
+Create the GKE (Google Kubernetes Engine) Cluster
 =================================================
 
-1. To create an AKS cluster, we'll use the az aks create command. The following example creates a cluster named "az-xcbotdefense-cluster1" with one node and enables a system-assigned managed identity
+1. To create an GKE cluster, we'll use the following command. Use the following command to create a cluster named gcp-xcbotdefense-cluster1 "gcloud container clusters create-auto gcp-xcbotdefense-cluster1"
 2. Copy paste the command "az aks create --resource-group az-xcbotdefense-rg1 --name az-xcbotdefense-cluster1 --enable-managed-identity --node-count 1 --generate-ssh-keys" 
 3. After a few minutes, the command completes and returns JSON-formatted information about the cluster
 
