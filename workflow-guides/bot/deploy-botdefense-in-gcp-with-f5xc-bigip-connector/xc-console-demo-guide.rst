@@ -5,7 +5,7 @@ Deploy Bot Defense for GCP with F5 XC BIG-IP Connector
 Objective :
 -----------
 
-This guide will outline the steps for implementing F5 XC Bot Defense to protect your GCP Kubernetes workloads using our BIG-IP Connector. First we will be deploying our sample application into GCP GKS (Google Kubernetes Service). Then we will deploy into GCP and front-end this application with F5's BIG-IP virtual appliance configured with our XC Bot Defense Connector. We'll leverage F5 XC to setup and download our Bot Defense Connector which will be deployed directly to the BIG-IP virtual appliance. This guide will outline the steps for implementing this infrastructure via Console Steps as well as Automated method using Terraform.
+This guide will outline the steps for implementing F5 XC Bot Defense to protect your GKE Kubernetes workloads in GCP using our BIG-IP Connector. First we will be deploying our sample application into GKE (Google Kubernetes Engine). Then we will front-end this application with F5's BIG-IP virtual appliance in GCP configured with our XC Bot Defense Connector. We'll leverage F5 XC to setup and download our Bot Defense Connector which will be deployed directly to the BIG-IP virtual appliance. This guide will outline the steps for implementing this infrastructure via Console Steps as well as Automated method using Terraform.
 
 
 
@@ -21,8 +21,8 @@ Console Deployment Prerequisites:
 ^^^^^^^^^^^^^^
 
 1. F5 Distributed Cloud Account (F5XC)
-2. GCP Cloud Account (If you don't have an Azure subscription, create an Azure free account before you begin `here <https://portal.azure.com/>`_) 
-3. Azure CLI: Install the Azure CLI on your local machine. You can download it from the official Azure `CLI website <https://learn.microsoft.com/en-us/cli/azure/install-azure-cli>`_
+2. GCP Cloud Account (If you don't have an GCP subscription, create an GCP free account before you begin `here <https://console.cloud.google.com/freetrial/signup/>`_) 
+3. Gcloud CLI: Install the Gcloud CLI on your local machine. You can download it from  `CLI website <https://cloud.google.com/sdk/docs/install>`_
 4. kubectl: Install kubectl on your local machine. You can find installation instructions on the `kubectl installation page <https://kubernetes.io/docs/tasks/tools/>`_
 
 
