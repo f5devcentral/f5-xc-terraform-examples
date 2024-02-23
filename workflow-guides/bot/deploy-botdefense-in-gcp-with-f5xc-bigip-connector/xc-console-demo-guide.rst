@@ -31,10 +31,10 @@ Steps:
 ^^^^^^
 
 
-Signing into Azure CLI
+Signing into Gcloud CLI
 ======================
 
-1. From CLI run the "az login" command
+1. From CLI after extracting the Gcloud tar.gz package in the desired directory and running the "./google-cloud-sdk/bin/gcloud init" command, the "az login" command
 2. If the Azure CLI can open your default browser, it initiates authorization code flow and opens the default browser to load an Azure sign-in page
 3. Sign in with your account credentials in the browser
 4. If you have multiple Azure subscriptions, select the appropriate subscription ID in which the resources should be billed using the az account set command
