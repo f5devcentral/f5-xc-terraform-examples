@@ -36,9 +36,13 @@ Signing into Gcloud CLI
 
 1. Ensure you've followed the deployment prerequisites to install Gcloud CLI from `Gcloud CLI website <https://cloud.google.com/sdk/docs/install>`_ using option b)
 2. After installation, initialize Gcloud CLI with the "gcloud init" command. Choose your user account, project, and set the default compute/region to us-west1. `Initializing Gcloud Documentation <https://cloud.google.com/sdk/docs/initializing>`_
+3. Install the gke-cloud-auth-plugin with the following command from Gcloud CLI "gcloud components install gke-gcloud-auth-plugin"
 
 .. image:: assets/gcloudinit.png
-   :width: 100%
+   :width: 75%
+
+.. image:: assets/gke-auth-plugin.png
+   :width: 75%
 
 
 Create a new Google Cloud Project
@@ -52,7 +56,7 @@ Create the GKE (Google Kubernetes Engine) Cluster
 =================================================
 
 1. To create an GKE cluster, we'll use the following command. Use the following command to create a cluster named gcp-xcbotdefense-cluster1 "gcloud container clusters create-auto gcp-xcbotdefense-cluster1"
-2. Copy paste the command "az aks create --resource-group az-xcbotdefense-rg1 --name az-xcbotdefense-cluster1 --enable-managed-identity --node-count 1 --generate-ssh-keys" 
+2. Once the cluster has been created, use the following command to get the credentials to communicate with the cluster "gcloud container clusters get-credentials gcp-xcbotdefense-cluster1 --location us-west1" 
 3. After a few minutes, the command completes and returns JSON-formatted information about the cluster
 
 .. image:: assets/az-aks-create-2.png
@@ -74,7 +78,7 @@ Connect to the Cluster:
 Deploy our Sample Airline Application to the AKS Cluster:
 =========================================================
 
-1. Create a namespace using "kubectl create namespace az-xcbotdefense-namespace1"
+1. Create a namespace using "kubectl create namespace gcp-xcbotdefense-namespace1"
 2. Download the Kubernetes .yaml file for AKS using our sample Airline application `here <https://github.com/karlbort/f5-xc-waap-terraform-examples/blob/main/workflow-guides/bot/deploy-botdefense-in-azure-with-f5xc-bigip-connector/airline-app/az-xcbotdefense-app.yaml>`_ and save it to a working directory
 3. From CLI Navigate to the directory containing the container image YAML file and run the command "kubectl apply -f az-xcbotdefense-app.yaml -n az-xcbotdefense-namespace1".
 4. Check the status of the deployed pods using the "kubectl get pods -n az-xcbotdefense-namespace1" command. Make sure all pods are Running before proceeding.
