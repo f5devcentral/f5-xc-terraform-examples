@@ -52,35 +52,30 @@ Create a new Google Cloud Project
 2. In the Google Cloud console, on the project selector page, select or create a `Google Cloud project <https://cloud.google.com/resource-manager/docs/creating-managing-projects>`_
 
 
+Create the GCP VPC and Subnets
+===============================
+
+1. gcloud compute networks create gcp-xcbotdefense --subnet-mode=custom
+2. gcloud compute networks subnets create gcp-xcbotdefense-subnet1  --network=gcp-xcbotdefense-vpc1 --region=us-west1 --range=10.252.1.0/24
+
+
 Create the GKE (Google Kubernetes Engine) Cluster
 =================================================
 
-1. To create an GKE cluster, we'll use the following command. Use the following command to create a cluster named gcp-xcbotdefense-cluster1 "gcloud container clusters create-auto gcp-xcbotdefense-cluster1"
+1. To create an GKE cluster, we'll use the following command. Use the following command to create a cluster named gcp-xcbotdefense-cluster1 "gcloud container clusters create gcp-xcbotdefense-cluster1"
 2. Once the cluster has been created, use the following command to get the credentials to communicate with the cluster "gcloud container clusters get-credentials gcp-xcbotdefense-cluster1 --location us-west1" 
-3. After a few minutes, the command completes and returns JSON-formatted information about the cluster
+3. Verify the connection to your cluster using the "kubectl get nodes" command. This command returns a list of the cluster nodes.
 
 .. image:: assets/az-aks-create-2.png
    :width: 100%
 
 
-Connect to the Cluster:
-==========================
-
-1. Configure kubectl to connect to your Kubernetes cluster using the az aks get-credentials command. This command downloads credentials and configures the Kubernetes CLI to use them.
-2. Copy paste the following command into cli "az aks get-credentials --resource-group az-xcbotdefense-rg1 --name az-xcbotdefense-cluster1"
-3. Verify the connection to your cluster using the "kubectl get nodes" command. This command returns a list of the cluster nodes.
-4. The following sample output shows the single node created in the previous steps. Make sure the node status is Ready.
-
-.. image:: assets/kubectl-getnodes3.png
-   :width: 100%
-
-
-Deploy our Sample Airline Application to the AKS Cluster:
+Deploy our Sample Airline Application to the GKE Cluster:
 =========================================================
 
 1. Create a namespace using "kubectl create namespace gcp-xcbotdefense-namespace1"
-2. Download the Kubernetes .yaml file for AKS using our sample Airline application `here <https://github.com/karlbort/f5-xc-waap-terraform-examples/blob/main/workflow-guides/bot/deploy-botdefense-in-azure-with-f5xc-bigip-connector/airline-app/az-xcbotdefense-app.yaml>`_ and save it to a working directory
-3. From CLI Navigate to the directory containing the container image YAML file and run the command "kubectl apply -f az-xcbotdefense-app.yaml -n az-xcbotdefense-namespace1".
+2. Download the Kubernetes .yaml file for GKE using our sample Airline application `here <https://github.com/karlbort/f5-xc-waap-terraform-examples/blob/main/workflow-guides/bot/deploy-botdefense-in-gcp-with-f5xc-bigip-connector/airline-app/gcp-xcbotdefense-app.yaml>`_ and save it to a working directory
+3. From CLI Navigate to the directory containing the container image YAML file and run the command "kubectl apply -f gcp-xcbotdefense-app.yaml -n gcp-xcbotdefense-namespace1".
 4. Check the status of the deployed pods using the "kubectl get pods -n az-xcbotdefense-namespace1" command. Make sure all pods are Running before proceeding.
 5. Once this command has finished executing you can find the ingress IP by running the command "kubectl get services -n az-xcbotdefense-namespace1". Copy the external dns name as we'll be using this as the backend of our BIG-IP Virtual Server.
 
