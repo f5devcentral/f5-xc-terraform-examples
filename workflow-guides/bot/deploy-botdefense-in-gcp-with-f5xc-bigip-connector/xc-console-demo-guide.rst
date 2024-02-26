@@ -55,14 +55,14 @@ Create a new Google Cloud Project
 Create the GCP VPC and Subnets
 ===============================
 
-1. gcloud compute networks create gcp-xcbotdefense --subnet-mode=custom
+1. gcloud compute networks create gcp-xcbotdefense-vpc1 --subnet-mode=custom
 2. gcloud compute networks subnets create gcp-xcbotdefense-subnet1  --network=gcp-xcbotdefense-vpc1 --region=us-west1 --range=10.252.1.0/24
 
 
 Create the GKE (Google Kubernetes Engine) Cluster
 =================================================
 
-1. To create an GKE cluster, we'll use the following command. Use the following command to create a cluster named gcp-xcbotdefense-cluster1 "gcloud container clusters create gcp-xcbotdefense-cluster1"
+1. Create the cluster and deploy into the vpc and subnet we created. Use the following command to create a cluster named gcp-xcbotdefense-cluster1 "gcloud container clusters create gcp-xcbotdefense-cluster1 --network=gcp-xcbotdefense-vpc1 --subnetwork=gcp-xcbotdefense-subnet1"
 2. Once the cluster has been created, use the following command to get the credentials to communicate with the cluster "gcloud container clusters get-credentials gcp-xcbotdefense-cluster1 --location us-west1" 
 3. Verify the connection to your cluster using the "kubectl get nodes" command. This command returns a list of the cluster nodes.
 
