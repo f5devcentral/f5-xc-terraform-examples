@@ -83,79 +83,39 @@ Deploy our Sample Airline Application to the GKE Cluster:
    :width: 100%
 
 
-Create VNET Peering:
+Deploy F5 BIG-IP VM:
 ====================
 
-1. Navigate to the Azure Portal and in the upper left hamburger menu click on "Resource Groups". Then create a Filter of "az-xcbotdefense-rg1" so that we can see the resource group we created manually as well as the resource group automatically created by the aks cluster deployment.
+1. Navigate to the GCP Console and in the search menu click search for "marketplace" and click on the marketplace result. 
+2. From the GCP Marketplace search for "F5" then open the "F5 BIG-IP BEST with IPI and Threat Campaigns (PAYG, 1 Gbps) and click "Launch"
+3. The Deployment Name should be "gcp-xcbotdefense-bigip1"
+4. The Zone should be us-west-1-a
+5. Leave the Machine Type at "General purpose, N1 Series, n1-standard-4"
+6. In the Networking section set the Network to "gcp-xcbotdefense-vpc1", Subnetwork "gcp-xcbotdefense-subnet1", External IP "Ephemeral".
+7. Under the firewall section uncheck both "Allow TCP port 22 form the internet" and TCP port 8443. We'll create our own and attach it to the BIG-IP. 
+8. Click "Deploy"
 
 .. image:: assets/az-rg1-2.png
    :width: 75%
 
-2. Let's start with our configuration in the "MC_az-xcbotdefense-rg1_az-xcbotdefense-cluster2_westus2" cluster created resource group. Within the resource group navigate to the aks-vnet-123xxx > settings > peerings > add 
 
-.. image:: assets/aks-peering2.png
-   :width: 75%
+Create Inbound Firewall Policy and Rules for VPC:
+================================================
 
-3. Starting with "This Virtual Network" and enter the Peering link name of "aks-vnet-to-az-xcbotdefense-vnet1" 
-4. Check "allow aks-vnet-123xxx to access the peered virtual network"
-5. Check "allow aks-vnet-123456 to receive forwarded traffic from the peered virtual network"
-6. Under "Remote virtual network" enter the peering link name of "az-xcbotdefense-vnet1-to-aks-vnet" 
-7. Make sure you have the correct subsription selected and then find the remote virtual network in the dropdown by typing "az-xcbotdefense-vnet1"
-8. select "allows az-xcbotdefense-vnet1" to access aks-vnet and "allow az-xcbotdefense-vnet1 to receive forwarded traffic from aks-vnet"
-
-.. image:: assets/vnet-peering.png
-   :width: 75%
-
-9. Click Add and refresh the peerings page until the peering status shows "connected"
-10. Navigate to your other resource group az-xcbotdefense-rg1 > az-xcbotdefense-vnet1 > peerings > and confirm it shows peerings status "connected". If not, you will need to configure the same on this vnet side but in reverse.
-
-.. image:: assets/connected-peer.png
-   :width: 75%
-
-
-Create BIG-IP VM:
-=================
-
-1. Go to the Azure Console, search the services for "Marketplace" then search for "F5" and select "F5 BIG-IP Virtual Edition - BEST"
-
-.. image:: assets/bigip-vm.png
-   :width: 75%
-
-2. This will open the "Create a virtual machine" page where we need to fill out the required information.
-3. Under the Resource Group select from the drop-down menu the same resource group that we created "az-xcbotdefense-rg1"
-4. For the instance details "virtual machine name" we'll name it "az-xcbotdefense-bigip1"
-5. Make sure that the region is set to "(US) West US 2"
-6. Set "Availability Options" to "No infrastructure redundancy required"
-7. Set the "security type" to standard and leave the image as the "F5 BIG-IP Best" image. Also keep the VM architecture at x64
-8. Set the VM Size to "Standard_D4s_v3"
-9. For the administrator account select "password", set the username to f5admin, choose a password for the account
-
-.. image:: assets/bigip-create1.png
-   :width: 75%
-
-10. Under inbound rules, select "none", we'll add some additional ports in future steps
-11. Click next, and accept the defaults under "disks" and hit next again to the networking tab
-12. Your virtual network and subnet should be pre-populated with az-xcbotdefense-vnet1 and az-xcbotdefense-subnet1 respectively. If not, please select them now. 
-13. Public IP setting should be "(new) f5xc-bigip-botdefense-ip"
-14. Set the NIC network security group to "basic". We'll go into the network security group after and add the required ports.
-15. Under public inbound ports leave it set to "none"
-16. Leave the defaults and load balancing options to "none"
-
-.. image:: assets/bigip-create2.png
-   :width: 75%
-
-17. Accept all other defaults and click next through the remaining options and select "create"
-18. Once the vm resources are done provisioning click on the "go to resource" button and review the BIG-IP resources that have been created. Note** Copy/paste your private and public IP Addresses and store them for later. 
-
-.. image:: assets/bigip-create3.png
-   :width: 100%
-
-
-Create Inbound NSG for AZ-XCBOTDEFENSE-SUBNET1:
-======================================= 
-
-1. Navigate to resource groups > az-xcbotdefense-rg1 > az-xcbotdefense-bigip1-nsg > settings > "inbound security rules"
-2. Add Source "myipaddress" destination "IP Addresses", Destination IP Address/CIDR "10.248.1.0/24",  service "custom", destination port ranges "8443", protocol tcp, action allow, save 
+1. Navigate to networking > network security > firewall policies > create firewall policy > 
+2. Policy name should be gcp-xcbotdefense-fwpol1
+3. Deployment scope should be regional > select us-west1 and click continue
+4. Do not select any rules to be added and click continue
+5. Find the VPC Network we created call gcp-xcbotdefense-vpc1 and select it and click associate. Make sure the vpc is selected and click continue then "create"
+6. Click create firewall rule > name "gcp-xcbotdefense-fwrule1"
+7. Network gcp-xcbotdefense-vpc1
+8. Direction of traffic "Ingress"
+9. Action on match "allow"
+10. Targets > specified target tags > target tags > "gcp-xcbotdefense-bigip1"
+11. Source filter > IPv4 ranges > Source IPv4 ranges 0.0.0.0/0
+12. Destination filter "none"
+13. Protocols and ports > specified protocols and ports > TCP > "8443,22"
+14. The equivalent Command Line > gcloud compute --project=f5-gcs-5611-mktg-secsols firewall-rules create gcp-xcbotdefense-fwrule1 --direction=INGRESS --priority=1000 --network=gcp-xcbotdefense-vpc1 --action=ALLOW --rules=tcp:8443,tcp:22 --source-ranges=0.0.0.0/0 --target-tags=gcp-xcbotdefense-bigip1
 
 .. image:: assets/bigip-nsg1-2.png
    :width: 100%
