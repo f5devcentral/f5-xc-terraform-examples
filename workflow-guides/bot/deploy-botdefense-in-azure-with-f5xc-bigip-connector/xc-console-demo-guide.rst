@@ -269,26 +269,29 @@ Creating the XC Bot Defense Connector:
 .. image:: assets/connector-manage.png
    :width: 100%
 
-6. Now Login to your BIG-IP and click on the distributed Cloud services > Bot Defense > Create
+Creating the XC Bot Defense Profile on BIG-IP:
+==============================================
+
+1. Now Login to your BIG-IP and click on the distributed Cloud services > Bot Defense > Create
 
 .. image:: assets/bigip-bdprofile1.png
    :width: 100%
 
-7. Enter profile name "az-xcbotdefense-profile1"
-8. Paste Application ID, Tenant ID, API Hostname, API Key, and Telemetry Header Prefix from XC Console 
-9. Leave the default JS Insertion Configuration settings of /customer.js, After <head>, Async with no caching
+2. Enter profile name "az-xcbotdefense-profile1"
+3. Paste Application ID, Tenant ID, API Hostname, API Key, and Telemetry Header Prefix from XC Console 
+4. Leave the default JS Insertion Configuration settings of /customer.js, After <head>, Async with no caching
 
 .. image:: assets/bigip-bdprofile1-3.png
    :width: 100%
 
-10. Under protected endpoints, enter the public IP for your BIG-IP/Application, set the path to /user/signin, set the endpoint label to Login, and check "PUT" and "POST" checkbox with mitigation action of "block", don't forgest to click "Add" to add the rule
+5. Under protected endpoints, enter the public IP for your BIG-IP/Application, set the path to /user/signin, set the endpoint label to Login, and check "PUT" and "POST" checkbox with mitigation action of "block", don't forgest to click "Add" to add the rule
 
 .. image:: assets/protected-endpoints.png
    :width: 100%
 
-11, Under the Advanced Features, click the plus sign next to "protection pool" and name it "ibd-webus.fastcache.net"
-12. add a health monitor of https, under node name call it ibd-webus.fastcache.net, address ibd-webus.fastcache.net, service port 443 https, click add and finished
-13. Back on the Bot Defense profile page select the newly created profile from the menu and set the ssl profile to "serverssl" and click finished
+6, Under the Advanced Features, click the plus sign next to "protection pool" and name it "ibd-webus.fastcache.net"
+7. add a health monitor of https, under node name call it ibd-webus.fastcache.net, address ibd-webus.fastcache.net, service port 443 https, click add and finished
+8. Back on the Bot Defense profile page select the newly created profile from the menu and set the ssl profile to "serverssl" and click finished
 
 .. image:: assets/bd-protection-pool1.png
    :width: 100%
