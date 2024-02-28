@@ -66,7 +66,7 @@ Create the GKE (Google Kubernetes Engine) Cluster
 2. Once the cluster has been created, use the following command to get the credentials to communicate with the cluster "gcloud container clusters get-credentials gcp-xcbotdefense-cluster1 --location us-west1" 
 3. Verify the connection to your cluster using the "kubectl get nodes" command. This command returns a list of the cluster nodes.
 
-.. image:: assets/az-aks-create-2.png
+.. image:: assets/gcp-getnodes.png
    :width: 100%
 
 
@@ -79,7 +79,10 @@ Deploy our Sample Airline Application to the GKE Cluster:
 4. Check the status of the deployed pods using the "kubectl get pods -n gcp-xcbotdefense-namespace1" command. Make sure all pods are Running before proceeding.
 5. Once this command has finished executing you can find the ingress IP by running the command "kubectl get services -n gcp-xcbotdefense-namespace1". Note that the external IP is in the gcp-xcbotdefense-subnet1 (10.252.1.0/24) that we created. Make a note of this address as we'll be using this as the backend of our BIG-IP Virtual Server.
 
-.. image:: assets/kubectl-apply3.png
+.. image:: assets/gcp-getpods.png
+   :width: 100%
+
+.. image:: assets/gcp-getservices.png
    :width: 100%
 
 
