@@ -99,34 +99,16 @@ Deploy F5 BIG-IP VM:
    :width: 75%
 
 
-Create Inbound Firewall Policy and Rules for VPC:
-================================================
+Create Inbound Firewall Policy and Rules for BIGIP:
+===================================================
 
-1. Navigate to networking > network security > firewall policies > create firewall policy > 
-2. Policy name should be gcp-xcbotdefense-fwpol1
-3. Deployment scope should be regional > select us-west1 and click continue
-4. Do not select any rules to be added and click continue
-5. Find the VPC Network we created call gcp-xcbotdefense-vpc1 and select it and click associate. Make sure the vpc is selected and click continue then "create"
-6. Click create firewall rule > name "gcp-xcbotdefense-fwrule1"
-7. Network gcp-xcbotdefense-vpc1
-8. Direction of traffic "Ingress"
-9. Action on match "allow"
-10. Targets > specified target tags > target tags > "gcp-xcbotdefense-bigip1"
-11. Source filter > IPv4 ranges > Source IPv4 ranges 0.0.0.0/0
-12. Destination filter "none"
-13. Protocols and ports > specified protocols and ports > TCP > "8443,22"
-14. The equivalent Command Line > gcloud compute --project=f5-gcs-5611-mktg-secsols firewall-rules create gcp-xcbotdefense-fwrule1 --direction=INGRESS --priority=1000 --network=gcp-xcbotdefense-vpc1 --action=ALLOW --rules=tcp:8443,tcp:22 --source-ranges=0.0.0.0/0 --target-tags=gcp-xcbotdefense-bigip1
-
-.. image:: assets/bigip-nsg1-2.png
-   :width: 100%
-
-3. Repeat the process and add Add Source "myipaddress", destination "IP Addresses", Destination IP Address/CIDR "10.248.1.0/24", service "SSH", action allow, save
-4. Repeat the process and add Source "any", destination "10.248.1.0/24" service "HTTP", action "allow", save
-5. Repeat the process and add Source IP Address "10.224.0.0/16" Destination IP Address, 10.248.1.0/24, service "custom", destination port ranges *, protocol any, action allow, Save
-6. Repeat the process and add Source "Any", Destination "IP Addresses", Destination IP Address/CIDR "10.248.1.0/24, Service "HTTPS", Action allow, Save
+1. From CLI copy/paste the command "gcloud compute firewall-rules create gcp-xcbotdefense-fwrule8443 --network=gcp-xcbotdefense-vpc1 --direction=INGRESS --allow=tcp:8443 --source-ranges=0.0.0.0/0 --target-tags=gcp-xcbotdefense-bigip2-deployment"
+2. From CLI copy/paste the command "gcloud compute firewall-rules create gcp-xcbotdefense-fwrule22 --network=gcp-xcbotdefense-vpc1 --direction=INGRESS --allow=tcp:22 --source-ranges=0.0.0.0/0 --target-tags=gcp-xcbotdefense-bigip2-deployment"
+3. From CLI copy/paste the command "gcloud compute firewall-rules create gcp-xcbotdefense-fwrule80 --network=gcp-xcbotdefense-vpc1 --direction=INGRESS --allow=tcp:80 --source-ranges=0.0.0.0/0 --target-tags=gcp-xcbotdefense-bigip2-deployment"
 
 .. image:: assets/bigip-nsg2-2.png
    :width: 100%
+
 
 Create Route Table for BIG-IP to AKS:
 =====================================
