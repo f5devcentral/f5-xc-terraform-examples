@@ -102,13 +102,51 @@ Deploy F5 BIG-IP VM:
 Create Inbound Firewall Policy and Rules for BIGIP:
 ===================================================
 
-1. From CLI copy/paste the command "gcloud compute firewall-rules create gcp-xcbotdefense-fwrule8443 --network=gcp-xcbotdefense-vpc1 --direction=INGRESS --allow=tcp:8443 --source-ranges=0.0.0.0/0 --target-tags=gcp-xcbotdefense-bigip1-deployment"
-2. From CLI copy/paste the command "gcloud compute firewall-rules create gcp-xcbotdefense-fwrule22 --network=gcp-xcbotdefense-vpc1 --direction=INGRESS --allow=tcp:22 --source-ranges=0.0.0.0/0 --target-tags=gcp-xcbotdefense-bigip1-deployment"
-3. From CLI copy/paste the command "gcloud compute firewall-rules create gcp-xcbotdefense-fwrule80 --network=gcp-xcbotdefense-vpc1 --direction=INGRESS --allow=tcp:80 --source-ranges=0.0.0.0/0 --target-tags=gcp-xcbotdefense-bigip1-deployment"
+1. These inbound firewall rules will allow traffic to the 
+2. From CLI copy/paste the command "gcloud compute firewall-rules create gcp-xcbotdefense-fwrule8443 --network=gcp-xcbotdefense-vpc1 --direction=INGRESS --allow=tcp:8443 --source-ranges=0.0.0.0/0 --target-tags=gcp-xcbotdefense-bigip1-deployment"
+3. From CLI copy/paste the command "gcloud compute firewall-rules create gcp-xcbotdefense-fwrule22 --network=gcp-xcbotdefense-vpc1 --direction=INGRESS --allow=tcp:22 --source-ranges=0.0.0.0/0 --target-tags=gcp-xcbotdefense-bigip1-deployment"
+4. From CLI copy/paste the command "gcloud compute firewall-rules create gcp-xcbotdefense-fwrule80 --network=gcp-xcbotdefense-vpc1 --direction=INGRESS --allow=tcp:80 --source-ranges=0.0.0.0/0 --target-tags=gcp-xcbotdefense-bigip1-deployment"
 
 .. image:: assets/bigip-nsg2-2.png
    :width: 100%
 
+
+Connect to BIG-IP:
+==================
+
+1. The first time you boot BIG-IP VE, you must connect to the instance and create a strong admin password. You will use the admin account and password to access the BIG-IP Configuration utility
+2. In the Google Console, SSH -> View Gcloud Command > Copy to Clipboard > Paste into local Gcloud CLI. Type admin@ before the instance name, for example: gcloud compute ssh --zone "us-west1-a" "admin@gcp-xcbotdefense-bigip1-vm" --project "myprojectname"
+3. Occassionally, SSH will ask for a passphrase even when one hasn't been created, if SSH key is password protected "cd ~/.ssh", "sudo ssh-keygen -t rsa -f ~/.ssh/google_compute_engine -C username@myemail.com"
+4. Once you have access to the BIG-IP CLI, to ensure you are at the tmsh command prompt, type tmsh
+5. Change the admin password with the command "modify auth password admin" and press enter, type the password and then confirm. 
+6. Ensure that the system retains the password change with the command "save sys config"
+7. Open a web browser and log in to the BIG-IP Configuration utility by using https with the external IP address and port 8443, for example: https://<external-ip-address>:8443. The username is admin and the password is the one you set previously. You can find the external ip address with "gcloud compute instances describe --zone=us-west1-a gcp-xcbotdefense-bigip1-vm --format='get(networkInterfaces[0].accessConfigs[0].natIP)' or with "gcloud compute instances list" and find gcp-xcbotdefense-bigip1-vm.
+
+
+Create BIG-IP Service Pool :
+============================
+
+1. NOTE** You will need the external IP Address of your cluster from "kubectl get services -n gcp-xcbotdefense-namespace1". It should be a 10.252.1.x/24 IP address
+2. Open a web browser and log in to the BIG-IP Configuration utility by using https with the external IP address and port 8443, for example: https://<external-ip-address>:8443. The username is admin and the password is the one you set previously. You can find the external ip address with "gcloud compute instances describe --zone=us-west1-a gcp-xcbotdefense-bigip1-vm --format='get(networkInterfaces[0].accessConfigs[0].natIP)' or with "gcloud compute instances list" and find gcp-xcbotdefense-bigip1-vm
+3. Under the Main tab go to local traffic > pools > create 
+4. Name "gcp-xcbotdefense-app1", Health Monitors "tcp"
+5. Leave the default load balancing method at "Round Robin", add the node name of "gcp-xcbotdefense-app1", in the address field, paste the external ip from previous steps "10.252.1.x", set service port to "80 HTTP", Add, finished
+6. If you refresh your page the status should turn green indicating successful health monitor to the aks app.
+
+.. image:: assets/bigip-pool.png
+   :width: 100%
+
+
+Create BIG-IP Virtual Server:
+=============================
+
+1. First thing you will need to grab here is the private address in that's been assigned to your BIG-IP. Navigate to resource groups > az-xcbotdefense-rg1 > az-xcbotdefense-bigip1 and not the private IP address under the networking section. 
+2. Within the BIG-IP navigate to Local traffic > virtual servers > CREATE
+3. Name "az-xcbotdefense-vip1", source address, 0.0.0.0/0, Destination Address/Mask, enter "<bigip-private-ip>/32" (Private IP of BIG-IP from previous step), service port 80 http 
+4. set the HTTP Profile (Client) to "http", HTTP Profile (server) "use client profile"
+
+.. image:: assets/bigip-vip1-1.png
+   :width: 100%
 
 Create Route Table for BIG-IP to AKS:
 =====================================
