@@ -258,7 +258,7 @@ Creating the XC Bot Defense Profile:
 .. image:: assets/bot-manage.png
    :width: 100%
 
-3. Use the name "az-xcbotdefense-profile1" and a description of "XC Bot Defense Connector for BIG-IP in Azure" 
+3. Use the name "az-xcbotdefense-connector1" and a description of "XC Bot Defense Connector for BIG-IP in Azure" 
 4. Set the Application Region to "US", Connector Type "F5 BIG-IP iApp (v17.0 or greater) > save and exit
 
 .. image:: assets/bigip-connector-add.png
