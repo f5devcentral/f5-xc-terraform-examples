@@ -102,9 +102,9 @@ Deploy F5 BIG-IP VM:
 Create Inbound Firewall Policy and Rules for BIGIP:
 ===================================================
 
-1. From CLI copy/paste the command "gcloud compute firewall-rules create gcp-xcbotdefense-fwrule8443 --network=gcp-xcbotdefense-vpc1 --direction=INGRESS --allow=tcp:8443 --source-ranges=0.0.0.0/0 --target-tags=gcp-xcbotdefense-bigip2-deployment"
-2. From CLI copy/paste the command "gcloud compute firewall-rules create gcp-xcbotdefense-fwrule22 --network=gcp-xcbotdefense-vpc1 --direction=INGRESS --allow=tcp:22 --source-ranges=0.0.0.0/0 --target-tags=gcp-xcbotdefense-bigip2-deployment"
-3. From CLI copy/paste the command "gcloud compute firewall-rules create gcp-xcbotdefense-fwrule80 --network=gcp-xcbotdefense-vpc1 --direction=INGRESS --allow=tcp:80 --source-ranges=0.0.0.0/0 --target-tags=gcp-xcbotdefense-bigip2-deployment"
+1. From CLI copy/paste the command "gcloud compute firewall-rules create gcp-xcbotdefense-fwrule8443 --network=gcp-xcbotdefense-vpc1 --direction=INGRESS --allow=tcp:8443 --source-ranges=0.0.0.0/0 --target-tags=gcp-xcbotdefense-bigip1-deployment"
+2. From CLI copy/paste the command "gcloud compute firewall-rules create gcp-xcbotdefense-fwrule22 --network=gcp-xcbotdefense-vpc1 --direction=INGRESS --allow=tcp:22 --source-ranges=0.0.0.0/0 --target-tags=gcp-xcbotdefense-bigip1-deployment"
+3. From CLI copy/paste the command "gcloud compute firewall-rules create gcp-xcbotdefense-fwrule80 --network=gcp-xcbotdefense-vpc1 --direction=INGRESS --allow=tcp:80 --source-ranges=0.0.0.0/0 --target-tags=gcp-xcbotdefense-bigip1-deployment"
 
 .. image:: assets/bigip-nsg2-2.png
    :width: 100%
