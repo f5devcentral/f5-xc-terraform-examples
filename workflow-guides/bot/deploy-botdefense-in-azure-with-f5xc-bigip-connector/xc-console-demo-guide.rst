@@ -158,7 +158,7 @@ Create BIG-IP VM:
 
 
 Create Inbound NSG for AZ-XCBOTDEFENSE-SUBNET1:
-======================================= 
+=============================================== 
 
 1. Navigate to resource groups > az-xcbotdefense-rg1 > az-xcbotdefense-bigip1-nsg > settings > "inbound security rules"
 2. Add Source "myipaddress" destination "IP Addresses", Destination IP Address/CIDR "10.248.1.0/24",  service "custom", destination port ranges "8443", protocol tcp, action allow, save 
@@ -245,8 +245,8 @@ Create BIG-IP Virtual Server:
 .. image:: assets/f5air.png
    :width: 100%
 
-Creating the XC Bot Defense Profile:
-==============================================
+Creating the XC Bot Defense Connector:
+======================================
 
 1. Logging into your tenant via https://console.ves.volterra.io ensure you have a unique namespace configured. If not, navigate to Administration --> My Namespaces --> Add New
 2. Switch into your newly created namespace
