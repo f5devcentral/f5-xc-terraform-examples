@@ -205,7 +205,7 @@ Creating the XC Bot Defense Profile on BIG-IP:
 3. Paste Application ID, Tenant ID, API Hostname, API Key, and Telemetry Header Prefix from XC Console 
 4. Leave the default JS Insertion Configuration settings of /customer.js, After <head>, Async with no caching
 
-.. image:: assets/bigip-bdprofile1-3.png
+.. image:: assets/gcp-bdprofile1.png
    :width: 100%
 
 5. Under protected endpoints, enter the public IP for your BIG-IP/Application, set the path to /user/signin, set the endpoint label to Login, and check "PUT" and "POST" checkbox with mitigation action of "block", don't forgest to click "Add" to add the rule
@@ -234,7 +234,7 @@ Binding the XC Bot Profile to the Virtual Sever:
 2. Change the Bot Defense drop down from "disabled" to "enabled" then select the "gcp-xcbotdefense-connector1" profile and click update 
 3. Now that we've applied the Bot Defense Connector to our Virtual Server Lets test it out. 
 
-.. image:: assets/vip-bdprofile2.png
+.. image:: assets/vip-bdprofile-3.png
    :width: 100%
 
 Validating the Java Script Injection:
