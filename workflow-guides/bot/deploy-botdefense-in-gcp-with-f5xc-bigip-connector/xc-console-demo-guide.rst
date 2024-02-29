@@ -58,8 +58,8 @@ Create a new Google Cloud Project
 Create the GCP VPC and Subnets
 ===============================
 
-1. gcloud compute networks create gcp-xcbotdefense-vpc1 --subnet-mode=custom
-2. gcloud compute networks subnets create gcp-xcbotdefense-subnet1  --network=gcp-xcbotdefense-vpc1 --region=us-west1 --range=10.252.1.0/24
+1. Copy/Paste into Gcloud CLI > "gcloud compute networks create gcp-xcbotdefense-vpc1 --subnet-mode=custom"
+2. Copy/Paste into Gcloud CLI > "gcloud compute networks subnets create gcp-xcbotdefense-subnet1  --network=gcp-xcbotdefense-vpc1 --region=us-west1 --range=10.252.1.0/24"
 
 
 Create the GKE (Google Kubernetes Engine) Cluster
