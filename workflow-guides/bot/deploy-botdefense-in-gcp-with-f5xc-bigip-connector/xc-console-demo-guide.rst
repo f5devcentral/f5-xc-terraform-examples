@@ -257,7 +257,7 @@ Simulating Bot Traffic with CURL:
 2. After you've downloaded the curl-stuff.sh script you can edit the file using a text editor and replace the domain name on line 3 with the public IP Address of your BIG-IP. For example, curl -s http://x.x.x.x/user/signin NOTE*** ensure that you maintain the "/user/signin" path as this is the protected endpoint we configured in our profile.
 3. Run the curl script with sh curl-stuff.sh. Note the failure response in the screenshot below
 
-.. image:: assets/curl-stuff2.png
+.. image:: assets/curl-stuff3.png
    :width: 100%
 
 
