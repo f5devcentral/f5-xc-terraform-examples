@@ -51,6 +51,9 @@ Create a new Google Cloud Project
 1. Browse to the `Google Cloud Console <https://console.cloud.google.com/>`_ 
 2. In the Google Cloud console, on the project selector page, select or create a `Google Cloud project <https://cloud.google.com/resource-manager/docs/creating-managing-projects>`_
 
+.. image:: assets/free-trial.png
+   :width: 100%
+
 
 Create the GCP VPC and Subnets
 ===============================
