@@ -272,7 +272,7 @@ View Bot Traffic​:
 5. Under Overview click Monitor and you can see our the bot detections of our newly protected Cloudfront Application. 
 6. Here you can monitor and respond to events that are identified as Bot traffic
 
-.. image:: assets/bdmonitor2.png
+.. image:: assets/gcp-bdmonitor.png
    :width: 100%
 
 Step by step process using automation scripts:
