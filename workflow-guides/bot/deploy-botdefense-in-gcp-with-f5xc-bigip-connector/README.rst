@@ -17,7 +17,7 @@ Distributed Cloud <https://community.f5.com/t5/technical-articles/deploy-bot-def
 Setup Diagram
 #############
 
-.. figure:: assets/awscfdiag.png
+.. figure:: assets/bot-gcp.png
 
 Workflow Instructions
 ######################

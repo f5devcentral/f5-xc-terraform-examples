@@ -158,7 +158,7 @@ Create BIG-IP VM:
 
 
 Create Inbound NSG for AZ-XCBOTDEFENSE-SUBNET1:
-======================================= 
+=============================================== 
 
 1. Navigate to resource groups > az-xcbotdefense-rg1 > az-xcbotdefense-bigip1-nsg > settings > "inbound security rules"
 2. Add Source "myipaddress" destination "IP Addresses", Destination IP Address/CIDR "10.248.1.0/24",  service "custom", destination port ranges "8443", protocol tcp, action allow, save 
@@ -245,8 +245,8 @@ Create BIG-IP Virtual Server:
 .. image:: assets/f5air.png
    :width: 100%
 
-Creating the XC Bot Defense Profile:
-==============================================
+Creating the XC Bot Defense Connector:
+======================================
 
 1. Logging into your tenant via https://console.ves.volterra.io ensure you have a unique namespace configured. If not, navigate to Administration --> My Namespaces --> Add New
 2. Switch into your newly created namespace
@@ -258,7 +258,7 @@ Creating the XC Bot Defense Profile:
 .. image:: assets/bot-manage.png
    :width: 100%
 
-3. Use the name "az-xcbotdefense-profile1" and a description of "XC Bot Defense Connector for BIG-IP in Azure" 
+3. Use the name "az-xcbotdefense-connector1" and a description of "XC Bot Defense Connector for BIG-IP in Azure" 
 4. Set the Application Region to "US", Connector Type "F5 BIG-IP iApp (v17.0 or greater) > save and exit
 
 .. image:: assets/bigip-connector-add.png
@@ -269,26 +269,29 @@ Creating the XC Bot Defense Profile:
 .. image:: assets/connector-manage.png
    :width: 100%
 
-6. Now Login to your BIG-IP and click on the distributed Cloud services > Bot Defense > Create
+Creating the XC Bot Defense Profile on BIG-IP:
+==============================================
+
+1. Now Login to your BIG-IP and click on the distributed Cloud services > Bot Defense > Create
 
 .. image:: assets/bigip-bdprofile1.png
    :width: 100%
 
-7. Enter profile name "az-xcbotdefense-profile1"
-8. Paste Application ID, Tenant ID, API Hostname, API Key, and Telemetry Header Prefix from XC Console 
-9. Leave the default JS Insertion Configuration settings of /customer.js, After <head>, Async with no caching
+2. Enter profile name "az-xcbotdefense-profile1"
+3. Paste Application ID, Tenant ID, API Hostname, API Key, and Telemetry Header Prefix from XC Console 
+4. Leave the default JS Insertion Configuration settings of /customer.js, After <head>, Async with no caching
 
 .. image:: assets/bigip-bdprofile1-3.png
    :width: 100%
 
-10. Under protected endpoints, enter the public IP for your BIG-IP/Application, set the path to /user/signin, set the endpoint label to Login, and check "PUT" and "POST" checkbox with mitigation action of "block", don't forgest to click "Add" to add the rule
+5. Under protected endpoints, enter the public IP for your BIG-IP/Application, set the path to /user/signin, set the endpoint label to Login, and check "PUT" and "POST" checkbox with mitigation action of "block", don't forgest to click "Add" to add the rule
 
 .. image:: assets/protected-endpoints.png
    :width: 100%
 
-11, Under the Advanced Features, click the plus sign next to "protection pool" and name it "ibd-webus.fastcache.net"
-12. add a health monitor of https, under node name call it ibd-webus.fastcache.net, address ibd-webus.fastcache.net, service port 443 https, click add and finished
-13. Back on the Bot Defense profile page select the newly created profile from the menu and set the ssl profile to "serverssl" and click finished
+6, Under the Advanced Features, click the plus sign next to "protection pool" and name it "ibd-webus.fastcache.net"
+7. add a health monitor of https, under node name call it ibd-webus.fastcache.net, address ibd-webus.fastcache.net, service port 443 https, click add and finished
+8. Back on the Bot Defense profile page select the newly created profile from the menu and set the ssl profile to "serverssl" and click finished
 
 .. image:: assets/bd-protection-pool1.png
    :width: 100%
