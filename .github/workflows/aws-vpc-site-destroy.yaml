@@ -63,9 +63,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
+        with:
+          repository: f5devcentral/f5-xc-terraform-examples
+          
       - id: apply_variables 
-        uses: "./.github/actions/apply-variables" 
+        uses: "f5devcentral/f5-xc-terraform-examples/.github/actions/apply-variables@main" 
         with: 
           vars_json: "${{ toJSON(vars) }}" 
           vars_prefix: "AWSVS_TF_VAR_"

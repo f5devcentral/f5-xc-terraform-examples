@@ -47,6 +47,7 @@ on:
       XC_API_P12_FILE:
       AWS_ACCESS_KEY:
       AWS_SECRET_KEY:
+      AWS_SESSION_TOKEN:
       XC_AWS_CLOUD_CREDENTIALS_NAME:
       AZURE_SUBSCRIPTION_ID:
       AZURE_TENANT_ID:
@@ -215,6 +216,7 @@ jobs:
       XC_API_URL: ${{ secrets.XC_API_URL }}
       AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }} 
       AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }} 
+      AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }} 
       XC_AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }} 
       XC_AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }} 
       XC_AWS_CLOUD_CREDENTIALS_NAME: ${{ secrets.XC_AWS_CLOUD_CREDENTIALS_NAME }} 
