@@ -114,7 +114,7 @@ Testing:
 
 .. figure:: assets/Capture9.JPG
 
-5. Now update the URL field of postman with `http://<pub-ip>/productpage?u=normal` 
+5. Now update the URL field of postman with `http://<aws-site-pub-ip>/productpage?u=normal` 
 
 6. Keeping the other parameters same, again send the GET request
 
