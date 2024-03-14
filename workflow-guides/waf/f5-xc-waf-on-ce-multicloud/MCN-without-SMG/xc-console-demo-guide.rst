@@ -93,7 +93,7 @@ Deployment Steps
 
 .. figure:: assets/Capture2.JPG
 
-8. Create a HTTP Load Balancer (LB) pointing to the AKS cluster node as an origin server and advertise this LB as well to the AWS CE site with network set to inside as shown in the below image: 
+8. Create a HTTP Load Balancer (LB) pointing to the AKS cluster node as an origin server, enable WAF in blocking mode and advertise this LB as well to the AWS CE site with network set to inside as shown in the below image: 
 
 .. figure:: assets/Capture5.JPG
 
