@@ -97,7 +97,7 @@ Deployment Steps
 
 .. figure:: assets/Capture5.JPG
 
-
+**Note: Since the details LB is advertised to AWS CE site on inside network, details page cannot be accessible directly from outside(internet) **
 
 Testing: 
 *********
@@ -116,7 +116,7 @@ Testing:
 
 5. Now update the URL field of postman with `http://<pub-ip>/productpage?u=normal` 
 
-6. Keeping the other parameters same, again send the GET request 
+6. Keeping the other parameters same, again send the GET request
 
 .. figure:: assets/Capture8.JPG
 
