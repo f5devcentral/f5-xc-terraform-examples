@@ -5,7 +5,7 @@ Manual step by step process for the deployment
 
 Prerequisites
 **************
-- Access to AWS & Azure portal 
+- Access to AWS & Azure portals
 - Access to F5 XC account 
 - Install AWS CLI, Azure CLI and Kubectl command line tool to connect and push the app manifest files to EKS and AKS clusters 
 - Install postman for testing the setup 
