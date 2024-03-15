@@ -97,7 +97,7 @@ Deployment Steps
 
 .. figure:: assets/Capture5.JPG
 
-**Note: Since the details LB is advertised to AWS CE site on inside network, details page cannot be accessible directly from outside(internet)**
+**Note: Since the details LB is advertised to AWS CE site on inside network, details page cannot be accessible directly from outside(internet). Additionally, attached WAF policies on both frontend and backend loadbalancers will help provide robust security to the application environment**
 
 Testing: 
 *********
