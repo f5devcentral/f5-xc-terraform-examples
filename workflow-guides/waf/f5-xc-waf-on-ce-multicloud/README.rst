@@ -17,11 +17,11 @@ Distributed Cloud <https://community.f5.com/t5/technical-articles/deploy-waf-any
 Setup Diagram
 #############
 
-.. figure:: assets/readme.jpeg
+.. figure:: MCN-without-SMG/assets/readme.jpeg
 
 Workflow Instructions
 ######################
 
-`F5 Distributed Cloud Console Workflow <./xc-console-demo-guide.rst>`__
+`F5 Distributed Cloud Console Workflow <MCN-without-SMG/xc-console-demo-guide.rst>`__
 
 `F5 Distributed Cloud Automation Workflow (Coming Soon)`
