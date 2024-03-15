@@ -17,32 +17,37 @@ Distributed Cloud <https://community.f5.com/t5/technical-articles/deploy-waf-any
 This use-case is divided into 2 sub parts:
 
 1. Multi-Cloud Networking (MCN) without Site Mesh Group(SMG)
-
-Setup Diagram
 #############
+
+**Setup Diagram**
+------
+
 
 .. figure:: MCN-without-SMG/assets/readme.jpeg
 
 Workflow Instructions
-######################
+------
+
 
 `F5 Distributed Cloud Console Workflow <MCN-without-SMG/xc-console-demo-guide.rst>`__
 
 `F5 Distributed Cloud Automation Workflow (Coming Soon)`
 
 2. Multi-Cloud Networking (MCN) with Site Mesh Group(SMG)
-
-Setup Diagram
 #############
 
-.. figure:: MCN-without-SMG/assets/readme2.jpeg
+Setup Diagram
+-------
+
+
+.. figure:: MCN-with-SMG/assets/readme.jpeg
 
 Workflow Instructions
-######################
+-------
+
 
 `F5 Distributed Cloud Console Workflow (Coming Soon)`
 
 `F5 Distributed Cloud Automation Workflow (Coming Soon)`
-
 
 
