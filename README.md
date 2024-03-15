@@ -57,7 +57,8 @@ Examples of F5 Distributed Cloud (XC) deployments utilizing Terraform. For more 
 
   | **Teachable Courses**                                                                                                                                                                           | **Use Case / Workflow Resources (Automation, SaaS Console)**                                                                                                                                                                                                        |
   | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-  | [**Coming soon:** 00 - Intro Course (Intial Automation Configuration)](#)              | [00 Intro - Intial Configuration for Teachable Courses ](https://github.com/f5devcentral/f5-xc-terraform-examples/tree/main/teachable/00-intro)
+  | [**Coming soon:** 00 - Intro Course (Intial Automation Configuration)](#)              | [00 Intro - Intial Configuration for Teachable Courses ](https://github.com/f5devcentral/f5-xc-terraform-examples/tree/main/teachable/00-intro) |
+  |  [F5 Distributed Cloud Web Application Firewall (WAF) on Customer Edge](https://trainingf5cloud.teachable.com/courses/enrolled/2462111)          |  [Deploy F5 XC WAF on XC Customer Edge in Azure (SaaS Console, Automation)](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-ce/azure/README.rst)
 
   
 ## Getting Started
