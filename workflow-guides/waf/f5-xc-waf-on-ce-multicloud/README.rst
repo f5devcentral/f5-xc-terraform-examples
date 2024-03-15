@@ -6,7 +6,7 @@ Deploying F5 XC WAF on Customer Edge (Multi-Cloud Scenario)
 
 .. contents:: **Table of Contents**
 
-Overview
+**Overview**
 #########
 
 This demo guide provides manual step-by-step walkthrough for applying WAF on CE sites deployed on different cloud platforms and establishing connectivity among them using XC console, along with terraform scripts to automate this deployment. For more information on different WAAP deployment modes, refer to the devcentral article: `Deploy WAF Anywhere with F5
@@ -16,10 +16,10 @@ Distributed Cloud <https://community.f5.com/t5/technical-articles/deploy-waf-any
 
 This use-case is divided into 2 sub parts:
 
-1. Multi-Cloud Networking (MCN) without Site Mesh Group(SMG)
+**1. Multi-Cloud Networking (MCN) without Site Mesh Group(SMG)**
 #############
 
-**Setup Diagram**
+Setup Diagram
 ------
 
 
@@ -33,7 +33,7 @@ Workflow Instructions
 
 `F5 Distributed Cloud Automation Workflow (Coming Soon)`
 
-2. Multi-Cloud Networking (MCN) with Site Mesh Group(SMG)
+**2. Multi-Cloud Networking (MCN) with Site Mesh Group(SMG)**
 #############
 
 Setup Diagram
