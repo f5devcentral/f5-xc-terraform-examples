@@ -1,0 +1,99 @@
+name: "Enable API Discovery"
+
+on:
+  workflow_dispatch:
+    inputs:
+      loadbalancer_name:
+        description: "HTTP Load Balancer Name"
+        required: true
+        type: string
+      namespace:
+        description: "HTTP Load Balancer Namespace"
+        required: true
+        type: string
+  workflow_call:
+    inputs:
+      loadbalancer_name:
+        description: "HTTP Load Balancer Name"
+        required: true
+        type: string
+      namespace:
+        description: "HTTP Load Balancer Namespace"
+        required: true
+        type: string
+    secrets:
+      XC_API_URL:
+      XC_P12_PASSWORD:
+      XC_API_P12_FILE:
+      P12:
+
+jobs:
+  enalbe_api_discovery:
+    name: "Enable API Discovery"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "."
+    env: 
+      LOADBALANCER_NAME: ${{ inputs.loadbalancer_name }}
+      NAMESPACE: ${{ inputs.namespace }}
+      VES_P12_PASSWORD: ${{ secrets.XC_P12_PASSWORD }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: update_output
+        id: update_output
+        shell: bash
+        run: |
+          echo "Downloading vesctl"
+          curl -LO "https://vesio.azureedge.net/releases/vesctl/$(curl -s https://downloads.volterra.io/releases/vesctl/latest.txt)/vesctl.linux-amd64.gz"
+          gzip -d ./vesctl.linux-amd64.gz
+          mv vesctl.linux-amd64 vesctl
+          chmod +x ./vesctl
+
+          if [ -n "${{ secrets.XC_API_P12_FILE }}" ]; then
+            echo "${{secrets.XC_API_P12_FILE}}" | base64 -d > api.p12
+          fi
+          
+          # for compatibility
+          if [ -n "${{ secrets.P12 }}" ]; then
+            echo "${{secrets.P12}}" | base64 -d > api.p12
+          fi
+
+          cat > .vesconfig << EOF
+            server-urls: ${{ secrets.XC_API_URL }}
+            p12-bundle: ./api.p12
+          EOF
+
+          echo "Retrieving existing loadbalancer configuration"
+          ./vesctl --config .vesconfig configuration get http_loadbalancer ${{ env.LOADBALANCER_NAME }} -n ${{ env.NAMESPACE }} --outfmt json > ./data.json
+
+          jq 'del(
+            .status,
+            .system_metadata,
+            .referring_objects,
+            .deleted_referred_objects, 
+            .disabled_referred_objects, 
+            .spec.auto_cert_info, 
+            .spec.state,
+            .spec.dns_info,
+            .spec.host_name
+          )' data.json > temp.json && mv temp.json data.json
+
+          jq 'del(
+            .spec.enable_api_discovery,
+            .spec.disable_api_discovery
+          )' data.json > temp.json && mv temp.json data.json
+
+          jq '.spec += {"enable_api_discovery": {
+            "enable_learn_from_redirect_traffic": {},
+            "discovered_api_settings": {
+              "purge_duration_for_inactive_discovered_apis": 2
+            }
+          }}' data.json > temp.json && mv temp.json data.json
+
+          echo "Updating LoadBalancer configuration"
+          ./vesctl --config .vesconfig configuration replace http_loadbalancer ${{ env.LOADBALANCER_NAME }} -i ./data.json
+          echo "Update complete"

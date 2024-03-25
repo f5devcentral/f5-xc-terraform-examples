@@ -1,0 +1,157 @@
+name: "Apply Custom WAF Policy"
+
+on:
+  workflow_dispatch:
+    inputs:
+      waf_config_name:
+        description: "Name of the WAF Configuration object to create"
+        required: true
+        type: string
+        default: "custom-waf-config"
+      loadbalancer_name:
+        description: "HTTP Load Balancer Name"
+        required: true
+        type: string
+      namespace:
+        description: "HTTP Load Balancer Namespace"
+        required: true
+        type: string
+      is_shared:
+        description: "Create Custom Configuration in shared namespace"
+        required: true
+        type: boolean
+        default: true
+  workflow_call:
+    inputs:
+      waf_config_name:
+        description: "Name of the WAF Configuration object to create"
+        required: true
+        type: string
+        default: "custom-waf-config"
+      loadbalancer_name:
+        description: "HTTP Load Balancer Name"
+        required: true
+        type: string
+      namespace:
+        description: "HTTP Load Balancer Namespace"
+        required: true
+        type: string
+      is_shared:
+        description: "Create Custom Configuration in shared namespace"
+        required: true
+        type: boolean
+        default: true
+    secrets:
+      XC_API_URL:
+      XC_P12_PASSWORD:
+      XC_API_P12_FILE:
+
+jobs:
+  apply_variables:
+    name: "Apply WAF Policy"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "."
+    env: 
+      WAF_CONFIG_NAME: ${{ inputs.waf_config_name }}
+      LOADBALANCER_NAME: ${{ inputs.loadbalancer_name }}
+      NAMESPACE: ${{ inputs.namespace }}
+      IS_SHARED: ${{ inputs.is_shared }}
+      VES_P12_PASSWORD: ${{ secrets.XC_P12_PASSWORD }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: update_output
+        id: update_output
+        shell: bash
+        run: |
+          echo "Downloading vesctl"
+          curl -LO "https://vesio.azureedge.net/releases/vesctl/$(curl -s https://downloads.volterra.io/releases/vesctl/latest.txt)/vesctl.linux-amd64.gz"
+          gzip -d ./vesctl.linux-amd64.gz
+          mv vesctl.linux-amd64 vesctl
+          chmod +x ./vesctl
+
+          if [ -n "${{ secrets.XC_API_P12_FILE }}" ]; then
+            echo "${{secrets.XC_API_P12_FILE}}" | base64 -d > api.p12
+          fi
+          
+          if [ -n "${{ secrets.P12 }}" ]; then
+            echo "${{secrets.P12}}" | base64 -d > api.p12
+          fi
+
+          cat > .vesconfig << EOF
+            server-urls: ${{ secrets.XC_API_URL }}
+            p12-bundle: ./api.p12
+          EOF
+
+          if ${{ env.IS_SHARED }} == true; then
+            WAF_CONFIG_NAMESPACE="shared"
+          else
+            WAF_CONFIG_NAMESPACE=${{ env.NAMESPACE }}
+          fi
+
+          cat > default_policy.yaml << EOF
+            metadata:
+              name: ${{ env.WAF_CONFIG_NAME}}
+              disable: false
+              namespace: $WAF_CONFIG_NAMESPACE
+            spec:
+              blocking: {}
+              detection_settings:
+                signature_selection_setting:
+                  default_attack_type_settings: {}
+                  high_medium_low_accuracy_signatures: {}
+                enable_suppression: {}
+                stage_new_signatures:
+                  staging_period: 7
+                enable_threat_campaigns: {}
+                default_violation_settings: {}
+              bot_protection_setting:
+                malicious_bot_action: BLOCK
+                suspicious_bot_action: BLOCK
+                good_bot_action: REPORT
+              allow_all_response_codes: {}
+              default_anonymization: {}
+              blocking_page: 
+                response_code: "Forbidden"
+                blocking_page: "string:///PGh0bWw+PGhlYWQ+PHRpdGxlPlJlcXVlc3QgUmVqZWN0ZWQ8L3RpdGxlPjwvaGVhZD48Ym9keT5UaGUgcmVxdWVzdGVkIFVSTCB3YXMgcmVqZWN0ZWQuIFBsZWFzZSBjb25zdWx0IHdpdGggeW91ciBhZG1pbmlzdHJhdG9yLjxici8+PGJyLz5Zb3VyIHN1cHBvcnQgSUQgaXM6IHt7cmVxdWVzdF9pZH19PGJyLz48YnIvPjxhIGhyZWY9ImphdmFzY3JpcHQ6aGlzdG9yeS5iYWNrKCkiPltHbyBCYWNrXTwvYT48L2JvZHk+PC9odG1sPg=="
+          EOF
+
+          if ./vesctl --config .vesconfig configuration list app_firewall -n $WAF_CONFIG_NAMESPACE --outfmt json | grep -q "\"name\": \"${{ env.WAF_CONFIG_NAME}}\""; then
+            ./vesctl --config .vesconfig configuration replace app_firewall ${{ env.WAF_CONFIG_NAME}} -i ./default_policy.yaml
+          else
+            ./vesctl --config .vesconfig configuration create app_firewall ${{ env.WAF_CONFIG_NAME}} -i ./default_policy.yaml
+          fi
+
+          echo "Retrieving existing loadbalancer configuration"
+          ./vesctl --config .vesconfig configuration get http_loadbalancer ${{ env.LOADBALANCER_NAME }} -n ${{ env.NAMESPACE }} --outfmt json > ./data.json
+
+          jq 'del(
+            .status,
+            .system_metadata,
+            .referring_objects,
+            .deleted_referred_objects, 
+            .disabled_referred_objects, 
+            .spec.auto_cert_info, 
+            .spec.state,
+            .spec.dns_info,
+            .spec.host_name
+          )' data.json > temp.json && mv temp.json data.json
+
+          jq 'del(
+            .spec.app_firewall,
+            .spec.disable_waf
+          )' data.json > temp.json && mv temp.json data.json
+
+          jq --arg policy_ns "$WAF_CONFIG_NAMESPACE" --arg waf_config_name "${{ env.WAF_CONFIG_NAME}}" '.spec += {"app_firewall": {
+            "namespace": $policy_ns,
+            "name": $waf_config_name,
+            "kind": "app_firewall"
+          }}' data.json > temp.json && mv temp.json data.json
+
+          echo "Updating LoadBalancer configuration"
+          ./vesctl --config .vesconfig configuration replace http_loadbalancer ${{ env.LOADBALANCER_NAME }} -i ./data.json
+          echo "Update complete"
