@@ -47,5 +47,5 @@ The following can be manual steps with XC Console or automated via GitHub Action
 
 
 Additional Related Resources
-######################
+#############################
 Secure MCN Distributed App Sec `VM Workflow Guide <https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-re-appconnect/vm/README.rst>`__
