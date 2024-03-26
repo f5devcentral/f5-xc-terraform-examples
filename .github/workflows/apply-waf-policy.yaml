@@ -47,7 +47,7 @@ on:
       XC_API_P12_FILE:
 
 jobs:
-  apply_variables:
+  apply_waf_policy:
     name: "Apply WAF Policy"
     runs-on: ubuntu-latest
     defaults:
