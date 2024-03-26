@@ -30,7 +30,7 @@ You can follow the steps in the manual or automated guides below:
 
 `App Delivery Fabric: SaaS Console Workflow <https://github.com/shubhammishra9/f5-xc-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-ce-multicloud/MCN-without-SMG/xc-console-demo-guide.rst>`__
 
-`App Delivery Fabric: API Workflow <https://github.com/shubhammishra9/f5-xc-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-ce-multicloud/MCN-without-SMG/xc-console-demo-guide.rst>`__
+`App Delivery Fabric: API Workflow <./terraform/>`__
 
 
 Additional Related Resources
