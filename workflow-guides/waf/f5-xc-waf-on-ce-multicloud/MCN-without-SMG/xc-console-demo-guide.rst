@@ -11,13 +11,13 @@ ProductPage and details Load Balancers (LBs) are advertised to AWS CE Site on ou
 2. The request will enter to the AWS CE site using ingress interface and then will be redirected to productpage LB.
 3. The LB has an origin pool attached to route client request to productpage microservice via AWS CE site.
 4. The request will be sent to the AWS CE site.
-5. The AWS CE site will then send the request to the productpage microservice.
+5. The AWS CE site will then send the request to the origin server hosting productpage microservice.
 6. Productpage pod will then internally call the details microservice and the request will be sent to the egress interface gateway of the AWS CE site.
 7. Since details LB is advertised to inside network of the AWS CE site, request can be redirected to details LB.
 8. Details LB again has an origin pool configured to route traffic to details microservice hosted in Azure cloud platform.
 9. Now, the request will be sent to Azure Vnet site via F5 Distributed cloud global (private backbone) network.
 10. Request will reach to the Azure Vnet site.
-11. Atlast the request will be sent to the details microservice, completing the entire traffic flow.
+11. Atlast the request will be sent to the origin server hosting details microservice, completing the entire traffic flow.
 
 
 Prerequisites
