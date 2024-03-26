@@ -55,7 +55,7 @@ Deployment Steps
 
 .. figure:: assets/Capture22.JPG
 
-3. Create a 1-node EKS cluster and deploy `/shared/booksinfo/mcn-bookinfo/product_page.yaml`_ product page microservice to it. 
+3. Create a 1-node EKS cluster and deploy `product page </shared/booksinfo/mcn-bookinfo/product_page.yaml>`_ microservice to it. 
     i. In AWS console, search for EKS service and select it. 
     ii. Click on create cluster button 
     iii. Enter a name, select a k8s version, select a role (To create a new role follow the `instructions <https://docs.aws.amazon.com/eks/latest/userguide/service_IAM_role.html#create-service-role>`_ ), keep rest option as default and click next button 
@@ -106,7 +106,7 @@ Deployment Steps
 
 .. figure:: assets/Capture23.JPG
 
-7. Create a 1-node AKS cluster and deploy `/shared/booksinfo/mcn-bookinfo/details.yaml`_ details microservice to it 
+7. Create a 1-node AKS cluster and deploy `details </shared/booksinfo/mcn-bookinfo/details.yaml>`_ microservice to it 
 
 .. figure:: assets/Capture2.JPG
 
