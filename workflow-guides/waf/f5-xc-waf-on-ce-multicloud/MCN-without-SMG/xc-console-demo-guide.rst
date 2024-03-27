@@ -146,8 +146,8 @@ Deployment Steps
       v. Configure node pool, select scale method as manual and enter 1 as a node count 
       vi. Navigate to “Networking” tab and click on "Bring your own virtual network", Select the Virtual network created in Step 6 and set workload subnet as Cluster subnet
       vii. Optionally, disable monitoring section and Click “Review + create” and then create button to bring up the AKS cluster
-      viii. Select the created AKS cluster and click connect button and follow the instructions to connect to the AKS cluster 
-      ix. Deploy `details </shared/booksinfo/mcn-bookinfo/details.yaml>`_ manifest file to the AKS cluster, for that execute ``kubectl apply -f details.yaml`` command
+      viii. Select the created AKS cluster and click connect button. Follow the instructions to connect to the AKS cluster 
+      ix. Once connected, deploy `details </shared/booksinfo/mcn-bookinfo/details.yaml>`_ manifest file to the AKS cluster, for that execute ``kubectl apply -f details.yaml`` command
 
 .. figure:: assets/Capture_n14.JPG
 
