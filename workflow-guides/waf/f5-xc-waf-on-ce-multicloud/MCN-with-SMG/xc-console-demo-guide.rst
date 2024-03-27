@@ -12,20 +12,14 @@ Prerequisites
 
 Deployment Steps
 *****************
-1. Create VPC in GPC portal
-    i. Login to GCP portal and search VPC service, select it 
-    ii. Click create VPC 
-    iii. Enter VPC name, IPv4 VPC CIDR block and click create
-    NOTE: Since MCN-without-SMG folder already showcased use case of adding CE site on existing infra, here we will create all infra details like VPC, subnets, etc from F5 XC console
-
-2. Create a GCP VPC site
+1. Create a GCP VPC site
     i. Login to F5 XC Console 
     ii. Select Manage > Site Management > GCP VPC Sites in the configuration menu. Click on Add GCP VPC Site. 
     iii. Enter a name and description for your VPC site 
     iv. Configure “Site Type Selection” section:
           a. Select GCP region and cloud credentials from drop-down
           b. Select Ingress/Egress Gateway (Two Interface) option for the Select Ingress Gateway or Ingress/Egress Gateway field. 
-          e. Click configure, add AZ and subnet IDs for workload, inside and outside subnets. Apply the configuration. 
+          e. Click configure, add zone names & node count as 1. Also provide VPC and subnet details to create these resources on GCP cloud
           f. Add a public ssh key in Site Node Parameters section 
           g. Toggle Show Advanced Fields button for Advanced Configuration section then select “Allow access to DNS, SSH services on Site” for Services to be blocked on site field, Save and Exit. Click Apply. 
           Note: It will take 15-20 mins for the site to come online. You can monitor your site health score by navigating to Home > Multi-Cloud Network Connect > Overview > Sites
@@ -34,23 +28,17 @@ Deployment Steps
 
 .. figure:: assets/gcp2.JPG
 
-3. Create a 1-node EKS cluster and deploy /shared/booksinfo/mcn-bookinfo/product_page.yaml product page microservice to it. 
-    i. In GCP console, search for EKS service and select it. 
-    ii. Click on create cluster button 
-    iii. Enter a name, select a k8s version, select a role (To create a new role follow the `instructions <https://docs.aws.amazon.com/eks/latest/userguide/service_IAM_role.html#create-service-role>`_ ), keep rest option as default and click next button 
-    iv. Select VPC created in Step1 
-    v. Choose 2 subnets created in Step1 for workload 
-    vi. Optionally, reuse the security group created for the AWS CE site. NOTE: make sure nodeport range [30000-32767] are open in VPC firewall rules 
-    vii. Select “Public and private” option for Cluster endpoint access 
-    viii. Keeping rest values as default, press next buttons. Finally, review the configs and click on create button  
-    ix. Once EKS cluster is up, select it and navigate to Compute section and click Add node group 
-    x. Enter a name, select a role (if not created, create it and assign. Follow `document <https://docs.aws.amazon.com/eks/latest/userguide/create-node-role.html>`_ for more info) 
-    xi. Set compute and scaling configurations, here we are creating a 1 node EKS cluster 
-    xii. Select the workload subnet for your worker node 
-    xiii. Keep rest options default, review the config done and create the node group 
-    xiv. In GCP portal, open cloud shell and connect to above created cluster
-    xv. Open a file with name product.yaml and paste contents of /shared/booksinfo/mcn-bookinfo/product_page.yaml 
-    xvi. Run "kubectl apply -f product.yaml” and validate product service is deployed and running using "kubectl get pods" & "kubectl get svc" commands
+3. Create a 1-node kubernetes cluster and deploy /shared/booksinfo/mcn-bookinfo/product_page.yaml product page microservice to it. 
+    i. In GCP console, search for Kubernetes Engine and select cluster. 
+    ii. Click on create button 
+    iii. Select Standard and Enter a name, Zone
+    iv. Select 1 node in Node Pools Configuration
+    v. From Networking menu, select inside subnet created in above step 
+    vi. Optionally, in another tab check the VPC firewall rules and make sure nodeport range [30000-32767] are open in VPC firewall rules 
+    vii. Complete the configurations and create cluster
+    xiii. In GCP portal, open cloud shell and connect to above created cluster
+    ix. Open a file with name product.yaml and paste contents of /shared/booksinfo/mcn-bookinfo/product_page.yaml 
+    x. Run "kubectl apply -f product.yaml” and validate product service is deployed and running using "kubectl get pods" & "kubectl get svc" commands
 **Note:** Here, we are using product page service type as NodePort 
 
 .. figure:: assets/Capture1.JPG
@@ -100,7 +88,7 @@ Deployment Steps
       i. From Azure console search for “Kubernetes services”
       ii. Click on Create button and select "Create Kubernetes cluster"
       iii. Select your subscription and select the above created resource group 
-      iv. Fill in the remaining cluster details and primary node pool fields as needed (select 1 node pool if workload is enough). If this is for testing select Dev/Test as part of cluster preset configuration
+      iv. Fill in the remaining cluster details and primary node pool fields as needed (edit nodes to 1 if workload is enough). If this is for testing select Dev/Test as part of cluster preset configuration
       v. Navigate to “Networking” tab and click on "Bring your own virtual network"
       vi. Select the Virtual network created in Step 2
       vii. Click “Review + create” and create the cluster
@@ -125,7 +113,7 @@ Deployment Steps
         g. Copy/Paste details service port to the origin server port field (In Azure cloud shell, you can run “kubectl get svc” to get the port value), apply the configuration 
         h. Enable WAF and select the WAF policy. If not created, create a default WAF policy in blocking mode and attach it to the LB 
         i. Scroll down to “Other Settings” section.
-            -  Here, in “VIP Advertisement” select custom and add the configs as shown in below image
+            -  Here, in “VIP Advertisement” select custom and advertise on above created GCP VPC site
         j. Save the configurations. 
 
 
@@ -134,15 +122,13 @@ Deployment Steps
 Testing: 
 *********
 
-1. Open hosts file and add GCP site IP to your HTTP productpage LB domain name
+1. Open hosts file and add GCP CE site IP (you can find this in F5 XC --> GCP site configuration details dialog below section) to your HTTP productpage LB domain name
 
-2. Open a browser and enter the public IP of the GCP CE site in the URL field
+2. Open a browser and enter the public IP of the GCP CE site or HTTP load balancer domain name in the URL field
 
-3. Uncheck the default host header value and create a custom host header with its value set to domain of product page HTTP LB 
+3. Send a GET request and validate UI content is displayed
 
-4. Generate a GET request and validate UI content is displayed
-
-5. Now update the URL field of postman to `http://<gcp-site-pub-ip>/productpage?u=normal`
+4. Now update the URL field of postman to `http://<gcp-site-pub-ip>/productpage?u=normal`
 
 6. Keeping the other parameters same, again send the GET request and validate details are getting displayed as below
 
