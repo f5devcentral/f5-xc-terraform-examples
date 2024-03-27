@@ -21,8 +21,8 @@ Deployment Steps
           b. Select Ingress/Egress Gateway (Two Interface) option for the Select Ingress Gateway or Ingress/Egress Gateway field. 
           c. Click configure, add zone names & node count as 1. Also provide VPC and subnet details to create these resources on GCP cloud
           d. Add a public ssh key in Site Node Parameters section 
-          e. Toggle Show Advanced Fields button for Advanced Configuration section then select “Allow access to DNS, SSH services on Site” for Services to be blocked on site field, Save and Exit. Click Apply. 
-          Note: It will take 15-20 mins for the site to come online. You can monitor your site health score by navigating to Home > Multi-Cloud Network Connect > Overview > Sites
+          e. Toggle Show Advanced Fields button for Advanced Configuration section then select “Allow access to DNS, SSH services on Site” for Services to be blocked on site field
+          f. Save and Exit, next click Apply. Note: It will take 15-20 mins for the site to come online. You can monitor your site health score by navigating to Home > Multi-Cloud Network Connect > Overview > Sites
 
 .. figure:: assets/gcp1.JPG
 
