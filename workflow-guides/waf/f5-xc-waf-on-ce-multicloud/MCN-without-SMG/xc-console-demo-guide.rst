@@ -24,6 +24,7 @@ Prerequisites
 **************
 - Access to AWS & Azure portals
 - Access to F5 XC account 
+- `AWS <https://community.f5.com/kb/technicalarticles/creating-a-credential-in-f5-distributed-cloud-to-use-with-aws/298111>`_ & `Azure <https://community.f5.com/t5/technical-articles/creating-a-credential-in-f5-distributed-cloud-for-azure/ta-p/298316>`_  credentials
 - Install AWS CLI, Azure CLI and Kubectl command line tool to connect and push the app manifest files to EKS and AKS clusters 
 - Install postman for testing the setup 
 
@@ -138,13 +139,13 @@ Deployment Steps
 .. figure:: assets/Capture_n06.JPG
 
 8. Create a 1-node AKS cluster and deploy `details </shared/booksinfo/mcn-bookinfo/details.yaml>`_ microservice to it 
-      i. From Azure console search for “Kubernetes services”
+      i. From Azure cloud console search for “Kubernetes services”
       ii. Click on Create button and select "Create Kubernetes cluster"
-      iii. Select your subscription and set the above created resource group
-      iv. Fill in the remaining cluster details and primary node pool fields as needed 
-      v. Navigate to “Networking” tab and click on "Bring your own virtual network"
-      vi. Select the Virtual network created in Step 2
-      vii. Click “Review + create” and create the cluster
+      iii. Select your subscription and above created resource group
+      iv. Set Cluster preset configuration as "Dev/Test", enter cluster name and fill in the remaining cluster details as per the requirement, make sure to use same "Region" as that of the created resource groups, click on next button
+      v. Configure node pool, select scale method as manual and enter 1 as a node count 
+      vi. Navigate to “Networking” tab and click on "Bring your own virtual network", Select the Virtual network created in Step 6 and set workload subnet as Cluster subnet
+      vii.Optionally, disable monitoring section and Click “Review + create” and then create button to bring up the AKS cluster
 
 .. figure:: assets/Capture_n14.JPG
 
