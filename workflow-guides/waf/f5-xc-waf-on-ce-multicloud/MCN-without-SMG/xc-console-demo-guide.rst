@@ -82,7 +82,7 @@ Deployment Steps
     i. Select Manage > Load Balancers > HTTP Load Balancers and click Add HTTP Load Balancer 
     ii. Enter a name for the new load balancer. Optionally, select a label and enter a description.
     iii. In the Domains field, enter a domain name 
-    iv. From the Load Balancer Type drop-down menu, select HTTP 
+    iv. From the "Load Balancer Type" drop-down menu, select HTTP and let the HTTP Listen Port as 80
     v. Configure origin pools: 
         a. In the Origins section, click Add Item to create an origin pool. 
         b. In the origin pool field dropdown, click Add Item 
