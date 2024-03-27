@@ -51,9 +51,9 @@ Deployment Steps
           g. Toggle Show Advanced Fields button for Advanced Configuration section then select “Allow access to DNS, SSH services on Site” for Services to be blocked on site field, Save and Exit. Click Apply. Note: It will take 15-20 mins for the site to come online. You can monitor your site health score by navigating to Home > Multi-Cloud Network Connect > Overview > Sites 
           h. For more detailed information regarding AWS Site refer to the `document <https://docs.cloud.f5.com/docs/how-to/site-management/create-aws-site>`_ 
 
-.. figure:: assets/Capture19.JPG
+.. figure:: assets/Capture_n01.JPG
 
-.. figure:: assets/Capture22.JPG
+.. figure:: assets/Capture_n02.JPG
 
 3. Create a 1-node EKS cluster and deploy `product page </shared/booksinfo/mcn-bookinfo/product_page.yaml>`_ microservice to it. 
     i. In AWS console, search for EKS service and select it. 
@@ -72,7 +72,9 @@ Deployment Steps
     xiv. Deploy the product page microservice using the kubectl command. “kubectl apply -f product.yaml” 
 **Note:** Here, we are using product page service type as NodePort 
 
-.. figure:: assets/Capture1.JPG
+.. figure:: assets/Capture_n03.JPG
+.. figure:: assets/Capture_n2.JPG
+.. figure:: assets/Capture_n1.JPG
 
 4. Create a HTTP Load Balancer (LB) pointing to the EKS cluster worker node as an origin server, enable WAF in blocking mode and advertise this LB to the AWS CE site itself. 
     i. Select Manage > Load Balancers > HTTP Load Balancers and click Add HTTP Load Balancer 
@@ -92,7 +94,13 @@ Deployment Steps
             -  Here, in “VIP Advertisement” select custom and add the configs as shown in below image
         j. Save the configurations. 
 
-.. figure:: assets/Capture4.JPG
+.. figure:: assets/Capture_n04.JPG
+
+.. figure:: assets/Capture_n09.JPG
+
+.. figure:: assets/Capture_n11.JPG
+
+.. figure:: assets/Capture_n12.JPG
 
 **- Below steps are related to Azure configurations**.
 
@@ -121,9 +129,9 @@ Deployment Steps
       vi. Toggle Show Advanced Fields button for Advanced Configuration section then select “Allow access to DNS, SSH services on Site” for Services to be blocked on site field, Save and Exit. Click Apply. **Note:** It will take 15-20 mins for the site to come online. You can monitor your site health score by navigating to Home > Multi-Cloud Network Connect > Overview > Sites 
       vii. For more detailed explanation about Azure site creation, refer to the `document <https://docs.cloud.f5.com/docs/how-to/site-management/create-azure-site>`_
 
-.. figure:: assets/Capture18.JPG
+.. figure:: assets/Capture_n05.JPG
 
-.. figure:: assets/Capture23.JPG
+.. figure:: assets/Capture_n06.JPG
 
 8. Create a 1-node AKS cluster and deploy `details </shared/booksinfo/mcn-bookinfo/details.yaml>`_ microservice to it 
       i. From Azure console search for “Kubernetes services”
@@ -134,7 +142,7 @@ Deployment Steps
       vi. Select the Virtual network created in Step 2
       vii. Click “Review + create” and create the cluster
 
-.. figure:: assets/Capture2.JPG
+.. figure:: assets/Capture_n14.JPG
 
 9. Create a HTTP Load Balancer (LB) pointing to the AKS cluster worker node as an origin server, enable WAF in blocking mode and advertise this LB as well to the AWS CE site with site network field set to inside.
     i. Select Manage > Load Balancers > HTTP Load Balancers and click Add HTTP Load Balancer 
@@ -154,7 +162,13 @@ Deployment Steps
             -  Here, in “VIP Advertisement” select custom and add the configs as shown in below image
         j. Save the configurations. 
 
-.. figure:: assets/Capture5.JPG
+.. figure:: assets/Capture_n07.JPG
+
+.. figure:: assets/Capture_n10.JPG
+
+.. figure:: assets/Capture_n08.JPG
+
+.. figure:: assets/Capture_n13.JPG
 
 **Note: Since the details LB is advertised to AWS CE site on inside network, details page cannot be accessible directly from outside(internet). Additionally, attached WAF policies on both frontend and backend loadbalancers will help provide robust security to the application environment**
 
@@ -169,35 +183,37 @@ Testing:
 
 4. Generate a GET request and monitor the request logs of product page LB from F5 XC UI dashboard 
 
-.. figure:: assets/Capture7.JPG
+.. figure:: assets/Capture_n15.JPG
 
-.. figure:: assets/Capture9.JPG
+.. figure:: assets/Capture16.JPG
 
 5. Now update the URL field of postman with `http://<aws-site-pub-ip>/productpage?u=normal`
 
 6. Keeping the other parameters same, again send the GET request
 
-.. figure:: assets/Capture8.JPG
+.. figure:: assets/Capture_n17.JPG
 
 7. Now monitor the request logs of product page and details LB from F5 XC UI dashboard. 
 
-.. figure:: assets/Capture10.JPG
+.. figure:: assets/Capture_n18.JPG
 
-.. figure:: assets/Capture11.JPG
+.. figure:: assets/Capture_n19.JPG
 
-.. figure:: assets/Capture12.JPG
+.. figure:: assets/Capture_n20.JPG
 
 8. Now, let's try a dummy cross-site-scripting attack
 
-.. figure:: assets/Capture13.JPG
+.. figure:: assets/Capture_n21.JPG
 
-.. figure:: assets/Capture14.JPG
+.. figure:: assets/Capture_n22.JPG
 
 9. Monitor the security event logs from XC console
 
-.. figure:: assets/Capture15.JPG
+.. figure:: assets/Capture_n23.JPG
 
+.. figure:: assets/Capture_n24.JPG
 
+.. figure:: assets/Capture_n25.JPG
 
 Step by step process using automation scripts
 #############################################
