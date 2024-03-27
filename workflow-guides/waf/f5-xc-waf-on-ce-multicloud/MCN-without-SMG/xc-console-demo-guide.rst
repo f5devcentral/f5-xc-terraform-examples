@@ -102,6 +102,8 @@ Deployment Steps
 
 .. figure:: assets/Capture_n11.JPG
 
+.. figure:: assets/Capture_waf.JPG
+
 .. figure:: assets/Capture_n12.JPG
 
 **- Below steps are related to Azure configurations**.
@@ -169,6 +171,8 @@ Deployment Steps
 .. figure:: assets/Capture_n10.JPG
 
 .. figure:: assets/Capture_n08.JPG
+
+.. figure:: assets/Capture_waf.JPG
 
 .. figure:: assets/Capture_n13.JPG
 
