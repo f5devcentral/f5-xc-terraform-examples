@@ -136,7 +136,24 @@ Deployment Steps
 
 .. figure:: assets/Capture2.JPG
 
-9. Create a HTTP Load Balancer (LB) pointing to the AKS cluster worker node as an origin server, enable WAF in blocking mode and advertise this LB as well to the AWS CE site with network set to inside as shown in the below image: 
+9. Create a HTTP Load Balancer (LB) pointing to the AKS cluster worker node as an origin server, enable WAF in blocking mode and advertise this LB as well to the AWS CE site with network field set to inside.
+
+    i. Select Manage > Load Balancers > HTTP Load Balancers and click Add HTTP Load Balancer 
+    ii. Enter a name for the new load balancer. Optionally, select a label and enter a description.
+    iii. In the Domains field, enter a domain name 
+    iv. From the Load Balancer Type drop-down menu, select HTTP 
+    v. Configure origin pools: 
+        a. In the Origins section, click Add Item to create an origin pool. 
+        b. In the origin pool field dropdown, click Add Item 
+        c. Enter name, in origin server section click Add Item 
+        d. Select type of origin server as “IP address of Origin Server on given Sites” 
+        e. Copy/Paste the private IP of your worker node. (You can use kubectl command as well “kubectl get node –o wide” to get the private IP) 
+        f. Select the Azure site created in step7, apply the configuration 
+        g. Copy/Paste details service port to the origin server port field (Range [30000-32767], use kubectl command “kubectl get svc” to get the port value), apply the configuration 
+        h. Enable WAF and select the WAF policy. If not created, create a WAF policy in blocking mode and attach it to the LB 
+        i. Scroll down to “Other Settings” section.
+            -  Here, in “VIP Advertisement” select custom and add the configs as shown in below image
+        j. Save the configurations. 
 
 .. figure:: assets/Capture5.JPG
 
