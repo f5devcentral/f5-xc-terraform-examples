@@ -70,7 +70,7 @@ Deployment Steps
     xi. Set compute and scaling configurations, here we are creating a 1 node EKS cluster 
     xii. Select the workload subnet[refer step 2(e)] for your worker node 
     xiii. Keep rest options default, review the config done and create the node group 
-    xiv. Edit the `product page </shared/booksinfo/mcn-bookinfo/product_page.yaml>`_ manifest file, "enter the egress private IP of the AWS CE site" and deploy the product page microservice using the kubectl command. “kubectl apply -f product.yaml” 
+    xiv. Edit the `product page </shared/booksinfo/mcn-bookinfo/product_page.yaml>`_ manifest file, "enter the egress private IP of the AWS CE site" and deploy the product page microservice using the kubectl command. ``kubectl apply -f product.yaml``
 **Note:** Here, we are using product page service type as NodePort 
 
 .. figure:: assets/Capture_n03.JPG
@@ -89,9 +89,9 @@ Deployment Steps
         b. In the origin pool field dropdown, click Add Item 
         c. Enter name, in origin server section click Add Item 
         d. Select type of origin server as “IP address of Origin Server on given Sites” 
-        e. Copy/Paste the private IP of your worker node. (You can use kubectl command as well “kubectl get node –o wide” to get the private IP) 
+        e. Copy/Paste the private IP of your worker node. (You can use kubectl command as well ``kubectl get node –o wide`` to get the private IP) 
         f. Select the AWS site created in step2, apply the configuration 
-        g. Copy/Paste product page service port to the origin server port field (Range [30000-32767], use kubectl command “kubectl get svc” to get the port value), apply the configuration 
+        g. Copy/Paste product page service port to the origin server port field (Range [30000-32767], use kubectl command ``kubectl get svc`` to get the port value), apply the configuration 
         h. Enable WAF and select the WAF policy. If not created, create a WAF policy in blocking mode and attach it to the LB 
         i. Scroll down to “Other Settings” section.
             -  Here, in “VIP Advertisement” select custom and add the configs as shown in below image
@@ -146,6 +146,8 @@ Deployment Steps
       v. Configure node pool, select scale method as manual and enter 1 as a node count 
       vi. Navigate to “Networking” tab and click on "Bring your own virtual network", Select the Virtual network created in Step 6 and set workload subnet as Cluster subnet
       vii. Optionally, disable monitoring section and Click “Review + create” and then create button to bring up the AKS cluster
+      viii. Select the created AKS cluster and click connect button and follow the instructions to connect to the AKS cluster 
+      ix. Deploy `details </shared/booksinfo/mcn-bookinfo/details.yaml>`_ manifest file to the AKS cluster, for that execute ``kubectl apply -f details.yaml`` command
 
 .. figure:: assets/Capture_n14.JPG
 
@@ -159,9 +161,9 @@ Deployment Steps
         b. In the origin pool field dropdown, click Add Item 
         c. Enter name, in origin server section click Add Item 
         d. Select type of origin server as “IP address of Origin Server on given Sites” 
-        e. Copy/Paste the private IP of your worker node. (You can use kubectl command as well “kubectl get node –o wide” to get the private IP) 
+        e. Copy/Paste the private IP of your worker node. (You can use kubectl command as well ``kubectl get node –o wide`` to get the private IP) 
         f. Select the Azure site created in step7, apply the configuration 
-        g. Copy/Paste details service port to the origin server port field (Range [30000-32767], use kubectl command “kubectl get svc” to get the port value), apply the configuration 
+        g. Copy/Paste details service port to the origin server port field (Range [30000-32767], use kubectl command ``kubectl get svc`` to get the port value), apply the configuration 
         h. Enable WAF and select the WAF policy. If not created, create a WAF policy in blocking mode and attach it to the LB 
         i. Scroll down to “Other Settings” section.
             -  Here, in “VIP Advertisement” select custom and add the configs as shown in below image
