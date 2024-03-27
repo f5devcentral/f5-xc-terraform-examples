@@ -98,9 +98,9 @@ Deployment Steps
 
 .. figure:: assets/Capture_n04.JPG
 
-.. figure:: assets/Capture_n09.JPG
-
 .. figure:: assets/Capture_n11.JPG
+
+.. figure:: assets/Capture_n09.JPG
 
 .. figure:: assets/Capture_waf_pp.JPG
 
@@ -168,9 +168,9 @@ Deployment Steps
 
 .. figure:: assets/Capture_n07.JPG
 
-.. figure:: assets/Capture_n10.JPG
-
 .. figure:: assets/Capture_n08.JPG
+
+.. figure:: assets/Capture_n10.JPG
 
 .. figure:: assets/Capture_waf_details.JPG
 
