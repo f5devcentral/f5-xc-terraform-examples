@@ -28,7 +28,7 @@ Deployment Steps
 
           .. figure:: assets/gcp2.JPG
 
-2. Create a 1-node kubernetes engine and deploy /shared/booksinfo/mcn-bookinfo/product_page.yaml product page microservice to it. 
+2. Create a 1-node kubernetes engine and deploy `product page </shared/booksinfo/mcn-bookinfo/product_page.yaml>`_ microservice to it. 
     i. In GCP console, search for Kubernetes Engine and select cluster. 
     ii. Click on create button 
     iii. Select Standard and Enter a name, Zone
@@ -75,7 +75,7 @@ Deployment Steps
 **- Below steps are related to Azure configurations**.
 
 4. Create Azure Vnet site as per below steps
-      i. From the Console homepage, select "Multi-Cloud Network Connect".
+      i. From the F5 XCConsole homepage, select "Multi-Cloud Network Connect".
       ii. Select "Manage > Site Management", select "Azure VNET Sites" and click on "Add Azure VNET Site".
       iii. Enter a name, optionally select a label and add a description.
       iv. In the Site Type Selection section: 
@@ -135,6 +135,20 @@ Deployment Steps
         .. figure:: assets/waf-configs.JPG
 
 **Note: Since the details LB is advertised to GCP CE site on inside network, details page cannot be accessible directly from outside(internet). Additionally, attached WAF policies on both frontend and backend loadbalancers will help provide robust security to the application environment**
+
+7. Create labels and Site Mesh Group
+      i. From the F5 XC Console homepage, select "Shared Configurations".
+      ii. Select "Manage > Labels", select "Label Keys" and click on "Add Known Key".
+      iii. Enter a key and value and Add the key
+      iv. Next click on Virtual Server and create it using CE site and above label selector
+       v. Navigate to your sites and update this label to your 2 CE sites of GCP and Azure
+       vi. Next navigate to "Manage > Networking", select "Site Mesh Groups" and click on "Add Site Mesh Group"
+       vii. Create a Site Mesh Group using above Full Mesh topology and above created Virtual Server as shown below
+    
+       .. figure:: assets/smg.JPG
+
+       viii. Check `doc <https://docs.cloud.f5.com/docs/how-to/advanced-networking/site-mesh-group for more details>`_ for more details on Site Mesh Groups    
+
 
 Testing: 
 *********
