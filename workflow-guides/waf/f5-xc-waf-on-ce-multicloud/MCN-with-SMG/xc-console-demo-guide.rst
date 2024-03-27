@@ -28,7 +28,7 @@ Deployment Steps
 
 .. figure:: assets/gcp2.JPG
 
-3. Create a 1-node kubernetes cluster and deploy /shared/booksinfo/mcn-bookinfo/product_page.yaml product page microservice to it. 
+3. Create a 1-node kubernetes engine and deploy /shared/booksinfo/mcn-bookinfo/product_page.yaml product page microservice to it. 
     i. In GCP console, search for Kubernetes Engine and select cluster. 
     ii. Click on create button 
     iii. Select Standard and Enter a name, Zone
@@ -41,7 +41,7 @@ Deployment Steps
     x. Run "kubectl apply -f product.yaml” and validate product service is deployed and running using "kubectl get pods" & "kubectl get svc" commands
 **Note:** Here, we are using product page service type as NodePort 
 
-.. figure:: assets/Capture1.JPG
+.. figure:: assets/gcp_shell.JPG
 
 4. Create a HTTP Load Balancer (LB) pointing to the k8s cluster worker node as an origin server, enable WAF in blocking mode and advertise this LB to the AWS CE site itself. 
     i. Select Manage > Load Balancers > HTTP Load Balancers and click Add HTTP Load Balancer 
@@ -61,9 +61,13 @@ Deployment Steps
             -  Here, in “VIP Advertisement” select custom and add the configs to advertise only on this GCP Site shown as below
         j. Save the configurations. 
 
-.. figure:: assets/4.JPG
+.. figure:: assets/productpage-configs.JPG
 
+.. figure:: assets/productpage-origin-configs.JPG
 
+.. figure:: assets/waf-configs.JPG
+
+.. figure:: assets/productpage-advertise-configs.JPG
 
 **- Below steps are related to Azure configurations**.
 
@@ -82,7 +86,9 @@ Deployment Steps
       vi. Toggle Show Advanced Fields button for Advanced Configuration section then select “Allow access to DNS, SSH services on Site” for Services to be blocked on site field, Save and Exit. Click Apply. **Note:** It will take 15-20 mins for the site to come online. You can monitor your site health score by navigating to Home > Multi-Cloud Network Connect > Overview > Sites 
       vii. For more detailed explanation about Azure site creation, refer to the `document <https://docs.cloud.f5.com/docs/how-to/site-management/create-azure-site>`_
 
+.. figure:: assets/azure1.JPG
 
+.. figure:: assets/azure2.JPG
 
 8. Create a 1-node AKS cluster and deploy `details </shared/booksinfo/mcn-bookinfo/details.yaml>`_ microservice to it 
       i. From Azure console search for “Kubernetes services”
@@ -93,10 +99,11 @@ Deployment Steps
       vi. Select the Virtual network created in Step 2
       vii. Click “Review + create” and create the cluster
       viii. Once cluster is created, in Azure portal open cloud shell and connect to this cluster
-      ix. Create a new file inside cloud shell and paste contents of /shared/booksinfo/mcn-bookinfo/details.yaml
-      x. Run "kubectl apply -f <file-name>" to deploy details microservice
+      ix. Create a new file with name product.yaml and paste contents of /shared/booksinfo/mcn-bookinfo/details.yaml
+      x. Run "kubectl apply -f product.yaml" to deploy details microservice
       xi. Validate details service is deployed and running using "kubectl get pods" & "kubectl get svc" commands
 
+.. figure:: assets/aure-cloud-shell.JPG
 
 9. Create a HTTP Load Balancer (LB) pointing to the AKS cluster worker node as an origin server, enable WAF in blocking mode and advertise this LB as well to the GCP CE site with site network field set to inside.
     i. Select Manage > Load Balancers > HTTP Load Balancers and click Add HTTP Load Balancer 
@@ -116,6 +123,13 @@ Deployment Steps
             -  Here, in “VIP Advertisement” select custom and advertise on above created GCP VPC site
         j. Save the configurations. 
 
+.. figure:: assets/details-configs.JPG
+
+.. figure:: assets/details-origin-configs.JPG
+
+.. figure:: assets/details-advertise-configs.JPG
+
+.. figure:: assets/waf-configs.JPG
 
 **Note: Since the details LB is advertised to GCP CE site on inside network, details page cannot be accessible directly from outside(internet). Additionally, attached WAF policies on both frontend and backend loadbalancers will help provide robust security to the application environment**
 
@@ -124,17 +138,29 @@ Testing:
 
 1. Open hosts file and add GCP CE site IP (you can find this in F5 XC --> GCP site configuration details dialog below section) to your HTTP productpage LB domain name
 
+.. figure:: assets/hosts.JPG
+
 2. Open a browser and enter the public IP of the GCP CE site or HTTP load balancer domain name in the URL field
 
 3. Send a GET request and validate UI content is displayed
 
+.. figure:: assets/mcn-productpage.JPG
+
 4. Now update the URL field of postman to `http://<gcp-site-pub-ip>/productpage?u=normal`
 
-6. Keeping the other parameters same, again send the GET request and validate details are getting displayed as below
+5. Keeping the other parameters same, again send the GET request and validate details are getting displayed as below
 
-7. Now, let's try a dummy cross-site-scripting attack as shown below
+.. figure:: assets/mcn-productpage2.JPG
 
-8. Monitor the security event logs from XC console
+6. Now, let's try a dummy cross-site-scripting attack as shown below
+
+.. figure:: assets/mcn-xss-blocked.JPG
+
+7. Monitor the security event logs from XC console
+
+.. figure:: assets/logs.JPG
+
+.. figure:: assets/block-log.JPG
 
 
 Step by step process using automation scripts
