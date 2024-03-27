@@ -185,7 +185,7 @@ Testing:
 
 .. figure:: assets/Capture_n15.JPG
 
-.. figure:: assets/Capture16.JPG
+.. figure:: assets/Capture_n16.JPG
 
 5. Now update the URL field of postman with `http://<aws-site-pub-ip>/productpage?u=normal`
 
