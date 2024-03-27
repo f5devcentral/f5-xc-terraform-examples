@@ -94,23 +94,49 @@ Deployment Steps
 
 .. figure:: assets/Capture4.JPG
 
+**- Below steps are related to Azure configurations**.
 
+5. Create credential for Azure by following the steps mentioned in the `devcentral article <https://community.f5.com/t5/technical-articles/creating-a-credential-in-f5-distributed-cloud-for-azure/ta-p/298316>`_ 
 
-**- Below steps are related to Azure configurations which is almost already covered in the** `Azure workflow guide <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-ce/azure/xc-console-demo-guide.rst>`_. **Make sure to follow this linked workflow guide and do the required changes as per the steps mentioned below**.
+6. Create Resource group, Vnet, Subnets in Azure 
+      i. Login to Azure console and search for "Resource groups"
+      ii. Click on Create button, select your subscription, add the resource group name and region
+      iii. Click “Review + create” and "Create"
+      iv. Search for "Virtual networks" and click Create button
+      v. Select your subscription, set the above created resource group name, virtual network name and region
+      vi. Navigate to IP addresses tab, Configure your virtual network address space and subnets
+      vii. Click “Review + create” and "Create"
 
-5. Create Resource group, Vnet, Subnets in Azure 
-
-6. Create Azure Vnet site **{Select Ingress/Egress Gateway (Two Interface) option}**
+7. Create Azure Vnet site **{Select Ingress/Egress Gateway (Two Interface) option}**
+      i. From the Console homepage, select "Multi-Cloud Network Connect".
+      ii. Select "Manage > Site Management", select "Azure VNET Sites" and click on "Add Azure VNET Site".
+      iii. Enter a name, optionally select a label and add a description.
+      iv. In the Site Type Selection section: 
+            a. Enter a new Azure resource group name in the “Resource Group” field, make sure to avoid naming existing resource group names.
+            b. Select a region from the Recommended or Alternate Azure Region Names.
+            c. Configure Vnet field by selecting "Existing Vnet" and filling in Existing Vnet Resource Group and Existing Vnet Name.
+            d. Configure the ingress/egress gateways by entering created subnet details.
+            e. Select the Azure cloud credentials created in Step 5
+      v. Add a public ssh key in Site Node Parameters section 
+      vi. Toggle Show Advanced Fields button for Advanced Configuration section then select “Allow access to DNS, SSH services on Site” for Services to be blocked on site field, Save and Exit. Click Apply. **Note:** It will take 15-20 mins for the site to come online. You can monitor your site health score by navigating to Home > Multi-Cloud Network Connect > Overview > Sites 
+      vii. For more detailed explanation about Azure site creation, refer to the `document <https://docs.cloud.f5.com/docs/how-to/site-management/create-azure-site>`_
 
 .. figure:: assets/Capture18.JPG
 
 .. figure:: assets/Capture23.JPG
 
-7. Create a 1-node AKS cluster and deploy `details </shared/booksinfo/mcn-bookinfo/details.yaml>`_ microservice to it 
+8. Create a 1-node AKS cluster and deploy `details </shared/booksinfo/mcn-bookinfo/details.yaml>`_ microservice to it 
+      i. From Azure console search for “Kubernetes services”
+      ii. Click on Create button and select "Create Kubernetes cluster"
+      iii. Select your subscription and set the above created resource group
+      iv. Fill in the remaining cluster details and primary node pool fields as needed 
+      v. Navigate to “Networking” tab and click on "Bring your own virtual network"
+      vi. Select the Virtual network created in Step 2
+      vii. Click “Review + create” and create the cluster
 
 .. figure:: assets/Capture2.JPG
 
-8. Create a HTTP Load Balancer (LB) pointing to the AKS cluster worker node as an origin server, enable WAF in blocking mode and advertise this LB as well to the AWS CE site with network set to inside as shown in the below image: 
+9. Create a HTTP Load Balancer (LB) pointing to the AKS cluster worker node as an origin server, enable WAF in blocking mode and advertise this LB as well to the AWS CE site with network set to inside as shown in the below image: 
 
 .. figure:: assets/Capture5.JPG
 
