@@ -145,7 +145,7 @@ Deployment Steps
       iv. Set Cluster preset configuration as "Dev/Test", enter cluster name and fill in the remaining cluster details as per the requirement, make sure to use same "Region" as that of the created resource groups, click on next button
       v. Configure node pool, select scale method as manual and enter 1 as a node count 
       vi. Navigate to “Networking” tab and click on "Bring your own virtual network", Select the Virtual network created in Step 6 and set workload subnet as Cluster subnet
-      vii.Optionally, disable monitoring section and Click “Review + create” and then create button to bring up the AKS cluster
+      vii. Optionally, disable monitoring section and Click “Review + create” and then create button to bring up the AKS cluster
 
 .. figure:: assets/Capture_n14.JPG
 
