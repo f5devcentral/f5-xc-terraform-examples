@@ -41,7 +41,7 @@ Deployment Steps
     iii. Enter a name, select a k8s version, select a role (To create a new role follow the `instructions <https://docs.aws.amazon.com/eks/latest/userguide/service_IAM_role.html#create-service-role>`_ ), keep rest option as default and click next button 
     iv. Select VPC created in Step1 
     v. Choose 2 subnets created in Step1 for workload 
-    vi. Optionally, reuse the security group created for the AWS CE site 
+    vi. Optionally, reuse the security group created for the AWS CE site. NOTE: make sure nodeport range [30000-32767] are open in VPC firewall rules 
     vii. Select “Public and private” option for Cluster endpoint access 
     viii. Keeping rest values as default, press next buttons. Finally, review the configs and click on create button  
     ix. Once EKS cluster is up, select it and navigate to Compute section and click Add node group 
@@ -49,7 +49,9 @@ Deployment Steps
     xi. Set compute and scaling configurations, here we are creating a 1 node EKS cluster 
     xii. Select the workload subnet for your worker node 
     xiii. Keep rest options default, review the config done and create the node group 
-    xiv. Deploy the product page microservice using the kubectl command. “kubectl apply -f product.yaml” 
+    xiv. In GCP portal, open cloud shell and connect to above created cluster
+    xv. Open a file with name product.yaml and paste contents of /shared/booksinfo/mcn-bookinfo/product_page.yaml 
+    xvi. Run "kubectl apply -f product.yaml” and validate product service is deployed and running using "kubectl get pods" & "kubectl get svc" commands
 **Note:** Here, we are using product page service type as NodePort 
 
 .. figure:: assets/Capture1.JPG
@@ -76,23 +78,72 @@ Deployment Steps
 
 
 
-**- Below steps are related to Azure configurations which is almost already covered in the** `Azure workflow guide <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-ce/azure/xc-console-demo-guide.rst>`_. **Make sure to follow this linked workflow guide and do the required changes as per the steps mentioned below**.
+**- Below steps are related to Azure configurations**.
 
-5. IN F5 XC console navigate to MCN --> Azure Sites and Create Azure Vnet site **{Select Ingress/Egress Gateway (Two Interface) option}**
+5. Create credential for Azure by following the steps mentioned in the `devcentral article <https://community.f5.com/t5/technical-articles/creating-a-credential-in-f5-distributed-cloud-for-azure/ta-p/298316>`_ 
 
-.. figure:: assets/Capture18.JPG
+6. Create Azure Vnet site **[Select Ingress/Egress Gateway (Two Interface) option]**
+      i. From the Console homepage, select "Multi-Cloud Network Connect".
+      ii. Select "Manage > Site Management", select "Azure VNET Sites" and click on "Add Azure VNET Site".
+      iii. Enter a name, optionally select a label and add a description.
+      iv. In the Site Type Selection section: 
+            a. Enter a new Azure resource group name (which doesn't exists) in the “Resource Group” field
+            b. Select a region from the Recommended or Alternate Azure Region Names.
+            c. Configure Vnet field by selecting "New Vnet Parameters" and fill details to create new Vnet
+            d. Select Ingress/Egress Gateway (Two Interface) option for the Select Ingress Gateway or Ingress/Egress Gateway field.
+            e. Create Ingress/Egress gateway by providing 1 AZ value and 2 new subnet CIDR's to be created for inside and outside interfaces
+            f. Select the Azure cloud credentials created in Step 5
+      v. Add a public ssh key in Site Node Parameters section created in prerequisites
+      vi. Toggle Show Advanced Fields button for Advanced Configuration section then select “Allow access to DNS, SSH services on Site” for Services to be blocked on site field, Save and Exit. Click Apply. **Note:** It will take 15-20 mins for the site to come online. You can monitor your site health score by navigating to Home > Multi-Cloud Network Connect > Overview > Sites 
+      vii. For more detailed explanation about Azure site creation, refer to the `document <https://docs.cloud.f5.com/docs/how-to/site-management/create-azure-site>`_
 
-.. figure:: assets/Capture23.JPG
+.. figure:: assets/Capture_n05.JPG
 
-7. Create a 1-node AKS cluster and deploy `istio bookinfo <https://istio.io/latest/docs/examples/bookinfo/>`_ details microservice to it 
+.. figure:: assets/Capture_n06.JPG
 
-.. figure:: assets/Capture2.JPG
+8. Create a 1-node AKS cluster and deploy `details </shared/booksinfo/mcn-bookinfo/details.yaml>`_ microservice to it 
+      i. From Azure console search for “Kubernetes services”
+      ii. Click on Create button and select "Create Kubernetes cluster"
+      iii. Select your subscription and set the above created resource group
+      iv. Fill in the remaining cluster details and primary node pool fields as needed (select 1 node pool if workload is enough). If this is for testing select Dev/Test as part of cluster preset configuration
+      v. Navigate to “Networking” tab and click on "Bring your own virtual network"
+      vi. Select the Virtual network created in Step 2
+      vii. Click “Review + create” and create the cluster
+      viii. Once cluster is created, open cloud shell and connect to this cluster
+      ix. Create a new file inside cloud shell and paste contents of /shared/booksinfo/mcn-bookinfo/details.yaml
+      x. Run "kubectl apply -f <file-name>" to deploy details microservice
 
-8. Create a HTTP Load Balancer (LB) pointing to the AKS cluster worker node as an origin server, enable WAF in blocking mode and advertise this LB as well to the AWS CE site with network set to inside as shown in the below image: 
+.. figure:: assets/Capture_n14.JPG
 
-.. figure:: assets/Capture5.JPG
+9. Create a HTTP Load Balancer (LB) pointing to the AKS cluster worker node as an origin server, enable WAF in blocking mode and advertise this LB as well to the GCP CE site with site network field set to inside.
+    i. Select Manage > Load Balancers > HTTP Load Balancers and click Add HTTP Load Balancer 
+    ii. Enter a name for the new load balancer. Optionally, select a label and enter a description.
+    iii. In the Domains field, enter domain name as details 
+    iv. From the 'Load Balancer Type' drop-down menu, select HTTP, do not select Manage DNS records option and set HTTP Listen Port to 9080.
+    v. Configure origin pools: 
+        a. In the Origins section, click Add Item to create an origin pool. 
+        b. In the origin pool field dropdown, click Add Item 
+        c. Enter name, in origin server section click Add Item 
+        d. Select type of origin server as “IP address of Origin Server on given Sites” 
+        e. Copy/Paste the private IP of your worker node. (In Azure cloud shell, you can run “kubectl get node –o wide” to get the private IP) 
+        f. Select the Azure site created in step7, apply the configuration 
+        g. Copy/Paste details service port to the origin server port field (In Azure cloud shell, you can run “kubectl get svc” to get the port value), apply the configuration 
+        h. Enable WAF and select the WAF policy. If not created, create a default WAF policy in blocking mode and attach it to the LB 
+        i. Scroll down to “Other Settings” section.
+            -  Here, in “VIP Advertisement” select custom and add the configs as shown in below image
+        j. Save the configurations. 
 
-**Note: Since the details LB is advertised to AWS CE site on inside network, details page cannot be accessible directly from outside(internet). Additionally, attached WAF policies on both frontend and backend loadbalancers will help provide robust security to the application environment**
+.. figure:: assets/Capture_n07.JPG
+
+.. figure:: assets/Capture_n08.JPG
+
+.. figure:: assets/Capture_n10.JPG
+
+.. figure:: assets/Capture_waf_details.JPG
+
+.. figure:: assets/Capture_n13.JPG
+
+**Note: Since the details LB is advertised to GCP CE site on inside network, details page cannot be accessible directly from outside(internet). Additionally, attached WAF policies on both frontend and backend loadbalancers will help provide robust security to the application environment**
 
 Testing: 
 *********
@@ -105,35 +156,37 @@ Testing:
 
 4. Generate a GET request and monitor the request logs of product page LB from F5 XC UI dashboard 
 
-.. figure:: assets/Capture7.JPG
+.. figure:: assets/Capture_n15.JPG
 
-.. figure:: assets/Capture9.JPG
+.. figure:: assets/Capture_n16.JPG
 
-5. Now update the URL field of postman with `http://<ce-site-pub-ip>/productpage?u=normal`
+5. Now update the URL field of postman with `http://<gcp-site-pub-ip>/productpage?u=normal`
 
 6. Keeping the other parameters same, again send the GET request
 
-.. figure:: assets/Capture8.JPG
+.. figure:: assets/Capture_n17.JPG
 
 7. Now monitor the request logs of product page and details LB from F5 XC UI dashboard. 
 
-.. figure:: assets/Capture10.JPG
+.. figure:: assets/Capture_n18.JPG
 
-.. figure:: assets/Capture11.JPG
+.. figure:: assets/Capture_n19.JPG
 
-.. figure:: assets/Capture12.JPG
+.. figure:: assets/Capture_n20.JPG
 
 8. Now, let's try a dummy cross-site-scripting attack
 
-.. figure:: assets/Capture13.JPG
+.. figure:: assets/Capture_n21.JPG
 
-.. figure:: assets/Capture14.JPG
+.. figure:: assets/Capture_n22.JPG
 
 9. Monitor the security event logs from XC console
 
-.. figure:: assets/Capture15.JPG
+.. figure:: assets/Capture_n23.JPG
 
+.. figure:: assets/Capture_n24.JPG
 
+.. figure:: assets/Capture_n25.JPG
 
 Step by step process using automation scripts
 #############################################
