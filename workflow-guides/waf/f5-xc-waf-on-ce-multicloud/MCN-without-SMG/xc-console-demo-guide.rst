@@ -137,7 +137,6 @@ Deployment Steps
 .. figure:: assets/Capture2.JPG
 
 9. Create a HTTP Load Balancer (LB) pointing to the AKS cluster worker node as an origin server, enable WAF in blocking mode and advertise this LB as well to the AWS CE site with network field set to inside.
-
     i. Select Manage > Load Balancers > HTTP Load Balancers and click Add HTTP Load Balancer 
     ii. Enter a name for the new load balancer. Optionally, select a label and enter a description.
     iii. In the Domains field, enter a domain name 
