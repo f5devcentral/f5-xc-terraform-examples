@@ -103,7 +103,7 @@ Deployment Steps
       x. Run "kubectl apply -f product.yaml" to deploy details microservice
       xi. Validate details service is deployed and running using "kubectl get pods" & "kubectl get svc" commands
 
-.. figure:: assets/aure-cloud-shell.JPG
+.. figure:: assets/azure-cloud-shell.JPG
 
 9. Create a HTTP Load Balancer (LB) pointing to the AKS cluster worker node as an origin server, enable WAF in blocking mode and advertise this LB as well to the GCP CE site with site network field set to inside.
     i. Select Manage > Load Balancers > HTTP Load Balancers and click Add HTTP Load Balancer 
