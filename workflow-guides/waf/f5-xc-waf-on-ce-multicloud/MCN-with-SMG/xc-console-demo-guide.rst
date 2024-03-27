@@ -19,16 +19,16 @@ Deployment Steps
     iv. Configure “Site Type Selection” section:
           a. Select GCP region and cloud credentials from drop-down
           b. Select Ingress/Egress Gateway (Two Interface) option for the Select Ingress Gateway or Ingress/Egress Gateway field. 
-          e. Click configure, add zone names & node count as 1. Also provide VPC and subnet details to create these resources on GCP cloud
-          f. Add a public ssh key in Site Node Parameters section 
-          g. Toggle Show Advanced Fields button for Advanced Configuration section then select “Allow access to DNS, SSH services on Site” for Services to be blocked on site field, Save and Exit. Click Apply. 
+          c. Click configure, add zone names & node count as 1. Also provide VPC and subnet details to create these resources on GCP cloud
+          d. Add a public ssh key in Site Node Parameters section 
+          e. Toggle Show Advanced Fields button for Advanced Configuration section then select “Allow access to DNS, SSH services on Site” for Services to be blocked on site field, Save and Exit. Click Apply. 
           Note: It will take 15-20 mins for the site to come online. You can monitor your site health score by navigating to Home > Multi-Cloud Network Connect > Overview > Sites
 
 .. figure:: assets/gcp1.JPG
 
 .. figure:: assets/gcp2.JPG
 
-3. Create a 1-node kubernetes engine and deploy /shared/booksinfo/mcn-bookinfo/product_page.yaml product page microservice to it. 
+2. Create a 1-node kubernetes engine and deploy /shared/booksinfo/mcn-bookinfo/product_page.yaml product page microservice to it. 
     i. In GCP console, search for Kubernetes Engine and select cluster. 
     ii. Click on create button 
     iii. Select Standard and Enter a name, Zone
@@ -43,7 +43,7 @@ Deployment Steps
 
 .. figure:: assets/gcp_shell.JPG
 
-4. Create a HTTP Load Balancer (LB) pointing to the k8s cluster worker node as an origin server, enable WAF in blocking mode and advertise this LB to the AWS CE site itself. 
+3. Create a HTTP Load Balancer (LB) pointing to the k8s cluster worker node as an origin server, enable WAF in blocking mode and advertise this LB to the AWS CE site itself. 
     i. Select Manage > Load Balancers > HTTP Load Balancers and click Add HTTP Load Balancer 
     ii. Enter a name for the new load balancer. Optionally, select a label and enter a description.
     iii. In the Domains field, enter a domain name 
@@ -71,7 +71,7 @@ Deployment Steps
 
 **- Below steps are related to Azure configurations**.
 
-5. Create Azure Vnet site as per below steps
+4. Create Azure Vnet site as per below steps
       i. From the Console homepage, select "Multi-Cloud Network Connect".
       ii. Select "Manage > Site Management", select "Azure VNET Sites" and click on "Add Azure VNET Site".
       iii. Enter a name, optionally select a label and add a description.
@@ -90,7 +90,7 @@ Deployment Steps
 
 .. figure:: assets/azure2.JPG
 
-8. Create a 1-node AKS cluster and deploy `details </shared/booksinfo/mcn-bookinfo/details.yaml>`_ microservice to it 
+5. Create a 1-node AKS cluster and deploy `details </shared/booksinfo/mcn-bookinfo/details.yaml>`_ microservice to it 
       i. From Azure console search for “Kubernetes services”
       ii. Click on Create button and select "Create Kubernetes cluster"
       iii. Select your subscription and select the above created resource group 
@@ -105,7 +105,7 @@ Deployment Steps
 
 .. figure:: assets/azure-cloud-shell.JPG
 
-9. Create a HTTP Load Balancer (LB) pointing to the AKS cluster worker node as an origin server, enable WAF in blocking mode and advertise this LB as well to the GCP CE site with site network field set to inside.
+6. Create a HTTP Load Balancer (LB) pointing to the AKS cluster worker node as an origin server, enable WAF in blocking mode and advertise this LB as well to the GCP CE site with site network field set to inside.
     i. Select Manage > Load Balancers > HTTP Load Balancers and click Add HTTP Load Balancer 
     ii. Enter a name for the new load balancer. Optionally, select a label and enter a description.
     iii. In the Domains field, enter domain name as details 
@@ -137,6 +137,8 @@ Testing:
 *********
 
 1. Open hosts file and add GCP CE site IP (you can find this in F5 XC --> GCP site configuration details dialog below section) to your HTTP productpage LB domain name
+
+.. figure:: assets/gcp-site-ip.JPG
 
 .. figure:: assets/hosts.JPG
 
