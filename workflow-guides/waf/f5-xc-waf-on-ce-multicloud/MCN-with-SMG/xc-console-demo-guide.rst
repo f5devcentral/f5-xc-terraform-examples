@@ -82,14 +82,14 @@ Deployment Steps
 
 5. Create credential for Azure by following the steps mentioned in the `devcentral article <https://community.f5.com/t5/technical-articles/creating-a-credential-in-f5-distributed-cloud-for-azure/ta-p/298316>`_ 
 
-6. Create Azure Vnet site **[Select Ingress/Egress Gateway (Two Interface) option]**
+6. Create Azure Vnet site as per below steps
       i. From the Console homepage, select "Multi-Cloud Network Connect".
       ii. Select "Manage > Site Management", select "Azure VNET Sites" and click on "Add Azure VNET Site".
       iii. Enter a name, optionally select a label and add a description.
       iv. In the Site Type Selection section: 
             a. Enter a new Azure resource group name (which doesn't exists) in the “Resource Group” field
             b. Select a region from the Recommended or Alternate Azure Region Names.
-            c. Configure Vnet field by selecting "New Vnet Parameters" and fill details to create new Vnet
+            c. Configure Vnet field by selecting "New Vnet Parameters" and fill CIDR details to create new Vnet
             d. Select Ingress/Egress Gateway (Two Interface) option for the Select Ingress Gateway or Ingress/Egress Gateway field.
             e. Create Ingress/Egress gateway by providing 1 AZ value and 2 new subnet CIDR's to be created for inside and outside interfaces
             f. Select the Azure cloud credentials created in Step 5
@@ -97,23 +97,21 @@ Deployment Steps
       vi. Toggle Show Advanced Fields button for Advanced Configuration section then select “Allow access to DNS, SSH services on Site” for Services to be blocked on site field, Save and Exit. Click Apply. **Note:** It will take 15-20 mins for the site to come online. You can monitor your site health score by navigating to Home > Multi-Cloud Network Connect > Overview > Sites 
       vii. For more detailed explanation about Azure site creation, refer to the `document <https://docs.cloud.f5.com/docs/how-to/site-management/create-azure-site>`_
 
-.. figure:: assets/Capture_n05.JPG
 
-.. figure:: assets/Capture_n06.JPG
 
 8. Create a 1-node AKS cluster and deploy `details </shared/booksinfo/mcn-bookinfo/details.yaml>`_ microservice to it 
       i. From Azure console search for “Kubernetes services”
       ii. Click on Create button and select "Create Kubernetes cluster"
-      iii. Select your subscription and set the above created resource group
+      iii. Select your subscription and select the above created resource group 
       iv. Fill in the remaining cluster details and primary node pool fields as needed (select 1 node pool if workload is enough). If this is for testing select Dev/Test as part of cluster preset configuration
       v. Navigate to “Networking” tab and click on "Bring your own virtual network"
       vi. Select the Virtual network created in Step 2
       vii. Click “Review + create” and create the cluster
-      viii. Once cluster is created, open cloud shell and connect to this cluster
+      viii. Once cluster is created, in Azure portal open cloud shell and connect to this cluster
       ix. Create a new file inside cloud shell and paste contents of /shared/booksinfo/mcn-bookinfo/details.yaml
       x. Run "kubectl apply -f <file-name>" to deploy details microservice
+      xi. Validate details service is deployed and running using "kubectl get pods" & "kubectl get svc" commands
 
-.. figure:: assets/Capture_n14.JPG
 
 9. Create a HTTP Load Balancer (LB) pointing to the AKS cluster worker node as an origin server, enable WAF in blocking mode and advertise this LB as well to the GCP CE site with site network field set to inside.
     i. Select Manage > Load Balancers > HTTP Load Balancers and click Add HTTP Load Balancer 
@@ -133,65 +131,34 @@ Deployment Steps
             -  Here, in “VIP Advertisement” select custom and add the configs as shown in below image
         j. Save the configurations. 
 
-.. figure:: assets/Capture_n07.JPG
-
-.. figure:: assets/Capture_n08.JPG
-
-.. figure:: assets/Capture_n10.JPG
-
-.. figure:: assets/Capture_waf_details.JPG
-
-.. figure:: assets/Capture_n13.JPG
 
 **Note: Since the details LB is advertised to GCP CE site on inside network, details page cannot be accessible directly from outside(internet). Additionally, attached WAF policies on both frontend and backend loadbalancers will help provide robust security to the application environment**
 
 Testing: 
 *********
 
-1. Open postman 
+1. Open hosts file and add GCP site IP to your HTTP productpage LB domain name
 
-2. Enter the public IP of the GCP CE site in the URL field
+2. Open a browser and enter the public IP of the GCP CE site in the URL field
 
 3. Uncheck the default host header value and create a custom host header with its value set to domain of product page HTTP LB 
 
-4. Generate a GET request and monitor the request logs of product page LB from F5 XC UI dashboard 
+4. Generate a GET request and validate UI content is displayed
 
-.. figure:: assets/Capture_n15.JPG
+5. Now update the URL field of postman to `http://<gcp-site-pub-ip>/productpage?u=normal`
 
-.. figure:: assets/Capture_n16.JPG
+6. Keeping the other parameters same, again send the GET request and validate details are getting displayed as below
 
-5. Now update the URL field of postman with `http://<gcp-site-pub-ip>/productpage?u=normal`
+7. Now, let's try a dummy cross-site-scripting attack as shown below
 
-6. Keeping the other parameters same, again send the GET request
+8. Monitor the security event logs from XC console
 
-.. figure:: assets/Capture_n17.JPG
-
-7. Now monitor the request logs of product page and details LB from F5 XC UI dashboard. 
-
-.. figure:: assets/Capture_n18.JPG
-
-.. figure:: assets/Capture_n19.JPG
-
-.. figure:: assets/Capture_n20.JPG
-
-8. Now, let's try a dummy cross-site-scripting attack
-
-.. figure:: assets/Capture_n21.JPG
-
-.. figure:: assets/Capture_n22.JPG
-
-9. Monitor the security event logs from XC console
-
-.. figure:: assets/Capture_n23.JPG
-
-.. figure:: assets/Capture_n24.JPG
-
-.. figure:: assets/Capture_n25.JPG
 
 Step by step process using automation scripts
 #############################################
 
 Coming Soon...
+
 
 **Support**
 ############
