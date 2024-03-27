@@ -141,13 +141,13 @@ Deployment Steps
       ii. Select "Manage > Labels", select "Label Keys" and click on "Add Known Key".
       iii. Enter a key and value and Add the key
       iv. Next click on Virtual Server and create it using CE site and above label selector
-       v. Navigate to your sites and update this label to your 2 CE sites of GCP and Azure
-       vi. Next navigate to "Manage > Networking", select "Site Mesh Groups" and click on "Add Site Mesh Group"
-       vii. Create a Site Mesh Group using above Full Mesh topology and above created Virtual Server as shown below
+      v. Navigate to your sites and update this label to your 2 CE sites of GCP and Azure
+      vi. Next navigate to "Manage > Networking", select "Site Mesh Groups" and click on "Add Site Mesh Group"
+      vii. Create a Site Mesh Group using above Full Mesh topology and above created Virtual Server as shown below
     
-       .. figure:: assets/smg.JPG
+      .. figure:: assets/smg.JPG
 
-       viii. Check `doc <https://docs.cloud.f5.com/docs/how-to/advanced-networking/site-mesh-group for more details>`_ for more details on Site Mesh Groups    
+      viii. Check `doc <https://docs.cloud.f5.com/docs/how-to/advanced-networking/site-mesh-group for more details>`_ for more details on Site Mesh Groups    
 
 
 Testing: 
