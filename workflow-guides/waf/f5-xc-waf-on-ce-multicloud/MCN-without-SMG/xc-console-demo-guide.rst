@@ -73,7 +73,9 @@ Deployment Steps
 **Note:** Here, we are using product page service type as NodePort 
 
 .. figure:: assets/Capture_n03.JPG
+
 .. figure:: assets/Capture_n2.JPG
+
 .. figure:: assets/Capture_n1.JPG
 
 4. Create a HTTP Load Balancer (LB) pointing to the EKS cluster worker node as an origin server, enable WAF in blocking mode and advertise this LB to the AWS CE site itself. 
@@ -112,10 +114,10 @@ Deployment Steps
       iii. Click “Review + create” and "Create"
       iv. Search for "Virtual networks" and click Create button
       v. Select your subscription, set the above created resource group name, virtual network name and region
-      vi. Navigate to IP addresses tab, Configure your virtual network address space and subnets
+      vi. Navigate to IP addresses tab, Configure your virtual network address space and subnets (slo, sli and workload)
       vii. Click “Review + create” and "Create"
 
-7. Create Azure Vnet site **{Select Ingress/Egress Gateway (Two Interface) option}**
+7. Create Azure Vnet site **[Select Ingress/Egress Gateway (Two Interface) option]**
       i. From the Console homepage, select "Multi-Cloud Network Connect".
       ii. Select "Manage > Site Management", select "Azure VNET Sites" and click on "Add Azure VNET Site".
       iii. Enter a name, optionally select a label and add a description.
