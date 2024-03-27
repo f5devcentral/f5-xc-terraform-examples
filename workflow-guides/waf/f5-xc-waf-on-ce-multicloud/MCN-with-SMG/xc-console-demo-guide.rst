@@ -24,9 +24,9 @@ Deployment Steps
           e. Toggle Show Advanced Fields button for Advanced Configuration section then select “Allow access to DNS, SSH services on Site” for Services to be blocked on site field
           f. Save and Exit, next click Apply. Note: It will take 15-20 mins for the site to come online. You can monitor your site health score by navigating to Home > Multi-Cloud Network Connect > Overview > Sites
 
-.. figure:: assets/gcp1.JPG
+          .. figure:: assets/gcp1.JPG
 
-.. figure:: assets/gcp2.JPG
+          .. figure:: assets/gcp2.JPG
 
 2. Create a 1-node kubernetes engine and deploy /shared/booksinfo/mcn-bookinfo/product_page.yaml product page microservice to it. 
     i. In GCP console, search for Kubernetes Engine and select cluster. 
@@ -38,13 +38,13 @@ Deployment Steps
     vii. Complete the configurations and create cluster
     xiii. In GCP portal, open cloud shell and connect to above created cluster
     ix. Open a file with name product.yaml and paste contents of /shared/booksinfo/mcn-bookinfo/product_page.yaml
-    x. Update HostAliases to your GCP node private IP and Run "kubectl apply -f product.yaml” and validate product service is deployed and running using "kubectl get pods" & "kubectl get svc" commands
+    x. Update HostAliases to your GCP node private IP and Run "kubectl apply -f product.yaml”
 
-.. figure:: assets/product-hostaliases.JPG
+    .. figure:: assets/product-hostaliases.JPG
 
-**Note:** Here, we are using product page service type as NodePort 
+    xi. Validate product service is deployed and running using "kubectl get pods" & "kubectl get svc" commands. **Note:** Here, we are using product page service type as NodePort 
 
-.. figure:: assets/gcp_shell.JPG
+    .. figure:: assets/gcp_shell.JPG
 
 3. Create a HTTP Load Balancer (LB) pointing to the k8s cluster worker node as an origin server, enable WAF in blocking mode and advertise this LB to the AWS CE site itself. 
     i. Select Manage > Load Balancers > HTTP Load Balancers and click Add HTTP Load Balancer 
@@ -64,13 +64,13 @@ Deployment Steps
             -  Here, in “VIP Advertisement” select custom and add the configs to advertise only on this GCP Site shown as below
         j. Save the configurations. 
 
-.. figure:: assets/productpage-configs.JPG
-
-.. figure:: assets/productpage-origin-configs.JPG
-
-.. figure:: assets/waf-configs.JPG
-
-.. figure:: assets/productpage-advertise-configs.JPG
+        .. figure:: assets/productpage-configs.JPG
+        
+        .. figure:: assets/productpage-origin-configs.JPG
+        
+        .. figure:: assets/waf-configs.JPG
+        
+        .. figure:: assets/productpage-advertise-configs.JPG
 
 **- Below steps are related to Azure configurations**.
 
@@ -89,9 +89,9 @@ Deployment Steps
       vi. Toggle Show Advanced Fields button for Advanced Configuration section then select “Allow access to DNS, SSH services on Site” for Services to be blocked on site field, Save and Exit. Click Apply. **Note:** It will take 15-20 mins for the site to come online. You can monitor your site health score by navigating to Home > Multi-Cloud Network Connect > Overview > Sites 
       vii. For more detailed explanation about Azure site creation, refer to the `document <https://docs.cloud.f5.com/docs/how-to/site-management/create-azure-site>`_
 
-.. figure:: assets/azure1.JPG
-
-.. figure:: assets/azure2.JPG
+    .. figure:: assets/azure1.JPG
+    
+    .. figure:: assets/azure2.JPG
 
 5. Create a 1-node AKS cluster and deploy `details </shared/booksinfo/mcn-bookinfo/details.yaml>`_ microservice to it 
       i. From Azure console search for “Kubernetes services”
@@ -106,7 +106,7 @@ Deployment Steps
       x. Run "kubectl apply -f product.yaml" to deploy details microservice
       xi. Validate details service is deployed and running using "kubectl get pods" & "kubectl get svc" commands
 
-.. figure:: assets/azure-cloud-shell.JPG
+    .. figure:: assets/azure-cloud-shell.JPG
 
 6. Create a HTTP Load Balancer (LB) pointing to the AKS cluster worker node as an origin server, enable WAF in blocking mode and advertise this LB as well to the GCP CE site with site network field set to inside.
     i. Select Manage > Load Balancers > HTTP Load Balancers and click Add HTTP Load Balancer 
@@ -126,13 +126,13 @@ Deployment Steps
             -  Here, in “VIP Advertisement” select custom and advertise on above created GCP VPC site
         j. Save the configurations. 
 
-.. figure:: assets/details-configs.JPG
-
-.. figure:: assets/details-origin-configs.JPG
-
-.. figure:: assets/details-advertise-configs.JPG
-
-.. figure:: assets/waf-configs.JPG
+        .. figure:: assets/details-configs.JPG
+        
+        .. figure:: assets/details-origin-configs.JPG
+        
+        .. figure:: assets/details-advertise-configs.JPG
+        
+        .. figure:: assets/waf-configs.JPG
 
 **Note: Since the details LB is advertised to GCP CE site on inside network, details page cannot be accessible directly from outside(internet). Additionally, attached WAF policies on both frontend and backend loadbalancers will help provide robust security to the application environment**
 
