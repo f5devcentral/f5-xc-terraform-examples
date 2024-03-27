@@ -6,10 +6,9 @@ Manual step by step process for the deployment
 Prerequisites
 **************
 - Access to GCP & Azure portals - If you do not have accounts, get in touch with cloud support for portal access
-- GCP and Azure CLI credentials - Check https://community.f5.com/kb/technicalarticles/creating-a-credential-in-f5-distributed-cloud-for-gcp/298290 and https://community.f5.com/kb/technicalarticles/creating-a-credential-in-f5-distributed-cloud-for-azure/298316 for more details)
 - Access to F5 XC account - Contact F5 Support if you do not have one
+- Cloud credentials onboarded in F5 XC - Check `GCP article <https://community.f5.com/kb/technicalarticles/creating-a-credential-in-f5-distributed-cloud-for-gcp/298290>`_ and `Azure article <https://community.f5.com/kb/technicalarticles/creating-a-credential-in-f5-distributed-cloud-for-azure/298316>`_ for more details
 - SSH key pair - check `GCP doc <https://cloud.google.com/compute/docs/connect/create-ssh-keys>`_ for key pair generation
-- Install postman for testing the setup - check online links to install in your machine
 
 Deployment Steps
 *****************
@@ -17,7 +16,7 @@ Deployment Steps
     i. Login to GCP portal and search VPC service, select it 
     ii. Click create VPC 
     iii. Enter VPC name, IPv4 VPC CIDR block and click create
-    NOTE: Since MCN-without-SMG already showcased use case of adding CE site on existing infra, here we will try to see if all infra can be brought up from F5 XC console so we are not creating subnets, etc
+    NOTE: Since MCN-without-SMG folder already showcased use case of adding CE site on existing infra, here we will create all infra details like VPC, subnets, etc from F5 XC console
 
 2. Create a GCP VPC site
     i. Login to F5 XC Console 
@@ -35,7 +34,7 @@ Deployment Steps
 
 .. figure:: assets/gcp2.JPG
 
-3. Create a 1-node EKS cluster and deploy `istio bookinfo <https://istio.io/latest/docs/examples/bookinfo/>`_ product page microservice to it. 
+3. Create a 1-node EKS cluster and deploy /shared/booksinfo/mcn-bookinfo/product_page.yaml product page microservice to it. 
     i. In GCP console, search for EKS service and select it. 
     ii. Click on create cluster button 
     iii. Enter a name, select a k8s version, select a role (To create a new role follow the `instructions <https://docs.aws.amazon.com/eks/latest/userguide/service_IAM_role.html#create-service-role>`_ ), keep rest option as default and click next button 
@@ -60,7 +59,7 @@ Deployment Steps
     i. Select Manage > Load Balancers > HTTP Load Balancers and click Add HTTP Load Balancer 
     ii. Enter a name for the new load balancer. Optionally, select a label and enter a description.
     iii. In the Domains field, enter a domain name 
-    iv. From the Load Balancer Type drop-down menu, select HTTP and do not select auto manage DNS records option
+    iv. From the Load Balancer Type drop-down menu, select HTTP, do not select auto manage DNS records option and port as 80
     v. Configure origin pools: 
         a. In the Origins section, click Add Item to create an origin pool. 
         b. In the origin pool field dropdown, click Add Item 
@@ -68,10 +67,10 @@ Deployment Steps
         d. Select type of origin server as “IP address of Origin Server on given Sites” 
         e. Copy/Paste the private IP of your worker node. (in GCP portal, open cloud shell and run “kubectl get node –o wide” to get the private IP of node) 
         f. Select the GCP VPC site created in step2, apply the configuration 
-        g. Copy/Paste product page service port to the origin server port field (use kubectl command “kubectl get svc” to get the port value of productpage service), apply the configuration 
+        g. Copy/Paste product page service port to the origin server port field (in GCP portal, open cloud shell and run “kubectl get svc” to get the port value of productpage service), apply the configuration 
         h. Enable WAF and select the WAF policy. If not created, create a basic default WAF policy in blocking mode and attach it to the LB 
         i. Scroll down to “Other Settings” section.
-            -  Here, in “VIP Advertisement” select custom and add the configs as shown in below image
+            -  Here, in “VIP Advertisement” select custom and add the configs to advertise only on this GCP Site shown as below
         j. Save the configurations. 
 
 .. figure:: assets/4.JPG
@@ -80,9 +79,7 @@ Deployment Steps
 
 **- Below steps are related to Azure configurations**.
 
-5. Create credential for Azure by following the steps mentioned in the `devcentral article <https://community.f5.com/t5/technical-articles/creating-a-credential-in-f5-distributed-cloud-for-azure/ta-p/298316>`_ 
-
-6. Create Azure Vnet site as per below steps
+5. Create Azure Vnet site as per below steps
       i. From the Console homepage, select "Multi-Cloud Network Connect".
       ii. Select "Manage > Site Management", select "Azure VNET Sites" and click on "Add Azure VNET Site".
       iii. Enter a name, optionally select a label and add a description.
