@@ -187,25 +187,23 @@ Deployment Steps
 Testing: 
 *********
 
-1. Open postman 
+1. For testing purpose edit your machine's hosts file by adding a line for IP(AWS CE site public IP) to domain(productpage LB domain) mapping or if you have a registered domain name, set up DNS record 
 
-2. Enter the public IP of the AWS CE site in the URL field
-
-3. Uncheck the default host header value and create a custom host header with its value set to domain of product page HTTP LB 
-
-4. Generate a GET request and monitor the request logs of product page LB from F5 XC UI dashboard 
+2. Open a browser, enter product page (frontend) domain name in the URL bar and send the request
 
 .. figure:: assets/Capture_n15.JPG
 
+3. Once request is successful monitor the request logs in XC console
+
 .. figure:: assets/Capture_n16.JPG
+ 
+4. Click on "Normal" hyperlink, it will internally initiate a request from frontend to backend 
 
-5. Now update the URL field of postman with `http://<aws-site-pub-ip>/productpage?u=normal`
-
-6. Keeping the other parameters same, again send the GET request
+.. figure:: assets/Capture_n_17.JPG
 
 .. figure:: assets/Capture_n17.JPG
 
-7. Now monitor the request logs of product page and details LB from F5 XC UI dashboard. 
+5. Now monitor the request logs of product page and details LB from the XC Console. 
 
 .. figure:: assets/Capture_n18.JPG
 
@@ -213,13 +211,13 @@ Testing:
 
 .. figure:: assets/Capture_n20.JPG
 
-8. Now, let's try a dummy cross-site-scripting attack
+6. Now, let's try a dummy cross-site-scripting attack
 
 .. figure:: assets/Capture_n21.JPG
 
 .. figure:: assets/Capture_n22.JPG
 
-9. Monitor the security event logs from XC console
+9. Monitor the security event logs from the XC console
 
 .. figure:: assets/Capture_n23.JPG
 
