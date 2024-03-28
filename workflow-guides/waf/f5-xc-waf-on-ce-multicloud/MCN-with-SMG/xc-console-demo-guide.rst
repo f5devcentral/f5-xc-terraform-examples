@@ -140,10 +140,10 @@ Deployment Steps
       i. From the F5 XC Console homepage, select "Shared Configurations".
       ii. Select "Manage > Labels", select "Label Keys" and click on "Add Known Key".
       iii. Enter a key and value and Add the key
-      iv. Next click on Virtual Server and create it using CE site and above label selector
+      iv. Next click on Virtual Server and create it using type as CE and above label selector
       v. Navigate to your sites and update this label to your 2 CE sites of GCP and Azure
       vi. Next navigate to "Manage > Networking", select "Site Mesh Groups" and click on "Add Site Mesh Group"
-      vii. Create a Site Mesh Group using above Full Mesh topology and above created Virtual Server as shown below
+      vii. Create a Site Mesh Group using Full Mesh topology and above created Virtual Server as shown below
     
       .. figure:: assets/smg.JPG
 
