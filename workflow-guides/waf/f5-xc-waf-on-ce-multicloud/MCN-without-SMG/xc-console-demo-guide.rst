@@ -70,7 +70,7 @@ Deployment Steps
     xi. Set compute and scaling configurations, here we are creating a 1 node EKS cluster 
     xii. Select the workload subnet[refer step 2(e)] for your worker node 
     xiii. Keep rest options default, review the config done and create the node group 
-    xiv. Edit the `product page </shared/booksinfo/mcn-bookinfo/product_page.yaml>`_ manifest file, "enter the egress private IP of the AWS CE site in hostAliases field" and deploy the product page microservice using the kubectl command. ``kubectl apply -f product.yaml``
+    xiv. Edit the `product page </shared/booksinfo/mcn-bookinfo/product_page.yaml>`_ manifest file, "enter the egress private IP of the AWS CE site in hostAliases field" and deploy the product page microservice using the kubectl command. ``kubectl apply -f product_page.yaml``
 
 .. figure:: assets/host.JPG
 
