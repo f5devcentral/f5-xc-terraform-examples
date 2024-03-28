@@ -1,10 +1,4 @@
 Deploying F5 XC WAF on Customer Edge (Multi-Cloud Scenario)
-=============================
-
-
---------------
-
-.. contents:: **Table of Contents**
 
 **Overview**
 #########
