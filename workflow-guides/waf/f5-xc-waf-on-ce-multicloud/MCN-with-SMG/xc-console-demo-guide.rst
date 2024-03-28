@@ -159,7 +159,7 @@ Testing:
 
 .. figure:: assets/hosts.JPG
 
-2. Open a browser and enter the public IP of the GCP CE site or HTTP load balancer domain name in the URL field
+2. Open a browser and enter the public HTTP load balancer domain name in the URL field
 
 3. Send a GET request and validate UI content is displayed
 
