@@ -198,7 +198,7 @@ Testing:
 
 .. figure:: assets/Capture_n16.JPG
  
-4. Click on "Normal user" hyperlink, it will internally initiate a request from frontend to backend. This step covers end to end testing.
+4. Click on "Normal user" hyperlink, it will internally initiate a request from frontend to backend. This step covers end to end traffic flow (from frontend to backend).
 
 .. figure:: assets/Capture_n_17.JPG
 
