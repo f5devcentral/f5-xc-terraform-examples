@@ -1,5 +1,9 @@
 Manual step by step process for the deployment
 ===============================================
+This document covers details on overview, deploying and testing of Multi Cloud Networking using Site Mesh Group use case. In this use case we have deployed a demo application across GCP and Azure clouds. Application front-end product page is deployed in GCP and another service which fetches book details is deployed in Azure.
+
+Deployment Diagram
+******************
 
 .. figure:: assets/readme.jpeg
 
