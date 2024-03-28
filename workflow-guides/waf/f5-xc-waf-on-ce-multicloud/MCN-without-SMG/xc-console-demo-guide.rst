@@ -72,7 +72,7 @@ Deployment Steps
     xiii. Keep rest options default, review the config done and create the node group 
     xiv. Edit the `product page </shared/booksinfo/mcn-bookinfo/product_page.yaml>`_ manifest file, "enter the egress private IP of the AWS CE site in hostAliases field" and deploy the product page microservice using the kubectl command. ``kubectl apply -f product.yaml``
 
-.. figure:: assets/alias.JPG
+.. figure:: assets/host.JPG
 
 **Note:** Here, we are using product page service type as NodePort 
 
