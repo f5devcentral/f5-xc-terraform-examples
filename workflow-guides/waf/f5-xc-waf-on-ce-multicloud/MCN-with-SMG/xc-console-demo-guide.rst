@@ -153,7 +153,7 @@ Deployment Steps
 Testing: 
 *********
 
-1. Open hosts file and add GCP CE site IP (you can find this in F5 XC --> GCP site configuration details dialog below section) to your HTTP productpage LB domain name
+1. Since we didn't configure auto-manage DNS records option during LB creation, in your local machine open hosts file and add GCP CE site IP (you can find this in F5 XC --> GCP site configuration details dialog below section) to your HTTP productpage LB domain name
 
 .. figure:: assets/gcp-site-ip.JPG
 
