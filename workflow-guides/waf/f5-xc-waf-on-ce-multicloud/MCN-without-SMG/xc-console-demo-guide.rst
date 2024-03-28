@@ -187,23 +187,23 @@ Deployment Steps
 Testing: 
 *********
 
-1. For testing purpose edit your machine's hosts file by adding a line for IP(AWS CE site public IP) to domain(productpage LB domain) mapping or if you have a registered domain name, set up DNS record 
+1. For testing purpose edit your local machine's hosts file by adding a line for IP(AWS CE site public IP) to domain(productpage LB domain) mapping or if you have a registered domain name, set up DNS record 
 
 2. Open a browser, enter product page (frontend) domain name in the URL bar and send the request
 
 .. figure:: assets/Capture_n15.JPG
 
-3. Once request is successful monitor the request logs in XC console
+3. Once request is successful monitor the request logs in the XC console
 
 .. figure:: assets/Capture_n16.JPG
  
-4. Click on "Normal" hyperlink, it will internally initiate a request from frontend to backend 
+4. Click on "Normal user" hyperlink, it will internally initiate a request from frontend to backend 
 
 .. figure:: assets/Capture_n_17.JPG
 
 .. figure:: assets/Capture_n17.JPG
 
-5. Now monitor the request logs of product page and details LB from the XC Console. 
+5. Now, monitor the request logs of product page and details LB from the XC Console. 
 
 .. figure:: assets/Capture_n18.JPG
 
@@ -211,13 +211,13 @@ Testing:
 
 .. figure:: assets/Capture_n20.JPG
 
-6. Now, let's try a dummy cross-site-scripting attack
+6. Let's try a dummy cross-site-scripting attack
 
 .. figure:: assets/Capture_n21.JPG
 
 .. figure:: assets/Capture_n22.JPG
 
-9. Monitor the security event logs from the XC console
+9. Now, monitor the security event logs from the XC console
 
 .. figure:: assets/Capture_n23.JPG
 
