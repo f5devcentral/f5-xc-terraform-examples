@@ -6,7 +6,7 @@ Manual step by step process for the deployment
 Traffic Flow
 *************
 - ProductPage and details Load Balancers (LBs) are advertised to AWS CE Site on outside and inside network respectively.
-- Added a DNS entry locally in host file to resolve frontend domain name to AWS CE site's public IP
+- Added a DNS entry locally in host file of client's machine to resolve frontend domain name to AWS CE site's public IP
 
 1. User/Client will initiate a request to product page (frontend) LB domain
 2. DNS resolution will happen and the request will enter to the AWS CE site using ingress interface and then will be redirected to productpage LB.
