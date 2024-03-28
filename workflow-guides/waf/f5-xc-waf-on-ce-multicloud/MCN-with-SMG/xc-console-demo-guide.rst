@@ -147,7 +147,11 @@ Deployment Steps
     
       .. figure:: assets/smg.JPG
 
-      viii. Check `doc <https://docs.cloud.f5.com/docs/how-to/advanced-networking/site-mesh-group for more details>`_ for more details on Site Mesh Groups    
+      viii. Navigate to "Overview" --> "Networking" and then to "Topology" and click on your SMG name. Once opened validate mesh network is up between these two sites
+
+      .. figure:: assets/smg-network.JPG
+
+      ix. Check `doc <https://docs.cloud.f5.com/docs/how-to/advanced-networking/site-mesh-group for more details>`_ for more details on Site Mesh Groups    
 
 
 Testing: 
