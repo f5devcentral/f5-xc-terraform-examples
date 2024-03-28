@@ -50,7 +50,7 @@ Deployment Steps
 
     .. figure:: assets/gcp_shell.JPG
 
-3. Create a HTTP Load Balancer (LB) pointing to the k8s cluster worker node as an origin server, enable WAF in blocking mode and advertise this LB to the AWS CE site itself. 
+3. Create a HTTP Load Balancer (LB) pointing to the k8s cluster worker node as an origin server, enable WAF in blocking mode and advertise this LB to the GCP CE site itself. 
     i. Select Manage > Load Balancers > HTTP Load Balancers and click Add HTTP Load Balancer 
     ii. Enter a name for the new load balancer. Optionally, select a label and enter a description.
     iii. In the Domains field, enter a domain name 
@@ -61,7 +61,7 @@ Deployment Steps
         c. Enter name, in origin server section click Add Item 
         d. Select type of origin server as “IP address of Origin Server on given Sites” 
         e. Copy/Paste the private IP of your worker node. (in GCP portal, open cloud shell and run “kubectl get node –o wide” to get the private IP of node) 
-        f. Select the GCP VPC site created in step2, apply the configuration 
+        f. Select the GCP VPC site created in step1 and apply the configuration 
         g. Copy/Paste product page service port to the origin server port field (in GCP portal, open cloud shell and run “kubectl get svc” to get the port value of productpage service), apply the configuration 
         h. Enable WAF and select the WAF policy. If not created, create a basic default WAF policy in blocking mode and attach it to the LB 
         i. Scroll down to “Other Settings” section.
@@ -79,7 +79,7 @@ Deployment Steps
 **- Below steps are related to Azure configurations**.
 
 4. Create Azure Vnet site as per below steps
-      i. From the F5 XCConsole homepage, select "Multi-Cloud Network Connect".
+      i. From the F5 XC Console homepage, select "Multi-Cloud Network Connect".
       ii. Select "Manage > Site Management", select "Azure VNET Sites" and click on "Add Azure VNET Site".
       iii. Enter a name, optionally select a label and add a description.
       iv. In the Site Type Selection section: 
@@ -88,7 +88,7 @@ Deployment Steps
             c. Configure Vnet field by selecting "New Vnet Parameters" and fill CIDR details to create new Vnet
             d. Select Ingress/Egress Gateway (Two Interface) option for the Select Ingress Gateway or Ingress/Egress Gateway field.
             e. Create Ingress/Egress gateway by providing 1 AZ value and 2 new subnet CIDR's to be created for inside and outside interfaces
-            f. Select the Azure cloud credentials created in Step 5
+            f. Select the Azure cloud credentials created in prerequisites
       v. Add a public ssh key in Site Node Parameters section created in prerequisites
       vi. Toggle Show Advanced Fields button for Advanced Configuration section then select “Allow access to DNS, SSH services on Site” for Services to be blocked on site field, Save and Exit. Click Apply. **Note:** It will take 15-20 mins for the site to come online. You can monitor your site health score by navigating to Home > Multi-Cloud Network Connect > Overview > Sites 
       vii. For more detailed explanation about Azure site creation, refer to the `document <https://docs.cloud.f5.com/docs/how-to/site-management/create-azure-site>`_
@@ -123,7 +123,7 @@ Deployment Steps
         c. Enter name, in origin server section click Add Item 
         d. Select type of origin server as “IP address of Origin Server on given Sites” 
         e. Copy/Paste the private IP of your worker node. (In Azure cloud shell, you can run “kubectl get node –o wide” to get the private IP) 
-        f. Select the Azure site created in step7, apply the configuration 
+        f. Select the Azure site created in step4 and apply the configuration 
         g. Copy/Paste details service port to the origin server port field (In Azure cloud shell, you can run “kubectl get svc” to get the port value), apply the configuration 
         h. Enable WAF and select the WAF policy. If not created, create a default WAF policy in blocking mode and attach it to the LB 
         i. Scroll down to “Other Settings” section.
@@ -173,9 +173,9 @@ Testing:
 
 .. figure:: assets/mcn-productpage.JPG
 
-4. Now update the URL field of postman to `http://<gcp-site-pub-ip>/productpage?u=normal`
+4. Now update the URL field of postman to `http://<lb-domain-name>/productpage?u=normal`
 
-5. Keeping the other parameters same, again send the GET request and validate details are getting displayed as below
+5. Send the GET request and validate product details are getting displayed as below
 
 .. figure:: assets/mcn-productpage2.JPG
 
