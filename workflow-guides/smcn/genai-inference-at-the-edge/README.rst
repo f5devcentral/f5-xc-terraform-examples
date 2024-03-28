@@ -13,7 +13,7 @@ Deploy WAF on any Edge with F5 Distributed Cloud <https://community.f5.com/t5/te
 Setup Diagram
 #############
 
-.. figure:: assets/appstack-mk8s.jpeg
+.. figure:: assets/appstack-mk8s.jpg
 
 Workflow Instructions
 ######################
