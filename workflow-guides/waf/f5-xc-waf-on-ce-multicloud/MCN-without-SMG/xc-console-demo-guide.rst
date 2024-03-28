@@ -70,7 +70,7 @@ Deployment Steps
     xi. Set compute and scaling configurations, here we are creating a 1 node EKS cluster 
     xii. Select the workload subnet[refer step 2(e)] for your worker node 
     xiii. Keep rest options default, review the config done and create the node group 
-    xiv. Edit the `product page </shared/booksinfo/mcn-bookinfo/product_page.yaml>`_ manifest file, "enter the egress private IP of the AWS CE site" and deploy the product page microservice using the kubectl command. ``kubectl apply -f product.yaml``
+    xiv. Edit the `product page </shared/booksinfo/mcn-bookinfo/product_page.yaml>`_ manifest file, "enter the egress private IP of the AWS CE site in hostAliases field" and deploy the product page microservice using the kubectl command. ``kubectl apply -f product.yaml``
 **Note:** Here, we are using product page service type as NodePort 
 
 .. figure:: assets/Capture_n03.JPG
@@ -83,13 +83,13 @@ Deployment Steps
     i. Select Manage > Load Balancers > HTTP Load Balancers and click Add HTTP Load Balancer 
     ii. Enter a name for the new load balancer. Optionally, select a label and enter a description.
     iii. In the Domains field, enter a domain name 
-    iv. From the "Load Balancer Type" drop-down menu, select HTTP and let the HTTP Listen Port as 80
+    iv. From the "Load Balancer Type" drop-down menu, select HTTP, do not select "Automatically Manage DNS Records" option and let the HTTP Listen Port as 80
     v. Configure origin pools: 
         a. In the Origins section, click Add Item to create an origin pool. 
         b. In the origin pool field dropdown, click Add Item 
         c. Enter name, in origin server section click Add Item 
         d. Select type of origin server as “IP address of Origin Server on given Sites” 
-        e. Copy/Paste the private IP of your worker node. (You can use kubectl command as well ``kubectl get node –o wide`` to get the private IP) 
+        e. Copy/Paste the private IP of your worker node. (You can use kubectl command ``kubectl get node –o wide`` to get the private IP) 
         f. Select the AWS site created in step2, apply the configuration 
         g. Copy/Paste product page service port to the origin server port field (Range [30000-32767], use kubectl command ``kubectl get svc`` to get the port value), apply the configuration 
         h. Enable WAF and select the WAF policy. If not created, create a WAF policy in blocking mode and attach it to the LB 
@@ -155,13 +155,13 @@ Deployment Steps
     i. Select Manage > Load Balancers > HTTP Load Balancers and click Add HTTP Load Balancer 
     ii. Enter a name for the new load balancer. Optionally, select a label and enter a description.
     iii. In the Domains field, enter domain name as details 
-    iv. From the 'Load Balancer Type' drop-down menu, select HTTP and set HTTP Listen Port to 9080.
+    iv. From the 'Load Balancer Type' drop-down menu, select HTTP, do not select "Automatically Manage DNS Records" option and set HTTP Listen Port to 9080.
     v. Configure origin pools: 
         a. In the Origins section, click Add Item to create an origin pool. 
         b. In the origin pool field dropdown, click Add Item 
         c. Enter name, in origin server section click Add Item 
         d. Select type of origin server as “IP address of Origin Server on given Sites” 
-        e. Copy/Paste the private IP of your worker node. (You can use kubectl command as well ``kubectl get node –o wide`` to get the private IP) 
+        e. Copy/Paste the private IP of your worker node. (You can use kubectl command ``kubectl get node –o wide`` to get the private IP) 
         f. Select the Azure site created in step7, apply the configuration 
         g. Copy/Paste details service port to the origin server port field (Range [30000-32767], use kubectl command ``kubectl get svc`` to get the port value), apply the configuration 
         h. Enable WAF and select the WAF policy. If not created, create a WAF policy in blocking mode and attach it to the LB 
