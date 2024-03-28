@@ -62,7 +62,7 @@ Deployment Steps
     iii. Enter a name, select a k8s version, select a role (To create a new role follow the `instructions <https://docs.aws.amazon.com/eks/latest/userguide/service_IAM_role.html#create-service-role>`_ ), keep rest option as default and click next button 
     iv. Select VPC created in Step1 
     v. Choose 2 subnets created in Step1 for workload 
-    vi. Optionally, reuse the security group created for the AWS CE site 
+    vi. Select an existing security group or create a new one for your VPC and select it. (Make sure to add an inbound rule enabling TCP port range 30000-32767)
     vii. Select “Public and private” option for Cluster endpoint access 
     viii. Keeping rest values as default, press next buttons. Finally, review the configs and click on create button  
     ix. Once EKS cluster is up, select it and navigate to Compute section and click Add node group 
