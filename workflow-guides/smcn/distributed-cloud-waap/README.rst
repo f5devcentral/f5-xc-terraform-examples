@@ -21,7 +21,7 @@ Setup Diagram
 Workflow Instructions
 ######################
 
-** PRE-REQUISITE **
+PRE-REQUISITE
 ----------------------
 
 The pre-requisite for this guide is a working F5 XC CE configured in one or more public clouds. You can follow the steps in the following guides to configure a CE, deploy a demo app, and set up a Load Balancer -- for each of the public clouds below:
@@ -34,7 +34,7 @@ The pre-requisite for this guide is a working F5 XC CE configured in one or more
 
 The end result of this configuration should be one or more working XC CEs, with a simple application that can now be protected with a uniform security policy.
 
-** DEPLOYMENT WORKFLOW **
+DEPLOYMENT WORKFLOW
 --------------------------
 The next step is to apply a single security policy (collection of WAAP-related config) to applications in different clouds by updating the configuration of the Load Balancers within XC configuration.
 
