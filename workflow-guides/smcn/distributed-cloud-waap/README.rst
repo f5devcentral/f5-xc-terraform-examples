@@ -21,7 +21,10 @@ Setup Diagram
 Workflow Instructions
 ######################
 
-The pre-requisite for this guide is a working F5 XC CE configured in one or more public clouds. You can follow the steps in the following guides to configure a CE, deploy a demo app and set up a Load Balancer -- for each of the public clouds below:
+** PRE-REQUISITE **
+----------------------
+
+The pre-requisite for this guide is a working F5 XC CE configured in one or more public clouds. You can follow the steps in the following guides to configure a CE, deploy a demo app, and set up a Load Balancer -- for each of the public clouds below:
 
 `Deploy F5 XC WAF on XC Customer Edge in *AWS* (SaaS Console, Automation) <https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-ce/aws/README.rst>`__
 
@@ -29,17 +32,23 @@ The pre-requisite for this guide is a working F5 XC CE configured in one or more
 
 `Deploy F5 XC WAF on XC Customer Edge in *GCP* (SaaS Console, Automation) <https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-ce/gcp/README.rst>`__
 
-The following can be manual steps with XC Console or automated via GitHub Actions after a few configuration steps of variables. This can be executed multiple times for each CE if you have different XC CEs. 
+The end result of this configuration should be one or more working XC CEs, with a simple application that can now be protected with a uniform security policy.
+
+** DEPLOYMENT WORKFLOW **
+--------------------------
+The next step is to apply a single security policy (collection of WAAP-related config) to applications in different clouds by updating the configuration of the Load Balancers within XC configuration.
+
+The following can be performed as manual steps within XC Console or automated via GitHub Actions after a few configuration steps of variables. This can be executed multiple times for each CE if you have different XC CEs. 
 
 **STEP 1:** Configure or Assign a WAF Object to LB
------------------------------------------------------
+====================================================
 
 `Manual: XC Console Workflow <./apply-waf-policy/README-manual.md>`__
 
 `Automation: API Workflow <./apply-waf-policy/README-automation.md>`__
 
 **STEP 2:** Configure API Discovery on LB
------------------------------------------------------
+============================================
 
 `Manual: XC Console Workflow <./enable-api-discovery/README-manual.md>`__
 
@@ -47,5 +56,5 @@ The following can be manual steps with XC Console or automated via GitHub Action
 
 
 Additional Related Resources
-#############################
-Secure MCN Distributed App Sec `VM Workflow Guide <https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-re-appconnect/vm/README.rst>`__
+###################################
+`Secure MCN Distributed App Sec Article (DevCentral) <https://community.f5.com/kb/TechnicalArticles/using-distributed-application-security-policies-in-secure-multicloud-networking-/328803>`__
