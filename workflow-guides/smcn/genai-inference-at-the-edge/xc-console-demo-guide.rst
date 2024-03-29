@@ -70,8 +70,8 @@ Fig : AWS VPC Site
                g. In ``Origin server Port`` enter the port number of the frontend service from step 3.1
                h. Click on Save and Exit.
 
-.. figure:: assets/origin-pool.png
-Fig : Origin Pool
+          .. figure:: assets/origin-pool.png
+          Fig : Origin Pool
 
         **Step 4.2**: Creating HTTPS Load Balancer with VIP advertisement
                a. Log into F5 XC Console and Click on Multi-Cloud App Connect.
