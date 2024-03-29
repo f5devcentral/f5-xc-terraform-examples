@@ -73,13 +73,13 @@ Terraform Cloud
    +------------------------+--------------+------------------------------------------------------+
    | AWS_SESSION_TOKEN      | Environment  | Your AWS Session Token                               | 
    +------------------------+--------------+------------------------------------------------------+
-   | VOLT_API_P12_FILE      | Environment  |  Your F5XC API certificate. Set this to **api.p12**  |
+   | VOLT_API_P12_FILE      | Environment  | Your F5XC API certificate. Set this to **api.p12**   |
    +------------------------+--------------+------------------------------------------------------+
-   | VES_P12_PASSWORD       | Environment  |  Set this to the password you supplied               |
+   | VES_P12_PASSWORD       | Environment  | Set this to the password you supplied                |
    +------------------------+--------------+------------------------------------------------------+
-   | ssh_key                | TERRAFORM    |  Your ssh key for accessing the created resources    | 
+   | ssh_key                | TERRAFORM    | Your ssh key for accessing the created resources     | 
    +------------------------+--------------+------------------------------------------------------+
-   | tf_cloud_organization  | TERRAFORM    |  Your Terraform Cloud Organization name              |
+   | tf_cloud_organization  | TERRAFORM    | Your Terraform Cloud Organization name               |
    +------------------------+--------------+------------------------------------------------------+
 
 -  Check below image for more info on variable sets
