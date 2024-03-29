@@ -48,11 +48,11 @@ Deployment Steps
           c. Select Existing VPC ID option for VPC field and copy/paste the VPC ID of VPC created in step 1.
           d. Select Ingress/Egress Gateway (Two Interface) option for the Select Ingress Gateway or Ingress/Egress Gateway field. 
           e. Click configure, add AZ and subnet IDs for workload, inside and outside subnets. Apply the configuration. 
+
+            .. figure:: assets/Capture_n01.JPG
           f. Add a public ssh key in Site Node Parameters section.
           g. Toggle Show Advanced Fields button for Advanced Configuration section then select “Allow access to DNS, SSH services on Site” for Services to be blocked on site field, Save and Exit. Click Apply. Note: It will take 15-20 mins for the site to come online. You can monitor your site health score by navigating to Home > Multi-Cloud Network Connect > Overview > Sites.
           h. For more detailed information regarding AWS Site refer to the `document <https://docs.cloud.f5.com/docs/how-to/site-management/create-aws-site>`_ 
-
-.. figure:: assets/Capture_n01.JPG
 
 .. figure:: assets/Capture_n02.JPG
 
@@ -72,7 +72,7 @@ Deployment Steps
     xiii. Keep rest options default, review the config done and create the node group.
     xiv. Edit the `product page </shared/booksinfo/mcn-bookinfo/product_page.yaml>`_ manifest file, "enter the egress private IP of the AWS CE site in hostAliases field" and deploy the product page microservice using the kubectl command. ``kubectl apply -f product_page.yaml``
 
-.. figure:: assets/host.JPG
+        .. figure:: assets/host.JPG
 
 **Note:** Here, we are using product page service type as NodePort.
 
@@ -87,6 +87,8 @@ Deployment Steps
     ii. Enter a name for the new load balancer. Optionally, select a label and enter a description.
     iii. In the Domains field, enter a domain name.
     iv. From the "Load Balancer Type" drop-down menu, select HTTP, do not select "Automatically Manage DNS Records" option and let the HTTP Listen Port as 80.
+
+        .. figure:: assets/Capture_n11.JPG
     v. Configure origin pools: 
         a. In the Origins section, click Add Item to create an origin pool. 
         b. In the origin pool field dropdown, click Add Item.
@@ -95,18 +97,16 @@ Deployment Steps
         e. Copy/Paste the private IP of your worker node. (You can use kubectl command ``kubectl get node –o wide`` to get the private IP).
         f. Select the AWS site created in step2, apply the configuration.
         g. Copy/Paste product page service port to the origin server port field (Range [30000-32767], use kubectl command ``kubectl get svc`` to get the port value), apply the configuration.
+
+            .. figure:: assets/Capture_n09.JPG
         h. Enable WAF and select the WAF policy. If not created, create a WAF policy in blocking mode and attach it to the LB.
+
+            .. figure:: assets/Capture_waf_pp.JPG
         i. Scroll down to “Other Settings” section.
             -  Here, in “VIP Advertisement” select custom and add the configs as shown in the below image:
 
             .. figure:: assets/Capture_n04.JPG
         j. Save the configurations. 
-
-.. figure:: assets/Capture_n11.JPG
-
-.. figure:: assets/Capture_n09.JPG
-
-.. figure:: assets/Capture_waf_pp.JPG
 
 .. figure:: assets/Capture_n12.JPG
 
@@ -132,12 +132,12 @@ Deployment Steps
             b. Select a region from the Recommended or Alternate Azure Region Names.
             c. Configure Vnet field by selecting "Existing Vnet" and filling in Existing Vnet Resource Group and Existing Vnet Name.
             d. Configure the ingress/egress gateways by entering created subnet details.
+
+                .. figure:: assets/Capture_n05.JPG
             e. Select the Azure cloud credentials created in Step 5.
       v. Add a public ssh key in Site Node Parameters section.
       vi. Toggle Show Advanced Fields button for Advanced Configuration section then select “Allow access to DNS, SSH services on Site” for Services to be blocked on site field, Save and Exit. Click Apply. **Note:** It will take 15-20 mins for the site to come online. You can monitor your site health score by navigating to Home > Multi-Cloud Network Connect > Overview > Sites.
       vii. For more detailed explanation about Azure site creation, refer to the `document <https://docs.cloud.f5.com/docs/how-to/site-management/create-azure-site>`_
-
-.. figure:: assets/Capture_n05.JPG
 
 .. figure:: assets/Capture_n06.JPG
 
@@ -159,6 +159,8 @@ Deployment Steps
     ii. Enter a name for the new load balancer. Optionally, select a label and enter a description.
     iii. In the Domains field, enter domain name as details.
     iv. From the 'Load Balancer Type' drop-down menu, select HTTP, do not select "Automatically Manage DNS Records" option and set HTTP Listen Port to 9080.
+
+        .. figure:: assets/Capture_n08.JPG
     v. Configure origin pools: 
         a. In the Origins section, click Add Item to create an origin pool. 
         b. In the origin pool field dropdown, click Add Item.
@@ -167,18 +169,15 @@ Deployment Steps
         e. Copy/Paste the private IP of your worker node. (You can use kubectl command ``kubectl get node –o wide`` to get the private IP).
         f. Select the Azure site created in step7, apply the configuration.
         g. Copy/Paste details service port to the origin server port field (Range [30000-32767], use kubectl command ``kubectl get svc`` to get the port value), apply the configuration.
+            .. figure:: assets/Capture_n10.JPG
         h. Enable WAF and select the WAF policy. If not created, create a WAF policy in blocking mode and attach it to the LB.
+
+            .. figure:: assets/Capture_waf_details.JPG
         i. Scroll down to “Other Settings” section.
             -  Here, in “VIP Advertisement” select custom and add the configs as shown in the below image:
 
             .. figure:: assets/Capture_n07.JPG
         j. Save the configurations. 
-
-.. figure:: assets/Capture_n08.JPG
-
-.. figure:: assets/Capture_n10.JPG
-
-.. figure:: assets/Capture_waf_details.JPG
 
 .. figure:: assets/Capture_n13.JPG
 
