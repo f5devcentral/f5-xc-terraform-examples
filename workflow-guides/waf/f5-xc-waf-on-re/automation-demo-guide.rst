@@ -2,7 +2,7 @@ Getting Started With Terraform Automation
 --------------------------------------------
 
 Prerequisites
--------------
+##############
 
 -  `F5 Distributed Cloud Account
    (F5XC) <https://console.ves.volterra.io/signup/usage_plan>`__
@@ -17,7 +17,7 @@ Prerequisites
 
 
 List of Products Used
------------------------
+######################
 
 -  **xc:** F5 Distributed Cloud WAF
 -  **infra:** Azure Infrastructure (VM with NGINX image)
@@ -25,7 +25,7 @@ List of Products Used
 
 
 Tools
------
+######
 
 -  **Cloud Provider:** Azure
 -  **IAC:** Terraform
@@ -33,7 +33,7 @@ Tools
 -  **CI/CD:** GitHub Actions
 
 Terraform Cloud
----------------
+################
 
 -  **Workspaces:** Create a CLI or API workspace for each asset in the
    workflow chosen as shown below.
@@ -78,7 +78,7 @@ Terraform Cloud
 
 
 GitHub
-------
+#######
 
 -  Fork and Clone Repo. Navigate to ``Actions`` tab and enable it.
 
@@ -99,7 +99,7 @@ GitHub
 .. image:: assets/github_secret.JPG
 
 Workflow Runs
--------------
+##############
 
 **STEP 1:** Check out a branch with the branch name as suggested below for the workflow you wish to run using
 the following naming convention.
