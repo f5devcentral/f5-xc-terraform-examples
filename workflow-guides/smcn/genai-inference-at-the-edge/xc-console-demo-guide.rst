@@ -1,5 +1,5 @@
-Manual step by step process to deploy application in Kubernetes Cluster:
-=========================================================================
+Manual step by step process to deploy and secure Generative AI applications at the Edge with F5 XC AppStack mk8s and XC WAF:
+============================================================================================================================
 
 Pre-requisites
 ******************
