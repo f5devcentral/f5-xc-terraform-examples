@@ -1,5 +1,5 @@
 Manual step by step process to deploy application in Kubernetes Cluster:
-===============================================
+==========================================================================
 
 Pre-requisites
 ******************
