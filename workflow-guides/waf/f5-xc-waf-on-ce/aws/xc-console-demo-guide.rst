@@ -1,5 +1,5 @@
 Manual step by step process for the deployment
-##############################################
+###############################################
 
 Prerequisites
 **************
@@ -124,7 +124,7 @@ Fig : AWS VPC object online
                 .. figure:: Assets/lb.jpg
 
 Deployment Verification
-**********************
+*************************
 To verify the deployment we shall follow the below steps to make sure users can able to access the application deployed,
 
 1. Open the postman
@@ -148,5 +148,5 @@ Fig: Attack request getting rejected and generated support ID
 Fig: Observed WAF event logs from F5 XC Console
 
 Conclusion
-#########
+############
 With the deployment of F5 XC's Customer Edge on AWS Public Cloud Platform provides protection to the application from WAF attacks as well as Telemetry of request logs.
