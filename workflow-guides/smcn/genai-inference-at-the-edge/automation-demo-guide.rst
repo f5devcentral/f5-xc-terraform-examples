@@ -102,7 +102,7 @@ Workflow                    Branch Name
 f5-xc-genai-inf-at-the-edge  deploy-genai-inf-at-the-edge
 ========================== =======================
 
-Workflow File: `waf-re-ac-k8s-apply.yml </.github/workflows/waf-re-ac-k8s-apply.yml>`__
+Workflow File: `genai-inf-at-the-edge-apply.yml </.github/workflows/genai-inf-at-the-edge-apply.yml>`__
 
 **DESTROY**
 
@@ -112,7 +112,7 @@ Workflow                     Branch Name
 f5-xc-genai-inf-at-the-edge  destroy-genai-inf-at-the-edge
 =========================== ========================
 
-Workflow File: `waf-re-ac-k8s-destroy.yml </.github/workflows/waf-re-ac-k8s-destroy.yml>`__
+Workflow File: `genai-inf-at-the-edge-destroy.yml </.github/workflows/genai-inf-at-the-edge-destroy.yml>`__
 
 **STEP 2:** Rename ``aws/infra/terraform.tfvars.examples`` to ``aws/infra/terraform.tfvars`` and add the following data: 
 
