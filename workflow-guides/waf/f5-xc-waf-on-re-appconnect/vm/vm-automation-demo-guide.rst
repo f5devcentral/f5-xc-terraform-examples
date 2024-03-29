@@ -1,8 +1,8 @@
 Steps to deploy/destroy WAF on RE + AppConnect Virtual Machine setup using automation
-------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------
 
 Prerequisites
--------------
+##############
 
 -  `F5 Distributed Cloud (F5 XC) Account <https://console.ves.volterra.io/signup/usage_plan>`__
 -  `Azure Account <https://azure.microsoft.com/en-in/get-started/azure-portal/>`__ 
@@ -10,14 +10,14 @@ Prerequisites
 -  `GitHub Account <https://github.com>`__
 
 List of Existing Assets
------------------------
+########################
 
 -  **xc:** F5 Distributed Cloud WAF
 -  **infra:** Azure Infrastructure including Azure VM
 -  **DVWA:** Demo test web application
 
 Tools
------
+######
 
 -  **Cloud Provider:** Azure
 -  **IAC:** Terraform
@@ -25,7 +25,7 @@ Tools
 -  **CI/CD:** GitHub Actions
 
 Terraform Cloud
----------------
+################
 
 -  **Workspaces:** Create CLI or API workspaces for each asset in the workflow.
 
@@ -67,7 +67,7 @@ Terraform Cloud
 
 
 GitHub
-------
+#######
 
 -  Fork and Clone Repo. Navigate to ``Actions`` tab and enable it.
 
@@ -87,7 +87,7 @@ GitHub
 .. image:: assets/action-secret-vm.JPG
 
 Workflow Runs
--------------
+##############
 
 **STEP 1:** Check out a branch with the branch name as suggested below for the workflow you wish to run using
 the following naming convention.
