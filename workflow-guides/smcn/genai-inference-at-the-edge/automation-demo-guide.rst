@@ -14,7 +14,6 @@ List of Existing Assets
 
 -  **xc:** F5 Distributed Cloud WAF
 -  **infra:** AWS Infrastructure
--  **aks:** AWS Kubernetes Service
 -  **online boutique:** Online Boutique demo test web application
 
 Tools
