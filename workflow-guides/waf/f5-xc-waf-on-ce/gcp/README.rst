@@ -1,9 +1,6 @@
 Deploying F5 XC WAF on Customer Edge hosted in Google Cloud
-=============================
+=============================================================
 
---------------
-
-.. contents:: **Table of Contents**
 
 Overview
 #########
@@ -13,7 +10,7 @@ This demo guide provides step-by-step walkthrough for deploying WAF on CE site i
 **Note:** Even though the scenario here focuses on XC WAF, customers can enable any security services in the same setup, such as API Security, Bot Defense, DoS/DDOS and Fraud, as per their needs.
 
 Setup Diagram
-#############
+##############
 
 .. figure:: assets/ce-waf-gcp.jpeg
 
@@ -27,7 +24,7 @@ Workflow Instructions
 
 
 Additional Related Resources
-######################
+##############################
 To deploy setup in AWS, please refer to `AWS Workflow Guide <https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-ce/aws/README.rst>`__
 
 To deploy setup in Azure, please refer to `Azure Workflow Guide <https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-ce/azure/README.rst>`__
