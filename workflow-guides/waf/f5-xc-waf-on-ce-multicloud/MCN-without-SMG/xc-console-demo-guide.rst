@@ -27,7 +27,6 @@ Prerequisites
 - Access to F5 XC account.
 - `AWS <https://community.f5.com/kb/technicalarticles/creating-a-credential-in-f5-distributed-cloud-to-use-with-aws/298111>`_ & `Azure <https://community.f5.com/t5/technical-articles/creating-a-credential-in-f5-distributed-cloud-for-azure/ta-p/298316>`_  credentials.
 - Install AWS CLI, Azure CLI and Kubectl command line tool to connect and push the app manifest files to EKS and AKS clusters.
-- Install postman for testing the setup.
 
 Deployment Steps
 *****************
