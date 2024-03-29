@@ -118,14 +118,14 @@ Fig : AWS VPC object online
                d. From the Load Balancer Type drop-down menu, Select HTTP to create HTTP load balancer.
                e. From the Origins sections, Click on Add Item to add the origin pool created in step 4.1 under ``Select Origin Pool Method`` drop-down menu. Click on Apply.
                f. Enable WAF and select your WAF policy or else create a new WAF policy in blocking mode and add it to your LB.
+
+                     .. figure:: ../azure/assets/waf.JPG
                g. Navigate to Other Setting section, From the VIP Advertisement  drop-down menu, Select Custom. Click  Configure in the Advertise Custom field to perform the configurations and click on Add Item.
                h. From ``Select Where to Advertise`` menu, select Site. From the ``Site Network`` menu, select Outside Network from the drop-down.
                i. From the Site Referrence menu, Select the AWS VPC site created in step 1. Click on Apply.
                j. Click on Apply and ``Save and Exit``.
 
-                .. figure:: ../azure/assets/waf.JPG
-
-                .. figure:: Assets/lb.jpg
+          .. figure:: Assets/lb.jpg
 
 Deployment Verification
 *************************
