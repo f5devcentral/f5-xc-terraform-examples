@@ -75,20 +75,18 @@ Deployment Steps
                               * Select the Azure Vnet site created in Step 6
                               * Select Network on the site as "Outside Network"      
                   e. In Origin server port add port number "80" of the discovered frontend service , Click continue and then Apply
+            xi. Enable WAF, create and attach a WAF policy in Blocking mode
+            xii. Scroll down to “Other settings” section: 
+                        a. In VIP Advertisement field select custom 
+                        b. Click Configure and then Add Item 
+                        c. Select Where to Advertise field to site and add the Azure site created in step2 
+                        d. Select Site network to outside, Click Apply, Save and Exit 
 
 .. figure:: assets/service-discovery.JPG
 
 .. figure:: assets/origin-server.JPG
 
-* Enable WAF, create and attach a WAF policy in Blocking mode
-
 .. figure:: assets/waf.JPG
-
-* Scroll down to “Other settings” section: 
-                        a. In VIP Advertisement field select custom 
-                        b. Click Configure and then Add Item 
-                        c. Select Where to Advertise field to site and add the Azure site created in step2 
-                        d. Select Site network to outside, Click Apply, Save and Exit 
 
 .. figure:: assets/vip-advertise.JPG
 
