@@ -196,7 +196,7 @@ Testing:
 
 .. figure:: assets/Capture_n16.JPG
  
-4. Click on "Normal user" hyperlink, it will internally initiate a request from frontend to backend. This step covers end to end traffic flow (from frontend to backend).
+4. Click on "Normal user" hyperlink, it will internally initiate a request from frontend to backend. This step covers end to end traffic flow from frontend to backend.
 
 .. figure:: assets/Capture_n_17.JPG
 
@@ -216,7 +216,7 @@ Testing:
 
 .. figure:: assets/Capture_n22.JPG
 
-9. Now, monitor the security event logs from the XC console.
+7. Now, monitor the security event logs from the XC console.
 
 .. figure:: assets/Capture_n23.JPG
 
@@ -225,7 +225,7 @@ Testing:
 .. figure:: assets/Capture_n25.JPG
 
 Step by step process using automation scripts
-#############################################
+##############################################
 
 Coming Soon...
 
