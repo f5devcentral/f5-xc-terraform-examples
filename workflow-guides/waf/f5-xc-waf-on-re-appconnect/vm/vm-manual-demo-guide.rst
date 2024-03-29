@@ -19,7 +19,7 @@ Step 2: Create Resource group, Vnet and Subnet in Azure
 * **Create Virtual Network:** Search for "Virtual networks" and click "Create" button then select your subscription, set the above created resource group name, new virtual network name and region > Navigate to "IP addresses" tab on top > Configure your virtual network address space and subnet > Click "Review + create” and "Create"
 
 Step 3: Create Virtual Machine and deploy application in it
-##################################################
+#############################################################
 
 Note: Main requirement for this use case is to have an application which is not accessible from Internet which means VM should not have public IP/FQDN.
 
