@@ -21,6 +21,10 @@ To deploy an AppStack mk8s cluster on an AWS CE Site, steps are categorized as m
 
 Below we shall take a look into detailed steps as mentioned above.
 
+1.   Creating mk8s cluster from F5 XC Console:
+      **Step 1.1**: Login to F5 XC Console
+            a. From the F5 XC Home page, ``Select the Multi-Cloud Network Connect`` Service
+
 1.   Creating AWS VPC Site object from F5 XC Console:
       **Step 1.1**: Login to F5 XC Console
             a. From the F5 XC Home page, ``Select the Multi-Cloud Network Connect`` Service
