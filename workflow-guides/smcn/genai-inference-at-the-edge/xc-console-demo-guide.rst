@@ -1,128 +1,153 @@
 Manual step by step process to deploy and secure Generative AI applications at the Edge with F5 XC AppStack mk8s and XC WAF
 ============================================================================================================================
 
-Pre-requisites
-******************
-- Access to AWS Cloud subscription. 
-- Access to F5 Distributed Cloud account.
-- Install kubectl command line tool to connect and push the app manifest file to AKS cluster
-- Web browser to access the application.
+Prerequisites
+**************
+- F5 Distributed Cloud Console SaaS account
+- Access to Amazon Web Service (AWS) Management console & Command Line
+- Install Kubectl command line tool to connect and push the app manifest file to mk8s cluster
+- Install Postman for verifying the deployment
 
-Step 1: Configure credentials in F5 Distributed Cloud Console for AWS Cloud
-############################################################################
-To deploy a CE AWS Site from F5XC, first we have to configure cloud credentials in XC. Please refer `DevCentral Article <https://community.f5.com/kb/technicalarticles/creating-a-credential-in-f5-distributed-cloud-to-use-with-aws/298111>`_ and follow the steps to configure. 
+Deployment Steps
+*****************
+To deploy an AppStack mk8s cluster on an AWS CE Site, steps are categorized as mentioned below.
 
-Step 2: Create Resource group, Vnet and Subnet in Azure 
-########################################################
+1. Create mk8s cluster
+2. Create AWS VPC Site and attach the mk8s cluster
+3. Deploy the App to mk8s cluster
+4. Configure Origin Pool and HTTP LB 
 
-* **Create Resource group:**   Login to Azure console > search for "Resource groups" > click "Create" button then select your subscription, provide resource group name and region > click "Review + create" and "Create"
-* **Create Virtual Network:** Search for "Virtual networks" and click "Create" button then select your subscription, set the above created resource group name, new virtual network name and region > Navigate to "IP addresses" tab on top > Configure your virtual network address space and subnet > Click "Review + create” and "Create"
+Below we shall take a look into detailed steps as mentioned above.
 
-Step 3: Create Kubernetes Cluster and deploy application in it 
-###############################################################
+1.   Creating AWS VPC Site object from F5 XC Console:
+      **Step 1.1**: Login to F5 XC Console
+            a. From the F5 XC Home page, ``Select the Multi-Cloud Network Connect`` Service
+            b. Select Manage > Site Management > AWS VPC Sites in the configuration menu. Click on Add AWS VPC Site.
+            c. Enter a name of your VPC site in the metadata section.
+             .. figure:: Assets/mcn-connect.jpg
+             Fig : F5 XC Console Home page
+      **Step 1.2**: Configure site type selection
+            a. Select a region in the AWS Region drop-down field. 
+            b. Create New VPC by selecting New VPC Parameters from the VPC drop-down. Enter the CIDR in the ``Primay IPv4 CIDR blocks`` field. 
+            c. Select Ingress Gateway (One Interface) for the ``Select Ingress Gateway or Ingress/Egress Gateway`` field.
+             .. figure:: Assets/waap-on-ce.jpg
+             Fig 2: Configuring site type details
+      **Step 1.3**: Configure ingress/egress gateway nodes
+            a. Click on configure  to open the One-interface node configuration wizard.
+            b. Click on Add Item button in the Ingress Gateway (One Interface) Nodes in AZ.
+                 a. Select an option for the AWS AZ Name from the given suggestions that matches the configured AWS regsion.
+                 b. Select New subnet from the Subnet for the local interface drop-down and enter the subnet address in the IPv4 Subnet text field.
+      **Step 1.4**: Complete AWS VPC site object creation
+            a. Select the AWS credentials object from the Cloud Credentials drop-down.
+            b. Enter public key for remote SSH to the VPC site.
+            c. Click on Save and Exit at the bottom right to complete creating the AWS VPC object.
 
-Note: Main requirement for this use case is to have an application which is not accessible from Internet which means cluster node should not have public IP/FQDN.
+      **Step 1.5**: Deploy AWS VPC site
+            a. Click on the Apply button for the created AWS VPC site object.
+            b. After a few minutes, the Site Admin State shows online and Status shows as Applied.
 
-* Search for 'Kubernetes services'.
-* Click on 'Create' button and select 'Create Kubernetes cluster'.
-* Select the correct subscription and choose the resource group which is created in step 2.
-* Provide all the necessary cluster details and primary node pool fields as needed.
-* Navigate to 'Networking' tab and select 'Bring your own virtual network'
-* Select the Virtual network which is created in step 2.
-* Click “Review + create” and create the cluster.
-* Connect to the created AKS cluster.  
-* Choose your application and deploy it. In this scenario, we are deploying Online boutique application using the `manifest file <https://github.com/GoogleCloudPlatform/microservices-demo/blob/main/release/kubernetes-manifests.yaml>`_. Make changes in the manifest file according to the requirement.
-* Execute “kubectl apply -f <your_manifest.yaml>”
-* Execute “kubectl get pods” command to check the deployment status of the pods.
 
-.. figure:: assets/pods_latest.JPG
+.. figure:: Assets/deploy-2.jpg
+Fig : AWS VPC object online
 
-Step 4: Deploy Azure Vnet site from F5XC console:
-##################################################
 
-* Login to F5XC Console and navigate to "Multi-Cloud Network Connect" from homepage.
-* Select "Manage > Site Management > Azure VNET Sites" and click on "Add Azure VNET Site".
-* Select the Azure cloud credentials from the dropdown menu which was configured in Step 1. 
-* Give a Vnet site name in “Name” field, resource group name in the “Resource Group” field. Do not provide an already existing resource group name.
-* Choose appropriate Azure region from the common value recommendations.
-* Select Existing Vnet Parameters and provide existing Vnet details like resourge group and Vnet name which was created in step 2. 
+2.     Creating an Amazon EKS Cluster along with Node Group:
+        **Step 2.1**: Creating a subnet
+               a. Open the Amazon VPC console at https://console.aws.amazon.com/vpc/ and click on Subnets in the navigation pane.
+               b. Click on Create Subnet. 
+               c. Select the VPC ID that created during deploying of AWS VPC site object mentioned in step 1. Name of the VPC is identified by "ves-vpc" followed by name of the CE site created from F5 XC console. (Ex. ves-vpc-waap-on-ce-aws)
+               d. Provide the subnet name, Availability Zone and for IPv4 CIDR block enter the IPv4 CIDR subnet. This IPv4 CIDR should be within VPC network.
+               e. Click on Create Subnet.
+        **Step 2.2**: Enable auto-assign public IPv4 for subnets
+               a. As a prerequisite, we need to enable the auto-assign public IPv4 for subnets associated to VPC.
+               b.  Open the Amazon VPC console at https://console.aws.amazon.com/vpc/ and click on Subnets in the navigation pane.
+               c. Identify and select the subnet that is associated to VPC (Ex. ves-vpc-waap-on-ce-aws) and click on Edit subnet setting from the Actions drop-down.
+               d. From the Auto-assign IP setting section, enable auto-assign public IPv4 address check box. Click on Save.
+               e. Repeat the above step for the subnet created in step 2.1 as well.
+        **Step 2.3**: Creating using AWS Management Console
+               a. Access Amazon EKS console at https://console.aws.amazon.com/eks/home#/clusters and navigate to the region in which AWS VPC site is created from F5 XC console.
+               b. Click on Create from the Add Cluster drop-down.
+               c. On the Configure Cluster page, provide the mandatory details such as Name, Kubernetes version and Cluster service role. Click on Next.
+               d. From the Specify networking page, Select the VPC that is already created in AWS region. This is created while deploying the AWS VPC site object mentioned in step 1.
+               e. Two subnets related to above VPC will be automatically selected. Selec the security group from the Security groups drop-down. Select ``Public`` Cluster end point access. Click on Next.
+               f. Select the log types that you want to enable from the Configure logging page. Click on Next.
+               g. From the Select add-ons page, choose the add-ons that you want to add to your cluster. Click on Next.
+               h. From the Configure selected add-ons settings page, Select the version that you need to install and then click on Next.
+               i. From the Review and Create page, review the details that we entered and click on Create. There by EKS Cluster will be created and wait for the cluster status to show as ACTIVE.
+        **Step 2.4**: Creating a managed node group
+               a. Navigate to the name of the EKS cluster that we want to create a managed node group.
+               b. Select the Compute tab and click on Add node group.
+               c. On the Configure node group page, fill the information as mentioned and click on Next.
+               d. From the Set compute and scaling configure page, provide Node group compute & scaling configuration as per requirement, and then click on Next.
+               e. On the Specify networking, Subnets will be auto selected as per the VPC. Click on Next.
+               f. On the Review and Create page, review the managed node group configurations and click on create. Wait till the status of the node shows Ready.
+3.     Deploying the App to EKS Node Group
+        **Step 3.1**: Deploy online boutique demo application using the manifest file
+               The kubectl command-line tool uses kubeconfig files to find the information it needed to choose a cluster and communicate with the API server of the cluster created in step 2.3. kubeconfig file for our Amazon EKS cluster is automatically created with the AWS CLI ``update-kubeconfig`` command. Applicaiton is deployed to the node once the communication is established to the cluster. https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html
+               Below are the steps mentioned to deploy the online boutique application to Amazon EC2 nodes of the cluster,
+               
+               a. Creating and updating a kubeconfig file and along with example output
+                aws eks update-kubeconfig --region region-code --name my-cluster
+               An example output is displayed below,
 
-.. figure:: assets/vnet.JPG
+                .. figure:: Assets/create-update-kubeconfig.jpg
+               b. Execute ``kubectl apply -f <app_manifest.yaml>`` to deploy the application and ``kubectl get pods`` to verify the pod status.
 
-* Choose Ingress Gateway (One Interface), click on Configure then click Add Item in Ingress Gateway (One Interface) Nodes in AZ. 
-* Select Azure AZ name, Existing Subnet and provide subnet name which was created in step 2. Click Apply and Save the config.
+                .. figure:: Assets/pod-status.jpg
+               c. Execute kubectl commands to view and find the resources as below,
+                .. figure:: Assets/svc-wide-2.jpg
+4.     Configuring Origin Pool and HTTP LB in F5 XC Console
+        **Step 4.1**: Creating Origin Pool
+               In this process, we configure Origin pool with server as AWS VPC site and Advertise in HTTP Load Balancer.
 
-.. figure:: assets/subnet.JPG
+               a. Log into F5 XC Console and Click on Multi-Cloud App Connect.
+                .. figure:: Assets/app-connect.jpg
+               b. Click Manage > Load Balancers > Origin Pools and Click ``Add Origin Pool``.
+               c. In the name field, enter a name. Click on Add Item button in Origin Servers section.
+               d. From the ``Select type of Origin Server`` menu, select ``IP address of Origin Server on given Sites`` to specify the node with its private IP address.
+               e. Select ``Site`` from the ``Site or Virtual Site`` drop-down and select the AWS VPC site created in step 1.
+               f. Select ``Outside Network`` for ``Select Network on the Site`` drop-down. Click on Apply.
+                .. figure:: Assets/origin-server.jpg
+               g. In ``Origin server Port`` enter the port number of the frontend service from step 3.1
+                .. figure:: Assets/origin-server-port.jpg
+               h. Click on Save and Exit.
+        **Step 4.2**: Creating HTTP Load Balancer with VIP advertisement
+               a. Log into F5 XC Console and Click on Multi-Cloud App Connect.
+               b. Click Manage > Load Balancers > HTTP Load Balancers and Click ``Add HTTP Load Balancer``.
+               c. In the name field, enter the name of the LB, In the Domains field, enter a domain name.
+               d. From the Load Balancer Type drop-down menu, Select HTTP to create HTTP load balancer.
+               e. From the Origins sections, Click on Add Item to add the origin pool created in step 4.1 under ``Select Origin Pool Method`` drop-down menu. Click on Apply.
+               f. Navigate to Other Setting section, From the VIP Advertisement  drop-down menu, Select Custom. Click  Configure in the Advertise Custom field to perform the configurations and click on Add Item.
+               g. From ``Select Where to Advertise`` menu, select Site. From the ``Site Network`` menu, select Outside Network from the drop-down.
+               h. From the Site Referrence menu, Select the AWS VPC site created in step 1. Click on Apply.
+               i. Click on Apply and ``Save and Exit``.
+                .. figure:: Assets/lb.jpg
 
-* Add a public SSH key to access the site. (If you don’t have public SSH key, you can generate one using “ssh-keygen” command and then display it with the command “cat ~/.ssh/id_rsa.pub”). 
-* In Advanced Configuration, select Show Advanced Fields then choose "Allow access to DNS, SSH services on Site" from the dropdown. 
-* Click Save and Exit. 
-* Click on Apply in Actions column. 
-* Wait for the apply process to complete and the status to change to Applied. 
+Deployment Verification
+**********************
+To verify the deployment we shall follow the below steps to make sure users can able to access the application deployed,
 
-Step 5: Create origin pool and HTTP LB in F5XC console
-########################################################
+1. Open the postman
+2. Enter the public IP of the AWS VPC site in the URL field.
+3. Update the Host header as the domain name of the Load Balancer from the F5 XC Console.
+4. Generate a GET request and monitor the request logs from F5 XC Console.
+5. Create WAF Firewall and assign it to LB to verify blocking of WAF attacks.
 
-**Create service discovery object**
+.. figure:: Assets/testing.jpg
+Fig: Accessing CE site deployed in AWS
 
-* Navigate to "Multi-Cloud App Connect" from homepage.
-* Select "Manage > Service Discoveries" and Click on "Add Discovery"
-* Provide a name, select vnet site created in step 4 and select network type as "Site Local Network"
+.. figure:: Assets/req_logs.jpg
+Fig: Accessing log requests from F5 XC Console
 
-.. figure:: assets/service_discovery.JPG
+Applying the **WAF Firewall** to the Load Balancer and generating Cross Site Scripting attack to CE deployed on AWS to block the attack request
 
-* Select Discovery Method as "K8S Discovery Configuration"
-* Select Kubernetes Credentials as Kubeconfig, and add the Kubeconfig file of AKS Cluster created in Step 3, Apply the changes.
-* Services will be discovered by F5XC.
+.. figure:: Assets/attack-block.jpg
+Fig: Attack request getting rejected and generated support ID
 
-.. figure:: assets/discovered_services.JPG
-
-**Configure HTTP Load Balancer and Origin Pool**
-
-* Select Manage > Load Balancers > HTTP Load Balancers and click Add HTTP Load Balancer
-* Enter a name for the new load balancer. Optionally, select a label and enter a description.
-* In the Domains field, enter a domain name
-* From the Load Balancer Type drop-down menu, select HTTP
-* In the Origins section, click Add Item to create an origin pool.
-* In the origin pool field dropdown, click Add Item
-* Enter name, in origin server section click Add Item
-* If application is deployed in Kubernetes Cluster, Select “K8s Service Name of Origin Server on given Sites” > Add the service name of frontend microservice as "frontend.default" > Select the Azure Vnet site created in Step 6 > Select Network on the site as "Outside Network" > In Origin server port add port number "80" of the discovered frontend service , Click continue and then Apply.
-
-.. figure:: assets/k8_op.JPG
-
-.. figure:: assets/op_port.JPG
-
-* Click Continue and then Apply. 
-* Enable WAF, create and attach a WAF policy in Blocking mode.
-* Move to VIP Advertisement field and choose Internet. 
-* Save and apply changes.
-
-Step 6: Access the deployed application 
-########################################
-
-* Open a browser. 
-* Access the application using the domain name configured in HTTP load balancer. 
-* Make sure that the application is accessible.
-
-.. figure:: assets/botique.JPG
-
-* Now let us verify applied WAF policy.
-* Generate a XSS attack by adding ?a=<script> tag in the URL along with the domain name and observe that WAF policy blocks the access.
-* Application should not be accessible.
-
-.. figure:: assets/waf_block.JPG
-
-* Observe security event log for more details.
-
-.. figure:: assets/waf_event.JPG
-
-.. figure:: assets/waf_event2.JPG
+.. figure:: Assets/waf-xc-logs.jpg
+Fig: Observed WAF event logs from F5 XC Console
 
 Conclusion
-***********
-By following the above provided steps, one can easily configure WAF(on RE)+Appconnect usecase. When end user is trying to access the backend private application, user will connect to the closest RE and the request will be inspected by the WAF security policy. From there, the request will be traversed over XC Global Network and reach the respective CE site through IPSEC tunnel which in turn communicates with the backend application and provides the necessary data.
-
-**Support**
-************
-For support, please open a GitHub issue. Note, the code in this repository is community supported and is not supported by F5 Networks. 
+#########
+With the deployment of F5 XC's Customer Edge on AWS Public Cloud Platform provides protection to the application from WAF attacks as well as Telemetry of request logs.
 
