@@ -142,7 +142,7 @@ Fig: Accessing CE site deployed in AWS
 .. figure:: Assets/req_logs.jpg
 Fig: Accessing log requests from F5 XC Console
 
-Applying the **WAF Firewall** to the Load Balancer and generating Cross Site Scripting attack to CE deployed on AWS to block the attack request
+5. Generate a Cross Site Scripting attack to CE deployed on AWS to block the attack request
 
 .. figure:: Assets/attack-block.jpg
 Fig: Attack request getting rejected and generated support ID
