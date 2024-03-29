@@ -12,11 +12,9 @@ Prerequisites
    -  `User Domain
       delegated <https://docs.cloud.f5.com/docs/how-to/app-networking/domain-delegation>`__
 
--  `AWS Account <https://aws.amazon.com>`__ - Due to the assets being
-   created, free tier will not work.
-
-   -  Please make sure resources like VPC and Elastic IP’s are below the
-      threshold limit in that aws region
+-  `AWS Account <https://aws.amazon.com>`__ 
+   - Due to the assets being created, free tier will not work.
+   - Please make sure resources like VPC and Elastic IP’s are below the threshold limit in that aws region.
 
 -  `Terraform Cloud
    Account <https://developer.hashicorp.com/terraform/tutorials/cloud-get-started>`__
@@ -25,11 +23,13 @@ Prerequisites
 Workflow Steps
 -----------------
 
--  For deploying WAF on k8s, please copy both yml files in workflow folder to root folder .github/workflows folder.
-   For ex: `waf-k8s-apply.yml <.github/workflows/waf-k8s-apply.yml>`__
--  Login to Distributed Cloud, click on `Multi-Cloud-Connect`, navigate to `Site Management` and then to `Site Tokens` as shown below
+- For deploying WAF on k8s, please copy both yml files in workflow folder to root folder .github/workflows folder. For ex: `waf-k8s-apply.yml <.github/workflows/waf-k8s-apply.yml>`__
+
+- Login to Distributed Cloud, click on `Multi-Cloud-Connect`, navigate to `Site Management` and then to `Site Tokens` as shown below
+
 .. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/site-token.jpg
--  Create a site token with CE site name (`ce-k8s`) and copy the ID
+
+- Create a site token with CE site name (`ce-k8s`) and copy the ID
 
 
 List of Products Used
@@ -52,16 +52,15 @@ Tools
 Terraform Cloud
 ----------------
 
--  **Workspaces:** Create a CLI or API workspace for each asset in the
-   workflow chosen as shown below.
+-  **Workspaces:** Create a CLI or API workspace for each asset in the workflow chosen as shown below.
+
 .. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/cloud-workspaces.JPG 
 
 -  Login to terraform cloud and create below workspaces for storing the terraform state file of each job.
  infra, xc, eks, bookinfo, registration, k8sce
 
 
--  **Workspace Sharing:** Under the settings for each Workspace, set the
-   **Remote state sharing** to share with each Workspace created.
+-  **Workspace Sharing:** Under the settings for each Workspace, set the **Remote state sharing** to share with each Workspace created.
 
 -  **Variable Set:** Create a Variable Set with the following values:
 
@@ -84,6 +83,7 @@ Terraform Cloud
    +------------------------+--------------+------------------------------------------------------+
 
 -  Check below image for more info on variable sets
+
 .. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/variables-set.JPG
 
 
@@ -109,6 +109,7 @@ GitHub
          value ``EKS``
 
 -  Check below image for more info on action secrets
+
 .. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/actions-secrets.JPG
 
 Workflow Runs
