@@ -14,12 +14,12 @@ List of Existing Assets
 
 -  **xc:** F5 Distributed Cloud WAF
 -  **infra:** AWS Infrastructure
--  **online boutique:** Online Boutique demo test web application
+-  **LangServe GenAi App:** LangServe GenAI Application
 
 Tools
 #####
 
--  **Cloud Provider:** Azure
+-  **Cloud Provider:** AWS
 -  **IAC:** Terraform
 -  **IAC State:** Terraform Cloud
 -  **CI/CD:** GitHub Actions
@@ -32,7 +32,7 @@ Terraform Cloud
    +---------------------------+-------------------------------------------+
    |         **Workflow**      |  **Assets/Workspaces**                    |
    +===========================+===========================================+
-   | f5-xc-waf-on-re-appconnect| infra, aks-cluster, xc                    |
+   |f5-xc-genai-inf-at-the-edge| infra, mk8s-cluster, xc                    |
    +---------------------------+-------------------------------------------+
 
 .. image:: assets/workspaces.JPG
@@ -80,8 +80,8 @@ GitHub
    -  TF_CLOUD_WORKSPACE\_\ *<Workspace Name>*: Create for each
       workspace in your workflow per each job
 
-      -  EX: TF_CLOUD_WORKSPACE_AKS_CLUSTER would be created with the
-         value ``aks-cluster``
+      -  EX: TF_CLOUD_WORKSPACE_MK8S_CLUSTER would be created with the
+         value ``mk8s-cluster``
 
 -  Created GitHub Action Secrets:
 .. image:: assets/action-secret.JPG
