@@ -69,7 +69,10 @@ Fig : AWS VPC Site
                f. Select ``Outside Network`` for ``Select Network on the Site`` drop-down. Click on Apply.
                g. In ``Origin server Port`` enter the port number of the frontend service from step 3.1
                h. Click on Save and Exit.
-                .. figure:: assets/origin-pool.png
+
+.. figure:: assets/origin-pool.png
+Fig : Origin Pool
+
         **Step 4.2**: Creating HTTPS Load Balancer with VIP advertisement
                a. Log into F5 XC Console and Click on Multi-Cloud App Connect.
                b. Click Manage > Load Balancers > HTTP Load Balancers and Click ``Add HTTP Load Balancer``.
@@ -80,7 +83,9 @@ Fig : AWS VPC Site
                g. From ``Select Where to Advertise`` menu, select Site. From the ``Site Network`` menu, select Outside Network from the drop-down.
                h. From the Site Referrence menu, Select the AWS VPC site created in step 1. Click on Apply.
                i. Click on Apply and ``Save and Exit``.
-                .. figure:: assets/https-lb.png
+
+.. figure:: assets/https-lb.png
+Fig : HTTPS LB
 
 Deployment Verification
 ************************
