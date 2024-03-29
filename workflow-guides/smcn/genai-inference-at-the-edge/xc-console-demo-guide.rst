@@ -8,6 +8,8 @@ Prerequisites
 - Install Kubectl command line tool to connect and push the app manifest file to mk8s cluster
 - Install Postman for verifying the deployment
 
+Create AWS credentials in XC by following the steps mentioned in this `Devcentral article <https://community.f5.com/kb/technicalarticles/creating-a-credential-in-f5-distributed-cloud-to-use-with-aws/298111>`_ 
+
 Deployment Steps
 *****************
 To deploy an AppStack mk8s cluster on an AWS CE Site, steps are categorized as mentioned below.
