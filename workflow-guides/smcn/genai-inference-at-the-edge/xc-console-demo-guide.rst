@@ -26,8 +26,8 @@ Below we shall take a look into detailed steps as mentioned above.
             a. From the F5 XC Home page, ``Select the Distributed Apps`` Service
             b. Select Manage > Manage K8s > K8s clusters in the configuration menu. Click on Add K8s cluster.
 
-.. figure:: assets/deploy-2.jpg
-Fig : AWS VPC object online
+.. figure:: assets/mk8s-cluster.png
+Fig : mk8s cluster
 
 2.   Creating AWS VPC Site object from F5 XC Console:
       **Step 1.1**: Login to F5 XC Console
