@@ -1,8 +1,8 @@
 Getting started with WAF on GCP CE terraform automation
----------------
+#########################################################
 
 Prerequisites
--------------
+--------------
 
 -  `F5 Distributed Cloud (F5 XC) Account <https://console.ves.volterra.io/signup/usage_plan>`__
 -  `GCP Account <https://cloud.google.com/docs/get-started>`__
@@ -12,7 +12,7 @@ Prerequisites
 
 
 List of Existing Assets
------------------------
+------------------------
 
 -  **xc:** F5 Distributed Cloud WAF
 -  **infra:** GCP Infrastructure
@@ -20,7 +20,7 @@ List of Existing Assets
 
 
 Tools
------
+------
 
 -  **Cloud Provider:** GCP
 -  **IAC:** Terraform
@@ -28,7 +28,7 @@ Tools
 -  **CI/CD:** GitHub Actions
 
 Terraform Cloud
----------------
+----------------
 
 -  **Workspaces:** Create CLI or API workspaces for each asset in the
    workflow. ``NOTE: Please use unique workspaces for each work-flow and don't club them with other use cases as you may run into conflicting cloud resource and provider errors.``
@@ -36,7 +36,7 @@ Terraform Cloud
    +---------------------------+-------------------------------------------+
    |         **Workflow**      |  **Assets/Workspaces**                    |
    +===========================+===========================================+
-   |   deploy-waf-gcp          |   infra, juiceshop, xc                    |
+   | deploy-waf-gcp            | infra, juiceshop, xc                      |
    +---------------------------+-------------------------------------------+
 
 
@@ -48,21 +48,21 @@ Terraform Cloud
    +------------------------------------------+--------------+------------------------------------------------------+
    |         **Name**                         |  **Type**    |      **Description**                                 |
    +==========================================+==============+======================================================+
-   |        GOOGLE_CREDENTIALS                | Environment  |  Google credentials file content                     |
+   | GOOGLE_CREDENTIALS                       | Environment  | Google credentials file content                      |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | VES_P12_PASSWORD                         | Environment  |  Password set while creating F5XC API certificate    |
+   | VES_P12_PASSWORD                         | Environment  | Password set while creating F5XC API certificate     |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | VOLT_API_P12_FILE                        | Environment  |  Your F5XC API certificate. Set this to **api.p12**  |
+   | VOLT_API_P12_FILE                        | Environment  | Your F5XC API certificate. Set this to **api.p12**   |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | ssh_key                                  | TERRAFORM    |  Your ssh key for accessing the created resources    |
+   | ssh_key                                  | TERRAFORM    | Your ssh key for accessing the created resources     |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | tf_cloud_organization                    | TERRAFORM    |  Your Terraform Cloud Organization name              |
+   | tf_cloud_organization                    | TERRAFORM    | Your Terraform Cloud Organization name               |
    +------------------------------------------+--------------+------------------------------------------------------+
 
 
 
 GitHub
-------
+-------
 
 -  Fork and Clone Repo. Navigate to ``Actions`` tab and enable it.
 
@@ -88,7 +88,7 @@ GitHub
 
 
 Workflow Runs
--------------
+--------------
 
 **STEP 1:** Check out a branch with the branch name as suggested below for the workflow you wish to run using
 the following naming convention.
@@ -96,9 +96,9 @@ the following naming convention.
 **DEPLOY**
 
 ================================               =======================
-Workflow                                         Branch Name
+Workflow                                       Branch Name
 ================================               =======================
-Deploy F5 XC WAF on GCP CE                       deploy-waf-gcp
+Deploy F5 XC WAF on GCP CE                     deploy-waf-gcp
 ================================               =======================
 
 Workflow File: `gcp-waf-ce-apply.yaml </.github/workflows/gcp-waf-ce-apply.yaml>`__
@@ -106,9 +106,9 @@ Workflow File: `gcp-waf-ce-apply.yaml </.github/workflows/gcp-waf-ce-apply.yaml>
 **DESTROY**
 
 ================================               =======================
-Workflow                                         Branch Name
+Workflow                                       Branch Name
 ================================               =======================
-Destroy F5 XC WAF on GCP CE                      destroy-waf-gcp
+Destroy F5 XC WAF on GCP CE                    destroy-waf-gcp
 ================================               =======================
 
 Workflow File: `gcp-waf-ce-destroy.yml </.github/workflows/gcp-waf-ce-destroy.yaml>`__
