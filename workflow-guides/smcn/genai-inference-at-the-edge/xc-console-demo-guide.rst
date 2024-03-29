@@ -94,24 +94,11 @@ To verify the deployment we shall follow the below steps to make sure users can 
 1. Open the Postman
 2. Enter the domain name of the HTTPS Load Balancer in the URL field.
 3. Update the Host header as the domain name of the Load Balancer from the F5 XC Console.
-4. Generate a GET request and monitor the request logs from F5 XC Console.
-5. Create WAF Firewall and assign it to LB to verify blocking of WAF attacks.
-
-.. figure:: Assets/testing.jpg
-Fig: Accessing CE site deployed in AWS
-
-.. figure:: Assets/req_logs.jpg
-Fig: Accessing log requests from F5 XC Console
-
-Applying the **WAF Firewall** to the Load Balancer and generating Cross Site Scripting attack to CE deployed on AWS to block the attack request
-
-.. figure:: Assets/attack-block.jpg
-Fig: Attack request getting rejected and generated support ID
-
-.. figure:: Assets/waf-xc-logs.jpg
-Fig: Observed WAF event logs from F5 XC Console
+4. Generate a POST request.
+.. figure:: assets/post1.jpg
+Fig: Invoking POST API endpoint of the GenAI Apps
 
 Conclusion
-#########
-With the deployment of F5 XC's Customer Edge on AWS Public Cloud Platform provides protection to the application from WAF attacks as well as Telemetry of request logs.
+###########
+The F5 XC's Customer Edge AppStack mk8s on AWS Public Cloud Platform provides support for Inference at the Edge and secures the Generative AI Applications deployed on this platform.
 
