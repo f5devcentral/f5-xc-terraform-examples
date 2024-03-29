@@ -95,6 +95,7 @@ To verify the deployment we shall follow the below steps to make sure users can 
 2. Enter the domain name of the HTTPS Load Balancer in the URL field.
 3. Update the Host header as the domain name of the Load Balancer from the F5 XC Console.
 4. Generate a POST request.
+
 .. figure:: assets/post1.jpg
 Fig: Invoking POST API endpoint of the GenAI Apps
 
