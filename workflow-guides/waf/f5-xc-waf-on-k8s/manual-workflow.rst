@@ -45,7 +45,7 @@ Steps:
 9.  From terminal, run below command to deploy bookinfo demo app -
     ``kubectl apply -l version!=v2,version!=v3 -f https://raw.githubusercontent.com/istio/istio/release-1.16/samples/bookinfo/platform/kube/bookinfo.yaml``
 
-10.  Download ce-k8s-lb.yml file from this repo and run this file to
+10. Download ce-k8s-lb.yml file from this repo and run this file to
     create k8s load balancer - ``kubectl apply -f ce-k8s-lb.yml``
 
 11. Login to F5 XC console and navigate to load balancer section
