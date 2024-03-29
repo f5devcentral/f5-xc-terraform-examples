@@ -62,6 +62,8 @@ Deployment Steps
 
       vii. Enable WAF from drop-down, create and attach a new WAF policy in Blocking mode
 
+      .. figure:: ../azure/assets/waf.JPG      
+
       .. figure:: assets/lb-details1.JPG
 
       viii. Navigate to "Other settings", then from "VIP advertisement" section, select custom and then add your site details as shown below
