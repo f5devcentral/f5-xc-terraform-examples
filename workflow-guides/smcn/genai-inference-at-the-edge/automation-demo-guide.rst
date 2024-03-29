@@ -14,7 +14,7 @@ List of Existing Assets
 
 -  **xc:** F5 Distributed Cloud WAF
 -  **infra:** AWS Infrastructure
--  **LangServe GenAi App:** LangServe GenAI Application
+-  **LangServe GenAI App:** LangServe GenAI Application
 
 Tools
 #####
