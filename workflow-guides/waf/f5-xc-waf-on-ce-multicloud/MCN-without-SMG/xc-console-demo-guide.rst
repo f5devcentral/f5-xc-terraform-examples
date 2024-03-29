@@ -97,10 +97,10 @@ Deployment Steps
         g. Copy/Paste product page service port to the origin server port field (Range [30000-32767], use kubectl command ``kubectl get svc`` to get the port value), apply the configuration.
         h. Enable WAF and select the WAF policy. If not created, create a WAF policy in blocking mode and attach it to the LB.
         i. Scroll down to “Other Settings” section.
-            -  Here, in “VIP Advertisement” select custom and add the configs as shown in below image
-        j. Save the configurations. 
+            -  Here, in “VIP Advertisement” select custom and add the configs as shown in the below image:
 
-.. figure:: assets/Capture_n04.JPG
+            .. figure:: assets/Capture_n04.JPG
+        j. Save the configurations. 
 
 .. figure:: assets/Capture_n11.JPG
 
@@ -169,10 +169,10 @@ Deployment Steps
         g. Copy/Paste details service port to the origin server port field (Range [30000-32767], use kubectl command ``kubectl get svc`` to get the port value), apply the configuration.
         h. Enable WAF and select the WAF policy. If not created, create a WAF policy in blocking mode and attach it to the LB.
         i. Scroll down to “Other Settings” section.
-            -  Here, in “VIP Advertisement” select custom and add the configs as shown in below image.
-        j. Save the configurations. 
+            -  Here, in “VIP Advertisement” select custom and add the configs as shown in the below image:
 
-.. figure:: assets/Capture_n07.JPG
+            .. figure:: assets/Capture_n07.JPG
+        j. Save the configurations. 
 
 .. figure:: assets/Capture_n08.JPG
 
