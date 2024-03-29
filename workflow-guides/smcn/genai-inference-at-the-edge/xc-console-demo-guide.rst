@@ -52,8 +52,8 @@ Fig : mk8s cluster
             b. After a few minutes, the Site Admin State shows online and Status shows as Applied.
 
 
-.. figure:: assets/deploy-2.jpg
-Fig : AWS VPC object online
+.. figure:: assets/aws-vpc-site.png
+Fig : AWS VPC Site
 
 
 3.     Deploy the App to mk8s cluster
@@ -85,7 +85,7 @@ Fig : AWS VPC object online
                 .. figure:: assets/lb.jpg
 
 Deployment Verification
-**********************
+************************
 To verify the deployment we shall follow the below steps to make sure users can able to access the application deployed,
 
 1. Open the Postman
