@@ -14,12 +14,12 @@ List of Existing Assets
 
 -  **xc:** F5 Distributed Cloud WAF
 -  **infra:** AWS Infrastructure
--  **online boutique:** Online Boutique demo test web application
+-  **LangServe GenAI App:** LangServe GenAI Application
 
 Tools
 #####
 
--  **Cloud Provider:** Azure
+-  **Cloud Provider:** AWS
 -  **IAC:** Terraform
 -  **IAC State:** Terraform Cloud
 -  **CI/CD:** GitHub Actions
@@ -32,7 +32,7 @@ Terraform Cloud
    +---------------------------+-------------------------------------------+
    |         **Workflow**      |  **Assets/Workspaces**                    |
    +===========================+===========================================+
-   | f5-xc-waf-on-re-appconnect| infra, aks-cluster, xc                    |
+   |f5-xc-genai-inf-at-the-edge| infra, mk8s-cluster, xc                    |
    +---------------------------+-------------------------------------------+
 
 .. image:: assets/workspaces.JPG
@@ -45,13 +45,15 @@ Terraform Cloud
    +------------------------------------------+--------------+------------------------------------------------------+
    |         **Name**                         |  **Type**    |      **Description**                                 |
    +==========================================+==============+======================================================+
-   | TF_VAR_azure_service_principal_appid     | Environment  |  Service Principal App ID                            |
+   | AWS_ACCESS_KEY_ID                        | Environment  |  AWS Access Key ID                                   |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | TF_VAR_azure_service_principal_password  | Environment  |  Service Principal Secret                            |
+   | AWS_SECRET_ACCESS_KEY                    | Environment  |  AWS Secret Access Key ID                            |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | TF_VAR_azure_subscription_id             | Environment  |  Your Subscription ID                                | 
+   | AWS_SESSION_TOKEN                        | Environment  |  AWS Session Token                                   | 
    +------------------------------------------+--------------+------------------------------------------------------+
-   | TF_VAR_azure_subscription_tenant_id      | Environment  |  Subscription Tenant ID                              |
+   | TF_VAR_aws_access_key                    | Environment  |  AWS Programmatic Access Key ID                      |
+   +------------------------------------------+--------------+------------------------------------------------------+
+   | TF_VAR_aws_secret_key                    | Environment  |  AWS Programmatic Secret Access Key                  |
    +------------------------------------------+--------------+------------------------------------------------------+
    | VES_P12_PASSWORD                         | Environment  |  Password set while creating F5XC API certificate    |
    +------------------------------------------+--------------+------------------------------------------------------+
@@ -80,8 +82,8 @@ GitHub
    -  TF_CLOUD_WORKSPACE\_\ *<Workspace Name>*: Create for each
       workspace in your workflow per each job
 
-      -  EX: TF_CLOUD_WORKSPACE_AKS_CLUSTER would be created with the
-         value ``aks-cluster``
+      -  EX: TF_CLOUD_WORKSPACE_MK8S_CLUSTER would be created with the
+         value ``mk8s-cluster``
 
 -  Created GitHub Action Secrets:
 .. image:: assets/action-secret.JPG
@@ -97,28 +99,28 @@ the following naming convention.
 ========================== =======================
 Workflow                    Branch Name
 ========================== =======================
-f5-xc-waf-on-re-appconnect  deploy-waf-re-ac-k8s
+f5-xc-genai-inf-at-the-edge  deploy-genai-inf-at-the-edge
 ========================== =======================
 
-Workflow File: `waf-re-ac-k8s-apply.yml </.github/workflows/waf-re-ac-k8s-apply.yml>`__
+Workflow File: `genai-inf-at-the-edge-apply.yml </.github/workflows/genai-inf-at-the-edge-apply.yml>`__
 
 **DESTROY**
 
 =========================== ========================
 Workflow                     Branch Name
 =========================== ========================
-f5-xc-waf-on-re-appconnect  destroy-waf-re-ac-k8s
+f5-xc-genai-inf-at-the-edge  destroy-genai-inf-at-the-edge
 =========================== ========================
 
-Workflow File: `waf-re-ac-k8s-destroy.yml </.github/workflows/waf-re-ac-k8s-destroy.yml>`__
+Workflow File: `genai-inf-at-the-edge-destroy.yml </.github/workflows/genai-inf-at-the-edge-destroy.yml>`__
 
-**STEP 2:** Rename ``azure/azure-infra/terraform.tfvars.examples`` to ``azure/azure-infra/terraform.tfvars`` and add the following data: 
+**STEP 2:** Rename ``aws/infra/terraform.tfvars.examples`` to ``aws/infra/terraform.tfvars`` and add the following data: 
 
--  project_prefix = “Your project identifier name in **lower case** letters only - this will be applied as a prefix to all assets”.
+-  project_prefix = “Your project identifier name in **lower case** letters only - this will be applied as a prefix to all assets”
 
--  azure_region = “Azure Region/Location” ex. "southeastasia".
+-  aws_region = “AWS Region” ex. "eu-west-1"
 
--  aks-cluster = Set this value to true as we need AKS cluster in our usecase.
+-  azs = Availability Zones of that region. Ex. ["eu-west-1a", "eu-west-1b"]
 
 -  Also update assets boolean value as per your workflow.
 
@@ -132,37 +134,36 @@ Workflow File: `waf-re-ac-k8s-destroy.yml </.github/workflows/waf-re-ac-k8s-dest
 
 -  app_domain = “the FQDN of your app (cert will be autogenerated)” 
 
--  xc_waf_blocking = “Set to true as we need to enable blocking”
+-  xc_waf_blocking = “Set to true to configure waf in blocking mode”
 
--  k8s_pool = "Set to true as backend is residing in k8s"
+-  aws_ce_site = "set to true to deploy AWS CE site"
 
--  serviceName = "k8s service name of backend"
+-  site_name = "Provide a name for AWS VPC site"
 
--  serviceport = "k8s service port of backend"
+-  ip_address_on_site_pool = "Set to true to configured the Private IP address of the EKS Cluster Nodes"
 
--  advertise_sites = "set to false as we want to advertise on public"
+-  advertise_sites = "set to true to advertise on public"
 
--  http_only = "set to true"
+-  http_only = "set to true to deploy a http loadbalancer."
 
--  xc_delegation = "set to true as we want to automatically manage DNS records for http load balancer"
 
--  az_ce_site = "set to true since we want to deploy azure CE site"
-
--  xc_service_discovery = "set to true as want to create service discovery object in XC console"
+Keep the rest of the values as they are.
 
 **STEP 4:** Commit and push your build branch to your forked repo 
 
 - Build will run and can be monitored in the GitHub Actions tab and TF Cloud console
 
-.. image:: assets/deploy.JPG
+.. image:: Assets/deploy_pipeline.jpg
 
-**STEP 5:** Once the pipeline completes, verify your CE, Origin Pool and LB were deployed. (**Note:** CE sites will take 15-20 mins to come online)
+**STEP 5:** Once the pipeline completes, verify your CE, Origin Pool and LB were deployed or destroyed based on your workflow. (**Note:** CE sites will take 15-20 mins to come online)
 
-**STEP 6:** To validate the test infra, copy the domain name configured in Load balancer and access it in the browser, You should be able to access the demo application as shown in the image below
+**STEP 6:** To validate the test infra, copy the public IP of CE site (**Note:** In terraform cloud click on `xc-deploy` workspace and select `Outputs` tab to get the public of azure CE site) and send a request with XC LB domain as a `Host` header, You should be able to access the demo application as shown in the image below:
 
-.. image:: assets/botique.JPG
+.. image:: Assets/testing_logs.jpg
 
-**Note:** If you want to destroy the entire setup, checkout a branch with name ``destroy-waf-re-ac-k8s`` and push the repo code to it which will trigger destroy workflow and will remove all created resources
+**Note:** If you want to destroy the entire setup, checkout a branch with name ``destroy-genai-inf-at-the-edge`` and push the repo code to it which will trigger destroy workflow and will remove all created resources.
 
-.. image:: assets/destroy.JPG
+.. image:: Assets/destroy_pipeline.jpg
+
+**Note:** Due to timing issue there might be chance of not deleting the AWS VPC site. Please remove the VPS site while deploying Infra again.
 

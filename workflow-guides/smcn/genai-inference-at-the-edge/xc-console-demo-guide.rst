@@ -52,8 +52,8 @@ Fig : mk8s cluster
             b. After a few minutes, the Site Admin State shows online and Status shows as Applied.
 
 
-.. figure:: assets/deploy-2.jpg
-Fig : AWS VPC object online
+.. figure:: assets/aws-vpc-site.png
+Fig : AWS VPC Site
 
 
 3.     Deploy the App to mk8s cluster
@@ -62,16 +62,17 @@ Fig : AWS VPC object online
                In this process, we configure Origin pool with server as AWS VPC site and Advertise in HTTP Load Balancer.
 
                a. Log into F5 XC Console and Click on Multi-Cloud App Connect.
-                .. figure:: Assets/app-connect.jpg
                b. Click Manage > Load Balancers > Origin Pools and Click ``Add Origin Pool``.
                c. In the name field, enter a name. Click on Add Item button in Origin Servers section.
                d. From the ``Select type of Origin Server`` menu, select ``IP address of Origin Server on given Sites`` to specify the node with its private IP address.
                e. Select ``Site`` from the ``Site or Virtual Site`` drop-down and select the AWS VPC site created in step 1.
                f. Select ``Outside Network`` for ``Select Network on the Site`` drop-down. Click on Apply.
-                .. figure:: assets/origin-server.jpg
                g. In ``Origin server Port`` enter the port number of the frontend service from step 3.1
-                .. figure:: assets/origin-server-port.jpg
                h. Click on Save and Exit.
+
+               .. figure:: assets/origin-pool.png
+               Fig : Origin Pool
+
         **Step 4.2**: Creating HTTPS Load Balancer with VIP advertisement
                a. Log into F5 XC Console and Click on Multi-Cloud App Connect.
                b. Click Manage > Load Balancers > HTTP Load Balancers and Click ``Add HTTP Load Balancer``.
@@ -82,33 +83,24 @@ Fig : AWS VPC object online
                g. From ``Select Where to Advertise`` menu, select Site. From the ``Site Network`` menu, select Outside Network from the drop-down.
                h. From the Site Referrence menu, Select the AWS VPC site created in step 1. Click on Apply.
                i. Click on Apply and ``Save and Exit``.
-                .. figure:: assets/lb.jpg
+
+.. figure:: assets/https-lb.png
+Fig : HTTPS LB
 
 Deployment Verification
-**********************
+************************
 To verify the deployment we shall follow the below steps to make sure users can able to access the application deployed,
+
+.. figure:: assets/langserve-api.png
+Fig: LangServe API
 
 1. Open the Postman
 2. Enter the domain name of the HTTPS Load Balancer in the URL field.
 3. Update the Host header as the domain name of the Load Balancer from the F5 XC Console.
-4. Generate a GET request and monitor the request logs from F5 XC Console.
-5. Create WAF Firewall and assign it to LB to verify blocking of WAF attacks.
+4. Generate a POST request.
 
-.. figure:: Assets/testing.jpg
-Fig: Accessing CE site deployed in AWS
-
-.. figure:: Assets/req_logs.jpg
-Fig: Accessing log requests from F5 XC Console
-
-Applying the **WAF Firewall** to the Load Balancer and generating Cross Site Scripting attack to CE deployed on AWS to block the attack request
-
-.. figure:: Assets/attack-block.jpg
-Fig: Attack request getting rejected and generated support ID
-
-.. figure:: Assets/waf-xc-logs.jpg
-Fig: Observed WAF event logs from F5 XC Console
 
 Conclusion
-#########
-With the deployment of F5 XC's Customer Edge on AWS Public Cloud Platform provides protection to the application from WAF attacks as well as Telemetry of request logs.
+###########
+The F5 XC's Customer Edge AppStack mk8s on AWS Public Cloud Platform provides support for Inference at the Edge and secures the Generative AI Applications deployed on this platform.
 
