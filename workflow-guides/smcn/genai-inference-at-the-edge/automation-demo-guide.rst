@@ -124,16 +124,7 @@ Workflow File: `waf-re-ac-k8s-destroy.yml </.github/workflows/waf-re-ac-k8s-dest
 
 -  Also update assets boolean value as per your workflow.
 
-**STEP 3:** Rename ``aws/eks-cluster/terraform.tfvars.examples`` to ``aws/eks-cluster/terraform.tfvars`` and add the following data: 
-
--  skip_ha_az_node_group = "Set boolean to true for the deployment of WAF on AWS CE Use case"
--  desired_size = "set to number 1"
--  max_size = "set to number 1"
--  min_size = "set to number 1"
--  skip_private_subnet_creation = "set the boolean to true to deploy EKS Cluster Nodes in Public Subnets"
--  allow_all_ingress_traffic_to_cluster = "Set the boolean to true to accept the traffic from F5 XC VPC Site(master)"
-
-**Step 4:** Rename ``xc/terraform.tfvars.examples`` to ``xc/terraform.tfvars`` and add the following data: 
+**Step 3:** Rename ``xc/terraform.tfvars.examples`` to ``xc/terraform.tfvars`` and add the following data: 
 
 -  api_url = “Your F5XC tenant” 
 
