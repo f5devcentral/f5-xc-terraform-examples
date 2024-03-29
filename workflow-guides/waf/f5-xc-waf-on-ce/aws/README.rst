@@ -3,7 +3,7 @@ Deploying F5 XC WAF on Customer Edge hosted in AWS Cloud
 
 
 Overview
-#########
+**********
 
 This demo guide provides step-by-step walkthrough for deploying WAF on CE site manually on AWS Cloud Platform using XC console along with terraform scripts to automate the deployment. For more information on different WAAP deployment modes, refer to the devcentral article: `Deploy WAF Anywhere with F5
 Distributed Cloud <https://community.f5.com/t5/technical-articles/deploy-waf-anywhere-with-f5-distributed-cloud/ta-p/313079>`__.
