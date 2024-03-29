@@ -49,23 +49,23 @@ Terraform Cloud
    +------------------------------------------+--------------+------------------------------------------------------+
    |         **Name**                         |  **Type**    |      **Description**                                 |
    +==========================================+==============+======================================================+
-   | AWS_ACCESS_KEY_ID                        | Environment  |  AWS Access Key ID                                   |
+   | AWS_ACCESS_KEY_ID                        | Environment  |AWS Access Key ID                                     |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | AWS_SECRET_ACCESS_KEY                    | Environment  |  AWS Secret Access Key ID                            |
+   | AWS_SECRET_ACCESS_KEY                    | Environment  |AWS Secret Access Key ID                              |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | AWS_SESSION_TOKEN                        | Environment  |  AWS Session Token                                   | 
+   | AWS_SESSION_TOKEN                        | Environment  |AWS Session Token                                     | 
    +------------------------------------------+--------------+------------------------------------------------------+
-   | TF_VAR_aws_access_key                    | Environment  |  AWS Programmatic Access Key ID                      |
+   | TF_VAR_aws_access_key                    | Environment  |AWS Programmatic Access Key ID                        |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | TF_VAR_aws_secret_key                    | Environment  |  AWS Programmatic Secret Access Key                  |
+   | TF_VAR_aws_secret_key                    | Environment  |AWS Programmatic Secret Access Key                    |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | VES_P12_PASSWORD                         | Environment  |  Password set while creating F5XC API certificate    |
+   | VES_P12_PASSWORD                         | Environment  |Password set while creating F5XC API certificate      |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | VOLT_API_P12_FILE                        | Environment  |  Your F5XC API certificate. Set this to **api.p12**  |
+   | VOLT_API_P12_FILE                        | Environment  |Your F5XC API certificate. Set this to **api.p12**    |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | ssh_key                                  | TERRAFORM    |  Your ssh key for accessing the created resources    | 
+   | ssh_key                                  | TERRAFORM    |Your ssh key for accessing the created resources      | 
    +------------------------------------------+--------------+------------------------------------------------------+
-   | tf_cloud_organization                    | TERRAFORM    |  Your Terraform Cloud Organization name              |
+   | tf_cloud_organization                    | TERRAFORM    |Your Terraform Cloud Organization name                |
    +------------------------------------------+--------------+------------------------------------------------------+
 
 
@@ -103,9 +103,9 @@ the following naming convention.
 **DEPLOY**
 
 ======================        =======================
-Workflow                        Branch Name
+Workflow                      Branch Name
 ======================        =======================
-F5 XC WAF on CE Deploy          deploy-waf-aws-ce
+F5 XC WAF on CE Deploy        deploy-waf-aws-ce
 ======================        =======================
 
 Workflow File: `waf-on-ce-aws-apply.yml </.github/workflows/waf-on-ce-aws-apply.yml>`__
