@@ -1,8 +1,8 @@
 Getting started with WAF on CE terraform automation
----------------
+#####################################################
 
 Prerequisites
--------------
+--------------
 
 -  `F5 Distributed Cloud (F5 XC) Account <https://console.ves.volterra.io/signup/usage_plan>`__
 -  `AWS Account <https://aws.amazon.com/>`__ 
@@ -11,7 +11,7 @@ Prerequisites
 
 
 List of Existing Assets
------------------------
+------------------------
 
 -  **xc:** F5 Distributed Cloud WAF
 -  **infra:** AWS Infrastructure
@@ -20,7 +20,7 @@ List of Existing Assets
 
 
 Tools
------
+------
 
 -  **Cloud Provider:** AWS
 -  **IAC:** Terraform
@@ -28,7 +28,7 @@ Tools
 -  **CI/CD:** GitHub Actions
 
 Terraform Cloud
----------------
+----------------
 
 -  **Workspaces:** Create CLI or API workspaces for each asset in the workflow as mentioned below.
 
@@ -74,7 +74,7 @@ Terraform Cloud
 
 
 GitHub
-------
+-------
 
 -  Fork and Clone Repo. Navigate to ``Actions`` tab and enable it.
 
@@ -95,7 +95,7 @@ GitHub
 .. image:: Assets/secrets_github2.jpg
 
 Workflow Runs
--------------
+--------------
 
 **STEP 1:** Check out a branch with the branch name as suggested below for the workflow you wish to run using
 the following naming convention.
