@@ -170,7 +170,7 @@ Keep the rest of the values as they are.
 
 .. image:: Assets/testing_logs.jpg
 
-**Note:** If you want to destroy the entire setup, checkout a branch with name ``destroy-waf-aws-ce`` and push the repo code to it which will trigger destroy workflow and will remove all created resources.
+**Note:** If you want to destroy the entire setup, checkout a branch with name ``destroy-genai-inf-at-the-edge`` and push the repo code to it which will trigger destroy workflow and will remove all created resources.
 
 .. image:: Assets/destroy_pipeline.jpg
 
