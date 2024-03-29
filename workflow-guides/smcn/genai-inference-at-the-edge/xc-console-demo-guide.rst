@@ -62,16 +62,14 @@ Fig : AWS VPC Site
                In this process, we configure Origin pool with server as AWS VPC site and Advertise in HTTP Load Balancer.
 
                a. Log into F5 XC Console and Click on Multi-Cloud App Connect.
-                .. figure:: Assets/app-connect.jpg
                b. Click Manage > Load Balancers > Origin Pools and Click ``Add Origin Pool``.
                c. In the name field, enter a name. Click on Add Item button in Origin Servers section.
                d. From the ``Select type of Origin Server`` menu, select ``IP address of Origin Server on given Sites`` to specify the node with its private IP address.
                e. Select ``Site`` from the ``Site or Virtual Site`` drop-down and select the AWS VPC site created in step 1.
                f. Select ``Outside Network`` for ``Select Network on the Site`` drop-down. Click on Apply.
-                .. figure:: assets/origin-server.jpg
                g. In ``Origin server Port`` enter the port number of the frontend service from step 3.1
-                .. figure:: assets/origin-server-port.jpg
                h. Click on Save and Exit.
+                .. figure:: assets/origin-pool.png
         **Step 4.2**: Creating HTTPS Load Balancer with VIP advertisement
                a. Log into F5 XC Console and Click on Multi-Cloud App Connect.
                b. Click Manage > Load Balancers > HTTP Load Balancers and Click ``Add HTTP Load Balancer``.
@@ -82,7 +80,7 @@ Fig : AWS VPC Site
                g. From ``Select Where to Advertise`` menu, select Site. From the ``Site Network`` menu, select Outside Network from the drop-down.
                h. From the Site Referrence menu, Select the AWS VPC site created in step 1. Click on Apply.
                i. Click on Apply and ``Save and Exit``.
-                .. figure:: assets/lb.jpg
+                .. figure:: assets/https-lb.png
 
 Deployment Verification
 ************************
