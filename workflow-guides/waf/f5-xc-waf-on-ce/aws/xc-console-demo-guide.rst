@@ -117,7 +117,7 @@ Fig : AWS VPC object online
                c. In the name field, enter the name of the LB, In the Domains field, enter a domain name.
                d. From the Load Balancer Type drop-down menu, Select HTTP to create HTTP load balancer.
                e. From the Origins sections, Click on Add Item to add the origin pool created in step 4.1 under ``Select Origin Pool Method`` drop-down menu. Click on Apply.
-               f. Enable WAF and select your WAF policy or else create a new WAF policy in blocking mode and add it to your LB
+               f. Enable WAF and select your WAF policy or else create a new WAF policy in blocking mode and add it to your LB.
                g. Navigate to Other Setting section, From the VIP Advertisement  drop-down menu, Select Custom. Click  Configure in the Advertise Custom field to perform the configurations and click on Add Item.
                h. From ``Select Where to Advertise`` menu, select Site. From the ``Site Network`` menu, select Outside Network from the drop-down.
                i. From the Site Referrence menu, Select the AWS VPC site created in step 1. Click on Apply.
@@ -142,7 +142,7 @@ Fig: Accessing CE site deployed in AWS
 .. figure:: Assets/req_logs.jpg
 Fig: Accessing log requests from F5 XC Console
 
-5. Generate a Cross Site Scripting attack to CE deployed on AWS to block the attack request
+5. Generate a Cross Site Scripting attack to CE deployed on AWS to block the attack request.
 
 .. figure:: Assets/attack-block.jpg
 Fig: Attack request getting rejected and generated support ID
