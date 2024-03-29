@@ -1,5 +1,5 @@
 Getting Started With Terraform Automation
----------------
+--------------------------------------------
 
 Prerequisites
 -------------
