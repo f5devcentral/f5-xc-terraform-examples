@@ -3,14 +3,14 @@ Manual step by step process to deploy and secure Generative AI applications at t
 
 Pre-requisites
 ******************
-- Access to Azure subscription. 
+- Access to AWS Cloud subscription. 
 - Access to F5 Distributed Cloud account.
-- Install Azure CLI and kubectl command line tool to connect and push the app manifest file to AKS cluster
+- Install kubectl command line tool to connect and push the app manifest file to AKS cluster
 - Web browser to access the application.
 
-Step 1: Configure credentials in F5 Distributed Cloud Console for Azure
-#########################################################################
-To deploy an Azure Vnet site from F5XC, first we have to configure cloud credentials in XC. Please refer `DevCentral Article <https://community.f5.com/t5/technical-articles/creating-a-credential-in-f5-distributed-cloud-for-azure/ta-p/298316>`_ and follow the steps to configure. 
+Step 1: Configure credentials in F5 Distributed Cloud Console for AWS Cloud
+############################################################################
+To deploy a CE AWS Site from F5XC, first we have to configure cloud credentials in XC. Please refer `DevCentral Article <https://community.f5.com/kb/technicalarticles/creating-a-credential-in-f5-distributed-cloud-to-use-with-aws/298111>`_ and follow the steps to configure. 
 
 Step 2: Create Resource group, Vnet and Subnet in Azure 
 ########################################################
