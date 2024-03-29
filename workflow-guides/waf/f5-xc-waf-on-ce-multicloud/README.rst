@@ -28,7 +28,7 @@ Workflow Instructions
 
 `F5 Distributed Cloud Console Workflow <MCN-without-SMG/xc-console-demo-guide.rst>`__
 
-`F5 Distributed Cloud Automation Workflow <MCN-with-SMG/xc-console-demo-guide.rst>`__
+`F5 Distributed Cloud Automation Workflow (Coming Soon)`
 
 **Multi-Cloud Networking (MCN) with Site Mesh Group(SMG)**
 ###########################################################
@@ -43,7 +43,7 @@ Workflow Instructions
 ***********************
 
 
-`F5 Distributed Cloud Console Workflow (Coming Soon)`
+`F5 Distributed Cloud Console Workflow <MCN-with-SMG/xc-console-demo-guide.rst>`__
 
 `F5 Distributed Cloud Automation Workflow (Coming Soon)`
 
