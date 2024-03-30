@@ -1,8 +1,8 @@
 Steps to deploy/destroy WAF on RE + AppConnect Kubernetes setup using automation
----------------------------------------------------------------------
+----------------------------------------------------------------------------------
 
 Prerequisites
--------------
+###############
 
 -  `F5 Distributed Cloud (F5 XC) Account <https://console.ves.volterra.io/signup/usage_plan>`__
 -  `Azure Account <https://azure.microsoft.com/en-in/get-started/azure-portal/>`__ 
@@ -10,7 +10,7 @@ Prerequisites
 -  `GitHub Account <https://github.com>`__
 
 List of Existing Assets
------------------------
+#########################
 
 -  **xc:** F5 Distributed Cloud WAF
 -  **infra:** Azure Infrastructure
@@ -18,7 +18,7 @@ List of Existing Assets
 -  **online boutique:** Online Boutique demo test web application
 
 Tools
------
+#######
 
 -  **Cloud Provider:** Azure
 -  **IAC:** Terraform
@@ -26,7 +26,7 @@ Tools
 -  **CI/CD:** GitHub Actions
 
 Terraform Cloud
----------------
+#################
 
 -  **Workspaces:** Create CLI or API workspaces for each asset in the workflow.
 
@@ -46,21 +46,21 @@ Terraform Cloud
    +------------------------------------------+--------------+------------------------------------------------------+
    |         **Name**                         |  **Type**    |      **Description**                                 |
    +==========================================+==============+======================================================+
-   | TF_VAR_azure_service_principal_appid     | Environment  |  Service Principal App ID                            |
+   | TF_VAR_azure_service_principal_appid     | Environment  | Service Principal App ID                             |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | TF_VAR_azure_service_principal_password  | Environment  |  Service Principal Secret                            |
+   | TF_VAR_azure_service_principal_password  | Environment  | Service Principal Secret                             |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | TF_VAR_azure_subscription_id             | Environment  |  Your Subscription ID                                | 
+   | TF_VAR_azure_subscription_id             | Environment  | Your Subscription ID                                 | 
    +------------------------------------------+--------------+------------------------------------------------------+
-   | TF_VAR_azure_subscription_tenant_id      | Environment  |  Subscription Tenant ID                              |
+   | TF_VAR_azure_subscription_tenant_id      | Environment  | Subscription Tenant ID                               |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | VES_P12_PASSWORD                         | Environment  |  Password set while creating F5XC API certificate    |
+   | VES_P12_PASSWORD                         | Environment  | Password set while creating F5XC API certificate     |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | VOLT_API_P12_FILE                        | Environment  |  Your F5XC API certificate. Set this to **api.p12**  |
+   | VOLT_API_P12_FILE                        | Environment  | Your F5XC API certificate. Set this to **api.p12**   |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | ssh_key                                  | TERRAFORM    |  Your ssh key for accessing the created resources    | 
+   | ssh_key                                  | TERRAFORM    | Your ssh key for accessing the created resources     | 
    +------------------------------------------+--------------+------------------------------------------------------+
-   | tf_cloud_organization                    | TERRAFORM    |  Your Terraform Cloud Organization name              |
+   | tf_cloud_organization                    | TERRAFORM    | Your Terraform Cloud Organization name               |
    +------------------------------------------+--------------+------------------------------------------------------+
 
 -  Variable set created in terraform cloud:
@@ -68,7 +68,7 @@ Terraform Cloud
 
 
 GitHub
-------
+#######
 
 -  Fork and Clone Repo. Navigate to ``Actions`` tab and enable it.
 
@@ -88,7 +88,7 @@ GitHub
 .. image:: assets/action-secret.JPG
 
 Workflow Runs
--------------
+###############
 
 **STEP 1:** Check out a branch with the branch name as suggested below for the workflow you wish to run using
 the following naming convention.
@@ -96,9 +96,9 @@ the following naming convention.
 **DEPLOY**
 
 ========================== =======================
-Workflow                    Branch Name
+Workflow                   Branch Name
 ========================== =======================
-f5-xc-waf-on-re-appconnect  deploy-waf-re-ac-k8s
+f5-xc-waf-on-re-appconnect deploy-waf-re-ac-k8s
 ========================== =======================
 
 Workflow File: `waf-re-ac-k8s-apply.yml </.github/workflows/waf-re-ac-k8s-apply.yml>`__
@@ -106,7 +106,7 @@ Workflow File: `waf-re-ac-k8s-apply.yml </.github/workflows/waf-re-ac-k8s-apply.
 **DESTROY**
 
 =========================== ========================
-Workflow                     Branch Name
+Workflow                    Branch Name
 =========================== ========================
 f5-xc-waf-on-re-appconnect  destroy-waf-re-ac-k8s
 =========================== ========================

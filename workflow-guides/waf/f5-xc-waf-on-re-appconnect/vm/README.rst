@@ -1,7 +1,5 @@
 Deploying F5 XC WAF on RE + AppConnect in Virtual Machine
--------------------------------------
-
-.. contents:: Table of Contents
+-----------------------------------------------------------
 
 Overview
 #########
@@ -10,7 +8,7 @@ This guide provides detailed manual steps along with the terraform scripts to au
 **Note**: Even though the scenario here focuses on XC WAF, customers can enable any security services in the same setup, such as API Security, Bot Defense, DoS/DDOS and Fraud, as per their needs.
 
 Setup Diagram
-#############
+##############
 
 .. figure:: assets/WAAP-on-RE-AppConnect-vm.png
 
@@ -22,5 +20,5 @@ Workflow Instructions
 `F5 Distributed Cloud VM Automation Workflow <./vm-automation-demo-guide.rst>`__
 
 Additional Related Resources
-######################
+#############################
 If you want to deploy application in K8s, please refer to `K8s Workflow Guide <https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-re-appconnect/k8s/README.rst>`__

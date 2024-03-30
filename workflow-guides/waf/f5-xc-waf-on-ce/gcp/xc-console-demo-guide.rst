@@ -1,5 +1,5 @@
 Manual step by step process for this use case deployment
-##############################################
+##########################################################
 
 Prerequisites
 **************
@@ -62,6 +62,8 @@ Deployment Steps
 
       vii. Enable WAF from drop-down, create and attach a new WAF policy in Blocking mode
 
+      .. figure:: ../azure/assets/waf.JPG      
+
       .. figure:: assets/lb-details1.JPG
 
       viii. Navigate to "Other settings", then from "VIP advertisement" section, select custom and then add your site details as shown below
@@ -103,6 +105,6 @@ Optionally once you have completed deployment and testing, you can cleanup above
 
 
 Support
-#############################################
+#########
 
 For support, please open a GitHub issue. Note, the code in this repository is community supported and is not supported by F5 Networks. 

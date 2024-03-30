@@ -1,5 +1,5 @@
 Manual step by step process for the deployment
-##############################################
+###############################################
 
 Prerequisites
 **************
@@ -111,27 +111,30 @@ Fig : AWS VPC object online
                g. In ``Origin server Port`` enter the port number of the frontend service from step 3.1
                 .. figure:: Assets/origin-server-port.jpg
                h. Click on Save and Exit.
-        **Step 4.2**: Creating HTTP Load Balancer with VIP advertisement
+        **Step 4.2**: Creating HTTP Load Balancer with WAF in blocking mode and VIP advertisement
                a. Log into F5 XC Console and Click on Multi-Cloud App Connect.
                b. Click Manage > Load Balancers > HTTP Load Balancers and Click ``Add HTTP Load Balancer``.
                c. In the name field, enter the name of the LB, In the Domains field, enter a domain name.
                d. From the Load Balancer Type drop-down menu, Select HTTP to create HTTP load balancer.
                e. From the Origins sections, Click on Add Item to add the origin pool created in step 4.1 under ``Select Origin Pool Method`` drop-down menu. Click on Apply.
-               f. Navigate to Other Setting section, From the VIP Advertisement  drop-down menu, Select Custom. Click  Configure in the Advertise Custom field to perform the configurations and click on Add Item.
-               g. From ``Select Where to Advertise`` menu, select Site. From the ``Site Network`` menu, select Outside Network from the drop-down.
-               h. From the Site Referrence menu, Select the AWS VPC site created in step 1. Click on Apply.
-               i. Click on Apply and ``Save and Exit``.
-                .. figure:: Assets/lb.jpg
+               f. Enable WAF and select your WAF policy or else create a new WAF policy in blocking mode and add it to your LB.
+
+                     .. figure:: ../azure/assets/waf.JPG
+               g. Navigate to Other Setting section, From the VIP Advertisement  drop-down menu, Select Custom. Click  Configure in the Advertise Custom field to perform the configurations and click on Add Item.
+               h. From ``Select Where to Advertise`` menu, select Site. From the ``Site Network`` menu, select Outside Network from the drop-down.
+               i. From the Site Referrence menu, Select the AWS VPC site created in step 1. Click on Apply.
+               j. Click on Apply and ``Save and Exit``.
+
+          .. figure:: Assets/lb.jpg
 
 Deployment Verification
-**********************
+*************************
 To verify the deployment we shall follow the below steps to make sure users can able to access the application deployed,
 
 1. Open the postman
 2. Enter the public IP of the AWS VPC site in the URL field.
 3. Update the Host header as the domain name of the Load Balancer from the F5 XC Console.
 4. Generate a GET request and monitor the request logs from F5 XC Console.
-5. Create WAF Firewall and assign it to LB to verify blocking of WAF attacks.
 
 .. figure:: Assets/testing.jpg
 Fig: Accessing CE site deployed in AWS
@@ -139,7 +142,7 @@ Fig: Accessing CE site deployed in AWS
 .. figure:: Assets/req_logs.jpg
 Fig: Accessing log requests from F5 XC Console
 
-Applying the **WAF Firewall** to the Load Balancer and generating Cross Site Scripting attack to CE deployed on AWS to block the attack request
+5. Generate a Cross Site Scripting attack to CE deployed on AWS to block the attack request.
 
 .. figure:: Assets/attack-block.jpg
 Fig: Attack request getting rejected and generated support ID
@@ -148,5 +151,5 @@ Fig: Attack request getting rejected and generated support ID
 Fig: Observed WAF event logs from F5 XC Console
 
 Conclusion
-#########
+############
 With the deployment of F5 XC's Customer Edge on AWS Public Cloud Platform provides protection to the application from WAF attacks as well as Telemetry of request logs.
