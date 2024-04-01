@@ -69,7 +69,7 @@
   | xc-api   | destroy-xcapi |
 
 
-**STEP 2:** Rename `terraform.tfvars.examples` to `terraform.tfvars` and add/modify the following data:
+**STEP 2:** Copy and rename `workflow-guides/api-security/f5-xc-apisec-on-re/assets/terraform.tfvars.examples` to `xc/terraform.tfvars` and add/modify the following data:
   * project_prefix  = "Your project identifier name in **lower case** letters only - this will be applied as a prefix to all assets"
   * resource_owner = "Your-name"
   * api_url         = "Your F5XC tenant"
