@@ -339,10 +339,8 @@ resource "volterra_http_loadbalancer" "lb_https" {
       }
       reserved_claims {
         issuer                  = var.iss_claim
-        audience {
-          audiences             = var.aud_claim
-        }     
-        validate_period_enable  = var.exp_claim
+        audience_disable        = true
+        validate_period_enable  = var.val_period_enable
       }
     }
   }
