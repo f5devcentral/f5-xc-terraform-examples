@@ -19,10 +19,10 @@ Architectural diagram :
 .. figure:: assets/WAAP-on-RE-AppConnect-K8s.png
 
 Step by step process for F5 XC console based deployment:
---------------------------------------------
+--------------------------------------------------------
 `Console Workflow <./console.rst>`
 
 
 Step by step process for Terraform based deployment:
------------------------------------------------
+----------------------------------------------------
 `Automation Workflow <./automation.rst>`
