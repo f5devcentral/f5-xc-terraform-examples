@@ -12,6 +12,7 @@ on:
         - azure-vnet-site
         - aws-vpc-site
         - deploy-workloads
+        - enable-waf
       TF_VAR_prefix:
         description: "Prefix"
         required: false
@@ -160,7 +161,7 @@ jobs:
 
   aws_credentials: 
     uses: f5devcentral/f5-xc-terraform-examples/.github/workflows/aws-cloud-credentials-apply.yaml@main
-    if: (inputs.deployment == 'aws-vpc-site' || inputs.deployment == 'deploy-workloads')
+    if: (inputs.deployment == 'aws-vpc-site' || inputs.deployment == 'deploy-workloads' || inputs.deployment == 'enable-waf')
     name: "AWS Credentials"
     needs: [apply_variables]
     with: 
@@ -182,7 +183,7 @@ jobs:
 
   aws_networking: 
     uses: f5devcentral/f5-xc-terraform-examples/.github/workflows/aws-networking-apply.yaml@main
-    if: (inputs.deployment == 'aws-vpc-site' || inputs.deployment == 'deploy-workloads')
+    if: (inputs.deployment == 'aws-vpc-site' || inputs.deployment == 'deploy-workloads' || inputs.deployment == 'enable-waf')
     name: "AWS Networking"
     needs: [apply_variables]
     with:
@@ -206,7 +207,7 @@ jobs:
 
   aws_vpc_site: 
     uses: f5devcentral/f5-xc-terraform-examples/.github/workflows/aws-vpc-site-apply.yaml@main
-    if: (inputs.deployment == 'aws-vpc-site' || inputs.deployment == 'deploy-workloads')
+    if: (inputs.deployment == 'aws-vpc-site' || inputs.deployment == 'deploy-workloads' || inputs.deployment == 'enable-waf')
     needs: [apply_variables, aws_credentials, aws_networking]
     name: "AWS VPC Site"
     with: 
@@ -221,7 +222,6 @@ jobs:
       TF_VAR_existing_workload_subnets: ${{ needs.aws_networking.outputs.workload_subnet_ids }}
       TF_VAR_create_aws_vpc: "false"
       TF_CLOUD_WORKSPACE_AWS_VPC_SITE: ${{ needs.apply_variables.outputs.TF_CLOUD_WORKSPACE_AWS_VPC_SITE }}
-      TF_VAR_aws_cloud_credentials_name: ${{ needs.aws_credentials.outputs.aws_credentials_name }}
       TF_VAR_custom_security_group: "{ \"outside_security_group_id\": \"${{ needs.aws_networking.outputs.outside_security_group_id }}\", \"inside_security_group_id\": \"${{ needs.aws_networking.outputs.inside_security_group_id }}\" }"
       TF_VAR_tags: ${{ needs.apply_variables.outputs.TF_VAR_tags }}
     secrets: 
@@ -233,12 +233,12 @@ jobs:
       AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }} 
       AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }} 
       AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }} 
-      # XC_AWS_CLOUD_CREDENTIALS_NAME: ${{ needs.aws_credentials.outputs.aws_credentials_name }}
+      XC_AWS_CLOUD_CREDENTIALS_NAME: ${{ secrets.XC_AWS_CLOUD_CREDENTIALS_NAME != '' && secrets.XC_AWS_CLOUD_CREDENTIALS_NAME || needs.aws_credentials.outputs.aws_credentials_name }}
 
   azure_networking: 
     uses: f5devcentral/f5-xc-terraform-examples/.github/workflows/azure-networking-apply.yaml@main
     needs: [apply_variables]
-    if: (inputs.deployment == 'azure-vnet-site' || inputs.deployment == 'deploy-workloads')
+    if: (inputs.deployment == 'azure-vnet-site' || inputs.deployment == 'deploy-workloads' || inputs.deployment == 'enable-waf')
     name: "Azure Networking"
     with:
       TF_VAR_name: ${{ needs.apply_variables.outputs.TF_VAR_name }}
@@ -263,7 +263,7 @@ jobs:
   azure_credentials: 
     uses: f5devcentral/f5-xc-terraform-examples/.github/workflows/azure-cloud-credentials-apply.yaml@main
     needs: [apply_variables]
-    if: (inputs.deployment == 'azure-vnet-site' || inputs.deployment == 'deploy-workloads')
+    if: (inputs.deployment == 'azure-vnet-site' || inputs.deployment == 'deploy-workloads' || inputs.deployment == 'enable-waf')
     name: "Azure Credentials"
     with: 
       TF_VAR_name: "${{ needs.apply_variables.outputs.TF_VAR_name }}-azure"
@@ -287,7 +287,7 @@ jobs:
 
   azure_vnet_site: 
     uses: f5devcentral/f5-xc-terraform-examples/.github/workflows/azure-vnet-site-apply.yaml@main
-    if: (inputs.deployment == 'azure-vnet-site' || inputs.deployment == 'deploy-workloads')
+    if: (inputs.deployment == 'azure-vnet-site' || inputs.deployment == 'deploy-workloads' || inputs.deployment == 'enable-waf')
     needs: [apply_variables, azure_credentials, azure_networking]
     name: "Azure VNET Site"
     with: 
@@ -315,11 +315,11 @@ jobs:
       AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
       AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-      XC_AZURE_CLOUD_CREDENTIALS_NAME: ${{ needs.azure_credentials.outputs.azure_credentials_name }}
+      XC_AZURE_CLOUD_CREDENTIALS_NAME: ${{ secrets.XC_AZURE_CLOUD_CREDENTIALS_NAME != '' && secrets.XC_AZURE_CLOUD_CREDENTIALS_NAME || needs.azure_credentials.outputs.azure_credentials_name }}
 
   aws_eks:
     name: "Create AWS EKS"
-    if: (inputs.deployment == 'deploy-workloads')
+    if: (inputs.deployment == 'deploy-workloads' || inputs.deployment == 'enable-waf')
     needs: [apply_variables, aws_networking, aws_vpc_site]
     runs-on: ubuntu-latest
     defaults:
@@ -401,7 +401,7 @@ jobs:
 
   azure_aks:
     name: "Create Azure AKS"
-    if: (inputs.deployment == 'deploy-workloads')
+    if: (inputs.deployment == 'deploy-workloads' || inputs.deployment == 'enable-waf')
     needs: [apply_variables, azure_networking, azure_vnet_site]
     runs-on: ubuntu-latest
     defaults:
@@ -474,7 +474,7 @@ jobs:
 
   workload:
     name: "Deploy Demo Workloads"
-    if: (inputs.deployment == 'deploy-workloads')
+    if: (inputs.deployment == 'deploy-workloads' || inputs.deployment == 'enable-waf')
     needs: [apply_variables, aws_vpc_site, azure_networking, aws_networking, azure_vnet_site, aws_eks, azure_aks]
     runs-on: ubuntu-latest
     defaults:
@@ -586,7 +586,7 @@ jobs:
 
   enable_waf_product: 
     uses: f5devcentral/f5-xc-terraform-examples/.github/workflows/apply-waf-policy.yaml@main
-    if: (inputs.deployment == 'deploy-workloads')
+    if: (inputs.deployment == 'enable-waf')
     needs: [apply_variables, workload]
     name: "Enable WAF: Bookinfo Product"
     with: 
@@ -601,7 +601,7 @@ jobs:
 
   enable_waf_details: 
     uses: f5devcentral/f5-xc-terraform-examples/.github/workflows/apply-waf-policy.yaml@main
-    if: (inputs.deployment == 'deploy-workloads')
+    if: (inputs.deployment == 'enable-waf')
     needs: [apply_variables, workload]
     name: "Enable WAF: Bookinfo Details"
     with: 
@@ -613,3 +613,34 @@ jobs:
       XC_API_P12_FILE: ${{ secrets.XC_API_P12_FILE }}
       XC_P12_PASSWORD: ${{ secrets.XC_P12_PASSWORD }}
       XC_API_URL: ${{ secrets.XC_API_URL }}
+
+  test_waf:
+    name: "Tests"
+    if: (inputs.deployment == 'enable-waf')
+    needs: [apply_variables, workload, enable_waf_product, enable_waf_details]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "./workflow-guides/smcn/app-delivery-fabric"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Test Connection
+        run: |
+          echo ""
+          echo "##################################################"
+          echo "Testing Connection to Product Loadbalancer"
+          echo "##################################################"
+          curl -s -H "user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36" --resolve ${{ needs.workload.outputs.product_domain }}:80:${{ needs.workload.outputs.aws_xc_node_outside_ip }} "http://${{ needs.workload.outputs.product_domain }}/"
+          echo ""
+          echo "##################################################"
+          echo "Testing Connection to Details Loadbalancer"
+          echo "##################################################"
+          curl -s -H "user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36" --resolve ${{ needs.workload.outputs.product_domain }}:80:${{ needs.workload.outputs.aws_xc_node_outside_ip }} "http://${{ needs.workload.outputs.product_domain }}/productpage?u=normal"
+          echo ""
+          echo "##################################################"
+          echo "Testing WAF"
+          echo "##################################################"
+          curl -s -H "user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36" --resolve ${{ needs.workload.outputs.product_domain }}:80:${{ needs.workload.outputs.aws_xc_node_outside_ip }} "http://${{ needs.workload.outputs.product_domain }}?a=<script>alert('XSS')</script>"
+
