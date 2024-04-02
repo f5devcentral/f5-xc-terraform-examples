@@ -221,7 +221,6 @@ jobs:
       TF_VAR_existing_workload_subnets: ${{ needs.aws_networking.outputs.workload_subnet_ids }}
       TF_VAR_create_aws_vpc: "false"
       TF_CLOUD_WORKSPACE_AWS_VPC_SITE: ${{ needs.apply_variables.outputs.TF_CLOUD_WORKSPACE_AWS_VPC_SITE }}
-      TF_VAR_aws_cloud_credentials_name: ${{ needs.aws_credentials.outputs.aws_credentials_name }}
       TF_VAR_custom_security_group: "{ \"outside_security_group_id\": \"${{ needs.aws_networking.outputs.outside_security_group_id }}\", \"inside_security_group_id\": \"${{ needs.aws_networking.outputs.inside_security_group_id }}\" }"
       TF_VAR_tags: ${{ needs.apply_variables.outputs.TF_VAR_tags }}
     secrets: 
@@ -233,7 +232,7 @@ jobs:
       AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }} 
       AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }} 
       AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }} 
-      # XC_AWS_CLOUD_CREDENTIALS_NAME: ${{ needs.aws_credentials.outputs.aws_credentials_name }}
+      XC_AWS_CLOUD_CREDENTIALS_NAME: ${{ secrets.XC_AWS_CLOUD_CREDENTIALS_NAME != '' && secrets.XC_AWS_CLOUD_CREDENTIALS_NAME || needs.aws_credentials.outputs.aws_credentials_name }}
 
   azure_networking: 
     uses: f5devcentral/f5-xc-terraform-examples/.github/workflows/azure-networking-apply.yaml@main
@@ -315,7 +314,7 @@ jobs:
       AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
       AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
       AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-      XC_AZURE_CLOUD_CREDENTIALS_NAME: ${{ needs.azure_credentials.outputs.azure_credentials_name }}
+      XC_AZURE_CLOUD_CREDENTIALS_NAME: ${{ secrets.XC_AZURE_CLOUD_CREDENTIALS_NAME != '' && secrets.XC_AZURE_CLOUD_CREDENTIALS_NAME || needs.azure_credentials.outputs.azure_credentials_name }}
 
   aws_eks:
     name: "Create AWS EKS"
