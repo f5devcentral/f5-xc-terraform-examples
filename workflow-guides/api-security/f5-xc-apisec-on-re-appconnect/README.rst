@@ -20,9 +20,8 @@ Architectural diagram :
 
 Step by step process for F5 XC console based deployment:
 --------------------------------------------------------
-`Console Workflow <./console.rst>`
-
+`Console Workflow <./console.rst>`__
 
 Step by step process for Terraform based deployment:
 ----------------------------------------------------
-`Automation Workflow <./automation.rst>`
+`Automation Workflow <./automation.rst>`__
