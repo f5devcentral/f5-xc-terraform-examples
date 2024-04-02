@@ -45,4 +45,9 @@ xc_mud = false
 # CE configs
 gcp_ce_site = "false"
 aws_ce_site = "false"
-site_name = "waf-on-ce"
+site_name = ""
+
+# infra
+azure = "azure-infra"
+aws   = ""
+gcp   = ""

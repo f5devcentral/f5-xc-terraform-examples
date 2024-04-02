@@ -1,4 +1,4 @@
-data "tfe_outputs" "infra" {
+data "tfe_outputs" "azure-infra" {
   organization = var.tf_cloud_organization
-  workspace = "infra"
+  workspace = "azure-infra"
 }

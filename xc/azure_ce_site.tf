@@ -59,8 +59,15 @@ resource "volterra_azure_vnet_site" "azure_vnet_site" {
   ssh_key = var.ssh_key
 }
 
+resource "null_resource" "delay" {
+  provisioner "local-exec" {
+    command = "sleep 10"
+  }
+}
+
 resource "volterra_tf_params_action" "action_apply" {
   count = var.az_ce_site ? 1 : 0
+  depends_on      = [null_resource.delay]
   site_name       = volterra_azure_vnet_site.azure_vnet_site[0].name
   site_kind       = "azure_vnet_site"
   action          = "apply"
