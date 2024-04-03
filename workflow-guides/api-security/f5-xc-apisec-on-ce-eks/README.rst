@@ -16,14 +16,14 @@ for more details on F5 Distributed Cloud API Protection.
 
 Architectural diagram :
 ------------------------
-.. image:: /workflow-guides/api/f5-xc-apisec-on-ce-eks/assets/base.png
+.. figure:: assets/base.png
 
 
 Step by step process for F5 XC console based deployment:
---------------------------------------------
-`Console Workflow <./console.rst>`
+--------------------------------------------------------
+`Console Workflow <./console.rst>`__
 
 
 Step by step process for Terraform based deployment:
------------------------------------------------
-`Automation Workflow <./automation.rst>`
+----------------------------------------------------
+`Automation Workflow <./automation.rst>`__

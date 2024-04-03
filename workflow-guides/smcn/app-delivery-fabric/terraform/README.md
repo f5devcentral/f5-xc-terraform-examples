@@ -120,15 +120,14 @@ The following are the default environment variables utilized in the GitHub Actio
 
 **STEP 6:** Select `deploy-workloads` from the list from the dropdown menu and click `Run workflow`. Wait for the workflow to complete.
 
-**STEP 7:** In the output of the `deploy-workloads` workflow, you will find the job `Deploy Demo Workloads`. Expand the `Print Output Vars` step and copy the `product_domain` and `aws_xc_node_outside_ip`. Create an A record in your DNS provider for the `product_domain` pointing to the `aws_xc_node_outside_ip`. Once the DNS record is created, you can access the app at `http://${product_domain}`.
+**STEP 7:** Select `enable-waf` from the list from the dropdown menu and click `Run workflow`. Wait for the workflow to complete.
+
+**STEP 8:** In the output of the `enable-waf` workflow, you will find the job `Tests`. Expand the `Test Connection` step and check the output for the curl command. This command will test the connection to the Bookinfo application.
+
+**STEP 9:** Open F5 XC Distributed Cloud and navigate to the `Web App & API Protection` tab from the main menu. Explore `Performance` dashboard to check the connection and traffic to the Bookinfo application. Open `Security` dashboard and check the WAF events.
 
 ## Steps to Destroy
 
 1. Open Github Actions and find `Secure Multi-Cloud Networking Destroy` workflow
 2. Run workflow and wait for completion
 3. Check your clouds for any remaining resources and delete them manually if necessary
-
-## Known Issues
-
-- The XC Site Provisioning (aws-vpc-site, azure-vnet-site) workflow may fail after the first run. This is due to the fact that the site is not fully provisioned and ready to accept the next workflow. The workaround is to wait for the site to be fully provisioned and then run the workflow again.
-- After destroy is run, the F5 XC site is not fully deleted. This is a known issue and is being worked on. The workaround is to manually delete the site from the F5 XC console.

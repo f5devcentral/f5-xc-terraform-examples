@@ -1,5 +1,5 @@
 F5XC API Security + AppConnect in Kubernetes Cluster Deployment
-=============================================================
+===============================================================
  
 F5 Distributed Cloud API Security is a comprehensive solution to securely manage APIs across any data center or cloud using a simple, fast, and scalable architecture. It helps drive business velocity by enabling automated API deployments and management, while also protecting against API-specific threats. Distributed Cloud API Security, part of the F5 Distributed Cloud Web App and API Protection (WAAP) solution, delivers a broad approach to API security with a combination of management, monitoring, and enforcement functionality.
 
@@ -19,10 +19,9 @@ Architectural diagram :
 .. figure:: assets/WAAP-on-RE-AppConnect-K8s.png
 
 Step by step process for F5 XC console based deployment:
---------------------------------------------
-`Console Workflow <./console.rst>`
-
+--------------------------------------------------------
+`Console Workflow <./console.rst>`__
 
 Step by step process for Terraform based deployment:
------------------------------------------------
-`Automation Workflow <./automation.rst>`
+----------------------------------------------------
+`Automation Workflow <./automation.rst>`__
