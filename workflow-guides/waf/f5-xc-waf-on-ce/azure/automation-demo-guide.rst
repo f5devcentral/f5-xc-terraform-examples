@@ -69,6 +69,7 @@ Terraform Cloud
 
 
 -  Variable set created in terraform cloud:
+
 .. image:: assets/variable-set.JPG
 
 
@@ -90,6 +91,7 @@ GitHub
          value ``aks-cluster``
 
 -  Created GitHub Action Secrets:
+
 .. image:: assets/action-secret.JPG
 
 Workflow Runs

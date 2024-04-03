@@ -69,7 +69,8 @@ Terraform Cloud
    +------------------------------------------+--------------+------------------------------------------------------+
 
 
--  Variable set created in terraform cloud:
+-  Variable set created in terraform cloud: 
+
 .. image:: Assets/variable_set.jpg
 
 
@@ -91,7 +92,8 @@ GitHub
    -  TF_CLOUD_WORKSPACE_XC: Your Terraform Cloud workspace for F5 XC
    
 
--  Created GitHub Action Secrets:
+-  Created GitHub Action Secrets: 
+
 .. image:: Assets/secrets_github2.jpg
 
 Workflow Runs
