@@ -1,5 +1,4 @@
 data "tfe_outputs" "infra" {
-  count =  var.azure ? 1 : 0
   organization = var.tf_cloud_organization
   workspace = "${coalesce(var.aws, var.azure, var.gcp, "infra")}"
 }

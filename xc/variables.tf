@@ -302,3 +302,21 @@ variable "aws_secret_key" {
   sensitive   = true
   default     = null
 }
+
+variable "azure" {
+  description = "Deployment Infra"
+  type        = string
+  default     = ""
+}
+
+variable "aws" {
+  description = "Deployment Infra"
+  type        = string
+  default     = ""
+}
+
+variable "gcp" {
+  description = "Deployment Infra"
+  type        = string
+  default     = ""
+}

@@ -31,7 +31,7 @@ jobs:
             cloud {
               organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
               workspaces {
-                name = "${{ secrets.TF_CLOUD_WORKSPACE_INFRA }}"
+                name = "${{ secrets.TF_CLOUD_WORKSPACE_AZURE_INFRA }}"
               }
             }
           }
