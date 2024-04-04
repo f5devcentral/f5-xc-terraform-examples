@@ -74,6 +74,7 @@ Terraform Cloud
 
 
 -  Variable set created in terraform cloud:
+
 .. image:: assets/tc_var_set.JPG
 
 
