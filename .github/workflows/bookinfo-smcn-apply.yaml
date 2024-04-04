@@ -602,7 +602,7 @@ jobs:
   enable_waf_details: 
     uses: f5devcentral/f5-xc-terraform-examples/.github/workflows/apply-waf-policy.yaml@main
     if: (inputs.deployment == 'enable-waf')
-    needs: [apply_variables, workload]
+    needs: [apply_variables, workload, enable_waf_product]
     name: "Enable WAF: Bookinfo Details"
     with: 
       is_shared: false
