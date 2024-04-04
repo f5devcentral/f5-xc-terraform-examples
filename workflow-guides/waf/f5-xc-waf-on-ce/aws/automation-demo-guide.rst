@@ -35,7 +35,7 @@ Terraform Cloud
    +---------------------------+-----------------------------------------------------+
    |         **Workflow**      |  **Assets/Workspaces**                              |
    +===========================+=====================================================+
-   | F5 XC WAF on CE Deploy    | infra, aws_eks_cluster, boutique_app, xc-ce-site    |
+   | F5 XC WAF on CE Deploy    | aws-infra, aws_eks_cluster, boutique_app, xc-ce-site|
    +---------------------------+-----------------------------------------------------+
 
 .. image:: Assets/workspace.jpg
