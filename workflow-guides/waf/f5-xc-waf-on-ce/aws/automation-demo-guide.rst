@@ -86,10 +86,10 @@ GitHub
    -  SSH_KEY: ssh key for accessing the created resources
    -  TF_API_TOKEN: Your Terraform Cloud API token
    -  TF_CLOUD_ORGANIZATION: Your Terraform Cloud Organization name
-   -  TF_CLOUD_WORKSPACE_BOUTIQUE: Your Terraform Cloud workspace for Boutique app
-   -  TF_CLOUD_WORKSPACE_EKS: Your Terraform Cloud workspace for AWS EKS Cluster
-   -  TF_CLOUD_WORKSPACE_INFRA: Your Terraform Cloud workspace for AWS Infrastructure
-   -  TF_CLOUD_WORKSPACE_XC: Your Terraform Cloud workspace for F5 XC
+   -  TF_CLOUD_WORKSPACE_BOUTIQUE: boutique_app
+   -  TF_CLOUD_WORKSPACE_EKS: aws_eks_cluster
+   -  TF_CLOUD_WORKSPACE_INFRA: aws-infra
+   -  TF_CLOUD_WORKSPACE_XC: xc-ce-site
    
 
 -  Created GitHub Action Secrets: 
