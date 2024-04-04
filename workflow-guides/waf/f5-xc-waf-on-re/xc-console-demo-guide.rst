@@ -63,7 +63,7 @@ Access the VM instance using the public IP of the VM instance through SSH (22), 
 ***********************
 
 Creating an Origin Pool and WAF Policy:
-**************************************
+****************************************
 Log in to the F5 Distributed Cloud Console and navigate to ``Web App & API Protection``.
 
 .. figure:: assets/web-module.png
@@ -94,7 +94,7 @@ Verify that the APP Firewall is created successfully.
 
 
 Creating a Load Balancer in F5 XC:
-********************************
+**********************************
 
 Log in the F5 Distributed Cloud Console and navigate to ``Web App & API Protection``.
 
