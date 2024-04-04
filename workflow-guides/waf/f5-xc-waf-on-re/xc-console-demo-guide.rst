@@ -54,9 +54,11 @@ Access the VM instance using the public IP of the VM instance through SSH (22), 
 
 
 * Finally verify that Arcadia is UP.  
+
 .. figure:: assets/waap-re-ssh.png
 
 * Access the Arcadia application using IP 8080.
+
 .. figure:: assets/arcadia-azure.png
 
 2. F5 XC Configuration
