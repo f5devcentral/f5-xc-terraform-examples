@@ -29,15 +29,15 @@ F5 XC services support site deployment for a Kernel-based Virtual Machine (KVM) 
 Below we shall take a look into detailed steps as mentioned,
 
 1.   Deploy CE on OpenStack:
-      **Step 1.1**: Creating Site Token
+      **Step 1.1: Creating Site Token**
       
       Login to F5 XC console home page and navigate to Multi-Cloud Network connect > Manage > Site Management > Site Token. Click “Add Site token” and create a site token.
       
       .. figure:: Assets/site-token-creation.jpg
 
-      **Step 1.2**: Deploying CE on Openstack 
+      **Step 1.2: Deploying CE on Openstack**
       
-      Creating an instance in Open Stack with the the KVM image file: rhel-9.2023.29-20231212011947. Resources allocated to this instance are 8 vCPUs and 16 GB RAM. Minimum resources required for node deployment are mentioned here. 
+      Creating an instance in Open Stack with the the KVM image file: rhel-9.2023.29-20231212011947. Resources allocated to this instance are 8 vCPUs and 16 GB RAM. Minimum resources required for node deployment are mentioned `here <https://docs.cloud.f5.com/docs/how-to/site-management/create-kvm-libvirt-site>`__. 
 
       .. figure:: Assets/open-stack.jpg
 
@@ -46,10 +46,17 @@ Below we shall take a look into detailed steps as mentioned,
       .. figure:: Assets/open-stack-login.jpg
 
 2.   Configure the CE site
-      **Step 2.1**: Configuring Network configuration of CE
+      **Step 2.1: Configuring Network configuration of CE**
 
       Provide the network configurations for the CE site as mentioned below according to the requirement,
 
       - Select certificate hardware as ``kvm-voltmesh``.
+      - Select primary outside NIC as ``eth0``.
+      - Dhcp enabling, wifi configs, VoltADN private configs were set as No.
+      - Static IP configs and HTTP_Proxy were not required for now.
+      - NTP1 and NTP2 addresses were set to empty.
+
+      .. figure:: Assets/configure-network-new-2.jpg
+
 
 
