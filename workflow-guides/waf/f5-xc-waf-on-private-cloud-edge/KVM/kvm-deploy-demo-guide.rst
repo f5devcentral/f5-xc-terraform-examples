@@ -41,6 +41,6 @@ Below we shall take a look into detailed steps as mentioned,
 
       .. figure:: Assets/open-stack.jpg
 
-        Login to CE site created above with credentials as admin/Volterra123 and must change password during first login as mentioned below, 
+      * Login to CE site created above with credentials as admin/Volterra123 and must change password during first login as mentioned below, 
 
 
