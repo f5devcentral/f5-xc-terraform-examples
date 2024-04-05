@@ -13,3 +13,5 @@ Solution overview
 *******************
 
 In this article, we demonstrate deploying F5 XC Services site as a Customer Edge (CE) on KVM in Open Stack private cloud network. We also deploy an application and connect the CE to the F5 XC’s Global network. This results in extending the F5 XC’s global backbone network to the customer premises to provide security capabilities along with telemetry. 
+
+.. figure:: Assets/KVM_on-prem_new.jpeg
