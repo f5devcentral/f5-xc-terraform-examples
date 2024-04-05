@@ -136,7 +136,7 @@ variable "iss_claim" {
 variable "aud_claim" {
   type        = list(string)
   description = "JWT Validation audience claim"
-  default     = "[]"
+  default     = [""]
 }
 variable "val_period_enable" {
   type        = string
