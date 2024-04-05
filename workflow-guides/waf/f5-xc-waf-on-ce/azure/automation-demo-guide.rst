@@ -87,11 +87,11 @@ GitHub
    -  TF_CLOUD_WORKSPACE\_\ *<Workspace Name>*: Create for each
       workspace in your workflow per each job
 
-      -  EX: TF_CLOUD_WORKSPACE_AKS_CLUSTER would be created with the
-         value ``aks-cluster``
-
       -  EX: TF_CLOUD_WORKSPACE_AZURE_INFRA would be created with the
          value ``azure-infra``
+
+      -  EX: TF_CLOUD_WORKSPACE_AKS_CLUSTER would be created with the
+         value ``aks-cluster``
 
       -  EX: TF_CLOUD_WORKSPACE_XC_DEPLOY would be created with the
          value ``xc-deploy``
