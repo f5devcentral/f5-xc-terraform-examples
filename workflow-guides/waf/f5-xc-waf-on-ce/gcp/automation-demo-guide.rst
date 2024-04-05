@@ -145,6 +145,8 @@ Workflow File: `gcp-waf-ce-destroy.yml </.github/workflows/gcp-waf-ce-destroy.ya
 
 -  gcp_ce_site = "set to true since we want to deploy GCP CE site"
 
+-  gcp = "gcp-infra"
+
 .. image:: assets/xc-tfvars.JPG
 
 

@@ -164,6 +164,8 @@ Workflow File: `waf-on-ce-aws-destroy.yml </.github/workflows/waf-on-ce-aws-dest
 
 -  http_only = "set to true to deploy a http loadbalancer."
 
+-  aws = "aws-infra"
+
 
 Keep the rest of the values as they are.
 

@@ -150,9 +150,9 @@ Workflow File: `waf-on-ce-az-destroy.yml </.github/workflows/waf-on-ce-az-destro
 
 -  k8s_pool = "set to true if application is residing in k8s environment"
 
--  serviceName = "k8s service name of frontend microservice"
+-  serviceName = "k8s service name of frontend microservice" (for this use case set it to "frontend.default")
 
--  serviceport = "k8s service port of frontend microservice"
+-  serviceport = "k8s service port of frontend microservice" (for this use case set it to "80")
 
 -  advertise_sites = "set to false if want to advertise on public"
 
@@ -161,6 +161,8 @@ Workflow File: `waf-on-ce-az-destroy.yml </.github/workflows/waf-on-ce-az-destro
 -  az_ce_site = "set to true if want to deploy azure CE site"
 
 -  xc_service_discovery = "set to true if want to create service discovery object in XC console"
+
+-  Set azure = "azure-infra"
 
 Keep rest of the values as they are set by default in terraform.tfvars.examples file.
 

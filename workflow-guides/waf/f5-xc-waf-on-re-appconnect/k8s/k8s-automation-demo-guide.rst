@@ -139,9 +139,9 @@ Workflow File: `waf-re-ac-k8s-destroy.yml </.github/workflows/waf-re-ac-k8s-dest
 
 -  k8s_pool = "Set to true as backend is residing in k8s"
 
--  serviceName = "k8s service name of backend"
+-  serviceName = "k8s service name of backend" (for this use case set it to "frontend.default")
 
--  serviceport = "k8s service port of backend"
+-  serviceport = "k8s service port of backend" (for this use case set it to "80")
 
 -  advertise_sites = "set to false as we want to advertise on public"
 
@@ -152,6 +152,8 @@ Workflow File: `waf-re-ac-k8s-destroy.yml </.github/workflows/waf-re-ac-k8s-dest
 -  az_ce_site = "set to true since we want to deploy azure CE site"
 
 -  xc_service_discovery = "set to true as want to create service discovery object in XC console"
+
+-  Set azure = "azure-infra"
 
 **STEP 4:** Commit and push your build branch to your forked repo 
 
