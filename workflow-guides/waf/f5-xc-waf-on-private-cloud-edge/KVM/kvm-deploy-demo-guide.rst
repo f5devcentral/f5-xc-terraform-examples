@@ -92,7 +92,7 @@ Below we shall take a look into detailed steps as mentioned,
 
       - It takes a few minutes for the site to come to online state along with OS version, SW version section values shows successful.
 
-      .. figure:: Assets/site-state-online.jpg
+      .. figure:: Assets/site-status-online.jpg
 
 
 
