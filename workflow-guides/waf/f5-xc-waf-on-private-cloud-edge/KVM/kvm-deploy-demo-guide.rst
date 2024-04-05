@@ -41,6 +41,15 @@ Below we shall take a look into detailed steps as mentioned,
 
       .. figure:: Assets/open-stack.jpg
 
-      * Login to CE site created above with credentials as admin/Volterra123 and must change password during first login as mentioned below, 
+      * Login to CE site created above with credentials as admin/Volterra123 and must change password during first login as mentioned below,
+
+      .. figure:: Assets/open-stack-login.jpg
+
+2.   Configure the CE site
+      **Step 2.1**: Configuring Network configuration of CE
+
+      Provide the network configurations for the CE site as mentioned below according to the requirement,
+
+      - Select certificate hardware as ``kvm-voltmesh``.
 
 
