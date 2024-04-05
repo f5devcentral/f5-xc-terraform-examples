@@ -15,3 +15,20 @@ Solution overview
 In this article, we demonstrate deploying F5 XC Services site as a Customer Edge (CE) on KVM in Open Stack private cloud network. We also deploy an application and connect the CE to the F5 XC’s Global network. This results in extending the F5 XC’s global backbone network to the customer premises to provide security capabilities along with telemetry. 
 
 .. figure:: Assets/KVM_on-prem_new.jpeg
+
+Step by Step procedure
+************************
+
+F5 XC services support site deployment for a Kernel-based Virtual Machine (KVM) as a node and to perform site registration on F5 XC console. Below are the steps mentioned,
+
+1. Deploy CE on OpenStack
+2. Configure CE site
+3. F5 XC configs and app deploy 
+4. Create Origin Pool & Load Balancer
+
+1.   Deploy CE on OpenStack:
+      **Step 1.1**: Creating Site Token
+      Login to F5 XC console home page and navigate to Multi-Cloud Network connect > Manage > Site Management > Site Token. Click “Add Site token” and create a site token.
+      .. figure:: Assets/open-stack.jpg
+
+
