@@ -82,6 +82,7 @@ Below we shall take a look into detailed steps as mentioned,
 
       .. figure:: Assets/pending-registration.jpg
 
+      - Verify the configs & enter other configurations, if needed.
 
       .. figure:: Assets/approve-registration.jpg
 
@@ -96,6 +97,81 @@ Below we shall take a look into detailed steps as mentioned,
 
 
       .. figure:: Assets/site-status-online.jpg
+
+3.   F5 XC configs and app deploy
+      **Step 3.1: Creating & Assigning labels to Site**
+
+      - From F5 XC console > select Shared Configuration box.
+      - Select Manage in left-menu > select Labels > Known Keys and select “Add known key” button.
+
+      .. figure:: Assets/labels.jpg
+
+      - Enter Label key name and value for the key. Click on “Add key button” to create key-value pair.
+
+      - Navigating to Multi-Cloud Network Connect > Site Management > App Stack Sites. Select the site to which labels need to be assigned and click on Manage Configuration.
+
+      .. figure:: Assets/manage-configs.jpg
+
+      - Click on Edit configuration on the top right corner to make config changes to the site.
+
+      - Click on Add Label in Labels section and add the key-value pair created above.
+
+      .. figure:: Assets/labels-to-site.jpg
+
+      - Click on Save and Exit.
+
+      **Step 3.2: Creating Virtual Site & vK8s object**
+
+      - From F5 XC Console homepage, Click on Shared Configuration. Click Manage > Virtual Sites and click on “Add Virtual Site”.
+      - In the Site Type select CE. From the Selector Expression field, click Add Label to provide the custom key created previously along with operator, followed by custom value as shown below. Click on Save and Exit.
+
+      .. figure:: Assets/virtual-site-creation.jpg
+
+      - From F5 XC Console Homepage, Select Distributed apps. Select Applications > Virtual k8s. Click on “Add Virtual K8s” to create a vK8s object.
+      - In the Virtual Sites section, select Add item and then select a virtual site created above from the drop-down menu.
+
+      .. figure:: Assets/vk8s-object.jpg
+
+      - Deploy the application on VMware EXSi using the kubeconfig file for the vK8s object created above.
+
+      .. figure:: Assets/app-deploy.jpg
+
+      - Application is deployed successfully.
+
+4.   Creating Origin Pool and Load Balancer
+      **Step 4.1: Creating Origin Pool **
+
+      - Creating an origin pool for application deployed in private cloud on the CE site.
+
+      .. figure:: Assets/op-configs.jpg
+
+      - Created a Load balancer and assigned Origin Pool to the Load Balancer to access the application.
+
+      .. figure:: Assets/lb-configs.jpg
+
+      - Application is accessible.
+
+      .. figure:: Assets/app-accessing.jpg
+      
+      Created a WAF policy with enforcement mode as blocking and assigned this to the Load Balancer.
+
+      .. figure:: Assets/waf-policy.jpg
+
+      - Able to see request getting blocked for accessing file type violation.
+
+      .. figure:: Assets/block-request.jpg
+
+
+Conclusion
+**************
+By deploying Distributed Cloud Services site on VMware ESXi things become easier to discover the services running in private networks to the F5 XC global network and makes a pathway to easily connect to the applications running in Public Clouds.
+
+
+
+
+
+
+
 
 
 
