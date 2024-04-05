@@ -82,15 +82,18 @@ Below we shall take a look into detailed steps as mentioned,
 
       .. figure:: Assets/pending-registration.jpg
 
+
       .. figure:: Assets/approve-registration.jpg
 
       - Click on Save and Exit to complete site registration.
+
 
       .. figure:: Assets/online-state.jpg
 
       Confirm site deployed and online by navigating to Multi-Cloud Network Connect > Sites.
 
       - It takes a few minutes for the site to come to online state along with OS version, SW version section values shows successful.
+
 
       .. figure:: Assets/site-status-online.jpg
 
