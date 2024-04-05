@@ -29,6 +29,7 @@ F5 XC services support site deployment for a Kernel-based Virtual Machine (KVM) 
 1.   Deploy CE on OpenStack:
       **Step 1.1**: Creating Site Token
       Login to F5 XC console home page and navigate to Multi-Cloud Network connect > Manage > Site Management > Site Token. Click “Add Site token” and create a site token.
+      
       .. figure:: Assets/open-stack.jpg
 
 
