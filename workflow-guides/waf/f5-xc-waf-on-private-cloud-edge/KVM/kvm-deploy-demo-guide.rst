@@ -26,14 +26,17 @@ F5 XC services support site deployment for a Kernel-based Virtual Machine (KVM) 
 3. F5 XC configs and app deploy 
 4. Create Origin Pool & Load Balancer
 
+Below we shall take a look into detailed steps as mentioned above.
 
 1.   Deploy CE on OpenStack:
       **Step 1.1**: Creating Site Token
+      
       Login to F5 XC console home page and navigate to Multi-Cloud Network connect > Manage > Site Management > Site Token. Click “Add Site token” and create a site token.
       
       .. figure:: Assets/site-token-creation.jpg
 
       **Step 1.2**: Deploying CE on Openstack 
+      
       Creating an instance in Open Stack with the the KVM image file: rhel-9.2023.29-20231212011947. Resources allocated to this instance are 8vCPUs and 16 GB RAM. Minimum resources required for node deployment are mentioned here. 
 
       .. figure:: Assets/open-stack.jpg
