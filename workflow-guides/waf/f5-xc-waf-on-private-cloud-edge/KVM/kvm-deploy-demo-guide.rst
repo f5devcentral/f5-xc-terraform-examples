@@ -58,5 +58,49 @@ Below we shall take a look into detailed steps as mentioned,
 
       .. figure:: Assets/configure-network-new-2.jpg
 
+      Enter Y to confirm configuration.
+
+      **Step 2.2: Providing node configurations**
+
+      - Provide the site token created in above step from F5 XC console.
+      - Enter the name of the site and hostname.
+      - Enter the latitude and longitude of the CE site location.
+      - Select certificate hardware as ``kvm-voltmesh``. 
+      - Select primary outside NIC as ``etho``.
+      - Select registration env as blank.
+
+      .. figure:: Assets/node-configs.jpg
+
+      Enter Y to confirm configuration.
+
+      **Step 2.3: Registration of CE site**
+
+      After the Distributed Cloud Services Node is installed, it must be registered as a site in F5 XC console.
+
+      - Login to F5 XC console. Click on Multi-Cloud Network Connect. Click Manage > Site Management > Registration.
+      - Under pending Registration, look for node name and then click on blue checkmark.
+
+      .. figure:: Assets/pending-registration.jpg
+
+      .. figure:: Assets/approve-registration.jpg
+
+      - Click on Save and Exit to complete site registration.
+
+      .. figure:: Assets/online-state.jpg
+
+      Confirm site deployed and online by navigating to Multi-Cloud Network Connect > Sites.
+
+      - It takes a few minutes for the site to come to online state along with OS version, SW version section values shows successful.
+
+      .. figure:: Assets/site-state-online.jpg
+
+
+
+
+
+
+
+
+
 
 
