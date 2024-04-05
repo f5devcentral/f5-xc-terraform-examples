@@ -33,7 +33,7 @@ Terraform Cloud
    +---------------------------+-------------------------------------------+
    |         **Workflow**      |  **Assets/Workspaces**                    |
    +===========================+===========================================+
-   | f5-xc-waf-on-re-appconnect| infra, aks-cluster, xc                    |
+   | f5-xc-waf-on-re-appconnect| azure-infra, aks-cluster, xc              |
    +---------------------------+-------------------------------------------+
 
 .. image:: assets/workspaces.JPG
@@ -121,9 +121,9 @@ Workflow File: `waf-re-ac-k8s-destroy.yml </.github/workflows/waf-re-ac-k8s-dest
 
 -  azure_region = “Azure Region/Location” ex. "southeastasia".
 
--  aks-cluster = Set this value to true as we need AKS cluster in our usecase.
+-  aks-cluster = Set this value to true as we need AKS cluster in our use-case.
 
--  Also update assets boolean value as per your workflow.
+-  Also update assets boolean value as per your workflow. (for this use-case set all remaining values as false)
 
 **Step 3:** Rename ``xc/terraform.tfvars.examples`` to ``xc/terraform.tfvars`` and add the following data: 
 

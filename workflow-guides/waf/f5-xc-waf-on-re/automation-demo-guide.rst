@@ -90,7 +90,7 @@ GitHub
    -  TF_API_TOKEN: Your Terraform Cloud API token
    -  TF_CLOUD_ORGANIZATION: Your Terraform Cloud Organization name
    -  TF_CLOUD_WORKSPACE\_\ *<Workspace Name>*: Create for each
-      workspace in your workflow per each job
+      workspace used in your workflow
 
       -  EX: TF_CLOUD_WORKSPACE_AZURE_VM would be created with the
          value ``azure-vm``
@@ -131,7 +131,9 @@ Workflow File: `waf-re-destroy.yml </.github/workflows/waf-re-destroy.yml>`__
 
 -  azure_region = “Azure Region/Location” ex. "southeastasia"
 
--  Also update assets boolean value as per your workflow, here set azure-vm and vm_public_ip to true
+-  Set azure-vm and vm_public_ip to true 
+
+-  Also update remaining assets boolean value as per your workflow. (for this use case remaining all values are false)
 
 **Step 3:** Rename ``xc/terraform.tfvars.examples`` to ``xc/terraform.tfvars`` and add the following data: 
 

@@ -36,7 +36,7 @@ Terraform Cloud
    +---------------------------+-------------------------------------------+
    |         **Workflow**      |  **Assets/Workspaces**                    |
    +===========================+===========================================+
-   | deploy-waf-gcp            | infra, juiceshop, xc                      |
+   | deploy-waf-gcp            | gcp-infra, juiceshop, xc                  |
    +---------------------------+-------------------------------------------+
 
 
@@ -78,7 +78,7 @@ GitHub
       workspace in your workflow per each job
 
       -  TF_CLOUD_WORKSPACE_INFRA would be created with the
-         value ``infra``
+         value ``gcp-infra``
 
       -  TF_CLOUD_WORKSPACE_APP would be created with the
          value ``juiceshop``
@@ -162,6 +162,7 @@ Workflow File: `gcp-waf-ce-destroy.yml </.github/workflows/gcp-waf-ce-destroy.ya
 **STEP 6:** Once CE site is online and to validate the test infra & demo app accessibility, copy the public IP of CE site in `GCP CE Site View mode` and send a request with XC LB domain as a `Host` header, You should be able to access the demo application as shown in the image below:
 
 .. image:: assets/gcp-ce-ip.jpg
+   
 .. image:: assets/postman.jpg
 
 

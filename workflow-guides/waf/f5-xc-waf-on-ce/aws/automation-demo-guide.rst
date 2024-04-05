@@ -140,6 +140,7 @@ Workflow File: `waf-on-ce-aws-destroy.yml </.github/workflows/waf-on-ce-aws-dest
 -  min_size = "set to number 1"
 -  skip_private_subnet_creation = "set the boolean to true to deploy EKS Cluster Nodes in Public Subnets"
 -  allow_all_ingress_traffic_to_cluster = "Set the boolean to true to accept the traffic from F5 XC VPC Site(master)"
+-  aws_waf_ce = "aws-infra"
 
 **Step 4:** Rename ``xc/terraform.tfvars.examples`` to ``xc/terraform.tfvars`` and add the following data: 
 

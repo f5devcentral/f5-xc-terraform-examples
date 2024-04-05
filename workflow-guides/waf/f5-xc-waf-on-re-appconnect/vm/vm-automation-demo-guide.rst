@@ -122,9 +122,9 @@ Workflow File: `waf-re-ac-vm-destroy.yml </.github/workflows/waf-re-ac-vm-destro
 
 -  azure-vm = Set this value to true as we need Azure in our usecase.
 
--   vm_public_ip = Set this value to false as we dont need public IP to be created for VM
+-  vm_public_ip = Set this value to false as we dont need public IP to be created for VM
 
--  Also update assets boolean value as per your workflow.
+-  Also update assets boolean value as per your workflow. (for this use-case set all remaining values as false)
 
 **Step 3:** Rename ``xc/terraform.tfvars.examples`` to ``xc/terraform.tfvars`` and add the following data: 
 
