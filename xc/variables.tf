@@ -304,19 +304,19 @@ variable "aws_secret_key" {
 }
 
 variable "azure" {
-  description = "Deployment Infra"
+  description = "Workspace name of Azure deployment infra"
   type        = string
   default     = ""
 }
 
 variable "aws" {
-  description = "Deployment Infra"
+  description = "Workspace name of AWS deployment infra"
   type        = string
   default     = ""
 }
 
 variable "gcp" {
-  description = "Deployment Infra"
+  description = "Workspace name of GCP deployment infra"
   type        = string
   default     = ""
 }
