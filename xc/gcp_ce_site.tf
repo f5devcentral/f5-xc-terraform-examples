@@ -46,7 +46,7 @@ resource "volterra_gcp_vpc_site" "site" {
   }
 }
 
-resource "null_resource" "validation-wait" {
+resource "null_resource" "validation-wait-gcp" {
   count = var.gcp_ce_site ? 1 : 0
   provisioner "local-exec" {
     command = "sleep 70"
@@ -55,7 +55,7 @@ resource "null_resource" "validation-wait" {
 
 resource "volterra_tf_params_action" "apply_gcp_vpc" {
   count            = var.gcp_ce_site ? 1 : 0
-  depends_on       = [null_resource.validation-wait]
+  depends_on       = [null_resource.validation-wait-gcp]
   site_name        = volterra_gcp_vpc_site.site[0].name
   site_kind        = "gcp_vpc_site"
   action           = "apply"
