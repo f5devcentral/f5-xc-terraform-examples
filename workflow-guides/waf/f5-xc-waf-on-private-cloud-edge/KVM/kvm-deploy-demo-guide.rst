@@ -173,11 +173,6 @@ Conclusion
 **************
 F5 XC supports deploying its services across different private cloud platforms like openstack, this helps to connect its applications running in then to the F5 XC global network and protect the application. This gives feasibility to the organizations to utilize the services running across different cloud platforms in an easy manner.
 
-Additional Links
-******************
-'<https://docs.cloud.f5.com/docs/how-to/site-management/create-kvm-libvirt-site>'__
-'<https://docs.cloud.f5.com/docs/how-to/others/create-known-labels-keys>'__
-
 
 
 
