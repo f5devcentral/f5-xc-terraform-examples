@@ -164,7 +164,7 @@ Below we shall take a look into detailed steps as mentioned,
 
 Conclusion
 **************
-By deploying Distributed Cloud Services site on VMware ESXi things become easier to discover the services running in private networks to the F5 XC global network and makes a pathway to easily connect to the applications running in Public Clouds.
+F5 XC supports deploying its services across different private cloud platforms like openstack, this helps to connect its applications running in then to the F5 XC global network and protect the application. This gives feasibility to the organizations to utilize the services running across different cloud platforms in an easy manner.
 
 
 
