@@ -177,10 +177,6 @@ Additional Links
 ******************
 https://docs.cloud.f5.com/docs/how-to/site-management/create-kvm-libvirt-site
 https://docs.cloud.f5.com/docs/how-to/others/create-known-labels-keys
-     https://docs.cloud.f5.com/docs/how-to/fleets-vsites/create-virtual-site
-     https://docs.cloud.f5.com/docs/how-to/app-management/create-vk8s-obj
-     https://docs.cloud.f5.com/docs/how-to/app-networking/origin-pools
-     https://docs.cloud.f5.com/docs/how-to/app-networking/http-load-balancer
 
 
 
