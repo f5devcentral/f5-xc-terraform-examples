@@ -136,7 +136,7 @@ variable "iss_claim" {
 variable "aud_claim" {
   type        = list(string)
   description = "JWT Validation audience claim"
-  default     = "[]"
+  default     = [""]
 }
 variable "val_period_enable" {
   type        = string
@@ -301,4 +301,22 @@ variable "aws_secret_key" {
   type        = string
   sensitive   = true
   default     = null
+}
+
+variable "azure" {
+  description = "Workspace name of Azure deployment infra"
+  type        = string
+  default     = ""
+}
+
+variable "aws" {
+  description = "Workspace name of AWS deployment infra"
+  type        = string
+  default     = ""
+}
+
+variable "gcp" {
+  description = "Workspace name of GCP deployment infra"
+  type        = string
+  default     = ""
 }

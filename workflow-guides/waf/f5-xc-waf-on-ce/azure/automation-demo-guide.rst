@@ -36,7 +36,7 @@ Terraform Cloud
    +---------------------------+-------------------------------------------+
    |         **Workflow**      |  **Assets/Workspaces**                    |
    +===========================+===========================================+
-   | f5-xc-waf-on-ce           | infra, aks-cluster, xc-deploy             |
+   | f5-xc-waf-on-ce           | azure-infra, aks-cluster, xc-deploy       |
    +---------------------------+-------------------------------------------+
 
 .. image:: assets/workspaces.JPG
@@ -87,8 +87,14 @@ GitHub
    -  TF_CLOUD_WORKSPACE\_\ *<Workspace Name>*: Create for each
       workspace in your workflow per each job
 
+      -  EX: TF_CLOUD_WORKSPACE_AZURE_INFRA would be created with the
+         value ``azure-infra``
+
       -  EX: TF_CLOUD_WORKSPACE_AKS_CLUSTER would be created with the
          value ``aks-cluster``
+
+      -  EX: TF_CLOUD_WORKSPACE_XC_DEPLOY would be created with the
+         value ``xc-deploy``
 
 -  Created GitHub Action Secrets:
 
@@ -122,11 +128,13 @@ Workflow File: `waf-on-ce-az-destroy.yml </.github/workflows/waf-on-ce-az-destro
 
 **STEP 2:** Rename ``azure/azure-infra/terraform.tfvars.examples`` to ``azure/azure-infra/terraform.tfvars`` and add the following data: 
 
--  project_prefix = “Your project identifier name in **lower case** letters only - this will be applied as a prefix to all assets”
+-  Set project_prefix = “Your project identifier name in **lower case** letters only - this will be applied as a prefix to all assets”
 
--  azure_region = “Azure Region/Location” ex. "southeastasia"
+-  Set azure_region = “Azure Region/Location” ex. "southeastasia"
 
--  Also update assets boolean value as per your workflow, here set aks-cluster to true
+-  Set aks-cluster to true
+
+-  Also update assets boolean value as per your workflow (for this use-case set all remaining values as false)
 
 **Step 3:** Rename ``xc/terraform.tfvars.examples`` to ``xc/terraform.tfvars`` and add the following data: 
 
@@ -142,9 +150,9 @@ Workflow File: `waf-on-ce-az-destroy.yml </.github/workflows/waf-on-ce-az-destro
 
 -  k8s_pool = "set to true if application is residing in k8s environment"
 
--  serviceName = "k8s service name of frontend microservice"
+-  serviceName = "k8s service name of frontend microservice" (for this use case set it to "frontend.default")
 
--  serviceport = "k8s service port of frontend microservice"
+-  serviceport = "k8s service port of frontend microservice" (for this use case set it to "80")
 
 -  advertise_sites = "set to false if want to advertise on public"
 
@@ -154,7 +162,9 @@ Workflow File: `waf-on-ce-az-destroy.yml </.github/workflows/waf-on-ce-az-destro
 
 -  xc_service_discovery = "set to true if want to create service discovery object in XC console"
 
-Keep the rest of the values as they are.
+-  Set azure = "azure-infra"
+
+Keep rest of the values as they are set by default in terraform.tfvars.examples file.
 
 **STEP 4:** Commit and push your build branch to your forked repo 
 
