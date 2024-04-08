@@ -35,7 +35,7 @@ Terraform Cloud
    +---------------------------+-----------------------------------------------------+
    |         **Workflow**      |  **Assets/Workspaces**                              |
    +===========================+=====================================================+
-   | F5 XC WAF on CE Deploy    | infra, aws_eks_cluster, boutique_app, xc-ce-site    |
+   | F5 XC WAF on CE Deploy    | aws-infra, aws_eks_cluster, boutique_app, xc-ce-site|
    +---------------------------+-----------------------------------------------------+
 
 .. image:: Assets/workspace.jpg
@@ -86,10 +86,10 @@ GitHub
    -  SSH_KEY: ssh key for accessing the created resources
    -  TF_API_TOKEN: Your Terraform Cloud API token
    -  TF_CLOUD_ORGANIZATION: Your Terraform Cloud Organization name
-   -  TF_CLOUD_WORKSPACE_BOUTIQUE: Your Terraform Cloud workspace for Boutique app
-   -  TF_CLOUD_WORKSPACE_EKS: Your Terraform Cloud workspace for AWS EKS Cluster
-   -  TF_CLOUD_WORKSPACE_INFRA: Your Terraform Cloud workspace for AWS Infrastructure
-   -  TF_CLOUD_WORKSPACE_XC: Your Terraform Cloud workspace for F5 XC
+   -  TF_CLOUD_WORKSPACE_BOUTIQUE: boutique_app
+   -  TF_CLOUD_WORKSPACE_EKS: aws_eks_cluster
+   -  TF_CLOUD_WORKSPACE_INFRA: aws-infra
+   -  TF_CLOUD_WORKSPACE_XC: xc-ce-site
    
 
 -  Created GitHub Action Secrets: 
@@ -140,6 +140,7 @@ Workflow File: `waf-on-ce-aws-destroy.yml </.github/workflows/waf-on-ce-aws-dest
 -  min_size = "set to number 1"
 -  skip_private_subnet_creation = "set the boolean to true to deploy EKS Cluster Nodes in Public Subnets"
 -  allow_all_ingress_traffic_to_cluster = "Set the boolean to true to accept the traffic from F5 XC VPC Site(master)"
+-  aws_waf_ce = "aws-infra"
 
 **Step 4:** Rename ``xc/terraform.tfvars.examples`` to ``xc/terraform.tfvars`` and add the following data: 
 
@@ -162,6 +163,8 @@ Workflow File: `waf-on-ce-aws-destroy.yml </.github/workflows/waf-on-ce-aws-dest
 -  advertise_sites = "set to true to advertise on public"
 
 -  http_only = "set to true to deploy a http loadbalancer."
+
+-  aws = "aws-infra"
 
 
 Keep the rest of the values as they are.

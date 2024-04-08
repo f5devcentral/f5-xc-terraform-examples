@@ -39,26 +39,30 @@ resource "volterra_aws_vpc_site" "aws_site" {
   ssh_key = var.ssh_key
 }
 
+/*
 resource "null_resource" "before" {
   depends_on       = [volterra_aws_vpc_site.aws_site]
 }
+*/
 
 resource "null_resource" "delay" {
   provisioner "local-exec" {
-    command = "sleep 20"
+    command = "sleep 70"
   }
-  triggers = {
+  /*triggers = {
     "before" = "${null_resource.before.id}"
-  }
+  }*/
 }
 
+/*
 resource "null_resource" "after" {
   depends_on = ["null_resource.delay"]
 }
+*/
 
 resource "volterra_tf_params_action" "example" {
   count = var.aws_ce_site ? 1 : 0
-  depends_on       = [null_resource.after]
+  depends_on       = [null_resource.delay]
   site_name        = "${coalesce(var.site_name, local.project_prefix)}"
   site_kind        = "aws_vpc_site"
   action           = "apply"

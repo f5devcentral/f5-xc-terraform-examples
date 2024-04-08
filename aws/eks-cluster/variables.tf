@@ -74,6 +74,7 @@ variable "allow_all_ingress_traffic_to_cluster" {
  description  = "Acception all Traffic to the instance created by EKS Cluster Nodes"
  default      = false
 }
+
 variable "aws_access_key" {
   description = "AWS Access Key ID"
   type        = string
@@ -88,7 +89,11 @@ variable "aws_secret_key" {
   default     = null
 }
 
-
+variable "aws_waf_ce" {
+  description = "Infra"
+  type        = string
+  default     = ""
+}
 
 
 
