@@ -16,6 +16,13 @@ In this article, we demonstrate deploying F5 XC Services site as a Customer Edge
 
 .. figure:: Assets/KVM_on-prem_new.jpeg
 
+Prerequisites
+**************
+- Distributed Cloud Console SaaS account.
+- Access to Openstack Management console & Command Line
+- Install Kubectl command line tool to connect and push the app manifest file to CE
+- Install postman for verifying the deployment
+
 Step by Step procedure
 ************************
 
@@ -165,6 +172,10 @@ Below we shall take a look into detailed steps as mentioned,
 Conclusion
 **************
 F5 XC supports deploying its services across different private cloud platforms like openstack, this helps to connect its applications running in then to the F5 XC global network and protect the application. This gives feasibility to the organizations to utilize the services running across different cloud platforms in an easy manner.
+
+Additional Links
+******************
+https://docs.cloud.f5.com/docs/how-to/site-management/create-kvm-libvirt-site
 
 
 
