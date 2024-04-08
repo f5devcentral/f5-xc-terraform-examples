@@ -62,7 +62,7 @@ resource "volterra_azure_vnet_site" "azure_vnet_site" {
 resource "null_resource" "validation-wait" {
   count = var.az_ce_site ? 1 : 0
   provisioner "local-exec" {
-    command = "sleep 30"
+    command = "sleep 70"
   }
 }
 
