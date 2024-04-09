@@ -33,8 +33,8 @@ Deployment Steps
 
 4. Select the created AKS cluster and click on connect button. Follow the instructions to connect to the AKS cluster 
 
-5. Once connected to the AKS cluster, deploy Online boutique demo application using the `manifest file <https://github.com/GoogleCloudPlatform/microservices-demo/blob/main/release/kubernetes-manifests.yaml>`_
-            i. Execute ``kubectl apply -f <your_manifest.yaml>`` (Note: we have slightly modified the manifest file)
+5. Once connected to the AKS cluster, deploy Online boutique demo application using the `manifest file <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/azure/aks-cluster/manifest.yaml>`_
+            i. Execute ``kubectl apply -f <your_manifest.yaml>``
             ii. Check the status of the pods, execute ``kubectl get pods``
 
              .. figure:: assets/kubectl.JPG
