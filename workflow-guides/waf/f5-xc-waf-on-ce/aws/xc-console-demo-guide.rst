@@ -82,7 +82,7 @@ Fig : AWS VPC object online
                e. On the Specify networking, Subnets will be auto selected as per the VPC. Click on Next.
                f. On the Review and Create page, review the managed node group configurations and click on create. Wait till the status of the node shows Ready.
 3.     Deploying the App to EKS Node Group
-        **Step 3.1**: Deploy online boutique demo application using the manifest file
+        **Step 3.1**: Deploy online boutique demo application using the `Manifest File <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/azure/aks-cluster/manifest.yaml>`__
                The kubectl command-line tool uses kubeconfig files to find the information it needed to choose a cluster and communicate with the API server of the cluster created in step 2.3. kubeconfig file for our Amazon EKS cluster is automatically created with the AWS CLI ``update-kubeconfig`` command. Applicaiton is deployed to the node once the communication is established to the cluster. https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html
                Below are the steps mentioned to deploy the online boutique application to Amazon EC2 nodes of the cluster,
                
