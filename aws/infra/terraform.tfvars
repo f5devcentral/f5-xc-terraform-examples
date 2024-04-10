@@ -3,8 +3,8 @@ project_prefix = "chthonda-aws-test"
 resource_owner = "chthonda"
 
 #AWS INFRA
-aws_region     = "eu-west-1"
-azs           = ["eu-west-1a", "eu-west-1b"]
+aws_region     = "eu-west-2"
+azs           = ["eu-west-2a", "eu-west-2b"]
 
 #Assets
 nic = false
