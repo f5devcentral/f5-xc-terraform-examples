@@ -1,5 +1,5 @@
 #Global
-project_prefix = "aws-new-code-test"
+project_prefix = "chthonda-aws-test"
 resource_owner = "chthonda"
 
 #AWS INFRA
@@ -11,3 +11,5 @@ nic = false
 nap = false
 bigip = false
 bigip-cis = false
+aks-cluster  = false
+azure-vm  = false
