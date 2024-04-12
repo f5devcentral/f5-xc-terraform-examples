@@ -1,5 +1,5 @@
 locals {
-  project_prefix = try(data.tfe_outputs.infra.values.project_prefix, xc_project_prefix)
+  project_prefix = try(data.tfe_outputs.infra.values.project_prefix, var.xc_project_prefix)
   build_suffix = try(data.tfe_outputs.infra.values.build_suffix, resource.random_id.build_suffix)
   #59origin_bigip = try(data.tfe_outputs.bigip.values.bigip_public_vip, "")
   #59origin_nginx = try(data.tfe_outputs.nap.values.external_name, data.tfe_outputs.nic.values.external_name, "")
