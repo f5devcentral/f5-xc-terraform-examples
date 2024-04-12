@@ -1,3 +1,24 @@
+#infrastructure
+variable "azure" {
+  description = "Workspace name of Azure deployment infra"
+  type        = string
+  default     = ""
+}
+variable "aws" {
+  description = "Workspace name of AWS deployment infra"
+  type        = string
+  default     = ""
+}
+variable "gcp" {
+  description = "Workspace name of GCP deployment infra"
+  type        = string
+  default     = ""
+}
+variable "vk8s" {
+  description = "Boolian for vk8s infrastructure
+  type = bool
+  default = false
+}
 #TF Cloud
 variable "tf_cloud_organization" {
   type        = string
@@ -8,6 +29,11 @@ variable "ssh_key" {
   description = "SSH pub key, only present for warning handling with TF cloud variable set"
 }
 #XC
+variable "xc_project_prefix" {
+  type        = string
+  default     = "xcdemo"
+  description = "This value is inserted at the beginning of each XC object and only used if not set by Infra TF run"
+}
 variable "xc_tenant" {
   type        = string
   description = "Your F5 XC tenant name" 
@@ -303,20 +329,4 @@ variable "aws_secret_key" {
   default     = null
 }
 
-variable "azure" {
-  description = "Workspace name of Azure deployment infra"
-  type        = string
-  default     = ""
-}
 
-variable "aws" {
-  description = "Workspace name of AWS deployment infra"
-  type        = string
-  default     = ""
-}
-
-variable "gcp" {
-  description = "Workspace name of GCP deployment infra"
-  type        = string
-  default     = ""
-}
