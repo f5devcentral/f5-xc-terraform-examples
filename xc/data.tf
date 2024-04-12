@@ -1,8 +1,8 @@
 data "tfe_outputs" "infra" {
+  count = var.vk8s ? 0 : 1
   organization = var.tf_cloud_organization
   workspace = "${coalesce(var.aws, var.azure, var.gcp, "infra")}"
 }
-
 data "tfe_outputs" "bigip" {
   count = data.tfe_outputs.infra.values.bigip ? 1 : 0
   organization = var.tf_cloud_organization
