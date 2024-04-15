@@ -197,7 +197,7 @@ Below we shall take a look into detailed steps,
 
 Conclusion
 **************
-Integrating F5 XC services with VMware results in delivering consistent security and performance for apps running on VMware. This integration connects application services running on VMware Private cloud to multiple public cloud providers.        
+Integrating F5 XC services with VMware results in delivering consistent security and performance for apps running on VMware. This integration connects application services running on VMware Private cloud to multiple public cloud providers.
 
 
 
