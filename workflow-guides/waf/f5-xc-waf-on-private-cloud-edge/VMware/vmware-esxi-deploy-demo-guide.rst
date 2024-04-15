@@ -109,7 +109,7 @@ Below we shall take a look into detailed steps,
 
       **Step 2.2: Register the VMware site**
 
-      After the Distributed Cloud Services Node is installed in VMware, it must be registered as a site in F5 XC Console.
+      After the F5 XC Services Node is installed in VMware, it must be registered as a site in F5 XC Console.
 
       - From F5 XC home page, Navigate to Multi-Cloud Network Connect > Manage > Site Management > Registration. 
       - Under pending registration, find the node name and click on blue checkmark to verify the form related to VMware site.
@@ -140,7 +140,7 @@ Below we shall take a look into detailed steps,
       
       .. figure:: Assets/labels.jpg
 
-      - Enter Label key name and value for the key. Click on “Add key button” to create key-value pair.
+      - Enter Label key name and value for the key. Click on ``Add key button`` to create key-value pair.
       - Navigating to Multi-Cloud Network Connect > Site Management > App Stack Sites. Select the site to which labels need to be assigned and click on Manage Configuration.
 
       .. figure:: Assets/site-mgmt.jpg
