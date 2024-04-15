@@ -111,7 +111,7 @@ Below we shall take a look into detailed steps,
 
       After the Distributed Cloud Services Node is installed in VMware, it must be registered as a site in F5 XC Console.
 
-- hello there
+      - hello there
 
 
 
