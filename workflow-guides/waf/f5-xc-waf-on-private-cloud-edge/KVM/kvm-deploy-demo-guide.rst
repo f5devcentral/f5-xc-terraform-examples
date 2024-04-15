@@ -46,7 +46,7 @@ Below we shall take a look into detailed steps as mentioned,
       
       Creating an instance in Open Stack with the the KVM image file: rhel-9.2023.29-20231212011947. Resources allocated to this instance are 8 vCPUs and 16 GB RAM. Minimum resources required for node deployment are mentioned `here <https://docs.cloud.f5.com/docs/how-to/site-management/create-kvm-libvirt-site>`__. 
 
-      KVM image file can be downloaded by going to this `link <https://docs.cloud.f5.com/docs/how-to/site-management/create-kvm-libvirt-site>`__.
+      KVM image file can be downloaded by going to this `link <https://docs.cloud.f5.com/docs/images/node-cert-hw-kvm-images>`__.
 
       .. figure:: Assets/open-stack.jpg
 
