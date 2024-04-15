@@ -111,7 +111,105 @@ Below we shall take a look into detailed steps,
 
       After the Distributed Cloud Services Node is installed in VMware, it must be registered as a site in F5 XC Console.
 
-      - hello there
+      - From F5 XC home page, Navigate to Multi-Cloud Network Connect > Manage > Site Management > Registration. 
+      - Under pending registration, find the node name and click on blue checkmark to verify the form related to VMware site.
+
+      .. figure:: Assets/registration.jpg
+
+      - Verify the F5 XC Software version is set to default SW version and Operating system version set to Default OS version which means the latest. Click on Save and Exit to accept the registration.
+
+      .. figure:: Assets/registration-form.jpg
+
+      -  Site state shows Approval Started.
+
+      .. figure:: Assets/site-online.jpg
+
+      Confirm site deployed and online by navigating to Multi-Cloud Network Connect > Sites.
+
+      - It takes a few minutes for the site to come to online state along with OS version, SW version section values shows successful.
+
+      .. figure:: Assets/site-up-active.jpg
+
+3.   F5 XC configs and app deploy
+      **Step 3.1: Creating & Assigning labels to Site**
+
+      Labels are created to group multiple CE sites together to create a virtual site. A Virtual site provides a mechanism to perform operations on an individual or a group of sites.
+
+      - From F5 XC console > select Shared Configuration box.
+      - Select Manage in left-menu > select Labels > Known Keys and select ``Add known key`` button.
+      
+      .. figure:: Assets/labels.jpg
+
+      - Enter Label key name and value for the key. Click on “Add key button” to create key-value pair.
+      - Navigating to Multi-Cloud Network Connect > Site Management > App Stack Sites. Select the site to which labels need to be assigned and click on Manage Configuration.
+
+      .. figure:: Assets/site-mgmt.jpg
+
+      - Click on Edit configuration on the top right corner to make config changes to the site.
+      - Click on Add Label in Labels section and add the key-value pair created above.
+
+      .. figure:: Assets/labels-to-site-2.jpg
+
+      - Click on Save and Exit.
+
+      **Step 3.2: Creating Virtual Site & vK8s object**
+
+      - From F5 XC Console homepage, Click on Shared Configuration. Click Manage > Virtual Sites and click on ``Add Virtual Site``.
+      - In the Site Type select CE. From the Selector Expression field, click Add Label to provide the custom key created previously along with operator ``==``, followed by custom value as shown below. Click on Save and Exit.
+
+      .. figure:: Assets/virtual-site.jpg
+
+      - From F5 XC Console Homepage, Select Distributed apps. Select Applications > Virtual k8s. Click on ``Add Virtual K8s`` to create a vK8s object.
+      - In the Virtual Sites section, select Add item and then select a virtual site created above from the drop-down menu.
+
+      .. figure:: Assets/k8s-cluster.jpg
+
+      - Click on Save and Exit to create vK8s object. Select ``...`` > ``Kubeconfig`` for the vK8s object to download the Kubeconfig file.
+
+      .. figure:: Assets/vk8s-object.jpg
+
+      - Deploy the application on VMware EXSi using the kubeconfig file for the vK8s object created above.
+
+      .. figure:: Assets/app-deploy-2.jpg 
+
+4.   Creating Origin Pool and Load Balancer
+      **Step 4.1: Creating Origin Pool **
+
+      - Creating an origin pool for application deployed in private cloud on the CE site.
+
+      .. figure:: Assets/origin-pool.jpg
+
+      - Created a Load balancer and assigned Origin Pool to the Load Balancer to access the application.
+
+      .. figure:: Assets/load-balancer.jpg
+
+      - Application is accessible.
+
+      .. figure:: Assets/app-access.jpg
+
+      Created a WAF policy with enforcement mode as blocking and assigned this to the Load Balancer.
+
+      .. figure:: Assets/waf-policy.jpg
+
+      - When a client requests forceful browsing of exe file, which is the file type violation, it triggers a security event, and the request gets blocked by XC WAF.
+
+      .. figure:: Assets/request-block.jpg
+
+Conclusion
+**************
+Integrating F5 XC services with VMware results in delivering consistent security and performance for apps running on VMware. This integration connects application services running on VMware Private cloud to multiple public cloud providers.        
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
