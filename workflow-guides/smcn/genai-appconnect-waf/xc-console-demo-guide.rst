@@ -1,14 +1,17 @@
-Manual step by step process to deploy and secure Generative AI applications at the Edge with F5 XC AppStack mk8s and XC WAF
+Manual step by step process to connect and secure distributed Generative AI applications with F5 XC AppConnect and XC WAF
 ============================================================================================================================
 
 Prerequisites
 **************
 - F5 Distributed Cloud Console SaaS account
 - Access to Amazon Web Service (AWS) Management console & Command Line
-- Install Kubectl command line tool to connect and push the app manifest file to mk8s cluster
-- Install Postman for verifying the deployment
+- Access to Google Cloud (GCP) Management console & Command Line
+- Install Kubectl command line tool to connect and push the app manifest file to EKS and GKE clusters
+
 
 Create AWS credentials in XC by following the steps mentioned in this `Devcentral article <https://community.f5.com/kb/technicalarticles/creating-a-credential-in-f5-distributed-cloud-to-use-with-aws/298111>`_ 
+
+Create GCP credentials in XC by following the steps mentioned in this `Devcentral article <https://community.f5.com/kb/technicalarticles/creating-a-credential-in-f5-distributed-cloud-for-gcp/298290>`_ 
 
 Deployment Steps
 *****************
