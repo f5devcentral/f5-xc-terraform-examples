@@ -17,10 +17,20 @@ Deployment Steps
 *****************
 To deploy an AppStack mk8s cluster on an AWS CE Site, steps are categorized as mentioned below.
 
-1. Create mk8s cluster
-2. Create AWS VPC Site and attach the mk8s cluster
-3. Deploy the App to mk8s cluster
-4. Configure Origin Pool and HTTPS LB 
+1. In AWS console, create the EKS cluster
+2. Using Kubectl, deploy the LLM workload on the EKS cluster
+3. Using Kubectl, deploy the Distributed Cloud VPC site Customer Edge workload on the EKS cluster
+4. In GCP console, create the GKE cluster
+5. Using Kubectl, deploy the GenAI front-end application on the GKE cluster
+6. Using Kubectl, deploy the Distributed Cloud GCP site Customer Edge workload on the GKE cluster
+7. Publish the LLM service from EKS as a local service in GKE
+8. Advertise externally GenAI application through a GCP NLB
+9. Test the GenAI application for sensitive information disclosure
+10. Enable DataGuard on the HTTP LoadBalancer
+11. Retest the GenAI application for sensitive information disclosure
+
+
+
 
 Below we shall take a look into detailed steps as mentioned above.
 
