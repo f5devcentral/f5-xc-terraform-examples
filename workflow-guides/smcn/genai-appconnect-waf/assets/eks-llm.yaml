@@ -1,3 +1,5 @@
+.. code-block:: YAML
+
 apiVersion: v1
 kind: Namespace
 metadata:
