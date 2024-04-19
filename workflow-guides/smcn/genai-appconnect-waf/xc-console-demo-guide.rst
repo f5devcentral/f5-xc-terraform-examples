@@ -38,6 +38,7 @@ Below we shall take a look into detailed steps as mentioned above.
 2. Using Kubectl, deploy the LLM workload on the EKS cluster using the following configuration:
     
   .. code-block::
+
     apiVersion: v1
     kind: Namespace
     metadata:
