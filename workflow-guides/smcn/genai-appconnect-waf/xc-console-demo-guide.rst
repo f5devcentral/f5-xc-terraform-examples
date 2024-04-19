@@ -37,31 +37,31 @@ Below we shall take a look into detailed steps as mentioned above.
 
 2. Using Kubectl, deploy the LLM workload on the EKS cluster using the following configuration:
     
-  .. code-block::
+      .. code-block::
 
-    apiVersion: v1
-    kind: Namespace
-    metadata:
-      name: llm
-    ---
-    apiVersion: v1
-    kind: Service
-    metadata:
-      name: llama
-      labels:
-        app: llama
-      namespace: llm
-    spec:
-      type: ClusterIP
-      ports:
-      - port: 8000
-      selector:
-        app: llama
+        apiVersion: v1
+        kind: Namespace
+        metadata:
+          name: llm
+        ---
+        apiVersion: v1
+        kind: Service
+        metadata:
+          name: llama
+          labels:
+            app: llama
+          namespace: llm
+        spec:
+          type: ClusterIP
+          ports:
+          - port: 8000
+          selector:
+            app: llama
 
 
-**Step 1.1**: Login to F5 XC Console
-    a. From the F5 XC Home page, ``Select the Distributed Apps`` Service
-    b. Select Manage > Manage K8s > K8s clusters in the configuration menu. Click on Add K8s cluster.
+    **Step 1.1**: Login to F5 XC Console
+        a. From the F5 XC Home page, ``Select the Distributed Apps`` Service
+        b. Select Manage > Manage K8s > K8s clusters in the configuration menu. Click on Add K8s cluster.
 
 .. figure:: assets/mk8s-cluster.png
 Fig : mk8s cluster
