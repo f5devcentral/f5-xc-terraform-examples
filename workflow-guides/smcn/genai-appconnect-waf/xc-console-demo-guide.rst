@@ -36,7 +36,27 @@ Below we shall take a look into detailed steps as mentioned above.
 
 2. Using Kubectl, deploy the LLM workload on the EKS cluster using the following configuration:
 
-.. include:: assets/eks-llm.yaml
+.. code-block:: YAML
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: llm
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: llama
+  labels:
+    app: llama
+  namespace: llm
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8000
+  selector:
+    app: llama
+
 
 
 
