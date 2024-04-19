@@ -36,9 +36,8 @@ Below we shall take a look into detailed steps as mentioned above.
 1. In AWS console, create the EKS cluster following the steps mentioned in this `article <https://docs.aws.amazon.com/eks/latest/userguide/getting-started.html>`_ and complete the steps to configure your computer to communicate with your cluster.
 
 2. Using Kubectl, deploy the LLM workload on the EKS cluster using the following configuration:
-
+    
   .. code-block::
-
     apiVersion: v1
     kind: Namespace
     metadata:
@@ -57,8 +56,6 @@ Below we shall take a look into detailed steps as mentioned above.
       - port: 8000
       selector:
         app: llama
-
-
 
 
   **Step 1.1**: Login to F5 XC Console
