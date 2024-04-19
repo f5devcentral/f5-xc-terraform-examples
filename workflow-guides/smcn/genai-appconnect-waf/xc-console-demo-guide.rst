@@ -19,10 +19,10 @@ To deploy an AppStack mk8s cluster on an AWS CE Site, steps are categorized as m
 
 1. In AWS console, create the EKS cluster
 2. Using Kubectl, deploy the LLM workload on the EKS cluster
-3. Using Kubectl, deploy the Distributed Cloud VPC site Customer Edge workload on the EKS cluster
+3. Deploy the Distributed Cloud VPC site Customer Edge workload on the EKS cluster
 4. In GCP console, create the GKE cluster
 5. Using Kubectl, deploy the GenAI front-end application on the GKE cluster
-6. Using Kubectl, deploy the Distributed Cloud GCP site Customer Edge workload on the GKE cluster
+6. Deploy the Distributed Cloud GCP site Customer Edge workload on the GKE cluster
 7. Publish the LLM service from EKS as a local service in GKE
 8. Advertise externally GenAI application through a GCP NLB
 9. Test the GenAI application for sensitive information disclosure
@@ -38,7 +38,7 @@ Below we shall take a look into detailed steps as mentioned above.
 2.    Using Kubectl, deploy the LLM workload on the EKS cluster using the following configuration:
     
       .. code-block::
-
+        
         apiVersion: v1
         kind: Namespace
         metadata:
@@ -57,14 +57,197 @@ Below we shall take a look into detailed steps as mentioned above.
           - port: 8000
           selector:
             app: llama
+        
+        ---
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          name: llama
+          namespace: llm
+        spec:
+          selector:
+            matchLabels:
+              app: llama
+          replicas: 1
+          template:
+            metadata:
+              labels:
+                app: llama
+            spec:
+              containers:
+              - name: llama
+                image: registry.gitlab.com/f5-public/llama-cpp-python:latest
+                imagePullPolicy: Always
+                ports:
+                - containerPort: 8000
+        
+        ---
+        apiVersion: appprotect.f5.com/v1beta1
+        kind: APPolicy
+        metadata:
+          name: llama
+          namespace: llm
+        spec:
+          policy:
+            enforcementMode: blocking
+            name: llama
+            description: NGINX App Protect WAF API Security Policy for the OpenAI
+            template:
+              name: POLICY_TEMPLATE_NGINX_BASE
+            open-api-files:
+            - link: https://gitlab.com/f5-public/llama-cpp-python/-/raw/main/OpenAI-Swagger.yaml
+            blocking-settings:
+              violations:
+              - block: true
+                description: Disallowed file upload content detected in body
+                name: VIOL_FILE_UPLOAD_IN_BODY
+              - block: true
+                description: Mandatory request body is missing
+                name: VIOL_MANDATORY_REQUEST_BODY
+              - block: true
+                description: Illegal parameter location
+                name: VIOL_PARAMETER_LOCATION
+              - block: true
+                description: Mandatory parameter is missing
+                name: VIOL_MANDATORY_PARAMETER
+              - block: true
+                description: JSON data does not comply with JSON schema
+                name: VIOL_JSON_SCHEMA
+              - block: true
+                description: Illegal parameter array value
+                name: VIOL_PARAMETER_ARRAY_VALUE
+              - block: true
+                description: Illegal Base64 value
+                name: VIOL_PARAMETER_VALUE_BASE64
+              - block: true
+                description: Disallowed file upload content detected
+                name: VIOL_FILE_UPLOAD
+              - block: true
+                description: Illegal request content type
+                name: VIOL_URL_CONTENT_TYPE
+              - block: true
+                description: Illegal static parameter value
+                name: VIOL_PARAMETER_STATIC_VALUE
+              - block: true
+                description: Illegal parameter value length
+                name: VIOL_PARAMETER_VALUE_LENGTH
+              - block: true
+                description: Illegal parameter data type
+                name: VIOL_PARAMETER_DATA_TYPE
+              - block: true
+                description: Illegal parameter numeric value
+                name: VIOL_PARAMETER_NUMERIC_VALUE
+              - block: true
+                description: Parameter value does not comply with regular expression
+                name: VIOL_PARAMETER_VALUE_REGEXP
+              - block: true
+                description: Illegal URL
+                name: VIOL_URL
+              - block: true
+                description: Illegal parameter
+                name: VIOL_PARAMETER
+              - block: true
+                description: Illegal empty parameter value
+                name: VIOL_PARAMETER_EMPTY_VALUE
+              - block: true
+                description: Illegal repeated parameter name
+                name: VIOL_PARAMETER_REPEATED
+        
+        ---
+        apiVersion: appprotect.f5.com/v1beta1
+        kind: APLogConf
+        metadata:
+          name: logconf
+          namespace: llm
+        spec:
+          filter:
+            request_type: all
+          content:
+            format: default
+            max_request_size: any
+            max_message_size: 5k
+        
+        ---
+        apiVersion: appprotectdos.f5.com/v1beta1
+        kind: APDosPolicy
+        metadata:
+          name: dospolicy
+          namespace: llm
+        spec:
+          mitigation_mode: "conservative"
+          signatures: "on"
+          bad_actors: "off"
+          automation_tools_detection: "off"
+          tls_fingerprint: "off"
+        
+        ---
+        apiVersion: appprotectdos.f5.com/v1beta1
+        kind: APDosLogConf
+        metadata:
+           name: doslogconf
+           namespace: llm
+        spec:
+           filter:
+              traffic-mitigation-stats: all
+              bad-actors: top 10
+              attack-signatures: top 10
+        
+        ---
+        apiVersion: appprotectdos.f5.com/v1beta1
+        kind: DosProtectedResource
+        metadata:
+          name: dos-protected
+          namespace: llm
+        spec:
+          enable: true
+          name: "llama"
+          apDosPolicy: "llm/dospolicy"
+          apDosMonitor:
+            uri: "http://llama:8000/v1/completions"
+            protocol: "http1"
+            timeout: 5
+          dosSecurityLog:
+            enable: true
+            apDosLogConf: "llm/doslogconf"
+            dosLogDest: "10.0.134.70:5261"
+        
+        
+        ---
+        apiVersion: networking.k8s.io/v1
+        kind: Ingress
+        metadata:
+          name: llama
+          namespace: llm
+          annotations:
+            appprotect.f5.com/app-protect-policy: "llm/llama"
+            appprotect.f5.com/app-protect-enable: "True"
+            appprotect.f5.com/app-protect-security-log-enable: "True"
+            appprotect.f5.com/app-protect-security-log: "llm/logconf"
+            appprotect.f5.com/app-protect-security-log-destination: "syslog:server=10.0.134.70:5261"
+            appprotectdos.f5.com/app-protect-dos-resource: "llm/dos-protected"
+            nginx.org/proxy-read-timeout: "3600"
+            nginx.org/proxy-send-timeout: "3600"
+        spec:
+          ingressClassName: nginx
+          defaultBackend:
+            service:
+              name: llama
+              port:
+                number: 8000
+          rules:
+          - host: "*.com"
+            http:
+              paths:
+              - path: "/"
+                pathType: Prefix
+                backend:
+                  service:
+                    name: llama
+                    port:
+                      number: 8000
 
 
- **Step 1.1**: Login to F5 XC Console
-  a. From the F5 XC Home page, ``Select the Distributed Apps`` Service
-  b. Select Manage > Manage K8s > K8s clusters in the configuration menu. Click on Add K8s cluster.
 
-.. figure:: assets/mk8s-cluster.png
-Fig : mk8s cluster
 
 2.   Creating AWS VPC Site object from F5 XC Console:
       **Step 1.1**: Login to F5 XC Console
