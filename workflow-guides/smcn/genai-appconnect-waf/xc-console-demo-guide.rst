@@ -36,8 +36,7 @@ Below we shall take a look into detailed steps as mentioned above.
 
 2. Using Kubectl, deploy the LLM workload on the EKS cluster using the following configuration:
 
-.. literalinclude:: assets/eks-llm.yaml
-   :language: YAML
+.. include:: assets/eks-llm.yaml
 
 
 
