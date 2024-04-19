@@ -59,9 +59,9 @@ Below we shall take a look into detailed steps as mentioned above.
                 app: llama
 
 
-       **Step 1.1**: Login to F5 XC Console
-         a. From the F5 XC Home page, ``Select the Distributed Apps`` Service
-         b. Select Manage > Manage K8s > K8s clusters in the configuration menu. Click on Add K8s cluster.
+**Step 1.1**: Login to F5 XC Console
+    a. From the F5 XC Home page, ``Select the Distributed Apps`` Service
+    b. Select Manage > Manage K8s > K8s clusters in the configuration menu. Click on Add K8s cluster.
 
 .. figure:: assets/mk8s-cluster.png
 Fig : mk8s cluster
