@@ -30,11 +30,9 @@ To deploy an AppStack mk8s cluster on an AWS CE Site, steps are categorized as m
 11. Retest the GenAI application for sensitive information disclosure
 
 
-
-
 Below we shall take a look into detailed steps as mentioned above.
 
-1.   Creating mk8s cluster from F5 XC Console:
+1.   In AWS console, create the EKS cluster following the steps mentioned in this `article <https://docs.aws.amazon.com/eks/latest/userguide/getting-started.html>` _.
       **Step 1.1**: Login to F5 XC Console
             a. From the F5 XC Home page, ``Select the Distributed Apps`` Service
             b. Select Manage > Manage K8s > K8s clusters in the configuration menu. Click on Add K8s cluster.
