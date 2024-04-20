@@ -87,8 +87,8 @@ jobs:
       - name: Run Traffic
         run: |
           cp ../tools/run-curl-traffic.sh .
-          domain1 = "$terraform output -raw lb_domain.0"
-          domain2 = "$terraform output -raw lb_domain.1"
+          export domain1="$terraform output -raw lb_domain.0"
+          export domain2="$terraform output -raw lb_domain.1"
           echo $domain1 
           echo $domain2
           .\run-curl-traffic.sh "$domain1"
