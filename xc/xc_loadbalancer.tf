@@ -17,7 +17,7 @@ resource "null_resource" "wait_for_aws_ce_site"{
 # Create XC LB config
 resource "volterra_origin_pool" "op" {
   depends_on             = [null_resource.wait_for_site, null_resource.check_site_status_cert2, null_resource.check_site_status_cert, null_resource.wait_for_ekssite, null_resource.wait_for_aws_ce_site]
-  name                   = format("%s-xcop-%s", local.project_prefix, local.build_suffix)
+  name                   = format("%s-xcop", local.project_prefix)
   namespace              = var.xc_namespace
   description            = format("Origin pool pointing to origin server %s", local.origin_server)
 
@@ -97,7 +97,7 @@ resource "volterra_origin_pool" "op" {
 
 resource "volterra_http_loadbalancer" "lb_https" {
   depends_on             =  [volterra_origin_pool.op, volterra_tf_params_action.apply_gcp_vpc]
-  name                   = format("%s-xclb-%s", local.project_prefix, local.build_suffix)
+  name                   = format("%s-xclb", local.project_prefix)
   namespace              = var.xc_namespace
   labels                 = {
       "ves.io/app_type"  = length(var.xc_app_type) != 0 ? volterra_app_type.app-type[0].name : null
