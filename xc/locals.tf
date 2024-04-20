@@ -18,7 +18,7 @@ locals {
   azure_region        = try(data.tfe_outputs.infra.0.values.azure_region, "")
   resource_group_name = try(data.tfe_outputs.infra.0.values.resource_group_name, "")
   vnet_name           = try(data.tfe_outputs.infra.0.values.vnet_name, "")
-  subnet_name         = try(data.tfe_outputs.infra.0.values.subnet_name, data.tfe_outputs.infra.values.vpc_subnet, "")
+  subnet_name         = try(data.tfe_outputs.infra.0.values.subnet_name, data.tfe_outputs.infra.0.values.vpc_subnet, "")
   subnet_id           = try(data.tfe_outputs.infra.0.values.subnet_id, "")
   gcp_region          = try(data.tfe_outputs.infra.0.values.gcp_region, "")
   vpc_name            = try(data.tfe_outputs.infra.0.values.vpc_name, "")
