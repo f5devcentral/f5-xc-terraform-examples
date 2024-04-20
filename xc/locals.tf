@@ -1,6 +1,6 @@
 locals {
   project_prefix = try(data.tfe_outputs.infra.0.values.project_prefix, var.xc_project_prefix)
-  build_suffix = try(data.tfe_outputs.infra.0.values.build_suffix, resource.random_id.build_suffix)
+  build_suffix = try(data.tfe_outputs.infra.0.values.build_suffix, resource.random_id.build_suffix.hex)
   #59origin_bigip = try(data.tfe_outputs.bigip.values.bigip_public_vip, "")
   #59origin_nginx = try(data.tfe_outputs.nap.values.external_name, data.tfe_outputs.nic.values.external_name, "")
   origin_bigip = try(data.tfe_outputs.bigip[0].values.bigip_public_vip, "")
