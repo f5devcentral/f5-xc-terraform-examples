@@ -83,3 +83,11 @@ jobs:
       - name: Terraform Apply
         if: github.ref == 'refs/heads/bot-defense-re' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
+
+      - name: Run Traffic
+        run: |
+          cp ../tools/run-curl-traffic.sh .
+          domain1 = "$terraform output -raw lb_domain.0"
+          domain2 = "$terraform output -raw lb_domain.1"
+          .\run-curl-traffic.sh $domain1
+          .\run-curl-traffic.sh $domain2

@@ -63,6 +63,7 @@ xc_api_val_custom = false
 xc_bot_def = false
 xc_bot_path = "/user"
 need_infra = false
+site_name = "sv10-sjc"
 
 #XC DDoS
 xc_ddos_pro = false
@@ -73,4 +74,4 @@ xc_mud = false
 # CE configs
 gcp_ce_site = "false"
 aws_ce_site = "false"
-site_name = "sj10-sjc"
+

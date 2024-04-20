@@ -3,7 +3,7 @@ resource "volterra_namespace" "this" {
   count = var.vk8s ? 1 : 0
   name = var.xc_namespace
 }
-
+/*
 # create virtual site
 resource "volterra_virtual_site" "this" {
   count = var.vk8s ? 1 : 0
@@ -14,16 +14,16 @@ resource "volterra_virtual_site" "this" {
     expressions = [format("ves.io/siteName == %s", var.site_name)]
   }
   site_type = "REGIONAL_EDGE"
-}
+}*/
 
 # create vK8s
 resource "volterra_virtual_k8s" "this" {
   name      = "${local.project_prefix}-${local.build_suffix}-vk8s"
   namespace = var.xc_namespace
-  depends_on = [volterra_virtual_site.this]
+  depends_on = [volterra_namespace.this]
   vsite_refs {
-    name      = volterra_virtual_site.this.0.name
-    namespace = var.xc_namespace
+    name      = "ves-io-all-res"
+    namespace = "shared"
   }
 
   provisioner "local-exec" {
