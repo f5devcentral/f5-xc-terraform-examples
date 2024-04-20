@@ -320,3 +320,15 @@ variable "gcp" {
   type        = string
   default     = ""
 }
+
+variable "xc_project_prefix" {
+  type        = string
+  default     = "xcdemo"
+  description = "This value is inserted at the beginning of each XC object and only used if not set by Infra TF run"
+}
+
+variable "vk8s" {
+  description = "Boolean to check if infra has vk8s"
+  type        = bool
+  default     = false
+}
