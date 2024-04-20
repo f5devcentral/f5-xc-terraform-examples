@@ -1,4 +1,4 @@
-name: "F5XC Bot Defense on RE Deploy"
+name: "F5 XC Bot Defense on RE Deploy"
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   terraform_xc_lb:
-    name: "F5XC Bot Defense"
+    name: "F5 XC Bot Defense"
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -91,5 +91,5 @@ jobs:
           export domain2="$terraform output -raw lb_domain.1"
           echo $domain1 
           echo $domain2
-          .\run-curl-traffic.sh "$domain1"
-          .\run-curl-traffic.sh "$domain2"
+          sh .\run-curl-traffic.sh "$domain1"
+          sh .\run-curl-traffic.sh "$domain2"
