@@ -18,7 +18,7 @@ resource "volterra_virtual_site" "this" {
 
 # create vK8s
 resource "volterra_virtual_k8s" "this" {
-  name      = "${local.project_prefix}-${local.project_suffix}-vk8s"
+  name      = "${local.project_prefix}-${local.build_suffix}-vk8s"
   namespace = var.xc_namespace
   depends_on = [volterra_virtual_site.this]
   vsite_refs {
