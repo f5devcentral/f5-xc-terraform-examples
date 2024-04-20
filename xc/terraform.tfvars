@@ -60,7 +60,7 @@ fall_through_mode_allow = false
 xc_api_val_custom = false 
 
 #XC Bot Defense
-xc_bot_def = true
+xc_bot_def = false
 xc_bot_path = "/user"
 need_infra = false
 
