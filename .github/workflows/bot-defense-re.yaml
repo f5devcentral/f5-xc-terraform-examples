@@ -87,6 +87,6 @@ jobs:
       - name: Run Traffic
         run: |
           cp ../tools/run-curl-traffic.sh .
-          export cname="$${terraform output -raw lb_cname}"
+          export cname=$(terraform output -raw lb_cname)
           echo $cname 
           sh run-curl-traffic.sh "$cname"
