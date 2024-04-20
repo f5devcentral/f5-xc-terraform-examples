@@ -91,5 +91,5 @@ jobs:
           export domain2="$terraform output -raw lb_domain.1"
           echo $domain1 
           echo $domain2
-          sh .\run-curl-traffic.sh "$domain1"
-          sh .\run-curl-traffic.sh "$domain2"
+          sh run-curl-traffic.sh "$domain1"
+          sh run-curl-traffic.sh "$domain2"
