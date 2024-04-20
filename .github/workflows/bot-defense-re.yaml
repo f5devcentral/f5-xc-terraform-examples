@@ -89,5 +89,7 @@ jobs:
           cp ../tools/run-curl-traffic.sh .
           domain1 = "$terraform output -raw lb_domain.0"
           domain2 = "$terraform output -raw lb_domain.1"
-          .\run-curl-traffic.sh $domain1
-          .\run-curl-traffic.sh $domain2
+          echo $domain1 
+          echo $domain2
+          .\run-curl-traffic.sh "$domain1"
+          .\run-curl-traffic.sh "$domain2"
