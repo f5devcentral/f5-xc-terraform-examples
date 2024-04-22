@@ -24,7 +24,7 @@ To deploy an AppStack mk8s cluster on an AWS CE Site, steps are categorized as m
 5. Using Kubectl, deploy the GenAI front-end application on the GKE cluster
 6. Deploy the Distributed Cloud GCP site Customer Edge workload on the GKE cluster
 7. Publish the LLM service from EKS as a local service in GKE
-8. Advertise externally the GenAI application through a GCP NLB
+8. Advertise externally the GenAI application
 9. Test the GenAI application for sensitive information disclosure
 10. Enable DataGuard on the HTTP LoadBalancer
 11. Retest the GenAI application for sensitive information disclosure
@@ -176,7 +176,52 @@ Below we shall take a look into detailed steps as mentioned above.
       .. figure:: assets/options.png
       Fig: More Options -> Miscellaneous Options -> Idle Timeout configuration
 
-8. Advertise externally the GenAI application through a GCP NLB by following the `<>`_ user guide.
+8. Advertise externally the GenAI application
+
+   1. Deploy an NGINX Ingress controller by following the `user guide <https://docs.nginx.com/nginx-ingress-controller/installation/installing-nic/installation-with-manifests/>`_ .
+   2. Edit the following NGINX Ingress configuration files:
+      
+      ingress-class.yaml:
+
+      .. code-block::
+
+        apiVersion: networking.k8s.io/v1
+        kind: IngressClass
+        metadata:
+          name: nginx
+          # annotations:
+          #   ingressclass.kubernetes.io/is-default-class: "true"
+        spec:
+          controller: nginx.org/ingress-controller
+
+      nginx-config.yaml:
+
+      .. code-block::
+
+        kind: ConfigMap
+        apiVersion: v1
+        metadata:
+          name: nginx-config
+          namespace: nginx-ingress
+        data:
+
+      ns-and-sa.yaml:
+
+      .. code-block::
+
+        apiVersion: v1
+        kind: Namespace
+        metadata:
+          name: nginx-ingress
+        ---
+        apiVersion: v1
+        kind: ServiceAccount
+        metadata:
+          name: nginx-ingress
+          namespace: nginx-ingress
+        #automountServiceAccountToken: false
+
+
 
 9. Test the GenAI application for sensitive information disclosure
 
