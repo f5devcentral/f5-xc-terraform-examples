@@ -149,7 +149,7 @@ Below we shall take a look into detailed steps as mentioned above.
 
 7. Publish the LLM service from EKS as a local service in GKE:
 
-    Step 7.1: Login to F5 XC Console
+   Step 7.1: Login to F5 XC Console
 
 
 
