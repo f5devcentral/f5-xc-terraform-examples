@@ -37,49 +37,49 @@ Below we shall take a look into detailed steps as mentioned above.
 
 2. Using Kubectl, deploy the LLM workload on the EKS cluster by applying the following configuration:
     
-      .. code-block::
-        
-        apiVersion: v1
-        kind: Namespace
+  .. code-block::
+    
+    apiVersion: v1
+    kind: Namespace
+    metadata:
+      name: llm
+    ---
+    apiVersion: v1
+    kind: Service
+    metadata:
+      name: llama
+      labels:
+        app: llama
+      namespace: llm
+    spec:
+      type: ClusterIP
+      ports:
+      - port: 8000
+      selector:
+        app: llama
+    
+    ---
+    apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: llama
+      namespace: llm
+    spec:
+      selector:
+        matchLabels:
+          app: llama
+      replicas: 1
+      template:
         metadata:
-          name: llm
-        ---
-        apiVersion: v1
-        kind: Service
-        metadata:
-          name: llama
           labels:
             app: llama
-          namespace: llm
         spec:
-          type: ClusterIP
-          ports:
-          - port: 8000
-          selector:
-            app: llama
-        
-        ---
-        apiVersion: apps/v1
-        kind: Deployment
-        metadata:
-          name: llama
-          namespace: llm
-        spec:
-          selector:
-            matchLabels:
-              app: llama
-          replicas: 1
-          template:
-            metadata:
-              labels:
-                app: llama
-            spec:
-              containers:
-              - name: llama
-                image: registry.gitlab.com/f5-public/llama-cpp-python:latest
-                imagePullPolicy: Always
-                ports:
-                - containerPort: 8000
+          containers:
+          - name: llama
+            image: registry.gitlab.com/f5-public/llama-cpp-python:latest
+            imagePullPolicy: Always
+            ports:
+            - containerPort: 8000
 
 **Note**: The 'llama' LLM service will be created in 'llm' namespace in the EKS cluster. 
 
