@@ -156,14 +156,17 @@ Below we shall take a look into detailed steps as mentioned above.
       .. figure:: assets/nodes.png
       Origin servers configuration
 
+
       .. figure:: assets/pool.png
       Pool configuration
+
 
    4. Go to Manage-> Load Balancers -> HTTP Load Balancer and click on 'Add HTTP Load Balancer'. Configure the HTTP Load balancer, including the 'Other Settings' -> 'Vip Advertisement' and           'More Options'
 
 
       .. figure:: assets/http-lb.png
       HTTP Load Balancer configuration
+      
       **Note**: The domain name 'llama.llm' is the k8s service name that will be created in the GKE cluster. 
 
       .. figure:: assets/vip-adv.png
