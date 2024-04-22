@@ -35,7 +35,7 @@ Below we shall take a look into detailed steps as mentioned above.
 
 1.    In AWS console, create the EKS cluster following the steps mentioned in this `article <https://docs.aws.amazon.com/eks/latest/userguide/getting-started.html>`_ and complete the steps to configure your computer to communicate with your cluster.
 
-2.    Using Kubectl, deploy the LLM workload on the EKS cluster using the following configuration:
+2.    Using Kubectl, deploy the LLM workload on the EKS cluster by applying the following configuration:
     
       .. code-block::
         
@@ -81,7 +81,71 @@ Below we shall take a look into detailed steps as mentioned above.
                 ports:
                 - containerPort: 8000
 
-3. Deploy the Distributed Cloud VPC site Customer Edge workload on the EKS cluster by following the `Create Kubernetes site <https://docs.cloud.f5.com/docs/how-to/site-management/create-k8s-site>`_ user guide.
+**Note**: The 'llama' LLM service will be created in 'llm' namespace in the EKS cluster. 
+
+3.     Deploy the Distributed Cloud VPC site Customer Edge workload on the EKS cluster by following the `Create Kubernetes site <https://docs.cloud.f5.com/docs/how-to/site-management/create-k8s-site>`_ user guide.
+
+4.     In GCP console, create the `regional <https://cloud.google.com/kubernetes-engine/docs/how-to/creating-a-regional-cluster>`_ or `zonal <https://cloud.google.com/kubernetes-engine/docs/how-to/creating-a-zonal-cluster>`_ GKE cluster following the steps mentioned in the linked user guide `article  and complete the steps to configure your computer to communicate with your cluster.
+
+5.     Using Kubectl, deploy the GenAI front-end application on the GKE cluster by applying the following configuration:
+
+        .. code-block::
+
+            apiVersion: v1
+            kind: Namespace
+            metadata:
+              name: genai-apps
+            ---
+            #llama.llm service exposed from EKS will be created in llm namespace
+            apiVersion: v1
+            kind: Namespace
+            metadata:
+              name: llm
+            ---
+            
+            apiVersion: v1
+            kind: Service
+            metadata:
+              name: langchain-search
+              labels:
+                app: langchain-search
+              namespace: genai-apps
+            spec:
+              type: ClusterIP
+              ports:
+              - port: 8501
+              selector:
+                app: langchain-search
+            
+            ---
+            apiVersion: apps/v1
+            kind: Deployment
+            metadata:
+              name: langchain-search
+              namespace: genai-apps
+            spec:
+              selector:
+                matchLabels:
+                  app: langchain-search
+              replicas: 1
+              template:
+                metadata:
+                  labels:
+                    app: langchain-search
+                spec:
+                  containers:
+                  - name: langchain-search
+                    image: registry.gitlab.com/f5-public/langchain-search:latest
+                    imagePullPolicy: Always
+                    ports:
+                    - containerPort: 8501
+                    env:
+                      - name: OPENAI_API_BASE
+                        value: "http://llama.llm/v1"
+
+**Note**: The Generative AI application 'langchain-search' created in namespace ''genai-apps' on the GKE cluster will try to connect to the remote service of 'llama.llm' created in EKS in the same way as if it were a local service. For this to be succesfull, we will need to expose the remote 'llama.llm' service as local to the GKE cluster, by creating a HTTP load balancer on the GKE CE, having the nodes pointing to the 'llama' service on the 'llm' namespace created in the EKS cluster.
+
+
 
 2.   Creating AWS VPC Site object from F5 XC Console:
       **Step 1.1**: Login to F5 XC Console
