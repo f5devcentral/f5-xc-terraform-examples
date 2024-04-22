@@ -154,27 +154,27 @@ Below we shall take a look into detailed steps as mentioned above.
    3. Go to Manage-> Load Balancers -> Origin Pools and click on 'Add Origin Pool'. Configure the origin servers and the origin pool.
 
       .. figure:: assets/nodes.png
-      Origin servers configuration
+      Fig: Origin servers configuration
 
 
       .. figure:: assets/pool.png
-      Pool configuration
+      Fig: Pool configuration
 
 
    4. Go to Manage-> Load Balancers -> HTTP Load Balancer and click on 'Add HTTP Load Balancer'. Configure the HTTP Load balancer, including the 'Other Settings' -> 'Vip Advertisement' and           'More Options'
 
 
       .. figure:: assets/http-lb.png
-      HTTP Load Balancer configuration
+      Fig: HTTP Load Balancer configuration
       
       **Note**: The domain name 'llama.llm' is the k8s service name that will be created in the GKE cluster. 
 
       .. figure:: assets/vip-adv.png
-      Vip Advertisement configuration
+      Fig: Vip Advertisement configuration
 
 
       .. figure:: assets/options.png
-      More Options -> Miscellaneous Options -> Idle Timeout configuration
+      Fig: More Options -> Miscellaneous Options -> Idle Timeout configuration
 
 
    5.
