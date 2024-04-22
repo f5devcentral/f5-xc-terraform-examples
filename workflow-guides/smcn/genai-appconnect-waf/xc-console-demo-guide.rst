@@ -149,7 +149,13 @@ Below we shall take a look into detailed steps as mentioned above.
 
 7. Publish the LLM service from EKS as a local service in GKE:
 
-    7.1: Login to F5 XC Console
+     1. Login to F5 XC Console
+     2. Select the 'Web App & API Protection' service
+     3. Go to Manage-> Load Balancers -> Origin Pools and click on 'Add Origin Pool'
+     4.
+     5.
+
+    
 
 
 
