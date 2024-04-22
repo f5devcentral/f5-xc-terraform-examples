@@ -145,7 +145,7 @@ Below we shall take a look into detailed steps as mentioned above.
 
    **Note**: The Generative AI application 'langchain-search' created in namespace ''genai-apps' on the GKE cluster will try to connect to the remote service of 'llama.llm' created in EKS in      the same way as if it were a local service. For this to be succesfull, we will need to expose the remote 'llama.llm' service as local to the GKE cluster, by creating a HTTP load balancer       on the GKE CE, having the nodes pointing to the 'llama' service on the 'llm' namespace created in the EKS cluster.
 
-6. Deploy the Distributed Cloud site Customer Edge workload on the GKE cluster by following the `Create Kubernetes site <https://docs.cloud.f5.com/docs/how-to/site-management/create-k8s-site>`_ user guide.
+6. Deploy the Distributed Cloud site Customer Edge workload on the GKE cluster by following the `Create Kubernetes site <https://docs.cloud.f5.com/docs/how-to/site-management/create-k8s-          site>`_ user guide.
 
 7. Publish the LLM service from EKS as a local service in GKE:
 
