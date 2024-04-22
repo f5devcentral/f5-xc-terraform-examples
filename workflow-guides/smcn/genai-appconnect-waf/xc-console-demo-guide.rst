@@ -33,9 +33,9 @@ To deploy an AppStack mk8s cluster on an AWS CE Site, steps are categorized as m
 
 Below we shall take a look into detailed steps as mentioned above.
 
-1.    In AWS console, create the EKS cluster following the steps mentioned in this `article <https://docs.aws.amazon.com/eks/latest/userguide/getting-started.html>`_ and complete the steps to configure your computer to communicate with your cluster.
+1. In AWS console, create the EKS cluster following the steps mentioned in this `article <https://docs.aws.amazon.com/eks/latest/userguide/getting-started.html>`_ and complete the steps to configure your computer to communicate with your cluster.
 
-2.    Using Kubectl, deploy the LLM workload on the EKS cluster by applying the following configuration:
+2. Using Kubectl, deploy the LLM workload on the EKS cluster by applying the following configuration:
     
       .. code-block::
         
