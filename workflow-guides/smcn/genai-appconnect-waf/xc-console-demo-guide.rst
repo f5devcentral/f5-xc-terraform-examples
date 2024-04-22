@@ -164,12 +164,15 @@ Below we shall take a look into detailed steps as mentioned above.
 
       .. figure:: assets/http-lb.png
       HTTP Load Balancer configuration
+      **Note**: The domain name 'llama.llm' is the k8s service name that will be created in the GKE cluster. 
 
       .. figure:: assets/vip-adv.png
       Vip Advertisement configuration
 
+
       .. figure:: assets/options.png
       More Options -> Miscellaneous Options -> Idle Timeout configuration
+
 
    5.
 
