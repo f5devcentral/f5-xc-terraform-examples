@@ -89,7 +89,7 @@ Below we shall take a look into detailed steps as mentioned above.
 
 5.     Using Kubectl, deploy the GenAI front-end application on the GKE cluster by applying the following configuration:
 
-      .. code-block::
+       .. code-block::
 
         apiVersion: v1
         kind: Namespace
