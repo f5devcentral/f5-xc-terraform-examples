@@ -81,7 +81,7 @@ Below we shall take a look into detailed steps as mentioned above.
             ports:
             - containerPort: 8000
 
-  **Note**: The 'llama' LLM service will be created in 'llm' namespace in the EKS cluster. 
+   **Note**: The 'llama' LLM service will be created in 'llm' namespace in the EKS cluster. 
 
 3. Deploy the Distributed Cloud site Customer Edge workload on the EKS cluster by following the `Create Kubernetes site <https://docs.cloud.f5.com/docs/how-to/site-management/create-k8s-site>`_ user guide.
 
