@@ -154,12 +154,23 @@ Below we shall take a look into detailed steps as mentioned above.
    3. Go to Manage-> Load Balancers -> Origin Pools and click on 'Add Origin Pool'. Configure the origin servers and the origin pool.
 
       .. figure:: assets/nodes.png
-      Fig : Origin servers configuration
+      Origin servers configuration
 
       .. figure:: assets/pool.png
-      Fig : Pool configuration
+      Pool configuration
 
-   4.
+   4. Go to Manage-> Load Balancers -> HTTP Load Balancer and click on 'Add HTTP Load Balancer'. Configure the HTTP Load balancer, including the 'Other Settings' -> 'Vip Advertisement' and           'More Options'
+
+
+      .. figure:: assets/http-lb.png
+      HTTP Load Balancer configuration
+
+      .. figure:: assets/vip-adv.png
+      Vip Advertisement configuration
+
+      .. figure:: assets/options.png
+      More Options -> Miscellaneous Options -> Idle Timeout configuration
+
    5.
 
     
