@@ -148,12 +148,12 @@ Below we shall take a look into detailed steps as mentioned above.
 6.     Deploy the Distributed Cloud site Customer Edge workload on the GKE cluster by following the `Create Kubernetes site <https://docs.cloud.f5.com/docs/how-to/site-management/create-k8s-site>`_ user guide.
 
 7.    Publish the LLM service from EKS as a local service in GKE:
-      Step 7.1: Login to F5 XC Console
+          Step 7.1: Login to F5 XC Console
 
 
 
 7.    Publish the LLM service from EKS as a local service in GKE:
-      Step 7.1: Login to F5 XC Console
+          Step 7.1: Login to F5 XC Console
             a. From the F5 XC Home page, ``Select the Multi-Cloud Network Connect`` Service
             b. Select Manage > Site Management > AWS VPC Sites in the configuration menu. Click on Add AWS VPC Site.
             c. Enter a name of your VPC site in the metadata section.
