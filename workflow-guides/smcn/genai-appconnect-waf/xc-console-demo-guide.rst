@@ -178,8 +178,8 @@ Below we shall take a look into detailed steps as mentioned above.
 
 8. Advertise externally the GenAI application
 
-   1. Deploy an NGINX Ingress controller by following the `user guide <https://docs.nginx.com/nginx-ingress-controller/installation/installing-nic/installation-with-manifests/>`_ .
-   2. Edit the following NGINX Ingress configuration files:
+   1. Deploy an NGINX Ingress controller to the GKE cluster by following the `user guide <https://docs.nginx.com/nginx-ingress-controller/installation/installing-nic/installation-with-manifests/>`_ .
+   2. Edit (and apply) the following NGINX Ingress configuration files:
       
       ingress-class.yaml:
 
@@ -221,6 +221,39 @@ Below we shall take a look into detailed steps as mentioned above.
           namespace: nginx-ingress
         #automountServiceAccountToken: false
 
+   3. Create the Ingress object for the GenAI application by applying the following configuration:
+
+      .. code-block::
+
+        apiVersion: networking.k8s.io/v1
+        kind: Ingress
+        metadata:
+          name: langchain-search
+          namespace: genai-apps
+          annotations:
+            nginx.org/websocket-services: "langchain-search"
+            appprotect.f5.com/app-protect-policy: "genai-apps/langchain-search"
+            appprotect.f5.com/app-protect-enable: "False"
+            nginx.org/proxy-read-timeout: "3600"
+            nginx.org/proxy-send-timeout: "3600"
+        spec:
+          ingressClassName: nginx
+          defaultBackend:
+            service:
+              name: langchain-search
+              port:
+                number: 8501
+          rules:
+          - host: "*.com"
+            http:
+              paths:
+              - path: "/"
+                pathType: Prefix
+                backend:
+                  service:
+                    name: langchain-search
+                    port:
+                      number: 8501
 
 
 9. Test the GenAI application for sensitive information disclosure
