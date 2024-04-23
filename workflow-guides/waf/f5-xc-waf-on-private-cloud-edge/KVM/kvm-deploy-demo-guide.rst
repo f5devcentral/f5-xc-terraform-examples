@@ -46,6 +46,8 @@ Below we shall take a look into detailed steps as mentioned,
       
       Creating an instance in Open Stack with the the KVM image file: rhel-9.2023.29-20231212011947. Resources allocated to this instance are 8 vCPUs and 16 GB RAM. Minimum resources required for node deployment are mentioned `here <https://docs.cloud.f5.com/docs/how-to/site-management/create-kvm-libvirt-site>`__. 
 
+      KVM image file can be downloaded by going to this `link <https://docs.cloud.f5.com/docs/images/node-cert-hw-kvm-images>`__.
+
       .. figure:: Assets/open-stack.jpg
 
       * Login to CE site created above with credentials as admin/Volterra123 and must change password during first login as mentioned below,
@@ -89,7 +91,7 @@ Below we shall take a look into detailed steps as mentioned,
 
       .. figure:: Assets/pending-registration.jpg
 
-      - Verify the configs & enter other configurations, if needed.
+      - Verify the F5 XC Software version is set to default SW version and Operating system version set to Default OS version which means the latest. Click on Save and Exit to accept the registration.
 
       .. figure:: Assets/approve-registration.jpg
 
@@ -115,7 +117,7 @@ Below we shall take a look into detailed steps as mentioned,
 
       - Enter Label key name and value for the key. Click on “Add key button” to create key-value pair.
 
-      - Navigating to Multi-Cloud Network Connect > Site Management > App Stack Sites. Select the site to which labels need to be assigned and click on Manage Configuration.
+      - Navigating to Multi-Cloud Network Connect > Overview > Sites. Select the site to which labels need to be assigned and click on Manage Configuration.
 
       .. figure:: Assets/manage-configs.jpg
 
@@ -139,7 +141,12 @@ Below we shall take a look into detailed steps as mentioned,
 
       .. figure:: Assets/vk8s-object.jpg
 
-      - Deploy the application on VMware EXSi using the kubeconfig file for the vK8s object created above.
+      - Click on Save and Exit to create vK8s object. Select ``...`` > ``Kubeconfig`` for the vK8s object to download the Kubeconfig file.
+
+      .. figure:: Assets/k8s-object.jpg
+
+
+      - Deploy the application on Openstack using the kubeconfig file for the vK8s object created above.
 
       .. figure:: Assets/app-deploy.jpg
 
@@ -163,10 +170,10 @@ Below we shall take a look into detailed steps as mentioned,
       Created a WAF policy with enforcement mode as blocking and assigned this to the Load Balancer.
 
       .. figure:: Assets/waf-policy.jpg
+      
+      - When an attacker sends Cross Site Scripting (XSS) attack, F5 XC triggers a security event and the attack gets blocked by XC WAF.
 
-      - Able to see request getting blocked for accessing file type violation.
-
-      .. figure:: Assets/block-request.jpg
+      .. figure:: Assets/xss-attack.jpg
 
 
 Conclusion
