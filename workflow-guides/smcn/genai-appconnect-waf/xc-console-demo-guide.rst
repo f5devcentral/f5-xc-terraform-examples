@@ -276,16 +276,16 @@ Below we shall take a look into detailed steps as mentioned above.
        .. figure:: assets/dataguard-config.png
        Fig: data Guard Configuration
 
-     4. Save and Exit
+    4. Save and Exit
 
 11. Retest the GenAI application for sensitive information disclosure using the same inputs as before. The GenAI app output is now masked as it matches the SSN format configured by default as sensitive information.  
 
-      .. figure:: assets/dataguard-result.png
-      Fig: DLP test result with Data Guard enabled    
+    .. figure:: assets/dataguard-result.png
+    Fig: DLP test result with Data Guard enabled    
 
 
 
 Conclusion
 ###########
-The F5 XC's Customer Edge AppStack mk8s on AWS Public Cloud Platform provides support for Inference at the Edge and secures the Generative AI Applications deployed on this platform.
+The F5 XC connects distributed Generative AI Applications and protects against loss of sensitive information.
 
