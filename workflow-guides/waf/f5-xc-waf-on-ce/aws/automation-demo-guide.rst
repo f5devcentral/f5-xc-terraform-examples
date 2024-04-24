@@ -38,7 +38,7 @@ Terraform Cloud
    | F5 XC WAF on CE Deploy    | aws-infra, aws_eks_cluster, boutique_app, xc-ce-site|
    +---------------------------+-----------------------------------------------------+
 
-.. image:: Assets/workspace.jpg
+.. image:: Assets/workspace-new.jpg
 
 
 -  **Workspace Sharing:** Under the settings for each Workspace, set the
@@ -173,7 +173,7 @@ Keep the rest of the values as they are.
 
 - Build will run and can be monitored in the GitHub Actions tab and TF Cloud console
 
-.. image:: Assets/deploy_pipeline.jpg
+.. image:: Assets/pipeline-execution-Apr-24.jpg
 
 **STEP 5:** Once the pipeline completes, verify your CE, Origin Pool and LB were deployed or destroyed based on your workflow. (**Note:** CE sites will take 15-20 mins to come online)
 
@@ -183,7 +183,7 @@ Keep the rest of the values as they are.
 
 **Note:** If you want to destroy the entire setup, checkout a branch with name ``destroy-waf-aws-ce`` and push the repo code to it which will trigger destroy workflow and will remove all created resources.
 
-.. image:: Assets/destroy_pipeline.jpg
+.. image:: Assets/destroy_pipeline-Apr-24.jpg
 
 **Note:** Due to timing issue there might be chance of not deleting the AWS VPC site. Please remove the VPS site while deploying Infra again.
 

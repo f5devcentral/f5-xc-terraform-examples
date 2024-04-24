@@ -132,7 +132,7 @@ Below we shall take a look into detailed steps as mentioned,
       **Step 3.2: Creating Virtual Site & vK8s object**
 
       - From F5 XC Console homepage, Click on Shared Configuration. Click Manage > Virtual Sites and click on “Add Virtual Site”.
-      - In the Site Type select CE. From the Selector Expression field, click Add Label to provide the custom key created previously along with operator, followed by custom value as shown below. Click on Save and Exit.
+      - In the Site Type select CE. From the Selector Expression field, click Add Label to provide the custom key created previously along with operator ``==``, followed by custom value as shown below. Click on Save and Exit.
 
       .. figure:: Assets/virtual-site-creation.jpg
 
@@ -178,7 +178,7 @@ Below we shall take a look into detailed steps as mentioned,
 
 Conclusion
 **************
-F5 XC supports deploying its services across different private cloud platforms like openstack, this helps to connect its applications running in then to the F5 XC global network and protect the application. This gives feasibility to the organizations to utilize the services running across different cloud platforms in an easy manner.
+F5 XC supports deploying its services across different private cloud platforms like openstack, this helps to connect its applications running in them to the F5 XC global network and protects the application. This gives feasibility to the organizations to utilize the services running across different cloud platforms in an easy manner.
 
 
 
