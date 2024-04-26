@@ -10,7 +10,7 @@ This guide will outline the steps for implementing F5 XC Bot Defense to protect 
 
 
 Bot Defense for GCP Architectural Diagram :
------------------------
+-------------------------------------------
 .. image:: assets/bot-gcp.png
    :width: 100%
 
@@ -18,7 +18,7 @@ Manual step by step process for deployment:
 -------------------------------------------
 
 Console Deployment Prerequisites:
-^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 1. F5 Distributed Cloud Account (F5XC)
 2. GCP Cloud Account (If you don't have an GCP subscription, create an GCP free account before you begin `here <https://console.cloud.google.com/freetrial/signup/>`_)
@@ -32,7 +32,7 @@ Steps:
 
 
 Signing into Gcloud CLI
-======================
+=======================
 
 1. Ensure you've followed the deployment prerequisites to install Gcloud CLI from `Gcloud CLI website <https://cloud.google.com/sdk/docs/install>`_ using option b)
 2. After installation, initialize Gcloud CLI with the "gcloud init" command. Choose your user account, project, and set the default compute/region to us-west1. `Initializing Gcloud Documentation <https://cloud.google.com/sdk/docs/initializing>`_
