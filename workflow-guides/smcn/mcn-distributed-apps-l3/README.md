@@ -8,7 +8,7 @@ This guide provides automated steps for a comprehensive Multi-Cloud Networking (
 - Deployment of multi-cloud infrastructure in Amazon AWS, Microsoft Azure, and Google GCP to support a distributed application with its services running on K8s in different clouds;
 - Layer 3 networking between all of the services by way of Site Mesh Group (SMG) connecting between several F5 Distributed Cloud (XC) Customer Edge (CE) Sites deployed in each cloud;
 - Configuration of Enhanced Firewall between all of the sites with shared rules for consistency and ease of management;
-- Configuration of App Firewall to protect inbound traffic for the main app from malicious actors and Bots.
+- Configuration of App Firewall to protect inbound traffic for the main app from malicious actors and bots.
 
 ## Setup Diagram
 
@@ -21,7 +21,7 @@ You will need to complete the prerequisites including the config of all variable
 
 ## Prerequisites
 
-### For CI/CD
+### Accounts & Services
 
 * [F5 Distributed Cloud Account (F5XC)](https://console.ves.volterra.io/signup/usage_plan)
   * [F5XC API certificate](https://docs.cloud.f5.com/docs/how-to/user-mgmt/credentials)
@@ -41,7 +41,7 @@ You will need to complete the prerequisites including the config of all variable
 
 * **Fork and Clone Repo. Navigate to the `Actions` tab and enable it.**
 
-* **Actions Secrets:** Create the following GitHub Actions secrets in your forked repo:
+* **Actions Secrets:** Create the following GitHub Actions secrets in your forked repo under project `Settings` > `General` > `Security: Secrets and variables` > `Actions` > `Repository secrets`
   
 ### Action Secret Variables
 
@@ -54,17 +54,17 @@ You will need to complete the prerequisites including the config of all variable
 | AZURE_SUBSCRIPTION_ID| Azure Subscription ID                                     |
 | AZURE_TENANT_ID      | Azure Tenant (entranet directory) ID                      |
 | GOOGLE_ACCOUNT_ID    | Google Account ID                                         |
-| GOOGLE_CREDENTIALS   | Credentials to access GCP service account (base64encoded JSON) |
-| GOOGLE_PROJECT_ID    | The GCP project id to use                                 |
+| GOOGLE_CREDENTIALS   | Credentials to access GCP service account JSON ([base64encoded](https://f5devcentral.github.io/f5-xc-terraform-examples/tools/binary-to-base64-converter/index.html)) |
+| GOOGLE_PROJECT_ID    | Existing GCP project id                                   |
 | TF_API_TOKEN         | Terraform Cloud API Token                                 |
 | TF_CLOUD_ORGANIZATION| Terraform Cloud Organization                              |
-| XC_API_P12_FILE      | F5 XC P12 certificate ([Base64encoded](https://f5devcentral.github.io/f5-xc-terraform-examples/tools/binary-to-base64-converter/index.html)) |
+| XC_API_P12_FILE      | F5 XC P12 certificate ([base64encoded](https://f5devcentral.github.io/f5-xc-terraform-examples/tools/binary-to-base64-converter/index.html)) |
 | XC_API_URL           | F5 XC tenant-specific API URL (example: https://yourtenant_here.console.ves.volterra.io/api)  
 | XC_P12_PASSWORD      | F5 XC certificate password                                |
 
 ### Action Environment Variables
 
-The following are the default environment variables utilized in the GitHub Actions workflow. These variables serve to establish the Terraform variable within the same workflow. If necessary, you can override these default values by defining the corresponding environment variable in the GitHub repository.
+The following are the default environment variables utilized in the GitHub Actions workflow. These variables serve to establish the Terraform variable within the same workflow. If necessary, you can override these default values by defining the corresponding environment variable in the forked repo under project `Settings` > `General` > `Security: Secrets and variables` > `Actions` > `Repository variables`
 
 | Variable                      | Default Value             | Description |
 | ----------------------------- | ------------------------- | ----------- |
@@ -94,7 +94,7 @@ The following are the default environment variables utilized in the GitHub Actio
 | TF_VAR_services_cird          | "100.64.97.0/24"          | The CIDR block for the services |
 | TF_VAR_gcp_region             | "us-central1"             | The GCP region |
 | TF_VAR_namespace              | ""                        | The namespace for the Terraform variable |
-| TF_VAR_app_domain             | "arcadia-mcn.f5-cloud-demo.com" | The application domain |
+| TF_VAR_app_domain             | "arcadia-mcn.demo.internal" | The FQDN for the application frontend |
 | TF_VAR_f5xc_sd_sa             | "smsn-sd-sa"              | The F5 XC SD SA |
 | TF_VAR_xc_mud                 | "true"                    | The XC Malicious User Detection setting |
 | TF_VAR_xc_ddos_def            | "true"                    | The XC DDoS defense setting |
@@ -103,7 +103,7 @@ The following are the default environment variables utilized in the GitHub Actio
 
 ### XC Cloud Credentials
 
-To utilize existing F5 Cloud Credentials for the XC Site, you can define the following environment variables in the GitHub repository. These variables are used to configure the Terraform variable within the GitHub Actions workflow. You can override the default values by defining the corresponding environment variable in the GitHub repository.
+To use "Cloud Credentials" pre-configured in XC when deploying Customer Edge (CE) Sites, you can define the following as `Repository variables` in GitHub. Use of these variables prevent GitHub from creating new "Cloud Credentials" in XC.
 
 | Variable Name                      |
 | ---------------------------------- |
@@ -140,19 +140,14 @@ To utilize existing F5 Cloud Credentials for the XC Site, you can define the fol
       - Monitoring Admin - *EKS cluster requirement*
       - Security Admin - *Create network firewall policies*
       - Service Account Admin - *Create a unique service account to run EKS cluster nodes*
-   ### F5 XC
-   - Manually create cloud credential to use with AWS
-   - Manually create cloud credentials to use with Azure
-   - Manually create cloud credentials to use with GCP
-   - Manually create Volterra API.P12
 
 2. Terraform Cloud
 - Terraform Cloud Account *to maintain State*
 - Terraform Project
 - Terraform Workspaces  
-**Each workspace must be configured for local execution and with remote state sharing to all workspaces in the organization**
+Each workspace must be configured for **local execution** and with **remote state sharing** to **all workspaces in the organization**
 
-The following table contains the default names of the Terraform Cloud workspaces used in this project. These names are used to set the Terraform Cloud workspace name in the GitHub Actions workflow. The default values can be overridden by setting the corresponding environment variable in the GitHub repository.
+The following table contains the default names of the Terraform Cloud workspaces used in this project. These names are used to set the Terraform Cloud workspace name in the GitHub Actions workflow. The default values can be overridden by setting the corresponding `Repository variable` in GitHub.
 
 | Variable Name                              | Default Value            | Description               |
 | ------------------------------------------ | ------------------------ | ------------------------- |
@@ -172,26 +167,33 @@ The following table contains the default names of the Terraform Cloud workspaces
 
 ## Steps to Deploy
 1. Fork this repository
-2. Add all credential names and/or values to the GitHub Action Secrets and Environment Variables
+2. Add all credential names and/or values to the GitHub Action `Repository secrets` and `Repository variables`
 3. Open GitHub Actions and find **Secure MCN Apply** workflow
-4. Run **azure-vnet-site** workflow and wait for completion
-5. Run **aws-vpc-site** workflow and wait for completion
-6. Run **gcp-vpc-site** workflow and wait for completion
-7. Navigate to F5 XC and check for the new site, wait until the site is fully provisioned and ready
-8. Run **deploy-resources** workflow and wait for completion
+4. *Optional* Enter a prefix to prepend to the name of all resources created by the workflow
+5. Run **azure-vnet-site** workflow and wait for completion
+6. Run **aws-vpc-site** workflow and wait for completion
+7. Run **gcp-vpc-site** workflow and wait for completion
+8. Navigate to F5 XC and look for the new sites. Wait until all sites are fully provisioned and ready
+9. Run **deploy-resources** workflow and wait for completion
 
-Go to your app at `https://${app_domain}`
+Go to your app at **https://${TF_VAR_app_domain}**
+
+➡️`NOTE` When the domain name for the app is a primary DNS zone in F5 XC, the name of the app will be added to DNS automatically. If you do not have a DNS zone managed by F5 XC you will need to manually configure a record. The public IP address for the app can be found in the XC Console at `Multi-Cloud App Connect` > `Namespace ${TF_VAR_namespace}` > `Load Balancers` > `HTTP Load Balancers`${TF_VAR_prefix}-${TF_VAR_name}-xclb` > `Manage Configuration` > `DNS Information`
 
 ## Steps to Destroy
 1. Open Github Actions and find **Secure MCN Destroy** workflow
-2. Run workflow and wait for completion
-3. Check your clouds for any remaining resources and delete them manually if necessary
+2. *Optional* Enter the same prefix if used in the Deploy workflows
+3. Run **deploy-resources** workflow and wait for completion
+4. Run **azure-vnet-site** workflow and wait for completion
+6. Run **aws-vpc-site** workflow and wait for completion
+7. Run **gcp-vpc-site** workflow and wait for completion
+8. If any Destroy workflow fails, check your public cloud account for any remaining resources and delete them manually if necessary
 
-🤙🤟🍺🫖
 
 [^1]: Necessary to allow the Azure Managed Identity created by Azure for the AKS cluster and kubelet node to create an internal load balancer on the SLO/public subnet
 
 ## Known Issues
 
 - Service Discovery will need to be configured to demonstrate ease of discovering/connecting different services;
-- WAF and Bot configuration & tuning to be optimized. 
+- WAF and Bot configuration & tuning to be optimized
+- Azure: "Network Contributor" Role may fail to be removed from System Managed Identities by Terraform. Manually delete the AKS cluster when this happens
