@@ -1,0 +1,940 @@
+name: "Secure MCN Apply"
+
+on:
+  workflow_dispatch:
+    inputs:
+      deployment:
+        description: 'Select Deployment to run'
+        required: true
+        default: 'azure-vnet-site'
+        type: choice
+        options:
+        - azure-vnet-site
+        - aws-vpc-site
+        - gcp-vpc-site
+        - deploy-resources
+      TF_VAR_prefix:
+        description: "Prefix"
+        required: false
+        type: string
+  workflow_call:
+    inputs:
+      deployment:
+        description: 'Deployment to run'
+        required: true
+        type: string
+      TF_VAR_prefix:
+        description: "Prefix"
+        required: false
+        type: string
+    secrets:
+      TF_CLOUD_ORGANIZATION:
+      TF_API_TOKEN:
+      XC_API_URL:
+      XC_P12_PASSWORD:
+      XC_API_P12_FILE:
+      AWS_ACCESS_KEY:
+      AWS_SECRET_KEY:
+      AWS_SESSION_TOKEN:
+      XC_AWS_CLOUD_CREDENTIALS_NAME:
+      AZURE_SUBSCRIPTION_ID:
+      AZURE_TENANT_ID:
+      AZURE_CLIENT_ID:
+      AZURE_CLIENT_SECRET:
+      XC_AZURE_CLOUD_CREDENTIALS_NAME:
+      GOOGLE_CREDENTIALS:
+      GOOGLE_PROJECT_ID:
+
+jobs:
+  apply_variables:
+    name: "Apply Environment Variables"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "./workflow-guides/smcn/mcn-distributed-apps-l3/terraform"
+    env: 
+      TF_VAR_name: "secure-mcn"
+      TF_VAR_prefix: ""
+      TF_CLOUD_WORKSPACE_AWS_CREDENTIALS: ""
+      TF_CLOUD_WORKSPACE_AWS_NETWORKING: ""
+      TF_CLOUD_WORKSPACE_AWS_VPC_SITE: ""
+      TF_CLOUD_WORKSPACE_SECUREMCN_AZURE_AKS: "secure-mcn-azure-aks"
+      TF_CLOUD_WORKSPACE_SECUREMCN_AWS_EKS: "secure-mcn-aws-eks"
+      TF_CLOUD_WORKSPACE_SECUREMCN_AWS_EKS_NIC: "secure-mcn-aws-eks-nic"
+      TF_CLOUD_WORKSPACE_SECUREMCN_GCP_VPC_SITE: "secure-mcn-gcp-vpc-site"
+      TF_CLOUD_WORKSPACE_SECUREMCN_GCP_GKE: "secure-mcn-gcp-gke"
+      TF_CLOUD_WORKSPACE_SECUREMCN_XC_CONFIG: "secure-mcn-xc-config"
+      TF_CLOUD_WORKSPACE_SECUREMCN_WORKLOAD: "secure-mcn-workload"
+      TF_CLOUD_WORKSPACE_AZURE_NETWORKING: ""
+      TF_CLOUD_WORKSPACE_AZURE_CREDENTIALS: ""
+      TF_CLOUD_WORKSPACE_AZURE_VNET_SITE: ""
+      AWS_CLOUD_CREDENTIALS_TF_VAR_name: ""
+      AWS_NETWORKING_TF_VAR_name: ""
+      TF_VAR_aws_vpc_site_name: "aws-vpc-site"
+      TF_VAR_tags: "{\"project\": \"securemcn\"}"
+      TF_VAR_aws_region: "us-east-1"
+      TF_VAR_aws_az_names: "[\"us-east-1a\"]"
+      TF_VAR_aws_inside_subnets: "[\"10.10.11.0/24\"]"
+      TF_VAR_aws_outside_subnets: "[\"10.10.31.0/24\"]"
+      TF_VAR_aws_workload_subnets: "[\"10.10.21.0/24\"]"
+      TF_VAR_aws_vpc_cidr: "10.10.0.0/16"
+      TF_VAR_aws_vpc_cidr_prefix: "10.10.0.0"
+      TF_VAR_aws_vpc_cidr_plen: "16"
+      TF_VAR_eks_internal_cidrs: "[\"10.10.211.0/24\", \"10.10.212.0/24\"]"
+      AZURE_CLOUD_CREDENTIALS_TF_VAR_name: ""
+      AZURE_NETWORKING_TF_VAR_name: ""
+      TF_VAR_azure_vnet_site_name: "azure-vnet-site"
+      TF_VAR_azure_location: "centralus"
+      TF_VAR_azure_resource_group_name: ""
+      TF_VAR_azure_inside_subnets: "[\"172.10.21.0/24\"]"
+      TF_VAR_azure_outside_subnets: "[\"172.10.31.0/24\"]"
+      TF_VAR_azure_vnet_cidr: "172.10.0.0/16"
+      # TF_VAR_azure_vm_private_ip: "172.10.21.200"
+
+      TF_VAR_xc_gcp_cloud_credentials: ""
+      TF_VAR_gcp_slo_cidr: "100.64.96.0/22"
+      TF_VAR_gcp_sli_cidr: "10.3.0.0/16"
+      TF_VAR_gcp_proxy_cidr: "100.64.100.0/24"
+      TF_VAR_cluster_cird: "100.64.96.0/24"
+      TF_VAR_services_cird: "100.64.97.0/24"
+
+      TF_VAR_gcp_region: "us-central1"
+      TF_VAR_namespace: ""
+      TF_VAR_app_domain: "arcadia-mcn.f5-cloud-demo.com"
+      TF_VAR_f5xc_sd_sa: "smsn-sd-sa"
+      TF_VAR_xc_mud: "true"
+      TF_VAR_xc_ddos_def: "true"
+      TF_VAR_xc_bot_def: ""
+      TF_VAR_dns_origin_pool: "true"
+    outputs:
+      TF_CLOUD_WORKSPACE_AWS_CREDENTIALS: ${{ steps.update_output.outputs.TF_CLOUD_WORKSPACE_AWS_CREDENTIALS }}
+      TF_CLOUD_WORKSPACE_AWS_NETWORKING: ${{ steps.update_output.outputs.TF_CLOUD_WORKSPACE_AWS_NETWORKING }}
+      TF_CLOUD_WORKSPACE_AWS_VPC_SITE: ${{ steps.update_output.outputs.TF_CLOUD_WORKSPACE_AWS_VPC_SITE }}
+      TF_CLOUD_WORKSPACE_SECUREMCN_AZURE_AKS: ${{ steps.update_output.outputs.TF_CLOUD_WORKSPACE_SECUREMCN_AZURE_AKS }}
+      TF_CLOUD_WORKSPACE_SECUREMCN_AWS_EKS: ${{ steps.update_output.outputs.TF_CLOUD_WORKSPACE_SECUREMCN_AWS_EKS }}
+      TF_CLOUD_WORKSPACE_SECUREMCN_AWS_EKS_NIC: ${{ steps.update_output.outputs.TF_CLOUD_WORKSPACE_SECUREMCN_AWS_EKS_NIC }}
+      TF_CLOUD_WORKSPACE_SECUREMCN_GCP_VPC_SITE: ${{ steps.update_output.outputs.TF_CLOUD_WORKSPACE_SECUREMCN_GCP_VPC_SITE }}
+      TF_CLOUD_WORKSPACE_SECUREMCN_GCP_GKE: ${{ steps.update_output.outputs.TF_CLOUD_WORKSPACE_SECUREMCN_GCP_GKE }}
+      TF_CLOUD_WORKSPACE_SECUREMCN_XC_CONFIG: ${{ steps.update_output.outputs.TF_CLOUD_WORKSPACE_SECUREMCN_XC_CONFIG }}
+      TF_CLOUD_WORKSPACE_SECUREMCN_WORKLOAD: ${{ steps.update_output.outputs.TF_CLOUD_WORKSPACE_SECUREMCN_WORKLOAD }}
+      AWS_CLOUD_CREDENTIALS_TF_VAR_name: ${{ steps.update_output.outputs.AWS_CLOUD_CREDENTIALS_TF_VAR_name }}
+      AWS_NETWORKING_TF_VAR_name: ${{ steps.update_output.outputs.AWS_NETWORKING_TF_VAR_name }}
+      TF_VAR_name: ${{ steps.update_output.outputs.TF_VAR_name }}
+      TF_VAR_prefix: ${{ steps.update_output.outputs.TF_VAR_prefix }}
+      TF_VAR_aws_vpc_site_name: ${{ steps.update_output.outputs.TF_VAR_aws_vpc_site_name }}
+      TF_VAR_tags: ${{ steps.update_output.outputs.TF_VAR_tags }}
+      TF_VAR_aws_region: ${{ steps.update_output.outputs.TF_VAR_aws_region }}
+      TF_VAR_aws_az_names: ${{ steps.update_output.outputs.TF_VAR_aws_az_names }}
+      TF_VAR_aws_inside_subnets: ${{ steps.update_output.outputs.TF_VAR_aws_inside_subnets }}
+      TF_VAR_aws_outside_subnets: ${{ steps.update_output.outputs.TF_VAR_aws_outside_subnets }}
+      TF_VAR_aws_workload_subnets: ${{ steps.update_output.outputs.TF_VAR_aws_workload_subnets }}
+      TF_VAR_aws_vpc_cidr: ${{ steps.update_output.outputs.TF_VAR_aws_vpc_cidr }}
+      TF_VAR_aws_vpc_cidr_prefix: ${{ steps.update_output.outputs.TF_VAR_aws_vpc_cidr_prefix }}
+      TF_VAR_aws_vpc_cidr_plen: ${{ steps.update_output.outputs.TF_VAR_aws_vpc_cidr_plen }}
+      TF_VAR_eks_internal_cidrs: ${{ steps.update_output.outputs.TF_VAR_eks_internal_cidrs }}
+      TF_CLOUD_WORKSPACE_AZURE_CREDENTIALS: ${{ steps.update_output.outputs.TF_CLOUD_WORKSPACE_AZURE_CREDENTIALS }}
+      TF_CLOUD_WORKSPACE_AZURE_NETWORKING: ${{ steps.update_output.outputs.TF_CLOUD_WORKSPACE_AZURE_NETWORKING }}
+      TF_CLOUD_WORKSPACE_AZURE_VNET_SITE: ${{ steps.update_output.outputs.TF_CLOUD_WORKSPACE_AZURE_VNET_SITE }}
+      AZURE_CLOUD_CREDENTIALS_TF_VAR_name: ${{ steps.update_output.outputs.AZURE_CLOUD_CREDENTIALS_TF_VAR_name }}
+      AZURE_NETWORKING_TF_VAR_name: ${{ steps.update_output.outputs.AZURE_NETWORKING_TF_VAR_name }}
+      TF_VAR_azure_vnet_site_name: ${{ steps.update_output.outputs.TF_VAR_azure_vnet_site_name }}
+      TF_VAR_azure_location: ${{ steps.update_output.outputs.TF_VAR_azure_location }}
+      TF_VAR_azure_resource_group_name: ${{ steps.update_output.outputs.TF_VAR_azure_resource_group_name }}
+      TF_VAR_azure_inside_subnets: ${{ steps.update_output.outputs.TF_VAR_azure_inside_subnets }}
+      TF_VAR_azure_outside_subnets: ${{ steps.update_output.outputs.TF_VAR_azure_outside_subnets }}
+      TF_VAR_azure_vnet_cidr: ${{ steps.update_output.outputs.TF_VAR_azure_vnet_cidr }}
+      TF_VAR_gcp_slo_cidr: ${{ steps.update_output.outputs.TF_VAR_gcp_slo_cidr }}
+      TF_VAR_gcp_sli_cidr: ${{ steps.update_output.outputs.TF_VAR_gcp_sli_cidr }}
+      TF_VAR_gcp_proxy_cidr: ${{ steps.update_output.outputs.TF_VAR_gcp_proxy_cidr }}
+      TF_VAR_cluster_cird: ${{ steps.update_output.outputs.TF_VAR_cluster_cird }}
+      TF_VAR_services_cird: ${{ steps.update_output.outputs.TF_VAR_services_cird }}
+      TF_VAR_gcp_region: ${{ steps.update_output.outputs.TF_VAR_gcp_region }}
+      TF_VAR_namespace: ${{ steps.update_output.outputs.TF_VAR_namespace }}
+      TF_VAR_app_domain: ${{ steps.update_output.outputs.TF_VAR_app_domain }}
+      TF_VAR_f5xc_sd_sa: ${{ steps.update_output.outputs.TF_VAR_f5xc_sd_sa }}
+      TF_VAR_xc_mud: ${{ steps.update_output.outputs.TF_VAR_xc_mud }}
+      TF_VAR_xc_ddos_def: ${{ steps.update_output.outputs.TF_VAR_xc_ddos_def }}
+      TF_VAR_xc_bot_def: ${{ steps.update_output.outputs.TF_VAR_xc_bot_def }}
+      TF_VAR_dns_origin_pool: ${{ steps.update_output.outputs.TF_VAR_dns_origin_pool }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - id: apply_variables 
+        uses: f5devcentral/f5-xc-terraform-examples/.github/actions/apply-variables@main
+        with: 
+          vars_json: "${{ toJSON(vars) }}" 
+          vars_prefix: "TF_VAR_"
+          inputs_json: "${{ toJSON(inputs) }}" 
+        
+      - name: update_output
+        id: update_output
+        shell: bash
+        env:
+          ALL_ENV: ${{ toJSON(env) }}
+        run: |
+          echo "$ALL_ENV" |
+          jq -r ' 
+              to_entries | 
+              .[] | 
+              select(.key) | 
+              select(if .value | type == "string" then .value | length > 0 else .value != null end) | 
+              "\(.key)=\(.value)" 
+          ' >> "$GITHUB_OUTPUT" 
+
+
+  xc_config:
+    name: "Create XC Resources"
+    needs: [apply_variables]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "./workflow-guides/smcn/mcn-distributed-apps-l3/terraform/xc-config"
+    env: 
+      TF_VAR_name: ${{ needs.apply_variables.outputs.TF_VAR_name }}
+      TF_VAR_prefix: ${{ needs.apply_variables.outputs.TF_VAR_prefix }}
+      TF_VAR_resource_owner: "github-workflow"
+      TF_VAR_aws_vpc_cidr: ${{ needs.apply_variables.outputs.TF_VAR_aws_vpc_cidr }}
+      TF_VAR_azure_vnet_cidr: ${{ needs.apply_variables.outputs.TF_VAR_azure_vnet_cidr }}
+      TF_VAR_gcp_vnet_cidr: ${{ needs.apply_variables.outputs.TF_VAR_gcp_slo_cidr }}
+      TF_VAR_gcp_vnet_proxy_cird: ${{ needs.apply_variables.outputs.TF_VAR_gcp_proxy_cidr }}
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }} 
+      TF_CLOUD_ORGANIZATION: ${{ secrets.TF_CLOUD_ORGANIZATION }} 
+      TF_CLOUD_WORKSPACE_SECUREMCN_XC_CONFIG: ${{ needs.apply_variables.outputs.TF_CLOUD_WORKSPACE_SECUREMCN_XC_CONFIG }}
+      VOLT_API_URL: ${{ secrets.XC_API_URL }}
+      VOLT_API_P12_FILE: ${{ secrets.XC_API_P12_FILE }}
+      VES_P12_PASSWORD: ${{ secrets.XC_P12_PASSWORD }}
+    outputs:
+      xc_virtual_site: ${{ steps.output_vars.outputs.xc_virtual_site }}
+      xc_global_vn: ${{ steps.output_vars.outputs.xc_global_vn }}
+      xc_enhanced_firewall_policy: ${{ steps.output_vars.outputs.xc_enhanced_firewall_policy }}
+      tags: ${{ steps.output_vars.outputs.tags }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Setup Terraform Backend
+        id: backend
+        run: |
+          echo "${{secrets.XC_API_P12_FILE}}" | base64 -d > api.p12
+          echo VOLT_API_P12_FILE="$PWD/api.p12" >> "$GITHUB_ENV"
+
+          cat > backend.tf << EOF
+          terraform {
+            cloud {
+              organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
+              workspaces {
+                name = "$TF_CLOUD_WORKSPACE_SECUREMCN_XC_CONFIG"
+              }
+            }
+          }
+          EOF
+          
+      - name: Terraform Init
+        id: init
+        run: terraform init
+      
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Terraform Apply
+        run: terraform apply -no-color -auto-approve -input=false
+
+      - name: Set output vars
+        id: output_vars
+        run: |
+          sleep 5
+          echo "xc_virtual_site=$(terraform-bin output -no-color -raw xc_virtual_site)" >> "$GITHUB_OUTPUT"
+          echo "xc_global_vn=$(terraform-bin output -no-color -raw xc_global_vn)" >> "$GITHUB_OUTPUT"
+          echo "xc_enhanced_firewall_policy=$(terraform-bin output -no-color -raw xc_enhanced_firewall_policy)" >> "$GITHUB_OUTPUT"
+          echo "tags=$(terraform-bin output -no-color -json tags)" >> "$GITHUB_OUTPUT"
+
+
+      - name: Print output vars
+        id: ouput_print
+        run: |
+          echo 'xc_virtual_site: ${{ steps.output_vars.outputs.xc_virtual_site }}'
+          echo 'xc_global_vn: ${{ steps.output_vars.outputs.xc_global_vn }}'
+          echo 'xc_enhanced_firewall_policy: ${{ steps.output_vars.outputs.xc_enhanced_firewall_policy }}'
+          echo 'tags: ${{ steps.output_vars.outputs.tags }}'
+
+  aws_credentials: 
+    uses: f5devcentral/f5-xc-terraform-examples/.github/workflows/aws-cloud-credentials-apply.yaml@main
+    if: (inputs.deployment == 'aws-vpc-site' || inputs.deployment == 'deploy-resources')
+    name: "AWS Credentials"
+    needs: [apply_variables]
+    with: 
+      TF_VAR_name: ${{ needs.apply_variables.outputs.AWS_CLOUD_CREDENTIALS_TF_VAR_name }} 
+      TF_VAR_prefix: ${{ needs.apply_variables.outputs.TF_VAR_prefix }}
+      TF_CLOUD_WORKSPACE_AWS_CREDENTIALS: ${{ needs.apply_variables.outputs.TF_CLOUD_WORKSPACE_AWS_CREDENTIALS }}
+    secrets:
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
+      TF_CLOUD_ORGANIZATION: ${{ secrets.TF_CLOUD_ORGANIZATION }}
+      XC_API_P12_FILE: ${{ secrets.XC_API_P12_FILE }}
+      XC_P12_PASSWORD: ${{ secrets.XC_P12_PASSWORD }}
+      XC_API_URL: ${{ secrets.XC_API_URL }}
+      AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+      AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+      AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+      XC_AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+      XC_AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+      XC_AWS_CLOUD_CREDENTIALS_NAME: ${{ secrets.XC_AWS_CLOUD_CREDENTIALS_NAME }}
+
+  aws_networking: 
+    uses: f5devcentral/f5-xc-terraform-examples/.github/workflows/aws-networking-apply.yaml@main
+    if: (inputs.deployment == 'aws-vpc-site' || inputs.deployment == 'deploy-resources')
+    name: "AWS Networking"
+    needs: [apply_variables]
+    with:
+      TF_VAR_name: ${{ needs.apply_variables.outputs.AWS_NETWORKING_TF_VAR_name }}
+      TF_VAR_prefix: ${{ needs.apply_variables.outputs.TF_VAR_prefix }}
+      TF_VAR_tags: ${{ needs.apply_variables.outputs.TF_VAR_tags }}
+      TF_VAR_aws_region: ${{ needs.apply_variables.outputs.TF_VAR_aws_region }}
+      TF_VAR_az_names: ${{ needs.apply_variables.outputs.TF_VAR_aws_az_names }}
+      TF_VAR_local_subnets: "[]"
+      TF_VAR_inside_subnets: ${{ needs.apply_variables.outputs.TF_VAR_aws_inside_subnets }}
+      TF_VAR_outside_subnets: ${{ needs.apply_variables.outputs.TF_VAR_aws_outside_subnets }}
+      TF_VAR_workload_subnets: ${{ needs.apply_variables.outputs.TF_VAR_aws_workload_subnets }}
+      TF_VAR_vpc_cidr: ${{ needs.apply_variables.outputs.TF_VAR_aws_vpc_cidr }}
+      TF_CLOUD_WORKSPACE_AWS_NETWORKING: ${{ needs.apply_variables.outputs.TF_CLOUD_WORKSPACE_AWS_NETWORKING }}
+      TF_VAR_create_outside_security_group: "false"
+      TF_VAR_create_inside_security_group: "false"
+    secrets: 
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }} 
+      TF_CLOUD_ORGANIZATION: ${{ secrets.TF_CLOUD_ORGANIZATION }} 
+      AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }} 
+      AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }} 
+      AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }} 
+
+  aws_vpc_site: 
+    uses: f5devcentral/f5-xc-terraform-examples/.github/workflows/aws-vpc-site-apply.yaml@main
+    if: (inputs.deployment == 'aws-vpc-site' || inputs.deployment == 'deploy-resources')
+    needs: [apply_variables, aws_credentials, aws_networking, xc_config]
+    name: "AWS VPC Site"
+    with: 
+      TF_VAR_name: ${{ needs.apply_variables.outputs.TF_VAR_aws_vpc_site_name }}
+      TF_VAR_prefix: ${{ needs.apply_variables.outputs.TF_VAR_prefix }}
+      TF_VAR_site_type: "ingress_egress_gw"
+      TF_VAR_aws_region: ${{ needs.apply_variables.outputs.TF_VAR_aws_region }}
+      TF_VAR_master_nodes_az_names: ${{ needs.aws_networking.outputs.az_names }}
+      TF_VAR_vpc_id: ${{ needs.aws_networking.outputs.vpc_id }}
+      TF_VAR_existing_inside_subnets: ${{ needs.aws_networking.outputs.inside_subnet_ids }}
+      TF_VAR_existing_outside_subnets: ${{ needs.aws_networking.outputs.outside_subnet_ids }}
+      TF_VAR_existing_workload_subnets: ${{ needs.aws_networking.outputs.workload_subnet_ids }}
+      TF_VAR_create_aws_vpc: "false"
+      TF_CLOUD_WORKSPACE_AWS_VPC_SITE: ${{ needs.apply_variables.outputs.TF_CLOUD_WORKSPACE_AWS_VPC_SITE }}
+      TF_VAR_aws_cloud_credentials_name: ${{ needs.aws_credentials.outputs.aws_credentials_name }}
+      TF_VAR_inside_static_route_list: "[{ \"simple_static_route\": \"${{ fromJSON(needs.apply_variables.outputs.TF_VAR_aws_workload_subnets)[0] }}\" }, { \"simple_static_route\": \"${{ fromJSON(needs.apply_variables.outputs.TF_VAR_eks_internal_cidrs)[0] }}\" }, { \"simple_static_route\": \"${{ fromJSON(needs.apply_variables.outputs.TF_VAR_eks_internal_cidrs)[1] }}\" }]"
+      TF_VAR_global_network_connections_list: "[{ \"sli_to_global_dr\": { \"global_vn\": { \"name\": \"${{ needs.xc_config.outputs.xc_global_vn }}\", \"namespace\": \"system\" } } }]"
+      TF_VAR_enhanced_firewall_policies_list: "[{ \"name\": \"${{ needs.xc_config.outputs.xc_enhanced_firewall_policy }}\" }]"
+      TF_VAR_offline_survivability_mode: "true"
+      TF_VAR_tags: ${{ needs.xc_config.outputs.tags }}
+    secrets: 
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }} 
+      TF_CLOUD_ORGANIZATION: ${{ secrets.TF_CLOUD_ORGANIZATION }} 
+      XC_API_P12_FILE: ${{ secrets.XC_API_P12_FILE }}
+      XC_P12_PASSWORD: ${{ secrets.XC_P12_PASSWORD }}
+      XC_API_URL: ${{ secrets.XC_API_URL }}
+      AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }} 
+      AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }} 
+      AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }} 
+      # XC_AWS_CLOUD_CREDENTIALS_NAME: ${{ needs.aws_credentials.outputs.aws_credentials_name }}
+
+  azure_networking: 
+    uses: f5devcentral/f5-xc-terraform-examples/.github/workflows/azure-networking-apply.yaml@main
+    needs: [apply_variables]
+    if: (inputs.deployment == 'azure-vnet-site' || inputs.deployment == 'deploy-resources')
+    name: "Azure Networking"
+    with:
+      TF_VAR_name: ${{ needs.apply_variables.outputs.TF_VAR_name }}
+      TF_VAR_prefix: ${{ needs.apply_variables.outputs.TF_VAR_prefix }}
+      TF_VAR_tags: ${{ needs.apply_variables.outputs.TF_VAR_tags }}
+      TF_VAR_location: ${{ needs.apply_variables.outputs.TF_VAR_azure_location }}
+      TF_VAR_resource_group_name: ${{ needs.apply_variables.outputs.TF_VAR_azure_resource_group_name }}
+      TF_VAR_local_subnets: "[]"
+      TF_VAR_create_vnet: "true"
+      TF_VAR_inside_subnets: ${{ needs.apply_variables.outputs.TF_VAR_azure_inside_subnets }}
+      TF_VAR_outside_subnets: ${{ needs.apply_variables.outputs.TF_VAR_azure_outside_subnets }}
+      TF_VAR_vnet_cidr: ${{ needs.apply_variables.outputs.TF_VAR_azure_vnet_cidr }}
+      TF_CLOUD_WORKSPACE_AZURE_NETWORKING: ${{ needs.apply_variables.outputs.TF_CLOUD_WORKSPACE_AZURE_NETWORKING }}
+      TF_VAR_create_inside_security_group: "false"
+      TF_VAR_create_outside_security_group: "false"
+    secrets: 
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }} 
+      TF_CLOUD_ORGANIZATION: ${{ secrets.TF_CLOUD_ORGANIZATION }} 
+      AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+
+  azure_credentials: 
+    uses: f5devcentral/f5-xc-terraform-examples/.github/workflows/azure-cloud-credentials-apply.yaml@main
+    needs: [apply_variables]
+    if: (inputs.deployment == 'azure-vnet-site' || inputs.deployment == 'deploy-resources')
+    name: "Azure Credentials"
+    with: 
+      TF_VAR_name: ${{ needs.apply_variables.outputs.AZURE_CLOUD_CREDENTIALS_TF_VAR_name }} 
+      TF_VAR_prefix: ${{ needs.apply_variables.outputs.TF_VAR_prefix }}
+      TF_CLOUD_WORKSPACE_AZURE_CREDENTIALS: ${{ needs.apply_variables.outputs.TF_CLOUD_WORKSPACE_AZURE_CREDENTIALS }}
+    secrets: 
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }} 
+      TF_CLOUD_ORGANIZATION: ${{ secrets.TF_CLOUD_ORGANIZATION }} 
+      XC_API_P12_FILE: ${{ secrets.XC_API_P12_FILE }}
+      XC_P12_PASSWORD: ${{ secrets.XC_P12_PASSWORD }}
+      XC_API_URL: ${{ secrets.XC_API_URL }}
+      AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+      XC_AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      XC_AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      XC_AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      XC_AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+      XC_AZURE_CLOUD_CREDENTIALS_NAME: ${{ secrets.XC_AZURE_CLOUD_CREDENTIALS_NAME }}
+
+  azure_vnet_site: 
+    uses: f5devcentral/f5-xc-terraform-examples/.github/workflows/azure-vnet-site-apply.yaml@main
+    if: (inputs.deployment == 'azure-vnet-site' || inputs.deployment == 'deploy-resources')
+    needs: [apply_variables, azure_credentials, azure_networking, xc_config]
+    name: "Azure VNET Site"
+    with: 
+      TF_VAR_name: ${{ needs.apply_variables.outputs.TF_VAR_azure_vnet_site_name }}
+      TF_VAR_prefix: ${{ needs.apply_variables.outputs.TF_VAR_prefix }}
+      TF_VAR_site_type: "ingress_egress_gw"
+      TF_VAR_azure_rg_location: ${{ needs.apply_variables.outputs.TF_VAR_azure_location }}
+      TF_VAR_azure_rg_name: ${{ needs.apply_variables.outputs.TF_VAR_azure_vnet_site_name }}
+      TF_VAR_vnet_rg_name: ${{ needs.azure_networking.outputs.resource_group_name }}
+      TF_VAR_master_nodes_az_names: ${{ needs.azure_networking.outputs.az_names }}
+      TF_VAR_vnet_name: ${{ needs.azure_networking.outputs.vnet_name }}
+      TF_VAR_vnet_rg_location: ${{ needs.apply_variables.outputs.TF_VAR_azure_location }}
+      TF_VAR_existing_inside_subnets: ${{ needs.azure_networking.outputs.inside_subnet_names }}
+      TF_VAR_existing_outside_subnets: ${{ needs.azure_networking.outputs.outside_subnet_names }}
+      TF_VAR_existing_inside_rt_names: ${{ needs.azure_networking.outputs.inside_route_table_names }}
+      # TF_VAR_azure_cloud_credentials_name: ${{ needs.azure_credentials.outputs.azure_credentials_name }}
+      TF_CLOUD_WORKSPACE_AZURE_VNET_SITE: ${{ needs.apply_variables.outputs.TF_CLOUD_WORKSPACE_AZURE_VNET_SITE }}
+      TF_VAR_global_network_connections_list: "[{ \"sli_to_global_dr\": { \"global_vn\": { \"name\": \"${{ needs.xc_config.outputs.xc_global_vn }}\", \"namespace\": \"system\" } } }]"
+      TF_VAR_enhanced_firewall_policies_list: "[{ \"name\": \"${{ needs.xc_config.outputs.xc_enhanced_firewall_policy }}\" }]"
+      TF_VAR_offline_survivability_mode: "true"
+      TF_VAR_tags: ${{ needs.xc_config.outputs.tags }}
+      TF_VAR_apply_outside_sg_rules: "false"
+    secrets: 
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }} 
+      TF_CLOUD_ORGANIZATION: ${{ secrets.TF_CLOUD_ORGANIZATION }} 
+      XC_API_P12_FILE: ${{ secrets.XC_API_P12_FILE }}
+      XC_P12_PASSWORD: ${{ secrets.XC_P12_PASSWORD }}
+      XC_API_URL: ${{ secrets.XC_API_URL }}
+      AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+      XC_AZURE_CLOUD_CREDENTIALS_NAME: ${{ needs.azure_credentials.outputs.azure_credentials_name }}
+
+  aws_eks:
+    name: "Create AWS EKS"
+    if: (inputs.deployment == 'deploy-resources')
+    needs: [apply_variables, aws_networking, azure_networking, aws_vpc_site]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "./workflow-guides/smcn/mcn-distributed-apps-l3/terraform/aws-eks"
+    env: 
+      TF_CLOUD_WORKSPACE_SECUREMCN_AWS_EKS: ${{ needs.apply_variables.outputs.TF_CLOUD_WORKSPACE_SECUREMCN_AWS_EKS }}
+      TF_VAR_name: ${{ needs.apply_variables.outputs.TF_VAR_name }}
+      TF_VAR_prefix: ${{ needs.apply_variables.outputs.TF_VAR_prefix }}
+      TF_VAR_aws_vpc_id: ${{ needs.aws_networking.outputs.vpc_id }}
+      TF_VAR_eks_az_names: "[\"us-east-1a\", \"us-east-1b\"]"
+      TF_VAR_eks_internal_cidrs: ${{ needs.apply_variables.outputs.TF_VAR_eks_internal_cidrs }}
+      TF_VAR_aws_vpc_cidr: ${{ needs.aws_networking.outputs.vpc_cidr }}
+      # TF_VAR_eks_external_cidrs: "[\"10.10.231.0/24\", \"10.10.232.0/24\"]"
+      TF_VAR_route_table_id: ${{ fromJSON(needs.aws_vpc_site.outputs.workload_route_table_ids)[0] }}
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }} 
+      TF_CLOUD_ORGANIZATION: ${{ secrets.TF_CLOUD_ORGANIZATION }} 
+      AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+      AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+      AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+    outputs:
+      cluster_name: ${{ steps.output_vars.outputs.cluster_name }}
+      cluster_endpoint: ${{ steps.output_vars.outputs.cluster_endpoint }}
+      cluster_id: ${{ steps.output_vars.outputs.cluster_id }}
+      kubeconfig: ${{ steps.output_vars.outputs.kubeconfig }}
+      kubeconfig_certificate_authority_data: ${{ steps.output_vars.outputs.kubeconfig_certificate_authority_data }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Setup Terraform Backend
+        id: backend
+        run: |
+          cat > backend.tf << EOF
+          terraform {
+            cloud {
+              organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
+              workspaces {
+                name = "$TF_CLOUD_WORKSPACE_SECUREMCN_AWS_EKS"
+              }
+            }
+          }
+          EOF
+          
+      - name: Terraform Init
+        id: init
+        run: terraform init
+      
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Terraform Apply
+        run: terraform apply -no-color -auto-approve -input=false
+
+      - name: Set output vars
+        id: output_vars
+        run: |
+          sleep 5
+          echo "cluster_name=$(terraform-bin output -no-color -raw cluster_name)" >> "$GITHUB_OUTPUT"
+          echo "cluster_endpoint=$(terraform-bin output -no-color -raw cluster_endpoint)" >> "$GITHUB_OUTPUT"
+          echo "cluster_id=$(terraform-bin output -no-color -raw cluster_id)" >> "$GITHUB_OUTPUT"
+          echo "kubeconfig=$(terraform-bin output -no-color -raw kubeconfig  | base64 -w 0)" >> "$GITHUB_OUTPUT"
+          echo "kubeconfig_certificate_authority_data=$(terraform-bin output -no-color -raw kubeconfig_certificate_authority_data)" >> "$GITHUB_OUTPUT"
+
+      - name: Print output vars
+        id: ouput_print
+        run: |
+          echo 'cluster_name: ${{ steps.output_vars.outputs.cluster_name }}'
+          echo 'cluster_endpoint: ${{ steps.output_vars.outputs.cluster_endpoint }}'
+          echo 'cluster_id: ${{ steps.output_vars.outputs.cluster_id }}'
+          echo 'kubeconfig: ${{ steps.output_vars.outputs.kubeconfig }}'
+          echo 'kubeconfig_certificate_authority_data: ${{ steps.output_vars.outputs.kubeconfig_certificate_authority_data }}'
+
+  aws_eks_nic:
+    name: "Deploy NIC into AWS EKS"
+    if: (inputs.deployment == 'deploy-resources')
+    needs: [apply_variables, aws_eks]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "./workflow-guides/smcn/mcn-distributed-apps-l3/terraform/aws-eks-nic"
+    env: 
+      TF_CLOUD_WORKSPACE_SECUREMCN_AWS_EKS_NIC: ${{ needs.apply_variables.outputs.TF_CLOUD_WORKSPACE_SECUREMCN_AWS_EKS_NIC }}
+      TF_VAR_name: ${{ needs.apply_variables.outputs.TF_VAR_name }}
+      TF_VAR_prefix: ${{ needs.apply_variables.outputs.TF_VAR_prefix }}
+      TF_VAR_k8s_host: ${{ needs.aws_eks.outputs.cluster_endpoint }}
+      TF_VAR_k8s_ca_certificate: ${{ needs.aws_eks.outputs.kubeconfig_certificate_authority_data }}
+      TF_VAR_eks_cluster_name: ${{ needs.aws_eks.outputs.cluster_name }}
+      TF_VAR_nginx_registry: "private-registry.nginx.com"
+      # TODO: move to vars
+      TF_VAR_nginx_jwt: "nginx_repo.jwt"
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }} 
+      TF_CLOUD_ORGANIZATION: ${{ secrets.TF_CLOUD_ORGANIZATION }} 
+      AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+      AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+      AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+    outputs:
+      external_name: ${{ steps.output_vars.outputs.external_name }}
+      external_ip: ${{ steps.output_vars.outputs.external_ip }}
+      external_port: ${{ steps.output_vars.outputs.external_port }}
+      origin_source: ${{ steps.output_vars.outputs.origin_source }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Setup Terraform Backend
+        id: backend
+        run: |
+          cat > backend.tf << EOF
+          terraform {
+            cloud {
+              organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
+              workspaces {
+                name = "$TF_CLOUD_WORKSPACE_SECUREMCN_AWS_EKS_NIC"
+              }
+            }
+          }
+          EOF
+          
+      - name: Terraform Init
+        id: init
+        run: terraform init
+      
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Terraform Apply
+        run: terraform apply -no-color -auto-approve -input=false
+
+      - name: Set output vars
+        id: output_vars
+        run: |
+          sleep 5
+          echo "external_name=$(terraform-bin output -no-color -raw external_name)" >> "$GITHUB_OUTPUT"
+          echo "external_ip=$(terraform-bin output -no-color -raw external_ip)" >> "$GITHUB_OUTPUT"
+          echo "external_port=$(terraform-bin output -no-color -raw external_port)" >> "$GITHUB_OUTPUT"
+          echo "origin_source=$(terraform-bin output -no-color -raw origin_source)" >> "$GITHUB_OUTPUT"
+
+      - name: Print output vars
+        id: ouput_print
+        run: |
+          echo 'external_name: ${{ steps.output_vars.outputs.external_name }}'
+          echo 'external_ip: ${{ steps.output_vars.outputs.external_ip }}'
+          echo 'external_port: ${{ steps.output_vars.outputs.external_port }}'
+          echo 'origin_source: ${{ steps.output_vars.outputs.origin_source }}'
+
+  azure_aks:
+    name: "Create Azure AKS"
+    if: (inputs.deployment == 'deploy-resources')
+    needs: [apply_variables, aws_networking, azure_networking, azure_vnet_site]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "./workflow-guides/smcn/mcn-distributed-apps-l3/terraform/azure-aks"
+    env: 
+      TF_VAR_name: ${{ needs.apply_variables.outputs.TF_VAR_name }}
+      TF_VAR_prefix: ${{ needs.apply_variables.outputs.TF_VAR_prefix }}
+      # TF_VAR_azure_vm_private_ip: ${{ needs.apply_variables.outputs.TF_VAR_azure_vm_private_ip }}
+      TF_VAR_azure_rg_location: ${{ needs.azure_networking.outputs.location }}
+      TF_VAR_azure_rg_name: ${{ needs.azure_networking.outputs.resource_group_name }}
+      # TF_VAR_node_subnet_id: ${{ needs.azure_networking.outputs.inside_subnet_ids }}
+      # TF_VAR_node_subnet_id: ${{ fromJSON(needs.azure_networking.outputs.inside_subnet_ids)[0] }}
+      TF_VAR_node_subnet_id: "/subscriptions/${{ secrets.AZURE_SUBSCRIPTION_ID }}/resourceGroups/${{ needs.azure_networking.outputs.resource_group_name }}/providers/Microsoft.Network/virtualNetworks/${{ needs.azure_networking.outputs.vnet_name }}/subnets/${{ fromJSON(needs.azure_networking.outputs.inside_subnet_names)[0] }}"
+      TF_VAR_public_address: "false"
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }} 
+      TF_CLOUD_ORGANIZATION: ${{ secrets.TF_CLOUD_ORGANIZATION }} 
+      TF_CLOUD_WORKSPACE_SECUREMCN_AZURE_AKS: ${{ needs.apply_variables.outputs.TF_CLOUD_WORKSPACE_SECUREMCN_AZURE_AKS }}
+      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+    outputs:
+      cluster_name: ${{ steps.output_vars.outputs.cluster_name }}
+      cluster_endpoint: ${{ steps.output_vars.outputs.cluster_endpoint }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Setup Terraform Backend
+        id: backend
+        run: |
+          cat > backend.tf << EOF
+          terraform {
+            cloud {
+              organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
+              workspaces {
+                name = "$TF_CLOUD_WORKSPACE_SECUREMCN_AZURE_AKS"
+              }
+            }
+          }
+          EOF
+          
+      - name: Terraform Init
+        id: init
+        run: terraform init
+      
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Terraform Apply
+        run: terraform apply -no-color -auto-approve -input=false
+
+      - name: Set output vars
+        id: output_vars
+        run: |
+          sleep 5
+          echo "cluster_name=$(terraform-bin output -no-color -raw cluster_name)" >> "$GITHUB_OUTPUT"
+          echo "cluster_endpoint=$(terraform-bin output -no-color -raw cluster_endpoint)" >> "$GITHUB_OUTPUT"
+
+      - name: Print output vars
+        id: ouput_print
+        run: |
+          echo 'cluster_name: ${{ steps.output_vars.outputs.cluster_name }}'
+          echo 'cluster_endpoint: ${{ steps.output_vars.outputs.cluster_endpoint }}'
+
+  gcp_vpc_site:
+    name: "Create GCP VPC Site"
+    if: (inputs.deployment == 'gcp-vpc-site' || inputs.deployment == 'deploy-resources')
+    needs: [apply_variables, xc_config]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "./workflow-guides/smcn/mcn-distributed-apps-l3/terraform/gcp-site"
+    env: 
+      TF_VAR_name: ${{ needs.apply_variables.outputs.TF_VAR_name }}
+      TF_VAR_prefix: ${{ needs.apply_variables.outputs.TF_VAR_prefix }}
+      TF_VAR_tags: ${{ needs.xc_config.outputs.tags }}
+      TF_VAR_slo_cidr: ${{ needs.apply_variables.outputs.TF_VAR_gcp_slo_cidr }}
+      TF_VAR_sli_cird: ${{ needs.apply_variables.outputs.TF_VAR_gcp_sli_cidr }}
+      TF_VAR_proxy_cidr: ${{ needs.apply_variables.outputs.TF_VAR_gcp_proxy_cidr }}
+      TF_VAR_gcp_region: ${{ needs.apply_variables.outputs.TF_VAR_gcp_region }}
+      TF_VAR_xc_global_vn_name: "${{ needs.xc_config.outputs.xc_global_vn }}"
+      TF_VAR_allowed_remote_networks_cidr: "[ \"10.0.0.0/8\" ]"
+      TF_VAR_allowed_health_check_sources: "[ \"35.191.0.0/16\", \"130.211.0.0/22\" ]"
+      TF_VAR_gcp_project_id: ${{ secrets.GOOGLE_PROJECT_ID }}
+      TF_VAR_xc_gcp_credentials: ${{ secrets.GOOGLE_CREDENTIALS }} 
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }} 
+      TF_CLOUD_ORGANIZATION: ${{ secrets.TF_CLOUD_ORGANIZATION }} 
+      TF_CLOUD_WORKSPACE_SECUREMCN_GCP_VPC_SITE: ${{ needs.apply_variables.outputs.TF_CLOUD_WORKSPACE_SECUREMCN_GCP_VPC_SITE }}
+      VOLT_API_URL: ${{ secrets.XC_API_URL }}
+      VES_P12_PASSWORD: ${{ secrets.XC_P12_PASSWORD }}
+    outputs:
+      network_name_inside: ${{ steps.output_vars.outputs.network_name_inside }}
+      network_name_outside: ${{ steps.output_vars.outputs.network_name_outside }}
+      subnet_name_inside: ${{ steps.output_vars.outputs.subnet_name_inside }}
+      subnet_name_outside: ${{ steps.output_vars.outputs.subnet_name_outside }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Setup Terraform Backend
+        id: backend
+        run: |
+          echo "${{secrets.XC_API_P12_FILE}}" | base64 -d > api.p12
+          echo VOLT_API_P12_FILE="$PWD/api.p12" >> "$GITHUB_ENV"
+
+          echo "${{secrets.GOOGLE_CREDENTIALS}}" | base64 -d > gcloud.json
+          echo GOOGLE_CLOUD_KEYFILE_JSON="$PWD/gcloud.json" >> "$GITHUB_ENV"
+
+          cat > backend.tf << EOF
+          terraform {
+            cloud {
+              organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
+              workspaces {
+                name = "$TF_CLOUD_WORKSPACE_SECUREMCN_GCP_VPC_SITE"
+              }
+            }
+          }
+          EOF
+          
+      - name: Terraform Init
+        id: init
+        run: terraform init
+      
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Terraform Apply
+        run: terraform apply -no-color -auto-approve -input=false
+
+      - name: Set output vars
+        id: output_vars
+        run: |
+          sleep 5
+          echo "network_name_inside=$(terraform-bin output -no-color -raw network_name_inside)" >> "$GITHUB_OUTPUT"
+          echo "network_name_outside=$(terraform-bin output -no-color -raw network_name_outside)" >> "$GITHUB_OUTPUT"
+          echo "subnet_name_inside=$(terraform-bin output -no-color -raw subnet_name_inside)" >> "$GITHUB_OUTPUT"
+          echo "subnet_name_outside=$(terraform-bin output -no-color -raw subnet_name_outside)" >> "$GITHUB_OUTPUT"
+
+
+      - name: Print output vars
+        id: ouput_print
+        run: |
+          echo 'network_name_inside: ${{ steps.output_vars.outputs.network_name_inside }}'
+          echo 'network_name_outside: ${{ steps.output_vars.outputs.network_name_outside }}'
+          echo 'subnet_name_inside: ${{ steps.output_vars.outputs.subnet_name_inside }}'
+          echo 'subnet_name_outside: ${{ steps.output_vars.outputs.subnet_name_outside }}'
+
+  gcp_gke:
+    name: "Create GCP GKE Cluster"
+    if: (inputs.deployment == 'deploy-resources')
+    needs: [apply_variables, gcp_vpc_site]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "./workflow-guides/smcn/mcn-distributed-apps-l3/terraform/gcp-gke"
+    env: 
+      TF_VAR_name: ${{ needs.apply_variables.outputs.TF_VAR_name }}
+      TF_VAR_prefix: ${{ needs.apply_variables.outputs.TF_VAR_prefix }}
+      TF_VAR_network_name: ${{ needs.gcp_vpc_site.outputs.network_name_outside }}
+      TF_VAR_subnet_name: ${{ needs.gcp_vpc_site.outputs.subnet_name_outside }}
+      TF_VAR_cluster_cird: ${{ needs.apply_variables.outputs.TF_VAR_cluster_cird }}
+      TF_VAR_services_cird: ${{ needs.apply_variables.outputs.TF_VAR_services_cird }}
+      TF_VAR_gcp_region: ${{ needs.apply_variables.outputs.TF_VAR_gcp_region }}
+      TF_VAR_gcp_project_id: ${{ secrets.GOOGLE_PROJECT_ID }}
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }} 
+      TF_CLOUD_ORGANIZATION: ${{ secrets.TF_CLOUD_ORGANIZATION }} 
+      TF_CLOUD_WORKSPACE_SECUREMCN_GCP_GKE: ${{ needs.apply_variables.outputs.TF_CLOUD_WORKSPACE_SECUREMCN_GCP_GKE }}
+    outputs:
+      kubernetes_cluster_name: ${{ steps.output_vars.outputs.kubernetes_cluster_name }}
+      kubernetes_cluster_host: ${{ steps.output_vars.outputs.kubernetes_cluster_host }}
+
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Setup Terraform Backend
+        id: backend
+        run: |
+          echo "${{secrets.GOOGLE_CREDENTIALS}}" | base64 -d > gcloud.json
+          echo GOOGLE_CLOUD_KEYFILE_JSON="$PWD/gcloud.json" >> "$GITHUB_ENV"
+
+          cat > backend.tf << EOF
+          terraform {
+            cloud {
+              organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
+              workspaces {
+                name = "$TF_CLOUD_WORKSPACE_SECUREMCN_GCP_GKE"
+              }
+            }
+          }
+          EOF
+          
+      - name: Terraform Init
+        id: init
+        run: terraform init
+      
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Terraform Apply
+        run: terraform apply -no-color -auto-approve -input=false
+
+      - name: Set output vars
+        id: output_vars
+        run: |
+          sleep 5
+          echo "kubernetes_cluster_name=$(terraform-bin output -no-color -raw kubernetes_cluster_name)" >> "$GITHUB_OUTPUT"
+          echo "kubernetes_cluster_host=$(terraform-bin output -no-color -raw kubernetes_cluster_host)" >> "$GITHUB_OUTPUT"
+
+      - name: Print output vars
+        id: ouput_print
+        run: |
+          echo 'kubernetes_cluster_name: ${{ steps.output_vars.outputs.kubernetes_cluster_name }}'
+          echo 'kubernetes_cluster_host: ${{ steps.output_vars.outputs.kubernetes_cluster_host }}'
+
+  workload:
+    name: "Deploy Demo Workloads"
+    if: (inputs.deployment == 'deploy-resources')
+    needs: [apply_variables, gcp_vpc_site, aws_vpc_site, aws_networking, azure_networking, azure_vnet_site, aws_eks, azure_aks, gcp_gke, aws_eks_nic]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "./workflow-guides/smcn/mcn-distributed-apps-l3/terraform/workload"
+    env: 
+      TF_VAR_name: ${{ needs.apply_variables.outputs.TF_VAR_name }}
+      TF_VAR_prefix: ${{ needs.apply_variables.outputs.TF_VAR_prefix }}
+      # TODO: move to the env vars
+      TF_VAR_namespace: ${{ needs.apply_variables.outputs.TF_VAR_namespace }}
+      TF_VAR_app_domain: ${{ needs.apply_variables.outputs.TF_VAR_app_domain }}
+      TF_VAR_f5xc_sd_sa: ${{ needs.apply_variables.outputs.TF_VAR_f5xc_sd_sa }}
+      TF_VAR_xc_mud: ${{ needs.apply_variables.outputs.TF_VAR_xc_mud }}
+      TF_VAR_xc_ddos_def: ${{ needs.apply_variables.outputs.TF_VAR_xc_ddos_def }}
+      TF_VAR_xc_bot_def: ${{ needs.apply_variables.outputs.TF_VAR_xc_bot_def }}
+      TF_VAR_aws_site_name: ${{ needs.apply_variables.outputs.TF_VAR_aws_vpc_site_name }}
+      TF_VAR_nic_external_port: ${{ needs.aws_eks_nic.outputs.external_port }}
+      TF_VAR_nic_external_name: ${{ needs.aws_eks_nic.outputs.external_name }}
+      TF_VAR_dns_origin_pool: ${{ needs.apply_variables.outputs.TF_VAR_dns_origin_pool }}
+      TF_VAR_eks_cluster_name: ${{ needs.aws_eks.outputs.cluster_name }}
+      TF_VAR_azure_site_name: ${{ needs.apply_variables.outputs.TF_VAR_azure_vnet_site_name }}
+      TF_VAR_azure_internal_subnet_name: ${{ fromJSON(needs.azure_networking.outputs.inside_subnet_names)[0] }}
+      TF_VAR_azure_resource_group_name: ${{ needs.azure_networking.outputs.resource_group_name }}
+      TF_VAR_aks_cluster_name: ${{ needs.azure_aks.outputs.cluster_name }}
+      TF_VAR_gke_cluster_name: ${{ needs.gcp_gke.outputs.kubernetes_cluster_name }}
+      # GCP
+      TF_VAR_gcp_region: ${{ needs.apply_variables.outputs.TF_VAR_gcp_region }}
+      TF_VAR_gcp_project_id: ${{ secrets.GOOGLE_PROJECT_ID }}
+      TF_VAR_gcp_account_id: ${{ secrets.GOOGLE_ACCOUNT_ID }}
+      # TF Cloud
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }} 
+      TF_CLOUD_ORGANIZATION: ${{ secrets.TF_CLOUD_ORGANIZATION }} 
+      TF_CLOUD_WORKSPACE_SECUREMCN_WORKLOAD: ${{ needs.apply_variables.outputs.TF_CLOUD_WORKSPACE_SECUREMCN_WORKLOAD }}
+      # XC Cloud
+      VOLT_API_URL: ${{ secrets.XC_API_URL }}
+      VES_P12_PASSWORD: ${{ secrets.XC_P12_PASSWORD }}
+      # Azure Cloud
+      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      # AWS Cloud
+      AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+      AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+      AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+    outputs:
+      app_url: ${{ steps.output_vars.outputs.app_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Setup Terraform Backend
+        id: backend
+        run: |
+          echo "${{secrets.GOOGLE_CREDENTIALS}}" | base64 -d > gcloud.json
+          echo GOOGLE_CLOUD_KEYFILE_JSON="$PWD/gcloud.json" >> "$GITHUB_ENV"
+
+          echo "${{secrets.XC_API_P12_FILE}}" | base64 -d > api.p12
+          echo VOLT_API_P12_FILE="$PWD/api.p12" >> "$GITHUB_ENV"
+
+          cat > backend.tf << EOF
+          terraform {
+            cloud {
+              organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
+              workspaces {
+                name = "$TF_CLOUD_WORKSPACE_SECUREMCN_WORKLOAD"
+              }
+            }
+          }
+          EOF
+          
+      - name: Terraform Init
+        id: init
+        run: terraform init
+      
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Terraform Apply
+        run: terraform apply -no-color -auto-approve -input=false
+
+      - name: Set output vars
+        id: output_vars
+        run: |
+          sleep 5
+          echo "app_url=$(terraform-bin output -no-color -raw app_url)" >> "$GITHUB_OUTPUT"
+
+      - name: Print output vars
+        id: ouput_print
+        run: |
+          echo 'app_url: ${{ steps.output_vars.outputs.app_url }}'

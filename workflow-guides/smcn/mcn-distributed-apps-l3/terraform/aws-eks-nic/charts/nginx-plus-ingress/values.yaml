@@ -1,0 +1,48 @@
+---
+nginx-ingress:
+  controller:
+    enableSnippets: true
+    image:
+      repository: private-registry.nginx.com/nginx-ic-nap-dos/nginx-plus-ingress
+      tag: 2.4.0
+    nginxplus: true
+    nginxStatus:
+      allowCidrs: 0.0.0.0/0
+      port: 9000
+    readyStatus:
+      initialDelaySeconds: 30
+    serviceAccount:
+      imagePullSecretName: regcred
+    
+    ingressClassByName: true
+    
+    ingressClass:
+      - name: nginx
+        setAsDefaultIngress: true
+      - name: nginx-internal
+        create: true
+        default: false
+        controllerValue: "k8s.io/ingress-nginx-internal"
+    
+    service:
+      # Restrict the external LB for simplicity of this lab to internal connectivity.
+      # Remove this restriction to support external access through AWS
+      nginx:
+        create: true
+        loadbBalancerSourceRanges: [ "10.0.0.0/8", "172.20.0.0/16" ]
+      
+      # Enable the internal LB. The annotations are important here, without
+      # these you will get a "classic" loadbalancer
+      nginx-internal:
+        create: true
+        loadbBalancerSourceRanges: [ "10.0.0.0/8", "172.20.0.0/16" ]
+        annotations:
+          service.beta.kubernetes.io/aws-load-balancer-name: "k8s-nlb"
+          service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+          service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
+          service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+          service.beta.kubernetes.io/aws-load-balancer-type: nlb
+          service.beta.kubernetes.io/aws-load-balancer-scheme: internal
+          service.beta.kubernetes.io/aws-load-balancer-subnets: "subnet-018466ebdb4c12777,subnet-0d91171fbc2387acb"
+  prometheus:
+    create: true
