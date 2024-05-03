@@ -532,7 +532,7 @@ jobs:
       
       - name: Terraform Destroy
         id: destroy
-        run: terraform destroy -auto-approve -input=false -target='azurerm_kubernetes_cluster.aks-cluster'
+        run: terraform destroy -auto-approve -input=false
 
   aws_eks_nic:
     name: "Destroy NIC into AWS EKS"

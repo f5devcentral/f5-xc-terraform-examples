@@ -100,7 +100,7 @@ jobs:
 
       TF_VAR_gcp_region: "us-central1"
       TF_VAR_namespace: ""
-      TF_VAR_app_domain: "arcadia-mcn.f5-cloud-demo.com"
+      TF_VAR_app_domain: "arcadia-mcn.demo.internal"
       TF_VAR_f5xc_sd_sa: "smsn-sd-sa"
       TF_VAR_xc_mud: "true"
       TF_VAR_xc_ddos_def: "true"
