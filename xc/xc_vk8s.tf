@@ -28,7 +28,8 @@ resource "volterra_virtual_k8s" "this" {
   depends_on = [volterra_namespace.this]
   vsite_refs {
     name      = "ves-io-all-res"
-    namespace = "ves-io-shared"
+    namespace = "shared"
+    tenant    = "ves-io"
   }
 
   provisioner "local-exec" {
