@@ -195,6 +195,13 @@ variable "serviceport" {
   default     = ""
 }
 
+variable user_site {
+  type        = string
+  description = "Whether site is owned by user of F5 XC."
+  default     = "false"
+}
+
+
 variable "site_name" {
   type        = string
   description = "CE site name to advertise load balancer."

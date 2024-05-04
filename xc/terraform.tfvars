@@ -27,6 +27,8 @@ advertise_sites = "false"
 http_only = "true"
 xc_delegation = "false"
 ip_address_on_site_pool = "false"
+site_name = "sv10-sjc"
+user_site = "false"
 
 #XC AI/ML Settings for MUD, APIP - NOTE: Only set if using AI/ML settings from the shared namespace
 xc_app_type = []
@@ -63,7 +65,6 @@ xc_api_val_custom = false
 xc_bot_def = true
 xc_bot_path = "/user"
 need_infra = false
-site_name = "sv10-sjc"
 
 #XC DDoS
 xc_ddos_pro = false
