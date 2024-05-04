@@ -2,6 +2,11 @@
 resource "volterra_namespace" "this" {
   count = var.vk8s ? 1 : 0
   name = var.xc_namespace
+
+  provisioner "local-exec" {
+    command = "sleep 20s"
+  }
+
 }
 /*
 # create virtual site

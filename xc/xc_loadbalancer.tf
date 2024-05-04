@@ -68,6 +68,7 @@ resource "volterra_origin_pool" "op" {
         site {
           name      = "${coalesce(var.site_name, local.project_prefix)}"
           namespace = "system"
+          tenant    = var.xc_tenant
           }
         }
       }

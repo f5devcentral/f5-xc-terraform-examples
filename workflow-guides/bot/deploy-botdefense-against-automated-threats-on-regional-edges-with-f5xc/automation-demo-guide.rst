@@ -112,11 +112,13 @@ Workflow File: `bot-defense-re-destroy.yaml </.github/workflows/bot-defense-re-d
 
 -  k8s_pool = "true"
 
+-  serviceName = "airline-flask.<namespace-name>".. NOTE: Please make sure your namespace `xc_namespace` and this variable is same
+
 -  advertise_sites = "set to false"
 
 -  http_only = "set to true"
 
--  gcp_ce_site = "set to false"
+-  xxx_ce_site = "set to false"
 
 -  xc_bot_def = "set to true"
 
