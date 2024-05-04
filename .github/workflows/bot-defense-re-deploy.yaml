@@ -89,4 +89,5 @@ jobs:
           cp ../tools/run-curl-traffic.sh .
           export cname=$(terraform output -raw lb_cname)
           echo $cname 
+          sleep 30 
           sh run-curl-traffic.sh "$cname/user/signin"
