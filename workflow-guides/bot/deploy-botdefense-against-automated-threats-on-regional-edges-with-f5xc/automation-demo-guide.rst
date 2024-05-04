@@ -129,21 +129,21 @@ Workflow File: `bot-defense-re-destroy.yaml </.github/workflows/bot-defense-re-d
 .. image:: assets/xc-tfvars.JPG
 
 
-**STEP 4:** Commit and push your build branch to your forked repo
+**STEP 3:** Commit and push your build branch to your forked repo
 
 - Build will run and can be monitored in the GitHub Actions tab and TF Cloud console. ``If CICD failed because of intermittent timing issue, rerun the work-flow again.``
 
 .. image:: assets/workflow-output.JPG
 
-**STEP 5:** Once the pipeline completes, verify your Origin Pool and LB were deployed.
+**STEP 4:** Once the pipeline completes, verify your Origin Pool and LB were deployed.
 
-**STEP 6:** Once Load Balancer is online, copy the cname of the load balancer from UI and send a request to this cname. You should be able to view the demo application as shown in the image below:
+**STEP 5:** Once Load Balancer is online, copy the cname of the load balancer from UI and send a request to this cname. You should be able to view the demo application as shown in the image below:
 
 .. image:: assets/lb-cname.jpg
    
 .. image:: assets/vk8s-f5air.jpg
 
 
-**STEP 7:** If you want to destroy the entire setup, checkout a branch with name ``destroy-bot-defense-re`` (using current ``bot-defense-re`` branch) which will trigger destroy workflow and will remove all created resources
+**STEP 6:** If you want to destroy the entire setup, checkout a branch with name ``destroy-bot-defense-re`` (using current ``bot-defense-re`` branch as source) which will trigger destroy workflow and will remove all created resources
 
-.. image:: assets/destroy.png
+.. image:: assets/destroy.jpg
