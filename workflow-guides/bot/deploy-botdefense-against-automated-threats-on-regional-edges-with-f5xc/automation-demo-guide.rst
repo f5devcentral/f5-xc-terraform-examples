@@ -30,11 +30,11 @@ Terraform Cloud
 
 -  **Workspaces:** Create CLI or API workspaces for each asset in the workflow. ``NOTE: Please use unique workspaces for each work-flow and don't club them with other use cases as you may run into conflicting cloud resource and provider errors.``
 
-   +---------------------------+-------------------------------------------+
-   |         **Workflow**      |  **Assets/Workspaces**                    |
-   +===========================+===========================================+
-   |      bot-defense-re       |             xc                            |
-   +---------------------------+-------------------------------------------+
+   +---------------------------+--------------------------+
+   |         **Workflow**      |  **Assets/Workspaces**   |
+   +===========================+==========================+
+   |bot-defense-re             |xc                        |
+   +---------------------------+--------------------------+
 
 
 -  **Workspace Sharing:** Under the settings for each Workspace, set the **Remote state sharing** to share with each Workspace created.
