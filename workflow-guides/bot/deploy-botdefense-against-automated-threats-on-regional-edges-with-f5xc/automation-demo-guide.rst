@@ -146,7 +146,7 @@ Workflow File: `bot-defense-re-destroy.yaml </.github/workflows/bot-defense-re-d
 
 **STEP 6:** You can navigate to Distributed Apps --> Load balancer section, then to HTTP load balancers and finally to security monitoring dashboard. You can also check Bot defense tab to validate the bot traffic.
 
-.. image:: assets/xc-dashboard.jpg
+.. image:: assets/xc-dashboard1.jpg
 
 
 **STEP 7:** If you want to destroy the entire setup, checkout a branch with name ``destroy-bot-defense-re`` (using current ``bot-defense-re`` branch as source) which will trigger destroy workflow and will remove all created resources
