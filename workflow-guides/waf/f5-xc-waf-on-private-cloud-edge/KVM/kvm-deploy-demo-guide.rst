@@ -7,8 +7,6 @@ Introduction
 
 F5 Distributed Cloud (F5 XC) supports deploying its services as a Customer Edge (CE) node in Openstack Private Cloud Environment. CE helps to connect applications running on Openstack's Private Cloud to F5 XC Global Network for telemetry and to deliver consistent security.
 
-CE also allows application deployed in Openstack environment to connect with applications running in multiple Public Cloud platfroms.
-
 Solution overview
 *******************
 
