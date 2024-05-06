@@ -178,7 +178,7 @@ Below we shall take a look into detailed steps as mentioned,
 
 Conclusion
 **************
-Integrating F5 XC services with Openstack Platform results in delivering consistent security and performance for apps running on Openstack. Integration with F5 XC's Global Network connects application services running on Openstack Private cloud to multiple public, Hybrid cloud providers.
+With the above demo steps we can deploy the CE on Private Cloud Platform. Integrating F5 XC services with Openstack Platform results in delivering consistent security and performance for apps running on Openstack.
 
 
 
