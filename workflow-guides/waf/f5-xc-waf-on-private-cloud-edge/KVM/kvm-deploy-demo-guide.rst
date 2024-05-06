@@ -10,7 +10,7 @@ F5 Distributed Cloud (F5 XC) supports deploying its services as a Customer Edge 
 Solution overview
 *******************
 
-In this article, we demonstrate deploying F5 XC services as a CE on Openstack with KVM as a hypervisor. We also deploy a dummy flight booking application designed to book flights and to access the application via F5 XC's Global Network.
+In this article, we demonstrate deploying F5 XC services as a CE on Openstack with KVM as a hypervisor. We also deploy a dummy flight booking application designed to book flights and try to access the application via F5 XC's Global Network.
 
 .. figure:: Assets/KVM_on-prem_new.jpeg
 
