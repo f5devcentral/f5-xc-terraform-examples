@@ -5,14 +5,14 @@ Deploying F5 XC’s Customer Edge using KVM on Openstack’s Private Cloud
 Introduction
 ***************
 
-As there is a drastic change in deploying application from traditional data centers to the Hybrid Cloud in recent times. Companies are deploying their apps in the environment that made the most sense for the applications. Hence there is a greater demand in distribution of applications in multiple public cloud, traditional data centers, Private cloud, and edge as well.  
+In Recent times there is a drastic change in deploying application from traditional data centers to the Hybrid Cloud and hence Companies are deploying their apps in the environment that made the most sense for the applications. Hence there is a greater demand in distribution of applications in multiple public clouds, traditional data centers, Private clouds, and edge as well.
 
-There are certain apps that are residing in environment (like private cloud) needs to be connected to other environment such as multi-cloud networking platforms for better transit of data with greater security measures along with low latency and this can be achieved using F5 Distributed Cloud (F5 XC). 
+F5 Distributed Cloud (F5 XC) supports deploying its services as a site/node as a Customer Edge (CE) in Openstack Private cloud environment. This connects the CE to the F5 XC's Global Network to deliver consistent security such as WAAP capabilities and telemetry to the Openstack's Private cloud platform.
 
 Solution overview
 *******************
 
-In this article, we demonstrate deploying F5 XC Services site as a Customer Edge (CE) on KVM in Open Stack private cloud network. We also deploy an application and connect the CE to the F5 XC’s Global network. This results in extending the F5 XC’s global backbone network to the customer premises to provide security capabilities along with telemetry. 
+In this article, we demonstrate deploying F5 XC services as a CE on Openstack with KVM as a hypervisor. We also deploy a dummy flight booking application designed to book flights and to access the application via F5 XC's Global Network.
 
 .. figure:: Assets/KVM_on-prem_new.jpeg
 
@@ -110,6 +110,8 @@ Below we shall take a look into detailed steps as mentioned,
 3.   F5 XC configs and app deploy
       **Step 3.1: Creating & Assigning labels to Site**
 
+      Labels are created to group multiple CE sites together to create a virtual site. A Virtual site provides a mechanism to perform operations on an individual or a group of sites.
+
       - From F5 XC console > select Shared Configuration box.
       - Select Manage in left-menu > select Labels > Known Keys and select “Add known key” button.
 
@@ -178,7 +180,7 @@ Below we shall take a look into detailed steps as mentioned,
 
 Conclusion
 **************
-F5 XC supports deploying its services across different private cloud platforms like openstack, this helps to connect its applications running in them to the F5 XC global network and protects the application. This gives feasibility to the organizations to utilize the services running across different cloud platforms in an easy manner.
+Integrating F5 XC services with Openstack Platform results in delivering consistent security and performance for apps running on Openstack. Integration with F5 XC's Global Network connects application services running on Openstack Private cloud to multiple public, Hybrid cloud providers.
 
 
 
