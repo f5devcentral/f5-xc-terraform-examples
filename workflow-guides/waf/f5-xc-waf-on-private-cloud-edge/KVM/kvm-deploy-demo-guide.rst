@@ -5,7 +5,7 @@ Deploying F5 XC’s Customer Edge using KVM on Openstack’s Private Cloud
 Introduction
 ***************
 
-In Recent times there is a drastic change in deploying application from traditional data centers to the Hybrid Cloud and hence Companies are deploying their apps in the environment that made the most sense for the applications. Hence there is a greater demand in distribution of applications in multiple public clouds, traditional data centers, Private clouds, and edge as well.
+In Recent times, there is a drastic change in deploying application from traditional data centers to the Hybrid Cloud and hence Companies are deploying their apps in the environment that made the most sense for the applications. Hence there is a greater demand in distribution of applications in multiple public clouds, traditional data centers, Private clouds, and edge as well.
 
 F5 Distributed Cloud (F5 XC) supports deploying its services as a site/node as a Customer Edge (CE) in Openstack Private cloud environment. This connects the CE to the F5 XC's Global Network to deliver consistent security such as WAAP capabilities and telemetry to the Openstack's Private cloud platform.
 
