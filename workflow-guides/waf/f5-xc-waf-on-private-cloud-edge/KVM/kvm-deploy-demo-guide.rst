@@ -7,7 +7,7 @@ Introduction
 
 F5 Distributed Cloud (F5 XC) supports deploying its services as a node in Openstack Private Cloud Environement. This helps to connect applications running on Openstack's Private Cloud to F5 XC Global Network for telemetry and to deliver security to Private Cloud.
 
-This expands applicaiton deployed in Openstack environment to connect applications running in multiple Public Cloud platfroms using F5 XC.
+This expands application deployed in Openstack environment to connect applications running in multiple Public Cloud platfroms using F5 XC.
 
 Solution overview
 *******************
