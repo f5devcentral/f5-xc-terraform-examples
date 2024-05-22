@@ -11,7 +11,7 @@ resource "volterra_healthcheck" "aws-hc" {
   http_health_check {
     path = "/"
     host_header = local.app_domain
-    expected_status_codes = "200"
+    expected_status_codes = [ "200" ]
   }
   unhealthy_threshold = 1
   healthy_threshold = 3
