@@ -4,6 +4,22 @@ resource "volterra_namespace" "this" {
   description = format("Namespace for %s", local.namespace)
 }
 
+resource "volterra_healthcheck" "aws-hc" {
+  name = format("%s-aws-hc", local.name)
+  namespace = local.namespace
+  description = format("Healthcheck for origin server %s", local.aws_origin_server)
+  http_health_check {
+    path = "/"
+    host_header = local.app_domain
+    expected_status_codes = "200-200"
+  }
+  unhealthy_threshold = 1
+  healthy_threshold = 3
+  interval = 10
+  timeout = 5
+  depends_on = [ volterra_namespace.this ]
+}
+
 resource "volterra_origin_pool" "aws-op" {
   name                   = format("%s-xcop-aws", local.name)
   namespace              = local.namespace
@@ -34,6 +50,10 @@ resource "volterra_origin_pool" "aws-op" {
             name = local.aws_site_name
           }
         }  
+      }
+      healthcheck {
+        name = volterra_healthcheck.aws-hc.name
+        namespace = local.namespace
       }
     }
   }
