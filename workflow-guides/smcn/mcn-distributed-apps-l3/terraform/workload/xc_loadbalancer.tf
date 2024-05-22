@@ -51,10 +51,6 @@ resource "volterra_origin_pool" "aws-op" {
           }
         }  
       }
-      healthcheck {
-        name = volterra_healthcheck.aws-hc.name
-        namespace = local.namespace
-      }
     }
   }
   /* dynamic "origin_servers" {
@@ -65,6 +61,10 @@ resource "volterra_origin_pool" "aws-op" {
       } 
     }
   } */
+  healthcheck {
+        name = volterra_healthcheck.aws-hc.name
+        namespace = local.namespace
+  }
   no_tls = true
   port = local.aws_origin_port
   endpoint_selection     = "LOCAL_PREFERRED"
