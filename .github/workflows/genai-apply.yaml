@@ -497,7 +497,7 @@ jobs:
 
 
   gcp_genai:
-    name: "Deploy Gen AI Backend"
+    name: "Deploy Gen AI Frontend"
     runs-on: ubuntu-latest
     needs: terraform_gke
     defaults:
