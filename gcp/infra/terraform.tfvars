@@ -1,6 +1,6 @@
 #GCP INFRA
-project_id = "f5-gcs-5611-mktg-secsols"
-region     = "asia-south1"
+gcp_project_id = "f5-gcs-5611-mktg-secsols"
+gcp_region     = "asia-south1"
 project_prefix = "jani-genai"
 
 
