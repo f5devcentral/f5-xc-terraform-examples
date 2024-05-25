@@ -44,7 +44,7 @@ resource "google_compute_router_nat" "nat" {
 
 # firewall rules
 resource "google_compute_firewall" "allow-ssh" {
-  name    = "allow-ssh"
+  name    = "${var.project_prefix}-ssh-${random_id.build_suffix.hex}"
   network = google_compute_network.vpc_network.id
   allow {
     protocol = "tcp"
@@ -54,7 +54,7 @@ resource "google_compute_firewall" "allow-ssh" {
 }
 
 resource "google_compute_firewall" "http" {
-  name    = "allow-http"
+  name    = "${var.project_prefix}-http-${random_id.build_suffix.hex}"
   network = google_compute_network.vpc_network.id
   allow {
     protocol = "tcp"
