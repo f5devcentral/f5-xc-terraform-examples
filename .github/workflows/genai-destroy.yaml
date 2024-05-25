@@ -3,7 +3,7 @@ name: "WAF + K8s Destroy"
 on:
   push:
     branches:
-      - deploy-genai
+      - deploy-genai2
   pull_request:
 
 jobs:
