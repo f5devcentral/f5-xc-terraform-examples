@@ -1,7 +1,7 @@
 
 data "tfe_outputs" "infra" {
   organization = var.tf_cloud_organization
-  workspace = "gcp-infra"
+  workspace = "gcp_infra"
 }
 
 data "tfe_outputs" "eks" {

@@ -17,7 +17,7 @@ resource "google_compute_subnetwork" "public_subnetwork" {
 	region = var.gcp_region
 	network = google_compute_network.vpc_network.name
 }
-/*
+
 # Router Nat
 resource "google_compute_router" "router" {
   name    = "${var.project_prefix}-router-${random_id.build_suffix.hex}"
@@ -40,7 +40,7 @@ resource "google_compute_router_nat" "nat" {
     enable = true
     filter = "ERRORS_ONLY"
   }
-}*/
+
 
 # firewall rules
 resource "google_compute_firewall" "allow-ssh" {
