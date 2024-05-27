@@ -40,6 +40,7 @@ resource "google_compute_router_nat" "nat" {
     enable = true
     filter = "ERRORS_ONLY"
   }
+}
 
 
 # firewall rules
