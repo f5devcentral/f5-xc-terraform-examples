@@ -250,12 +250,6 @@ variable "xc_service_discovery" {
 }
 
 
-variable "gcp_ce_site" {
-  type        = string
-  description = "If infra is deployed in GCP CE site ?"
-  default     = "false"
-}
-
 variable "GOOGLE_CREDENTIALS" {
   type        = string
   description = "Contents of GCP credentials file to create CE site"
@@ -267,6 +261,13 @@ variable "GOOGLE_CREDENTIALS" {
 variable "eks_ce_site" {
   type        = string
   description = "Whether it's EKS CE site ?"
+  default     = "false"
+}
+
+# GKE CE Site
+variable "gcp_ce_site" {
+  type        = string
+  description = "Whether it's GCP CE site ?"
   default     = "false"
 }
 
