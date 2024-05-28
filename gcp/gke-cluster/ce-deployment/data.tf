@@ -7,7 +7,3 @@ data "tfe_outputs" "gke" {
   organization = var.tf_cloud_organization
   workspace    = "gke"
 }
-
-data "gke_cluster_auth" "auth" {
-  name = data.tfe_outputs.gke.values.cluster_name
-}
