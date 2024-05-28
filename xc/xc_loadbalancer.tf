@@ -150,6 +150,20 @@ resource "volterra_http_loadbalancer" "lb_https" {
     }
   }
 
+  dynamic "data_guard_rules" {
+    for_each = var.xc_data_guard ? [1] : []
+    content {
+      metadata {
+        name = format("%s-data-guard-%s", local.project_prefix, local.build_suffix)
+      }
+      apply_data_guard = true
+      any_domain       = true
+      path {
+        prefix = "/"
+      }
+    }
+  }
+
   app_firewall {
     name = volterra_app_firewall.waap-tf.name
     namespace = var.xc_namespace

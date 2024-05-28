@@ -30,6 +30,13 @@ variable "xc_waf_blocking" {
   description = "Set XC WAF to Blocking(true) or Monitoring(false)"
   default     = "false"
 }
+
+variable "xc_data_guard" {
+  type        = string
+  description = "Set XC datguard."
+  default     = "false"
+}
+
 #XC AI/ML Settings for MUD, APIP - NOTE: Only set if using AI/ML settings from the shared namespace
 variable "xc_app_type" {
   type        = list
@@ -41,6 +48,7 @@ variable "xc_multi_lb" {
   description = "ML configured externally using app type feature and label added to the HTTP load balancer."
   default     = "false"
 }
+
 
 #XC API Protection and Discovery
 variable "xc_api_disc" {
@@ -201,6 +209,13 @@ variable "site_name" {
   default     = ""
 }
 
+variable "gke_site_name" {
+  type        = string
+  description = "Name of the GKE CE site."
+  default     = ""
+}
+
+
 # Azure CE Site 
 variable "az_ce_site" {
   type        = string
@@ -287,6 +302,12 @@ variable "ip_address_on_site_pool" {
 variable "aws_ce_site" {
   type        = string
   description = "Whether it's EKS site for AWS CE ?"
+  default     = "false"
+}
+
+variable "gke_ce_site" {
+  type        = string
+  description = "Whether it's GKE CE site ?"
   default     = "false"
 }
 
