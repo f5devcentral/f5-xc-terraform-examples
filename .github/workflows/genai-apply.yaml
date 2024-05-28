@@ -573,7 +573,7 @@ jobs:
   terraform_xc:
     name: "Deploy F5XC WAF"
     runs-on: ubuntu-latest
-    needs: gcp_genai, aws_ce
+    needs: [gcp_genai, aws_ce]
     defaults:
       run:
         working-directory: ./xc
