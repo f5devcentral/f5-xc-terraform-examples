@@ -1,5 +1,5 @@
-provider "aws" {
-    region     = local.aws_region
+provider "google" {
+    region     = local.region
 }
 
 provider "kubectl" {

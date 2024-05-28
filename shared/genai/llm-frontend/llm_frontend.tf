@@ -27,9 +27,10 @@ metadata:
     app: langchain-search
   namespace: genai-apps
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   ports:
-  - port: 8501
+  - port: 80
+    targetPort: 8501
   selector:
     app: langchain-search
 YAML

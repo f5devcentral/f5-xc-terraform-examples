@@ -348,7 +348,6 @@ jobs:
   gcp_infra:
     name: "Deploy GCP Infra"
     runs-on: ubuntu-latest
-    needs: aws_ce
     defaults:
       run:
         working-directory: ./gcp/infra
@@ -574,7 +573,7 @@ jobs:
   terraform_xc:
     name: "Deploy F5XC WAF"
     runs-on: ubuntu-latest
-    needs: gcp_genai
+    needs: gcp_genai, aws_ce
     defaults:
       run:
         working-directory: ./xc
