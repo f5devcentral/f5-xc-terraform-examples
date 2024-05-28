@@ -1,6 +1,5 @@
 provider "google" {
-  project = local.project_id
-  region  = local.region
+  region  = local.gcp_region
 }
 
 provider "kubectl" {
