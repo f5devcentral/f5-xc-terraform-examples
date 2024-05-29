@@ -5,7 +5,7 @@
 Examples of F5 Distributed Cloud (XC) deployments utilizing Terraform. For more information on the use cases covered by this project, please see the following articles and workflow guides:
 
 
-* **F5 Distributed Cloud WAF**
+### **F5 Distributed Cloud WAF**
 
   | **DevCentral Overview Articles**                                                                                                                          | **Use Case / Workflow Guides (SaaS Console, Automation)**                                                                                                                                                |
   | --------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -18,10 +18,10 @@ Examples of F5 Distributed Cloud (XC) deployments utilizing Terraform. For more 
   | [Deploy WAF on any Edge with F5 Distributed Cloud](https://community.f5.com/t5/technical-articles/deploy-waf-on-any-edge-with-f5-distributed-cloud/ta-p/313079) | [Deploy F5 XC WAF on XC Customer Edges + MultiCloud (SaaS Console, Automation)](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-ce-multicloud/README.rst) |
   | [Deploy WAF on any Edge with F5 Distributed Cloud](https://community.f5.com/t5/technical-articles/deploy-waf-on-any-edge-with-f5-distributed-cloud/ta-p/313079) | [Deploy F5 XC WAF on Kubernetes (SaaS Console, Automation)](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-k8s/README.rst)       |
   | [Deploy WAF on any Edge with F5 Distributed Cloud](https://community.f5.com/t5/technical-articles/deploy-waf-on-any-edge-with-f5-distributed-cloud/ta-p/313079) | [Deploy F5 XC WAF on private cloud edge - VMware ESXi  (SaaS Console)](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-private-cloud-edge/VMware-ESXi/vmware-esxi-deploy-demo-guide.rst)       |  
-  | [Deploy WAF on any Edge with F5 Distributed Cloud](https://community.f5.com/t5/technical-articles/deploy-waf-on-any-edge-with-f5-distributed-cloud/ta-p/313079) | [Deploy F5 XC WAF on private cloud edge - KVM (SaaS Console)](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-private-cloud-edge/KVM/kvm-deploy-demo-guide.rst)       |
-    | [Deploy WAF on any Edge with F5 Distributed Cloud](https://community.f5.com/t5/technical-articles/deploy-waf-on-any-edge-with-f5-distributed-cloud/ta-p/313079) | [ **Coming soon:** Deploy F5 XC WAF on private cloud edge - Bare Metal (SaaS Console)]()       |  
+  | [Deploy WAF on any Edge with F5 Distributed Cloud](https://community.f5.com/t5/technical-articles/deploy-waf-on-any-edge-with-f5-distributed-cloud/ta-p/313079) | [Deploy F5 XC WAF on private cloud edge - KVM (SaaS Console)](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-private-cloud-edge/KVM/kvm-deploy-demo-guide.rst)       |  
+  | [Deploy WAF on any Edge with F5 Distributed Cloud](https://community.f5.com/t5/technical-articles/deploy-waf-on-any-edge-with-f5-distributed-cloud/ta-p/313079) | **Coming soon:** Deploy F5 XC WAF on private cloud edge - Bare Metal (SaaS Console)       |  
 
-* **F5 Distributed Cloud API Security**
+### **F5 Distributed Cloud API Security**
   
   | **DevCentral Overview Articles**                                                                                                                                                     | **Use Case / Workflow Guides (SaaS Console, Automation)**                                                                                                                                                                    |
   | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -30,7 +30,7 @@ Examples of F5 Distributed Cloud (XC) deployments utilizing Terraform. For more 
   | [Deploy API Security Anywhere with F5 Distributed Cloud](https://community.f5.com/t5/technical-articles/out-of-the-shadows-api-discovery-and-security/ta-p/303789) | [Deploy F5 XC API Security on XC Customer Edges](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/api-security/f5-xc-apisec-on-ce-eks/README.rst)                         |                                             |
 
 
-* **F5 Distributed Cloud Bot Protection**
+### **F5 Distributed Cloud Bot Protection**
   
   | **DevCentral Overview Articles**                                                                                                                                                                           | **Use Case / Workflow Guides (SaaS Console, Automation)**                                                                                                                                                                                                        |
   | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -41,20 +41,20 @@ Examples of F5 Distributed Cloud (XC) deployments utilizing Terraform. For more 
 
 
 
-* **F5 Distributed Cloud DoS Protection**
+### **F5 Distributed Cloud DoS Protection**
 
 
-* **F5 Distributed Cloud Secure Multi-Cloud Networking (MCN)**
+### **F5 Distributed Cloud Secure Multi-Cloud Networking (MCN)**
 
   | **DevCentral Overview Articles**                                                                                                                                                                           | **Use Case / Workflow Guides (SaaS Console, Automation)**                                                                                                                                                                                                        |
-    | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
   | [Introducing Secure MCN features on F5 Distributed Cloud](https://community.f5.com/kb/technicalarticles/introducing-secure-mcn-features-on-f5-distributed-cloud/318890) | N/A - Refer to DevCentral article with linked YouTube video |
   | [Deploy S-MCN On Any Edge Using F5 Distributed Cloud](https://community.f5.com/kb/technicalarticles/f5-distributed-cloud-secure-mcn-deploy-infra-connect--secure-apps-everywhere/328179) | [Deploy Distributed Cloud WAAP Security Easily Using Multiple CE's (SaaS Console, Automation)](https://github.com/f5devcentral/f5-xc-terraform-examples/tree/main/workflow-guides/smcn/distributed-cloud-waap) |
   | [Deploy App To App Connectivity Seamlessly Using Distributed Cloud](https://community.f5.com/kb/TechnicalArticles/the-app-delivery-fabric-with-secure-multicloud-networking/328804) | [Deploy App To App Connectivity Seamlessly Using Distributed Cloud (SaaS Console, Automation)](https://github.com/f5devcentral/f5-xc-terraform-examples/tree/main/workflow-guides/smcn/app-delivery-fabric) |
   | [Protect multi-cloud and Edge Generative AI applications with F5 Distributed Cloud](https://community.f5.com/kb/technicalarticles/protect-multi-cloud-and-edge-generative-ai-applications-with-f5-distributed-clou/328109) | [Deploying and securing Generative AI applications at the Edge with F5 XC AppStack and XC WAF in AWS (SaaS Console, Automation)](https://github.com/f5devcentral/f5-xc-terraform-examples/tree/main/workflow-guides/smcn/genai-inference-at-the-edge) |
   | [Protect multi-cloud and Edge Generative AI applications with F5 Distributed Cloud](https://community.f5.com/kb/technicalarticles/protect-multi-cloud-and-edge-generative-ai-applications-with-f5-distributed-clou/328109) | [Connecting and securing distributed Generative AI applications with F5 XC AppConnect and XC WAF in AWS and GCP (SaaS Console, **Coming soon:** Automation)](https://github.com/f5devcentral/f5-xc-terraform-examples/tree/main/workflow-guides/smcn/genai-appconnect-waf) |  
 
-* **F5 Distributed Cloud Teachable** 
+### **F5 Distributed Cloud Teachable** 
 
 
   | **Teachable Courses**                                                                                                                                                                           | **Use Case / Workflow Resources (Automation, SaaS Console)**                                                                                                                                                                                                        |
