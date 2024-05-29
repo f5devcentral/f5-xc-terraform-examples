@@ -4,7 +4,7 @@ data "tfe_outputs" "infra" {
 }
 
 data "tfe_outputs" "gcp-infra" {
-  count = var.gcp ? 1 : 0
+  count = var.gcp != "" ? 1 : 0
   organization = var.tf_cloud_organization
   workspace = "gcp-infra"
 }
