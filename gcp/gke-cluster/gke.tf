@@ -14,6 +14,7 @@ resource "google_container_cluster" "primary" {
 
   network    = local.network_name
   subnetwork = local.subnet_name
+  deletion_protection = false
 }
 
 # Separately Managed Node Pool
@@ -34,7 +35,7 @@ resource "google_container_node_pool" "primary_nodes" {
     }
 
     # preemptible  = true
-    machine_type = "n1-standard-1"
+    machine_type = "e2-standard-4"
     tags         = ["gke-node", "${local.project_prefix}-gke"]
     metadata = {
       disable-legacy-endpoints = "true"
