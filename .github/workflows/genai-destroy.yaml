@@ -88,6 +88,7 @@ jobs:
     name: "Destroy GKE CE"
     runs-on: ubuntu-latest
     needs: terraform_xc
+    continue-on-error: true
     defaults:
       run:
         working-directory: ./gcp/gke-cluster/ce-deployment
@@ -202,6 +203,7 @@ jobs:
     name: "Destroy Gen AI Frontend"
     runs-on: ubuntu-latest
     needs: gke_ce
+    continue-on-error: true
     defaults:
       run:
         working-directory: ./shared/genai/llm-frontend
