@@ -22,6 +22,9 @@ resource "volterra_registration_approval" "k8s-ce" {
   retry           = 5
   wait_time       = 60
   hostname        = "vp-manager-0"
+  provisioner "local-exec" {
+  command     = "sleep 30"
+  }
 }
 
 resource "volterra_registration_approval" "gcp-ce" {
@@ -32,4 +35,7 @@ resource "volterra_registration_approval" "gcp-ce" {
   retry           = 5
   wait_time       = 60
   hostname        = "vp-manager-0"
+  provisioner "local-exec" {
+  command     = "sleep 30"
+  }
 }
