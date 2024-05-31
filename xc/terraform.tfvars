@@ -54,6 +54,8 @@ serviceport = "8000"
 advertise_sites = true
 http_only = true
 xc_delegation = false
+eks_ce_site = true
+gke_ce_site = true
 
 # infra (Needed values: aws-infra, azure-infra, gcp-infra)
 aws   = "infra"
