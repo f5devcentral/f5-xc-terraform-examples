@@ -14,7 +14,6 @@ resource "google_container_cluster" "primary" {
 
   network    = local.network_name
   subnetwork = local.subnet_name
-
 }
 
 # Separately Managed Node Pool
