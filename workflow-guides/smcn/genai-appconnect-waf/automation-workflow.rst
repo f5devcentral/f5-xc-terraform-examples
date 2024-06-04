@@ -1,5 +1,5 @@
 Getting Started With Terraform Automation of connecting and securing distributed Generative AI applications with F5 XC AppConnect and XC WAF
-#########################################################################################################################################
+############################################################################################################################################
 
 Prerequisites
 --------------
@@ -14,7 +14,7 @@ Prerequisites
 
    -  2 Site tokens created as shown below for deploying CE sites in AWS and GCP
 
-   .. image:: /workflow-guides/smcn/genai-appconnect-waf/assets/site-tokens.jpg
+   .. image:: assets/site-tokens.JPG
 
 -  `AWS Account <https://aws.amazon.com>`__ 
    - Due to the assets being created, free tier will not work.
@@ -24,7 +24,7 @@ Prerequisites
    - Please follow `devcentral article <https://community.f5.com/kb/technicalarticles/creating-a-credential-in-f5-distributed-cloud-for-gcp/298290>`__ to generate GCP Service account
    - Make sure Editor, K8s admin roles are enabled to this account as shown below
 
-   .. image:: /workflow-guides/smcn/genai-appconnect-waf/assets/gcp-role.jpg
+   .. image:: assets/gcp-role.jpg
 
 -  `Terraform Cloud
    Account <https://developer.hashicorp.com/terraform/tutorials/cloud-get-started>`__
@@ -56,7 +56,7 @@ Terraform Cloud
    | F5XC + Gen AI + WAF Apply       | infra, gcp-infra, eks, gke, genai, gcp-genai, ce, gcp-ce, xc           |
    +---------------------------------+------------------------------------------------------------------------+
 
-.. image:: assets/cloud-workspaces.JPG
+   .. image:: assets/cloud-workspaces.JPG
 
 
 -  **Workspace Sharing:** Under the settings for each Workspace, set the
@@ -84,7 +84,7 @@ Terraform Cloud
    | tf_cloud_organization                    | TERRAFORM    | Your Terraform Cloud Organization name               |
    +------------------------------------------+--------------+------------------------------------------------------+
 
-.. image:: assets/variables-set.JPG
+   .. image:: assets/variables-set.JPG
 
 
 GitHub
@@ -109,7 +109,7 @@ GitHub
 
 -  Check below image for details on GitHub Action Secrets:
 
-.. image:: assets/actions-secrets.JPG
+   .. image:: assets/actions-secrets.JPG
 
 
 Workflow Runs
@@ -211,11 +211,11 @@ Keep rest of the values as they are set by default in terraform.tfvars.examples 
 
 **STEP 6:** Once the pipeline completes, verify your CE sites, WAF, Origin Pool and LB were deployed or destroyed based on your workflow. (**Note:** CE sites will take some time to come online)
 
-.. image:: assets/sites-online.JPG
+.. image:: assets/sites-online.jpg
 
 .. image:: assets/origin-pool.JPG
 
-.. image:: assets/load-balancers.JPG
+.. image:: assets/load-balancer.jpg
 
 .. image:: assets/lb-waf.JPG
 
@@ -225,16 +225,16 @@ Keep rest of the values as they are set by default in terraform.tfvars.examples 
 
 .. image:: assets/cloud-nlb.JPG
 
-.. image:: assets/cloud-nlb-ip.JPG
+.. image:: assets/cloud-nlb-ip.jpg
 
-.. image:: assets/lb-access.JPG
+.. image:: assets/lb-access.jpg
 
 
 **STEP 8:** To validate logs, login to F5 XC console and navigate to distributed apps section. Select your load balancer and make sure requested are logged as shown below
 
 .. image:: assets/logs-all.JPG
 
-.. image:: assets/request-logs.JPG
+.. image:: assets/request-logs.jpg
 
 .. image:: assets/security-analytics.JPG
 
