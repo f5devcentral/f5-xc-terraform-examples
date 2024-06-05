@@ -28,7 +28,7 @@ Workflow Instructions
 
 `F5 Distributed Cloud Console Workflow <MCN-without-SMG/xc-console-demo-guide.rst>`__
 
-`F5 Distributed Cloud Automation Workflow (Coming Soon)`
+`F5 Distributed Cloud Automation Workflow <https://github.com/f5devcentral/f5-xc-terraform-examples/tree/main/workflow-guides/smcn/app-delivery-fabric/terraform>`__
 
 **Multi-Cloud Networking (MCN) with Site Mesh Group(SMG)**
 ###########################################################
