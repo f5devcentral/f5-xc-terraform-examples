@@ -4,6 +4,8 @@ resource "volterra_site_state" "site" {
   name  = var.site_name
   state = "DECOMMISSIONING"
   when  = "delete"
+  retry           = 5
+  wait_time       = 60
 }
 
 resource "volterra_site_state" "site2" {
@@ -11,6 +13,8 @@ resource "volterra_site_state" "site2" {
   name  = var.gke_site_name
   state = "DECOMMISSIONING"
   when  = "delete"
+  retry           = 5
+  wait_time       = 60
 }
 
 
