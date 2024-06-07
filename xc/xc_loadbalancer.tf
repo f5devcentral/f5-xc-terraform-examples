@@ -16,7 +16,7 @@ resource "null_resource" "wait_for_aws_ce_site"{
 
 # Create XC LB config
 resource "volterra_origin_pool" "op" {
-  depends_on             = [null_resource.wait_for_site, null_resource.check_site_status_cert2, null_resource.check_site_status_cert,
+  depends_on             = [null_resource.wait_for_site, null_resource.check_site_status_cert,
     null_resource.wait_for_ekssite, null_resource.wait_for_aws_ce_site, volterra_namespace.this]
   name                   = format("%s-xcop-%s", local.project_prefix, local.build_suffix)
   namespace              = var.xc_namespace
