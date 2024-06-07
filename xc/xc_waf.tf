@@ -6,6 +6,7 @@ resource "volterra_app_firewall" "waap-tf" {
   name                     = format("%s-xcw-%s", local.project_prefix, local.build_suffix)
   description              = format("WAF in block mode for %s", "${local.project_prefix}-xcw-${local.build_suffix}")
   namespace                = var.xc_namespace
+  depends_on               = [volterra_namespace.this]
 
   // One of the arguments from this list "allow_all_response_codes allowed_response_codes" must be set
   allow_all_response_codes = true
