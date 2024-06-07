@@ -8,7 +8,7 @@ on:
 
 jobs:
   terraform_xc_lb:
-    name: "F5 XC Bot Defense"
+    name: "Deploy F5 XC Bot Defense"
     runs-on: ubuntu-latest
     defaults:
       run:
