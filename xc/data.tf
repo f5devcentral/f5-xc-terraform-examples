@@ -3,7 +3,6 @@ data "tfe_outputs" "infra" {
   organization = var.tf_cloud_organization
   workspace = "${coalesce(var.aws, var.azure, var.gcp, "infra")}"
 }
-
 data "tfe_outputs" "bigip" {
   count = var.vk8s ? 0 : (data.tfe_outputs.infra.0.values.bigip ? 1 : 0)
   organization = var.tf_cloud_organization
@@ -32,7 +31,7 @@ data "tfe_outputs" "azure-vm" {
 data "tfe_outputs" "gcp-vm" {
   count        = var.gcp_ce_site ? 1 : 0
   organization = var.tf_cloud_organization
-  workspace    = "bookinfo"
+  workspace    = "juiceshop"
 }
 data "tfe_outputs" "eks" {
   count               = var.eks_ce_site ? 1 : 0

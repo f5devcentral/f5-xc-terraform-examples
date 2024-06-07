@@ -9,6 +9,7 @@ Prerequisites
 -  `Terraform Cloud Account <https://developer.hashicorp.com/terraform/tutorials/cloud-get-started>`__
 -  `GitHub Account <https://github.com>`__
 -  `SSH key pair <https://cloud.google.com/compute/docs/connect/create-ssh-keys>`__
+-  `GCP Service Account <https://community.f5.com/kb/technicalarticles/creating-a-credential-in-f5-distributed-cloud-for-gcp/298290>`__
 
 
 List of Existing Assets
@@ -49,7 +50,7 @@ Terraform Cloud
    +------------------------------------------+--------------+------------------------------------------------------+
    |         **Name**                         |  **Type**    |      **Description**                                 |
    +==========================================+==============+======================================================+
-   | GOOGLE_CREDENTIALS                       | Environment  | Google credentials file content                      |
+   | GOOGLE_CREDENTIALS                       | Environment  | Google credentials file content of Service Account   |
    +------------------------------------------+--------------+------------------------------------------------------+
    | VES_P12_PASSWORD                         | Environment  | Password set while creating F5XC API certificate     |
    +------------------------------------------+--------------+------------------------------------------------------+
@@ -70,7 +71,7 @@ GitHub
 -  **Actions Secrets:** Create the following GitHub Actions secrets in
    your forked repo
 
-   -  P12: The linux base64 encoded F5XC P12 certificate
+   -  P12: The linux base64 encoded F5XC P12 certificate. NOTE: you can run `base64 <file-name>` to get this output
    -  TF_API_TOKEN: Your Terraform Cloud API token
    -  TF_CLOUD_ORGANIZATION: Your Terraform Cloud Organization name
    -  GOOGLE_CREDENTIALS: Your GCP credentials file content

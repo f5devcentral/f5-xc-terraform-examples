@@ -10,7 +10,7 @@ This guide will outline the steps for implementing F5 XC Bot Defense to protect 
 
 
 Bot Defense for Azure Architectural Diagram :
------------------------
+---------------------------------------------
 .. image:: assets/azurebd.png
    :width: 100%
 
@@ -18,7 +18,7 @@ Manual step by step process for deployment:
 -------------------------------------------
 
 Console Deployment Prerequisites:
-^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 1. F5 Distributed Cloud Account (F5XC)
 2. Azure Cloud Account (If you don't have an Azure subscription, create an Azure free account before you begin `here <https://portal.azure.com/>`_) 
