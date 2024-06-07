@@ -16,7 +16,8 @@ resource "null_resource" "wait_for_aws_ce_site"{
 
 # Create XC LB config
 resource "volterra_origin_pool" "op" {
-  depends_on             = [null_resource.wait_for_site, null_resource.check_site_status_cert, null_resource.wait_for_ekssite, null_resource.wait_for_aws_ce_site]
+  depends_on             = [null_resource.wait_for_site, null_resource.check_site_status_cert,
+    null_resource.wait_for_ekssite, null_resource.wait_for_aws_ce_site, volterra_namespace.this]
   name                   = format("%s-xcop-%s", local.project_prefix, local.build_suffix)
   namespace              = var.xc_namespace
   description            = format("Origin pool pointing to origin server %s", local.origin_server)
@@ -67,6 +68,7 @@ resource "volterra_origin_pool" "op" {
         site {
           name      = "${coalesce(var.site_name, local.project_prefix)}"
           namespace = "system"
+          tenant    = var.user_site ? var.xc_tenant : "ves-io"
           }
         }
       }
@@ -372,7 +374,9 @@ resource "volterra_http_loadbalancer" "lb_https" {
           }
           flow_label {
             authentication {
-              login { }
+              login {
+                disable_transaction_result = true
+              }
             }
           }
         }
@@ -382,15 +386,15 @@ resource "volterra_http_loadbalancer" "lb_https" {
     }
   }
 
-#DDoS Configuration
-  dynamic "enable_ddos_detection" {
-    for_each = var.xc_ddos_pro ? [1] : []
-    content {
-      enable_auto_mitigation {
-        block = true
-      }
-    }
-  }
+# DDoS Configuration
+#  dynamic "enable_ddos_detection" {
+#    for_each = var.xc_ddos_pro ? [1] : []
+#    content {
+#      enable_auto_mitigation {
+#        block = true
+#      }
+#    }
+#  }
   dynamic "ddos_mitigation_rules" {
     for_each = var.xc_ddos_pro ? [1] : []
     content {
