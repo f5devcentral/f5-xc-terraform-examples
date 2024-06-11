@@ -221,7 +221,7 @@ Keep rest of the values as they are set by default in terraform.tfvars.examples 
 
 
 
-**STEP 7:** Once all resources are created successfully, wait for few mins and to validate the test infra, login to GCP console and navigate to load balancers menu. Copy the public IP of LB and access it in a browser using port 80 as shown below
+**STEP 7:** Once all resources are created successfully, wait for few mins and to validate the test infra, login to GCP console and navigate to load balancers menu. Copy the public IP of LB and access it in a browser using port 80 as shown below (**Note:** Application backend PII response data may fail sometimes and will work after few attempted failures, so please retry 5-10 times.)
 
 .. image:: assets/cloud-nlb.JPG
 
