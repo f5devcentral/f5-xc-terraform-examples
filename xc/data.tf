@@ -3,6 +3,13 @@ data "tfe_outputs" "infra" {
   organization = var.tf_cloud_organization
   workspace = "${coalesce(var.aws, var.azure, var.gcp, "infra")}"
 }
+
+data "tfe_outputs" "gcp-infra" {
+  count = var.gcp != "" ? 1 : 0
+  organization = var.tf_cloud_organization
+  workspace = "${coalesce(var.gcp, "gcp-infra")}"
+}
+
 data "tfe_outputs" "bigip" {
   count = var.vk8s ? 0 : (data.tfe_outputs.infra.0.values.bigip ? 1 : 0)
   organization = var.tf_cloud_organization
@@ -47,4 +54,10 @@ data "tfe_outputs" "app-deploy" {
   count               = var.aws_ce_site ? 1 : 0
   organization        = var.tf_cloud_organization
   workspace           = "boutique_app"
+}
+
+data "tfe_outputs" "gke" {
+  count               = var.gke_ce_site ? 1 : 0
+  organization        = var.tf_cloud_organization
+  workspace           = "gke"
 }

@@ -194,3 +194,51 @@ resource "aws_iam_role_policy_attachment" "workernodes-AmazonEBSCSIDriver" {
   policy_arn = aws_iam_policy.workernodes_ebs_policy.arn
   role       = aws_iam_role.workernodes.name
 }
+
+data "tls_certificate" "oidc" {
+  url = aws_eks_cluster.eks-tf.identity[0].oidc[0].issuer
+}
+
+resource "aws_iam_openid_connect_provider" "eks_oidc" {
+  url = aws_eks_cluster.eks-tf.identity[0].oidc[0].issuer
+  thumbprint_list = [data.tls_certificate.oidc.certificates[0].sha1_fingerprint]
+  client_id_list = ["sts.amazonaws.com"]
+}
+
+resource "aws_iam_role" "ebs_csi_driver" {
+  name = format("%s-ebs-csi-driver-%s", local.project_prefix, local.build_suffix)
+  assume_role_policy = data.aws_iam_policy_document.ebs_csi_driver_assume_role.json
+}
+
+data "aws_iam_policy_document" "ebs_csi_driver_assume_role" {
+  statement {
+    effect = "Allow"
+
+    principals {
+      type        = "Federated"
+      identifiers = [aws_iam_openid_connect_provider.eks_oidc.arn]
+    }
+
+    actions = [
+      "sts:AssumeRoleWithWebIdentity",
+    ]
+
+    condition {
+      test     = "StringEquals"
+      variable = "${aws_iam_openid_connect_provider.eks_oidc.url}:aud"
+      values   = ["sts.amazonaws.com"]
+    }
+
+    condition {
+      test     = "StringEquals"
+      variable = "${aws_iam_openid_connect_provider.eks_oidc.url}:sub"
+      values   = ["system:serviceaccount:kube-system:ebs-csi-controller-sa"]
+    }
+
+  }
+}
+
+resource "aws_iam_role_policy_attachment" "AmazonEBSCSIDriverPolicy" {
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
+  role       = aws_iam_role.ebs_csi_driver.name
+}
