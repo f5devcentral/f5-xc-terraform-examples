@@ -242,7 +242,7 @@ Keep rest of the values as they are set by default in terraform.tfvars.examples 
 
 
 **Note:** If you want to destroy the entire setup, checkout a branch with name ``destroy-genai`` using source as ``deploy-genai`` which will trigger destroy workflow.
-Even though some jobs have failed you can ignore it as all created resources will be deleted as part of k8s clusters deletion.
+Intermittently some jobs can fail which you can ignore, as all created resources will be deleted as part of k8s clusters deletion.
 
 .. image:: assets/destroy-pipeline.JPG
 
