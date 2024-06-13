@@ -101,21 +101,6 @@ Below we shall take a look into detailed steps as mentioned above.
     kind: Namespace
     metadata:
       name: llm
-    ---
-    
-    apiVersion: v1
-    kind: Service
-    metadata:
-      name: langchain-search
-      labels:
-        app: langchain-search
-      namespace: genai-apps
-    spec:
-      type: ClusterIP
-      ports:
-      - port: 8501
-      selector:
-        app: langchain-search
     
     ---
     apiVersion: apps/v1
@@ -176,27 +161,25 @@ Below we shall take a look into detailed steps as mentioned above.
       .. figure:: assets/options.png
       Fig: More Options -> Miscellaneous Options -> Idle Timeout configuration
 
-8. Advertise externally the GenAI application
+8. Advertise externally the GenAI application. Create a file with below content and apply it on GCP k8s cluster for creating the following GCP Load Balancer
+   
 
-   1. Create the following GCP Load Balancer:
-      
+.. code-block::
 
-      .. code-block::
-
-        apiVersion: v1
-        kind: Service
-        metadata:
-          name: langchain-search
-          labels:
-            app: langchain-search
-          namespace: genai-apps
-        spec:
-          type: LoadBalancer
-          ports:
-          - port: 80
-            targetPort: 8501
-          selector:
-            app: langchain-search
+    apiVersion: v1
+    kind: Service
+    metadata:
+      name: langchain-search
+      labels:
+        app: langchain-search
+      namespace: genai-apps
+    spec:
+      type: LoadBalancer
+      ports:
+      - port: 80
+        targetPort: 8501
+      selector:
+        app: langchain-search
 
 
 
