@@ -34,6 +34,7 @@ Step 1: Booting the Hardware with ISO image
 
         As a prerequisite, make sure the NIC such as Intel, Red Hat, VMware with drivers such as “hv_netvsc, ena, ixgbe, ixgbe_isv, ixgbevf, e1000e, igb, i40e, e1000, vmxnet3, virtio_net, ice, iavf ” are available. Since they are supported to deploy ISO image. 
         More information on supported hardware details can be found by going to this link.
+        
         - Obtain the IP address and log in to the device in which you want to deploy ISO image. 
 
         .. figure:: Assets/dell_login.jpg
