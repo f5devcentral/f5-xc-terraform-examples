@@ -39,4 +39,8 @@ Step 1: Booting the Hardware with ISO image
 
         .. figure:: Assets/dell_login.jpg
 
+        - Click “Start the Virtual Console” from the iDRAC web interface.
+
+        
+
 
