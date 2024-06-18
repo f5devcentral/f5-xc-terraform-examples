@@ -177,7 +177,7 @@ Step 3: Configure the CE site
 
         - Enter the name of the site and it should be the same as the App Stack Site object created in step 2.2
 
-        - Provide hostname as master-0 which should be the same as the node name.
+        - Provide hostname as ``master-0`` which should be the same as the node name.
 
         - Enter the latitude and longitude of the CE site location.
 
