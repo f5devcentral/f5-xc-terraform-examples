@@ -292,7 +292,7 @@ Step 5: Creating Origin Pool and Load Balancer
 
 Conclusion
 **************
-As described in this demo, bare metal hardware can be transformed into an F5 Distributed Cloud CE, allowing you to deploy applications while ensuring consistent delivery, security, and performance for the apps running on it.
+As described in this demo, bare metal hardware can be transformed into a F5 Distributed Cloud CE, allowing you to deploy applications while ensuring consistent delivery, security, and performance for the apps running on it.
 
 For more detailed guidance and steps on how to deploy and configure F5 XC on bare metal, refer to the official documentation and resources provided by F5.
 
