@@ -120,7 +120,7 @@ Step 1: Booting the Hardware with ISO image
 Step 2: Creating Site Token and App Stack Site object
         **Step 2.1: Creating Site Token**
         
-        Login to F5 XC console homepage and navigate to Multi-Cloud Network connect > Manage > Site Management > Site Token. Click ``Add Site token``. - In the Name field, enter the token name and enter description. Click on Save and Exit.
+        Login to F5 XC console homepage and navigate to Multi-Cloud Network connect > Manage > Site Management > Site Token. Click ``Add Site token``. In the Name field, enter the token name and enter description. Click on Save and Exit.
 
         .. figure:: Assets/site_token-2.jpg
 
