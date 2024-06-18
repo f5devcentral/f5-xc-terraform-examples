@@ -250,7 +250,7 @@ Step 4: F5 XC config and app deploy
 
         .. figure:: Assets/virtual_site.jpg
 
-        - From F5 XC Console Homepage, click on Distributed apps. Select Applications > Virtual k8s. Click on “Add Virtual K8s” to create a vK8s object.
+        - From F5 XC Console Homepage, click on Distributed Apps. Select Applications > Virtual k8s. Click on “Add Virtual K8s” to create a vK8s object.
 
         - In the Virtual Sites section, select Add item and then select a virtual site created above from the drop-down menu.
 
@@ -258,7 +258,7 @@ Step 4: F5 XC config and app deploy
 
         - Click on Save and Exit to create vK8s object.
 
-        - Select ``…``` > kubeconfig for the vK8s object to download the Kubeconfig file.
+        - Select ``…`` > ``kubeconfig`` for the vK8s object to download the Kubeconfig file.
 
         .. figure:: Assets/download_kubeconfig_file.jpg
 
