@@ -264,7 +264,7 @@ Step 4: F5 XC config and app deploy
 
         - Deploy the application on bare metal CE using the kubeconfig file for the vK8s object created above.
 
-        .. figure:: Assets/download_kubeconfig_file.jpg
+        .. figure:: Assets/app-deploy.jpg
 
 Step 5: Creating Origin Pool and Load Balancer
         **Step 5.1: Creating Origin Pool**
