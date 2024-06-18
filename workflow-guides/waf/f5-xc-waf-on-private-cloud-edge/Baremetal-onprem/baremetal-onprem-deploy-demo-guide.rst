@@ -111,11 +111,14 @@ Step 1: Booting the Hardware with ISO image
 
         - After the first log in, we need to update the password as shown below.
 
-        - figure:: Assets/CE_site_up.png
+        .. figure:: Assets/CE_site_up.png
 
         This confirms the Site is up and accessible.
 
-        Moving to the next step to create App Stack site.      
+        Moving to the next step to create App Stack site.
+
+Step 2: Creating Site Token and App Stack Site object:
+        **Step 2.1: Creating Site Token**
 
 
 
