@@ -95,13 +95,13 @@ Step 1: Booting the Hardware with ISO image
 
         .. figure:: Assets/begin_installation.jpg
 
-        .. figure:: Assets/writing_objects.jpg
+        .. figure:: Assets/writing_objects.png
 
         - After the installation process completes, click Reboot System.
 
         .. figure:: Assets/reboot_system.jpg
 
-        .. figure:: Assets/boot_process_configuring_memory.jpg
+        .. figure:: Assets/boot_process_configuring_memory.png
 
         - After the reboot, system take us to access the node.
 
@@ -111,7 +111,7 @@ Step 1: Booting the Hardware with ISO image
 
         - After the first log in, we need to update the password as shown below.
 
-        - figure:: Assets/CE_site_up.jpg
+        - figure:: Assets/CE_site_up.png
 
         This confirms the Site is up and accessible.
 
