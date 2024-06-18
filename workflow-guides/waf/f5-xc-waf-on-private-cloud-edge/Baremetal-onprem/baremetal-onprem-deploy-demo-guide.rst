@@ -244,7 +244,7 @@ Step 4: F5 XC config and app deploy
 
         **Step 4.2: Creating Virtual Site and vK8s object**
 
-        - From F5 XC Console homepage, Click on Shared configuration. Click Manage > Virtual Sites and click on “Add Virtual Site”.
+        - From F5 XC Console homepage, Click on Shared configuration. Click Manage > Virtual Sites and click on ``Add Virtual Site``.
 
         - In the Site Type select CE. From the selector Expression field, lick Add Label to provide the custom key created previously along with operator ``In``, followed by custom values as shown below. Click on Save and Exit.
 
