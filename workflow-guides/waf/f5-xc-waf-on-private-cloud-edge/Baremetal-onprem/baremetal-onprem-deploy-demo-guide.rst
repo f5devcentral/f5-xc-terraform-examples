@@ -28,12 +28,12 @@ The steps below explain deploying of F5 XC Services as a site/node in bare metal
 5. Create Origin Pool & Load Balancer 
 
 Step 1: Booting the Hardware with ISO image
-        Download the F5 XC ISO file by going to this link. 
+        Download the F5 XC ISO file by going to this `link <https://docs.cloud.f5.com/docs/images/node-cert-hw-kvm-images#images>`__.
 
         As part of this demo, I am going to deploy this image on Dell iDRAC 9 with INTEL NIC that supports F5 XC ISO deployment. 
 
         As a prerequisite, make sure the NIC such as Intel, Red Hat, VMware with drivers such as **“hv_netvsc, ena, ixgbe, ixgbe_isv, ixgbevf, e1000e, igb, i40e, e1000, vmxnet3, virtio_net, ice, iavf ”** are available. Since they are supported to deploy ISO image. 
-        More information on supported hardware details can be found by going to this link.
+        More information on supported hardware details can be found by going to this `link <https://docs.cloud.f5.com/docs/how-to/site-management/create-baremetal-site>`__.
         
         - Obtain the IP address and log in to the device in which you want to deploy ISO image. 
 
