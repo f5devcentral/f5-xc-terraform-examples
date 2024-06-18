@@ -32,7 +32,7 @@ Step 1: Booting the Hardware with ISO image
 
         As part of this demo, I am going to deploy this image on Dell iDRAC 9 with INTEL NIC that supports F5 XC ISO deployment. 
 
-        As a prerequisite, make sure the NIC such as Intel, Red Hat, VMware with drivers such as “hv_netvsc, ena, ixgbe, ixgbe_isv, ixgbevf, e1000e, igb, i40e, e1000, vmxnet3, virtio_net, ice, iavf ” are available. Since they are supported to deploy ISO image. 
+        As a prerequisite, make sure the NIC such as Intel, Red Hat, VMware with drivers such as **“hv_netvsc, ena, ixgbe, ixgbe_isv, ixgbevf, e1000e, igb, i40e, e1000, vmxnet3, virtio_net, ice, iavf ”** are available. Since they are supported to deploy ISO image. 
         More information on supported hardware details can be found by going to this link.
         
         - Obtain the IP address and log in to the device in which you want to deploy ISO image. 
@@ -43,7 +43,7 @@ Step 1: Booting the Hardware with ISO image
 
         .. figure:: Assets/start_virtual_console.jpg
 
-        - Click “Virtual Media” and browse to the device that you want to boot the Hardware with. In this demo, I choose “Map CD/DVD”.
+        - Click “Virtual Media” and browse to the device that you want to boot the Hardware with. In this demo, I choose ``Map CD/DVD``.
 
         .. figure:: Assets/launch_virtual_media.jpg
 
@@ -71,7 +71,7 @@ Step 1: Booting the Hardware with ISO image
 
         .. figure:: Assets/warm_boot_selection.jpg
 
-        - The system reboots and shows “Virtual CD Boot Requested by iDRAC”.
+        - The system reboots and shows ``Virtual CD Boot Requested by iDRAC``.
 
         .. figure:: Assets/boot_process.png
 
@@ -119,7 +119,7 @@ Step 1: Booting the Hardware with ISO image
 
 Step 2: Creating Site Token and App Stack Site object
         **Step 2.1: Creating Site Token**
-        Login to F5 XC console homepage and navigate to Multi-Cloud Network connect > Manage > Site Management > Site Token. Click “Add Site token”. - In the Name field, enter the token name and enter description. Click on Save and Exit.
+        Login to F5 XC console homepage and navigate to Multi-Cloud Network connect > Manage > Site Management > Site Token. Click ``Add Site token``. - In the Name field, enter the token name and enter description. Click on Save and Exit.
 
         .. figure:: Assets/site_token-2.jpg
 
@@ -135,11 +135,11 @@ Step 2: Creating Site Token and App Stack Site object
 
         .. figure:: Assets/app-stack-site-creation.jpg
 
-        - Provide a name in the Metadata section. Under basic configuration section, From the Generic Server Certificate Hardware menu, select dell-edger660-series-voltstack-combo since my Hardware is Dell’s iDRAC R660.
+        - Provide a name in the Metadata section. Under basic configuration section, From the Generic Server Certificate Hardware menu, select ``dell-edger660-series-voltstack-combo`` since my Hardware is Dell’s iDRAC R660.
 
         **NOTE:** If you are unable to find the associated Certified Hardware in F5 XC with the hardware you have, talk to the Sales team to proceed further with this. Request must be raised according to the Hardware interface and its network configuration.
 
-        - Enter the name of the master node as “master-0” in Master Nodes section.
+        - Enter the name of the master node as ``master-0`` in Master Nodes section.
 
         - Provide the coordinates: Latitude and longitude of the bare metal HW site. Click on Save and Exit.
 
@@ -153,17 +153,17 @@ Step 3: Configure the CE site
         **Step 3.1: Configuring Network configuration of CE**
         Provide the network configurations for the CE site as mentioned below according to the requirement,
 
-        - Select dhcp enabled as Yes.
+        - Select dhcp enabled as ``Yes``.
 
-        - Select ipv6 enabled as Yes.
+        - Select ipv6 enabled as ``Yes``.
 
-        - Choose Primary Interface as Outside.
+        - Choose Primary Interface as ``Outside``.
 
-        - Wifi configs, voltADN, lte were set as No.
+        - Wifi configs, voltADN, lte were set as ``No``.
 
-        - Select certified hardware for respective device, in this case, it is dell-edger660-series-voltstack-combo.
+        - Select certified hardware for respective device, in this case, it is ``dell-edger660-series-voltstack-combo``.
 
-        - Set Primary outside NIC as eno12399, this is according to interface of the HW, and it should be reachable to outside world.
+        - Set Primary outside NIC as ``eno12399``, this is according to interface of the HW, and it should be reachable to outside world.
 
         .. figure:: Assets/network-configs.jpg
 
@@ -179,9 +179,9 @@ Step 3: Configure the CE site
 
         - Enter the latitude and longitude of the CE site location.
 
-        - Select certificate hardware as dell-edger660-series-voltstack-combo.
+        - Select certificate hardware as ``dell-edger660-series-voltstack-combo``.
 
-        - Select primary outside NIC as eno12399.
+        - Select primary outside NIC as ``eno12399``.
 
         - Select registration env as blank.
 
