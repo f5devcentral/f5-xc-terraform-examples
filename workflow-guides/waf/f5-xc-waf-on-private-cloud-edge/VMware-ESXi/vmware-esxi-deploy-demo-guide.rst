@@ -155,7 +155,7 @@ Below we shall take a look into detailed steps,
       **Step 3.2: Creating Virtual Site & vK8s object**
 
       - From F5 XC Console homepage, Click on Shared Configuration. Click Manage > Virtual Sites and click on ``Add Virtual Site``.
-      - In the Site Type select CE. From the Selector Expression field, click Add Label to provide the custom key created previously along with operator ``==``, followed by custom value as shown below. Click on Save and Exit.
+      - In the Site Type select CE. From the Selector Expression field, click Add Label to provide the custom key created previously along with operator ``In``, followed by custom value as shown below. Click on Save and Exit.
 
       .. figure:: Assets/virtual-site.jpg
 
