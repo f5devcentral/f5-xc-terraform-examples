@@ -152,6 +152,7 @@ Step 2: Creating Site Token and App Stack Site object
 
 Step 3: Configure the CE site
         **Step 3.1: Configuring Network configuration of CE**
+        
         Provide the network configurations for the CE site as mentioned below according to the requirement,
 
         - Select dhcp enabled as ``Yes``.
