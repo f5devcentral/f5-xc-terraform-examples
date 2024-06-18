@@ -41,6 +41,123 @@ Step 1: Booting the Hardware with ISO image
 
         - Click “Start the Virtual Console” from the iDRAC web interface.
 
+        .. figure:: Assets/start_virtual_console.jpg
+
+        - Click “Virtual Media” and browse to the device that you want to boot the Hardware with. In this demo, I choose “Map CD/DVD”.
+
+        .. figure:: Assets/launch_virtual_media.jpg
+
+        - Map CD/DVD is chosen for the usage of the ISO image. Click on Choose File button under Map CD/DVD.
+
+        .. figure:: Assets/map_device.jpg
+
+        - Browse to the ISO location, choose the ISO image and then click on Map Device.
+
+        .. figure:: Assets/map_device_2.jpg
+
+        - Click Boot button.
+
+        .. figure:: Assets/boot_button.jpg
+
+        - Choose CD/DVD/ISO.
+
+        .. figure:: Assets/virtual_CD_DVD_boot.jpg
+
+        - Confirm the boot action by clicking yes.
+
+        .. figure:: Assets/select_virtual_CD_DVD.jpg
+
+        - Click on Power button to boot the system with ISO image mapped and click on Yes.
+
+        .. figure:: Assets/warm_boot_selection.jpg
+
+        - The system reboots and shows “Virtual CD Boot Requested by iDRAC”.
+
+        .. figure:: Assets/boot_process.png
+
+        - A prompt loads with information to install the F5 XC services node OS. Click on Install RHEL 9.
+
+        .. figure:: Assets/RHEL_9_selection.jpg
+
+        - Select the Language and click on Continue.
+
+        .. figure:: Assets/language.jpg
+
+        - Click on Install Destination.
+
+        .. figure:: Assets/automatic_partition.jpg
+
+        - Select the Disk to set as installation destination and then click Done.
+
+        .. figure:: Assets/storage.jpg
+
+        - On the Installation summary page, click Begin Installation.
+
+        .. figure:: Assets/begin_installation.jpg
+
+        .. figure:: Assets/writing_objects.jpg
+
+        - After the installation process completes, click Reboot System.
+
+        .. figure:: Assets/reboot_system.jpg
+
+        .. figure:: Assets/boot_process_configuring_memory.jpg
+
+        - After the reboot, system take us to access the node.
+
+        - Log in to the node with the default user credentials admin/Volterra123.
+
+        .. figure:: Assets/ssh_login.jpg
+
+        - After the first log in, we need to update the password as shown below.
+
+        - figure:: Assets/CE_site_up.jpg
+
+        This confirms the Site is up and accessible.
+
+        Moving to the next step to create App Stack site.      
+
+
+
+        
+
+
+
+        
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
         
 
 
