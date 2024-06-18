@@ -219,6 +219,7 @@ Step 3: Configure the CE site
 
 Step 4: F5 XC config and app deploy
         **Step 4.1: Creating and Assigning labels to the Site**
+        
         Labels are created to group multiple CE sites together to create a virtual site. A Virtual site provides a mechanism to perform operations on an individual or a group of sites.
 
         - From F5 XC console > select Shared configuration box.
