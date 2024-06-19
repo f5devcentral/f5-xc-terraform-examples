@@ -448,4 +448,10 @@ resource "volterra_http_loadbalancer" "lb_https" {
       } 
     }
   }
+
+  dynamic "more_option" {
+      content {
+        idle_timeout = 300000
+      }
+    }
 }
