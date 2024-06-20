@@ -26,7 +26,7 @@
 - [4. Connect VMware Data Center](#4-connect-vmware-data-center)
   - [4.1 Configure VMware CE Site](#41-configure-vmware-ce-site)
   - [4.2 Test connectivity between AWS and VMware](#42-test-connectivity-between-aws-and-vmware)
-- [5. Connect External Company](#5-connect-external-company)
+- [5. ExtraNet: Network Centric Method](#5-extranet-network-centric-method)
   - [5.1 Configure AWS Assume Role](#51-configure-aws-assume-role)
   - [5.2 Configure Cloud Connect](#52-configure-cloud-connect)
   - [5.3 Configure Segment Connector](#53-configure-segment-connector)
@@ -36,7 +36,7 @@
   - [7.1 Configure Firewall Policies](#71-configure-firewall-policies)
   - [7.2 Assign Policies to AWS TGW Site](#72-assign-policies-to-aws-tgw-site)
   - [7.3 Test connectivity between External VPC and Prod VPC](#73-test-connectivity-between-external-vpc-and-prod-vpc)
-- [8. App Connect](#8-app-connect)
+- [8. ExtraNet: App Centric Method](#8-extranet-app-centric-method)
   - [8.1 Remove External-Prod Segment Connector](#81-remove-external-prod-segment-connector)
   - [8.2 Create HTTP LB](#82-create-http-lb)
   - [8.3 Test connectivity](#83-test-connectivity)
@@ -632,7 +632,13 @@ PING 10.2.10.100 (10.3.10.100) 56(84) bytes of data.
 From the output, we can see that the connection is successful between VMware Prod VM and AWS Shared VM.
 But connection between VMware Prod VM and AWS Dev VM is not established.
 
-# 5. Connect External Company
+# 5. ExtraNet: Network Centric Method
+
+There are two ways to connect External Company and solve the ExtraNet problem:
+
+a) Network Centric (outlined in this section) 
+
+b) App Centric (outlined in section [ExtraNet: App Centric Method](#8-extranet-app-centric-method) below).
 
 In this part we will connect External Company by adding a Cloud Connect/Segment for it. For this demo, we will assume that our company is offering a service running on the workload in VPC Prod 10.1.10.100 using HTTP/HTTPs to a 3rd party. According to this, workloads in the external VPC need to access an application in the production segment. Thus, we will need a segment connector between External and Prod segments. As a result we will establish connection between External Company VPC and AWS Prod VPC, as well as VMware Prod VM.
 
@@ -640,7 +646,9 @@ In this part we will connect External Company by adding a Cloud Connect/Segment 
 
 ## 5.1 Configure AWS Assume Role
 
-In this part we will create an AWS Assume Role to allow F5 Distributed Cloud to assume the role and access the external company's AWS account. In this case, we don't have direct access to the external company's AWS account, so we need to create an Assume Role to allow F5 Distributed Cloud to access it without providing the credentials.
+External Org/Company will not share AWS credentials with ACMECorp, however we still need F5 Distributed Cloud to connect & orchestrate the connectivity of the VPC to AWS TGW. In order to solve this, we will create a role within the external account that trusts F5 Distributed Cloud AWS Account & that has the necessary privileges as per our documentation.
+
+So, in this part we will create an AWS Assume Role to allow F5 Distributed Cloud to assume the role and access the external company's AWS account. In this case, we don't have direct access to the external company's AWS account, so we need to create an Assume Role to allow F5 Distributed Cloud to access it without providing the credentials.
 
 To create an Assume Role, you will need [F5 Distributed Cloud AWS Account Number which you can get by submitting a ticket](https://docs.cloud.f5.com/docs/reference/cloud-cred-ref/aws-tgw-pol-ref#f5-distributed-cloud-assume-role) in the XC portal.
 From the main menu, navigate to **Administration** and select **Requests**. Click the **Add Request** button and fill in the form.
@@ -651,7 +659,7 @@ Open AWS Management Console and navigate to **IAM**. From there, select **Polici
 
 ![alt text](./assets/sts_create_policy.png)
 
-In the **IAM** service, select **Roles** and click **Create role**. Select **Custom trust policy**. For the trust relationship policy, paste the policy below. Make sure to replace `<account-number>` with your AWS account number and `<tenant_id>` with the values you received from F5 Distributed Cloud.
+In the **IAM** service, select **Roles** and click **Create role**. Select **Custom trust policy**. For the trust relationship policy, paste the policy below. Make sure to replace `<account-number>` with F5 Distributed Cloud AWS account number and `<tenant_id>` with the values you received from F5 Distributed Cloud.
 
 ```json
 {
@@ -955,9 +963,11 @@ Commercial support is available at
 
 In the output, we can see the response from Nginx server running on the AWS Prod VM. This means that the connection is successful on port 80.
 
-# 8. App Connect
+# 8. ExtraNet: App Centric Method
 
 In this demo earlier we configured the L3 connection for traffic between prod segment and external segment. In this section we will add an HTTP Load Balancer that will let us expose L7 traffic from prod to external segment. To do that, we will first need to remove the external-to-prod segment connector, then create an HTTP LB and create an A DNS record.
+
+![alt text](./assets/app-centric-overview.gif)
 
 ## 8.1 Remove External-Prod Segment Connector
 
