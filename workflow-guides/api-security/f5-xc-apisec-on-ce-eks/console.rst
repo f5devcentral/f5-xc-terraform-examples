@@ -24,14 +24,13 @@ EKS and CE Steps:
 
 **STEP 5:**  Open the ce_k8s.yml file below and update Latitude, Longitude, token ID & other fields (from lines 143-158) as per your infrastructure.
 
-**STEP 6:**  Download ce_k8s.yml file from `here <https://raw.githubusercontent.com/f5devcentral/f5-xc-terraform-examples/main/workflow-guides/waf/f5-xc-waf-on-k8s/assets/ce_k8s.yml>`__ and run this command to deploy the CE site -
-    ``kubectl apply -f ce_k8s.yml``
+**STEP 6:**  Download ce_k8s.yml file from `here <https://raw.githubusercontent.com/f5devcentral/f5-xc-terraform-examples/main/workflow-guides/waf/f5-xc-waf-on-k8s/assets/ce_k8s.yml>`__ and run this command to deploy the CE site - ``kubectl apply -f ce_k8s.yml``
 
 **STEP 7:**  In F5 XC console navigate to Site management –> then to Registrations tab and approve the pending record
 
 **STEP 8:**  Wait for 10-15 mins and check all XC related pods are running in ves-system namespace. Also check if this new CE site comes up as online in F5 XC console sites list
 
-**STEP 9:**  From terminal, run below command to deploy bookinfo demo app -
+**STEP 9:**  From terminal, run below command to deploy bookinfo demo app :
     ``kubectl apply -l version!=v2,version!=v3 -f https://raw.githubusercontent.com/istio/istio/release-1.16/samples/bookinfo/platform/kube/bookinfo.yaml``
 
 **STEP 10:** Download ce-k8s-lb.yml file from `here <https://raw.githubusercontent.com/f5devcentral/f5-xc-terraform-examples/main/workflow-guides/waf/f5-xc-waf-on-k8s/assets/ce_k8s-lb.yml>`__ and run this command to create the k8s load balancer - ``kubectl apply -f ce-k8s-lb.yml``
