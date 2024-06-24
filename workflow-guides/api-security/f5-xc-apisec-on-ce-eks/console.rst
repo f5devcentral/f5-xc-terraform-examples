@@ -121,7 +121,7 @@ bring up the Open API Spec(OAS) creation page.
 
 **STEP 6** Give the Swagger(OAS) file a name and under
 ``Swagger Upload``, choose ``Upload File`` to upload the OAS associated
-with `Bookinfo <https://raw.githubusercontent.com/istio/istio/master/samples/bookinfo/swagger.yaml>` and then select ``Continue`` at the
+with `Bookinfo <https://raw.githubusercontent.com/istio/istio/master/samples/bookinfo/swagger.yaml>`__ and then select ``Continue`` at the
 bottom of the page.
 
 .. image:: assets/10-api-pro-oas2.png
