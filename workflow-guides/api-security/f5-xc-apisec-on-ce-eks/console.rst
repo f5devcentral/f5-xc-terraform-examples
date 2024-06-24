@@ -17,7 +17,7 @@ EKS and CE Steps:
 **STEP 1:**  If k8s cluster (EKS) is not already available, then from Linux
     terminal, check below command to deploy EKS. If needed update it as
     per you requirements.
-    ``eksctl create cluster --name ce-eks-new --version 1.21 --region us-west-1 --nodegroup-name standard-workers --node-type t3.xlarge --nodes 1 --managed --kubeconfig admin.conf``
+    ``eksctl create cluster --name ce-eks-new --version 1.29 --region us-west-1 --nodegroup-name standard-workers --node-type t3.xlarge --nodes 1 --managed --kubeconfig admin.conf``
 
 **STEP 2:**  Once above command is successful, run below command to obtain
     kubeconfig. If you want to use existing EKS, then update name and
