@@ -34,7 +34,7 @@ EKS and CE Steps:
 **STEP 5:**  Open the ce_k8s.yml file below and update Latitude, Longitude, token
     ID & other fields (from lines 143-158) as per your infrastructure.
 
-**STEP 6:**  Download ce_k8s.yml file from `here <https://raw.githubusercontent.com/f5devcentral/f5-xc-terraform-examples/main/workflow-guides/waf/f5-xc-waf-on-k8s/assets/ce_k8s.yml>` and run this command to deploy the CE site -
+**STEP 6:**  Download ce_k8s.yml file from `here <https://raw.githubusercontent.com/f5devcentral/f5-xc-terraform-examples/main/workflow-guides/waf/f5-xc-waf-on-k8s/assets/ce_k8s.yml>`__ and run this command to deploy the CE site -
     ``kubectl apply -f ce_k8s.yml``
 
 **STEP 7:**  In F5 XC console navigate to Site management –> then to
@@ -47,7 +47,7 @@ EKS and CE Steps:
 **STEP 9:**  From terminal, run below command to deploy bookinfo demo app -
     ``kubectl apply -l version!=v2,version!=v3 -f https://raw.githubusercontent.com/istio/istio/release-1.16/samples/bookinfo/platform/kube/bookinfo.yaml``
 
-**STEP 10:** Download ce-k8s-lb.yml file from `here <https://raw.githubusercontent.com/f5devcentral/f5-xc-terraform-examples/main/workflow-guides/waf/f5-xc-waf-on-k8s/assets/ce_k8s-lb.yml>` and run this command to
+**STEP 10:** Download ce-k8s-lb.yml file from `here <https://raw.githubusercontent.com/f5devcentral/f5-xc-terraform-examples/main/workflow-guides/waf/f5-xc-waf-on-k8s/assets/ce_k8s-lb.yml>`__ and run this command to
     create the k8s load balancer - ``kubectl apply -f ce-k8s-lb.yml``
 
 XC HTTP Load Balancer
@@ -56,10 +56,7 @@ XC HTTP Load Balancer
 **STEP 1:** Log in to the F5 Distributed Cloud Console and naviate to
 ``Web App & API Protection``.
 
-.. image:: assets/00-console.pnga. Select k8s service name and provide value as “productpage.default”
-b. In Sites section, select newly created CE site from drop-down
-c. In network option, select “Outside network”
-d. Save above config and in port section provide 9080
+.. image:: assets/00-console.png
 
 **STEP 2:** Once in Web App and API Protection Select
 ``Manage > Load Balancers > HTTP Load Balancers`` and then
