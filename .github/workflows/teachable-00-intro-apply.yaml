@@ -197,6 +197,10 @@ jobs:
         id: validate
         run: terraform validate -no-color
 
+      - name: Terraform Validate
+        id: push_state
+        run: terraform state push errored.tfstate
+
       - name: Terraform Apply
         id: apply
         run:  terraform apply -lock=false -auto-approve -input=false
