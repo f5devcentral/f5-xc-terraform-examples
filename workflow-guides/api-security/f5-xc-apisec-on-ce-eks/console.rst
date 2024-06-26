@@ -19,7 +19,7 @@ EKS and CE Steps:
 
 **STEP 3:**  Add "Amazon EBS CSI driver" add-on to the created EKS cluster and attach the IAM role created in STEP 2 to this add-on.
 
-**STEP 4:**  Once above command is successful, run below command to obtain kubeconfig. If you want to use existing EKS, then update name and region in below command.
+**STEP 4:**  Once done, run below command to obtain kubeconfig. If you want to use existing EKS, then update name and region in below command.
     ``aws eks update-kubeconfig --name ce-eks-new --region us-west-1``
 
 **STEP 5:**  Login to your F5 XC console and navigate to “Multi-Cloud Network Connect”, next to “Manage” tab “Site Management” menu and then to “Site Tokens” drop-down. Create a new site token and copy the UID.
