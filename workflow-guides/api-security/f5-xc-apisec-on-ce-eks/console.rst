@@ -40,8 +40,7 @@ EKS and CE Steps:
 XC HTTP Load Balancer
 ---------------------
 
-**STEP 1:** Log in to the F5 Distributed Cloud Console and naviate to
-``Web App & API Protection``.
+**STEP 1:** Log in to the F5 Distributed Cloud Console and naviate to ``Web App & API Protection``.
 
 .. image:: assets/00-console.png
 
