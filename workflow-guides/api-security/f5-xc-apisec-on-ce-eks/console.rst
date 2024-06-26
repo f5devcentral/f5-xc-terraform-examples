@@ -15,9 +15,9 @@ EKS and CE Steps:
 **STEP 1:**  If k8s cluster (EKS) is not already available, then from Linux terminal, check below command to deploy EKS. If needed update it as per you requirements.
     ``eksctl create cluster --name ce-eks-new --version 1.29 --region us-west-1 --nodegroup-name standard-workers --node-type t3.xlarge --nodes 1 --managed --kubeconfig admin.conf``
 
-**STEP 2:**  Create an IAM OIDC identity provider ( for configuration steps click `here <https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html>`__ ) and an IAM role with permission policy: "AmazonEBSCSIDriverPolicy" ( for configuration steps click `here <https://docs.aws.amazon.com/eks/latest/userguide/csi-iam-role.html>`__ ).
+**STEP 2:**  Create an IAM OIDC identity provider ( for configuration steps click `here <https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html>`__ ) and an IAM role with permission policy: "AmazonEBSCSIDriverPolicy" ( for configuration steps click `here <https://docs.aws.amazon.com/eks/latest/userguide/csi-iam-role.html>`__ follow this document till step 10).
 
-**STEP 3:**  Add "Amazon EBS CSI driver" add-on to the created EKS cluster and attach the IAM role created in STEP 2.
+**STEP 3:**  Add "Amazon EBS CSI driver" add-on to the created EKS cluster and attach the IAM role created in STEP 2 to this add-on.
 
 **STEP 4:**  Once above command is successful, run below command to obtain kubeconfig. If you want to use existing EKS, then update name and region in below command.
     ``aws eks update-kubeconfig --name ce-eks-new --region us-west-1``
