@@ -15,25 +15,27 @@ EKS and CE Steps:
 **STEP 1:**  If k8s cluster (EKS) is not already available, then from Linux terminal, check below command to deploy EKS. If needed update it as per you requirements.
     ``eksctl create cluster --name ce-eks-new --version 1.29 --region us-west-1 --nodegroup-name standard-workers --node-type t3.xlarge --nodes 1 --managed --kubeconfig admin.conf``
 
-**STEP 2:**  Once above command is successful, run below command to obtain kubeconfig. If you want to use existing EKS, then update name and region in below command.
+**STEP 2:**  Create an IAM OIDC identity provider ( for configuration steps click `here <https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html>`__ ) and an IAM role with permission policy: "AmazonEBSCSIDriverPolicy" ( for configuration steps click `here <https://docs.aws.amazon.com/eks/latest/userguide/csi-iam-role.html>`__ ).
+
+**STEP 3:**  Add "Amazon EBS CSI driver" add-on to the created EKS cluster and attach the IAM role created in STEP 2.
+
+**STEP 4:**  Once above command is successful, run below command to obtain kubeconfig. If you want to use existing EKS, then update name and region in below command.
     ``aws eks update-kubeconfig --name ce-eks-new --region us-west-1``
 
-**STEP 3:**  Login to your F5 XC console and navigate to “Multi-Cloud Network Connect”, next to “Manage” tab “Site Management” menu and then to “Site Tokens” drop-down. Create a new site token and copy the UID.
+**STEP 5:**  Login to your F5 XC console and navigate to “Multi-Cloud Network Connect”, next to “Manage” tab “Site Management” menu and then to “Site Tokens” drop-down. Create a new site token and copy the UID.
 
-**STEP 4:**  Login to your F5 XC console and navigate to Cloud and Edge sites. Create a new site token and copy the UID.
+**STEP 6:**  Open the ce_k8s.yml file below and update Latitude, Longitude, token ID & other fields (from lines 143-158) as per your infrastructure.
 
-**STEP 5:**  Open the ce_k8s.yml file below and update Latitude, Longitude, token ID & other fields (from lines 143-158) as per your infrastructure.
+**STEP 7:**  Download ce_k8s.yml file from `here <https://raw.githubusercontent.com/f5devcentral/f5-xc-terraform-examples/main/workflow-guides/waf/f5-xc-waf-on-k8s/assets/ce_k8s.yml>`__ and run this command to deploy the CE site - ``kubectl apply -f ce_k8s.yml``
 
-**STEP 6:**  Download ce_k8s.yml file from `here <https://raw.githubusercontent.com/f5devcentral/f5-xc-terraform-examples/main/workflow-guides/waf/f5-xc-waf-on-k8s/assets/ce_k8s.yml>`__ and run this command to deploy the CE site - ``kubectl apply -f ce_k8s.yml``
+**STEP 8:**  In F5 XC console navigate to Site management –> then to Registrations tab and approve the pending record
 
-**STEP 7:**  In F5 XC console navigate to Site management –> then to Registrations tab and approve the pending record
+**STEP 9:**  Wait for 10-15 mins and check all XC related pods are running in ves-system namespace. Also check if this new CE site comes up as online in F5 XC console sites list
 
-**STEP 8:**  Wait for 10-15 mins and check all XC related pods are running in ves-system namespace. Also check if this new CE site comes up as online in F5 XC console sites list
-
-**STEP 9:**  From terminal, run below command to deploy bookinfo demo app :
+**STEP 10:**  From terminal, run below command to deploy bookinfo demo app :
     ``kubectl apply -l version!=v2,version!=v3 -f https://raw.githubusercontent.com/istio/istio/release-1.16/samples/bookinfo/platform/kube/bookinfo.yaml``
 
-**STEP 10:** Download ce-k8s-lb.yml file from `here <https://raw.githubusercontent.com/f5devcentral/f5-xc-terraform-examples/main/workflow-guides/waf/f5-xc-waf-on-k8s/assets/ce_k8s-lb.yml>`__ and run this command to create the k8s load balancer - ``kubectl apply -f ce-k8s-lb.yml``
+**STEP 11:** Download ce-k8s-lb.yml file from `here <https://raw.githubusercontent.com/f5devcentral/f5-xc-terraform-examples/main/workflow-guides/waf/f5-xc-waf-on-k8s/assets/ce_k8s-lb.yml>`__ and run this command to create the k8s load balancer - ``kubectl apply -f ce-k8s-lb.yml``
 
 XC HTTP Load Balancer
 ---------------------
