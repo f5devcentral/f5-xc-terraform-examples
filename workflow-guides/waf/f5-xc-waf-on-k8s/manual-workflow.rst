@@ -42,15 +42,12 @@ Steps:
 9.  In F5 XC console navigate to Site management –> then to
     Registrations tab and approve the pending record
 
-10.  Wait for 10-15 mins and check all XC related pods are running in
-    ves-system namespace. Also check if this new CE site comes up as
-    online in F5 XC console sites list
+10.  Wait for 10-15 mins and check all XC related pods are running in ves-system namespace. Also check if this new CE site comes up as online in F5 XC console sites list
 
 11.  From terminal, run below command to deploy bookinfo demo app -
     ``kubectl apply -l version!=v2,version!=v3 -f https://raw.githubusercontent.com/istio/istio/release-1.16/samples/bookinfo/platform/kube/bookinfo.yaml``
 
-12. Download ce-k8s-lb.yml file from this repo and run this file to
-    create k8s load balancer - ``kubectl apply -f ce-k8s-lb.yml``
+12. Download ce-k8s-lb.yml file from this repo and run this file to create k8s load balancer - ``kubectl apply -f ce-k8s-lb.yml``
 
 13. Login to F5 XC console and navigate to load balancer section
 
