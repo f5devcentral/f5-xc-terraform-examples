@@ -20,7 +20,7 @@ Workflow Instructions
 
 `F5 Distributed Cloud Console Workflow <./xc-console-demo-guide.rst>`__
 
-***Coming soon*** `F5 Distributed Cloud Automation Workflow <./automation-demo-guide.rst>`__
+***Coming soon*** `F5 Distributed Cloud Automation Workflow`
 
 
 Additional Related Resources
