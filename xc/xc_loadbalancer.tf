@@ -450,6 +450,7 @@ resource "volterra_http_loadbalancer" "lb_https" {
   }
 
   dynamic "more_option" {
+    for_each = var.xc_namespace ? [1] : []
       content {
         idle_timeout = 300000
       }
