@@ -378,7 +378,7 @@ jobs:
         run: terraform validate -no-color
 
       - name: Terraform Apply
-        run: terraform apply -no-color -auto-approve -input=false
+        run: terraform apply -lock=false -no-color -auto-approve -input=false
 
       - name: Set output vars
         id: output_vars
@@ -558,7 +558,7 @@ jobs:
         run: terraform validate -no-color
 
       - name: Terraform Apply
-        run: terraform apply -no-color -auto-approve -input=false
+        run: terraform apply -lock=false -no-color -auto-approve -input=false
 
       - name: Set output vars
         id: output_vars

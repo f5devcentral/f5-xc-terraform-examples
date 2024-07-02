@@ -149,7 +149,7 @@ jobs:
         run: terraform validate -no-color
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve -input=false
+        run: terraform apply -lock=false -auto-approve -input=false
 
   xc_credentials:
     name: "XC Credentials"
@@ -199,7 +199,7 @@ jobs:
 
       - name: Terraform Apply
         id: apply
-        run:  terraform apply -auto-approve -input=false
+        run:  terraform apply -lock=false -auto-approve -input=false
 
   aws_credentials: 
     uses: ./.github/workflows/aws-cloud-credentials-apply.yaml
