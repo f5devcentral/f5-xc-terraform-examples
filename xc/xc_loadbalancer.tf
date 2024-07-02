@@ -6,7 +6,7 @@ resource "null_resource" "wait_for_site"{
 
 resource "null_resource" "wait_for_ekssite"{
   count           =  var.eks_ce_site ? 1 : 0
-  depends_on      =  [volterra_registration_approval.k8s-ce]
+  depends_on      =  [volterra_registration_approval.k8s-ce, volterra_registration_approval.gcp-ce]
 }
 
 resource "null_resource" "wait_for_aws_ce_site"{
@@ -16,7 +16,8 @@ resource "null_resource" "wait_for_aws_ce_site"{
 
 # Create XC LB config
 resource "volterra_origin_pool" "op" {
-  depends_on             = [null_resource.wait_for_site, null_resource.check_site_status_cert2, null_resource.check_site_status_cert, null_resource.wait_for_ekssite, null_resource.wait_for_aws_ce_site]
+  depends_on             = [null_resource.wait_for_site, null_resource.check_site_status_cert,
+    null_resource.wait_for_ekssite, null_resource.wait_for_aws_ce_site, volterra_namespace.this]
   name                   = format("%s-xcop-%s", local.project_prefix, local.build_suffix)
   namespace              = var.xc_namespace
   description            = format("Origin pool pointing to origin server %s", local.origin_server)
@@ -67,6 +68,7 @@ resource "volterra_origin_pool" "op" {
         site {
           name      = "${coalesce(var.site_name, local.project_prefix)}"
           namespace = "system"
+          tenant    = var.user_site ? var.xc_tenant : "ves-io"
           }
         }
       }
@@ -112,7 +114,7 @@ resource "volterra_http_loadbalancer" "lb_https" {
       advertise_where {
         site {
           site {
-            name      = "${coalesce(var.site_name, local.project_prefix)}"
+            name      = "${coalesce(var.gke_site_name, var.site_name, local.project_prefix)}"
             namespace = "system"
           }
           network = "SITE_NETWORK_INSIDE_AND_OUTSIDE"
@@ -146,6 +148,20 @@ resource "volterra_http_loadbalancer" "lb_https" {
       enable_path_normalize = true
       tls_config {
         default_security = true
+      }
+    }
+  }
+
+  dynamic "data_guard_rules" {
+    for_each = var.xc_data_guard ? [1] : []
+    content {
+      metadata {
+        name = format("%s-data-guard-%s", local.project_prefix, local.build_suffix)
+      }
+      apply_data_guard = true
+      any_domain       = true
+      path {
+        prefix = "/"
       }
     }
   }
@@ -372,7 +388,9 @@ resource "volterra_http_loadbalancer" "lb_https" {
           }
           flow_label {
             authentication {
-              login { }
+              login {
+                disable_transaction_result = true
+              }
             }
           }
         }
@@ -382,15 +400,15 @@ resource "volterra_http_loadbalancer" "lb_https" {
     }
   }
 
-#DDoS Configuration
-  dynamic "enable_ddos_detection" {
-    for_each = var.xc_ddos_pro ? [1] : []
-    content {
-      enable_auto_mitigation {
-        block = true
-      }
-    }
-  }
+# DDoS Configuration
+#  dynamic "enable_ddos_detection" {
+#    for_each = var.xc_ddos_pro ? [1] : []
+#    content {
+#      enable_auto_mitigation {
+#        block = true
+#      }
+#    }
+#  }
   dynamic "ddos_mitigation_rules" {
     for_each = var.xc_ddos_pro ? [1] : []
     content {
@@ -430,4 +448,10 @@ resource "volterra_http_loadbalancer" "lb_https" {
       } 
     }
   }
+
+  dynamic "more_option" {
+      content {
+        idle_timeout = 300000
+      }
+    }
 }

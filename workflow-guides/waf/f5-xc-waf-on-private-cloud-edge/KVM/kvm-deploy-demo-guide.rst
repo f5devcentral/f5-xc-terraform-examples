@@ -5,14 +5,12 @@ Deploying F5 XC’s Customer Edge using KVM on Openstack’s Private Cloud
 Introduction
 ***************
 
-As there is a drastic change in deploying application from traditional data centers to the Hybrid Cloud in recent times. Companies are deploying their apps in the environment that made the most sense for the applications. Hence there is a greater demand in distribution of applications in multiple public cloud, traditional data centers, Private cloud, and edge as well.  
-
-There are certain apps that are residing in environment (like private cloud) needs to be connected to other environment such as multi-cloud networking platforms for better transit of data with greater security measures along with low latency and this can be achieved using F5 Distributed Cloud (F5 XC). 
+F5 Distributed Cloud (F5 XC) supports deploying its services as a Customer Edge (CE) node in Openstack Private Cloud Environment. CE helps to connect applications running on Openstack's Private Cloud to F5 XC Global Network for telemetry and to deliver consistent security.
 
 Solution overview
 *******************
 
-In this article, we demonstrate deploying F5 XC Services site as a Customer Edge (CE) on KVM in Open Stack private cloud network. We also deploy an application and connect the CE to the F5 XC’s Global network. This results in extending the F5 XC’s global backbone network to the customer premises to provide security capabilities along with telemetry. 
+In this article, we demonstrate deploying F5 XC services as a CE on Openstack with KVM as a hypervisor. We also deploy a dummy flight booking application designed to book flights and try to access the application via F5 XC's Global Network.
 
 .. figure:: Assets/KVM_on-prem_new.jpeg
 
@@ -45,6 +43,8 @@ Below we shall take a look into detailed steps as mentioned,
       **Step 1.2: Deploying CE on Openstack**
       
       Creating an instance in Open Stack with the the KVM image file: rhel-9.2023.29-20231212011947. Resources allocated to this instance are 8 vCPUs and 16 GB RAM. Minimum resources required for node deployment are mentioned `here <https://docs.cloud.f5.com/docs/how-to/site-management/create-kvm-libvirt-site>`__. 
+
+      KVM image file can be downloaded by going to this `link <https://docs.cloud.f5.com/docs/images/node-cert-hw-kvm-images>`__.
 
       .. figure:: Assets/open-stack.jpg
 
@@ -89,7 +89,7 @@ Below we shall take a look into detailed steps as mentioned,
 
       .. figure:: Assets/pending-registration.jpg
 
-      - Verify the configs & enter other configurations, if needed.
+      - Verify the F5 XC Software version is set to default SW version and Operating system version set to Default OS version which means the latest. Click on Save and Exit to accept the registration.
 
       .. figure:: Assets/approve-registration.jpg
 
@@ -108,6 +108,8 @@ Below we shall take a look into detailed steps as mentioned,
 3.   F5 XC configs and app deploy
       **Step 3.1: Creating & Assigning labels to Site**
 
+      Labels are created to group multiple CE sites together to create a virtual site. A Virtual site provides a mechanism to perform operations on an individual or a group of sites.
+
       - From F5 XC console > select Shared Configuration box.
       - Select Manage in left-menu > select Labels > Known Keys and select “Add known key” button.
 
@@ -115,7 +117,7 @@ Below we shall take a look into detailed steps as mentioned,
 
       - Enter Label key name and value for the key. Click on “Add key button” to create key-value pair.
 
-      - Navigating to Multi-Cloud Network Connect > Site Management > App Stack Sites. Select the site to which labels need to be assigned and click on Manage Configuration.
+      - Navigating to Multi-Cloud Network Connect > Overview > Sites. Select the site to which labels need to be assigned and click on Manage Configuration.
 
       .. figure:: Assets/manage-configs.jpg
 
@@ -130,7 +132,7 @@ Below we shall take a look into detailed steps as mentioned,
       **Step 3.2: Creating Virtual Site & vK8s object**
 
       - From F5 XC Console homepage, Click on Shared Configuration. Click Manage > Virtual Sites and click on “Add Virtual Site”.
-      - In the Site Type select CE. From the Selector Expression field, click Add Label to provide the custom key created previously along with operator, followed by custom value as shown below. Click on Save and Exit.
+      - In the Site Type select CE. From the Selector Expression field, click Add Label to provide the custom key created previously along with operator ``==``, followed by custom value as shown below. Click on Save and Exit.
 
       .. figure:: Assets/virtual-site-creation.jpg
 
@@ -139,7 +141,12 @@ Below we shall take a look into detailed steps as mentioned,
 
       .. figure:: Assets/vk8s-object.jpg
 
-      - Deploy the application on VMware EXSi using the kubeconfig file for the vK8s object created above.
+      - Click on Save and Exit to create vK8s object. Select ``...`` > ``Kubeconfig`` for the vK8s object to download the Kubeconfig file.
+
+      .. figure:: Assets/k8s-object.jpg
+
+
+      - Deploy the application on Openstack using the kubeconfig file for the vK8s object created above.
 
       .. figure:: Assets/app-deploy.jpg
 
@@ -163,15 +170,15 @@ Below we shall take a look into detailed steps as mentioned,
       Created a WAF policy with enforcement mode as blocking and assigned this to the Load Balancer.
 
       .. figure:: Assets/waf-policy.jpg
+      
+      - When an attacker sends Cross Site Scripting (XSS) attack, F5 XC triggers a security event and the attack gets blocked by XC WAF.
 
-      - Able to see request getting blocked for accessing file type violation.
-
-      .. figure:: Assets/block-request.jpg
+      .. figure:: Assets/xss-attack.jpg
 
 
 Conclusion
 **************
-F5 XC supports deploying its services across different private cloud platforms like openstack, this helps to connect its applications running in then to the F5 XC global network and protect the application. This gives feasibility to the organizations to utilize the services running across different cloud platforms in an easy manner.
+As you can see from above demonstration, integrating F5 XC services with Openstack Platform results in delivering consistent security and performance for apps running on Openstack.
 
 
 

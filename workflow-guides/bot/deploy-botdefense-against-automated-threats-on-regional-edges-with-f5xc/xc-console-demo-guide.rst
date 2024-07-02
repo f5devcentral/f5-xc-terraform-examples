@@ -1,5 +1,5 @@
 Deploy Bot Defense against Automated Threats on Regional Edges with F5 XC
-===========================================
+=========================================================================
 
 Objective :
 -----------
@@ -8,7 +8,7 @@ Use this repo and work-flow guide for deploying XC Bot Defense via our WAAP Conn
 on Kubernetes. This guide will outline the steps for implementing this infrastructure via Console Steps as well as Automated method using Terraform
 
 Bot Defense on RE Architectural Diagram :
------------------------
+-----------------------------------------
 .. image:: assets/diagramRE3.png
    :width: 100%
 
@@ -16,7 +16,7 @@ Manual step by step process for deployment:
 -------------------------------------------
 
 Console Deployment Prerequisites:
-^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 1. F5 Distributed Cloud Account (F5XC)
 2. kubectl already configured in a linux
@@ -28,7 +28,7 @@ Steps:
 ^^^^^^
  
 Creating your Namespace:
-================
+========================
 
 1. Logging into your tenant via https://console.ves.volterra.io ensure you have a unique namespace configured. If not, navigate to Administration --> My Namespaces --> Add New
 2. Switch into your newly created namespace
@@ -110,7 +110,7 @@ Setting up an HTTP load balancer to front-end the airline app
 9. Save and Exit
 
 Verifying Application Availability via DNS:
-====================================
+===========================================
 1. Verify access to your newly deployed container application by navigating to Web App & API Protection > your-namespace > Manage > Load Balancers and click on Virtual Host Ready under DNS Info Column
 2. Copy the CNAME with the "ves-" prefix and paste it into your web browser to verify the airline application loads appropriately. 
 
@@ -135,7 +135,7 @@ Setting up an HTTP load balancer to enable XC Bot Defense:
    :width: 100%
 
 Setting up an HTTP load balancer to configure the XC Bot Defense endpoint policy:
--------------------------------------------------------------
+----------------------------------------------------------------------------------
 1. Under Bot Defense Policy select "Edit Configuration" 
 2. Under Protected App Endpoints select "Configure" and then select "add item"
 3. Give your policy a name of "protect-signin"
@@ -154,7 +154,7 @@ Setting up an HTTP load balancer to configure the XC Bot Defense endpoint policy
    :width: 100%
 
 Setting up an HTTP load balancer to configure the XC Bot Defense Javascript Insertion:
--------------------------------------------------------------
+--------------------------------------------------------------------------------------
 1. Set the Web Client Javascript Mode to "Async JS with no-Caching"
 2. Set the Javascript Insertion to "Insert Javascript in All Pages"
 3. Set the Javascript location to "After <head> tag"
@@ -184,7 +184,7 @@ Viewing the Results in the Overview Security Dashboard:
    :width: 100%
 
 Viewing the Results in your Load Balancer Security Dashboard:
--------------------------------------------------------
+--------------------------------------------------------------
 1. From here you will see many of the same statistics related to Security Events. We can drill down further by selecting the Bot Defense Tab on the top right 
 2. In this Bot Defense view you will see a breakdown of the different traffic types from Good Bots, to Malicious Bots, Human Traffic etc...
 

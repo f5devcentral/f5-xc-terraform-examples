@@ -227,7 +227,7 @@ Testing:
 Step by step process using automation scripts
 ##############################################
 
-Coming Soon...
+Please refer `automation-guide <https://github.com/f5devcentral/f5-xc-terraform-examples/tree/main/workflow-guides/smcn/app-delivery-fabric/terraform>`__ for more details.
 
 **Support**
 ############

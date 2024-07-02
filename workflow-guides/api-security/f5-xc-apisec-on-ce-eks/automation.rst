@@ -105,7 +105,7 @@ GitHub
 
 -  Check below image for more info on action secrets
 
-.. image:: /workflow-guides/api-security/f5-xc-api-on-ce-eks/assets/actions-secrets.JPG
+.. image:: /workflow-guides/api-security/f5-xc-apisec-on-ce-eks/assets/actions-secrets.JPG
 
 Workflow Runs
 --------------

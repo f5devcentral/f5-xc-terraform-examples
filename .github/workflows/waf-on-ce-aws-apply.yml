@@ -226,7 +226,7 @@ jobs:
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/deploy-waf-aws-ce' && github.event_name == 'push'
-        run: terraform apply -auto-approve -input=false  
+        run: terraform apply -auto-approve -input=false
 
   volt_mesh_site_deploy:
     name: "F5 XC WAF"
@@ -301,6 +301,4 @@ jobs:
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/deploy-waf-aws-ce' && github.event_name == 'push'
-        run: terraform apply -auto-approve -input=false 
-     
-        
+        run: terraform apply -auto-approve -input=false

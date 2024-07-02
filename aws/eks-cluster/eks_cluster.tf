@@ -51,6 +51,13 @@ resource "aws_eks_node_group" "private-node-group-1-tf" {
   resolve_conflicts = "OVERWRITE"
  }
 
+ resource "aws_eks_addon" "ebs_csi_driver-addon" {
+  cluster_name             = aws_eks_cluster.eks-tf.name
+  addon_name               = "aws-ebs-csi-driver"
+  service_account_role_arn = aws_iam_role.ebs_csi_driver.arn
+}
+
+
 resource "aws_eks_node_group" "private-node-group-2-tf" {
   count = var.skip_ha_az_node_group ? 0 : 1
   cluster_name  = aws_eks_cluster.eks-tf.name

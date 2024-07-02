@@ -39,41 +39,20 @@ resource "volterra_aws_vpc_site" "aws_site" {
   ssh_key = var.ssh_key
 }
 
-/*
-resource "null_resource" "before" {
-  depends_on       = [volterra_aws_vpc_site.aws_site]
-}
-*/
 
-resource "null_resource" "delay" {
+resource "null_resource" "validation-wait-aws-ce" {
+  count = var.aws_ce_site ? 1 : 0
   provisioner "local-exec" {
     command = "sleep 70"
   }
-  /*triggers = {
-    "before" = "${null_resource.before.id}"
-  }*/
 }
 
-/*
-resource "null_resource" "after" {
-  depends_on = ["null_resource.delay"]
-}
-*/
 
 resource "volterra_tf_params_action" "example" {
   count = var.aws_ce_site ? 1 : 0
-  depends_on       = [null_resource.delay]
-  site_name        = "${coalesce(var.site_name, local.project_prefix)}"
+  depends_on       = [null_resource.validation-wait-aws-ce]
+  site_name        = volterra_aws_vpc_site.aws_site[0].name
   site_kind        = "aws_vpc_site"
   action           = "apply"
   wait_for_action  = true
-}
-
-
-resource "null_resource" "check_site_status_cert2" {
-  count         = var.aws_ce_site == "true" ? 1 : 0
-  depends_on       = [volterra_tf_params_action.example]
-  provisioner "local-exec" {
-    command     = format("bash ${path.module}/check_ce_status.sh config/namespaces/system/sites/%s api.p12 %s 3600 cert $VES_P12_PASSWORD", var.site_name, var.xc_tenant)
-  }
 }

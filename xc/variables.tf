@@ -1,3 +1,10 @@
+#infrastructure
+variable "azure" {
+  description = "Workspace name of Azure deployment infra"
+  type        = string
+  default     = ""
+}
+
 #TF Cloud
 variable "tf_cloud_organization" {
   type        = string
@@ -7,6 +14,7 @@ variable "ssh_key" {
   type        = string
   description = "SSH pub key, only present for warning handling with TF cloud variable set"
 }
+
 #XC
 variable "xc_tenant" {
   type        = string
@@ -24,12 +32,20 @@ variable "app_domain" {
   type        = string
   description = "FQDN for the app. If you have delegated domain `prod.example.com`, then your app_domain can be `<app_name>.prod.example.com`"
 }
+
 #XC WAF
 variable "xc_waf_blocking" {
   type        = string
   description = "Set XC WAF to Blocking(true) or Monitoring(false)"
   default     = "false"
 }
+
+variable "xc_data_guard" {
+  type        = string
+  description = "Set XC datguard."
+  default     = "false"
+}
+
 #XC AI/ML Settings for MUD, APIP - NOTE: Only set if using AI/ML settings from the shared namespace
 variable "xc_app_type" {
   type        = list
@@ -41,6 +57,7 @@ variable "xc_multi_lb" {
   description = "ML configured externally using app type feature and label added to the HTTP load balancer."
   default     = "false"
 }
+
 
 #XC API Protection and Discovery
 variable "xc_api_disc" {
@@ -195,11 +212,25 @@ variable "serviceport" {
   default     = ""
 }
 
+variable user_site {
+  type        = string
+  description = "Whether site is owned by user of F5 XC."
+  default     = "false"
+}
+
+
 variable "site_name" {
   type        = string
   description = "CE site name to advertise load balancer."
   default     = ""
 }
+
+variable "gke_site_name" {
+  type        = string
+  description = "Name of the GKE CE site."
+  default     = ""
+}
+
 
 # Azure CE Site 
 variable "az_ce_site" {
@@ -250,12 +281,6 @@ variable "xc_service_discovery" {
 }
 
 
-variable "gcp_ce_site" {
-  type        = string
-  description = "If infra is deployed in GCP CE site ?"
-  default     = "false"
-}
-
 variable "GOOGLE_CREDENTIALS" {
   type        = string
   description = "Contents of GCP credentials file to create CE site"
@@ -267,6 +292,13 @@ variable "GOOGLE_CREDENTIALS" {
 variable "eks_ce_site" {
   type        = string
   description = "Whether it's EKS CE site ?"
+  default     = "false"
+}
+
+# GKE CE Site
+variable "gcp_ce_site" {
+  type        = string
+  description = "Whether it's GCP CE site ?"
   default     = "false"
 }
 
@@ -289,6 +321,12 @@ variable "aws_ce_site" {
   default     = "false"
 }
 
+variable "gke_ce_site" {
+  type        = string
+  description = "Whether it's GKE CE site ?"
+  default     = "false"
+}
+
 variable "aws_access_key" {
   description = "AWS Access Key ID"
   type        = string
@@ -303,11 +341,6 @@ variable "aws_secret_key" {
   default     = null
 }
 
-variable "azure" {
-  description = "Workspace name of Azure deployment infra"
-  type        = string
-  default     = ""
-}
 
 variable "aws" {
   description = "Workspace name of AWS deployment infra"
@@ -319,4 +352,16 @@ variable "gcp" {
   description = "Workspace name of GCP deployment infra"
   type        = string
   default     = ""
+}
+
+variable "xc_project_prefix" {
+  type        = string
+  default     = "xcdemo"
+  description = "This value is inserted at the beginning of each XC object and only used if not set by Infra TF run"
+}
+
+variable "vk8s" {
+  description = "Boolean to check if infra has vk8s"
+  type        = bool
+  default     = false
 }
