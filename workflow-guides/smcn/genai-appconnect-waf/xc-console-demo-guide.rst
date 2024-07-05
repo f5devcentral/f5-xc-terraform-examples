@@ -101,21 +101,6 @@ Below we shall take a look into detailed steps as mentioned above.
     kind: Namespace
     metadata:
       name: llm
-    ---
-    
-    apiVersion: v1
-    kind: Service
-    metadata:
-      name: langchain-search
-      labels:
-        app: langchain-search
-      namespace: genai-apps
-    spec:
-      type: ClusterIP
-      ports:
-      - port: 8501
-      selector:
-        app: langchain-search
     
     ---
     apiVersion: apps/v1
@@ -176,82 +161,26 @@ Below we shall take a look into detailed steps as mentioned above.
       .. figure:: assets/options.png
       Fig: More Options -> Miscellaneous Options -> Idle Timeout configuration
 
-8. Advertise externally the GenAI application
+8. Advertise externally the GenAI application. Create a file with below content and apply it on GCP k8s cluster for creating the following GCP Load Balancer
+   
 
-   1. Deploy an NGINX Ingress controller to the GKE cluster by following the `user guide <https://docs.nginx.com/nginx-ingress-controller/installation/installing-nic/installation-with-manifests/>`_ .
-   2. Edit (and apply) the following NGINX Ingress configuration files:
-      
-      ingress-class.yaml:
+.. code-block::
 
-      .. code-block::
+    apiVersion: v1
+    kind: Service
+    metadata:
+      name: langchain-search
+      labels:
+        app: langchain-search
+      namespace: genai-apps
+    spec:
+      type: LoadBalancer
+      ports:
+      - port: 80
+        targetPort: 8501
+      selector:
+        app: langchain-search
 
-        apiVersion: networking.k8s.io/v1
-        kind: IngressClass
-        metadata:
-          name: nginx
-          # annotations:
-          #   ingressclass.kubernetes.io/is-default-class: "true"
-        spec:
-          controller: nginx.org/ingress-controller
-
-      nginx-config.yaml:
-
-      .. code-block::
-
-        kind: ConfigMap
-        apiVersion: v1
-        metadata:
-          name: nginx-config
-          namespace: nginx-ingress
-        data:
-
-      ns-and-sa.yaml:
-
-      .. code-block::
-
-        apiVersion: v1
-        kind: Namespace
-        metadata:
-          name: nginx-ingress
-        ---
-        apiVersion: v1
-        kind: ServiceAccount
-        metadata:
-          name: nginx-ingress
-          namespace: nginx-ingress
-        #automountServiceAccountToken: false
-
-   3. Create the Ingress object for the GenAI application by applying the following configuration:
-
-      .. code-block::
-
-        apiVersion: networking.k8s.io/v1
-        kind: Ingress
-        metadata:
-          name: langchain-search
-          namespace: genai-apps
-          annotations:
-            nginx.org/websocket-services: "langchain-search"
-            nginx.org/proxy-read-timeout: "3600"
-            nginx.org/proxy-send-timeout: "3600"
-        spec:
-          ingressClassName: nginx
-          defaultBackend:
-            service:
-              name: langchain-search
-              port:
-                number: 8501
-          rules:
-          - host: "*.com"
-            http:
-              paths:
-              - path: "/"
-                pathType: Prefix
-                backend:
-                  service:
-                    name: langchain-search
-                    port:
-                      number: 8501
 
 
 9. Test the GenAI application for sensitive information disclosure

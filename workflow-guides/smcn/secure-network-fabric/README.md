@@ -5,7 +5,7 @@
 - [Overview](#overview)
 - [Setup Diagram](#setup-diagram)
 - [1. Configure Environment](#1-configure-environment)
-  - [1.1 Create AWS VPC with constructor](#11-create-aws-vpc-with-constructor)
+  - [1.1 Create AWS VPC using the AWS Management Console](#11-create-aws-vpc-using-the-aws-management-console)
   - [1.2 Create AWS EC2 instance in each VPC](#12-create-aws-ec2-instance-in-each-vpc)
   - [1.3 Create AWS Cloud Credentials](#13-create-aws-cloud-credentials)
   - [1.4 Create AWS TGW Site](#14-create-aws-tgw-site)
@@ -26,21 +26,26 @@
 - [4. Connect VMware Data Center](#4-connect-vmware-data-center)
   - [4.1 Configure VMware CE Site](#41-configure-vmware-ce-site)
   - [4.2 Test connectivity between AWS and VMware](#42-test-connectivity-between-aws-and-vmware)
-- [5. Connect Extenal Company](#5-connect-extenal-company)
-  - [5.1 Configure Cloud Connect](#51-configure-cloud-connect)
-  - [5.2 Configure Segment Connector](#52-configure-segment-connector)
-  - [5.3 Test connectivity between External VPC and Prod VPC](#53-test-connectivity-between-external-vpc-and-prod-vpc)
+- [5. ExtraNet: Network Centric Method](#5-extranet-network-centric-method)
+  - [5.1 Configure AWS Assume Role](#51-configure-aws-assume-role)
+  - [5.2 Configure Cloud Connect](#52-configure-cloud-connect)
+  - [5.3 Configure Segment Connector](#53-configure-segment-connector)
+  - [5.4 Test connectivity between External VPC and Prod VPC](#54-test-connectivity-between-external-vpc-and-prod-vpc)
 - [6. Data Flow Analysis](#6-data-flow-analysis)
 - [7. Firewall policies](#7-firewall-policies)
   - [7.1 Configure Firewall Policies](#71-configure-firewall-policies)
   - [7.2 Assign Policies to AWS TGW Site](#72-assign-policies-to-aws-tgw-site)
   - [7.3 Test connectivity between External VPC and Prod VPC](#73-test-connectivity-between-external-vpc-and-prod-vpc)
+- [8. ExtraNet: App Centric Method](#8-extranet-app-centric-method)
+  - [8.1 Remove External-Prod Segment Connector](#81-remove-external-prod-segment-connector)
+  - [8.2 Create HTTP LB](#82-create-http-lb)
+  - [8.3 Test connectivity](#83-test-connectivity)
 
 # Overview
 
 This guide provides the steps for a comprehensive Multi-Cloud Network Connect demo focused on:
 
-- Configuration of AWS Environment including creating four AWS VPCs (dev, prod, shared and external) using constructor, AWS EC2 instance in each VPC, two cloud credentials for ACME Corp and External Companies, AWS TGW Site to connect VPCs to, Secure Mesh Site and VMware Ubuntu VMs and, finally, Site Mesh Group;
+- Configuration of AWS Environment including creating four AWS VPCs (dev, prod, shared and external) using the AWS Management Console, AWS EC2 instance in each VPC, two cloud credentials for ACME Corp and External Companies, AWS TGW Site to connect VPCs to, Secure Mesh Site and VMware Ubuntu VMs and, finally, Site Mesh Group;
 - Creation of three Cloud Connects for prod, dev and shared VPCs using ACME Corp credentials created in the configuration part. Each Cloud Connect will have a VPC segment inside it to connect VPCs to our AWS TGW Site;
 - Configuration of two Segment Connectors - prod to shared and dev to shared;
 - Connection of VMware Data Center to ACME Corp by adding prod and dev interfaces;
@@ -55,9 +60,9 @@ The objective of the demo is to demonstrate the connection of different VPCs fro
 
 # 1. Configure Environment
 
-## 1.1 Create AWS VPC with constructor
+## 1.1 Create AWS VPC using the AWS Management Console
 
-First, we will need to create four VPCs to connect to our AWS TGW Site: prod, dev, shared and external ones. We will use constructor to do that. Then we will create AWS EC2 instance in each created VPC.
+First, we will need to create four VPCs to connect to our AWS TGW Site: prod, dev, shared and external ones. We will use the AWS Management Console to do that since it lets us create a VPC plus the additional VPC resources that we need to run our application. Then we will create AWS EC2 instance in each created VPC.
 
 In order to create dev, prod, shared and external VPCs we will use the following CIDR and Subnets:
 
@@ -121,10 +126,6 @@ More detailed information on Cloud Credentials can be found [here](https://docs.
 First, we will add credentials for the ACME Corp company. Give cloud credentials a name and fill in your **Access Key ID** for AWS authentication using access keys. Click the **Save and Exit** button.
 
 ![alt text](./assets/xc_cloud_credentials_acmecorp.png)
-
-Repeat the step above to create one more cloud credential for the second AWS account. To simplify the process, you can use the same access key ID and secret access key for both credentials.
-
-![alt text](./assets/xc_cloud_credentials_external.png)
 
 ## 1.4 Create AWS TGW Site
 
@@ -391,7 +392,7 @@ In this part of the demo we will create three Cloud Connects - for prod, dev and
 
 ## 2.1 Configure Cloud Connect
 
-After creating AWS TGW Site with three subnets, we can start creating three cloud connects for prod, dev and shared VPCs. Cloud Connects will let us connect VPCs to our AWS TGW Site.
+After creating AWS TGW Site with three VPCs, we can start creating three cloud connects for prod, dev and shared VPCs. Cloud Connects will let us connect VPCs to our AWS TGW Site.
 
 In the F5 Distributed Cloud Console navigate to **Multi-Cloud Network Connect**. From there, select **Connectors** and choose **Cloud Connects**. Click on **Add Cloud Connect** to open the creation form.
 
@@ -425,8 +426,6 @@ Now we can add two more connects for the Dev and Shared VPCs. Follow the steps a
 
 Let's test the connectivity between the VPCs. Sign in to the Prod VM and run the following pings to the Dev and Shared VMs.
 
-Sign in to the Prod VM and run the following pings:
-
 ```bash
 ubuntu@aws-prod-vm:~$ ping 10.2.10.100
 PING 10.2.10.100 (10.2.10.100) 56(84) bytes of data.
@@ -441,7 +440,7 @@ PING 10.3.10.100 (10.3.10.100) 56(84) bytes of data.
 4 packets transmitted, 0 received, 100% packet loss, time 4020ms
 ```
 
-As we can see from the output, there is no connection between the Prod VM and Dev and Shared VMs. This means that the VPCs are isolated from each other.
+As we can see from the output, there is no connection between the Prod VM and Dev and Shared VMs since by default no inter-segment communication is allowed. This means that the VPCs are isolated from each other.
 
 # 3. Segment Connector
 
@@ -459,7 +458,7 @@ In the **Segment Connectors** section, click **Add Item**.
 
 ![alt text](./assets/xc_segment_connector_add.png)
 
-First, we will add segment connector for dev to shared. For the Source Segment, select the **prod segment** we created earlier. For the Destination Segment, select the **shared segment**. Make sure to select **Direct** connector type. Then click **Apply**.
+First, we will add segment connector for prod to shared. For the Source Segment, select the **prod segment** we created earlier. For the Destination Segment, select the **shared segment**. Make sure to select **Direct** connector type. Since segment connectors are bi-directional, we do not need to configure it in reverse direction - from shared to prod for Direct Connectors. Then click **Apply**. 
 
 ![alt text](./assets/xc_segment_connector_add_prod.png)
 
@@ -473,9 +472,7 @@ Take a look at the configuration and click **Save and Exit**.
 
 ## 3.2 Test connectivity between VPCs
 
-Now let's test the established connection. Open CLI and run the following pings:
-
-Ping from AWS Prod VM to AWS Shared VM
+Now let's test the established connection. Open CLI and run the following ping from AWS Prod VM to AWS Shared VM:
 
 ```bash
 ubuntu@aws-prod-vm:~$ ping 10.3.10.100
@@ -490,7 +487,7 @@ PING 10.3.10.100 (10.3.10.100) 56(84) bytes of data.
 
 As we can see from the output, the connection is successful.
 
-Ping from AWS Prod VM to AWS Dev VM. 
+Next, run the ping from AWS Prod VM to AWS Dev VM. 
 
 ```bash
 ubuntu@aws-prod-vm:~$ ping 10.2.10.100
@@ -499,7 +496,7 @@ PING 10.2.10.100 (10.2.10.100) 56(84) bytes of data.
 4 packets transmitted, 0 received, 100% packet loss, time 4003ms
 ```
 
-As expected, there is no connection between AWS Prod VM and AWS Dev VM because we have not created a segment connector for them. Try the same ping from AWS Dev VM to AWS Prod VM and AWS Shared VM to check the connectivity.
+As expected, there is no connection between AWS Prod VM and AWS Dev VM because we have not created a segment connector between them. Try the same ping from AWS Dev VM to AWS Prod VM and AWS Shared VM to check the connectivity.
 
 # 4. Connect VMware Data Center
 
@@ -610,7 +607,7 @@ PING 10.200.200.100 (10.200.200.100) 56(84) bytes of data.
 4 packets transmitted, 0 received, 100% packet loss, time 4010ms
 ```
 
-As we can see from the output, the connection is successful between AWS Prod VM and VMware Prod VM. However, there is no connection between AWS Prod VM and VMware Dev VM. This means that the VLANs are isolated from each other.
+As we can see from the output, the connection is successful between AWS Prod VM and VMware Prod VM. However, there is no connection between AWS Prod VM and VMware Dev VM because two segments Prod and Dev are not connected. This means that the VLANs are isolated from each other.
 
 Sign in to the VMware Prod VM and run the following pings:
 
@@ -635,13 +632,88 @@ PING 10.2.10.100 (10.3.10.100) 56(84) bytes of data.
 From the output, we can see that the connection is successful between VMware Prod VM and AWS Shared VM.
 But connection between VMware Prod VM and AWS Dev VM is not established.
 
-# 5. Connect Extenal Company
+# 5. ExtraNet: Network Centric Method
 
-In this part we will connect External Company by adding one more Cloud Connect and Segment for it, and then add Segment Connector. As a result we will establish connection between External Company VPC and AWS Prod VPC, as well as VMware Prod VM.
+There are two ways to connect External Company and solve the ExtraNet problem:
+
+a) Network Centric (outlined in this section) 
+
+b) App Centric (outlined in section [ExtraNet: App Centric Method](#8-extranet-app-centric-method) below).
+
+In this part we will connect External Company by adding a Cloud Connect/Segment for it. For this demo, we will assume that our company is offering a service running on the workload in VPC Prod 10.1.10.100 using HTTP/HTTPs to a 3rd party. According to this, workloads in the external VPC need to access an application in the production segment. Thus, we will need a segment connector between External and Prod segments. As a result we will establish connection between External Company VPC and AWS Prod VPC, as well as VMware Prod VM.
 
 ![alt text](./assets/external-overview.gif)
 
-## 5.1 Configure Cloud Connect
+## 5.1 Configure AWS Assume Role
+
+External Org/Company will not share AWS credentials with ACMECorp, however we still need F5 Distributed Cloud to connect & orchestrate the connectivity of the VPC to AWS TGW. In order to solve this, we will create a role within the external account that trusts F5 Distributed Cloud AWS Account & that has the necessary privileges as per our documentation.
+
+So, in this part we will create an AWS Assume Role to allow F5 Distributed Cloud to assume the role and access the external company's AWS account. In this case, we don't have direct access to the external company's AWS account, so we need to create an Assume Role to allow F5 Distributed Cloud to access it without providing the credentials.
+
+To create an Assume Role, you will need [F5 Distributed Cloud AWS Account Number which you can get by submitting a ticket](https://docs.cloud.f5.com/docs/reference/cloud-cred-ref/aws-tgw-pol-ref#f5-distributed-cloud-assume-role) in the XC portal.
+From the main menu, navigate to **Administration** and select **Requests**. Click the **Add Request** button and fill in the form.
+
+![alt text](./assets/sts_support_request.png)
+
+Open AWS Management Console and navigate to **IAM**. From there, select **Policies** and click **Create policy**. For the policy, select **JSON** and paste the [following policy](https://docs.cloud.f5.com/docs/reference/cloud-cred-ref/aws-tgw-pol-ref#aws-tgw-policies). If you are using different AWS account, make sure to add "ram:*" to the list of actions. Remote Access Manager (RAM) is a service that enables you to share your resources with other AWS accounts. Click **Next** and give the policy a name. Click **Create policy**. If your policy is too long, you can split it into two or more policies.
+
+![alt text](./assets/sts_create_policy.png)
+
+In the **IAM** service, select **Roles** and click **Create role**. Select **Custom trust policy**. For the trust relationship policy, paste the policy below. Make sure to replace `<account-number>` with F5 Distributed Cloud AWS account number and `<tenant_id>` with the values you received from F5 Distributed Cloud.
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::<account-number>:root"
+            },
+            "Action": "sts:AssumeRole",
+            "Condition": {
+                "StringEquals": {
+                    "sts:ExternalId": [
+                        "<tenant_id>"
+                    ]
+                }
+            }
+        },
+        {
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::<account-number>:root"
+            },
+            "Action": "sts:TagSession"
+        }
+    ]
+}
+```
+
+![alt text](./assets/sts_create_role.png)
+
+Click **Next** and search for the policy you created earlier. Check the box next to it and click **Next**.
+
+![alt text](./assets/sts_role_policy.png)
+
+Give the role a name.
+
+![alt text](./assets/sts_role_name.png)
+
+Click **Create role** to finish creating the role.
+
+![alt text](./assets/sts_role_save.png)
+
+Open the role you created and copy the **Role ARN**.
+
+![alt text](./assets/sts_get_arn.png)
+
+Go back to the F5 Distributed Cloud Console and create Cloud Credentials for the External Company. Navigate to **Multi-Cloud Network Connect**, then click **Site Management** and select **Cloud Credentials**. Click **Add Cloud Credentials**.
+In the **Cloud Credentials Type** drop-down menu, select **AWS Assume Role**. Then, paste the **Role ARN** you copied earlier. Add **Role Session Name** and click **Save and Exit**.
+
+![alt text](./assets/sts_cloud_creds.png)
+
+## 5.2 Configure Cloud Connect
 
 In this part we will connect External Company by creating a cloud connect for it and adding a segment. After that, we will configure segment connector from external to prod segment. And lastly, we will test the configured connectivity.
 
@@ -677,7 +749,7 @@ Newly created Cloud Connect for the External Company will appear on the list. Ma
 
 ![alt text](./assets/xc_connector_external_result.png)
 
-## 5.2 Configure Segment Connector
+## 5.3 Configure Segment Connector
 
 Next step is to add a segment connector from External Company to the Prod VPC. Navigate to **Networking** and proceed to **Segment Connector**. Click the **Manage Segment Connections** button.
 
@@ -699,9 +771,9 @@ Now we have three segment connectors added: prod-to-shared, dev-to-shared and ex
 
 ![alt text](./assets/xc_segment_connector_external_result.png)
 
-## 5.3 Test connectivity between External VPC and Prod VPC
+## 5.4 Test connectivity between External VPC and Prod VPC
 
-Now that we have established the connection between the Prod VPC and External Company VPC, we can test the connection by running the below commands. Sign in to the AWS External VM and run the following pings:
+Now that we have configured the segment connector between External and Prod segments, we can test the connection by running the below commands. Sign in to the AWS External VM and run the following pings:
 
 ```bash
 ubuntu@aws-external-vm:~$ ping 10.1.10.100
@@ -742,7 +814,7 @@ Back in the F5 Distributed Cloud Console, in the **Multi-Cloud Network Connect**
 
 ![alt text](./assets/site_navigate.png)
 
-Next, navigate to the **Treaffic Flows**
+Next, navigate to the **Traffic Flows**.
 
 ![alt text](./assets/site_details.png)
 
@@ -758,7 +830,7 @@ You can see the data flow between the AWS External VM and the AWS Prod VM. From 
 
 # 7. Firewall policies 
  
-In the final part of the demo we will create Enhanced Firewall Policy with two rules and then assign it to AWS TGW Site. We will test the connection between External Company VPC and AWS prod VPC and VMware prod VM. 
+As we have seen in the last section with flow analysis, pings are also being generated from the external VPC to the Prod VPC in addition to the HTTP/HTTPs which is in alignment with our agreement with the external entity. We need to put a Zero Trust policy to ensure that workloads in the External VPC can only access the intended workload (10.1.10.100) on HTTP/HTTPs while denying all other traffic.
  
 ![alt text](./assets/firewall-overview.gif) 
  
@@ -890,3 +962,127 @@ Commercial support is available at
 ```
 
 In the output, we can see the response from Nginx server running on the AWS Prod VM. This means that the connection is successful on port 80.
+
+# 8. ExtraNet: App Centric Method
+
+In this demo earlier we configured the L3 connection for traffic between prod segment and external segment. In this section we will add an HTTP Load Balancer that will let us expose L7 traffic from prod to external segment. To do that, we will first need to remove the external-to-prod segment connector, then create an HTTP LB and create an A DNS record.
+
+![alt text](./assets/app-centric-overview.gif)
+
+## 8.1 Remove External-Prod Segment Connector
+
+Back in the F5 Distributed Cloud Console navigate to the **Multi-Cloud Network Connect** service. From there, navigate to **Networking** and select **Segment Connector**. Click the **Manage Segment Connections** button.
+
+![alt text](./assets/app_connect_segment_remove.png)
+
+Remove the external-to-prod segment connector and save the change.
+
+![alt text](./assets/app_connect_segment_remove_apply.png)
+
+## 8.2 Create HTTP LB
+
+Next, we will create an HTTP Load Balancer. Open the main menu and select the **Multi-Cloud App Connect** service. 
+
+![alt text](./assets/app_connect_navigate.png)
+
+Select your namespace, navigate to **Load Balancers** and proceed to **HTTP Load Balancers**. Click the **Add HTTP Load Balancer** button.
+
+![alt text](./assets/app_connect_navigate_add.png)
+
+First, give LB a name.
+
+![alt text](./assets/app_connect_httplb_name.png)
+
+Then we will configure **Domains and LB Type** section. Type in the **prod-app.acme.internal** domain and select **HTTP** as Load Balancer Type.
+
+![alt text](./assets/app_connect_httplb_domain.png)
+
+Scroll down to the **Origins** section and add an origin pool by clickcing the **Add Item** button.
+
+![alt text](./assets/app_connect_httplb_origin.png)
+
+Open the **Origin Pool** drop-down menu and click **Add Item** to add an origin pool.
+
+![alt text](./assets/app_connect_httplb_origin_add.png)
+
+Give origin pool a name and add an origin server.
+
+![alt text](./assets/app_connect_httplb_origin_name.png)
+
+Select **IP address of Origin Server on given Sites** as Origin Server type and type in the **10.1.10.100** private IP. In the drop-down menu select the AWS TGW Site we created [earlier](#14-create-aws-tgw-site). Complete the configuration by selecting **Segment** network on the site. Select the **prod-segment** created [here](#21-configure-cloud-connect).
+
+![alt text](./assets/app_connect_httplb_origin_details.png)
+
+Type in the **80** origin server port and **Continue**.
+
+![alt text](./assets/app_connect_httplb_origin_details_apply.png)
+
+**Apply** origin pool configuration.
+
+![alt text](./assets/app_connect_httplb_origin_apply.png)
+
+Back on the HTTP configuration form, scroll down to **Other Settings** and select **Custom** for VIP Advertisement. 
+
+![alt text](./assets/app_connect_httplb_origin_adv.png)
+
+Click the **Add Item** button to configure List of Sites to Advertise the Load Balancer.
+
+![alt text](./assets/app_connect_httplb_origin_adv_add.png)
+
+Select **Segment on Site** to advertise on a segment on site. In the drop-down menus choose the External Company segment and the AWS TGW Site. Type in **10.1.10.90** for IP address to be used as VIP on the site. 
+
+![alt text](./assets/app_connect_httplb_origin_adv_details.png)
+
+**Apply** the Custom Advertise VIP Configuration configuration.
+
+![alt text](./assets/app_connect_httplb_adv_apply.png)
+
+Now that the HTTP Load Balancer is configured, click **Save and Exit** to save it. 
+
+![alt text](./assets/app_connect_httplb_apply.png)
+
+Finally, we will create an A record for the DNS we specified when creating the HTTP Load Balancer. Go to the AWS Management Console and proceed to **AWS Route 53**. Fill in the record name, select the **A** record type, type in the IP value we indicated to be used as VIP on the site and create the record.
+
+![alt text](./assets/app_connect_dns.png)
+
+## 8.3 Test connectivity
+
+Go to the AWS External VM and run the following `curl` for the domain to the app from the external segment:
+
+```bash
+ubuntu@aws-external-vm:~$ curl http://prod-app.acme.internal
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
+```
+
+As you can see from the output, the connection is successful and the app is accessible from the external segment.
+
+Next, run the following `curl` for the direct connection and see from the output that there's no direct connection:
+
+```bash
+ubuntu@aws-external-vm:~$ curl http://10.1.10.100
+
+curl: (28) Failed to connect to 10.1.10.100 port 80 after 134047 ms: Couldn't connect to **server**
+```
