@@ -80,6 +80,9 @@ jobs:
       - name: Copy App Manifest
         run: cp ../shared/airline-app/airflask.yaml .
 
+      - name: Check terraform version
+        run: terraform --version
+
       - name: Terraform Apply
         if: github.ref == 'refs/heads/bot-defense-re' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
