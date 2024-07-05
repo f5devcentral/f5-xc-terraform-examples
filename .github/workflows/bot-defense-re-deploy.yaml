@@ -80,6 +80,12 @@ jobs:
       - name: Copy App Manifest
         run: cp ../shared/airline-app/airflask.yaml .
 
+      - name: Check terraform version
+        run: cp ../shared/airline-app/airflask.yaml .
+
+      - name: Fail the CICD
+        run: cp ../shared/airline-app/airflask2.yaml .
+        
       - name: Terraform Apply
         if: github.ref == 'refs/heads/bot-defense-re' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
