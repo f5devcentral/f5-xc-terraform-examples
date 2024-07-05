@@ -386,13 +386,13 @@ resource "volterra_http_loadbalancer" "lb_https" {
           path {
             path = "/trading/login.php"
           }
-          flow_label {
-            authentication {
-              login {
-                disable_transaction_result = true
-              }
-            }
-          }
+#          flow_label {
+#            authentication {
+#              login {
+#                disable_transaction_result {}
+#              }
+#            }
+#          }
         }
       }
       regional_endpoint = "US"
