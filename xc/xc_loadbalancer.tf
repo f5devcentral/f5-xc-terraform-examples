@@ -386,13 +386,13 @@ resource "volterra_http_loadbalancer" "lb_https" {
           path {
             path = "/trading/login.php"
           }
-          flow_label {
-            authentication {
-              login {
-                disable_transaction_result = true
-              }
-            }
-          }
+#          flow_label {
+#            authentication {
+#              login {
+#                disable_transaction_result {}
+#              }
+#            }
+#          }
         }
       }
       regional_endpoint = "US"
@@ -450,7 +450,7 @@ resource "volterra_http_loadbalancer" "lb_https" {
   }
 
   dynamic "more_option" {
-    for_each = var.xc_namespace ? [1] : []
+    for_each = var.vk8s ? [1] : []
       content {
         idle_timeout = 300000
       }
