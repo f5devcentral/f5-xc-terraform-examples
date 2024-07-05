@@ -46,7 +46,7 @@ resource "volterra_virtual_k8s" "this" {
 # Download kubeconfig
 resource "volterra_api_credential" "this" {
   count = var.vk8s ? 1 : 0
-  name                  = substr(volterra_virtual_k8s.this.id, 1, 30)
+  name                  = substr(volterra_virtual_k8s.this.0.id, 1, 30)
   api_credential_type   = "KUBE_CONFIG"
   expiry_days           = 20
   virtual_k8s_namespace = var.xc_namespace
