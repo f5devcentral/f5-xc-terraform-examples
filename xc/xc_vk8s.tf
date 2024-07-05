@@ -23,6 +23,7 @@ resource "volterra_virtual_site" "this" {
 
 # create vK8s
 resource "volterra_virtual_k8s" "this" {
+  count = var.vk8s ? 1 : 0
   name      = "${local.project_prefix}-${local.build_suffix}-vk8s"
   namespace = var.xc_namespace
   depends_on = [volterra_namespace.this]
@@ -44,6 +45,7 @@ resource "volterra_virtual_k8s" "this" {
 
 # Download kubeconfig
 resource "volterra_api_credential" "this" {
+  count = var.vk8s ? 1 : 0
   name                  = substr(volterra_virtual_k8s.this.id, 1, 30)
   api_credential_type   = "KUBE_CONFIG"
   expiry_days           = 20
@@ -57,22 +59,26 @@ resource "volterra_api_credential" "this" {
 }
 
 resource "local_file" "this_kubeconfig" {
-  content  = base64decode(volterra_api_credential.this.data)
+  count = var.vk8s ? 1 : 0
+  content  = base64decode(volterra_api_credential.this.0.data)
   filename = format("%s/_output/xc_vk8s_kubeconfig", path.root)
 }
 
 resource "local_file" "airline_manifest" {
+  count = var.vk8s ? 1 : 0
   source  = format("%s/airflask.yaml", path.module)
   filename = format("%s/_output/air-flask.yaml", path.root)
 }
 
 resource "time_sleep" "wait_k8s_server" {
+  count = var.vk8s ? 1 : 0
   depends_on = [local_file.this_kubeconfig]
   create_duration = "120s"
 }
 
 # Deploy application
 resource "null_resource" "apply_manifest" {
+  count = var.vk8s ? 1 : 0
   depends_on = [time_sleep.wait_k8s_server, local_file.this_kubeconfig]
 
   # download kubectl
