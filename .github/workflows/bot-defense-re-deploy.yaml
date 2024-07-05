@@ -83,9 +83,6 @@ jobs:
       - name: Check terraform version
         run: terraform --version
 
-      - name: Fail the CICD
-        run: cp ../shared/airline-app/airflask2.yaml .
-        
       - name: Terraform Apply
         if: github.ref == 'refs/heads/bot-defense-re' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
