@@ -14,4 +14,3 @@ output "az_ce_site_pub_ip" {
 output "lb_cname" {
   value = volterra_http_loadbalancer.lb_https.cname
 }
-
