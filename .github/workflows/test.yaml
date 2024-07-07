@@ -9,7 +9,7 @@ on:
     - cron: '10 * * * *'
     
 jobs:
-  terraform_xc_lb:
+  terraform_schedule:
     name: "Test Actions Schedules"
     runs-on: ubuntu-latest
     defaults:
@@ -19,5 +19,5 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Trigger Workflow
-        uses: https://github.com/janibashamd/f5-xc-terraform-examples/blob/bot-defense-re/.github/workflows/bot-defense-re-deploy.yaml@bot-defense-re
+      - name: Check time
+        run: time
