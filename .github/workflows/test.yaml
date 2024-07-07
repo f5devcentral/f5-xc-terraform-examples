@@ -20,4 +20,4 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Trigger Workflow
-        uses: .github/workflows/bookinfo-smcn-apply.yaml@bot-defense-re
+        uses: https://github.com/janibashamd/f5-xc-terraform-examples/blob/bot-defense-re/.github/workflows/bot-defense-re-deploy.yaml@bot-defense-re
