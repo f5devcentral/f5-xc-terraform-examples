@@ -2,7 +2,7 @@ name: "Test Sample Schedules"
 
 on:
   schedule:
-    - cron: '10 * * * *'
+    - cron: '10,20,30 * * * *'
     
 jobs:
   terraform_xc_lb:
