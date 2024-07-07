@@ -1,8 +1,12 @@
 name: "Test Sample Schedules"
 
 on:
+  push:
+    branches:
+      - main
+  pull_request:
   schedule:
-    - cron: '10,20,30 * * * *'
+    - cron: '10 * * * *'
     
 jobs:
   terraform_xc_lb:
@@ -15,5 +19,5 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Test
-        run: time
+      - name: Trigger Workflow
+        uses: .github/workflows/bookinfo-smcn-apply.yaml@bot-defense-re
