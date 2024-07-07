@@ -1,0 +1,19 @@
+name: "Test Sample Schedules"
+
+on:
+  schedule:
+    - cron: '10 * * * *'
+    
+jobs:
+  terraform_xc_lb:
+    name: "Test Actions Schedules"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./xc
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Test
+        run: time
