@@ -16,11 +16,18 @@ jobs:
       run:
         working-directory: ./xc
     steps:
+      - name: Generate token
+        id: generate_token
+        uses: tibdex/github-app-token@v1
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.PRIVATE_KEY }}    
+        
       - name: Checkout
         uses: actions/checkout@v4
         with:
           ref: bot-defense-re
-
+      
       - name: Add Email
         run: git config user.email @${{ github.actor }}
 
@@ -33,5 +40,5 @@ jobs:
       - name: Push Empty Commit
         run: git push origin bot-defense-re
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}      
+          GH_TOKEN: ${{ steps.generate_token.outputs.token }}     
           
