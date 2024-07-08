@@ -1,3 +1,4 @@
+# v1.0.34 volterra provider doesn't support nonsensitive funxn so removed them
 output "xc_lb_name" {
   value = volterra_http_loadbalancer.lb_https.name
 }

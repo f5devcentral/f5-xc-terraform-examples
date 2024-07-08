@@ -5,7 +5,9 @@ on:
     branches:
       - bot-defense-re
   pull_request:
-
+  schedule:
+    - cron: '0 12 * * 6/2'
+    
 jobs:
   terraform_xc_lb:
     name: "Deploy F5 XC Bot Defense"
@@ -21,6 +23,14 @@ jobs:
         uses: hashicorp/setup-terraform@v3
         with:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Pull latest code
+        run: |
+          git config --global user.email @${{ github.actor }}
+          git config --global user.name @${{ github.actor }}
+          git remote add upstream https://github.com/f5devcentral/f5-xc-terraform-examples.git
+          git fetch upstream
+          git merge upstream/main --strategy-option theirs --allow-unrelated-histories
 
       - name: Setup Terraform Backend
         id: backend
@@ -79,6 +89,9 @@ jobs:
 
       - name: Copy App Manifest
         run: cp ../shared/airline-app/airflask.yaml .
+
+      - name: Check terraform version
+        run: terraform --version
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/bot-defense-re' && github.event_name == 'push'
