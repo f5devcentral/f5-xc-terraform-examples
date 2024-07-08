@@ -23,5 +23,7 @@ jobs:
           
       - name: Check time
         run: |
+          git config --global user.email @${{ github.actor }}
+          git config --global user.name @${{ github.actor }}        
           git commit --allow-empty -m "Empty-Commit"
           git push origin
