@@ -23,6 +23,8 @@ jobs:
 
       - name: Trigger workflow
         run: gh workflow run bot-defense-re-deploy.yaml --ref bot-defense-re
+        env:
+          GH_TOKEN: ${{ secrets.ACTIONS_SECRET }}   
       
       # - name: Add Email
       #   run: git config user.email @${{ github.actor }}
