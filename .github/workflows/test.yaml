@@ -20,13 +20,18 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: bot-defense-re
-          
-      - name: Push Change
-        run: |
-          git config --global user.email @${{ github.actor }}
-          git config --global user.name @${{ github.actor }}        
-          git commit --allow-empty -m "Empty-Commit"
-          git push origin bot-defense-re
+
+      - name: Add Email
+        run: git config user.email @${{ github.actor }}
+
+      - name: Add Username
+        run: git config user.name @${{ github.actor }}
+  
+      - name: Create Empty Commit
+        run: git commit --allow-empty -m "Empty commit"
+  
+      - name: Push Empty Commit
+        run: git push origin bot-defense-re
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}      
           
