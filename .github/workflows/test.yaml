@@ -33,5 +33,5 @@ jobs:
       - name: Push Empty Commit
         run: git push origin bot-defense-re
         env:
-          GH_TOKEN: ${{ secrets.GIT_TOKEN }}     
+          GH_TOKEN: ${{ secrets.ACTIONS_SECRET }}     
           
