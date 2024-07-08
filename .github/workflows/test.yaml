@@ -21,7 +21,7 @@ jobs:
         with:
           ref: bot-defense-re
           
-      - name: Check time
+      - name: Push Change
         run: |
           git config --global user.email @${{ github.actor }}
           git config --global user.name @${{ github.actor }}        
