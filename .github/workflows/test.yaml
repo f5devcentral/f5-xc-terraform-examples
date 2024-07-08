@@ -18,9 +18,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
+        with:
+          ref: bot-defense-re
+          
       - name: Check time
         run: |
-          git checkout bot-defense-re
           git commit --allow-empty -m "Empty-Commit"
           git push origin
