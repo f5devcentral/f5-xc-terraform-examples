@@ -27,3 +27,6 @@ jobs:
           git config --global user.name @${{ github.actor }}        
           git commit --allow-empty -m "Empty-Commit"
           git push origin
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
