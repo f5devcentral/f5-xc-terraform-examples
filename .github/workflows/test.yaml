@@ -28,7 +28,7 @@ jobs:
         run: git config user.name @${{ github.actor }}
   
       - name: Create Empty Commit
-        run: git commit --allow-empty -m "Empty commit"
+        run: git commit --allow-empty -m "Empty commit4"
   
       - name: Push Empty Commit
         run: git push origin bot-defense-re
