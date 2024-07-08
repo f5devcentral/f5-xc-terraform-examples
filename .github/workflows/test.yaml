@@ -20,18 +20,21 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: bot-defense-re
-      
-      - name: Add Email
-        run: git config user.email @${{ github.actor }}
 
-      - name: Add Username
-        run: git config user.name @${{ github.actor }}
+      - name: Trigger workflow
+        run: gh workflow run bot-defense-re-deploy.yaml --ref bot-defense-re
+      
+      # - name: Add Email
+      #   run: git config user.email @${{ github.actor }}
+
+      # - name: Add Username
+      #   run: git config user.name @${{ github.actor }}
   
-      - name: Create Empty Commit
-        run: git commit --allow-empty -m "Empty commit4"
+      # - name: Create Empty Commit
+      #   run: git commit --allow-empty -m "Empty commit4"
   
-      - name: Push Empty Commit
-        run: git push origin bot-defense-re
-        env:
-          GH_TOKEN: ${{ secrets.ACTIONS_SECRET }}     
+      # - name: Push Empty Commit
+      #   run: git push origin bot-defense-re
+      #   env:
+      #     GH_TOKEN: ${{ secrets.ACTIONS_SECRET }}     
           
