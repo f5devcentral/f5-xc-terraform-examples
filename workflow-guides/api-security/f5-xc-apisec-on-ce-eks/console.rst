@@ -42,6 +42,8 @@ EKS and CE Steps:
 
 **STEP 12:**  If crapi namespace is not getting created, run ``kubectl create ns crapi`` and re-run command ``helm install --namespace crapi crapi . --values values.yaml``.
 
+.. image:: assets/helm_install.JPG
+
 XC HTTP Load Balancer
 ---------------------
 
