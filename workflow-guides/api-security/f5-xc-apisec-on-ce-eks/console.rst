@@ -34,11 +34,11 @@ EKS and CE Steps:
 
 .. image:: assets/site.JPG
 
-**STEP 10:**  Clone the `repo <https://github.com/OWASP/crAPI>`__ ``git clone https://github.com/OWASP/crAPI.git``
+**STEP 10:**  Clone the `repo <https://github.com/OWASP/crAPI>`__, run command: ``git clone https://github.com/OWASP/crAPI.git``
 
 **STEP 11:**  Install the helm chart:
     ``cd deploy/helm
-      helm install --namespace crapi crapi . --values values.yaml``
+    helm install --namespace crapi crapi . --values values.yaml``
 
 **STEP 12:**  If crapi namespace is not getting created, run ``kubectl create ns crapi`` and re-run command ``helm install --namespace crapi crapi . --values values.yaml``.
 
