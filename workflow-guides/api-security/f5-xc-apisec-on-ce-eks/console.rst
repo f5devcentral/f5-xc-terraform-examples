@@ -32,11 +32,13 @@ EKS and CE Steps:
 
 **STEP 9:**  Wait for 10-15 mins and check all XC related pods are running in "ves-system" namespace of EKS cluster. Also check if this new CE site comes up as online with health score as '100' in F5 XC console sites list. (Navigate to Multi-Cloud Network Connect -> Overview -> Sites)
 
+.. image:: assets/site.JPG
+
 **STEP 10:**  Clone the `repo <https://github.com/OWASP/crAPI>`__ ``git clone https://github.com/OWASP/crAPI.git``
 
 **STEP 11:**  Install the helm chart:
-    ``cd deploy/helm`` 
-    ``helm install --namespace crapi crapi . --values values.yaml``
+    ``cd deploy/helm
+      helm install --namespace crapi crapi . --values values.yaml``
 
 **STEP 12:**  If crapi namespace is not getting created, run ``kubectl create ns crapi`` and re-run command ``helm install --namespace crapi crapi . --values values.yaml``.
 
@@ -53,7 +55,7 @@ XC HTTP Load Balancer
 
 **STEP 3** In the HTTP Load Balancer pane, under Metadata give the Load Balancer a name and under ``Domains and LB Type`` provide the Fully Qualified Domain Name(FQDN) of your applicaiton in the ``Domains`` field and under Load Balancer Type, ensure ``HTTP Redirect to HTTPS`` is selected.
 
-.. image:: assets/02-add-lb2.png
+.. image:: assets/02-add-lb2.JPG
 
 XC Origin Pool
 --------------
@@ -73,7 +75,7 @@ d. Save above configs and in port section provide 80 as port number.
 
 **Step 5** In the Origin Pool creation page, set port as "80", click ``Continue`` followed by ``Apply``.
 
-.. image:: assets/04-add-origin2.png
+.. image:: assets/04-add-origin2.JPG
 
 XC API Protection
 -----------------
