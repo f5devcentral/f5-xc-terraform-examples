@@ -156,7 +156,7 @@ the following naming convention.
 
  - Let aws_waf_ce = "" 
 
-**Step 3:** Rename ``xc/terraform.tfvars.examples`` to ``xc/terraform.tfvars`` and add the following data: 
+**Step 4:** Rename ``xc/terraform.tfvars.examples`` to ``xc/terraform.tfvars`` and add the following data: 
 
 -  api_url = “Your F5XC tenant url” 
 
@@ -204,8 +204,8 @@ the following naming convention.
 
 Keep rest of the values in terraform.tfvars as it is.
 
-**STEP 4:** Commit and push your build branch to your forked repo, Build will run and can be monitored in the GitHub Actions tab and TF Cloud console
+**STEP 5:** Commit and push your build branch to your forked repo, Build will run and can be monitored in the GitHub Actions tab and TF Cloud console
 
-**STEP 5:** Once the pipeline completes, verify your CE, Origin Pool and LB were deployed or destroyed based on your workflow.
+**STEP 6:** Once the pipeline completes, verify your CE, Origin Pool and LB were deployed or destroyed based on your workflow.
 
-**STEP 6:** If you want to destroy the entire setup, checkout/create a new branch from ``deploy-api-ce-eks`` branch with name ``destroy-api-ce-eks`` which will trigger destroy work-flow to remove all resources
+**STEP 7:** If you want to destroy the entire setup, checkout/create a new branch from ``deploy-api-ce-eks`` branch with name ``destroy-api-ce-eks`` which will trigger destroy work-flow to remove all resources
