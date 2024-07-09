@@ -142,19 +142,19 @@ the following naming convention.
 
 **Step 3:** Rename ``aws/eks-cluster/terraform.tfvars.examples`` to ``aws/eks-cluster/terraform.tfvars`` and add the following data:
 
- - Set skip_ha_az_node_group = true
+- Set skip_ha_az_node_group = true
 
- - Set desired_size = 2 (desired number of node count)
+- Set desired_size = 2 (desired number of node count)
 
- - Set max_size = 2 (max. number of node count)
+- Set max_size = 2 (max. number of node count)
 
- - Set min_size= 2 (min. number of node count)
+- Set min_size= 2 (min. number of node count)
 
- - Set skip_private_subnet_creation = false
+- Set skip_private_subnet_creation = false
 
- - Set allow_all_ingress_traffic_to_cluster = true
+- Set allow_all_ingress_traffic_to_cluster = true
 
- - Let aws_waf_ce = "" 
+- Let aws_waf_ce = "" 
 
 **Step 4:** Rename ``xc/terraform.tfvars.examples`` to ``xc/terraform.tfvars`` and add the following data: 
 
