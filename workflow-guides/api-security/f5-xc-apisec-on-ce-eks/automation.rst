@@ -109,8 +109,7 @@ GitHub
 Workflow Runs
 --------------
 
-**STEP 1:** Check out a branch with the branch name as suggested below for the workflow you wish to run using
-the following naming convention.
+**STEP 1:** Check out a branch with the branch name as suggested below for the workflow you wish to run using the following naming convention.
 
 **DEPLOY**
 
@@ -127,6 +126,8 @@ the following naming convention.
 +=====================+====================+
 | f5-xc-api-on-ce-eks | destroy-api-ce-eks |
 +---------------------+--------------------+
+
+**Note:** Make sure to comment line no. 16 (# *.tfvars) in ".gitignore" file
 
 **STEP 2:** Rename ``aws/infra/terraform.tfvars.examples`` to ``aws/infra/terraform.tfvars`` and add the following data: 
 
