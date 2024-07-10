@@ -126,6 +126,8 @@ f5-xc-waf-on-ce  destroy-waf-az-ce
 
 Workflow File: `waf-on-ce-az-destroy.yml </.github/workflows/waf-on-ce-az-destroy.yml>`__
 
+**Note:** Make sure to comment line no. 16 (# *.tfvars) in ".gitignore" file
+
 **STEP 2:** Rename ``azure/azure-infra/terraform.tfvars.examples`` to ``azure/azure-infra/terraform.tfvars`` and add the following data: 
 
 -  Set project_prefix = “Your project identifier name in **lower case** letters only - this will be applied as a prefix to all assets”

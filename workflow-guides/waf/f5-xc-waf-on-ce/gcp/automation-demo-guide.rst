@@ -115,6 +115,8 @@ Destroy F5 XC WAF on GCP CE                    destroy-waf-gcp
 
 Workflow File: `gcp-waf-ce-destroy.yml </.github/workflows/gcp-waf-ce-destroy.yaml>`__
 
+**Note:** Make sure to comment line no. 16 (# *.tfvars) in ".gitignore" file
+
 **STEP 2:** Rename ``gcp/infra/terraform.tfvars.examples`` to ``gcp/infra/terraform.tfvars`` and add the following data:
 
 -  project_prefix = “Your project identifier name in **lower case** letters only - this will be applied as a prefix to all assets”

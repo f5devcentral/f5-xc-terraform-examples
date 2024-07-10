@@ -115,6 +115,8 @@ f5-xc-waf-on-re-appconnect  destroy-waf-re-ac-k8s
 
 Workflow File: `waf-re-ac-k8s-destroy.yml </.github/workflows/waf-re-ac-k8s-destroy.yml>`__
 
+**Note:** Make sure to comment line no. 16 (# *.tfvars) in ".gitignore" file
+
 **STEP 2:** Rename ``azure/azure-infra/terraform.tfvars.examples`` to ``azure/azure-infra/terraform.tfvars`` and add the following data: 
 
 -  project_prefix = “Your project identifier name in **lower case** letters only - this will be applied as a prefix to all assets”.
