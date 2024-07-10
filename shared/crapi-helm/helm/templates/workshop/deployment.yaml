@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.workshop.name }}
+  namespace: {{ .Values.mailhog.namespace }}
+  labels:
+    release: {{ .Release.Name }}
+    {{- with .Values.workshop.deploymentLabels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  replicas: {{ .Values.workshop.replicaCount }}
+  selector:
+    matchLabels:
+      {{- toYaml .Values.workshop.deploymentSelectorMatchLabels | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        release: {{ .Release.Name }}
+        {{- with .Values.workshop.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+    spec:
+      {{- if .Values.waitForK8sResources.enabled }}
+      initContainers:
+        - name: wait-for-crapi-identity
+          image: {{ .Values.waitForK8sResources.image }}
+          imagePullPolicy: {{ .Values.waitForK8sResources.imagePullPolicy }}
+          args:
+            - "service"
+            - {{ .Values.identity.service.name | quote }}
+        - name: wait-for-crapi-community
+          image: {{ .Values.waitForK8sResources.image }}
+          imagePullPolicy: {{ .Values.waitForK8sResources.imagePullPolicy }}
+          args:
+            - "service"
+            - {{ .Values.community.service.name | quote }}
+      {{- end }}
+      containers:
+        - name: {{ .Values.workshop.name }}
+          image: {{ .Values.workshop.image }}:{{ .Chart.AppVersion }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          ports:
+            - containerPort: {{ .Values.workshop.port }}
+          envFrom:
+            - configMapRef:
+                name: {{ .Values.workshop.config.name }}
+          {{- if .Values.workshop.resources }}
+          resources:
+            {{- toYaml .Values.workshop.resources | nindent 12 }}
+          {{- end }}
+          readinessProbe:
+            tcpSocket:
+              port: {{ .Values.workshop.port }}
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            

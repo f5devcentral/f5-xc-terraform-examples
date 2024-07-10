@@ -95,7 +95,11 @@ variable "aws_waf_ce" {
   default     = ""
 }
 
-
+variable "eks_version" {
+  description = "EKS version"
+  type        = string
+  default     = "1.29"
+}
 
 
 
