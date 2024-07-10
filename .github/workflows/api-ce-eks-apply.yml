@@ -15,10 +15,10 @@ jobs:
         working-directory: ./aws/infra
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@v3
         with:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
@@ -89,10 +89,10 @@ jobs:
         working-directory: ./aws/eks-cluster
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@v3
         with:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
@@ -155,20 +155,20 @@ jobs:
         run: terraform apply -auto-approve -input=false
 
 
-  terraform_bookinfo:
-    name: "Bookinfo App"
+  terraform_crapi:
+    name: "crAPI app"
     runs-on: ubuntu-latest
     needs: terraform_eks
     defaults:
       run:
-        working-directory: ./shared/booksinfo/
+        working-directory: ./shared/crapi-helm/
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@v3
         with:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
@@ -180,7 +180,7 @@ jobs:
             cloud {
               organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
               workspaces {
-                name = "${{ secrets.TF_CLOUD_WORKSPACE_BOOKINFO }}"
+                name = "${{ secrets.TF_CLOUD_WORKSPACE_CRAPI }}"
               }
             }
           }
@@ -233,16 +233,16 @@ jobs:
   terraform_ce:
     name: "F5XC CE on AWS EKS"
     runs-on: ubuntu-latest
-    needs: terraform_bookinfo
+    needs: terraform_crapi
     defaults:
       run:
         working-directory: ./aws/eks-cluster/ce-deployment
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@v3
         with:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
@@ -267,7 +267,7 @@ jobs:
           resource "kubectl_manifest" "configmap" {
               yaml_body = <<YAML
               apiVersion: v1
-              kind: ConfigMapDeployment
+              kind: ConfigMap
               metadata:
                 name: vpm-cfg
                 namespace: ves-system
@@ -354,10 +354,10 @@ jobs:
         working-directory: ./xc
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@v3
         with:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 

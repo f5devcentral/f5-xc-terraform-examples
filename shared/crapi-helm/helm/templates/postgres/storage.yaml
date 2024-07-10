@@ -1,0 +1,16 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+ 
+metadata:
+  name: {{ .Values.postgresdb.pvc.name }}
+  labels:
+    release: {{ .Release.Name }}
+    {{- toYaml .Values.postgresdb.pvc.labels | nindent 4 }}
+
+spec:
+  #storageClassName: local-path
+  accessModes:
+    - ReadWriteOnce
+ 
+  resources:
+    {{- toYaml .Values.postgresdb.pvc.resources | nindent 4 }}

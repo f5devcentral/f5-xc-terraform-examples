@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.mailhog.name }}
+  namespace: {{ .Values.mailhog.namespace }}
+  labels:
+    release: {{ .Release.Name }}
+    {{- with .Values.mailhog.deploymentLabels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  selector:
+    matchLabels:
+      {{- toYaml .Values.mailhog.deploymentSelectorMatchLabels | nindent 6 }}
+  replicas: {{ .Values.mailhog.replicaCount }}
+  minReadySeconds: {{ .Values.mailhog.minReadySeconds }}
+  progressDeadlineSeconds: {{ .Values.mailhog.progressDeadlineSeconds }}
+  template:
+    metadata:
+      labels:
+        release: {{ .Release.Name }}
+        {{- with .Values.mailhog.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      annotations:
+        {{- toYaml .Values.mailhog.podAnnotations | nindent 8 }}
+    spec:
+      securityContext:
+        runAsUser: 0
+        runAsGroup: 0
+      containers:
+        - name: {{ .Values.mailhog.name }}
+          image: {{ .Values.mailhog.image }}:{{ .Chart.AppVersion }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          livenessProbe:
+            tcpSocket:
+              port: {{ .Values.mailhog.smtpPort }}
+            initialDelaySeconds: 15
+            periodSeconds: 60
+          readinessProbe:
+            tcpSocket:
+              port: {{ .Values.mailhog.smtpPort }}
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          ports:
+          - containerPort: {{ .Values.mailhog.webPort }}
+            name: web
+            protocol: TCP
+          - containerPort: {{ .Values.mailhog.smtpPort }}
+            name: smtp
+            protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: {{ .Values.mailhog.config.name }}
+          {{- if .Values.mailhog.resources }}
+          resources:
+            {{- toYaml .Values.mailhog.resources | nindent 12 }}
+          {{- end }}
+          

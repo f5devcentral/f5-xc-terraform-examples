@@ -1,0 +1,16 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+ 
+metadata:
+  name: {{ .Values.mongodb.pvc.name }}
+  labels:
+    release: {{ .Release.Name }}
+    {{- toYaml .Values.mongodb.pvc.labels | nindent 4 }}
+ 
+spec:
+  #storageClassName: local-path
+  accessModes:
+    - ReadWriteOnce
+ 
+  resources:
+    {{- toYaml .Values.mongodb.pvc.resources | nindent 4 }}
