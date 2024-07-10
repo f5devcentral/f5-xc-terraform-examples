@@ -1,9 +1,8 @@
-# v1.0.34 volterra provider doesn't support nonsensitive funxn so removed them
 output "xc_lb_name" {
-  value = var.http_only ? volterra_http_loadbalancer.lb_https.name : nonsensitive(volterra_http_loadbalancer.lb_https.name)
+  value = nonsensitive(volterra_http_loadbalancer.lb_https.name)
 }
 output "xc_waf_name" {
-  value = volterra_app_firewall.waap-tf.name
+  value = nonsensitive(volterra_app_firewall.waap-tf.name)
 }
 output "endpoint" {
   value = var.app_domain
