@@ -21,6 +21,7 @@ jobs:
   second_job:
     name: "Check the file"
     runs-on: ubuntu-latest
+    needs: first_job
     steps:
       - name: Checkout
         uses: actions/checkout@v4
