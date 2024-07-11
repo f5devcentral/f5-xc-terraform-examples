@@ -134,6 +134,8 @@ Workflow         Branch Name
 f5-xc-waf-on-k8s destroy-waf-k8s
 ================ ========================
 
+**Note:** Make sure to comment line no. 16 (# *.tfvars) in ".gitignore" file
+
 **STEP 2:** Rename ``infra/terraform.tfvars.examples`` to ``infra/terraform.tfvars`` and add the following data: 
 
 -  project_prefix = “Your project identifier name in **lower case** letters only - this will be applied as a prefix to all assets”

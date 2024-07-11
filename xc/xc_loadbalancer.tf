@@ -283,7 +283,7 @@ resource "volterra_http_loadbalancer" "lb_https" {
             dynamic "fall_through_mode_custom" {
               for_each = var.fall_through_mode_allow ? [0] : [1]
               content {
-                open_api_validation_rules {
+                #open_api_validation_rules {
                  # metadata {
                  #   name = format("%s-apip-fall-through-block-%s", local.project_prefix, local.build_suffix)
                  # }
