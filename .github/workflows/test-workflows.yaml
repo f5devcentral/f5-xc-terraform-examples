@@ -14,14 +14,9 @@ jobs:
   terraform_schedule:
     name: "Test Actions Schedules"
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./xc
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          ref: bot-defense-re
 
       - name: Trigger Deploy workflow
         run: gh workflow run bot-defense-re-deploy.yaml --ref bot-defense-re
@@ -33,22 +28,8 @@ jobs:
         run: gh workflow run bot-defense-re-destroy.yaml --ref destroy-bot-defense-re
         if: github.event.schedule == '30 * * * *' 
         env:
-          GH_TOKEN: ${{ secrets.ACTIONS_SECRET }}  
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Check EventName
         run: echo "event name is:" ${{ github.event_name }} 
-        
-      # - name: Add Email
-      #   run: git config user.email @${{ github.actor }}
-
-      # - name: Add Username
-      #   run: git config user.name @${{ github.actor }}
-  
-      # - name: Create Empty Commit
-      #   run: git commit --allow-empty -m "Empty commit4"
-  
-      # - name: Push Empty Commit
-      #   run: git push origin bot-defense-re
-      #   env:
-      #     GH_TOKEN: ${{ secrets.ACTIONS_SECRET }}     
-          
+    
