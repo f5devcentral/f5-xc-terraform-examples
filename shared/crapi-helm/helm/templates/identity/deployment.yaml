@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.identity.name }}
+  namespace: {{ .Values.mailhog.namespace }}
+  labels:
+    release: {{ .Release.Name }}
+    {{- toYaml .Values.identity.deploymentLabels | nindent 4 }}
+spec:
+  replicas: {{ .Values.identity.replicaCount }}
+  selector:
+    matchLabels:
+      {{- with .Values.identity.deploymentSelectorMatchLabels }}
+      {{- toYaml . | nindent 6 }}
+      {{- end }}
+  template:
+    metadata:
+      labels:
+        release: {{ .Release.Name }}
+        {{- toYaml .Values.identity.podLabels | nindent 8 }}
+    spec:
+      {{- if .Values.waitForK8sResources.enabled }}
+      initContainers:
+        - name: wait-for-postgres
+          image: {{ .Values.waitForK8sResources.image }}
+          imagePullPolicy: {{ .Values.waitForK8sResources.imagePullPolicy }}
+          args:
+            - "service"
+            - {{ .Values.postgresdb.service.name | quote }}
+        - name: wait-for-mailhog
+          image: {{ .Values.waitForK8sResources.image }}
+          imagePullPolicy: {{ .Values.waitForK8sResources.imagePullPolicy }}
+          args:
+            - "service"
+            - {{ .Values.mailhog.webService.name | quote }}
+      {{- end }}
+      volumes:
+        - name: jwt-key-secret
+          secret:
+            secretName: {{ .Values.identity.jwtKeySecret.name }}
+      containers:
+        - name: {{ .Values.identity.name }}
+          image: {{ .Values.identity.image }}:{{ .Chart.AppVersion }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          volumeMounts:
+            - mountPath: "/.keys"
+              name: jwt-key-secret
+              readOnly: true
+          ports:
+          - containerPort: {{ .Values.identity.port }}
+          envFrom:
+              - configMapRef:
+                  name: {{ .Values.identity.config.name }}
+          {{- if .Values.identity.resources }}
+          resources:
+            {{- toYaml .Values.identity.resources | nindent 12 }}
+          {{- end }}
+          readinessProbe:
+            tcpSocket:
+              port: {{ .Values.identity.port }}
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            

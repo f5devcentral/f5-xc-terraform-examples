@@ -126,6 +126,8 @@ f5-xc-waf-on-ce  destroy-waf-az-ce
 
 Workflow File: `waf-on-ce-az-destroy.yml </.github/workflows/waf-on-ce-az-destroy.yml>`__
 
+**Note:** Make sure to comment line no. 16 (# *.tfvars) in ".gitignore" file
+
 **STEP 2:** Rename ``azure/azure-infra/terraform.tfvars.examples`` to ``azure/azure-infra/terraform.tfvars`` and add the following data: 
 
 -  Set project_prefix = “Your project identifier name in **lower case** letters only - this will be applied as a prefix to all assets”
@@ -148,19 +150,19 @@ Workflow File: `waf-on-ce-az-destroy.yml </.github/workflows/waf-on-ce-az-destro
 
 -  xc_waf_blocking = “Set to true to configure waf in blocking mode”
 
--  k8s_pool = "set to true if application is residing in k8s environment"
+-  k8s_pool = "set to true as application is residing in k8s environment"
 
 -  serviceName = "k8s service name of frontend microservice" (for this use case set it to "frontend.default")
 
 -  serviceport = "k8s service port of frontend microservice" (for this use case set it to "80")
 
--  advertise_sites = "set to false if want to advertise on public"
+-  advertise_sites = "set to true for this use case"
 
--  http_only = "set to true if want to deploy a http loadbalancer, for https lb set it to false"
+-  http_only = "set to true as we want to deploy a http loadbalancer"
 
--  az_ce_site = "set to true if want to deploy azure CE site"
+-  az_ce_site = "set to true as we want to deploy azure CE site"
 
--  xc_service_discovery = "set to true if want to create service discovery object in XC console"
+-  xc_service_discovery = "set to true as we want to create service discovery object in XC console"
 
 -  Set azure = "azure-infra"
 

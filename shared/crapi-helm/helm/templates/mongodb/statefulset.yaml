@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Values.mongodb.name }}
+  namespace: {{ .Values.mailhog.namespace }}
+  labels:
+    release: {{ .Release.Name }}
+    {{- with .Values.mongodb.statefulsetLabels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  serviceName: {{ .Values.mongodb.service.name }}
+  replicas: {{ .Values.mongodb.replicaCount }}
+  selector:
+    matchLabels:
+      {{- toYaml .Values.mongodb.statefulsetSelectorMatchLabels | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        release: {{ .Release.Name }}
+        {{- toYaml .Values.mongodb.podLabels | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ .Values.mongodb.name }}
+          image: {{ .Values.mongodb.image }}:{{ .Values.mongodb.version }}
+          imagePullPolicy: {{ .Values.mongodb.imagePullPolicy }}
+          ports:
+            - containerPort: {{ .Values.mongodb.port }}
+          envFrom:
+            - configMapRef:
+                name: {{ .Values.mongodb.config.name }}
+          volumeMounts:
+            - mountPath: /data/db
+              name: mongodb-data
+      volumes:
+        - name: mongodb-data
+          persistentVolumeClaim:
+            claimName: {{ .Values.mongodb.pvc.name }}
+            

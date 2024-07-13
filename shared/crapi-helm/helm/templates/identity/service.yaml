@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.identity.service.name }}
+  labels:
+    release: {{ .Release.Name }}
+    {{- toYaml .Values.identity.service.labels | nindent 4}}
+spec:
+  ports:
+  - port: {{ .Values.identity.port }}
+    name: java
+  selector:
+    {{- toYaml .Values.identity.serviceSelectorLabels | nindent 4 }}

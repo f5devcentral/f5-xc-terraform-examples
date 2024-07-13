@@ -7,7 +7,7 @@ Distributed Cloud API Security allows organizations to easily and effectively di
 
 Introduction :
 ---------------
-WAAP is a set of security services which protects applications from known application threats thereby providing WAF, DDOS prevention, API Security and bot mitigation solution. To safeguard our modern applications which are residing inside a k8s cluster, we have to integrate this solution as part of data plane workflow. In this article we are going to provide a possible solution for deploying WAF in the customer existing k8s infra using F5 XC. 
+WAAP is a set of security services which protects applications from known application threats thereby providing WAF, DDOS prevention, API Security and Bot mitigation solution. To safeguard our modern applications which are residing inside a k8s cluster, we have to integrate this solution as part of data plane workflow. Here we are going to showcase one such possible solution by applying API security feature in the customer's existing k8s infra using F5 XC. 
 
 Use this repo configuration files and work-flow guides for deploying XC API Security on CE in EKS. Please check `Out of the Shadows: API Discovery and Security
 article <https://community.f5.com/kb/technicalarticles/out-of-the-shadows-api-discovery-and-security/303789>`__ for more details on F5 Distributed Cloud API Protection.

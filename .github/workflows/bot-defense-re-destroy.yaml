@@ -5,7 +5,8 @@ on:
     branches:
       - destroy-bot-defense-re
   pull_request:
-
+  workflow_dispatch:
+    
 jobs:
   terraform_xc:
     name: "Destroy F5 XC Infra"
@@ -77,5 +78,5 @@ jobs:
         run: exit 1
 
       - name: Terraform Destroy
-        if: github.ref == 'refs/heads/destroy-bot-defense-re' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/destroy-bot-defense-re' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
         run: terraform destroy -auto-approve -input=false

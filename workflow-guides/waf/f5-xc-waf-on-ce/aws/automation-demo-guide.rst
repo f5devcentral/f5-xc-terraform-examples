@@ -122,6 +122,8 @@ F5 XC WAF on CE Destroy         destroy-waf-aws-ce
 
 Workflow File: `waf-on-ce-aws-destroy.yml </.github/workflows/waf-on-ce-aws-destroy.yml>`__
 
+**Note:** Make sure to comment line no. 16 (# *.tfvars) in ".gitignore" file
+
 **STEP 2:** Rename ``aws/infra/terraform.tfvars.examples`` to ``aws/infra/terraform.tfvars`` and add the following data: 
 
 -  project_prefix = “Your project identifier name in **lower case** letters only - this will be applied as a prefix to all assets”
