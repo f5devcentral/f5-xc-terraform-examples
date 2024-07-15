@@ -49,7 +49,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: "./terraform"
+        working-directory: "./workflow-guides/smcn/mcn-distributed-apps-l3/terraform"
     env: 
       TF_VAR_name: "secure-mcn"
       TF_VAR_prefix: ""
