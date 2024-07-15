@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       deployment:
-        description: 'Select Deployment to run'
+        description: 'Select Deployment to run (deploy-resources destroys the workload and all sites)'
         required: true
-        default: 'azure-vnet-site'
+        default: 'deploy-resources'
         type: choice
         options:
         - azure-vnet-site
