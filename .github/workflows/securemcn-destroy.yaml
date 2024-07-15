@@ -165,7 +165,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: "./terraform/xc-config"
+        working-directory: "./workflow-guides/smcn/mcn-distributed-apps-l3/terraform/xc-config"
     env: 
       TF_VAR_name: ${{ needs.apply_variables.outputs.TF_VAR_name }}
       TF_VAR_prefix: ${{ needs.apply_variables.outputs.TF_VAR_prefix }}
@@ -219,6 +219,7 @@ jobs:
   aws_credentials: 
     uses: f5devcentral/f5-xc-terraform-examples/.github/workflows/aws-cloud-credentials-destroy.yaml@main
     name: "Destroy AWS Credentials"
+    if: (inputs.deployment == 'aws-vpc-site' || inputs.deployment == 'deploy-resources')
     needs: [apply_variables, aws_vpc_site]
     with: 
       TF_CLOUD_WORKSPACE_AWS_CREDENTIALS: ${{ needs.apply_variables.outputs.TF_CLOUD_WORKSPACE_AWS_CREDENTIALS }}
@@ -234,6 +235,7 @@ jobs:
 
   aws_networking: 
     uses: f5devcentral/f5-xc-terraform-examples/.github/workflows/aws-networking-destroy.yaml@main
+    if: (inputs.deployment == 'aws-vpc-site' || inputs.deployment == 'deploy-resources')
     name: "Destroy AWS Networking"
     needs: [apply_variables, aws_vpc_site, aws_eks]
     with:
@@ -246,7 +248,8 @@ jobs:
       AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }} 
 
   aws_vpc_site: 
-    uses: f5devcentral/f5-xc-terraform-examples/.github/workflows/aws-vpc-site-destroy.yaml@main
+    uses: drpotters/f5-xc-terraform-examples/.github/workflows/aws-vpc-site-destroy.yaml@main
+    if: (inputs.deployment == 'aws-vpc-site' || inputs.deployment == 'deploy-resources')
     needs: [apply_variables, aws_eks]
     name: "Destroy AWS VPC Site"
     with: 
@@ -263,6 +266,7 @@ jobs:
 
   azure_networking: 
     uses: f5devcentral/f5-xc-terraform-examples/.github/workflows/azure-networking-destroy.yaml@main
+    if: (inputs.deployment == 'azure-vnet-site' || inputs.deployment == 'deploy-resources')
     needs: [apply_variables, azure_vnet_site]
     name: "Destroy Azure Networking"
     with:
@@ -277,6 +281,7 @@ jobs:
 
   azure_credentials: 
     uses: f5devcentral/f5-xc-terraform-examples/.github/workflows/azure-cloud-credentials-destroy.yaml@main
+    if: (inputs.deployment == 'azure-vnet-site' || inputs.deployment == 'deploy-resources')
     needs: [apply_variables, azure_vnet_site]
     name: "Azure Cloud Credentials"
     with: 
@@ -293,7 +298,8 @@ jobs:
       AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
 
   azure_vnet_site: 
-    uses: f5devcentral/f5-xc-terraform-examples/.github/workflows/azure-vnet-site-destroy.yaml@main
+    uses: drpotters/f5-xc-terraform-examples/.github/workflows/azure-vnet-site-destroy.yaml@main
+    if: (inputs.deployment == 'azure-vnet-site' || inputs.deployment == 'deploy-resources')
     needs: [apply_variables, azure_aks]
     name: "Azure VNET Site"
     with: 
@@ -311,11 +317,12 @@ jobs:
 
   aws_eks:
     name: "Destroy AWS EKS"
+    if: (inputs.deployment == 'deploy-resources')
     needs: [apply_variables, aws_eks_nic, workload]
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: "./terraform/aws-eks"
+        working-directory: "./workflow-guides/smcn/mcn-distributed-apps-l3/terraform/aws-eks"
     env: 
       TF_CLOUD_WORKSPACE_SECUREMCN_AWS_EKS: ${{ needs.apply_variables.outputs.TF_CLOUD_WORKSPACE_SECUREMCN_AWS_EKS }}
       TF_VAR_name: ${{ needs.apply_variables.outputs.TF_VAR_name }}
@@ -363,11 +370,12 @@ jobs:
 
   gcp_vpc_site:
     name: "Destroy GCP VPC Site"
+    if: (inputs.deployment == 'gcp-vpc-site' || inputs.deployment == 'deploy-resources')
     needs: [apply_variables, gcp_gke, workload]
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: "./terraform/gcp-site"
+        working-directory: "./workflow-guides/smcn/mcn-distributed-apps-l3/terraform/gcp-site"
     env: 
       TF_VAR_name: ${{ needs.apply_variables.outputs.TF_VAR_name }}
       TF_VAR_prefix: ${{ needs.apply_variables.outputs.TF_VAR_prefix }}
@@ -425,11 +433,12 @@ jobs:
 
   gcp_gke:
     name: "Destroy GCP GKE Cluster"
+    if: (inputs.deployment == 'deploy-resources')
     needs: [apply_variables, workload]
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: "./terraform/gcp-gke"
+        working-directory: "./workflow-guides/smcn/mcn-distributed-apps-l3/terraform/gcp-gke"
     env: 
       TF_VAR_name: ${{ needs.apply_variables.outputs.TF_VAR_name }}
       TF_VAR_prefix: ${{ needs.apply_variables.outputs.TF_VAR_prefix }}
@@ -479,11 +488,12 @@ jobs:
 
   azure_aks:
     name: "Destroy Azure AKS"
+    if: (inputs.deployment == 'deploy-resources')
     needs: [apply_variables, workload]
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: "./terraform/azure-aks"
+        working-directory: "./workflow-guides/smcn/mcn-distributed-apps-l3/terraform/azure-aks"
     env: 
       TF_VAR_name: ${{ needs.apply_variables.outputs.TF_VAR_name }}
       TF_VAR_prefix: ${{ needs.apply_variables.outputs.TF_VAR_prefix }}
@@ -536,11 +546,12 @@ jobs:
 
   aws_eks_nic:
     name: "Destroy NIC into AWS EKS"
+    if: (inputs.deployment == 'deploy-resources')
     needs: [apply_variables, workload]
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: "./terraform/aws-eks-nic"
+        working-directory: "./workflow-guides/smcn/mcn-distributed-apps-l3/terraform/aws-eks-nic"
     env: 
       TF_CLOUD_WORKSPACE_SECUREMCN_AWS_EKS_NIC: ${{ needs.apply_variables.outputs.TF_CLOUD_WORKSPACE_SECUREMCN_AWS_EKS_NIC }}
       TF_VAR_name: ${{ needs.apply_variables.outputs.TF_VAR_name }}
@@ -585,11 +596,12 @@ jobs:
 
   workload:
     name: "Destroy Demo Workloads"
+    if: (inputs.deployment == 'deploy-resources')
     needs: [apply_variables]
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: "./terraform/workload"
+        working-directory: "./workflow-guides/smcn/mcn-distributed-apps-l3/terraform/workload"
     env: 
       TF_VAR_name: ${{ needs.apply_variables.outputs.TF_VAR_name }}
       TF_VAR_prefix: ${{ needs.apply_variables.outputs.TF_VAR_prefix }}
