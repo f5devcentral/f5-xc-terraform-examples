@@ -6,7 +6,7 @@ resource "null_resource" "wait_for_site"{
 
 resource "null_resource" "wait_for_ekssite"{
   count           =  var.eks_ce_site ? 1 : 0
-  depends_on      =  [volterra_registration_approval.k8s-ce]
+  depends_on      =  [volterra_registration_approval.k8s-ce, volterra_registration_approval.gcp-ce]
 }
 
 resource "null_resource" "wait_for_aws_ce_site"{
@@ -16,7 +16,8 @@ resource "null_resource" "wait_for_aws_ce_site"{
 
 # Create XC LB config
 resource "volterra_origin_pool" "op" {
-  depends_on             = [null_resource.wait_for_site, null_resource.check_site_status_cert2, null_resource.check_site_status_cert, null_resource.wait_for_ekssite, null_resource.wait_for_aws_ce_site]
+  depends_on             = [null_resource.wait_for_site, null_resource.check_site_status_cert,
+    null_resource.wait_for_ekssite, null_resource.wait_for_aws_ce_site, volterra_namespace.this]
   name                   = format("%s-xcop-%s", local.project_prefix, local.build_suffix)
   namespace              = var.xc_namespace
   description            = format("Origin pool pointing to origin server %s", local.origin_server)
@@ -67,6 +68,7 @@ resource "volterra_origin_pool" "op" {
         site {
           name      = "${coalesce(var.site_name, local.project_prefix)}"
           namespace = "system"
+          tenant    = var.user_site ? var.xc_tenant : "ves-io"
           }
         }
       }
@@ -112,7 +114,7 @@ resource "volterra_http_loadbalancer" "lb_https" {
       advertise_where {
         site {
           site {
-            name      = "${coalesce(var.site_name, local.project_prefix)}"
+            name      = "${coalesce(var.gke_site_name, var.site_name, local.project_prefix)}"
             namespace = "system"
           }
           network = "SITE_NETWORK_INSIDE_AND_OUTSIDE"
@@ -150,6 +152,20 @@ resource "volterra_http_loadbalancer" "lb_https" {
     }
   }
 
+  dynamic "data_guard_rules" {
+    for_each = var.xc_data_guard ? [1] : []
+    content {
+      metadata {
+        name = format("%s-data-guard-%s", local.project_prefix, local.build_suffix)
+      }
+      apply_data_guard = true
+      any_domain       = true
+      path {
+        prefix = "/"
+      }
+    }
+  }
+
   app_firewall {
     name = volterra_app_firewall.waap-tf.name
     namespace = var.xc_namespace
@@ -167,15 +183,133 @@ resource "volterra_http_loadbalancer" "lb_https" {
     for_each = var.xc_api_disc ? [1] : []
     content {
       enable_learn_from_redirect_traffic = true
-    } 
+      discovered_api_settings {
+        purge_duration_for_inactive_discovered_apis = 5
+      }
+    }
   }
-
-  dynamic "api_definition" {
+  dynamic "api_specification" {
     for_each = var.xc_api_pro ? [1] : []
     content {
-      name = volterra_api_definition.api-def[0].name
-      namespace = volterra_api_definition.api-def[0].namespace
-      tenant = var.xc_tenant
+      api_definition {
+        name      = volterra_api_definition.api-def[0].name
+        namespace = volterra_api_definition.api-def[0].namespace
+        tenant    = var.xc_tenant
+      }
+      validation_disabled = var.xc_api_val ? false : true
+      dynamic "validation_all_spec_endpoints" {
+        for_each = var.xc_api_val_all ? [1] : []
+        content {
+          validation_mode {
+            dynamic "validation_mode_active" {
+              for_each = var.xc_api_val_active ? [1] : []
+              content {
+                request_validation_properties = var.xc_api_val_properties
+                enforcement_block             = var.enforcement_block
+                enforcement_report            = var.enforcement_report
+              }
+            }
+            dynamic "response_validation_mode_active" {
+              for_each = var.xc_resp_val_active ? [1] : []
+              content {
+                response_validation_properties = var.xc_resp_val_properties
+                enforcement_block              = var.enforcement_block
+                enforcement_report             = var.enforcement_report
+              }
+            }
+          }
+          fall_through_mode {
+            fall_through_mode_allow = var.fall_through_mode_allow ? true : false
+            dynamic "fall_through_mode_custom" {
+              for_each = var.fall_through_mode_allow ? [0] : [1]
+              content {
+                #open_api_validation_rules {
+                #  metadata {
+                #    name = format("%s-apip-fall-through-block-%s", local.project_prefix, local.build_suffix)
+                #  }
+                #  action_block = true
+                #  base_path    = "/"
+                #}
+                open_api_validation_rules {
+                  metadata {
+                    name = format("%s-apip-fall-through-report-%s", local.project_prefix, local.build_suffix)
+                  }
+                  action_report = true
+                  base_path     = "/"
+                }
+              }
+            }
+          }
+          settings {
+            oversized_body_fail_validation = true
+            property_validation_settings_custom {
+              query_parameters {
+                disallow_additional_parameters = true
+              }
+            }
+          }
+        }
+      }
+      dynamic "validation_custom_list" {
+        for_each = var.xc_api_val_custom ? [1] : []
+        content {
+          open_api_validation_rules {
+            metadata {
+              name = format("%s-apip-val-rule-block-%s", local.project_prefix, local.build_suffix)
+            }
+            validation_mode {
+              dynamic "validation_mode_active" {
+                for_each = var.xc_api_val_active ? [1] : []
+                content {
+                  request_validation_properties = var.xc_api_val_properties
+                  enforcement_block             = var.enforcement_block
+                  enforcement_report            = var.enforcement_report
+                }
+              }
+              dynamic "response_validation_mode_active" {
+              for_each = var.xc_resp_val_active ? [1] : []
+              content {
+                response_validation_properties = var.xc_resp_val_properties
+                enforcement_block              = var.enforcement_block
+                enforcement_report             = var.enforcement_report
+              }
+            }
+            }
+            any_domain = true
+            base_path  = "/"
+          }
+          fall_through_mode {
+            fall_through_mode_allow = var.fall_through_mode_allow ? true : false
+            dynamic "fall_through_mode_custom" {
+              for_each = var.fall_through_mode_allow ? [0] : [1]
+              content {
+                #open_api_validation_rules {
+                 # metadata {
+                 #   name = format("%s-apip-fall-through-block-%s", local.project_prefix, local.build_suffix)
+                 # }
+                 # action_block = true
+                 # base_path    = "/"
+                #}
+                open_api_validation_rules {
+                  metadata {
+                    name = format("%s-apip-fall-through-report-%s", local.project_prefix, local.build_suffix)
+                  }
+                  action_report = true
+                  base_path     = "/"
+                }
+              }
+            }
+          }
+          settings {
+            oversized_body_fail_validation = true
+            property_validation_settings_custom {
+              query_parameters {
+                disallow_additional_parameters = true
+              }
+            }
+          }
+        }
+      }
     }
   }
 
@@ -190,7 +324,7 @@ resource "volterra_http_loadbalancer" "lb_https" {
           deny = true
         }
         base_path = "/api"
-        api_group = join("-",["ves-io-api-def", volterra_api_definition.api-def[0].name, "all-operations"])
+        api_group = join("-", ["ves-io-api-def", volterra_api_definition.api-def[0].name, "all-operations"])
       }
       api_groups_rules {
         metadata {
@@ -200,6 +334,29 @@ resource "volterra_http_loadbalancer" "lb_https" {
           deny = false
         }
         base_path = "/"
+      }
+    }
+  }
+  dynamic "jwt_validation" {
+    for_each = var.xc_jwt_val ? [1] : []
+    content {
+      target {
+        all_endpoint = true
+      }
+      token_location {
+        bearer_token = true
+      }
+      action {
+        block = var.jwt_val_block
+        report = var.jwt_val_report
+      }
+      jwks_config {
+        cleartext = "string:///${var.jwks}"
+      }
+      reserved_claims {
+        issuer                  = var.iss_claim
+        audience_disable        = true
+        validate_period_enable  = var.val_period_enable
       }
     }
   }
@@ -232,11 +389,7 @@ resource "volterra_http_loadbalancer" "lb_https" {
           flow_label {
             authentication {
               login {
-                transaction_result {
-                  failure_conditions {
-                    status = "401"
-                  }
-                }
+                disable_transaction_result = true
               }
             }
           }
@@ -247,15 +400,15 @@ resource "volterra_http_loadbalancer" "lb_https" {
     }
   }
 
-#DDoS Configuration
-  dynamic "enable_ddos_detection" {
-    for_each = var.xc_ddos_pro ? [1] : []
-    content {
-      enable_auto_mitigation {
-        block = true
-      }
-    }
-  }
+# DDoS Configuration
+#  dynamic "enable_ddos_detection" {
+#    for_each = var.xc_ddos_pro ? [1] : []
+#    content {
+#      enable_auto_mitigation {
+#        block = true
+#      }
+#    }
+#  }
   dynamic "ddos_mitigation_rules" {
     for_each = var.xc_ddos_pro ? [1] : []
     content {
@@ -295,4 +448,11 @@ resource "volterra_http_loadbalancer" "lb_https" {
       } 
     }
   }
+
+  dynamic "more_option" {
+    for_each = var.vk8s ? [1] : []
+      content {
+        idle_timeout = 300000
+      }
+    }
 }

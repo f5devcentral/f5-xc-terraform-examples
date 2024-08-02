@@ -1,8 +1,8 @@
 Steps to deploy/destroy WAF on RE + AppConnect Kubernetes setup using automation
----------------------------------------------------------------------
+----------------------------------------------------------------------------------
 
 Prerequisites
--------------
+###############
 
 -  `F5 Distributed Cloud (F5 XC) Account <https://console.ves.volterra.io/signup/usage_plan>`__
 -  `Azure Account <https://azure.microsoft.com/en-in/get-started/azure-portal/>`__ 
@@ -10,7 +10,7 @@ Prerequisites
 -  `GitHub Account <https://github.com>`__
 
 List of Existing Assets
------------------------
+#########################
 
 -  **xc:** F5 Distributed Cloud WAF
 -  **infra:** Azure Infrastructure
@@ -18,7 +18,7 @@ List of Existing Assets
 -  **online boutique:** Online Boutique demo test web application
 
 Tools
------
+#######
 
 -  **Cloud Provider:** Azure
 -  **IAC:** Terraform
@@ -26,14 +26,14 @@ Tools
 -  **CI/CD:** GitHub Actions
 
 Terraform Cloud
----------------
+#################
 
 -  **Workspaces:** Create CLI or API workspaces for each asset in the workflow.
 
    +---------------------------+-------------------------------------------+
    |         **Workflow**      |  **Assets/Workspaces**                    |
    +===========================+===========================================+
-   | f5-xc-waf-on-re-appconnect| infra, aks-cluster, xc                    |
+   | f5-xc-waf-on-re-appconnect| azure-infra, aks-cluster, xc              |
    +---------------------------+-------------------------------------------+
 
 .. image:: assets/workspaces.JPG
@@ -46,29 +46,30 @@ Terraform Cloud
    +------------------------------------------+--------------+------------------------------------------------------+
    |         **Name**                         |  **Type**    |      **Description**                                 |
    +==========================================+==============+======================================================+
-   | TF_VAR_azure_service_principal_appid     | Environment  |  Service Principal App ID                            |
+   | TF_VAR_azure_service_principal_appid     | Environment  | Service Principal App ID                             |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | TF_VAR_azure_service_principal_password  | Environment  |  Service Principal Secret                            |
+   | TF_VAR_azure_service_principal_password  | Environment  | Service Principal Secret                             |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | TF_VAR_azure_subscription_id             | Environment  |  Your Subscription ID                                | 
+   | TF_VAR_azure_subscription_id             | Environment  | Your Subscription ID                                 | 
    +------------------------------------------+--------------+------------------------------------------------------+
-   | TF_VAR_azure_subscription_tenant_id      | Environment  |  Subscription Tenant ID                              |
+   | TF_VAR_azure_subscription_tenant_id      | Environment  | Subscription Tenant ID                               |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | VES_P12_PASSWORD                         | Environment  |  Password set while creating F5XC API certificate    |
+   | VES_P12_PASSWORD                         | Environment  | Password set while creating F5XC API certificate     |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | VOLT_API_P12_FILE                        | Environment  |  Your F5XC API certificate. Set this to **api.p12**  |
+   | VOLT_API_P12_FILE                        | Environment  | Your F5XC API certificate. Set this to **api.p12**   |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | ssh_key                                  | TERRAFORM    |  Your ssh key for accessing the created resources    | 
+   | ssh_key                                  | TERRAFORM    | Your ssh key for accessing the created resources     | 
    +------------------------------------------+--------------+------------------------------------------------------+
-   | tf_cloud_organization                    | TERRAFORM    |  Your Terraform Cloud Organization name              |
+   | tf_cloud_organization                    | TERRAFORM    | Your Terraform Cloud Organization name               |
    +------------------------------------------+--------------+------------------------------------------------------+
 
 -  Variable set created in terraform cloud:
+
 .. image:: assets/variable-set.JPG
 
 
 GitHub
-------
+#######
 
 -  Fork and Clone Repo. Navigate to ``Actions`` tab and enable it.
 
@@ -85,10 +86,11 @@ GitHub
          value ``aks-cluster``
 
 -  Created GitHub Action Secrets:
+
 .. image:: assets/action-secret.JPG
 
 Workflow Runs
--------------
+###############
 
 **STEP 1:** Check out a branch with the branch name as suggested below for the workflow you wish to run using
 the following naming convention.
@@ -96,9 +98,9 @@ the following naming convention.
 **DEPLOY**
 
 ========================== =======================
-Workflow                    Branch Name
+Workflow                   Branch Name
 ========================== =======================
-f5-xc-waf-on-re-appconnect  deploy-waf-re-ac-k8s
+f5-xc-waf-on-re-appconnect deploy-waf-re-ac-k8s
 ========================== =======================
 
 Workflow File: `waf-re-ac-k8s-apply.yml </.github/workflows/waf-re-ac-k8s-apply.yml>`__
@@ -106,12 +108,14 @@ Workflow File: `waf-re-ac-k8s-apply.yml </.github/workflows/waf-re-ac-k8s-apply.
 **DESTROY**
 
 =========================== ========================
-Workflow                     Branch Name
+Workflow                    Branch Name
 =========================== ========================
 f5-xc-waf-on-re-appconnect  destroy-waf-re-ac-k8s
 =========================== ========================
 
 Workflow File: `waf-re-ac-k8s-destroy.yml </.github/workflows/waf-re-ac-k8s-destroy.yml>`__
+
+**Note:** Make sure to comment line no. 16 (# *.tfvars) in ".gitignore" file
 
 **STEP 2:** Rename ``azure/azure-infra/terraform.tfvars.examples`` to ``azure/azure-infra/terraform.tfvars`` and add the following data: 
 
@@ -119,9 +123,9 @@ Workflow File: `waf-re-ac-k8s-destroy.yml </.github/workflows/waf-re-ac-k8s-dest
 
 -  azure_region = “Azure Region/Location” ex. "southeastasia".
 
--  aks-cluster = Set this value to true as we need AKS cluster in our usecase.
+-  aks-cluster = Set this value to true as we need AKS cluster in our use-case.
 
--  Also update assets boolean value as per your workflow.
+-  Also update assets boolean value as per your workflow. (for this use-case set all remaining values as false)
 
 **Step 3:** Rename ``xc/terraform.tfvars.examples`` to ``xc/terraform.tfvars`` and add the following data: 
 
@@ -137,9 +141,9 @@ Workflow File: `waf-re-ac-k8s-destroy.yml </.github/workflows/waf-re-ac-k8s-dest
 
 -  k8s_pool = "Set to true as backend is residing in k8s"
 
--  serviceName = "k8s service name of backend"
+-  serviceName = "k8s service name of backend" (for this use case set it to "frontend.default")
 
--  serviceport = "k8s service port of backend"
+-  serviceport = "k8s service port of backend" (for this use case set it to "80")
 
 -  advertise_sites = "set to false as we want to advertise on public"
 
@@ -150,6 +154,8 @@ Workflow File: `waf-re-ac-k8s-destroy.yml </.github/workflows/waf-re-ac-k8s-dest
 -  az_ce_site = "set to true since we want to deploy azure CE site"
 
 -  xc_service_discovery = "set to true as want to create service discovery object in XC console"
+
+-  Set azure = "azure-infra"
 
 **STEP 4:** Commit and push your build branch to your forked repo 
 

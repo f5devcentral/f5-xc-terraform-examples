@@ -1,8 +1,3 @@
-resource "tls_private_key" "key" {
-  count = var.az_ce_site ? 1 : 0
-  algorithm = "RSA"
-}
-
 resource "volterra_cloud_credentials" "azure_cred" {
   count = var.az_ce_site ? 1 : 0
   name      = format("%s-az-creds-%s", local.project_prefix, local.build_suffix)
@@ -61,12 +56,19 @@ resource "volterra_azure_vnet_site" "azure_vnet_site" {
   lifecycle {
     ignore_changes = [labels]
   }
+  ssh_key = var.ssh_key
+}
 
-  ssh_key = tls_private_key.key[0].public_key_openssh
+resource "null_resource" "validation-wait" {
+  count = var.az_ce_site ? 1 : 0
+  provisioner "local-exec" {
+    command = "sleep 70"
+  }
 }
 
 resource "volterra_tf_params_action" "action_apply" {
   count = var.az_ce_site ? 1 : 0
+  depends_on      = [null_resource.validation-wait]
   site_name       = volterra_azure_vnet_site.azure_vnet_site[0].name
   site_kind       = "azure_vnet_site"
   action          = "apply"

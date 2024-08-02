@@ -1,8 +1,8 @@
 Getting started with WAF on CE terraform automation
----------------
+######################################################
 
 Prerequisites
--------------
+--------------
 
 -  `F5 Distributed Cloud (F5 XC) Account <https://console.ves.volterra.io/signup/usage_plan>`__
 -  `Azure Account <https://azure.microsoft.com/en-in/get-started/azure-portal/>`__ 
@@ -11,7 +11,7 @@ Prerequisites
 
 
 List of Existing Assets
------------------------
+------------------------
 
 -  **xc:** F5 Distributed Cloud WAF
 -  **infra:** Azure Infrastructure
@@ -20,7 +20,7 @@ List of Existing Assets
 
 
 Tools
------
+------
 
 -  **Cloud Provider:** Azure
 -  **IAC:** Terraform
@@ -28,7 +28,7 @@ Tools
 -  **CI/CD:** GitHub Actions
 
 Terraform Cloud
----------------
+----------------
 
 -  **Workspaces:** Create CLI or API workspaces for each asset in the
    workflow.
@@ -36,7 +36,7 @@ Terraform Cloud
    +---------------------------+-------------------------------------------+
    |         **Workflow**      |  **Assets/Workspaces**                    |
    +===========================+===========================================+
-   | f5-xc-waf-on-ce           | infra, aks-cluster, xc-deploy             |
+   | f5-xc-waf-on-ce           | azure-infra, aks-cluster, xc-deploy       |
    +---------------------------+-------------------------------------------+
 
 .. image:: assets/workspaces.JPG
@@ -50,30 +50,31 @@ Terraform Cloud
    +------------------------------------------+--------------+------------------------------------------------------+
    |         **Name**                         |  **Type**    |      **Description**                                 |
    +==========================================+==============+======================================================+
-   | TF_VAR_azure_service_principal_appid     | Environment  |  Service Principal App ID                            |
+   | TF_VAR_azure_service_principal_appid     | Environment  |Service Principal App ID                              |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | TF_VAR_azure_service_principal_password  | Environment  |  Service Principal Secret                            |
+   | TF_VAR_azure_service_principal_password  | Environment  |Service Principal Secret                              |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | TF_VAR_azure_subscription_id             | Environment  |  Your Subscription ID                                | 
+   | TF_VAR_azure_subscription_id             | Environment  |Your Subscription ID                                  | 
    +------------------------------------------+--------------+------------------------------------------------------+
-   | TF_VAR_azure_subscription_tenant_id      | Environment  |  Subscription Tenant ID                              |
+   | TF_VAR_azure_subscription_tenant_id      | Environment  |Subscription Tenant ID                                |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | VES_P12_PASSWORD                         | Environment  |  Password set while creating F5XC API certificate    |
+   | VES_P12_PASSWORD                         | Environment  |Password set while creating F5XC API certificate      |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | VOLT_API_P12_FILE                        | Environment  |  Your F5XC API certificate. Set this to **api.p12**  |
+   | VOLT_API_P12_FILE                        | Environment  |Your F5XC API certificate. Set this to **api.p12**    |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | ssh_key                                  | TERRAFORM    |  Your ssh key for accessing the created resources    | 
+   | ssh_key                                  | TERRAFORM    |Your ssh key for accessing the created resources      | 
    +------------------------------------------+--------------+------------------------------------------------------+
-   | tf_cloud_organization                    | TERRAFORM    |  Your Terraform Cloud Organization name              |
+   | tf_cloud_organization                    | TERRAFORM    |Your Terraform Cloud Organization name                |
    +------------------------------------------+--------------+------------------------------------------------------+
 
 
 -  Variable set created in terraform cloud:
+
 .. image:: assets/variable-set.JPG
 
 
 GitHub
-------
+-------
 
 -  Fork and Clone Repo. Navigate to ``Actions`` tab and enable it.
 
@@ -86,14 +87,21 @@ GitHub
    -  TF_CLOUD_WORKSPACE\_\ *<Workspace Name>*: Create for each
       workspace in your workflow per each job
 
+      -  EX: TF_CLOUD_WORKSPACE_AZURE_INFRA would be created with the
+         value ``azure-infra``
+
       -  EX: TF_CLOUD_WORKSPACE_AKS_CLUSTER would be created with the
          value ``aks-cluster``
 
+      -  EX: TF_CLOUD_WORKSPACE_XC_DEPLOY would be created with the
+         value ``xc-deploy``
+
 -  Created GitHub Action Secrets:
+
 .. image:: assets/action-secret.JPG
 
 Workflow Runs
--------------
+--------------
 
 **STEP 1:** Check out a branch with the branch name as suggested below for the workflow you wish to run using
 the following naming convention.
@@ -118,13 +126,17 @@ f5-xc-waf-on-ce  destroy-waf-az-ce
 
 Workflow File: `waf-on-ce-az-destroy.yml </.github/workflows/waf-on-ce-az-destroy.yml>`__
 
+**Note:** Make sure to comment line no. 16 (# *.tfvars) in ".gitignore" file
+
 **STEP 2:** Rename ``azure/azure-infra/terraform.tfvars.examples`` to ``azure/azure-infra/terraform.tfvars`` and add the following data: 
 
--  project_prefix = “Your project identifier name in **lower case** letters only - this will be applied as a prefix to all assets”
+-  Set project_prefix = “Your project identifier name in **lower case** letters only - this will be applied as a prefix to all assets”
 
--  azure_region = “Azure Region/Location” ex. "southeastasia"
+-  Set azure_region = “Azure Region/Location” ex. "southeastasia"
 
--  Also update assets boolean value as per your workflow, here set aks-cluster to true
+-  Set aks-cluster to true
+
+-  Also update assets boolean value as per your workflow (for this use-case set all remaining values as false)
 
 **Step 3:** Rename ``xc/terraform.tfvars.examples`` to ``xc/terraform.tfvars`` and add the following data: 
 
@@ -138,21 +150,23 @@ Workflow File: `waf-on-ce-az-destroy.yml </.github/workflows/waf-on-ce-az-destro
 
 -  xc_waf_blocking = “Set to true to configure waf in blocking mode”
 
--  k8s_pool = "set to true if application is residing in k8s environment"
+-  k8s_pool = "set to true as application is residing in k8s environment"
 
--  serviceName = "k8s service name of frontend microservice"
+-  serviceName = "k8s service name of frontend microservice" (for this use case set it to "frontend.default")
 
--  serviceport = "k8s service port of frontend microservice"
+-  serviceport = "k8s service port of frontend microservice" (for this use case set it to "80")
 
--  advertise_sites = "set to false if want to advertise on public"
+-  advertise_sites = "set to true for this use case"
 
--  http_only = "set to true if want to deploy a http loadbalancer, for https lb set it to false"
+-  http_only = "set to true as we want to deploy a http loadbalancer"
 
--  az_ce_site = "set to true if want to deploy azure CE site"
+-  az_ce_site = "set to true as we want to deploy azure CE site"
 
--  xc_service_discovery = "set to true if want to create service discovery object in XC console"
+-  xc_service_discovery = "set to true as we want to create service discovery object in XC console"
 
-Keep the rest of the values as they are.
+-  Set azure = "azure-infra"
+
+Keep rest of the values as they are set by default in terraform.tfvars.examples file.
 
 **STEP 4:** Commit and push your build branch to your forked repo 
 

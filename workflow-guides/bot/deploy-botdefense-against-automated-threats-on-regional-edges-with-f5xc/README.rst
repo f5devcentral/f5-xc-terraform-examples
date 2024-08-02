@@ -1,5 +1,5 @@
 Deploying F5 XC Bot Defense on Regional Edge
-=============================
+=============================================
 
 
 --------------
@@ -24,4 +24,4 @@ Workflow Instructions
 
 `F5 Distributed Cloud Console Workflow <./xc-console-demo-guide.rst>`__
 
-`COMING SOON** F5 Distributed Cloud Automation Workflow <./automation-demo-guide.rst>`__
+`F5 Distributed Cloud Automation Workflow <./automation-demo-guide.rst>`__

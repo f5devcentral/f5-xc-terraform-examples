@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.web.service.name }}
+  labels:
+    release: {{ .Release.Name }}
+    {{- toYaml .Values.web.service.labels | nindent 4 }}
+spec:
+  ports:
+  - port: {{ .Values.web.port }}
+    targetPort: 80
+    nodePort: {{ .Values.web.service.nodePort }}
+    name: nginx
+  - port: {{ .Values.web.sslPort }}
+    targetPort: 443
+    nodePort: {{ .Values.web.service.sslNodePort }}
+    name: nginx-ssl
+  type: LoadBalancer
+  selector:
+    {{- toYaml .Values.web.serviceSelectorLabels | nindent 4 }}

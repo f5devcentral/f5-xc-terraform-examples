@@ -1,8 +1,6 @@
 Deploying F5 XC WAF on Regional Edge
 ======================================
 
-.. contents:: Table of Contents
-
 Overview
 #########
 This demo guide provides step-by-step walkthrough for configuring WAF on RE using XC console along with terraform scripts to automate the deployment. For more information on different WAAP deployment modes, refer to the devcentral article: `Deploy WAF Anywhere with F5

@@ -1,26 +1,28 @@
 Getting started with WAF on GCP CE terraform automation
----------------
+#########################################################
 
 Prerequisites
--------------
+--------------
 
 -  `F5 Distributed Cloud (F5 XC) Account <https://console.ves.volterra.io/signup/usage_plan>`__
 -  `GCP Account <https://cloud.google.com/docs/get-started>`__
 -  `Terraform Cloud Account <https://developer.hashicorp.com/terraform/tutorials/cloud-get-started>`__
 -  `GitHub Account <https://github.com>`__
 -  `SSH key pair <https://cloud.google.com/compute/docs/connect/create-ssh-keys>`__
+-  `GCP Service Account <https://community.f5.com/kb/technicalarticles/creating-a-credential-in-f5-distributed-cloud-for-gcp/298290>`__
 
 
 List of Existing Assets
------------------------
+------------------------
 
 -  **xc:** F5 Distributed Cloud WAF
 -  **infra:** GCP Infrastructure
 -  **App:** Juiceshop demo application
 
 
+
 Tools
------
+------
 
 -  **Cloud Provider:** GCP
 -  **IAC:** Terraform
@@ -28,7 +30,7 @@ Tools
 -  **CI/CD:** GitHub Actions
 
 Terraform Cloud
----------------
+----------------
 
 -  **Workspaces:** Create CLI or API workspaces for each asset in the
    workflow. ``NOTE: Please use unique workspaces for each work-flow and don't club them with other use cases as you may run into conflicting cloud resource and provider errors.``
@@ -36,7 +38,7 @@ Terraform Cloud
    +---------------------------+-------------------------------------------+
    |         **Workflow**      |  **Assets/Workspaces**                    |
    +===========================+===========================================+
-   |   deploy-waf-gcp          |   infra, juiceshop, xc                    |
+   | deploy-waf-gcp            | gcp-infra, juiceshop, xc                  |
    +---------------------------+-------------------------------------------+
 
 
@@ -48,28 +50,28 @@ Terraform Cloud
    +------------------------------------------+--------------+------------------------------------------------------+
    |         **Name**                         |  **Type**    |      **Description**                                 |
    +==========================================+==============+======================================================+
-   |        GOOGLE_CREDENTIALS                | Environment  |  Google credentials file content                     |
+   | GOOGLE_CREDENTIALS                       | Environment  | Google credentials file content of Service Account   |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | VES_P12_PASSWORD                         | Environment  |  Password set while creating F5XC API certificate    |
+   | VES_P12_PASSWORD                         | Environment  | Password set while creating F5XC API certificate     |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | VOLT_API_P12_FILE                        | Environment  |  Your F5XC API certificate. Set this to **api.p12**  |
+   | VOLT_API_P12_FILE                        | Environment  | Your F5XC API certificate. Set this to **api.p12**   |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | ssh_key                                  | TERRAFORM    |  Your ssh key for accessing the created resources    |
+   | ssh_key                                  | TERRAFORM    | Your ssh key for accessing the created resources     |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | tf_cloud_organization                    | TERRAFORM    |  Your Terraform Cloud Organization name              |
+   | tf_cloud_organization                    | TERRAFORM    | Your Terraform Cloud Organization name               |
    +------------------------------------------+--------------+------------------------------------------------------+
 
 
 
 GitHub
-------
+-------
 
 -  Fork and Clone Repo. Navigate to ``Actions`` tab and enable it.
 
 -  **Actions Secrets:** Create the following GitHub Actions secrets in
    your forked repo
 
-   -  P12: The linux base64 encoded F5XC P12 certificate
+   -  P12: The linux base64 encoded F5XC P12 certificate. NOTE: you can run `base64 <file-name>` to get this output
    -  TF_API_TOKEN: Your Terraform Cloud API token
    -  TF_CLOUD_ORGANIZATION: Your Terraform Cloud Organization name
    -  GOOGLE_CREDENTIALS: Your GCP credentials file content
@@ -78,7 +80,7 @@ GitHub
       workspace in your workflow per each job
 
       -  TF_CLOUD_WORKSPACE_INFRA would be created with the
-         value ``infra``
+         value ``gcp-infra``
 
       -  TF_CLOUD_WORKSPACE_APP would be created with the
          value ``juiceshop``
@@ -88,7 +90,7 @@ GitHub
 
 
 Workflow Runs
--------------
+--------------
 
 **STEP 1:** Check out a branch with the branch name as suggested below for the workflow you wish to run using
 the following naming convention.
@@ -96,9 +98,9 @@ the following naming convention.
 **DEPLOY**
 
 ================================               =======================
-Workflow                                         Branch Name
+Workflow                                       Branch Name
 ================================               =======================
-Deploy F5 XC WAF on GCP CE                       deploy-waf-gcp
+Deploy F5 XC WAF on GCP CE                     deploy-waf-gcp
 ================================               =======================
 
 Workflow File: `gcp-waf-ce-apply.yaml </.github/workflows/gcp-waf-ce-apply.yaml>`__
@@ -106,12 +108,14 @@ Workflow File: `gcp-waf-ce-apply.yaml </.github/workflows/gcp-waf-ce-apply.yaml>
 **DESTROY**
 
 ================================               =======================
-Workflow                                         Branch Name
+Workflow                                       Branch Name
 ================================               =======================
-Destroy F5 XC WAF on GCP CE                      destroy-waf-gcp
+Destroy F5 XC WAF on GCP CE                    destroy-waf-gcp
 ================================               =======================
 
 Workflow File: `gcp-waf-ce-destroy.yml </.github/workflows/gcp-waf-ce-destroy.yaml>`__
+
+**Note:** Make sure to comment line no. 16 (# *.tfvars) in ".gitignore" file
 
 **STEP 2:** Rename ``gcp/infra/terraform.tfvars.examples`` to ``gcp/infra/terraform.tfvars`` and add the following data:
 
@@ -145,6 +149,8 @@ Workflow File: `gcp-waf-ce-destroy.yml </.github/workflows/gcp-waf-ce-destroy.ya
 
 -  gcp_ce_site = "set to true since we want to deploy GCP CE site"
 
+-  gcp = "gcp-infra"
+
 .. image:: assets/xc-tfvars.JPG
 
 
@@ -162,6 +168,7 @@ Workflow File: `gcp-waf-ce-destroy.yml </.github/workflows/gcp-waf-ce-destroy.ya
 **STEP 6:** Once CE site is online and to validate the test infra & demo app accessibility, copy the public IP of CE site in `GCP CE Site View mode` and send a request with XC LB domain as a `Host` header, You should be able to access the demo application as shown in the image below:
 
 .. image:: assets/gcp-ce-ip.jpg
+   
 .. image:: assets/postman.jpg
 
 

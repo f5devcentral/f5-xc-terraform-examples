@@ -14,30 +14,30 @@ Deployment Steps
 1. Create credential for Azure by following the steps mentioned in the `devcentral article <https://community.f5.com/t5/technical-articles/creating-a-credential-in-f5-distributed-cloud-for-azure/ta-p/298316>`_ 
 
 2. Create a Resource group, Virtual network and Subnet
-      i. Login to Azure console and search for "Resource groups"
-      ii. Click on Create button, select your subscription, add the resource group name and region
-      iii. Click “Review + create” and "Create"
-      iv. Search for "Virtual networks" and click Create button
-      v. Select your subscription, set the above created resource group name, virtual network name and region
+      i. Login to Azure console and search for "Resource groups".
+      ii. Click on Create button, select your subscription, add the resource group name and region.
+      iii. Click “Review + create” and "Create".
+      iv. Search for "Virtual networks" and click Create button.
+      v. Select your subscription, set the above created resource group name, virtual network name and region.
       vi. Navigate to IP addresses tab, Configure your virtual network address space and subnet
-      vii. Click “Review + create” and "Create"
+      vii. Click “Review + create” and "Create".
 
 3. Create Azure AKS cluster. 
-      i. From Azure console search for “Kubernetes services”
-      ii. Click on Create button and select "Create Kubernetes cluster"
-      iii. Select your subscription and set the above created resource group
-      iv. Fill in the remaining cluster details and primary node pool fields as needed 
-      v. Navigate to “Networking” tab and click on "Bring your own virtual network"
-      vi. Select the Virtual network created in Step 2
-      vii. Click “Review + create” and create the cluster
+      i. From Azure cloud console search for “Kubernetes services”.
+      ii. Click on Create button and select "Create Kubernetes cluster".
+      iii. Select your subscription and above created resource group.
+      iv. Set Cluster preset configuration as "Dev/Test", enter cluster name and fill in the remaining cluster details as per the requirement, make sure to use same "Region" as that of the created resource group, click on next button.
+      v. Configure node pool, select scale method as manual and enter 1 as a node count.
+      vi. Navigate to “Networking” tab and click on "Bring your own virtual network", Select the Virtual network created in Step 2 and set Cluster subnet.
+      vii. Optionally, disable monitoring section and Click “Review + create” and then create button to bring up the AKS cluster.
 
-4. Select the created AKS cluster and click connect. Follow the instructions to connect to the AKS cluster 
+4. Select the created AKS cluster and click on connect button. Follow the instructions to connect to the AKS cluster 
 
-5. Deploy Online boutique demo application using the `manifest file <https://github.com/GoogleCloudPlatform/microservices-demo/blob/main/release/kubernetes-manifests.yaml>`_
-            i. Execute ``kubectl apply -f <your_manifest.yaml>`` (Note: we have slightly modified the manifest file)
+5. Once connected to the AKS cluster, deploy Online boutique demo application using the `manifest file <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/azure/aks-cluster/manifest.yaml>`_
+            i. Execute ``kubectl apply -f <your_manifest.yaml>``
             ii. Check the status of the pods, execute ``kubectl get pods``
 
-.. figure:: assets/kubectl.JPG
+             .. figure:: assets/kubectl.JPG
 
 6. Create Azure Vnet site from F5 XC console: 
       i. From the Console homepage, select "Multi-Cloud Network Connect".
@@ -56,12 +56,16 @@ Deployment Steps
 .. figure:: assets/az-site.JPG
 
 
-7. Now, create service discovery object, origin pool and HTTP LB in F5 XC console
+7. Now, create service discovery object, origin pool and HTTP LB with a WAF policy in F5 XC console
             i. Select Multi-Cloud App Connect service 
             ii. Select Manage > Service Discoveries and Click "Add Discovery"
             iii. Add a Name, select vnet site created in Step 6 and select network type as "Site Local Network" 
             iv. Select Discovery Method as "K8S Discovery Configuration" 
             v. Select Kubernetes Credentials as Kubeconfig, and add the Kubeconfig file of AKS Cluster created in Step 3, Apply the changes.
+
+
+             .. figure:: assets/service-discovery.JPG
+
             vi. Select Manage > Load Balancers > HTTP Load Balancers and click Add HTTP Load Balancer 
             vii. Enter a name for the new load balancer. Optionally, select a label and enter a description. 
             viii. In the Domains field, enter a domain name 
@@ -75,21 +79,20 @@ Deployment Steps
                               * Select the Azure Vnet site created in Step 6
                               * Select Network on the site as "Outside Network"      
                   e. In Origin server port add port number "80" of the discovered frontend service , Click continue and then Apply
+                   
+                   .. figure:: assets/origin-server.JPG
+            xi. Enable WAF, create and attach a WAF policy in Blocking mode
+              .. figure:: assets/waf.JPG
 
-.. figure:: assets/service-discovery.JPG
-
-.. figure:: assets/origin-server.JPG
-
-* Enable WAF, create and attach a WAF policy in Blocking mode
-* Scroll down to “Other settings” section: 
+            xii. Scroll down to “Other settings” section: 
                         a. In VIP Advertisement field select custom 
                         b. Click Configure and then Add Item 
                         c. Select Where to Advertise field to site and add the Azure site created in step2 
                         d. Select Site network to outside, Click Apply, Save and Exit 
 
-.. figure:: assets/vip-advertise.JPG
+            .. figure:: assets/vip-advertise.JPG
 
-.. figure:: assets/lb.JPG
+            .. figure:: assets/lb.JPG
 
 Testing
 ********

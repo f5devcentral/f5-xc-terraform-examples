@@ -1,8 +1,8 @@
 Getting started with WAF on CE terraform automation
----------------
+#####################################################
 
 Prerequisites
--------------
+--------------
 
 -  `F5 Distributed Cloud (F5 XC) Account <https://console.ves.volterra.io/signup/usage_plan>`__
 -  `AWS Account <https://aws.amazon.com/>`__ 
@@ -11,7 +11,7 @@ Prerequisites
 
 
 List of Existing Assets
------------------------
+------------------------
 
 -  **xc:** F5 Distributed Cloud WAF
 -  **infra:** AWS Infrastructure
@@ -20,7 +20,7 @@ List of Existing Assets
 
 
 Tools
------
+------
 
 -  **Cloud Provider:** AWS
 -  **IAC:** Terraform
@@ -28,17 +28,17 @@ Tools
 -  **CI/CD:** GitHub Actions
 
 Terraform Cloud
----------------
+----------------
 
 -  **Workspaces:** Create CLI or API workspaces for each asset in the workflow as mentioned below.
 
    +---------------------------+-----------------------------------------------------+
    |         **Workflow**      |  **Assets/Workspaces**                              |
    +===========================+=====================================================+
-   | F5 XC WAF on CE Deploy    | infra, aws_eks_cluster, boutique_app, xc-ce-site    |
+   | F5 XC WAF on CE Deploy    | aws-infra, aws_eks_cluster, boutique_app, xc-ce-site|
    +---------------------------+-----------------------------------------------------+
 
-.. image:: Assets/workspace.jpg
+.. image:: Assets/workspace-new.jpg
 
 
 -  **Workspace Sharing:** Under the settings for each Workspace, set the
@@ -49,32 +49,33 @@ Terraform Cloud
    +------------------------------------------+--------------+------------------------------------------------------+
    |         **Name**                         |  **Type**    |      **Description**                                 |
    +==========================================+==============+======================================================+
-   | AWS_ACCESS_KEY_ID                        | Environment  |  AWS Access Key ID                                   |
+   | AWS_ACCESS_KEY_ID                        | Environment  |AWS Access Key ID                                     |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | AWS_SECRET_ACCESS_KEY                    | Environment  |  AWS Secret Access Key ID                            |
+   | AWS_SECRET_ACCESS_KEY                    | Environment  |AWS Secret Access Key ID                              |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | AWS_SESSION_TOKEN                        | Environment  |  AWS Session Token                                   | 
+   | AWS_SESSION_TOKEN                        | Environment  |AWS Session Token                                     | 
    +------------------------------------------+--------------+------------------------------------------------------+
-   | TF_VAR_aws_access_key                    | Environment  |  AWS Programmatic Access Key ID                      |
+   | TF_VAR_aws_access_key                    | Environment  |AWS Programmatic Access Key ID                        |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | TF_VAR_aws_secret_key                    | Environment  |  AWS Programmatic Secret Access Key                  |
+   | TF_VAR_aws_secret_key                    | Environment  |AWS Programmatic Secret Access Key                    |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | VES_P12_PASSWORD                         | Environment  |  Password set while creating F5XC API certificate    |
+   | VES_P12_PASSWORD                         | Environment  |Password set while creating F5XC API certificate      |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | VOLT_API_P12_FILE                        | Environment  |  Your F5XC API certificate. Set this to **api.p12**  |
+   | VOLT_API_P12_FILE                        | Environment  |Your F5XC API certificate. Set this to **api.p12**    |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | ssh_key                                  | TERRAFORM    |  Your ssh key for accessing the created resources    | 
+   | ssh_key                                  | TERRAFORM    |Your ssh key for accessing the created resources      | 
    +------------------------------------------+--------------+------------------------------------------------------+
-   | tf_cloud_organization                    | TERRAFORM    |  Your Terraform Cloud Organization name              |
+   | tf_cloud_organization                    | TERRAFORM    |Your Terraform Cloud Organization name                |
    +------------------------------------------+--------------+------------------------------------------------------+
 
 
--  Variable set created in terraform cloud:
+-  Variable set created in terraform cloud: 
+
 .. image:: Assets/variable_set.jpg
 
 
 GitHub
-------
+-------
 
 -  Fork and Clone Repo. Navigate to ``Actions`` tab and enable it.
 
@@ -85,17 +86,18 @@ GitHub
    -  SSH_KEY: ssh key for accessing the created resources
    -  TF_API_TOKEN: Your Terraform Cloud API token
    -  TF_CLOUD_ORGANIZATION: Your Terraform Cloud Organization name
-   -  TF_CLOUD_WORKSPACE_BOUTIQUE: Your Terraform Cloud workspace for Boutique app
-   -  TF_CLOUD_WORKSPACE_EKS: Your Terraform Cloud workspace for AWS EKS Cluster
-   -  TF_CLOUD_WORKSPACE_INFRA: Your Terraform Cloud workspace for AWS Infrastructure
-   -  TF_CLOUD_WORKSPACE_XC: Your Terraform Cloud workspace for F5 XC
+   -  TF_CLOUD_WORKSPACE_BOUTIQUE: boutique_app
+   -  TF_CLOUD_WORKSPACE_EKS: aws_eks_cluster
+   -  TF_CLOUD_WORKSPACE_INFRA: aws-infra
+   -  TF_CLOUD_WORKSPACE_XC: xc-ce-site
    
 
--  Created GitHub Action Secrets:
+-  Created GitHub Action Secrets: 
+
 .. image:: Assets/secrets_github2.jpg
 
 Workflow Runs
--------------
+--------------
 
 **STEP 1:** Check out a branch with the branch name as suggested below for the workflow you wish to run using
 the following naming convention.
@@ -103,9 +105,9 @@ the following naming convention.
 **DEPLOY**
 
 ======================        =======================
-Workflow                        Branch Name
+Workflow                      Branch Name
 ======================        =======================
-F5 XC WAF on CE Deploy          deploy-waf-aws-ce
+F5 XC WAF on CE Deploy        deploy-waf-aws-ce
 ======================        =======================
 
 Workflow File: `waf-on-ce-aws-apply.yml </.github/workflows/waf-on-ce-aws-apply.yml>`__
@@ -119,6 +121,8 @@ F5 XC WAF on CE Destroy         destroy-waf-aws-ce
 ========================        =======================
 
 Workflow File: `waf-on-ce-aws-destroy.yml </.github/workflows/waf-on-ce-aws-destroy.yml>`__
+
+**Note:** Make sure to comment line no. 16 (# *.tfvars) in ".gitignore" file
 
 **STEP 2:** Rename ``aws/infra/terraform.tfvars.examples`` to ``aws/infra/terraform.tfvars`` and add the following data: 
 
@@ -138,6 +142,7 @@ Workflow File: `waf-on-ce-aws-destroy.yml </.github/workflows/waf-on-ce-aws-dest
 -  min_size = "set to number 1"
 -  skip_private_subnet_creation = "set the boolean to true to deploy EKS Cluster Nodes in Public Subnets"
 -  allow_all_ingress_traffic_to_cluster = "Set the boolean to true to accept the traffic from F5 XC VPC Site(master)"
+-  aws_waf_ce = "aws-infra"
 
 **Step 4:** Rename ``xc/terraform.tfvars.examples`` to ``xc/terraform.tfvars`` and add the following data: 
 
@@ -161,6 +166,8 @@ Workflow File: `waf-on-ce-aws-destroy.yml </.github/workflows/waf-on-ce-aws-dest
 
 -  http_only = "set to true to deploy a http loadbalancer."
 
+-  aws = "aws-infra"
+
 
 Keep the rest of the values as they are.
 
@@ -168,7 +175,7 @@ Keep the rest of the values as they are.
 
 - Build will run and can be monitored in the GitHub Actions tab and TF Cloud console
 
-.. image:: Assets/deploy_pipeline.jpg
+.. image:: Assets/pipeline-execution-Apr-24.jpg
 
 **STEP 5:** Once the pipeline completes, verify your CE, Origin Pool and LB were deployed or destroyed based on your workflow. (**Note:** CE sites will take 15-20 mins to come online)
 
@@ -178,7 +185,7 @@ Keep the rest of the values as they are.
 
 **Note:** If you want to destroy the entire setup, checkout a branch with name ``destroy-waf-aws-ce`` and push the repo code to it which will trigger destroy workflow and will remove all created resources.
 
-.. image:: Assets/destroy_pipeline.jpg
+.. image:: Assets/destroy_pipeline-Apr-24.jpg
 
 **Note:** Due to timing issue there might be chance of not deleting the AWS VPC site. Please remove the VPS site while deploying Infra again.
 

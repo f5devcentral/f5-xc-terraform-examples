@@ -1,6 +1,6 @@
 
 Deploy Bot Defense for AWS Cloudfront Distributions with F5 XC
-===========================================
+==============================================================
 
 Objective :
 -----------
@@ -10,7 +10,7 @@ This guide will outline the steps for implementing F5 XC Bot Defense to protect 
 
 
 Bot Defense on RE Architectural Diagram :
------------------------
+-----------------------------------------
 .. image:: assets/awscfdiag.png
    :width: 100%
 
@@ -18,7 +18,7 @@ Manual step by step process for deployment:
 -------------------------------------------
 
 Console Deployment Prerequisites:
-^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 1. F5 Distributed Cloud Account (F5XC)
 2. AWS Cloud Account
@@ -62,7 +62,7 @@ View Kubernetes Resources:
    :width: 50%
 
 Deploy our Sample Airline Application to the EKS Cluster:
-=======================================================
+=========================================================
 1. Create a namespace using the "kubectl create namespace eks-airline-app"
 2. Download the Kubernetes Manifest made custom for AWS EKS using our sample Airline application `here <https://github.com/karlbort/f5-xc-waap-terraform-examples/blob/main/workflow-guides/bot/deploy-botdefense-for-awscloudfront-distributions-with-f5-distributedcloud/airline-app/eks-airflask.yaml>`_ and save it to a directory
 3. From CLI Navigate to the directory containing the container image YAML file and run the command "kubectl apply -f eks-airflask.yaml -n eks-airline-app".
@@ -102,7 +102,7 @@ Creating your Namespace in F5 XC:
 
 
 Create a new Bot Defense application for AWS CloudFront
-=======================================================
+========================================================
 
 1. Log in to your F5 Distributed Cloud Console
 2. Go to the Dashboard page of XC console and click Bot Defense
@@ -181,7 +181,7 @@ Define Web Client JavaScript Insertion Settings:
 
 
 Download Config File and AWS Installer Tool:
-====================================
+=============================================
 1. Back in the Bot Defense Dashboard under  Manage > Applications In the Actions column next to your newly created Cloudfront Connector, click the 3 ellipses (…) on your application. Download both the Config File and the AWS Installer.
 
 .. image:: assets/download.png

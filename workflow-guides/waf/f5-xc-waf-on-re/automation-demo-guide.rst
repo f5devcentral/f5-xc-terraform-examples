@@ -1,8 +1,8 @@
 Getting Started With Terraform Automation
----------------
+--------------------------------------------
 
 Prerequisites
--------------
+##############
 
 -  `F5 Distributed Cloud Account
    (F5XC) <https://console.ves.volterra.io/signup/usage_plan>`__
@@ -17,7 +17,7 @@ Prerequisites
 
 
 List of Products Used
------------------------
+######################
 
 -  **xc:** F5 Distributed Cloud WAF
 -  **infra:** Azure Infrastructure (VM with NGINX image)
@@ -25,7 +25,7 @@ List of Products Used
 
 
 Tools
------
+######
 
 -  **Cloud Provider:** Azure
 -  **IAC:** Terraform
@@ -33,7 +33,7 @@ Tools
 -  **CI/CD:** GitHub Actions
 
 Terraform Cloud
----------------
+################
 
 -  **Workspaces:** Create a CLI or API workspace for each asset in the
    workflow chosen as shown below.
@@ -55,30 +55,31 @@ Terraform Cloud
    +------------------------------------------+--------------+------------------------------------------------------+
    |         **Name**                         |  **Type**    |      **Description**                                 |
    +==========================================+==============+======================================================+
-   | TF_VAR_azure_service_principal_appid     | Environment  |  Service Principal App ID                            |
+   | TF_VAR_azure_service_principal_appid     | Environment  | Service Principal App ID                             |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | TF_VAR_azure_service_principal_password  | Environment  |  Service Principal Secret                            |
+   | TF_VAR_azure_service_principal_password  | Environment  | Service Principal Secret                             |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | TF_VAR_azure_subscription_id             | Environment  |  Your Subscription ID                                | 
+   | TF_VAR_azure_subscription_id             | Environment  | Your Subscription ID                                 | 
    +------------------------------------------+--------------+------------------------------------------------------+
-   | TF_VAR_azure_subscription_tenant_id      | Environment  |  Subscription Tenant ID                              |
+   | TF_VAR_azure_subscription_tenant_id      | Environment  | Subscription Tenant ID                               |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | VES_P12_PASSWORD                         | Environment  |  Password set while creating F5XC API certificate    |
+   | VES_P12_PASSWORD                         | Environment  | Password set while creating F5XC API certificate     |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | VOLT_API_P12_FILE                        | Environment  |  Your F5XC API certificate. Set this to **api.p12**  |
+   | VOLT_API_P12_FILE                        | Environment  | Your F5XC API certificate. Set this to **api.p12**   |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | ssh_key                                  | TERRAFORM    |  Your ssh key for accessing the created resources    | 
+   | ssh_key                                  | TERRAFORM    | Your ssh key for accessing the created resources     | 
    +------------------------------------------+--------------+------------------------------------------------------+
-   | tf_cloud_organization                    | TERRAFORM    |  Your Terraform Cloud Organization name              |
+   | tf_cloud_organization                    | TERRAFORM    | Your Terraform Cloud Organization name               |
    +------------------------------------------+--------------+------------------------------------------------------+ 
 
 
 -  Variable set created in terraform cloud:
+
 .. image:: assets/tc_var_set.JPG
 
 
 GitHub
-------
+#######
 
 -  Fork and Clone Repo. Navigate to ``Actions`` tab and enable it.
 
@@ -89,7 +90,7 @@ GitHub
    -  TF_API_TOKEN: Your Terraform Cloud API token
    -  TF_CLOUD_ORGANIZATION: Your Terraform Cloud Organization name
    -  TF_CLOUD_WORKSPACE\_\ *<Workspace Name>*: Create for each
-      workspace in your workflow per each job
+      workspace used in your workflow
 
       -  EX: TF_CLOUD_WORKSPACE_AZURE_VM would be created with the
          value ``azure-vm``
@@ -99,7 +100,7 @@ GitHub
 .. image:: assets/github_secret.JPG
 
 Workflow Runs
--------------
+##############
 
 **STEP 1:** Check out a branch with the branch name as suggested below for the workflow you wish to run using
 the following naming convention.
@@ -124,13 +125,17 @@ f5-xc-waf-on-re  destroy-waf-re
 
 Workflow File: `waf-re-destroy.yml </.github/workflows/waf-re-destroy.yml>`__
 
+**Note:** Make sure to comment line no. 16 (# *.tfvars) in ".gitignore" file
+
 **STEP 2:** Rename ``azure/azure-infra/terraform.tfvars.examples`` to ``azure/azure-infra/terraform.tfvars`` and add the following data: 
 
 -  project_prefix = “Your project identifier name in **lower case** letters only - this will be applied as a prefix to all assets”
 
 -  azure_region = “Azure Region/Location” ex. "southeastasia"
 
--  Also update assets boolean value as per your workflow, here set azure-vm and vm_public_ip to true
+-  Set azure-vm and vm_public_ip to true 
+
+-  Also update remaining assets boolean value as per your workflow. (for this use case remaining all values are false)
 
 **Step 3:** Rename ``xc/terraform.tfvars.examples`` to ``xc/terraform.tfvars`` and add the following data: 
 

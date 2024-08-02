@@ -1,0 +1,673 @@
+name: "Secure MCN Destroy"
+
+on:
+  workflow_dispatch:
+    inputs:
+      deployment:
+        description: 'Select Deployment to run (deploy-resources destroys the workload and all sites)'
+        required: true
+        default: 'deploy-resources'
+        type: choice
+        options:
+        - azure-vnet-site
+        - aws-vpc-site
+        - gcp-vpc-site
+        - deploy-resources
+      TF_VAR_prefix:
+        description: "Prefix"
+        required: false
+        type: string
+  workflow_call:
+    inputs:
+      deployment:
+        description: 'Deployment to run'
+        required: true
+        type: string
+      TF_VAR_prefix:
+        description: "Prefix"
+        required: false
+        type: string
+    secrets:
+      TF_CLOUD_ORGANIZATION:
+      TF_API_TOKEN:
+      XC_API_URL:
+      XC_P12_PASSWORD:
+      XC_API_P12_FILE:
+      AWS_ACCESS_KEY:
+      AWS_SECRET_KEY:
+      AWS_SESSION_TOKEN:
+      XC_AWS_CLOUD_CREDENTIALS_NAME:
+      AZURE_SUBSCRIPTION_ID:
+      AZURE_TENANT_ID:
+      AZURE_CLIENT_ID:
+      AZURE_CLIENT_SECRET:
+      XC_AZURE_CLOUD_CREDENTIALS_NAME:
+
+jobs:
+  apply_variables:
+    name: "Apply Environment Variables"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "./workflow-guides/smcn/mcn-distributed-apps-l3/terraform"
+    env: 
+      TF_VAR_name: "secure-mcn"
+      TF_VAR_prefix: ""
+      TF_CLOUD_WORKSPACE_AWS_CREDENTIALS: ""
+      TF_CLOUD_WORKSPACE_AWS_NETWORKING: ""
+      TF_CLOUD_WORKSPACE_AWS_VPC_SITE: ""
+      TF_CLOUD_WORKSPACE_SECUREMCN_AWS_VM: "secure-mcn-aws-vm"
+      TF_CLOUD_WORKSPACE_SECUREMCN_AWS_EKS: "secure-mcn-aws-eks"
+      TF_CLOUD_WORKSPACE_SECUREMCN_AWS_EKS_NIC: "secure-mcn-aws-eks-nic"
+      TF_CLOUD_WORKSPACE_SECUREMCN_AZURE_VM: "secure-mcn-azure-vm"
+      TF_CLOUD_WORKSPACE_SECUREMCN_AZURE_AKS: "secure-mcn-azure-aks"
+      TF_CLOUD_WORKSPACE_SECUREMCN_GCP_VPC_SITE: "secure-mcn-gcp-vpc-site"
+      TF_CLOUD_WORKSPACE_SECUREMCN_GCP_GKE: "secure-mcn-gcp-gke"
+      TF_CLOUD_WORKSPACE_SECUREMCN_WORKLOAD: "secure-mcn-workload"
+      TF_CLOUD_WORKSPACE_SECUREMCN_XC_CONFIG: "secure-mcn-xc-config"
+      AWS_CLOUD_CREDENTIALS_TF_VAR_name: "aws-cloud-credentials"
+      AWS_NETWORKING_TF_VAR_name: "aws-networking"
+      TF_VAR_aws_vpc_site_name: "aws-vpc-site"
+      TF_VAR_tags: "{\"project\": \"teachable\"}"
+      TF_VAR_aws_region: "us-east-1"
+      TF_VAR_aws_az_names: "[\"us-east-1a\"]"
+      TF_VAR_aws_inside_subnets: "[\"10.10.11.0/24\"]"
+      TF_VAR_aws_outside_subnets: "[\"10.10.31.0/24\"]"
+      TF_VAR_aws_workload_subnets: "[\"10.10.21.0/24\"]"
+      TF_VAR_aws_vpc_cidr: "10.10.0.0/16"
+      TF_CLOUD_WORKSPACE_AZURE_NETWORKING: ""
+      TF_CLOUD_WORKSPACE_AZURE_CREDENTIALS: ""
+      TF_CLOUD_WORKSPACE_AZURE_VNET_SITE: ""
+      AZURE_CLOUD_CREDENTIALS_TF_VAR_name: "azure-cloud-credentials"
+      AZURE_NETWORKING_TF_VAR_name: ""
+      TF_VAR_azure_vnet_site_name: "azure-vnet-site"
+      TF_VAR_azure_location: "centralus"
+      TF_VAR_azure_resource_group_name: ""
+      TF_VAR_azure_inside_subnets: "[\"172.10.21.0/24\"]"
+      TF_VAR_azure_outside_subnets: "[\"172.10.31.0/24\"]"
+      TF_VAR_azure_vnet_cidr: "172.10.0.0/16"
+      TF_VAR_azure_vm_private_ip: "172.10.21.200"
+      TF_VAR_gcp_region: "us-central1"
+      TF_VAR_namespace: ""
+      TF_VAR_app_domain: "arcadia-mcn.f5-cloud-demo.com"
+
+    outputs:
+      TF_CLOUD_WORKSPACE_AWS_CREDENTIALS: ${{ steps.update_output.outputs.TF_CLOUD_WORKSPACE_AWS_CREDENTIALS }}
+      TF_CLOUD_WORKSPACE_AWS_NETWORKING: ${{ steps.update_output.outputs.TF_CLOUD_WORKSPACE_AWS_NETWORKING }}
+      TF_CLOUD_WORKSPACE_AWS_VPC_SITE: ${{ steps.update_output.outputs.TF_CLOUD_WORKSPACE_AWS_VPC_SITE }}
+      TF_CLOUD_WORKSPACE_SECUREMCN_AWS_VM: ${{ steps.update_output.outputs.TF_CLOUD_WORKSPACE_SECUREMCN_AWS_VM }}
+      TF_CLOUD_WORKSPACE_SECUREMCN_AWS_EKS: ${{ steps.update_output.outputs.TF_CLOUD_WORKSPACE_SECUREMCN_AWS_EKS }}
+      TF_CLOUD_WORKSPACE_SECUREMCN_AWS_EKS_NIC: ${{ steps.update_output.outputs.TF_CLOUD_WORKSPACE_SECUREMCN_AWS_EKS_NIC }}
+      TF_CLOUD_WORKSPACE_SECUREMCN_AZURE_VM: ${{ steps.update_output.outputs.TF_CLOUD_WORKSPACE_SECUREMCN_AZURE_VM }}
+      TF_CLOUD_WORKSPACE_SECUREMCN_AZURE_AKS: ${{ steps.update_output.outputs.TF_CLOUD_WORKSPACE_SECUREMCN_AZURE_AKS }}
+      TF_CLOUD_WORKSPACE_SECUREMCN_GCP_VPC_SITE: ${{ steps.update_output.outputs.TF_CLOUD_WORKSPACE_SECUREMCN_GCP_VPC_SITE }}
+      TF_CLOUD_WORKSPACE_SECUREMCN_GCP_GKE: ${{ steps.update_output.outputs.TF_CLOUD_WORKSPACE_SECUREMCN_GCP_GKE }}
+      TF_CLOUD_WORKSPACE_SECUREMCN_WORKLOAD: ${{ steps.update_output.outputs.TF_CLOUD_WORKSPACE_SECUREMCN_WORKLOAD }}
+      TF_CLOUD_WORKSPACE_SECUREMCN_XC_CONFIG: ${{ steps.update_output.outputs.TF_CLOUD_WORKSPACE_SECUREMCN_XC_CONFIG }}
+      AWS_CLOUD_CREDENTIALS_TF_VAR_name: ${{ steps.update_output.outputs.AWS_CLOUD_CREDENTIALS_TF_VAR_name }}
+      AWS_NETWORKING_TF_VAR_name: ${{ steps.update_output.outputs.AWS_NETWORKING_TF_VAR_name }}
+      TF_VAR_name: ${{ steps.update_output.outputs.TF_VAR_name }}
+      TF_VAR_prefix: ${{ steps.update_output.outputs.TF_VAR_prefix }}
+      TF_VAR_aws_vpc_site_name: ${{ steps.update_output.outputs.TF_VAR_aws_vpc_site_name }}
+      TF_VAR_tags: ${{ steps.update_output.outputs.TF_VAR_tags }}
+      TF_VAR_aws_region: ${{ steps.update_output.outputs.TF_VAR_aws_region }}
+      TF_VAR_aws_az_names: ${{ steps.update_output.outputs.TF_VAR_aws_az_names }}
+      TF_VAR_aws_inside_subnets: ${{ steps.update_output.outputs.TF_VAR_aws_inside_subnets }}
+      TF_VAR_aws_outside_subnets: ${{ steps.update_output.outputs.TF_VAR_aws_outside_subnets }}
+      TF_VAR_aws_workload_subnets: ${{ steps.update_output.outputs.TF_VAR_aws_workload_subnets }}
+      TF_VAR_aws_vpc_cidr: ${{ steps.update_output.outputs.TF_VAR_aws_vpc_cidr }}
+      TF_CLOUD_WORKSPACE_AZURE_CREDENTIALS: ${{ steps.update_output.outputs.TF_CLOUD_WORKSPACE_AZURE_CREDENTIALS }}
+      TF_CLOUD_WORKSPACE_AZURE_NETWORKING: ${{ steps.update_output.outputs.TF_CLOUD_WORKSPACE_AZURE_NETWORKING }}
+      TF_CLOUD_WORKSPACE_AZURE_VNET_SITE: ${{ steps.update_output.outputs.TF_CLOUD_WORKSPACE_AZURE_VNET_SITE }}
+      AZURE_CLOUD_CREDENTIALS_TF_VAR_name: ${{ steps.update_output.outputs.AZURE_CLOUD_CREDENTIALS_TF_VAR_name }}
+      AZURE_NETWORKING_TF_VAR_name: ${{ steps.update_output.outputs.AZURE_NETWORKING_TF_VAR_name }}
+      TF_VAR_azure_vnet_site_name: ${{ steps.update_output.outputs.TF_VAR_azure_vnet_site_name }}
+      TF_VAR_azure_location: ${{ steps.update_output.outputs.TF_VAR_azure_location }}
+      TF_VAR_azure_resource_group_name: ${{ steps.update_output.outputs.TF_VAR_azure_resource_group_name }}
+      TF_VAR_azure_inside_subnets: ${{ steps.update_output.outputs.TF_VAR_azure_inside_subnets }}
+      TF_VAR_azure_outside_subnets: ${{ steps.update_output.outputs.TF_VAR_azure_outside_subnets }}
+      TF_VAR_azure_vnet_cidr: ${{ steps.update_output.outputs.TF_VAR_azure_vnet_cidr }}
+      TF_VAR_azure_vm_private_ip: ${{ steps.update_output.outputs.TF_VAR_azure_vm_private_ip }}
+      TF_VAR_gcp_region: ${{ steps.update_output.outputs.TF_VAR_gcp_region }}
+      TF_VAR_namespace: ${{ steps.update_output.outputs.TF_VAR_namespace }}
+      TF_VAR_app_domain: ${{ steps.update_output.outputs.TF_VAR_app_domain }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - id: apply_variables 
+        uses: f5devcentral/f5-xc-terraform-examples/.github/actions/apply-variables@main
+        with: 
+          vars_json: "${{ toJSON(vars) }}" 
+          vars_prefix: "TF_VAR_"
+          inputs_json: "${{ toJSON(inputs) }}" 
+        
+      - name: update_output
+        id: update_output
+        shell: bash
+        env:
+          ALL_ENV: ${{ toJSON(env) }}
+        run: |
+          echo "$ALL_ENV" |
+          jq -r ' 
+              to_entries | 
+              .[] | 
+              select(.key) | 
+              select(if .value | type == "string" then .value | length > 0 else .value != null end) | 
+              "\(.key)=\(.value)" 
+          ' >> "$GITHUB_OUTPUT" 
+
+
+
+  xc_config:
+    name: "Destroy XC Resources"
+    needs: [apply_variables, aws_credentials, azure_credentials, gcp_vpc_site]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "./workflow-guides/smcn/mcn-distributed-apps-l3/terraform/xc-config"
+    env: 
+      TF_VAR_name: ${{ needs.apply_variables.outputs.TF_VAR_name }}
+      TF_VAR_prefix: ${{ needs.apply_variables.outputs.TF_VAR_prefix }}
+      TF_VAR_resource_owner: "github-workflow"
+      TF_VAR_aws_vpc_cidr:  "127.0.0.0/16"
+      TF_VAR_azure_vnet_cidr:  "127.0.0.0/16"
+      TF_VAR_gcp_vnet_cidr: "127.0.0.0/16"
+      TF_VAR_gcp_vnet_proxy_cird:  "127.0.0.0/16"
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }} 
+      TF_CLOUD_ORGANIZATION: ${{ secrets.TF_CLOUD_ORGANIZATION }} 
+      TF_CLOUD_WORKSPACE_SECUREMCN_XC_CONFIG: ${{ needs.apply_variables.outputs.TF_CLOUD_WORKSPACE_SECUREMCN_XC_CONFIG }}
+      VOLT_API_URL: ${{ secrets.XC_API_URL }}
+      VOLT_API_P12_FILE: ${{ secrets.XC_API_P12_FILE }}
+      VES_P12_PASSWORD: ${{ secrets.XC_P12_PASSWORD }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Setup Terraform Backend
+        id: backend
+        run: |
+          echo "${{secrets.XC_API_P12_FILE}}" | base64 -d > api.p12
+          echo VOLT_API_P12_FILE="$PWD/api.p12" >> "$GITHUB_ENV"
+
+          cat > backend.tf << EOF
+          terraform {
+            cloud {
+              organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
+              workspaces {
+                name = "$TF_CLOUD_WORKSPACE_SECUREMCN_XC_CONFIG"
+              }
+            }
+          }
+          EOF
+          
+      - name: Terraform Init
+        id: init
+        run: terraform init
+      
+      - name: Terraform Destroy
+        id: destroy
+        run: terraform destroy -auto-approve -input=false
+
+
+
+  aws_credentials: 
+    uses: f5devcentral/f5-xc-terraform-examples/.github/workflows/aws-cloud-credentials-destroy.yaml@main
+    name: "Destroy AWS Credentials"
+    if: (inputs.deployment == 'aws-vpc-site' || inputs.deployment == 'deploy-resources')
+    needs: [apply_variables, aws_vpc_site]
+    with: 
+      TF_CLOUD_WORKSPACE_AWS_CREDENTIALS: ${{ needs.apply_variables.outputs.TF_CLOUD_WORKSPACE_AWS_CREDENTIALS }}
+    secrets:
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }}
+      TF_CLOUD_ORGANIZATION: ${{ secrets.TF_CLOUD_ORGANIZATION }}
+      XC_API_P12_FILE: ${{ secrets.XC_API_P12_FILE }}
+      XC_P12_PASSWORD: ${{ secrets.XC_P12_PASSWORD }}
+      XC_API_URL: ${{ secrets.XC_API_URL }}
+      AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+      AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+      AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+
+  aws_networking: 
+    uses: f5devcentral/f5-xc-terraform-examples/.github/workflows/aws-networking-destroy.yaml@main
+    if: (inputs.deployment == 'aws-vpc-site' || inputs.deployment == 'deploy-resources')
+    name: "Destroy AWS Networking"
+    needs: [apply_variables, aws_vpc_site, aws_eks]
+    with:
+      TF_CLOUD_WORKSPACE_AWS_NETWORKING: ${{ needs.apply_variables.outputs.TF_CLOUD_WORKSPACE_AWS_NETWORKING }}
+    secrets: 
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }} 
+      TF_CLOUD_ORGANIZATION: ${{ secrets.TF_CLOUD_ORGANIZATION }} 
+      AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }} 
+      AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }} 
+      AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }} 
+
+  aws_vpc_site: 
+    uses: drpotters/f5-xc-terraform-examples/.github/workflows/aws-vpc-site-destroy.yaml@main
+    if: (inputs.deployment == 'aws-vpc-site' || inputs.deployment == 'deploy-resources')
+    needs: [apply_variables, aws_eks]
+    name: "Destroy AWS VPC Site"
+    with: 
+      TF_CLOUD_WORKSPACE_AWS_VPC_SITE: ${{ needs.apply_variables.outputs.TF_CLOUD_WORKSPACE_AWS_VPC_SITE }}
+    secrets: 
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }} 
+      TF_CLOUD_ORGANIZATION: ${{ secrets.TF_CLOUD_ORGANIZATION }} 
+      XC_API_P12_FILE: ${{ secrets.XC_API_P12_FILE }}
+      XC_P12_PASSWORD: ${{ secrets.XC_P12_PASSWORD }}
+      XC_API_URL: ${{ secrets.XC_API_URL }}
+      AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }} 
+      AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }} 
+      AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }} 
+
+  azure_networking: 
+    uses: f5devcentral/f5-xc-terraform-examples/.github/workflows/azure-networking-destroy.yaml@main
+    if: (inputs.deployment == 'azure-vnet-site' || inputs.deployment == 'deploy-resources')
+    needs: [apply_variables, azure_vnet_site]
+    name: "Destroy Azure Networking"
+    with:
+      TF_CLOUD_WORKSPACE_AZURE_NETWORKING: ${{ needs.apply_variables.outputs.TF_CLOUD_WORKSPACE_AZURE_NETWORKING }}
+    secrets: 
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }} 
+      TF_CLOUD_ORGANIZATION: ${{ secrets.TF_CLOUD_ORGANIZATION }} 
+      AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+
+  azure_credentials: 
+    uses: f5devcentral/f5-xc-terraform-examples/.github/workflows/azure-cloud-credentials-destroy.yaml@main
+    if: (inputs.deployment == 'azure-vnet-site' || inputs.deployment == 'deploy-resources')
+    needs: [apply_variables, azure_vnet_site]
+    name: "Azure Cloud Credentials"
+    with: 
+      TF_CLOUD_WORKSPACE_AZURE_CREDENTIALS: ${{ needs.apply_variables.outputs.TF_CLOUD_WORKSPACE_AZURE_CREDENTIALS }}
+    secrets: 
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }} 
+      TF_CLOUD_ORGANIZATION: ${{ secrets.TF_CLOUD_ORGANIZATION }} 
+      XC_API_P12_FILE: ${{ secrets.XC_API_P12_FILE }}
+      XC_P12_PASSWORD: ${{ secrets.XC_P12_PASSWORD }}
+      XC_API_URL: ${{ secrets.XC_API_URL }}
+      AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+
+  azure_vnet_site: 
+    uses: drpotters/f5-xc-terraform-examples/.github/workflows/azure-vnet-site-destroy.yaml@main
+    if: (inputs.deployment == 'azure-vnet-site' || inputs.deployment == 'deploy-resources')
+    needs: [apply_variables, azure_aks]
+    name: "Azure VNET Site"
+    with: 
+      TF_CLOUD_WORKSPACE_AZURE_VNET_SITE: ${{ needs.apply_variables.outputs.TF_CLOUD_WORKSPACE_AZURE_VNET_SITE }}
+    secrets: 
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }} 
+      TF_CLOUD_ORGANIZATION: ${{ secrets.TF_CLOUD_ORGANIZATION }} 
+      XC_API_P12_FILE: ${{ secrets.XC_API_P12_FILE }}
+      XC_P12_PASSWORD: ${{ secrets.XC_P12_PASSWORD }}
+      XC_API_URL: ${{ secrets.XC_API_URL }}
+      AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+
+  aws_eks:
+    name: "Destroy AWS EKS"
+    if: (inputs.deployment == 'deploy-resources')
+    needs: [apply_variables, aws_eks_nic, workload]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "./workflow-guides/smcn/mcn-distributed-apps-l3/terraform/aws-eks"
+    env: 
+      TF_CLOUD_WORKSPACE_SECUREMCN_AWS_EKS: ${{ needs.apply_variables.outputs.TF_CLOUD_WORKSPACE_SECUREMCN_AWS_EKS }}
+      TF_VAR_name: ${{ needs.apply_variables.outputs.TF_VAR_name }}
+      TF_VAR_prefix: ${{ needs.apply_variables.outputs.TF_VAR_prefix }}
+      TF_VAR_aws_vpc_id: "delete"
+      TF_VAR_eks_az_names: "[\"us-east-1a\"]"
+      TF_VAR_aws_vpc_cidr: "10.10.0.0/16"
+      TF_VAR_eks_internal_cidrs: "[\"10.10.211.0/24\"]"
+      TF_VAR_route_table_id: "delete-id"
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }} 
+      TF_CLOUD_ORGANIZATION: ${{ secrets.TF_CLOUD_ORGANIZATION }} 
+      AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+      AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+      AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Setup Terraform Backend
+        id: backend
+        run: |
+          cat > backend.tf << EOF
+          terraform {
+            cloud {
+              organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
+              workspaces {
+                name = "$TF_CLOUD_WORKSPACE_SECUREMCN_AWS_EKS"
+              }
+            }
+          }
+          EOF
+          
+      - name: Terraform Init
+        id: init
+        run: terraform init
+      
+      - name: Terraform Destroy
+        id: destroy
+        run: terraform destroy -auto-approve -input=false
+
+  gcp_vpc_site:
+    name: "Destroy GCP VPC Site"
+    if: (inputs.deployment == 'gcp-vpc-site' || inputs.deployment == 'deploy-resources')
+    needs: [apply_variables, gcp_gke, workload]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "./workflow-guides/smcn/mcn-distributed-apps-l3/terraform/gcp-site"
+    env: 
+      TF_VAR_name: ${{ needs.apply_variables.outputs.TF_VAR_name }}
+      TF_VAR_prefix: ${{ needs.apply_variables.outputs.TF_VAR_prefix }}
+      TF_VAR_slo_cidr: "192.168.1.0/24"
+      TF_VAR_sli_cird: "192.168.2.0/24"
+      TF_VAR_proxy_cidr: "192.168.1.0/28"
+      TF_VAR_gcp_region: ${{ needs.apply_variables.outputs.TF_VAR_gcp_region }}
+      TF_VAR_xc_global_vn_name: "delete-vn"
+      TF_VAR_allowed_remote_networks_cidr: "[ \"10.0.0.0/8\" ]"
+      TF_VAR_allowed_health_check_sources: "[ \"35.191.0.0/16\", \"130.211.0.0/22\" ]"
+      TF_VAR_gcp_project_id: ${{ secrets.GOOGLE_PROJECT_ID }}
+      TF_VAR_xc_gcp_credentials: ${{ secrets.GOOGLE_CREDENTIALS }} 
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }} 
+      TF_CLOUD_ORGANIZATION: ${{ secrets.TF_CLOUD_ORGANIZATION }} 
+      TF_CLOUD_WORKSPACE_SECUREMCN_GCP_VPC_SITE: ${{ needs.apply_variables.outputs.TF_CLOUD_WORKSPACE_SECUREMCN_GCP_VPC_SITE }}
+      VOLT_API_URL: ${{ secrets.XC_API_URL }}
+      VES_P12_PASSWORD: ${{ secrets.XC_P12_PASSWORD }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Setup Terraform Backend
+        id: backend
+        run: |
+          echo "${{secrets.XC_API_P12_FILE}}" | base64 -d > api.p12
+          echo VOLT_API_P12_FILE="$PWD/api.p12" >> "$GITHUB_ENV"
+
+          echo "${{secrets.GOOGLE_CREDENTIALS}}" | base64 -d > gcloud.json
+          echo GOOGLE_CLOUD_KEYFILE_JSON="$PWD/gcloud.json" >> "$GITHUB_ENV"
+
+          cat > backend.tf << EOF
+          terraform {
+            cloud {
+              organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
+              workspaces {
+                name = "$TF_CLOUD_WORKSPACE_SECUREMCN_GCP_VPC_SITE"
+              }
+            }
+          }
+          EOF
+          
+      - name: Terraform Init
+        id: init
+        run: terraform init
+
+      - name: Terraform Destroy
+        id: destroy
+        run: terraform destroy -auto-approve -input=false
+
+  gcp_gke:
+    name: "Destroy GCP GKE Cluster"
+    if: (inputs.deployment == 'deploy-resources')
+    needs: [apply_variables, workload]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "./workflow-guides/smcn/mcn-distributed-apps-l3/terraform/gcp-gke"
+    env: 
+      TF_VAR_name: ${{ needs.apply_variables.outputs.TF_VAR_name }}
+      TF_VAR_prefix: ${{ needs.apply_variables.outputs.TF_VAR_prefix }}
+      TF_VAR_network_name: "destroy-net"
+      TF_VAR_subnet_name: "destroy-subnet"
+      TF_VAR_cluster_cird: "10.0.1.0/24"
+      TF_VAR_services_cird: "10.0.2.0/24"
+      TF_VAR_gcp_region: ${{ needs.apply_variables.outputs.TF_VAR_gcp_region }}
+      TF_VAR_gcp_project_id: ${{ secrets.GOOGLE_PROJECT_ID }}
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }} 
+      TF_CLOUD_ORGANIZATION: ${{ secrets.TF_CLOUD_ORGANIZATION }} 
+      TF_CLOUD_WORKSPACE_SECUREMCN_GCP_GKE: ${{ needs.apply_variables.outputs.TF_CLOUD_WORKSPACE_SECUREMCN_GCP_GKE }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Setup Terraform Backend
+        id: backend
+        run: |
+          echo "${{secrets.GOOGLE_CREDENTIALS}}" | base64 -d > gcloud.json
+          echo GOOGLE_CLOUD_KEYFILE_JSON="$PWD/gcloud.json" >> "$GITHUB_ENV"
+
+          cat > backend.tf << EOF
+          terraform {
+            cloud {
+              organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
+              workspaces {
+                name = "$TF_CLOUD_WORKSPACE_SECUREMCN_GCP_GKE"
+              }
+            }
+          }
+          EOF
+          
+      - name: Terraform Init
+        id: init
+        run: terraform init
+      
+      - name: Terraform Destroy
+        id: destroy
+        run: terraform destroy -auto-approve -input=false
+
+  azure_aks:
+    name: "Destroy Azure AKS"
+    if: (inputs.deployment == 'deploy-resources')
+    needs: [apply_variables, workload]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "./workflow-guides/smcn/mcn-distributed-apps-l3/terraform/azure-aks"
+    env: 
+      TF_VAR_name: ${{ needs.apply_variables.outputs.TF_VAR_name }}
+      TF_VAR_prefix: ${{ needs.apply_variables.outputs.TF_VAR_prefix }}
+      TF_VAR_azure_vm_private_ip: "192.168.1.1"
+      TF_VAR_azure_rg_location: ${{ needs.apply_variables.outputs.TF_VAR_azure_location }}
+      TF_VAR_azure_rg_name: "delete"
+      TF_VAR_azure_rg_id: "/subscriptions/12345678-1234-9876-4563-123456789012/resourceGroups/smcn-secure-mcn"
+      TF_VAR_aws_region: ${{ needs.apply_variables.outputs.TF_VAR_aws_region }}
+      TF_VAR_az_names: ${{ needs.apply_variables.outputs.TF_VAR_aws_az_names }}
+      TF_VAR_node_subnet_id: "/subscriptions/12345678-1234-9876-4563-123456789012/resourceGroups/example-resource-group/providers/Microsoft.Network/virtualNetworks/virtualNetworksValue/subnets/subnetValue"
+      TF_VAR_public_address: "false"
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }} 
+      TF_CLOUD_ORGANIZATION: ${{ secrets.TF_CLOUD_ORGANIZATION }} 
+      TF_CLOUD_WORKSPACE_SECUREMCN_AZURE_AKS: ${{ needs.apply_variables.outputs.TF_CLOUD_WORKSPACE_SECUREMCN_AZURE_AKS }}
+      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Setup Terraform Backend
+        id: backend
+        run: |
+          cat > backend.tf << EOF
+          terraform {
+            cloud {
+              organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
+              workspaces {
+                name = "$TF_CLOUD_WORKSPACE_SECUREMCN_AZURE_AKS"
+              }
+            }
+          }
+          EOF
+          
+      - name: Terraform Init
+        id: init
+        run: terraform init
+      
+      - name: Terraform Destroy
+        id: destroy
+        run: terraform destroy -auto-approve -input=false
+
+  aws_eks_nic:
+    name: "Destroy NIC into AWS EKS"
+    if: (inputs.deployment == 'deploy-resources')
+    needs: [apply_variables, workload]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "./workflow-guides/smcn/mcn-distributed-apps-l3/terraform/aws-eks-nic"
+    env: 
+      TF_CLOUD_WORKSPACE_SECUREMCN_AWS_EKS_NIC: ${{ needs.apply_variables.outputs.TF_CLOUD_WORKSPACE_SECUREMCN_AWS_EKS_NIC }}
+      TF_VAR_name: ${{ needs.apply_variables.outputs.TF_VAR_name }}
+      TF_VAR_prefix: ${{ needs.apply_variables.outputs.TF_VAR_prefix }}
+      TF_VAR_nginx_registry: "private-registry.nginx.com"
+      TF_VAR_nginx_jwt: "nginx_repo.jwt"
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }} 
+      TF_CLOUD_ORGANIZATION: ${{ secrets.TF_CLOUD_ORGANIZATION }} 
+      AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+      AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+      AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Setup Terraform Backend
+        id: backend
+        run: |
+          cat > backend.tf << EOF
+          terraform {
+            cloud {
+              organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
+              workspaces {
+                name = "$TF_CLOUD_WORKSPACE_SECUREMCN_AWS_EKS_NIC"
+              }
+            }
+          }
+          EOF
+          
+      - name: Terraform Init
+        id: init
+        run: terraform init
+
+      - name: Terraform Destroy
+        id: destroy
+        run: terraform destroy -auto-approve -input=false
+
+  workload:
+    name: "Destroy Demo Workloads"
+    if: (inputs.deployment == 'deploy-resources')
+    needs: [apply_variables]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "./workflow-guides/smcn/mcn-distributed-apps-l3/terraform/workload"
+    env: 
+      TF_VAR_name: ${{ needs.apply_variables.outputs.TF_VAR_name }}
+      TF_VAR_prefix: ${{ needs.apply_variables.outputs.TF_VAR_prefix }}
+      # TODO: move to the env vars
+      TF_VAR_namespace: ${{ needs.apply_variables.outputs.TF_VAR_namespace }}
+      TF_VAR_app_domain: ${{ needs.apply_variables.outputs.TF_VAR_app_domain }}
+      TF_VAR_f5xc_sd_sa: "smsn-sd-sa"
+      TF_VAR_aws_site_name: ${{ needs.apply_variables.outputs.TF_VAR_aws_vpc_site_name }}
+      TF_VAR_nic_external_port: "80"
+      TF_VAR_nic_external_name: "nic-external"
+      TF_VAR_azure_site_name: ${{ needs.apply_variables.outputs.TF_VAR_azure_vnet_site_name }}
+      TF_VAR_azure_internal_subnet_name: "delete"
+
+      # GCP
+      TF_VAR_gcp_region: ${{ needs.apply_variables.outputs.TF_VAR_gcp_region }}
+      TF_VAR_gcp_project_id: ${{ secrets.GOOGLE_PROJECT_ID }}
+      TF_VAR_gcp_account_id: ${{ secrets.GOOGLE_ACCOUNT_ID }}
+      # TF Cloud
+      TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }} 
+      TF_CLOUD_ORGANIZATION: ${{ secrets.TF_CLOUD_ORGANIZATION }} 
+      TF_CLOUD_WORKSPACE_SECUREMCN_WORKLOAD: ${{ needs.apply_variables.outputs.TF_CLOUD_WORKSPACE_SECUREMCN_WORKLOAD }}
+      # XC Cloud
+      VOLT_API_URL: ${{ secrets.XC_API_URL }}
+      VES_P12_PASSWORD: ${{ secrets.XC_P12_PASSWORD }}
+      # Azure Cloud
+      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      # AWS Cloud
+      AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+      AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
+      AWS_SESSION_TOKEN: ${{ secrets.AWS_SESSION_TOKEN }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Setup Terraform Backend
+        id: backend
+        run: |
+          echo "${{secrets.GOOGLE_CREDENTIALS}}" | base64 -d > gcloud.json
+          echo GOOGLE_CLOUD_KEYFILE_JSON="$PWD/gcloud.json" >> "$GITHUB_ENV"
+
+          echo "${{secrets.XC_API_P12_FILE}}" | base64 -d > api.p12
+          echo VOLT_API_P12_FILE="$PWD/api.p12" >> "$GITHUB_ENV"
+
+          cat > backend.tf << EOF
+          terraform {
+            cloud {
+              organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
+              workspaces {
+                name = "$TF_CLOUD_WORKSPACE_SECUREMCN_WORKLOAD"
+              }
+            }
+          }
+          EOF
+          
+      - name: Terraform Init
+        id: init
+        run: terraform init
+      
+      - name: Terraform Destroy
+        id: destroy
+        run: terraform destroy -auto-approve -input=false

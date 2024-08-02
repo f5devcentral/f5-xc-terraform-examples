@@ -1,0 +1,108 @@
+name: "F5 XC Bot Defense on RE Deploy"
+
+on:
+  push:
+    branches:
+      - bot-defense-re
+  pull_request:
+  workflow_dispatch:
+    
+jobs:
+  terraform_xc_lb:
+    name: "Deploy F5 XC Bot Defense"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./xc
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Pull latest code
+        run: |
+          git config --global user.email @${{ github.actor }}
+          git config --global user.name @${{ github.actor }}
+          git remote add upstream https://github.com/f5devcentral/f5-xc-terraform-examples.git
+          git fetch upstream
+          git merge upstream/main --strategy-option theirs --allow-unrelated-histories
+
+      - name: Setup Terraform Backend
+        id: backend
+        run: |
+          cat > backend.tf << EOF
+          terraform {
+            cloud {
+              organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
+              workspaces {
+                name = "${{ secrets.TF_CLOUD_WORKSPACE_XC }}"
+              }
+            }
+          }
+          EOF
+           echo "${{secrets.P12}}" | base64 -d > api.p12
+
+      - name: Terraform Init
+        id: init
+        run: terraform init
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Terraform Plan
+        id: plan
+        if: github.event_name == 'pull_request'
+        run: terraform plan -no-color -input=false
+        continue-on-error: true
+
+      - uses: actions/github-script@v6
+        if: github.event_name == 'pull_request'
+        env:
+          PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const output = `#### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+            #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
+            #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+            <details><summary>Show Plan</summary>
+            \`\`\`\n
+            ${process.env.PLAN}
+            \`\`\`
+            </details>
+            *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
+      - name: Terraform Plan Status
+        if: steps.plan.outcome == 'failure'
+        run: exit 1
+
+      - name: Copy App Manifest
+        run: cp ../shared/airline-app/airflask.yaml .
+
+      - name: Check terraform version
+        run: |
+          terraform --version
+          echo "event name is:" ${{ github.event_name }} 
+        
+
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/bot-defense-re' && ( github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+        run: terraform apply -auto-approve -input=false
+
+      - name: Run Traffic
+        run: |
+          cp ../tools/run-curl-traffic.sh .
+          export cname=$(terraform output -raw lb_cname)
+          echo $cname 
+          sleep 30 
+          sh run-curl-traffic.sh "$cname/user/signin"

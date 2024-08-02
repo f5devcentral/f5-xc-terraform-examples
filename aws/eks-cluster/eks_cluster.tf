@@ -4,6 +4,7 @@ resource "aws_eks_cluster" "eks-tf" {
 
  name = local.cluster_name
  role_arn = aws_iam_role.eks-iam-role.arn
+ version = var.eks_version
 
  vpc_config {
   security_group_ids      = flatten([aws_security_group.eks_cluster.id, aws_security_group.eks_nodes.id])
@@ -50,6 +51,13 @@ resource "aws_eks_node_group" "private-node-group-1-tf" {
   #addon_version = each.value.version
   resolve_conflicts = "OVERWRITE"
  }
+
+ resource "aws_eks_addon" "ebs_csi_driver-addon" {
+  cluster_name             = aws_eks_cluster.eks-tf.name
+  addon_name               = "aws-ebs-csi-driver"
+  service_account_role_arn = aws_iam_role.ebs_csi_driver.arn
+}
+
 
 resource "aws_eks_node_group" "private-node-group-2-tf" {
   count = var.skip_ha_az_node_group ? 0 : 1

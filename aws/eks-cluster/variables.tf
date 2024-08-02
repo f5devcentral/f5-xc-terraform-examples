@@ -13,25 +13,25 @@ variable "tf_cloud_organization" {
 variable "eks_addons" {
   type = list(object({
     name    = string
-    version = string
+   # version = string
   }))
   default = [
     {
       name    = "kube-proxy"
-      version = "v1.25.6-eksbuild.1"
+      #version = "v1.25.6-eksbuild.1"
     },
     {
       name    = "vpc-cni"
-      version = "v1.12.2-eksbuild.1"
+      #version = "v1.12.2-eksbuild.1"
     },
     {
       name    = "coredns"
-      version = "v1.8.7-eksbuild.3"
-    },
-    {
-      name    = "aws-ebs-csi-driver"
-      version = "v1.13.0-eksbuild.3"
-    }
+      #version = "v1.8.7-eksbuild.3"
+    }#,
+    #{
+    #  name    = "aws-ebs-csi-driver"
+    #  version = "v1.13.0-eksbuild.3"
+    #}
   ]
 }
 variable "ssh_key" {
@@ -74,6 +74,7 @@ variable "allow_all_ingress_traffic_to_cluster" {
  description  = "Acception all Traffic to the instance created by EKS Cluster Nodes"
  default      = false
 }
+
 variable "aws_access_key" {
   description = "AWS Access Key ID"
   type        = string
@@ -88,9 +89,17 @@ variable "aws_secret_key" {
   default     = null
 }
 
+variable "aws_waf_ce" {
+  description = "Infra"
+  type        = string
+  default     = ""
+}
 
-
-
+variable "eks_version" {
+  description = "EKS version"
+  type        = string
+  default     = "1.29"
+}
 
 
 

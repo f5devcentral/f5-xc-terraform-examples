@@ -1,8 +1,8 @@
 Getting Started With Terraform Automation
----------------
+###########################################
 
 Prerequisites
--------------
+--------------
 
 -  `F5 Distributed Cloud Account
    (F5XC) <https://console.ves.volterra.io/signup/usage_plan>`__
@@ -12,11 +12,9 @@ Prerequisites
    -  `User Domain
       delegated <https://docs.cloud.f5.com/docs/how-to/app-networking/domain-delegation>`__
 
--  `AWS Account <https://aws.amazon.com>`__ - Due to the assets being
-   created, free tier will not work.
-
-   -  Please make sure resources like VPC and Elastic IP’s are below the
-      threshold limit in that aws region
+-  `AWS Account <https://aws.amazon.com>`__ 
+   - Due to the assets being created, free tier will not work.
+   - Please make sure resources like VPC and Elastic IP’s are below the threshold limit in that aws region.
 
 -  `Terraform Cloud
    Account <https://developer.hashicorp.com/terraform/tutorials/cloud-get-started>`__
@@ -25,11 +23,13 @@ Prerequisites
 Workflow Steps
 -----------------
 
--  For deploying WAF on k8s, please copy both yml files in workflow folder to root folder .github/workflows folder.
-   For ex: `waf-k8s-apply.yml <.github/workflows/waf-k8s-apply.yml>`__
--  Login to Distributed Cloud, click on `Multi-Cloud-Connect`, navigate to `Site Management` and then to `Site Tokens` as shown below
+- For deploying WAF on k8s, please copy both yml files in workflow folder to root folder .github/workflows folder. For ex: `waf-k8s-apply.yml <.github/workflows/waf-k8s-apply.yml>`__
+
+- Login to Distributed Cloud, click on `Multi-Cloud-Connect`, navigate to `Site Management` and then to `Site Tokens` as shown below
+
 .. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/site-token.jpg
--  Create a site token with CE site name (`ce-k8s`) and copy the ID
+
+- Create a site token with CE site name (`ce-k8s`) and copy the ID
 
 
 List of Products Used
@@ -42,7 +42,7 @@ List of Products Used
 
 
 Tools
------
+------
 
 -  **Cloud Provider:** AWS
 -  **IAC:** Terraform
@@ -50,18 +50,17 @@ Tools
 -  **CI/CD:** GitHub Actions
 
 Terraform Cloud
----------------
+----------------
 
--  **Workspaces:** Create a CLI or API workspace for each asset in the
-   workflow chosen as shown below.
+-  **Workspaces:** Create a CLI or API workspace for each asset in the workflow chosen as shown below.
+
 .. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/cloud-workspaces.JPG 
 
 -  Login to terraform cloud and create below workspaces for storing the terraform state file of each job.
  infra, xc, eks, bookinfo, registration, k8sce
 
 
--  **Workspace Sharing:** Under the settings for each Workspace, set the
-   **Remote state sharing** to share with each Workspace created.
+-  **Workspace Sharing:** Under the settings for each Workspace, set the **Remote state sharing** to share with each Workspace created.
 
 -  **Variable Set:** Create a Variable Set with the following values:
 
@@ -74,21 +73,22 @@ Terraform Cloud
    +------------------------+--------------+------------------------------------------------------+
    | AWS_SESSION_TOKEN      | Environment  | Your AWS Session Token                               | 
    +------------------------+--------------+------------------------------------------------------+
-   | VOLT_API_P12_FILE      | Environment  |  Your F5XC API certificate. Set this to **api.p12**  |
+   | VOLT_API_P12_FILE      | Environment  | Your F5XC API certificate. Set this to **api.p12**   |
    +------------------------+--------------+------------------------------------------------------+
-   | VES_P12_PASSWORD       | Environment  |  Set this to the password you supplied               |
+   | VES_P12_PASSWORD       | Environment  | Set this to the password you supplied                |
    +------------------------+--------------+------------------------------------------------------+
-   | ssh_key                | TERRAFORM    |  Your ssh key for accessing the created resources    | 
+   | ssh_key                | TERRAFORM    | Your ssh key for accessing the created resources     | 
    +------------------------+--------------+------------------------------------------------------+
-   | tf_cloud_organization  | TERRAFORM    |  Your Terraform Cloud Organization name              |
+   | tf_cloud_organization  | TERRAFORM    | Your Terraform Cloud Organization name               |
    +------------------------+--------------+------------------------------------------------------+
 
 -  Check below image for more info on variable sets
+
 .. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/variables-set.JPG
 
 
 GitHub
-------
+-------
 
 -  Fork and Clone Repo. Navigate to ``Actions`` tab and enable it.
 
@@ -109,10 +109,11 @@ GitHub
          value ``EKS``
 
 -  Check below image for more info on action secrets
+
 .. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/actions-secrets.JPG
 
 Workflow Runs
--------------
+--------------
 
 **STEP 1:** Check out a branch with the branch name as suggested below for the workflow you wish to run using
 the following naming convention.
@@ -132,6 +133,8 @@ Workflow         Branch Name
 ================ ========================
 f5-xc-waf-on-k8s destroy-waf-k8s
 ================ ========================
+
+**Note:** Make sure to comment line no. 16 (# *.tfvars) in ".gitignore" file
 
 **STEP 2:** Rename ``infra/terraform.tfvars.examples`` to ``infra/terraform.tfvars`` and add the following data: 
 
@@ -167,16 +170,13 @@ f5-xc-waf-on-k8s destroy-waf-k8s
 
 -  http_only = "set to true if want to advertise on http protocol"
 
-**STEP 4:** Commit and push your build branch to your forked repo \*
-Build will run and can be monitored in the GitHub Actions tab and TF
-Cloud console
+**STEP 4:** Commit and push your build branch to your forked repo, Build will run and can be monitored in the GitHub Actions tab and TF Cloud console
 
 **STEP 5:** Once the pipeline completes, verify your CE, Origin Pool and LB were deployed or destroyed based on your workflow.
 
 **STEP 6:** Open a linux shell or CMD, login to AWS console with your credentials, download the kubectl file for this load balancer and check services. Copy the load balancer DNS with name "lb-ver" and send request with XC LB FQDN as a Host header which should provide the application response as shown below
 
-
-.. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/lb.JPG
+.. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/lb.jpg
 
 .. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/postman.JPG
 

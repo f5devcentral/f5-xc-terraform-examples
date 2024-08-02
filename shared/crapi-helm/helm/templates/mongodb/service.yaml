@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.mongodb.service.name }}
+  labels:
+    release: {{ .Release.Name }}
+    {{- with .Values.mongodb.service.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  ports:
+  - port: {{ .Values.mongodb.port }}
+    name: mongo
+  selector:
+    {{- toYaml .Values.mongodb.serviceSelectorLabels | nindent 4 }}
