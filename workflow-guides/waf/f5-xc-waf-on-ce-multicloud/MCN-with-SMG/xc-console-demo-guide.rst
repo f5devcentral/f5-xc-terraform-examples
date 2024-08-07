@@ -173,7 +173,7 @@ Testing:
 
 .. figure:: assets/mcn-productpage.JPG
 
-4. Now update the URL field of postman to `http://<lb-domain-name>/productpage?u=normal`
+4. Now update the URL field to `http://<lb-domain-name>/productpage?u=normal`
 
 5. Send the GET request and validate product details are getting displayed as below
 
