@@ -81,7 +81,7 @@ jobs:
         run: terraform apply -auto-approve -input=false
 
   terraform_gke:
-    name: "Deploy GCP GKE"
+    name: "GCP GKE"
     runs-on: ubuntu-latest
     needs: terraform_gcp
     defaults:
