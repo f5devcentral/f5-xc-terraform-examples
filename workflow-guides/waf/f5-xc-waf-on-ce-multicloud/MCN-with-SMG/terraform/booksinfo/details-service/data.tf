@@ -1,12 +1,9 @@
-data "tfe_outputs" "infra" {
+data "tfe_outputs" "azure-infra" {
   organization = var.tf_cloud_organization
-  workspace = "infra"
-}
-data "tfe_outputs" "eks" {
-  organization = var.tf_cloud_organization
-  workspace = "eks"
+  workspace    = "azure-infra"
 }
 
-data "aws_eks_cluster_auth" "auth" {
-  name = data.tfe_outputs.eks.values.cluster_name
+data "tfe_outputs" "aks-cluster" {
+  organization = var.tf_cloud_organization
+  workspace    = "aks-cluster"
 }

@@ -226,9 +226,7 @@ jobs:
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/deploy-mcn-smg' && github.event_name == 'push'
-        run: |
-          mv details.tf details.tff
-          terraform apply -auto-approve -input=false
+        run: terraform apply -auto-approve -input=false
 
   terraform_azure:
     name: "Azure Infra"
@@ -449,6 +447,4 @@ jobs:
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/deploy-mcn-smg' && github.event_name == 'push'
-        run: |
-          mv main.tf main.tff
-          terraform apply -auto-approve -input=false
+        run: terraform apply -auto-approve -input=false
