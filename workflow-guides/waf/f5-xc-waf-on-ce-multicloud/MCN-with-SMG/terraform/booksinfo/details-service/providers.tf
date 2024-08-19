@@ -8,8 +8,7 @@ provider "azurerm" {
 
 
 provider "kubectl" {
-    host                    = local.host
-    cluster_ca_certificate  = base64decode(local.cluster_ca_certificate)
-    token                   = data.aws_eks_cluster_auth.auth.token
+    client_certificate      = base64decode(local.cluster_ca_certificate)
+    config_context          = base64decode(local.kubeconfig)
     load_config_file        = false
 }
