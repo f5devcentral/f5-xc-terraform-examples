@@ -160,7 +160,7 @@ jobs:
     needs: terraform_gke
     defaults:
       run:
-        working-directory: ./shared/booksinfo
+        working-directory: ./workflow-guides/waf/f5-xc-waf-on-ce-multicloud/MCN-with-SMG/terraform/booksinfo/product-service
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -227,7 +227,7 @@ jobs:
       - name: Terraform Apply
         if: github.ref == 'refs/heads/deploy-mcn-smg' && github.event_name == 'push'
         run: |
-          cp ./mcn-bookinfo/product_page.yaml .
+          mv details.tf details.tff
           terraform apply -auto-approve -input=false
 
   terraform_azure:
@@ -383,7 +383,7 @@ jobs:
     needs: terraform_aks
     defaults:
       run:
-        working-directory: ./shared/booksinfo
+        working-directory: ./workflow-guides/waf/f5-xc-waf-on-ce-multicloud/MCN-with-SMG/terraform/booksinfo/detail-service
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -450,5 +450,5 @@ jobs:
       - name: Terraform Apply
         if: github.ref == 'refs/heads/deploy-mcn-smg' && github.event_name == 'push'
         run: |
-          cp ./mcn-bookinfo/details.yaml .
+          mv main.tf main.tff
           terraform apply -auto-approve -input=false
