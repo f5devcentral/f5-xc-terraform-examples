@@ -381,7 +381,7 @@ jobs:
     needs: terraform_aks
     defaults:
       run:
-        working-directory: ./workflow-guides/waf/f5-xc-waf-on-ce-multicloud/MCN-with-SMG/terraform/booksinfo/detail-service
+        working-directory: ./workflow-guides/waf/f5-xc-waf-on-ce-multicloud/MCN-with-SMG/terraform/booksinfo/details-service
     steps:
       - name: Checkout
         uses: actions/checkout@v3
