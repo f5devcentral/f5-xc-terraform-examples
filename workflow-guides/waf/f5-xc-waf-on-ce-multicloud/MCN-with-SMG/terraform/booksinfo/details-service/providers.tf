@@ -8,7 +8,7 @@ provider "azurerm" {
 
 
 provider "kubectl" {
-    client_certificate      = base64decode(local.cluster_ca_certificate)
-    config_context          = base64decode(local.kubeconfig)
+    client_certificate      = local.cluster_ca_certificate
+    config_context          = local.kubeconfig
     load_config_file        = false
 }
