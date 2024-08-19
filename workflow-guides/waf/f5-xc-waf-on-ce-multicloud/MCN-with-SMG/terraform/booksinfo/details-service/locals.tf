@@ -4,4 +4,5 @@ locals {
   azure_region            = data.tfe_outputs.azure-infra.values.azure_region
   cluster_ca_certificate  = data.tfe_outputs.aks-cluster.values.client_certificate
   kubeconfig              = data.tfe_outputs.aks-cluster.values.kube_config
+  resource_group_name     = data.tfe_outputs.azure-infra.values.resource_group_name
 }
