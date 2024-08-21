@@ -1,9 +1,9 @@
-name: "WAF + K8s Destroy"
+name: "Destroy MCN using Site Mesh Group across GCP and Azure Clouds"
 
 on:
   push:
     branches:
-      - destroy-genai
+      - destroy-mcn-smg
   pull_request:
 
 jobs:
