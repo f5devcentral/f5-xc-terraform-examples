@@ -28,6 +28,14 @@ resource "volterra_virtual_site" "site" {
   }
 }
 
+# Create global network to connect the sites using a site mesh group
+resource "volterra_virtual_network" "global_vn" {
+  name                      = format("%s-gn", local.project_prefix)
+  namespace                 = "system"
+  global_network            = true
+  site_local_network        = true
+  site_local_inside_network = false
+}
 
 # Create full site mesh group with a label selector that each CE Site will be labeled on creation
 resource "volterra_site_mesh_group" "smg" {
