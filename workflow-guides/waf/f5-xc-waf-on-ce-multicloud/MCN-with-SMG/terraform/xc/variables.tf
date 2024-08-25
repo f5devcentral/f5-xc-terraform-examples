@@ -74,8 +74,8 @@ variable "azure_xc_machine_type" {
   default     = "Standard_D3_v2"
 }
 
-variable "GOOGLE_CREDENTIALS" {
-  type        = string
-  description = "Contents of GCP credentials file to create CE site"
-  default     = "false"
-}
+#variable "GOOGLE_CREDENTIALS" {
+#  type        = string
+#  description = "Contents of GCP credentials file to create CE site"
+#  default     = "false"
+#}

@@ -17,3 +17,12 @@ data "tfe_outputs" "gke" {
   organization  = var.tf_cloud_organization
   workspace     = "gke"
 }
+
+data "azurerm_kubernetes_cluster" "aks" {
+  name                =  format("%s-aks-%s", local.project_prefix, local.build_suffix)
+  resource_group_name = local.azure_resource_group
+}
+
+data "kubernetes_nodes" "aks" {
+  provider = kubernetes.aks
+}

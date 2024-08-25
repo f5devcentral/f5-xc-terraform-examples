@@ -9,10 +9,11 @@ resource "kubernetes_service" "bookinfo_details" {
     }
   }
   spec {
-    type = "ClusterIP"
+    type = "NodePort"
     port {
       name      = "http"
       port      = 9080
+      node_port = 31002
     }
 
     selector = {
