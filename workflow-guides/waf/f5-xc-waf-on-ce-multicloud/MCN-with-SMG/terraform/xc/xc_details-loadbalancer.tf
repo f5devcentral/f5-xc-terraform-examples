@@ -7,7 +7,6 @@ resource "volterra_origin_pool" "bookinfo_details" {
     private_ip {
       ip = local.aks_node_private_ip
       site_locator {
-        network = "SITE_NETWORK_INSIDE"
         site {
           namespace = "system"
           name      = format("%s-az-site-%s", local.project_prefix, local.build_suffix)
