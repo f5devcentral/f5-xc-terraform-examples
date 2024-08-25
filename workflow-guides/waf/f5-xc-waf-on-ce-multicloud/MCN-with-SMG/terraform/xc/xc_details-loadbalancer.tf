@@ -1,5 +1,6 @@
 resource "volterra_origin_pool" "bookinfo_details" {
   name        = format("%s-bookinfo-details", local.project_prefix)
+  depends_on = [volterra_tf_params_action.action_apply]
   namespace   = var.xc_namespace
   description = "Origin Pool pointing to bookinfo details service"
 
@@ -23,6 +24,7 @@ resource "volterra_origin_pool" "bookinfo_details" {
 
 resource "volterra_http_loadbalancer" "bookinfo_details" {
   name        = format("%s-bookinfo-details", local.project_prefix)
+  depends_on = [volterra_origin_pool.bookinfo_details]
   namespace   = var.xc_namespace
   description = "HTTP Load Balancer object for bookinfo details service"
   domains     = local.details_domain
