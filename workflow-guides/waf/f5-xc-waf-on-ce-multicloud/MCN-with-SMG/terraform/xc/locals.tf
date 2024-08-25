@@ -15,5 +15,5 @@ locals {
   }
   details_node_port   = 31002
   product_node_port   = 31849
-  details_domain      = "details"
+  details_domain      = ["details"]
 }
