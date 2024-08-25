@@ -23,7 +23,7 @@ resource "volterra_virtual_site" "site" {
   site_type   = "CUSTOMER_EDGE"
   site_selector {
     expressions = [
-      join(",", [for k, v in local.commonLabels : format("%s = %s", k, v)])
+      join(",", [for k, v in local.commonLabels : format("%s in %s", k, v)])
     ]
   }
 }
