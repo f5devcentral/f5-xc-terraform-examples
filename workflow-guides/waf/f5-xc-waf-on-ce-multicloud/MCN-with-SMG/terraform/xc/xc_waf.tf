@@ -16,5 +16,5 @@ resource "volterra_app_firewall" "waap-tf" {
   // One of the arguments from this list "use_loadbalancer_setting blocking monitoring" must be set
   use_loadbalancer_setting  = true
   // Blocking mode - optional - if not set, policy is in MONITORING
-  blocking = var.xc_waf_blocking
+  blocking                  = var.xc_waf_blocking
 }

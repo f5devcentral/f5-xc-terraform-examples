@@ -1,13 +1,18 @@
 locals {
-  project_prefix      = try(data.tfe_outputs.infra.0.values.project_prefix, var.xc_project_prefix)
-  build_suffix        = try(data.tfe_outputs.infra.0.values.build_suffix, resource.random_id.build_suffix.0.hex)
-  origin_bigip        = try(data.tfe_outputs.bigip[0].values.bigip_public_vip, "")
-  dns_origin_pool     = local.origin_nginx != "" ? true : false
-  kubeconfig          = try(data.tfe_outputs.aks-cluster[0].values.kube_config, "")
-  azure_region        = try(data.tfe_outputs.infra.0.values.azure_region, "")
-  resource_group_name = try(data.tfe_outputs.infra.0.values.resource_group_name, "")
-  vnet_name           = try(data.tfe_outputs.infra.0.values.vnet_name, "")
-  subnet_name         = try(data.tfe_outputs.infra.0.values.subnet_name, data.tfe_outputs.infra.0.values.vpc_subnet, "")
-  subnet_id           = try(data.tfe_outputs.infra.0.values.subnet_id, "")
-  gcp_region          = try(data.tfe_outputs.infra.0.values.gcp_region, "")
+  project_prefix      = data.tfe_outputs.gcp-infra.values.project_prefix
+  build_suffix        = data.tfe_outputs.gcp-infra.values.build_suffix
+  gcp_project_id      = data.tfe_outputs.gcp-infra.values.gcp_project_id
+  gcp_region          = data.tfe_outputs.gcp-infra.values.gcp_region
+  gcp_vpc_name        = data.tfe_outputs.gcp-infra.values.vpc_name
+  gcp_vpc_subnet      = data.tfe_outputs.gcp-infra.values.vpc_subnet
+  azure_region        = data.tfe_outputs.azure-infra.values.azure_region
+  azure_resource_group= data.tfe_outputs.azure-infra.values.resource_group_name
+  azure_vnet_name     = data.tfe_outputs.azure-infra.values.vnet_name
+  azure_subnet_name   = data.tfe_outputs.azure-infra.values.subnet_name
+  commonLabels        = {
+    mcn_smg_label     = format("%s-label_value", local.project_prefix)
+  }
+  details_node_port   = 31849
+  product_node_port   = 31849
+  details_domain      = "details"
 }

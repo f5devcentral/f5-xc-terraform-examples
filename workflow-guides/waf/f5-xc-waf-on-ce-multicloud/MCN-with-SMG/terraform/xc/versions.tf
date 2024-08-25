@@ -5,7 +5,13 @@ terraform {
       source = "volterraedge/volterra"
       version = ">= 0.11.34"
     }
-      azurerm = {
+
+    google = {
+      source  = "hashicorp/google"
+      version = "4.27.0"
+    }
+
+    azurerm = {
       source  = "hashicorp/azurerm"
       version = ">=3.18.0"
     }

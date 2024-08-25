@@ -454,11 +454,10 @@ jobs:
         if: github.ref == 'refs/heads/deploy-mcn-smg' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
 
-
   terraform_xc:
-    name: "Deploy F5 XC Resources"
+    name: "F5 XC Resources"
     runs-on: ubuntu-latest
-    needs: [terraform_aks, terraform_frontend]
+    needs: [terraform_details, terraform_frontend]
     defaults:
       run:
         working-directory: ./workflow-guides/waf/f5-xc-waf-on-ce-multicloud/MCN-with-SMG/terraform/xc

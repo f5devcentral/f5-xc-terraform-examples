@@ -1,10 +1,3 @@
-#infrastructure
-variable "azure" {
-  description = "Workspace name of Azure deployment infra"
-  type        = string
-  default     = ""
-}
-
 #TF Cloud
 variable "tf_cloud_organization" {
   type        = string
@@ -37,31 +30,6 @@ variable "app_domain" {
   description = "FQDN for the app. If you have delegated domain `prod.example.com`, then your app_domain can be `<app_name>.prod.example.com`"
 }
 
-#XC WAF
-variable "xc_waf_blocking" {
-  type        = string
-  description = "Set XC WAF to Blocking(true) or Monitoring(false)"
-  default     = "false"
-}
-
-# k8s backend
-variable "k8s_pool" {
-  type        = string
-  description = "Whether pool member is k8s backend ?"
-  default     = "false"
-}
-
-variable "advertise_sites" {
-  type        = string
-  description = "Boolean to check if app needs to be advertised on given sites."
-  default     = "false"
-}
-
-variable "http_only" {
-  type        = string
-  description = "If need to be configured on http protocol. Use this as True for CE site deployments."
-  default     = "false"
-}
 
 variable "gke_site_name" {
   type        = string
@@ -69,12 +37,10 @@ variable "gke_site_name" {
   default     = ""
 }
 
-# Azure CE Site 
-variable "az_ce_site" {
-  type        = string
-  description = "If infra is deployed as Azure CE site ?"
-  default     = "true"
+variable "gcp_instance_type" {
+  default = "n1-standard-4"
 }
+
 
 variable "azure_subscription_id" {
   description = "Azure Subscription ID"
@@ -113,16 +79,4 @@ variable "GOOGLE_CREDENTIALS" {
   type        = string
   description = "Contents of GCP credentials file to create CE site"
   default     = "false"
-}
-
-variable "gke_ce_site" {
-  type        = string
-  description = "Whether it's GKE CE site ?"
-  default     = "true"
-}
-
-variable "gcp" {
-  description = "Workspace name of GCP deployment infra"
-  type        = string
-  default     = "gcp-infra"
 }
