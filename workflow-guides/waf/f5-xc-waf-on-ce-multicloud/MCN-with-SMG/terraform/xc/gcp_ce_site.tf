@@ -40,7 +40,7 @@ resource "volterra_gcp_vpc_site" "site" {
   }
 }
 
-resource "volterra_cloud_site_labels" "labels" {
+resource "volterra_cloud_site_labels" "labels2" {
   depends_on = [volterra_site_mesh_group.smg]
   name       = volterra_gcp_vpc_site.site.name
   site_type  = "gcp_vpc_site"
