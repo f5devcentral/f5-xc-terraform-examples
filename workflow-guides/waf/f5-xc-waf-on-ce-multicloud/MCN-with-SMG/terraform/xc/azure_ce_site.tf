@@ -57,6 +57,7 @@ resource "volterra_azure_vnet_site" "azure_vnet_site" {
 }
 
 resource "volterra_cloud_site_labels" "labels" {
+  depends_on = [volterra_site_mesh_group.smg]
   name = volterra_azure_vnet_site.azure_vnet_site.name
   site_type = "azure_vnet_site"
   labels = {
@@ -66,6 +67,7 @@ resource "volterra_cloud_site_labels" "labels" {
 }
 
 resource "null_resource" "validation-wait" {
+  depends_on = [volterra_cloud_site_labels.labels]
   provisioner "local-exec" {
     command = "sleep 70"
   }
