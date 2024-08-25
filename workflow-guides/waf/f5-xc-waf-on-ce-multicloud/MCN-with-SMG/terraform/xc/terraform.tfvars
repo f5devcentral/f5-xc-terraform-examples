@@ -8,9 +8,3 @@ app_domain = "gcplb.f5-hyd-xcdemo.com"
 
 #XC WAF
 xc_waf_blocking = true
-
-# # pool and LB inputs
-# k8s_pool = "false"
-# serviceName = ""
-# serviceport = ""
-# advertise_sites = "true"

@@ -4,7 +4,7 @@ resource "volterra_cloud_credentials" "gcp_cred" {
   gcp_cred_file {
     credential_file {
       clear_secret_info {
-        url = format("string:///%s", base64encode(var.GOOGLE_CREDENTIALS))
+        url = "string:///${base64encode(var.GOOGLE_CREDENTIALS)}"
       }
     }
   }
@@ -51,7 +51,7 @@ resource "volterra_cloud_site_labels" "labels2" {
 }
 
 resource "null_resource" "validation-wait-gcp" {
-  depends_on       = [volterra_cloud_site_labels.labels]
+  depends_on       = [volterra_cloud_site_labels.labels2]
   provisioner "local-exec" {
     command        = "sleep 70"
   }
