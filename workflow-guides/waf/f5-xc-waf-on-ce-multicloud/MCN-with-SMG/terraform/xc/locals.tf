@@ -9,6 +9,7 @@ locals {
   azure_resource_group= data.tfe_outputs.azure-infra.values.resource_group_name
   azure_vnet_name     = data.tfe_outputs.azure-infra.values.vnet_name
   azure_subnet_name   = data.tfe_outputs.azure-infra.values.subnet_name
+  build_suffix_azure  = data.tfe_outputs.azure-infra.values.build_suffix
   aks_node_private_ip = [for node in data.kubernetes_nodes.aks.nodes : ([for addr in node.status[0].addresses : addr.address if addr.type == "InternalIP"])[0]][0]
   commonLabels        = {
     mcn_smg_label     = format("%s-label_value", local.project_prefix)

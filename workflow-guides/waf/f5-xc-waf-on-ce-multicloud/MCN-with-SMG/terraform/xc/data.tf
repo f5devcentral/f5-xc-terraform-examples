@@ -19,7 +19,7 @@ data "tfe_outputs" "gke" {
 }
 
 data "azurerm_kubernetes_cluster" "aks" {
-  name                =  format("%s-aks-%s", local.project_prefix, local.build_suffix)
+  name                = format("%s-aks-%s", local.project_prefix, local.build_suffix_azure)
   resource_group_name = local.azure_resource_group
 }
 
