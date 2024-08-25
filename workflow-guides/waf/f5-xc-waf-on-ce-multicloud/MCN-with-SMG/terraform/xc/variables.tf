@@ -30,11 +30,10 @@ variable "app_domain" {
   description = "FQDN for the app. If you have delegated domain `prod.example.com`, then your app_domain can be `<app_name>.prod.example.com`"
 }
 
-
-variable "gke_site_name" {
+variable "xc_waf_blocking" {
   type        = string
-  description = "Name of the GKE CE site."
-  default     = ""
+  description = "Set XC WAF to Blocking(true) or Monitoring(false)"
+  default     = "false"
 }
 
 variable "gcp_instance_type" {

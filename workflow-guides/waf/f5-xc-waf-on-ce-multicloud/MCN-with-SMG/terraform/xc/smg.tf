@@ -1,5 +1,5 @@
 resource "volterra_known_label_key" "volterra_known_label_key" {
-    key         = mcn_smg_label
+    key         = "mcn_smg_label"
     namespace   = "shared"
     description = "mcn smg key"
 }
