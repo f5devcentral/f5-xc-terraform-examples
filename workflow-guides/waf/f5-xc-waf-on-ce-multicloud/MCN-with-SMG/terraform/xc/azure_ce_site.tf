@@ -24,7 +24,7 @@ resource "volterra_azure_vnet_site" "azure_vnet_site" {
   }
   logs_streaming_disabled = true
   azure_region   = local.azure_region
-  resource_group = local.azure_resource_group
+  resource_group = format("%s-az-rgroup-%s", local.project_prefix, local.build_suffix)
 
   disk_size = 80
   machine_type = var.azure_xc_machine_type
@@ -60,8 +60,7 @@ resource "volterra_cloud_site_labels" "labels" {
   name = volterra_azure_vnet_site.azure_vnet_site.name
   site_type = "azure_vnet_site"
   labels = {
-      key1 = "value1"
-      key2 = "value2"
+    mcn_smg_label  = format("%s-label_value", local.project_prefix)
   }
   ignore_on_delete = true
 }
