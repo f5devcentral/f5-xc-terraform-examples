@@ -26,3 +26,14 @@ data "azurerm_kubernetes_cluster" "aks" {
 data "kubernetes_nodes" "aks" {
   provider = kubernetes.aks
 }
+
+data "google_client_config" "provider" {}
+
+data "google_container_cluster" "my_cluster" {
+  name     = local.gke_cluster_name
+  location = local.gcp_region
+}
+
+data "kubernetes_nodes" "gke" {
+  provider = kubernetes.gke
+}

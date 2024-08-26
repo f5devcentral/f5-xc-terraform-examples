@@ -245,9 +245,11 @@ metadata:
     app: productpage
     service: productpage
 spec:
+  type: NodePort
   ports:
   - port: 9080
     name: http
+    node_port: 31001
   selector:
     app: productpage
 YAML
@@ -276,7 +278,7 @@ metadata:
     app: productpage
     version: v1
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: productpage

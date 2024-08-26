@@ -10,7 +10,7 @@ resource "volterra_origin_pool" "bookinfo_details" {
       site_locator {
         site {
           namespace = "system"
-          name      = format("%s-az-site-%s", local.project_prefix, local.build_suffix)
+          name      = local.azure_site_name
         }
       }
     }
@@ -24,7 +24,7 @@ resource "volterra_origin_pool" "bookinfo_details" {
 
 resource "volterra_http_loadbalancer" "bookinfo_details" {
   name        = format("%s-bookinfo-details", local.project_prefix)
-  depends_on = [volterra_origin_pool.bookinfo_details]
+  depends_on  = [volterra_origin_pool.bookinfo_details, volterra_tf_params_action.apply_gcp_vpc]
   namespace   = var.xc_namespace
   description = "HTTP Load Balancer object for bookinfo details service"
   domains     = local.details_domain
@@ -35,7 +35,7 @@ resource "volterra_http_loadbalancer" "bookinfo_details" {
         network     = "SITE_NETWORK_INSIDE"
         site {
           namespace = "system"
-          name      = format("%s-az-site-%s", local.project_prefix, local.build_suffix)
+          name      = local.gcp_site_name
         }
       }
     }
