@@ -137,8 +137,8 @@ variable "vnet_cidr" {
   default     = null
 }
 
-variable "disable_bgp_route_propagation" {
-  description = "Whether to disable BGP route propagation."
+variable "bgp_route_propagation_enabled" {
+  description = "Whether to enable BGP route propagation."
   type        = bool
-  default     = false
+  default     = true
 }
