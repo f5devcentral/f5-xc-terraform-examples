@@ -144,7 +144,7 @@ Deployment Steps
       i. From the F5 XC Console homepage, select "Shared Configurations".
       ii. Select "Manage > Labels", select "Label Keys" and click on "Add Known Key".
       iii. Enter a key and value and Add the key
-      iv. Next click on Virtual Server and create it using type as CE and above label selector
+      iv. Next click on Virtual Sites and create it using type as CE and above label selector
       v. Navigate to your sites and update this label to your 2 CE sites of GCP and Azure
       vi. Next navigate to "Manage > Networking", select "Site Mesh Groups" and click on "Add Site Mesh Group"
       vii. Create a Site Mesh Group using Full Mesh topology and above created Virtual Server as shown below
@@ -173,7 +173,7 @@ Testing:
 
 .. figure:: assets/mcn-productpage.JPG
 
-4. Now update the URL field of postman to `http://<lb-domain-name>/productpage?u=normal`
+4. Now update the URL field to `http://<lb-domain-name>/productpage?u=normal`
 
 5. Send the GET request and validate product details are getting displayed as below
 
