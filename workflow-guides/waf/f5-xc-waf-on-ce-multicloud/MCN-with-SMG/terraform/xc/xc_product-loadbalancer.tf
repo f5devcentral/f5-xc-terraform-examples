@@ -5,10 +5,8 @@ resource "volterra_origin_pool" "bookinfo_product" {
   description = "Origin Pool pointing to bookinfo product page service"
 
   origin_servers {
-    k8s_service {
-      service_name  = "productpage.default"
-      vk8s_networks = true
-      outside_network = true
+    private_ip {
+      ip = local.gcp_node_ip
       site_locator {
         site {
           namespace = "system"

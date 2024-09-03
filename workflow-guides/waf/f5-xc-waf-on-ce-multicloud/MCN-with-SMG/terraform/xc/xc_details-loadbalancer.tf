@@ -1,14 +1,12 @@
 resource "volterra_origin_pool" "bookinfo_details" {
   name        = format("%s-bookinfo-details", local.project_prefix)
-  depends_on = [volterra_tf_params_action.action_apply]
+  depends_on  = [volterra_tf_params_action.action_apply]
   namespace   = var.xc_namespace
   description = "Origin Pool pointing to bookinfo details service"
 
   origin_servers {
-    k8s_service {
-      service_name  = "details.default"
-      vk8s_networks = true
-      outside_network = true
+    private_ip {
+      ip = local.aks_node_private_ip
       site_locator {
         site {
           namespace = "system"
