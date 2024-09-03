@@ -77,5 +77,5 @@ variable "azure_xc_machine_type" {
 variable "GOOGLE_CREDENTIALS" {
   type        = string
   description = "Contents of GCP credentials file to create CE site"
-  #default     = "false"
+  default     = "false"
 }

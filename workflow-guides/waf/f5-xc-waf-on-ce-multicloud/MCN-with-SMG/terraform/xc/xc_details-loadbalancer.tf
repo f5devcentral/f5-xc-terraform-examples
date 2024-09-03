@@ -5,8 +5,10 @@ resource "volterra_origin_pool" "bookinfo_details" {
   description = "Origin Pool pointing to bookinfo details service"
 
   origin_servers {
-    private_ip {
-      ip = local.aks_node_private_ip
+    k8s_service {
+      service_name  = "details.default"
+      vk8s_networks = true
+      outside_network = true
       site_locator {
         site {
           namespace = "system"
