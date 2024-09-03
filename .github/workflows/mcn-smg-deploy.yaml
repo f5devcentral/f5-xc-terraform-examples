@@ -79,4 +79,6 @@ jobs:
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/deploy-mcn-smg' && github.event_name == 'push'
+        env:
+          TF_VAR_GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
         run: terraform apply -auto-approve -input=false
