@@ -21,5 +21,5 @@ locals {
   details_node_port   = 31002
   product_node_port   = 31001
   details_domain      = ["details"]
-  gcp_ce_ip           = data.google_compute_instance.ce-site.network_interface.0.network_ip
+  gcp_ce_ip           = data.google_compute_instance.my_instance[aws-instance-name].network_interfaces[0].network_ip
 }

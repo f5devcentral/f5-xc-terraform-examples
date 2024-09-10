@@ -38,13 +38,15 @@ data "kubernetes_nodes" "gke" {
   provider = kubernetes.gke
 }
 
-data "google_compute_instance_group" "ce-site" {
+ data "google_compute_region_instance_group_manager" "ce-site" {
   depends_on  = [volterra_tf_params_action.apply_gcp_vpc]
   name        = local.gcp_site_name
-  zone        = format("%s-a", local.gcp_region)
+  region      = local.gcp_region
 }
 
-data "google_compute_instance" "ce-site" {
-  name        = element(data.google_compute_instance_group.ce-site.instances[*].instance,0)
-  zone        = format("%s-a", local.gcp_region)
+data "google_compute_instance" "my_instance" {
+  for_each = { for instance in data.google_compute_region_instance_group_manager.ce-site.instances : instance.instance  => instance }
+  name = each.key
+  zone = each.value.zone
 }
+
