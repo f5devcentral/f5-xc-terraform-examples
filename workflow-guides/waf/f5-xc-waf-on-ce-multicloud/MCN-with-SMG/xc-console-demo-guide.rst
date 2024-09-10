@@ -40,9 +40,9 @@ Deployment Steps
     v. From Networking menu, select inside subnet created in above step 
     vi. Optionally, in another tab check the VPC firewall rules and make sure nodeport range [30000-32767] are open in VPC firewall rules 
     vii. Complete the configurations and create cluster
-    xiii. In GCP portal, open cloud shell and connect to above created cluster
+    viii. In GCP portal, open cloud shell and connect to above created cluster
     ix. Open a file with name product.yaml and paste contents of /shared/booksinfo/mcn-bookinfo/product_page.yaml
-    x. Update HostAliases to your GCP node private IP and Run "kubectl apply -f product.yaml”
+    x. **NOTE: Update HostAliases to your GCP node private IP and Run "kubectl apply -f product.yaml”**
 
     .. figure:: assets/product-hostaliases.JPG
 
