@@ -6,7 +6,6 @@ locals {
   gcp_vpc_name        = data.tfe_outputs.gcp-infra.values.vpc_name
   gcp_vpc_subnet      = data.tfe_outputs.gcp-infra.values.vpc_subnet
   gcp_node_ip         = [for node in data.kubernetes_nodes.gke.nodes : ([for addr in node.status[0].addresses : addr.address if addr.type == "InternalIP"])[0]][0]
-  #gcp_node_ip         = "10.0.0.6"
   gcp_site_name       = format("%s-gcp-site-%s", local.project_prefix, local.build_suffix)
   gke_cluster_name    = data.tfe_outputs.gke.values.kubernetes_cluster_name
   azure_region        = data.tfe_outputs.azure-infra.values.azure_region
@@ -22,4 +21,5 @@ locals {
   details_node_port   = 31002
   product_node_port   = 31001
   details_domain      = ["details"]
+  gcp_ce_ip           = data.google_compute_instance.ce-site.network_interface.0.network_ip
 }

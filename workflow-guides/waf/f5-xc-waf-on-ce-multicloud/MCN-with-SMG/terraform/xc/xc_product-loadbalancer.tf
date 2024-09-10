@@ -6,11 +6,13 @@ resource "volterra_origin_pool" "bookinfo_product" {
 
   origin_servers {
     private_ip {
-      ip = local.gcp_node_ip
+      ip              = local.gcp_node_ip
+      outside_network = true
       site_locator {
         site {
-          namespace = "system"
-          name      = local.gcp_site_name
+          namespace   = "system"
+          name        = local.gcp_site_name
+          tenant      = var.xc_tenant
         }
       }
     }
@@ -36,6 +38,7 @@ resource "volterra_http_loadbalancer" "bookinfo_product" {
         site {
           namespace = "system"
           name      = local.gcp_site_name
+          tenant    = var.xc_tenant
         }
       }
     }

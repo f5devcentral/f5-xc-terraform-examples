@@ -6,11 +6,13 @@ resource "volterra_origin_pool" "bookinfo_details" {
 
   origin_servers {
     private_ip {
-      ip = local.aks_node_private_ip
+      ip              = local.aks_node_private_ip
+      outside_network = true
       site_locator {
         site {
-          namespace = "system"
-          name      = local.azure_site_name
+          namespace   = "system"
+          name        = local.azure_site_name
+          tenant      = var.xc_tenant
         }
       }
     }
@@ -32,10 +34,11 @@ resource "volterra_http_loadbalancer" "bookinfo_details" {
   advertise_custom {
     advertise_where {
       site {
-        network     = "SITE_NETWORK_INSIDE"
+        network = "SITE_NETWORK_OUTSIDE"
         site {
           namespace = "system"
           name      = local.gcp_site_name
+          tenant    = var.xc_tenant
         }
       }
     }

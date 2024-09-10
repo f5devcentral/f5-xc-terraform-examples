@@ -267,42 +267,4 @@ metadata:
 YAML
 }
 
-
-resource "kubectl_manifest" "deployment-productpage" {
-    yaml_body = <<YAML
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: productpage-v1
-  labels:
-    app: productpage
-    version: v1
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: productpage
-      version: v1
-  template:
-    metadata:
-      labels:
-        app: productpage
-        version: v1
-    spec:
-      serviceAccountName: bookinfo-productpage
-      containers:
-      - name: productpage
-        image: docker.io/istio/examples-bookinfo-productpage-v1:1.17.0
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 9080
-        volumeMounts:
-        - name: tmp
-          mountPath: /tmp
-        securityContext:
-          runAsUser: 1000
-      volumes:
-      - name: tmp
-        emptyDir: {}
-YAML
-}
+# deployment configuration has dependency of CE site IP so it will be deployed in XC folder
