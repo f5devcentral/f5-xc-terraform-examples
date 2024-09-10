@@ -45,6 +45,6 @@ data "google_compute_instance_group" "ce-site" {
 }
 
 data "google_compute_instance" "ce-site" {
-  name        = data.google_compute_instance_group.ce-site.instances.0.instance
+  name        = element(data.google_compute_instance_group.ce-site.instances[*].instance,0)
   zone        = format("%s-a", local.gcp_region)
 }
