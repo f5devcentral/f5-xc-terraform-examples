@@ -48,8 +48,8 @@ data "kubernetes_nodes" "gke" {
 #  instance_ids = [for instance in data.google_compute_instance_group.ce-site.instances : basename(instance)]
 #}
 #
-#data "google_compute_instance" "instances" {
-#  for_each    = toset(local.instance_ids)
-#  self_link   = "projects/${data.google_compute_instance_group.ce-site.project}/zones/${data.google_compute_instance_group.ce-site.zone}/instances/${each.key}"
-#}
+
+data "google_compute_instance" "instances" {
+  name = local.gcp_ce_ip.0
+}
 
