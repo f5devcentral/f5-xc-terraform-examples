@@ -3,5 +3,5 @@ output "endpoint" {
 }
 
 output "gcp_ce_privateip" {
-  value = local.gcp_ce_ip.0
+  value = local.gcp_ce_ip.2
 }
