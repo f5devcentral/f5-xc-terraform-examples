@@ -22,5 +22,5 @@ locals {
   product_node_port   = 31001
   details_domain      = ["details"]
   private_ip_regex    = "\"master_private_ip_address\"\\s*=\\s*\\{[^}]*:\"([^\"]+)\"\\}"
-  gcp_ce_ip           = regex(local.private_ip_regex, volterra_tf_params_action.apply_gcp_vpc.tf_output)
+  gcp_ce_ip           = { for instance in data.google_compute_instance.instances : instance.id => instance.network_interface[0].network_ip }
 }
