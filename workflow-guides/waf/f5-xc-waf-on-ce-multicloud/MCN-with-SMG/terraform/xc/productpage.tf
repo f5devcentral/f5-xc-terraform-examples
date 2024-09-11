@@ -50,7 +50,7 @@ resource "kubernetes_deployment" "productpage_v1" {
         }
 
         host_aliases {
-          ip        = local.gcp_ce_ip.0
+          ip        = local.gcp_ce_ip.0.network_interface.0.network_ip 
           hostnames = ["details"]
         }
 
