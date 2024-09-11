@@ -51,5 +51,6 @@ data "kubernetes_nodes" "gke" {
 
 data "google_compute_instance" "instances" {
   name = local.gcp_ce_ip.0
+  zone = format("%s-a", local.gcp_region)
 }
 
