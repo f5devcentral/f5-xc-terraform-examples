@@ -21,7 +21,5 @@ locals {
   details_node_port   = 31002
   product_node_port   = 31001
   details_domain      = ["details"]
-  private_ip_regex    = "master_private_ip_address = {\"((\\w+-){4}[\\w\\d]+-[\\w\\d]+)\":\"((?:\\d{1,3}\\.){3}\\d{1,3})\"}"
-  gcp_ce_ip           = regex("master_private_ip_address = {\"((\\w+-){4}[\\w\\d]+-[\\w\\d]+)\":\"((?:\\d{1,3}\\.){3}\\d{1,3})\"}", volterra_tf_params_action.apply_gcp_vpc.tf_output)
-  #gcp_ce_ip           = { for instance in data.google_compute_instance.instances : instance.id => instance.network_interface[0].network_ip }
+  gcp_ce_details      = regex("master_private_ip_address = {\"((\\w+-){4}[\\w\\d]+-[\\w\\d]+)\":\"((?:\\d{1,3}\\.){3}\\d{1,3})\"}", volterra_tf_params_action.apply_gcp_vpc.tf_output)
 }
