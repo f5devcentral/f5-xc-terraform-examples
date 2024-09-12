@@ -1,5 +1,5 @@
 resource "volterra_cloud_credentials" "azure_cred" {
-  name              = format("%s-azure-credentials", local.project_prefix, local.build_suffix)
+  name              = format("%s-azure-credentials", local.project_prefix)
   namespace         = "system"
   azure_client_secret {
     client_id       = "${var.azure_service_principal_appid}"
