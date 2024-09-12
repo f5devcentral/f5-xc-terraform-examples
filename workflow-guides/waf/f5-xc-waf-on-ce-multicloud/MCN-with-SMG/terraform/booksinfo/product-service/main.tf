@@ -249,7 +249,7 @@ spec:
   ports:
   - port: 9080
     name: http
-    node_port: 31001
+    nodePort: 31001
   selector:
     app: productpage
 YAML
