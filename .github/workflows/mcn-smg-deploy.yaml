@@ -456,7 +456,7 @@ jobs:
   terraform_xc:
     name: "F5 XC Resources"
     runs-on: ubuntu-latest
-    depends_on: []
+    depends_on: [terraform_details, terraform_frontend]
     defaults:
       run:
         working-directory: ./workflow-guides/waf/f5-xc-waf-on-ce-multicloud/MCN-with-SMG/terraform/xc
