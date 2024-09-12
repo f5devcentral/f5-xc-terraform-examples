@@ -1,4 +1,4 @@
-Name: "Deploy MCN using Site Mesh Group across GCP and Azure Clouds"
+name: "Deploy MCN using Site Mesh Group across GCP and Azure Clouds"
 
 on:
   push:
@@ -456,7 +456,7 @@ jobs:
   terraform_xc:
     name: "F5 XC Resources"
     runs-on: ubuntu-latest
-    depends_on: [terraform_details, terraform_frontend]
+    needs: [terraform_details, terraform_frontend]
     defaults:
       run:
         working-directory: ./workflow-guides/waf/f5-xc-waf-on-ce-multicloud/MCN-with-SMG/terraform/xc
