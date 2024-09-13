@@ -380,7 +380,7 @@ jobs:
   terraform_gke:
     name: "GCP GKE"
     runs-on: ubuntu-latest
-    needs: [terraform_frontend, terraform_xc]
+    needs: [ terraform_xc]
     defaults:
       run:
         working-directory: ./gcp/gke-cluster
