@@ -177,17 +177,17 @@ Workflow File: `mcn-smg-destroy.yaml </.github/workflows/mcn-smg-destroy.yaml>`_
 
 **STEP 6:** Once the pipeline completes, verify your CE's, Origin Pools and LB's were deployed. (**Note:** CE sites will take 15-20 mins to come online)
 
-.. image:: assets/gcp-site-online.JPG
+.. image:: assets/gcp-site-online.jpg
 
-.. image:: assets/aks-info.JPG
+.. image:: assets/aks-info.jpg
 
-.. image:: assets/azure-site-online.JPG
+.. image:: assets/azure-site-online.jpg
 
-.. image:: assets/gke-info.JPG
+.. image:: assets/gke-info.jpg
 
-.. image:: assets/smg-info.JPG
+.. image:: assets/smg-info.jpg
 
-.. image:: assets/lb-info.JPG
+.. image:: assets/lb-info.jpg
 
 
 **STEP 7:** Once CE sites are online, to validate the test infra & demo app accessibility, copy the public IP of CE site in `GCP CE Site View mode`. Add this IP in your hosts file mapping to your product page load balancer domain name (or you can create A record in your domain registrar). You should be able to access the demo application as shown in the image below:
@@ -197,4 +197,4 @@ Workflow File: `mcn-smg-destroy.yaml </.github/workflows/mcn-smg-destroy.yaml>`_
 
 **STEP 8:** If you want to destroy the entire setup, checkout a branch with name ``destroy-mcn-smg`` (using current ``deploy-mcn-smg`` branch) which will trigger destroy workflow and will remove all created resources
 
-.. image:: assets/cicd-destroy-success.jpg
+.. image:: assets/cicd-destroy-success.JPG
