@@ -190,7 +190,7 @@ Workflow File: `mcn-smg-destroy.yaml </.github/workflows/mcn-smg-destroy.yaml>`_
 .. image:: assets/lb-info.jpg
 
 
-**STEP 7:** Once CE sites are online, to validate the test infra & demo app accessibility, copy the public IP of CE site in `GCP CE Site View mode`. Add this IP in your hosts file mapping to your product page load balancer domain name (or you can create A record in your domain registrar). You should be able to access the demo application as shown in the image below:
+**STEP 7:** Once CE sites are online, to validate the test infra & demo app accessibility, copy the public IP of CE site in `GCP CE Site View mode`. Add this IP in your hosts file mapping to your product page load balancer domain name (or you can create A record in your domain registrar). You should be able to access the demo application and if you click on normal user you should be able to see all micro services like reviews and details (this service is hosted in azure) shown in the image below:
 
 .. image:: assets/lb-app-info.jpg
 
