@@ -61,6 +61,14 @@ Terraform Cloud
    +------------------------------------------+--------------+------------------------------------------------------+
    | tf_cloud_organization                    | TERRAFORM    | Your Terraform Cloud Organization name               |
    +------------------------------------------+--------------+------------------------------------------------------+
+   | TF_VAR_azure_service_principal_appid     | TERRAFORM    | Your Azure Account credentials                       |
+   +------------------------------------------+--------------+------------------------------------------------------+
+   | TF_VAR_azure_service_principal_password  | TERRAFORM    | Your Azure Account credentials                       |
+   +------------------------------------------+--------------+------------------------------------------------------+
+   | TF_VAR_azure_subscription_id             | TERRAFORM    | Your Azure Account credentials                       |
+   +------------------------------------------+--------------+------------------------------------------------------+
+   | TF_VAR_azure_subscription_tenant_id      | TERRAFORM    | Your Azure Account credentials                       |
+   +------------------------------------------+--------------+------------------------------------------------------+
 
 
 
@@ -116,7 +124,7 @@ Workflow                                       Branch Name
 Deploy F5 XC MCN                                deploy-mcn-smg
 ================================               =======================
 
-Workflow File: `mcn-smg-apply.yaml </.github/workflows/mcn-smg-apply.yaml>`__
+Workflow File: `mcn-smg-apply.yaml </.github/workflows/mcn-smg-deploy.yaml>`__
 
 **DESTROY**
 
@@ -138,9 +146,7 @@ Workflow File: `mcn-smg-destroy.yaml </.github/workflows/mcn-smg-destroy.yaml>`_
 
 -  gcp_project_id = “User GCP project ID"
 
--  Also update assets boolean value as shown below
-
-.. image:: assets/infra-tfvars.JPG
+-  Also update assets boolean value to false
 
 
 **STEP 3:** Rename ``azure/infra/terraform.tfvars.examples`` to ``azure/infra/terraform.tfvars`` and update the following data:
@@ -148,9 +154,9 @@ Workflow File: `mcn-smg-destroy.yaml </.github/workflows/mcn-smg-destroy.yaml>`_
 
 -  azure_region = “Azure Region/Location” ex. "southeastasia"
 
--  Also update other Assets booleans to false
+-  Also update Assets booleans value to false
 
-**Step 4:** Rename ``xc/terraform.tfvars.examples`` to ``xc/terraform.tfvars`` and add the following data:
+**Step 4:** Rename ``workflow-guides/waf/f5-xc-waf-on-ce-multicloud/MCN-with-SMG/terraform/xc/terraform.tfvars.examples`` to ``terraform.tfvars`` and update the following data:
 
 -  api_url = “Your F5XC tenant”
 
@@ -162,37 +168,33 @@ Workflow File: `mcn-smg-destroy.yaml </.github/workflows/mcn-smg-destroy.yaml>`_
 
 -  xc_waf_blocking = “Set to true to enable blocking”
 
--  k8s_pool = "false"
-
--  advertise_sites = "set to true"
-
--  http_only = "set to true"
-
--  gcp_ce_site = "set to true since we want to deploy GCP CE site"
-
--  gcp = "gcp-infra"
-
-.. image:: assets/xc-tfvars.JPG
-
 
 **STEP 5:** Commit and push your build branch to your forked repo
 
 - Build will run and can be monitored in the GitHub Actions tab and TF Cloud console. ``If CICD failed because of intermittent timing issue, rerun the work-flow again.``
 
-.. image:: assets/workflow-output.JPG
+.. image:: assets/cicd-deploy-success.JPG
 
 **STEP 6:** Once the pipeline completes, verify your CE's, Origin Pools and LB's were deployed. (**Note:** CE sites will take 15-20 mins to come online)
 
-.. image:: assets/gcp-site.JPG
+.. image:: assets/gcp-site-online.JPG
+
+.. image:: assets/aks-info.JPG
+
+.. image:: assets/azure-site-online.JPG
+
+.. image:: assets/gke-info.JPG
+
+.. image:: assets/smg-info.JPG
+
+.. image:: assets/lb-info.JPG
 
 
-**STEP 7:** Once CE sites are online, to validate the test infra & demo app accessibility, copy the public IP of CE site in `GCP CE Site View mode` and add this IP to your product page load balancer domain name. You should be able to access the demo application as shown in the image below:
+**STEP 7:** Once CE sites are online, to validate the test infra & demo app accessibility, copy the public IP of CE site in `GCP CE Site View mode`. Add this IP in your hosts file mapping to your product page load balancer domain name (or you can create A record in your domain registrar). You should be able to access the demo application as shown in the image below:
 
-.. image:: assets/gcp-ce-ip.jpg
-
-.. image:: assets/postman.jpg
+.. image:: assets/lb-app-info.jpg
 
 
-**STEP 8:** If you want to destroy the entire setup, checkout a branch with name ``destroy-mcn-smg`` (using current deploy-mcn-smg branch) which will trigger destroy workflow and will remove all created resources
+**STEP 8:** If you want to destroy the entire setup, checkout a branch with name ``destroy-mcn-smg`` (using current ``deploy-mcn-smg`` branch) which will trigger destroy workflow and will remove all created resources
 
-.. image:: assets/destroy.png
+.. image:: assets/cicd-destroy-success.jpg
