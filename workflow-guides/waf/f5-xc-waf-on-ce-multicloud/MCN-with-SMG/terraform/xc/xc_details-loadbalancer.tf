@@ -25,16 +25,16 @@ resource "volterra_origin_pool" "bookinfo_details" {
 }
 
 resource "volterra_http_loadbalancer" "bookinfo_details" {
-  name        = format("%s-bookinfo-details", local.project_prefix)
-  depends_on  = [volterra_origin_pool.bookinfo_details, volterra_tf_params_action.apply_gcp_vpc]
-  namespace   = var.xc_namespace
-  description = "HTTP Load Balancer object for bookinfo details service"
-  domains     = local.details_domain
+  name              = format("%s-bookinfo-details", local.project_prefix)
+  depends_on        = [volterra_origin_pool.bookinfo_details, volterra_tf_params_action.apply_gcp_vpc]
+  namespace         = var.xc_namespace
+  description       = "HTTP Load Balancer object for bookinfo details service"
+  domains           = local.details_domain
 
   advertise_custom {
     advertise_where {
       site {
-        network = "SITE_NETWORK_OUTSIDE"
+        network     = "SITE_NETWORK_OUTSIDE"
         site {
           namespace = "system"
           name      = local.gcp_site_name
@@ -46,19 +46,19 @@ resource "volterra_http_loadbalancer" "bookinfo_details" {
 
   default_route_pools {
     pool {
-      name      = volterra_origin_pool.bookinfo_details.name
-      namespace = var.xc_namespace
+      name          = volterra_origin_pool.bookinfo_details.name
+      namespace     = var.xc_namespace
     }
-    weight      = 1
+    weight          = 1
   }
 
   http {
-    port        = 9080
+    port            = 9080
   }
 
   app_firewall {
-    name        = volterra_app_firewall.waap-tf.name
-    namespace   = var.xc_namespace
+    name            = volterra_app_firewall.waap-tf.name
+    namespace       = var.xc_namespace
   }
   round_robin                     = true
   service_policies_from_namespace = true

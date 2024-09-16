@@ -9,13 +9,13 @@ data "tfe_outputs" "aks-cluster" {
 }
 
 data "tfe_outputs" "gcp-infra" {
-  organization  = var.tf_cloud_organization
-  workspace     = "gcp-infra"
+  organization        = var.tf_cloud_organization
+  workspace           = "gcp-infra"
 }
 
 data "tfe_outputs" "gke" {
-  organization  = var.tf_cloud_organization
-  workspace     = "gke"
+  organization        = var.tf_cloud_organization
+  workspace           = "gke"
 }
 
 data "azurerm_kubernetes_cluster" "aks" {
@@ -24,17 +24,17 @@ data "azurerm_kubernetes_cluster" "aks" {
 }
 
 data "kubernetes_nodes" "aks" {
-  provider = kubernetes.aks
+  provider            = kubernetes.aks
 }
 
 data "google_client_config" "provider" {}
 
 data "google_container_cluster" "my_cluster" {
-  name     = local.gke_cluster_name
-  location = local.gcp_region
+  name                = local.gke_cluster_name
+  location            = local.gcp_region
 }
 
 data "kubernetes_nodes" "gke" {
-  provider = kubernetes.gke
+  provider            = kubernetes.gke
 }
 

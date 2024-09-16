@@ -1,8 +1,8 @@
 resource "azurerm_kubernetes_cluster" "ce_waap" {
-  name                = format("%s-aks-%s", local.project_prefix, local.build_suffix)
-  location            = local.azure_region
-  resource_group_name = local.resource_group_name
-  dns_prefix          = format("%s-aks-dns-%s", local.project_prefix, local.build_suffix)
+  name                  = format("%s-aks-%s", local.project_prefix, local.build_suffix)
+  location              = local.azure_region
+  resource_group_name   = local.resource_group_name
+  dns_prefix            = format("%s-aks-dns-%s", local.project_prefix, local.build_suffix)
   default_node_pool {
     name                = "default"
     node_count          = 1
@@ -16,7 +16,7 @@ resource "azurerm_kubernetes_cluster" "ce_waap" {
   }
 
   network_profile {
-	network_plugin = "azure"
+	network_plugin      = "azure"
   }
 
 }
@@ -26,6 +26,7 @@ resource "local_file" "kubeconfig" {
   filename     = "./kubeconfig"
   content      = azurerm_kubernetes_cluster.ce_waap.kube_config_raw
 }
+
 
 #resource "null_resource" "deploy-yaml" {
 #  depends_on  = [local_file.kubeconfig]

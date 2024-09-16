@@ -37,7 +37,7 @@ variable "xc_waf_blocking" {
 }
 
 variable "gcp_instance_type" {
-  default = "n1-standard-4"
+  default     = "n1-standard-4"
 }
 
 

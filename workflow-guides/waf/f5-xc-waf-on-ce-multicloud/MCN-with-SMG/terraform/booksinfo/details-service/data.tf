@@ -4,6 +4,6 @@ data "tfe_outputs" "azure-infra" {
 }
 
 data "azurerm_kubernetes_cluster" "aks" {
-	name 					= format("%s-aks-%s", local.project_prefix, local.build_suffix)
-	resource_group_name   	= local.resource_group_name
+  name 					    = format("%s-aks-%s", local.project_prefix, local.build_suffix)
+  resource_group_name       = local.resource_group_name
 }

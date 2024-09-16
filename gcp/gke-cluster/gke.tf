@@ -3,7 +3,7 @@ data "google_client_config" "provider" {}
 
 # GKE cluster
 resource "google_container_cluster" "primary" {
-  name     = "${local.project_prefix}-gke"
+  name     = "${local.project_prefix}-gke-${local.project_suffix}"
   location = local.region
   
   # We can't create a cluster with no node pool defined, but we want to only use
@@ -35,7 +35,7 @@ resource "google_container_node_pool" "primary_nodes" {
 
     # preemptible  = true
     machine_type = "e2-standard-4"
-    tags         = ["gke-node", "${local.project_prefix}-gke"]
+    tags         = ["gke-node", "${local.project_prefix}-gke-${local.project_suffix}"]
     metadata = {
       disable-legacy-endpoints = "true"
     }

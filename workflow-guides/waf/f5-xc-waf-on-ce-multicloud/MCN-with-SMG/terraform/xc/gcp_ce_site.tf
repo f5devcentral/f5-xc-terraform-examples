@@ -41,13 +41,13 @@ resource "volterra_gcp_vpc_site" "site" {
 }
 
 resource "volterra_cloud_site_labels" "labels2" {
-  depends_on = [volterra_site_mesh_group.smg]
-  name       = volterra_gcp_vpc_site.site.name
-  site_type  = "gcp_vpc_site"
-  labels     = {
-    mcn_smg_label  = format("%s-label_value", local.project_prefix)
+  depends_on        = [volterra_site_mesh_group.smg]
+  name              = volterra_gcp_vpc_site.site.name
+  site_type         = "gcp_vpc_site"
+  labels            = {
+    mcn_smg_label   = format("%s-label_value", local.project_prefix)
   }
-  ignore_on_delete = true
+  ignore_on_delete  = true
 }
 
 resource "null_resource" "validation-wait-gcp" {

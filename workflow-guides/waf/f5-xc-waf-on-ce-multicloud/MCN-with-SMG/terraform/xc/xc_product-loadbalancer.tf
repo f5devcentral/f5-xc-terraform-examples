@@ -6,13 +6,13 @@ resource "volterra_origin_pool" "bookinfo_product" {
 
   origin_servers {
     private_ip {
-      ip              = local.gcp_node_ip
-      outside_network = true
+      ip                 = local.gcp_node_ip
+      outside_network    = true
       site_locator {
         site {
-          namespace   = "system"
-          name        = local.gcp_site_name
-          tenant      = var.xc_tenant
+          namespace      = "system"
+          name           = local.gcp_site_name
+          tenant         = var.xc_tenant
         }
       }
     }
@@ -28,13 +28,12 @@ resource "volterra_http_loadbalancer" "bookinfo_product" {
   depends_on  = [volterra_origin_pool.bookinfo_product]
   namespace   = var.xc_namespace
   description = "HTTP Load Balancer object for bookinfo product page service"
-
-  domains = [ var.app_domain ]
+  domains     = [ var.app_domain ]
 
   advertise_custom {
     advertise_where {
       site {
-        network = "SITE_NETWORK_OUTSIDE"
+        network     = "SITE_NETWORK_OUTSIDE"
         site {
           namespace = "system"
           name      = local.gcp_site_name
@@ -49,16 +48,16 @@ resource "volterra_http_loadbalancer" "bookinfo_product" {
       name      = volterra_origin_pool.bookinfo_product.name
       namespace = var.xc_namespace
     }
-    weight = 1
+    weight      = 1
   }
 
   http {
-    port = 80
+    port        = 80
   }
 
   app_firewall {
-    name      = volterra_app_firewall.waap-tf.name
-    namespace = var.xc_namespace
+    name        = volterra_app_firewall.waap-tf.name
+    namespace   = var.xc_namespace
   }
   round_robin                     = true
   service_policies_from_namespace = true
