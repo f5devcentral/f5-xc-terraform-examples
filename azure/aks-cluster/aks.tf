@@ -31,7 +31,7 @@ resource "local_file" "kubeconfig" {
 resource "null_resource" "deploy-yaml" {
   depends_on  = [local_file.kubeconfig]
   provisioner "local-exec" {
-    command   = "curl -Lo https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl && chmod +x kubectl"
+    command   = "curl -LO https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl && chmod +x kubectl"
   }
   provisioner "local-exec" {
       command     = "./kubectl apply -f manifest.yaml"
