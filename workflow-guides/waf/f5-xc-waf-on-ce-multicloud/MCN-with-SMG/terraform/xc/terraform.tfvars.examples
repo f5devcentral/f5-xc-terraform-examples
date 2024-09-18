@@ -1,0 +1,10 @@
+#XC Global
+api_url = <url-name>
+xc_tenant = <tenant-name>
+xc_namespace = "default"
+
+#XC LB
+app_domain = <domain-name>
+
+#XC WAF
+xc_waf_blocking = true
