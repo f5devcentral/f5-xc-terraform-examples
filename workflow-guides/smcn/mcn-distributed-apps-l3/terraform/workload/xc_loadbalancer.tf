@@ -273,12 +273,6 @@ resource "volterra_http_loadbalancer" "lb_https" {
   }
 
 #DDoS Configuration
-  dynamic "enable_ddos_detection" {
-    for_each = local.xc_ddos_def ? [1] : []
-    content {
-      enable_auto_mitigation {}
-    }
-  }
   dynamic "ddos_mitigation_rules" {
     for_each = local.xc_ddos_def ? [1] : []
     content {
