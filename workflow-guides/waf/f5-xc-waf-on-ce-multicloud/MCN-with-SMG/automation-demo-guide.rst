@@ -175,7 +175,7 @@ Workflow File: `mcn-smg-destroy.yaml </.github/workflows/mcn-smg-destroy.yaml>`_
 
 .. image:: assets/cicd-deploy-success.JPG
 
-**STEP 6:** Once the pipeline completes, verify your CE's, Origin Pools and LB's were deployed. (**Note:** CE sites will take 15-20 mins to come online)
+**STEP 6:** Once the pipeline completes, verify your CE's, Origin Pools and LB's were deployed. (**Note:** CE sites will take 15-20 mins to come online and for this automation we are deploying single NIC sites. For 2 NIC use cases users can follow manual steps guide.)
 
 .. image:: assets/gcp-site-online.jpg
 
