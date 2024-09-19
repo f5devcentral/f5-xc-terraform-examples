@@ -38,7 +38,7 @@ apiVersion: v1
 metadata:
   name: airline-flask
   annotations:
-    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+    networking.gke.io/load-balancer-type: "Internal"
 spec:
   ports:
     - protocol: TCP
