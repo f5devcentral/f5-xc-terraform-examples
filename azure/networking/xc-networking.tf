@@ -21,5 +21,5 @@ module "xc_azure_vnet" {
   inside_subnets                  = var.inside_subnets != "" ? var.inside_subnets : []
   outside_subnets                 = var.outside_subnets != "" ? var.outside_subnets : []
   vnet_cidr                       = var.vnet_cidr != "" ? var.vnet_cidr : null
-  disable_bgp_route_propagation   = var.disable_bgp_route_propagation != "" ? tobool(var.disable_bgp_route_propagation) : false
+  bgp_route_propagation_enabled   = var.bgp_route_propagation_enabled != "" ? tobool(var.bgp_route_propagation_enabled) : true
 }

@@ -77,7 +77,7 @@ Deploy our Sample Airline Application to the GKE Cluster:
 =========================================================
 
 1. Create a namespace using "kubectl create namespace gcp-xcbotdefense-namespace1"
-2. Download the Kubernetes .yaml file for GKE using our sample Airline application `here <https://github.com/karlbort/f5-xc-waap-terraform-examples/blob/main/workflow-guides/bot/deploy-botdefense-in-gcp-with-f5xc-bigip-connector/airline-app/gcp-xcbotdefense-app.yaml>`_ and save it to a working directory
+2. Download the Kubernetes .yaml file for GKE using our sample Airline application `here <https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/bot/deploy-botdefense-in-gcp-with-f5xc-bigip-connector/airline-app/gcp-xcbotdefense-app.yaml>`_ and save it to a working directory
 3. From CLI Navigate to the directory containing the container image YAML file and run the command "kubectl apply -f gcp-xcbotdefense-app.yaml -n gcp-xcbotdefense-namespace1".
 4. Check the status of the deployed pods using the "kubectl get pods -n gcp-xcbotdefense-namespace1" command. Make sure all pods are Running before proceeding.
 5. Once this command has finished executing you can find the ingress IP by running the command "kubectl get services -n gcp-xcbotdefense-namespace1". Note that the external IP is in the gcp-xcbotdefense-subnet1 (10.252.1.0/24) that we created. Make a note of this address as we'll be using this as the backend of our BIG-IP Virtual Server.
@@ -253,7 +253,7 @@ Validating the Java Script Injection:
 Simulating Bot Traffic with CURL:
 =================================
 
-1. Within this repo you can download the `curl-stuff.sh <https://github.com/karlbort/f5-xc-waap-terraform-examples/blob/main/workflow-guides/bot/deploy-botdefense-in-gcp-with-f5xc-bigip-connector/validation-tools/curl-stuff.sh>`_ Bash script in the validation-tools directory to run it against your web application to generate some generic Bot Traffic
+1. Within this repo you can download the `curl-stuff.sh <https://github.com/devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/bot/deploy-botdefense-in-gcp-with-f5xc-bigip-connector/validation-tools/curl-stuff.sh>`_ Bash script in the validation-tools directory to run it against your web application to generate some generic Bot Traffic
 2. After you've downloaded the curl-stuff.sh script you can edit the file using a text editor and replace the domain name on line 3 with the public IP Address of your BIG-IP. For example, curl -s http://x.x.x.x/user/signin NOTE*** ensure that you maintain the "/user/signin" path as this is the protected endpoint we configured in our profile.
 3. Run the curl script with sh curl-stuff.sh. Note the failure response in the screenshot below
 
