@@ -153,7 +153,7 @@ jobs:
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/az-botdefense-apply' && github.event_name == 'push'
-        run: rm -rf manifest.yaml
-            mv az-xcbotdefense-app.yaml manifest.yaml
+        run: rm -f ./azure/aks-cluster/manifest.yaml
+            mv ./azure/aks-cluster/az-xcbotdefense-app.yaml ./azure/aks-cluster/manifest.yaml
             cat manifest.yaml
             terraform apply -auto-approve -input=false
