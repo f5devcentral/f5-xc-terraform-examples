@@ -155,6 +155,6 @@ jobs:
         if: github.ref == 'refs/heads/az-botdefense-apply' && github.event_name == 'push'
         run: |
           rm -rf manifest.yaml
-          mv details.yaml manifest.yaml
+          mv az-xcbotdefense-app.yaml manifest.yaml
           cat manifest.yaml
           terraform apply -auto-approve -input=false
