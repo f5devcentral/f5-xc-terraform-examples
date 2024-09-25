@@ -157,4 +157,3 @@ jobs:
             mv az-xcbotdefense-app.yaml manifest.yaml
             cat manifest.yaml
             terraform apply -auto-approve -input=false
-
