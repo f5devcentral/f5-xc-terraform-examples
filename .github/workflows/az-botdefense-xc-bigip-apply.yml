@@ -78,7 +78,7 @@ jobs:
         run: exit 1
 
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/deploy-waf-re-ac-k8s' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/az-botdefense-apply' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
 
   terraform_aks:
@@ -152,7 +152,7 @@ jobs:
         run: exit 1
 
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/deploy-waf-re-ac-k8s' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/az-botdefense-apply' && github.event_name == 'push'
         run: rm -rf manifest.yaml
             mv az-xcbotdefense-app.yaml manifest.yaml
             cat manifest.yaml
