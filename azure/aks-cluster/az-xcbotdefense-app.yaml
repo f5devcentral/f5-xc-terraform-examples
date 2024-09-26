@@ -1,3 +1,8 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: gcp-xcbotdefense-namespace1
+---
 kind: Deployment
 apiVersion: apps/v1
 metadata:
