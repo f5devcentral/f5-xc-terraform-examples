@@ -1,16 +1,16 @@
-resource "azurerm_ssh_public_key" "f5_key" {
-  name                = format("%s-pubkey-%s", local.project_prefix, local.build_suffix)
-  resource_group_name = local.resource_group_name
-  location            = local.azure_region
-  public_key          = file("~/.ssh/id_rsa.pub")
-}
+#resource "azurerm_ssh_public_key" "f5_key" {
+#  name                = format("%s-pubkey-%s", local.project_prefix, local.build_suffix)
+#  resource_group_name = local.resource_group_name
+#  location            = local.azure_region
+#  public_key          = file("~/.ssh/id_rsa.pub")
+#}
 
 module "bigip" {
   count                       = 1
   source                      = "F5Networks/bigip-module/azure"
   prefix                      = local.project_prefix
   resource_group_name         = local.resource_group_name
-  f5_ssh_publickey            = azurerm_ssh_public_key.f5_key.public_key
+#  f5_ssh_publickey            = azurerm_ssh_public_key.f5_key.public_key
   mgmt_subnet_ids             = [{ "subnet_id" = local.subnet_name, "public_ip" = true, "private_ip_primary" = "" }]
   mgmt_securitygroup_ids      = [module.mgmt-network-security-group.network_security_group_id]
 #  availability_zone           = var.availability_zone
