@@ -45,8 +45,8 @@ resource "azurerm_network_security_rule" "mgmt_allow_rules" {
   access                      = "Allow"
   protocol                    = "Tcp"
   source_port_range           = "*"
-  destination_port_range      = ["8443","443","80","22"]
-  destination_address_prefixes  = "*"
+  destination_port_ranges      = ["8443","443","80","22"]
+  destination_address_prefix  = "*"
   source_address_prefixes     = ["0.0.0.0/0"]
   resource_group_name         = local.resource_group_name
   network_security_group_name = format("%s-mgmt-nsg-%s", local.project_prefix, local.build_suffix)
