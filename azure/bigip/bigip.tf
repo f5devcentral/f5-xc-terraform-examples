@@ -2,7 +2,7 @@ resource "azurerm_ssh_public_key" "f5_key" {
   name                = format("%s-pubkey-%s", local.project_prefix, local.build_suffix)
   resource_group_name = local.resource_group_name
   location            = local.azure_region
-  public_key          = file("./id_rsa.pub")
+  public_key          = file("~/.ssh/id_rsa.pub")
 }
 
 module "bigip" {
@@ -17,19 +17,19 @@ module "bigip" {
 #  availabilityZones_public_ip = var.availabilityZones_public_ip
 }
 
-resource "null_resource" "clusterDO" {
-
-  count = 1
-
-  provisioner "local-exec" {
-    command = "cat > DO_1nic-instance${count.index}.json <<EOL\n ${module.bigip[count.index].onboard_do}\nEOL"
-  }
-  provisioner "local-exec" {
-    when    = destroy
-    command = "rm -rf DO_1nic-instance${count.index}.json"
-  }
-  depends_on = [module.bigip.onboard_do]
-}
+#resource "null_resource" "clusterDO" {
+#
+#  count = 1
+#
+#  provisioner "local-exec" {
+#    command = "cat > DO_1nic-instance${count.index}.json <<EOL\n ${module.bigip[count.index].onboard_do}\nEOL"
+#  }
+#  provisioner "local-exec" {
+#    when    = destroy
+#    command = "rm -rf DO_1nic-instance${count.index}.json"
+#  }
+#  depends_on = [module.bigip.onboard_do]
+#}
 
 module "mgmt-network-security-group" {
   source              = "Azure/network-security-group/azurerm"
