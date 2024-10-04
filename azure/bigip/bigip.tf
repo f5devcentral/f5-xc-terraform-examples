@@ -2,7 +2,7 @@ resource "azurerm_ssh_public_key" "f5_key" {
   name                = format("%s-pubkey-%s", local.project_prefix, local.build_suffix)
   resource_group_name = local.resource_group_name
   location            = local.azure_region
-  public_key          = file("~/.ssh/id_rsa.pub")
+  public_key          = file("./id_rsa.pub")
 }
 
 module "bigip" {
