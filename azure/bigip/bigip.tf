@@ -38,8 +38,8 @@ module "bigip" {
   f5_password                 = var.f5_bigip_password
   vm_name                     =  "test-bigip"
   f5_image_name               = var.f5_bigip_image
-#  availability_zone           = var.availability_zone
-#  availabilityZones_public_ip = var.availabilityZones_public_ip
+  availability_zone           = var.availability_zone
+  availabilityZones_public_ip = var.availabilityZones_public_ip
 }
 
 #resource "null_resource" "clusterDO" {
