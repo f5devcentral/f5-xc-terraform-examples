@@ -1,6 +1,6 @@
 #TF Cloud
 variable "tf_cloud_organization" {
-  type = string
+  type        = string
   description = "TF cloud org (Value set in TF cloud)"
 }
 variable "gke_num_nodes" {
