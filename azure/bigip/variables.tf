@@ -21,7 +21,7 @@ variable "azure_service_principal_password" {
 
 variable "f5_bigip_image" {
   type    = string
-  default = "f5-bigip-virtual-edition-200m-best-hourly"
+  default = "f5-big-best-plus-hourly-25mbps"
 }
 
 variable "f5_bigip_password" {
