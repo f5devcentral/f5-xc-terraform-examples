@@ -1,6 +1,6 @@
 data "tfe_outputs" "infra" {
   organization = var.tf_cloud_organization
-  workspace = "infra"
+  workspace = "aws-infra"
 }
 data "tfe_outputs" "eks" {
   organization = var.tf_cloud_organization

@@ -1,6 +1,6 @@
 #Global
-project_prefix = "prefix"
-resource_owner = "name"
+project_prefix = "cek8s"
+resource_owner = "ishika"
 
 #AWS INFRA
 aws_region     = "ap-south-1"
