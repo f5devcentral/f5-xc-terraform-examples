@@ -27,8 +27,8 @@ Below we shall take a look into detailed steps as mentioned above.
             b. Select Manage > Manage K8s > K8s clusters in the configuration menu. Click on Add K8s cluster.
             c. As shown below select enable site API access and add local domain `kubernetes.default.svc`. Optionally you can add pod security policies and cluster roles
 
-.. figure:: assets/mk8s-cluster.png
-Fig : mk8s cluster
+     .. figure:: assets/mk8s-cluster.png
+     Fig : mk8s cluster
 
 2.   Creating AWS VPC Site object from F5 XC Console:
       **Step 1.1**: Login to F5 XC Console
@@ -53,9 +53,9 @@ Fig : mk8s cluster
             a. Click on the Apply button for the created AWS VPC site object.
             b. After a few minutes, the Site Admin State shows online and Status shows as Applied.
 
-.. figure:: assets/aws-vpc-site.png
-.. figure:: assets/aws-site-access.JPG
-Figs : AWS VPC Site and attaching to managed k8s cluster
+     .. figure:: assets/aws-vpc-site.png
+     .. figure:: assets/aws-site-access.JPG
+     Figs : AWS VPC Site and attaching to managed k8s cluster
 
 
 3.   Deploy the App to mk8s cluster
@@ -88,8 +88,8 @@ Figs : AWS VPC Site and attaching to managed k8s cluster
                e. From the Origins sections, Click on Add Item to add the origin pool created in step 4.1 under ``Select Origin Pool Method`` drop-down menu. Click on Apply.
                f. Click on Apply and ``Save and Exit``.
 
-.. figure:: assets/https-lb.png
-Fig : HTTPS LB
+               .. figure:: assets/https-lb.png
+               Fig : HTTPS LB
 
 
 Deployment Verification
