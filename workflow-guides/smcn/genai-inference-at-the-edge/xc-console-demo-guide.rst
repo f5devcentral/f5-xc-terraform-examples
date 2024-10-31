@@ -22,10 +22,9 @@ To deploy an AppStack mk8s cluster on an AWS CE Site, steps are categorized as m
 Below we shall take a look into detailed steps as mentioned above.
 
 1.   Creating mk8s cluster from F5 XC Console:
-      **Step 1.1**: Login to F5 XC Console
-            a. From the F5 XC Home page, ``Select the Distributed Apps`` Service and select System namespace
-            b. Select Manage > Manage K8s > K8s clusters in the configuration menu. Click on Add K8s cluster.
-            c. As shown below select enable site API access and add local domain `kubernetes.default.svc`. Optionally you can add pod security policies and cluster roles
+       a. From the F5 XC Home page, ``Select the Distributed Apps`` Service and select System namespace
+       b. Select Manage > Manage K8s > K8s clusters in the configuration menu. Click on Add K8s cluster.
+       c. As shown below select enable site API access and add local domain `kubernetes.default.svc`. Optionally you can add pod security policies and cluster roles
 
      .. figure:: assets/mk8s-cluster.png
      Fig : mk8s cluster
@@ -53,9 +52,9 @@ Below we shall take a look into detailed steps as mentioned above.
             a. Click on the Apply button for the created AWS VPC site object.
             b. After a few minutes, the Site Admin State shows online and Status shows as Applied.
 
-     .. figure:: assets/aws-vpc-site.png
-     .. figure:: assets/aws-site-access.JPG
-     Figs : AWS VPC Site and attaching to managed k8s cluster
+               .. figure:: assets/aws-vpc-site.png
+               .. figure:: assets/aws-site-access.JPG
+               Figs : AWS VPC Site and attaching to managed k8s cluster
 
 
 3.   Deploy the App to mk8s cluster
@@ -64,6 +63,8 @@ Below we shall take a look into detailed steps as mentioned above.
        c. Once deployed make sure all pods/service are running and online
 
      .. figure:: assets/kubeconfig.jpg
+     Fig : Downloading kubeconfig
+
 4.     Configuring Origin Pool and HTTPS LB in F5 XC Console
         **Step 4.1**: Creating Origin Pool
                In this process, we configure Origin pool with server as AWS VPC site and Advertise in HTTP Load Balancer.
@@ -100,8 +101,8 @@ To verify the deployment we shall follow the below steps to make sure users can 
 Fig: LangServe API
 
 1. Open the Postman/curl
-2. Enter the domain name of the HTTPS Load Balancer in the URL field.
-3. Generate a POST request to your application and validate response is displayed as below
+2. Enter the domain name of the HTTPS Load Balancer in the URL field. Next add your endpoint to the domain name. For ex ``/ask-a-doc/stream``
+3. Generate a POST request to your application by providing valid body as below and validate response is returned
 
 .. figure:: assets/curl.JPG
 .. figure:: assets/postman.JPG
