@@ -23,7 +23,7 @@ Prerequisites
 Workflow Steps
 -----------------
 
-- For deploying WAF on k8s, please copy both yml files in workflow folder to root folder .github/workflows folder. For ex: `waf-k8s-apply.yml <.github/workflows/waf-k8s-apply.yml>`__
+- For deploying WAF on k8s, please copy both yml files in workflow folder to root folder .github/workflows folder. For ex: `waf-k8s-apply.yml <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/.github/workflows/waf-k8s-apply.yml>`__
 
 - Login to Distributed Cloud, click on `Multi-Cloud-Connect`, navigate to `Site Management` and then to `Site Tokens` as shown below
 
