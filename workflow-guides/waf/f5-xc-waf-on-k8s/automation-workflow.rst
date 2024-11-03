@@ -57,7 +57,7 @@ Terraform Cloud
 .. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/cloud-workspaces.JPG 
 
 -  Login to terraform cloud and create below workspaces for storing the terraform state file of each job.
- infra, xc, eks, bookinfo, registration, k8sce
+ aws-infra, xc, eks, bookinfo, registration, k8sce
 
 
 -  **Workspace Sharing:** Under the settings for each Workspace, set the **Remote state sharing** to share with each Workspace created.
