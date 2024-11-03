@@ -9,19 +9,19 @@ resource "volterra_k8s_cluster" "mk8s" {
   }
 }
 
-resource "volterra_cloud_credentials" "aws" {
-  name        = format("%s-cred", var.project_prefix)
-  description = format("AWS credential will be used to create site %s", var.project_prefix)
-  namespace   = "system"
-  aws_secret_key {
-    access_key = var.aws_access_key
-    secret_key {
-      clear_secret_info {
-        url = "string:///${base64encode(var.aws_secret_key)}"
-      }
-    }
-  }
-}
+#resource "volterra_cloud_credentials" "aws" {
+#  name        = format("%s-cred", var.project_prefix)
+#  description = format("AWS credential will be used to create site %s", var.project_prefix)
+#  namespace   = "system"
+#  aws_secret_key {
+#    access_key = var.aws_access_key
+#    secret_key {
+#      clear_secret_info {
+#        url = "string:///${base64encode(var.aws_secret_key)}"
+#      }
+#    }
+#  }
+#}
 
 resource "volterra_aws_vpc_site" "this" {
   name        = var.site_name
@@ -29,7 +29,8 @@ resource "volterra_aws_vpc_site" "this" {
   aws_region  = var.aws_region
   ssh_key     = var.ssh_key
   aws_cred {
-    name      = volterra_cloud_credentials.aws.name
+    #name      = volterra_cloud_credentials.aws.name
+    name      = "aws-salini-mktg"
     namespace = "system"
   }
   vpc {
