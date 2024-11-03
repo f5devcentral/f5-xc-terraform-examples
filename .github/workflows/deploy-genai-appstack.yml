@@ -10,7 +10,6 @@ jobs:
   terraform_xc:
     name: "Deploy F5XC Appstack and Managed k8s"
     runs-on: ubuntu-latest
-    needs: [gke_ce, aws_ce]
     defaults:
       run:
         working-directory: ./workflow-guides/smcn/genai-inference-at-the-edge/terraform
