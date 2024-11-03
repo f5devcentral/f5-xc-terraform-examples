@@ -1,0 +1,19 @@
+#Global
+xc_project_prefix = "demo"
+
+#XC Global
+api_url = "https://<Your Tenant>.console.ves.volterra.io/api"
+xc_tenant = "Your tenant name"
+xc_namespace = "Your XC namespace"
+
+#XC LB
+app_domain = "Your App Domain"
+
+#XC WAF
+xc_waf_blocking = true
+
+
+# pool and LB inputs
+serviceName = ""
+serviceport = ""
+site_name = ""
