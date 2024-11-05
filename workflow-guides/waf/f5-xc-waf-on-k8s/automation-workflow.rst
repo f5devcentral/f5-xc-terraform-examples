@@ -165,7 +165,7 @@ f5-xc-waf-on-k8s destroy-waf-k8s
 
 -  serviceName = "k8s service name of backend"
 
--  serviceport = "k8s service port of backend"
+-  serviceport = "k8s service port of backend. For bookinfo keep this value as 9080."
 
 -  advertise_sites = "set to false if want to advertise on public"
 
