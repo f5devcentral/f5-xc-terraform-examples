@@ -24,7 +24,7 @@ xc_service_discovery = "false"
 # pool and LB inputs
 k8s_pool = "true"
 serviceName = "waf-k8s"
-serviceport = "waf-k8s"
+serviceport = "9080"
 advertise_sites = "false"
 http_only = "true"
 xc_delegation = "false"
