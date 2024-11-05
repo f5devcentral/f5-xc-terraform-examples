@@ -7,5 +7,5 @@ variable "tf_cloud_organization" {
 variable "aws_waf_ce" {
   description = "Infra"
   type        = string
-  default     = ""
+  default     = "aws-infra"
 }
