@@ -171,6 +171,10 @@ f5-xc-waf-on-k8s destroy-waf-k8s
 
 -  http_only = "set to true if want to advertise on http protocol"
 
+Check below image for sample data
+
+.. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/xc-tfvars.JPG
+
 **STEP 4:** Also update default value of ``aws_waf_ce`` variable in ``variables.tf`` file of ``/aws/eks-cluster``, ``/aws/eks-cluster/ce-deployment`` and ``/shared/booksinfo`` folders if it's not ``infra``. Commit and push your build branch to your forked repo, Build will run and can be monitored in the GitHub Actions tab and TF Cloud console
 
 **STEP 5:** Once the pipeline completes, verify your CE, Origin Pool and LB were deployed or destroyed based on your workflow.
