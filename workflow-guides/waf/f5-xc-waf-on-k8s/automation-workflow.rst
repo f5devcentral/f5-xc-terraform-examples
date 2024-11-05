@@ -95,7 +95,7 @@ GitHub
 -  **Actions Secrets:** Create the following GitHub Actions secrets in
    your forked repo
 
-   -  P12: The linux base64 encoded F5XC P12 certificate
+   -  P12: The linux base64 encoded F5XC P12 certificate (For windows run ``base64 <file-name>``, copy output content into a file and remove spaces.)
    -  TF_API_TOKEN: Your Terraform Cloud API token
    -  TF_CLOUD_ORGANIZATION: Your Terraform Cloud Organization name
    -  TF_CE_LATITUDE: Your CE location latitude
