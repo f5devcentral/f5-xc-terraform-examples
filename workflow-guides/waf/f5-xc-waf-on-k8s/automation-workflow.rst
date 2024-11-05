@@ -163,7 +163,7 @@ f5-xc-waf-on-k8s destroy-waf-k8s
 
 -  k8s_pool = "true if backend is residing in k8s"
 
--  serviceName = "k8s service name of backend"
+-  serviceName = "k8s service name of backend. Set this to productpage.default."
 
 -  serviceport = "k8s service port of backend. For bookinfo demo application you can keep this value as 9080."
 
