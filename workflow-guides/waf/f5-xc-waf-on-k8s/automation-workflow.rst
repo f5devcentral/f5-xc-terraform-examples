@@ -165,13 +165,13 @@ f5-xc-waf-on-k8s destroy-waf-k8s
 
 -  serviceName = "k8s service name of backend"
 
--  serviceport = "k8s service port of backend. For bookinfo keep this value as 9080."
+-  serviceport = "k8s service port of backend. For bookinfo demo application you can keep this value as 9080."
 
 -  advertise_sites = "set to false if want to advertise on public"
 
 -  http_only = "set to true if want to advertise on http protocol"
 
-**STEP 4:** Commit and push your build branch to your forked repo, Build will run and can be monitored in the GitHub Actions tab and TF Cloud console
+**STEP 4:** Also update default value of ``aws_waf_ce`` variable in ``variables.tf`` file of ``/aws/eks-cluster``, ``/aws/eks-cluster/ce-deployment`` and ``/shared/booksinfo`` folders. Commit and push your build branch to your forked repo, Build will run and can be monitored in the GitHub Actions tab and TF Cloud console
 
 **STEP 5:** Once the pipeline completes, verify your CE, Origin Pool and LB were deployed or destroyed based on your workflow.
 
