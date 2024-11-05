@@ -105,8 +105,9 @@ GitHub
    -  TF_CLOUD_WORKSPACE\_\ *<Workspace Name>*: Create for each
       workspace in your workflow per each job
 
-      -  EX: TF_CLOUD_WORKSPACE_EKS would be created with the
-         value ``EKS``
+      -  EX: Create TF_CLOUD_WORKSPACE_EKS with the value ``EKS``
+
+      -  EX: Create TF_CLOUD_WORKSPACE_INFRA with the value ``aws-infra``, etc
 
 -  Check below image for more info on action secrets
 
