@@ -28,7 +28,6 @@ resource "volterra_origin_pool" "op" {
       }
     }
   }
-
   no_tls                  = true
   port                    = var.serviceport
   endpoint_selection      = "LOCAL_PREFERRED"
