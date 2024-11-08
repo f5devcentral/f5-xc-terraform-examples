@@ -68,7 +68,7 @@ resource "null_resource" "wait_for_aws_mns" {
 
 resource "volterra_tf_params_action" "apply_aws_vpc" {
   depends_on       = [null_resource.wait_for_aws_mns]
-  site_name        = var.site_name
+  site_name        = volterra_aws_vpc_site.this.name
   site_kind        = "aws_vpc_site"
   action           = "apply"
   wait_for_action  = true
