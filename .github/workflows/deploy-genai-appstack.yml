@@ -85,6 +85,4 @@ jobs:
         run: |
           curl -LO https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl && chmod +x kubectl
           ls api.p12
-          curl --location --header 'Access-Control-Allow-Origin: *'  --data-raw '{"expirationTimestamp":"2024-11-15T09:02:25.547659194Z"}' --request POST 'https://treino.console.ves.volterra.io/api/web/namespaces/system/sites/jani-genai-appstack/global-kubeconfigs' --cert api.p12:Jani_123
-          ./kubectl apply -f llm.yaml --kubeconfig=ves_default_k8.yaml
-          ./kubectl apply -f langchain-doc-qa-api.yaml --kubeconfig=ves_default_k8.yaml
+          curl --location --header 'Access-Control-Allow-Origin: *'  --data-raw '{"expirationTimestamp":"2024-11-18T09:02:25.547659194Z"}' --request POST 'https://treino.console.ves.volterra.io/api/web/namespaces/system/sites/jani-genai-appstack/global-kubeconfigs' --cert-type P12   --cert api.p12:Jani_123
