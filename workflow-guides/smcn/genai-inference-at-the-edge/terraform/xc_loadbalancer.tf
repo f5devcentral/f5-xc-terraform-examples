@@ -20,7 +20,7 @@ resource "volterra_origin_pool" "op" {
       outside_network = true
       site_locator {
         site {
-          name      = format("%s-appstack", var.project_prefix)
+          name      = volterra_aws_vpc_site.this.name
           namespace = "system"
           tenant    = var.xc_tenant
           }
