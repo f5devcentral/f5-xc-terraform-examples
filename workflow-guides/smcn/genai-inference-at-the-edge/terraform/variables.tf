@@ -57,12 +57,6 @@ variable user_site {
   default     = "true"
 }
 
-variable "site_name" {
-  type        = string
-  description = "CE site name to advertise load balancer."
-  default     = ""
-}
-
 variable "k8s_pool" {
   type        = string
   description = "If pool is on k8s."

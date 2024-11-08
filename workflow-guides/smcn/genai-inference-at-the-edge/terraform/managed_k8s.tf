@@ -24,7 +24,7 @@ resource "volterra_k8s_cluster" "mk8s" {
 #}
 
 resource "volterra_aws_vpc_site" "this" {
-  name        = var.site_name
+  name        = format("%s-appstack", var.project_prefix)
   namespace   = "system"
   aws_region  = var.aws_region
   ssh_key     = var.ssh_key

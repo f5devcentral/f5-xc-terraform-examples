@@ -20,7 +20,7 @@ resource "volterra_origin_pool" "op" {
       outside_network = true
       site_locator {
         site {
-          name      = var.site_name
+          name      = format("%s-appstack", var.project_prefix)
           namespace = "system"
           tenant    = var.xc_tenant
           }
@@ -35,11 +35,24 @@ resource "volterra_origin_pool" "op" {
   loadbalancer_algorithm  = "LB_OVERRIDE"
 }
 
+resource "volterra_app_firewall" "waap-tf" {
+  name                      = format("%s-firewall", var.project_prefix)
+  description               = format("WAF in block mode for %s", var.project_prefix)
+  namespace                 = var.xc_namespace
+  allow_all_response_codes  = true
+  default_anonymization     = true
+  use_default_blocking_page = true
+  default_bot_setting       = true
+  default_detection_settings= true
+  use_loadbalancer_setting  = true
+  blocking = true
+}
+
 resource "volterra_http_loadbalancer" "lb_https" {
   depends_on             = [volterra_origin_pool.op]
   name                   = format("%s-xclb", var.project_prefix)
   namespace              = var.xc_namespace
-  description            = format("HTTP loadbalancer object for %s origin server", var.project_prefix)
+  description            = format("HTTP load balancer object for %s origin server", var.project_prefix)
   domains                = [var.app_domain]
   advertise_on_public_default_vip = true
 
@@ -64,7 +77,10 @@ resource "volterra_http_loadbalancer" "lb_https" {
     weight = 1
 }
 
-  disable_waf                     = false
+  app_firewall {
+    name      = volterra_app_firewall.waap-tf.name
+    namespace = var.xc_namespace
+  }
   round_robin                     = true
   service_policies_from_namespace = true
   user_id_client_ip = true

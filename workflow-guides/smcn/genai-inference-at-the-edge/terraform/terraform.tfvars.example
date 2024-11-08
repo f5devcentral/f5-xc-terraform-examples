@@ -16,4 +16,4 @@ xc_waf_blocking = true
 # pool and LB inputs
 serviceName = ""
 serviceport = ""
-site_name = ""
+

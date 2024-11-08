@@ -80,3 +80,10 @@ jobs:
       - name: Terraform Apply
         if: github.ref == 'refs/heads/deploy-genai-appstack' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
+
+      - name: Deploy App
+        run: |
+          curl -LO https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl && chmod +x kubectl
+          curl --location --header 'Access-Control-Allow-Origin: *'  --data-raw '{"expirationTimestamp":"2100-09-14T09:02:25.547659194Z"}' --request POST 'https://treino.console.ves.volterra.io/api/web/namespaces/system/sites/jani-appstack/global-kubeconfigs' --cert api.p12:Jani_123 > ves_default_k8.yaml
+          ./kubectl apply -f llm.yaml --kubeconfig=ves_default_k8.yaml
+          ./kubectl apply -f langchain-doc-qa-api.yaml --kubeconfig=ves_default_k8.yaml
