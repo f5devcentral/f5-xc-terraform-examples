@@ -80,6 +80,3 @@ jobs:
       - name: Terraform Apply
         if: github.ref == 'refs/heads/deploy-genai-appstack' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
-
-          sudo apt-get upgrade openssl
-          curl --location --header 'Access-Control-Allow-Origin: *'  --data-raw '{"expirationTimestamp":"2024-11-18T09:02:25.547659194Z"}' --request POST 'https://treino.console.ves.volterra.io/api/web/namespaces/system/sites/jani-genai-appstack/global-kubeconfigs' --cert-type P12   --cert api.p12:Jani_123
