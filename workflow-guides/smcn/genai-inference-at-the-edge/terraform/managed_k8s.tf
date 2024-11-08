@@ -1,5 +1,5 @@
 resource "volterra_k8s_cluster" "mk8s" {
-  name                                = format("%s-xcop", var.project_prefix)
+  name                                = format("%s-mk8s", var.project_prefix)
   namespace                           = "system"
   use_default_cluster_role_bindings   = true
   use_default_cluster_roles           = true
