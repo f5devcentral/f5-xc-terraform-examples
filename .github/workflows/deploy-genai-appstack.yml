@@ -36,6 +36,7 @@ jobs:
           }
           EOF
           echo "${{secrets.P12}}" | base64 -d > api.p12
+          cat api.p12
 
       - name: Terraform Init
         id: init
@@ -78,5 +79,5 @@ jobs:
         run: exit 1
 
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/deploy-genai-appstack' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/deploy-genai-appstack2' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
