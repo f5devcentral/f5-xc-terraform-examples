@@ -117,17 +117,22 @@ Check the rest of the values in variables.tf and you can update if need any chan
 
 .. image:: assets/deploy_pipeline.JPG
 
-**STEP 5:** Once the pipeline completes, verify your CE, Origin Pool and LB were deployed or destroyed based on your workflow. (**Note:** CE sites will take 15-20 mins to come online)
+**STEP 5:** Once the pipeline completes (Note CE site online takes around 20-30 mins), verify your CE, Origin Pool and LB were deployed or destroyed based on your workflow. (**Note:** CE sites will take 15-20 mins to come online)
 
 **STEP 6:** To validate the test infra, follow below steps
        a. Navigate to ``Select the Distributed Apps`` Service, next select system workspace and in overview section download global kubeconfig file
        b. You can use this config file to connect to managed k8s and deploy your application using your app related yaml files
-       c. Once deployed make sure all pods/service are running and online
+
+        .. image:: assets/app-deploy.JPG
+
+       c. Once deployed make sure all pods/service are running and online (Please note GenAI app deployment will take around 20 mins and k8s service discovery takes around 10-15 mins)
+
+        .. image:: assets/pods-online.JPG
+
        d. Open the load balancer domain in a browser and validate your AI application works as expected (Please check manual guide for this app verification)
 
-.. image:: assets/postman.JPG
+        .. image:: assets/postman.JPG
 
-.. image:: assets/curl.JPG
 
 **Note:** If you want to destroy the entire setup, checkout a branch with name ``destroy-genai-appstack`` and push the repo code to it which will trigger destroy workflow and will remove all created resources.
 

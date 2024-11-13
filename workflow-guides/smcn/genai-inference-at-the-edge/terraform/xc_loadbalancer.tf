@@ -7,7 +7,7 @@ resource "null_resource" "wait_for_aws_ce_site"{
 # Create XC LB config
 resource "volterra_origin_pool" "op" {
   depends_on             = [null_resource.wait_for_aws_ce_site]
-  name                   = format("%s-xcop", var.project_prefix)
+  name                   = format("%s-origin-pool", var.project_prefix)
   namespace              = var.xc_namespace
   description            = format("Origin pool pointing to origin server for %s", var.project_prefix)
 
@@ -23,6 +23,7 @@ resource "volterra_origin_pool" "op" {
           name      = volterra_aws_vpc_site.this.name
           namespace = "system"
           tenant    = var.xc_tenant
+          kind      = "site"
           }
         }
       }
@@ -48,7 +49,7 @@ resource "volterra_app_firewall" "waap-tf" {
 
 resource "volterra_http_loadbalancer" "lb_https" {
   depends_on             = [volterra_origin_pool.op]
-  name                   = format("%s-xclb", var.project_prefix)
+  name                   = format("%s-load-balancer", var.project_prefix)
   namespace              = var.xc_namespace
   description            = format("HTTP load balancer object for %s origin server", var.project_prefix)
   domains                = [var.app_domain]

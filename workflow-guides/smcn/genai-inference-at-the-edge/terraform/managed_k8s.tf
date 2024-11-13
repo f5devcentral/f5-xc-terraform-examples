@@ -4,6 +4,7 @@ resource "volterra_k8s_cluster" "mk8s" {
   use_default_cluster_role_bindings   = true
   use_default_cluster_roles           = true
   use_default_pod_security_admission  = true
+  global_access_enable                = true
   local_access_config {
     local_domain                      = "kubernetes.default.svc"
   }
