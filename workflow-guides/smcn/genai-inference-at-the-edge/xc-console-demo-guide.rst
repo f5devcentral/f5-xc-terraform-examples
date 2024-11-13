@@ -87,7 +87,7 @@ Below we shall take a look into detailed steps as mentioned above.
                c. In the name field, enter the name of the LB, In the Domains field, enter a domain name.
                d. From the Load Balancer Type drop-down menu, Select HTTPS to create HTTPS load balancer.
                e. From the Origins sections, Click on Add Item to add the origin pool created in step 4.1 under ``Select Origin Pool Method`` drop-down menu. Click on Apply.
-               f. Increase idle timeout to 600000 to make sure requests are not timed out
+               f. Increase idle timeout to 120000/600000 as per the app to make sure requests are not timed out
                g. Click on Apply and ``Save and Exit``.
 
                .. figure:: assets/https-lb.png
