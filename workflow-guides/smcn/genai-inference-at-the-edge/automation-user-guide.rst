@@ -5,11 +5,12 @@ Prerequisites
 #############
 
 -  `F5 Distributed Cloud (F5 XC) Account <https://console.ves.volterra.io/signup/usage_plan>`__
+-   Account should have access to ``system`` namespace
 -  `AWS Account <https://azure.microsoft.com/en-in/get-started/azure-portal/>`__ 
 -  `Terraform Cloud Account <https://developer.hashicorp.com/terraform/tutorials/cloud-get-started>`__
 -  `GitHub Account <https://github.com>`__
 
-List of Existing Assets
+List of Created Assets
 #######################
 
 -  **xc:** F5 Distributed Cloud WAF
@@ -27,17 +28,13 @@ Tools
 Terraform Cloud
 ###############
 
--  **Workspaces:** Create CLI or API workspaces for each asset in the workflow.
+-  **Workspaces:** Create below CLI or API workspace in the terraform cloud.
 
    +---------------------------+-------------------------------------------+
    |         **Workflow**      |  **Assets/Workspaces**                    |
    +===========================+===========================================+
    |  deploy-genai-appstack    |         appstack                          |
    +---------------------------+-------------------------------------------+
-
-
-
--  **Workspace Sharing:** Under the settings for each Workspace, set the **Remote state sharing** to share with each Workspace created.
 
 -  **Variable Set:** Create a Variable Set with the following values:
 
@@ -52,7 +49,6 @@ Terraform Cloud
    +------------------------------------------+--------------+------------------------------------------------------+
    | tf_cloud_organization                    | TERRAFORM    |  Your Terraform Cloud Organization name              |
    +------------------------------------------+--------------+------------------------------------------------------+
-
 
 
 GitHub
@@ -136,4 +132,3 @@ Check the rest of the values in variables.tf and you can update if need any chan
 **Note:** If you want to destroy the entire setup, checkout a branch with name ``destroy-genai-appstack`` and push the repo code to it which will trigger destroy workflow and will remove all created resources.
 
 .. image:: assets/destroy_pipeline.JPG
-
