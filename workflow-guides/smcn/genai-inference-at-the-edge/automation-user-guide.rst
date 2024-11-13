@@ -63,6 +63,8 @@ GitHub
    -  TF_API_TOKEN: Your Terraform Cloud API token
    -  TF_CLOUD_ORGANIZATION: Your Terraform Cloud Organization name
    -  TF_CLOUD_WORKSPACE_APPSTACK should be created with the value ``appstack``
+   -  aws_access_key: Your AWS access key
+   -  aws_secret_key: Your AWS secret key
 
 
 Workflow Runs
@@ -107,8 +109,6 @@ Workflow File: `destroy-genai-appstack.yml </.github/workflows/destroy-genai-app
 
 -  serviceport = "set to your app port number. For existing demo use 8501"
 
-- Also add aws access key and secret key in your env vars (recommended) or in this tfvars (not recommended)
-
 Check the rest of the values in variables.tf and update if need any changes.
 
 **STEP 4:** Commit and push your build branch to your forked repo 
@@ -117,7 +117,7 @@ Check the rest of the values in variables.tf and update if need any changes.
 
 .. image:: assets/deploy_pipeline.JPG
 
-**STEP 5:** Once the pipeline completes, verify your CE, Origin Pool and LB were deployed or destroyed based on your workflow. (**Note:** CE sites will take 15-20 mins to come online)
+**STEP 5:** Once the pipeline completes, verify your CE, Origin Pool and LB were deployed or destroyed based on your workflow. (**Note:** Appstack CE site will take 15-20 mins to come online)
 
 **STEP 6:** To validate the test infra, follow below steps
        a. Navigate to ``Select the Distributed Apps`` Service, next select ``system`` workspace and in overview section download global kubeconfig file
