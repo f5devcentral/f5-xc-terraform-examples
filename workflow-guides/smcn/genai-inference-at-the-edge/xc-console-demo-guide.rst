@@ -24,7 +24,7 @@ Below we shall take a look into detailed steps as mentioned above.
 1.   Creating mk8s cluster from F5 XC Console:
        a. From the F5 XC Home page, ``Select the Distributed Apps`` Service and select ``System`` namespace
        b. Select Manage > Manage K8s > K8s clusters in the configuration menu. Click on Add K8s cluster.
-       c. As shown below select enable site API access, enable volt console access and add local domain `kubernetes.default.svc`. Optionally you can add pod security policies and cluster roles
+       c. As shown below select enable site API access, enable volt console access and add local domain ``kubernetes.default.svc``. Optionally you can add pod security policies and cluster roles
 
      .. figure:: assets/mk8s-cluster.png
      Fig : mk8s cluster
