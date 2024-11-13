@@ -119,7 +119,7 @@ Check the rest of the values and you can update if need any changes.
 
 - Build will run and can be monitored in the GitHub Actions tab and TF Cloud console
 
-.. image:: Assets/deploy_pipeline.jpg
+.. image:: assets/deploy_pipeline.jpg
 
 **STEP 5:** Once the pipeline completes, verify your CE, Origin Pool and LB were deployed or destroyed based on your workflow. (**Note:** CE sites will take 15-20 mins to come online)
 
@@ -129,11 +129,11 @@ Check the rest of the values and you can update if need any changes.
        c. Once deployed make sure all pods/service are running and online
        d. Open the load balancer domain in a browser and validate your AI application works as expected (Please check manual guide for this app verification)
 
-.. image:: Assets/postman.jpg
+.. image:: assets/postman.jpg
 
-.. image:: Assets/curl.jpg
+.. image:: assets/curl.jpg
 
 **Note:** If you want to destroy the entire setup, checkout a branch with name ``destroy-genai-appstack`` and push the repo code to it which will trigger destroy workflow and will remove all created resources.
 
-.. image:: Assets/destroy_pipeline.jpg
+.. image:: assets/destroy_pipeline.jpg
 
