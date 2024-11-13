@@ -121,11 +121,11 @@ Check the rest of the values in variables.tf and you can update if need any chan
 
 **STEP 6:** To validate the test infra, follow below steps
        a. Navigate to ``Select the Distributed Apps`` Service, next select ``system`` workspace and in overview section download global kubeconfig file
-       b. You can use this config file to connect to managed k8s and deploy your application using your app related yaml files
+       b. You can use this config file to connect to managed k8s and deploy your application using your app related yaml files (for demo we have kept 2 manifest files in this folder)
 
         .. image:: assets/app-deploy.JPG
 
-       c. Once deployed make sure all pods/service are running and online (Please note GenAI app deployment will take around 20 mins and k8s service discovery takes around 10-15 mins)
+       c. Once deployed make sure all pods/services are running and online (Please note GenAI app pods deployment will take around 20 mins and k8s service discovery takes around 10-15 mins. So please wait for 30 mins before moving on to next step.)
 
         .. image:: assets/pods-online.JPG
 
