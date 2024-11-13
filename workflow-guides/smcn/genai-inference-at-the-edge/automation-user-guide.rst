@@ -5,7 +5,7 @@ Prerequisites
 #############
 
 -  `F5 Distributed Cloud (F5 XC) Account <https://console.ves.volterra.io/signup/usage_plan>`__
--   Account should have access to ``system`` namespace
+-   Above account should have access to ``system`` namespace
 -  `AWS Account <https://azure.microsoft.com/en-in/get-started/azure-portal/>`__ 
 -  `Terraform Cloud Account <https://developer.hashicorp.com/terraform/tutorials/cloud-get-started>`__
 -  `GitHub Account <https://github.com>`__
