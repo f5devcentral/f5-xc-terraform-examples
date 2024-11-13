@@ -117,7 +117,7 @@ Check the rest of the values in variables.tf and you can update if need any chan
 
 .. image:: assets/deploy_pipeline.JPG
 
-**STEP 5:** Once the pipeline completes (Note CE site online takes around 20-30 mins), verify your CE, Origin Pool and LB were deployed or destroyed based on your workflow. (**Note:** CE sites will take 15-20 mins to come online)
+**STEP 5:** Once the pipeline completes, verify your CE, Origin Pool and LB were deployed or destroyed based on your workflow. (**Note:** CE sites will take 15-20 mins to come online)
 
 **STEP 6:** To validate the test infra, follow below steps
        a. Navigate to ``Select the Distributed Apps`` Service, next select ``system`` workspace and in overview section download global kubeconfig file
