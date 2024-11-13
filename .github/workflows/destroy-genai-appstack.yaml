@@ -77,6 +77,6 @@ jobs:
         if: steps.plan.outcome == 'failure'
         run: exit 1
 
-      - name: Terraform Apply
+      - name: Terraform Destroy
         if: github.ref == 'refs/heads/destroy-genai-appstack' && github.event_name == 'push'
         run: terraform destroy -auto-approve -input=false

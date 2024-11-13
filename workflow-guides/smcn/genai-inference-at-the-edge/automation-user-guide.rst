@@ -129,7 +129,9 @@ Check the rest of the values and you can update if need any changes.
        c. Once deployed make sure all pods/service are running and online
        d. Open the load balancer domain in a browser and validate your AI application works as expected (Please check manual guide for this testing)
 
-.. image:: Assets/testing_logs.jpg
+.. image:: Assets/postman.jpg
+
+.. image:: Assets/curl.jpg
 
 **Note:** If you want to destroy the entire setup, checkout a branch with name ``destroy-genai-appstack`` and push the repo code to it which will trigger destroy workflow and will remove all created resources.
 
