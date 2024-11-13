@@ -113,7 +113,7 @@ Workflow File: `destroy-genai-appstack.yml </.github/workflows/destroy-genai-app
 
 - Also add aws access key and secret key in your env vars (recommended) or in this tfvars (not recommended)
 
-Check the rest of the values and you can update if need any changes.
+Check the rest of the values in variables.tf and you can update if need any changes.
 
 **STEP 4:** Commit and push your build branch to your forked repo 
 
