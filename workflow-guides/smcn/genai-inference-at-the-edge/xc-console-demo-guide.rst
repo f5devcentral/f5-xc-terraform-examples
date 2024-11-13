@@ -72,10 +72,10 @@ Below we shall take a look into detailed steps as mentioned above.
                a. Log into F5 XC Console and Click on Multi-Cloud App Connect.
                b. Click Manage > Load Balancers > Origin Pools and Click ``Add Origin Pool``.
                c. In the name field, enter a name. Click on Add Item button in Origin Servers section.
-               d. From the ``Select type of Origin Server`` menu, select ``K8s Service Name of Origin Server on given Sites`` and specify your app k8s service name along with namespace (for ex llama.llm).
+               d. From the ``Select type of Origin Server`` menu, select ``K8s Service Name of Origin Server on given Sites`` and specify your app k8s service name along with namespace (If you are using our demo app, set to langchain-doc-qa-api.llm which is the service available in yml files).
                e. Select ``Site`` from the ``Site or Virtual Site`` drop-down and select the AWS VPC site created in step 2.
                f. Select ``Outside Network`` for ``Select Network on the Site`` drop-down. Click on Apply.
-               g. In ``Origin server Port`` enter the port number of the frontend service of your application
+               g. In ``Origin server Port`` enter the port number of the frontend service of your application. If you are using our demo app, set to 8501.
                h. Click on Save and Exit.
 
                .. figure:: assets/origin-pool.png
