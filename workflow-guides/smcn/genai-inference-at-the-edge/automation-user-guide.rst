@@ -4,8 +4,7 @@ Steps to deploy/protect/destroy Generative AI applications at the Edge with F5 X
 Prerequisites
 #############
 
--  `F5 Distributed Cloud (F5 XC) Account <https://console.ves.volterra.io/signup/usage_plan>`__
--   Above account should have access to ``system`` namespace
+-  `F5 Distributed Cloud (F5 XC) Account (with access to ``system`` namespace) <https://console.ves.volterra.io/signup/usage_plan>`__
 -  `AWS Account <https://azure.microsoft.com/en-in/get-started/azure-portal/>`__ 
 -  `Terraform Cloud Account <https://developer.hashicorp.com/terraform/tutorials/cloud-get-started>`__
 -  `GitHub Account <https://github.com>`__
