@@ -3,10 +3,10 @@ Manual step by step process to deploy and secure Generative AI applications at t
 
 Prerequisites
 **************
-- F5 Distributed Cloud Console SaaS account
+- F5 Distributed Cloud Console SaaS account and user should also have access to ``system`` namespace
 - Access to Amazon Web Service (AWS) Management console & Command Line
-- Install Kubectl command line tool to connect and push the app manifest file to mk8s cluster
-- Install Postman for verifying the deployment
+- Kubectl command line tool to connect and push the app manifest file to mk8s cluster
+- Postman for verifying the deployment
 
 Create AWS credentials in XC by following the steps mentioned in this `Devcentral article <https://community.f5.com/kb/technicalarticles/creating-a-credential-in-f5-distributed-cloud-to-use-with-aws/298111>`_ 
 
