@@ -124,7 +124,7 @@ Check the rest of the values and you can update if need any changes.
 **STEP 5:** Once the pipeline completes, verify your CE, Origin Pool and LB were deployed or destroyed based on your workflow. (**Note:** CE sites will take 15-20 mins to come online)
 
 **STEP 6:** To validate the test infra, follow below steps
-       a. Navigate to ``Select the Distributed Apps`` Service and in overview section download global kubeconfig file
+       a. Navigate to ``Select the Distributed Apps`` Service, next select system workspace and in overview section download global kubeconfig file
        b. You can use this config file to connect to managed k8s and deploy your application using your app related yaml files
        c. Once deployed make sure all pods/service are running and online
        d. Open the load balancer domain in a browser and validate your AI application works as expected (Please check manual guide for this app verification)
