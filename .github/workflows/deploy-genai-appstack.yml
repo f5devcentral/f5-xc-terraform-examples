@@ -79,5 +79,5 @@ jobs:
         run: exit 1
 
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/deploy-genai-appstack2' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/deploy-genai-appstack' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
