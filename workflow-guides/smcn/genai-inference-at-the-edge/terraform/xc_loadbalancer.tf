@@ -14,7 +14,6 @@ resource "volterra_origin_pool" "op" {
           name            = volterra_aws_vpc_site.this.name
           namespace       = "system"
           tenant          = var.xc_tenant
-          kind            = "site"
         }
       }
     }
