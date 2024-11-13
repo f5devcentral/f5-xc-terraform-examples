@@ -58,7 +58,7 @@ Below we shall take a look into detailed steps as mentioned above.
 
 
 3.   Deploy the App to mk8s cluster
-       a. You can navigate to ``Select the Distributed Apps`` Service and in overview section download gloabl kubeconfig file
+       a. You can navigate to ``Select the Distributed Apps`` Service and in overview section download global kubeconfig file
        b. You can use this config file to connect to managed k8s and deploy your application using your app related yaml files
        c. Once deployed make sure all pods/service are running and online
 
