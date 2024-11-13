@@ -10,19 +10,19 @@ resource "volterra_k8s_cluster" "mk8s" {
   }
 }
 
-#resource "volterra_cloud_credentials" "aws" {
-#  name        = format("%s-cred", var.project_prefix)
-#  description = format("AWS credential will be used to create site %s", var.project_prefix)
-#  namespace   = "system"
-#  aws_secret_key {
-#    access_key = var.aws_access_key
-#    secret_key {
-#      clear_secret_info {
-#        url = "string:///${base64encode(var.aws_secret_key)}"
-#      }
-#    }
-#  }
-#}
+resource "volterra_cloud_credentials" "aws" {
+  name        = format("%s-cred", var.project_prefix)
+  description = format("AWS credentials which will be used to create site for %s", var.project_prefix)
+  namespace   = "system"
+  aws_secret_key {
+    access_key = var.aws_access_key
+    secret_key {
+      clear_secret_info {
+        url = "string:///${base64encode(var.aws_secret_key)}"
+      }
+    }
+  }
+}
 
 resource "volterra_aws_vpc_site" "this" {
   name        = format("%s-appstack", var.project_prefix)
@@ -37,7 +37,7 @@ resource "volterra_aws_vpc_site" "this" {
   vpc {
     new_vpc {
       name_tag      = format("%s-vpc", var.project_prefix)
-      primary_ipv4  = "10.0.0.0/16"
+      primary_ipv4  = var.primary_ipv4
     }
   }
   disk_size         = "80"
@@ -49,7 +49,7 @@ resource "volterra_aws_vpc_site" "this" {
       aws_az_name   = format("%sa", var.aws_region)
       local_subnet {
         subnet_param {
-          ipv4      = "10.0.0.0/24"
+          ipv4      = var.subnet_ipv4
         }
       }
     }

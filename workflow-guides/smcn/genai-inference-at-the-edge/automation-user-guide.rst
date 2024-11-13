@@ -105,11 +105,11 @@ Workflow File: `destroy-genai-appstack.yml </.github/workflows/destroy-genai-app
 
 -  servicename = "set to k8s backend service of your aplication. For demo you can set to ``langchain-doc-qa-api.llm``."
 
-- serviceport = "set to your app port number. For existing demo use 8501"
+-  serviceport = "set to your app port number. For existing demo use 8501"
 
 - Also add aws access key and secret key in your env vars (recommended) or in this tfvars (not recommended)
 
-Check the rest of the values in variables.tf and you can update if need any changes.
+Check the rest of the values in variables.tf and update if need any changes.
 
 **STEP 4:** Commit and push your build branch to your forked repo 
 

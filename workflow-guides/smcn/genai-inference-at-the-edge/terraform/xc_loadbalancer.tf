@@ -1,30 +1,20 @@
-# Wait for appstack CE site creation
-resource "null_resource" "wait_for_aws_ce_site"{
-  count           =  var.user_site ? 1 : 0
-  depends_on      =  [volterra_tf_params_action.apply_aws_vpc]
-}
-
 # Create XC LB config
 resource "volterra_origin_pool" "op" {
-  depends_on             = [null_resource.wait_for_aws_ce_site]
-  name                   = format("%s-origin-pool", var.project_prefix)
-  namespace              = var.xc_namespace
-  description            = format("Origin pool pointing to origin server for %s", var.project_prefix)
+  depends_on              = [volterra_tf_params_action.apply_aws_vpc]
+  name                    = format("%s-origin-pool", var.project_prefix)
+  namespace               = var.xc_namespace
+  description             = format("Origin pool pointing to origin server for %s", var.project_prefix)
 
-  dynamic "origin_servers" {
-    for_each = var.k8s_pool ? [1] : []
-    content {
+  origin_servers {
     k8s_service {
-      service_name  = var.serviceName
-      vk8s_networks = true
-      outside_network = true
+      service_name        = var.serviceName
+      outside_network     = true
       site_locator {
         site {
-          name      = volterra_aws_vpc_site.this.name
-          namespace = "system"
-          tenant    = var.xc_tenant
-          kind      = "site"
-          }
+          name            = volterra_aws_vpc_site.this.name
+          namespace       = "system"
+          tenant          = var.xc_tenant
+          kind            = "site"
         }
       }
     }
@@ -44,51 +34,45 @@ resource "volterra_app_firewall" "waap-tf" {
   use_default_blocking_page = true
   default_bot_setting       = true
   default_detection_settings= true
-  blocking                  = true
+  blocking                  = var.xc_waf_blocking
 }
 
 resource "volterra_http_loadbalancer" "lb_https" {
-  depends_on             = [volterra_origin_pool.op]
-  name                   = format("%s-load-balancer", var.project_prefix)
-  namespace              = var.xc_namespace
-  description            = format("HTTP load balancer object for %s origin server", var.project_prefix)
-  domains                = [var.app_domain]
+  depends_on                = [volterra_origin_pool.op]
+  name                      = format("%s-load-balancer", var.project_prefix)
+  namespace                 = var.xc_namespace
+  description               = format("HTTP load balancer object for %s origin server", var.project_prefix)
+  domains                   = [var.app_domain]
   advertise_on_public_default_vip = true
 
-  dynamic "https_auto_cert" {
-    for_each = var.http_only ? [] : [1]
-    content {
+  https_auto_cert {
       add_hsts              = false
       http_redirect         = true
       no_mtls               = true
       enable_path_normalize = true
       tls_config {
-        default_security = true
+        default_security    = true
       }
-    }
   }
 
   default_route_pools {
     pool {
-      name = volterra_origin_pool.op.name
+      name      = volterra_origin_pool.op.name
       namespace = var.xc_namespace
     }
-    weight = 1
-}
+    weight      = 1
+  }
 
   app_firewall {
-    name      = volterra_app_firewall.waap-tf.name
-    namespace = var.xc_namespace
+    name        = volterra_app_firewall.waap-tf.name
+    namespace   = var.xc_namespace
   }
   round_robin                     = true
   service_policies_from_namespace = true
-  user_id_client_ip = true
-  source_ip_stickiness = true
+  user_id_client_ip               = true
+  source_ip_stickiness            = true
 
-  dynamic "more_option" {
-    for_each = var.k8s_pool ? [1] : []
-      content {
-        idle_timeout = 600000
-      }
-    }
+  more_option {
+    idle_timeout = 600000
+  }
 }

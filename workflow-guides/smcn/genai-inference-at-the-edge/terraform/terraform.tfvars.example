@@ -1,19 +1,11 @@
-#Global
-xc_project_prefix = "demo"
-
-#XC Global
-api_url = "https://<Your Tenant>.console.ves.volterra.io/api"
-xc_tenant = "Your tenant name"
-xc_namespace = "Your XC namespace"
-
-#XC LB
-app_domain = "Your App Domain"
-
-#XC WAF
-xc_waf_blocking = true
-
-
-# pool and LB inputs
-serviceName = ""
-serviceport = ""
-
+project_prefix      = "genai"
+api_url             = "https://<tenant>.console.ves.volterra.io/api"
+xc_tenant           = "tenant-id"
+xc_namespace        = "namespace-name"
+app_domain          = "lb.example.com"
+serviceName         = "langchain-doc-qa-api.llm"
+serviceport         = "8501"
+aws_region          = "ap-south-1"
+xc_waf_blocking     = "true"
+primary_ipv4        = "10.0.0.0/16"
+subnet_ipv4         = "10.0.0.0/24"

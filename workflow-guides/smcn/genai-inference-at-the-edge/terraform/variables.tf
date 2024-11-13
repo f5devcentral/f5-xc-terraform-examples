@@ -10,6 +10,12 @@ variable "ssh_key" {
 }
 
 #XC
+variable "project_prefix" {
+  type        = string
+  default     = "xcdemo"
+  description = "This value is inserted at the beginning of each XC object and only used if not set by Infra TF run"
+}
+
 variable "xc_tenant" {
   type        = string
   description = "Your F5 XC tenant name" 
@@ -37,7 +43,6 @@ variable "xc_waf_blocking" {
   default     = "false"
 }
 
-
 # k8s service name
 variable "serviceName" {
   type        = string
@@ -49,24 +54,6 @@ variable "serviceport" {
   type        = string
   description = "k8s backend application service port details"
   default     = ""
-}
-
-variable user_site {
-  type        = string
-  description = "Whether site is owned by user of F5 XC."
-  default     = "true"
-}
-
-variable "k8s_pool" {
-  type        = string
-  description = "If pool is on k8s."
-  default     = "true"
-}
-
-variable "http_only" {
-  type        = string
-  description = "If this is http only load balancer."
-  default     = "false"
 }
 
 variable "aws_region" {
@@ -89,9 +76,15 @@ variable "aws_secret_key" {
   default     = null
 }
 
-variable "project_prefix" {
+variable "primary_ipv4" {
   type        = string
-  default     = "xcdemo"
-  description = "This value is inserted at the beginning of each XC object and only used if not set by Infra TF run"
+  description = "IPv4 VPC range."
+  default     = "10.0.0.0/16"
+}
+
+variable "subnet_ipv4" {
+  type        = string
+  description = "IPv4 range of subnet."
+  default     = "10.0.0.0/24"
 }
 

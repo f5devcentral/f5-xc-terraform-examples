@@ -81,3 +81,6 @@ jobs:
       - name: Terraform Apply
         if: github.ref == 'refs/heads/deploy-genai-appstack' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
+        env:
+          TF_VAR_aws_access_key: ${{ secrets.aws_access_key }}
+          TF_VAR_aws_secret_key: ${{ secrets.aws_secret_key }}
