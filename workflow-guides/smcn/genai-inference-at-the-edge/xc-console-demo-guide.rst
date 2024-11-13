@@ -24,7 +24,7 @@ Below we shall take a look into detailed steps as mentioned above.
 1.   Creating mk8s cluster from F5 XC Console:
        a. From the F5 XC Home page, ``Select the Distributed Apps`` Service and select ``System`` namespace
        b. Select Manage > Manage K8s > K8s clusters in the configuration menu. Click on Add K8s cluster.
-       c. As shown below select enable site API access, enable volt console access and add local domain ``kubernetes.default.svc``. Optionally you can add pod security policies and cluster roles
+       c. As shown below select enable site API access, enable Volt Console API Access and add provide local domain as ``kubernetes.default.svc``. Optionally you can add pod security policies and cluster roles
 
      .. figure:: assets/mk8s-cluster.png
      Fig : mk8s cluster
@@ -58,9 +58,9 @@ Below we shall take a look into detailed steps as mentioned above.
 
 
 3.   Deploy the App to mk8s cluster
-       a. You can navigate to ``Select the Distributed Apps`` Service and in overview section download global kubeconfig file
-       b. You can use this config file to connect to managed k8s and deploy your application using your app related yaml files
-       c. Once deployed make sure all pods/service are running and online
+       a. You can navigate to ``Select the Distributed Apps`` Service and then to ``system`` namespace. Click on overview section and download global kubeconfig file
+       b. You can use this config file to connect to managed k8s and deploy your application using your app related yaml files. We have kept couple of app files in this folder for reference
+       c. Once deployed make sure all pods/service are running and online (GenAI app related pods usually takes around 15-20 mins to come online)
 
      .. figure:: assets/kubeconfig.jpg
      Fig : Downloading kubeconfig
