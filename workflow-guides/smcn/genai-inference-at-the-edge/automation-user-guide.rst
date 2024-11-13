@@ -93,7 +93,7 @@ Workflow                                           Branch Name
 Destroy Gen AI on F5 XC Appstack and Managed k8s  destroy-genai-appstack
 ================================================ =======================
 
-Workflow File: `destroy-genai-appstack.yml </.github/workflows/destroy-genai-appstack.yml>`__
+Workflow File: `destroy-genai-appstack.yml </.github/workflows/destroy-genai-appstack.yaml>`__
 
 **STEP 2:** Rename ``/workflow-guides/smcn/genai-inference-at-the-edge/terraform/terraform.tfvars.examples`` to ``terraform.tfvars`` and add the following data:
 
