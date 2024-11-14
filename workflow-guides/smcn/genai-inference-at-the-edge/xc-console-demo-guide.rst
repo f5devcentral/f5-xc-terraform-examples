@@ -3,10 +3,10 @@ Manual step by step process to deploy and secure Generative AI applications at t
 
 Prerequisites
 **************
-- F5 Distributed Cloud Console SaaS account
+- F5 Distributed Cloud Console SaaS account and user should also have access to ``system`` namespace
 - Access to Amazon Web Service (AWS) Management console & Command Line
-- Install Kubectl command line tool to connect and push the app manifest file to mk8s cluster
-- Install Postman for verifying the deployment
+- Kubectl command line tool to connect and push the app manifest file to mk8s cluster
+- Postman for verifying the deployment
 
 Create AWS credentials in XC by following the steps mentioned in this `Devcentral article <https://community.f5.com/kb/technicalarticles/creating-a-credential-in-f5-distributed-cloud-to-use-with-aws/298111>`_ 
 
@@ -22,9 +22,9 @@ To deploy an AppStack mk8s cluster on an AWS CE Site, steps are categorized as m
 Below we shall take a look into detailed steps as mentioned above.
 
 1.   Creating mk8s cluster from F5 XC Console:
-       a. From the F5 XC Home page, ``Select the Distributed Apps`` Service and select System namespace
+       a. From the F5 XC Home page, ``Select the Distributed Apps`` Service and select ``System`` namespace
        b. Select Manage > Manage K8s > K8s clusters in the configuration menu. Click on Add K8s cluster.
-       c. As shown below select enable site API access and add local domain `kubernetes.default.svc`. Optionally you can add pod security policies and cluster roles
+       c. As shown below select enable site API access, enable Volt Console API Access and add provide local domain as ``kubernetes.default.svc``. Optionally you can add pod security policies and cluster roles
 
      .. figure:: assets/mk8s-cluster.png
      Fig : mk8s cluster
@@ -58,9 +58,9 @@ Below we shall take a look into detailed steps as mentioned above.
 
 
 3.   Deploy the App to mk8s cluster
-       a. You can navigate to ``Select the Distributed Apps`` Service and in overview section download gloabl kubeconfig file
-       b. You can use this config file to connect to managed k8s and deploy your application using your app related yaml files
-       c. Once deployed make sure all pods/service are running and online
+       a. You can navigate to ``Select the Distributed Apps`` Service and then to ``system`` namespace. Click on overview section and download global kubeconfig file
+       b. You can use this config file to connect to managed k8s and deploy your application using your app related yaml files. We have kept couple of app files in this folder for reference
+       c. Once deployed make sure all pods/service are running and online (GenAI app related pods usually takes around 15-20 mins to come online)
 
      .. figure:: assets/kubeconfig.jpg
      Fig : Downloading kubeconfig
@@ -72,10 +72,10 @@ Below we shall take a look into detailed steps as mentioned above.
                a. Log into F5 XC Console and Click on Multi-Cloud App Connect.
                b. Click Manage > Load Balancers > Origin Pools and Click ``Add Origin Pool``.
                c. In the name field, enter a name. Click on Add Item button in Origin Servers section.
-               d. From the ``Select type of Origin Server`` menu, select ``K8s Service Name of Origin Server on given Sites`` and specify your app k8s service name along with namespace (for ex llama.llm).
+               d. From the ``Select type of Origin Server`` menu, select ``K8s Service Name of Origin Server on given Sites`` and specify your app k8s service name along with namespace (If you are using our demo app, set to ``langchain-doc-qa-api.llm`` which is the service available in same folder yml files).
                e. Select ``Site`` from the ``Site or Virtual Site`` drop-down and select the AWS VPC site created in step 2.
                f. Select ``Outside Network`` for ``Select Network on the Site`` drop-down. Click on Apply.
-               g. In ``Origin server Port`` enter the port number of the frontend service of your application
+               g. In ``Origin server Port`` enter the port number of the frontend service of your application. If you are using our demo app, set to 8501.
                h. Click on Save and Exit.
 
                .. figure:: assets/origin-pool.png
@@ -87,7 +87,7 @@ Below we shall take a look into detailed steps as mentioned above.
                c. In the name field, enter the name of the LB, In the Domains field, enter a domain name.
                d. From the Load Balancer Type drop-down menu, Select HTTPS to create HTTPS load balancer.
                e. From the Origins sections, Click on Add Item to add the origin pool created in step 4.1 under ``Select Origin Pool Method`` drop-down menu. Click on Apply.
-               f. Increase idle timeout to 600000 to make sure requests are not timed out
+               f. Increase idle timeout to 120000/600000 as per the app to make sure requests are not timed out
                g. Click on Apply and ``Save and Exit``.
 
                .. figure:: assets/https-lb.png
