@@ -30,8 +30,7 @@ resource "volterra_aws_vpc_site" "this" {
   aws_region  = var.aws_region
   ssh_key     = var.ssh_key
   aws_cred {
-    #name      = volterra_cloud_credentials.aws.name
-    name      = "aws-salini-mktg"
+    name      = volterra_cloud_credentials.aws.name
     namespace = "system"
   }
   vpc {
