@@ -124,11 +124,11 @@ Check the rest of the values in variables.tf and update if need any changes.
 
         .. image:: assets/app-deploy.JPG
 
-       c. Once deployed make sure all pods/services are running and online (Please note GenAI app pods deployment will take around 20 mins and k8s service discovery takes around 10-15 mins. So please wait for 30 mins before moving on to next step.)
+       c. Once deployed make sure all pods/services are running and online (Please note GenAI app pods deployment will take around 20 mins)
 
         .. image:: assets/pods-online.JPG
 
-       d. Open the load balancer domain in a browser and validate your AI application works as expected (Please check manual guide for this app verification)
+       d. Open the load balancer domain in a browser and validate your AI application works as expected (Please check manual guide for this app verification). NOTE: Sometimes if app is not accessible, navigate to ``Multi Cloud App Connect`` menu and then to your GenAI origin pool configurations. Under k8s service, change network type to other and save it. Once again check the app accessibility (this is a issue with k8s service discovery timing which is being tracked and under prioritisation).
 
         .. image:: assets/postman.JPG
 
