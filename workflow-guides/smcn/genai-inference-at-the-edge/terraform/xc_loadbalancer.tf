@@ -8,7 +8,7 @@ resource "volterra_origin_pool" "op" {
   origin_servers {
     k8s_service {
       service_name        = var.serviceName
-      outside_network     = true
+      inside_network     = true
       site_locator {
         site {
           name            = volterra_aws_vpc_site.this.name
