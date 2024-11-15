@@ -101,9 +101,11 @@ To verify the deployment we shall follow the below steps to make sure users can 
 .. figure:: assets/langserve-api.png
 Fig: LangServe API
 
-1. Open the Postman/curl
-2. Enter the domain name of the HTTPS Load Balancer in the URL field. Next add your endpoint to the domain name. For ex ``/ask-a-doc/stream``
-3. Generate a POST request to your application by providing valid body as below and validate response is returned
+
+Validation Steps:
+       1. Open the Postman/curl
+       2. Enter the domain name of the HTTPS Load Balancer in the URL field. Next add your endpoint to the domain name. For ex ``/ask-a-doc/stream``
+       3. Generate a POST request to your application by providing valid body as below and validate response is returned
 
 .. figure:: assets/curl.JPG
 .. figure:: assets/postman.JPG
