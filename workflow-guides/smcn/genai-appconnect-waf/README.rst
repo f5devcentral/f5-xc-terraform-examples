@@ -16,9 +16,13 @@ Setup Diagram
 Workflow Instructions
 ######################
 
-`F5 Distributed Cloud Console Workflow <./xc-console-demo-guide.rst>`__
+`F5 Distributed Cloud Console Workflow without NGINX Ingress Controller <./xc-console-demo-guide.rst>`__
 
-`F5 Distributed Cloud Console Automation Workflow <./automation-workflow.rst>`__
+`F5 Distributed Cloud Console Workflow (hybrid use case with NGINX Ingress Controller) <https://github.com/f5devcentral/f5-hybrid-security-architectures/blob/main/workflow-guides/smcn/hybrid-genai-appconnect-waf/xc-console-demo-guide.rst>`__
+
+`F5 Distributed Cloud Console Automation Workflow without NGINX Ingress Controller <./automation-workflow.rst>`__
+
+`F5 Distributed Cloud Console Automation Workflow (hybrid use case with NGINX Ingress Controller) <https://github.com/f5devcentral/f5-hybrid-security-architectures/blob/main/workflow-guides/smcn/hybrid-genai-appconnect-waf/automation-demo-guide.rst>`__
 
 
 Additional Related Resources
