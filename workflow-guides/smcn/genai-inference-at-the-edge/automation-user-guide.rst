@@ -120,7 +120,7 @@ Check the rest of the values in variables.tf and update if need any changes.
 
 **STEP 6:** To validate the test infra, follow below steps
        a. Navigate to ``Select the Distributed Apps`` Service, next select ``system`` workspace and in overview section download global kubeconfig file
-       b. You can use this config file to connect to managed k8s and deploy your application using your app related yaml files (for demo we have kept 2 manifest files in this folder)
+       b. You can use this config file to connect to managed k8s and deploy your application using your app related yaml files. ``(NOTE: for demo we have kept 2 manifest files in this folder which you can download and run kubectl apply -f <file-name> just like shown below)``
 
         .. image:: assets/app-deploy.JPG
 
@@ -128,7 +128,7 @@ Check the rest of the values in variables.tf and update if need any changes.
 
         .. image:: assets/pods-online.JPG
 
-       d. Open the load balancer domain in a browser and validate your AI application works as expected (Please check manual guide for this app verification). NOTE: Sometimes if app is not accessible, navigate to ``Multi Cloud App Connect`` menu and then to your GenAI origin pool configurations. Under k8s service, change network type to other and save it. Once again check the app accessibility (this is a issue with k8s service discovery timing which is being tracked and under prioritisation).
+       d. Open the load balancer domain in a browser and validate your AI application works as expected ( you can check `manual guide <./xc-console-demo-guide.rst#deployment-verification>`__ for this app verification). ``NOTE: Sometimes if app is not accessible, navigate to ``Multi Cloud App Connect`` ``menu and then to your GenAI origin pool configurations. Under k8s service, change network type to other and save it. Once again check the app accessibility (this is a issue with k8s service discovery timing which is being tracked and under prioritisation).``
 
         .. image:: assets/postman.JPG
 
