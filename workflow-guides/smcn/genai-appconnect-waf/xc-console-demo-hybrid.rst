@@ -1,6 +1,8 @@
 Manual step by step process to connect and secure distributed Generative AI applications with F5 XC AppConnect and XC WAF
 ============================================================================================================================
 
+NOTE: JUST FOR REFERENCE WE HAVE KEPT THIS FILE. THIS IS A HYBRID USE CASE WHICH USES NGINX INGRESS CONTROLLER AND F5 XC. IF YOU ARE LOOKING FOR HYBRID USE CASE AUTOMATION, CHECK THIS `LINK <https://github.com/f5devcentral/f5-hybrid-security-architectures/blob/main/workflow-guides/smcn/hybrid-genai-appconnect-waf/automation-demo-guide.rst>`__
+
 Prerequisites
 **************
 - F5 Distributed Cloud Console SaaS account
