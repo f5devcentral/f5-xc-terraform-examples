@@ -26,7 +26,7 @@ To deploy an AppStack mk8s cluster on an AWS CE Site, steps are categorized as m
 5. Using Kubectl, deploy the GenAI front-end application on the GKE cluster
 6. Deploy the Distributed Cloud GCP site Customer Edge workload on the GKE cluster
 7. Publish the LLM service from EKS as a local service in GKE
-8. Advertise externally the GenAI application
+8. Advertise externally the GenAI application using ``NGINX Ingress Controller``
 9. Test the GenAI application for sensitive information disclosure
 10. Enable DataGuard on the HTTP LoadBalancer
 11. Retest the GenAI application for sensitive information disclosure
