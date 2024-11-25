@@ -73,6 +73,7 @@ resource "azurerm_public_ip" "puip" {
   name                = "waf-public-ip"
   location            = local.azure_region
   resource_group_name = local.resource_group_name
+  sku                 = "Basic"
   allocation_method   = "Dynamic"
 }
 

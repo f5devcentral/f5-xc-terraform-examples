@@ -5,7 +5,7 @@ variable "tf_cloud_organization" {
 }
 
 variable "aws_waf_ce" {
-  description = "Infra"
+  description = "Infra workspace name in terraform cloud."
   type        = string
   default     = "aws-infra"
 }

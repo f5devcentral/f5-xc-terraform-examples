@@ -23,7 +23,7 @@ Prerequisites
 Workflow Steps
 -----------------
 
-- For deploying WAF on k8s, please copy both yml files in workflow folder to root folder .github/workflows folder. For ex: `waf-k8s-apply.yml <.github/workflows/waf-k8s-apply.yml>`__
+- For deploying WAF on k8s, please copy both yml files in workflow folder to root folder .github/workflows folder. For ex: `waf-k8s-apply.yml <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/.github/workflows/waf-k8s-apply.yml>`__
 
 - Login to Distributed Cloud, click on `Multi-Cloud-Connect`, navigate to `Site Management` and then to `Site Tokens` as shown below
 
@@ -57,7 +57,7 @@ Terraform Cloud
 .. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/cloud-workspaces.JPG 
 
 -  Login to terraform cloud and create below workspaces for storing the terraform state file of each job.
- infra, xc, eks, bookinfo, registration, k8sce
+ aws-infra, xc, eks, bookinfo, registration, k8sce
 
 
 -  **Workspace Sharing:** Under the settings for each Workspace, set the **Remote state sharing** to share with each Workspace created.
@@ -95,7 +95,7 @@ GitHub
 -  **Actions Secrets:** Create the following GitHub Actions secrets in
    your forked repo
 
-   -  P12: The linux base64 encoded F5XC P12 certificate
+   -  P12: The linux base64 encoded F5XC P12 certificate (For windows run ``base64 <file-name>``, copy output content into a file and remove spaces.)
    -  TF_API_TOKEN: Your Terraform Cloud API token
    -  TF_CLOUD_ORGANIZATION: Your Terraform Cloud Organization name
    -  TF_CE_LATITUDE: Your CE location latitude
@@ -105,8 +105,9 @@ GitHub
    -  TF_CLOUD_WORKSPACE\_\ *<Workspace Name>*: Create for each
       workspace in your workflow per each job
 
-      -  EX: TF_CLOUD_WORKSPACE_EKS would be created with the
-         value ``EKS``
+      -  EX: Create TF_CLOUD_WORKSPACE_EKS with the value ``EKS``
+
+      -  EX: Create TF_CLOUD_WORKSPACE_INFRA with the value ``aws-infra``, etc
 
 -  Check below image for more info on action secrets
 
@@ -136,7 +137,7 @@ f5-xc-waf-on-k8s destroy-waf-k8s
 
 **Note:** Make sure to comment line no. 16 (# *.tfvars) in ".gitignore" file
 
-**STEP 2:** Rename ``infra/terraform.tfvars.examples`` to ``infra/terraform.tfvars`` and add the following data: 
+**STEP 2:** Rename ``aws/infra/terraform.tfvars.examples`` to ``aws/infra/terraform.tfvars`` and add the following data: 
 
 -  project_prefix = “Your project identifier name in **lower case** letters only - this will be applied as a prefix to all assets”
 
@@ -162,15 +163,19 @@ f5-xc-waf-on-k8s destroy-waf-k8s
 
 -  k8s_pool = "true if backend is residing in k8s"
 
--  serviceName = "k8s service name of backend"
+-  serviceName = "k8s service name of backend. Set this to productpage.default."
 
--  serviceport = "k8s service port of backend"
+-  serviceport = "k8s service port of backend. For bookinfo demo application you can keep this value as 9080."
 
 -  advertise_sites = "set to false if want to advertise on public"
 
 -  http_only = "set to true if want to advertise on http protocol"
 
-**STEP 4:** Commit and push your build branch to your forked repo, Build will run and can be monitored in the GitHub Actions tab and TF Cloud console
+Check below image for sample data
+
+.. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/xc-tfvars.JPG
+
+**STEP 4:** Also update default value of ``aws_waf_ce`` variable in ``variables.tf`` file of ``/aws/eks-cluster``, ``/aws/eks-cluster/ce-deployment`` and ``/shared/booksinfo`` folders if it's not ``infra``. Commit and push your build branch to your forked repo, Build will run and can be monitored in the GitHub Actions tab and TF Cloud console
 
 **STEP 5:** Once the pipeline completes, verify your CE, Origin Pool and LB were deployed or destroyed based on your workflow.
 
