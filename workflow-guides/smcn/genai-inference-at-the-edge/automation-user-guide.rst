@@ -120,7 +120,7 @@ Check the rest of the values in variables.tf and update if need any changes.
 
 **STEP 6:** To validate the test infra, follow below steps
        a. Navigate to ``Select the Distributed Apps`` Service, next select ``system`` workspace and in overview section download global kubeconfig file
-       b. You can use this config file to connect to managed k8s and deploy your application using your app related yaml files (for demo we have kept 2 manifest files in this folder)
+       b. You can use this config file to connect to managed k8s and deploy your application using your app related yaml files. ``(NOTE: for demo we have kept 2 manifest files in this folder which you can download and run kubectl apply -f <file-name> just like shown below)``
 
         .. image:: assets/app-deploy.JPG
 
@@ -128,11 +128,15 @@ Check the rest of the values in variables.tf and update if need any changes.
 
         .. image:: assets/pods-online.JPG
 
-       d. Open the load balancer domain in a browser and validate your AI application works as expected (Please check manual guide for this app verification). NOTE: Sometimes if app is not accessible, navigate to ``Multi Cloud App Connect`` menu and then to your GenAI origin pool configurations. Under k8s service, change network type to other and save it. Once again check the app accessibility (this is a issue with k8s service discovery timing which is being tracked and under prioritisation).
+       d. Open the F5 XC load balancer domain in a browser along with a valid URL and validate your AI application works as expected. Make sure response is returned and status code is 200 OK (If you have used demo app manifest files from this folder, you can check validation steps in this `manual guide <./xc-console-demo-guide.rst#deployment-verification>`__ for testing app functionality). 
 
         .. image:: assets/postman.JPG
 
+       e. ``If app is not accessible, as shown in below image navigate to Multi Cloud App Connect menu and then to Manage section, next from loadbalancers drop-down select origin pools and open your GenAI origin pool configurations in edit mode. Under k8s service, change network type to outside and apply the configuration. Once again open postman and rerun above step to check the app accessibility (Ideally app should be deployed first and then origin pool but here in this automation since we created origin pool before app deployment, there is a bug with k8s service discovery timing which is being tracked and under prioritisation).``
 
-**Note:** If you want to destroy the entire setup, checkout a branch with name ``destroy-genai-appstack`` and push the repo code to it which will trigger destroy workflow and will remove all created resources.
+        .. image:: assets/op-edit.jpg
+
+
+       f. Once deployment and validations are complete, if you want to destroy the entire setup, checkout a branch with name ``destroy-genai-appstack`` and push the repo code to it which will trigger destroy workflow and will remove all created resources.
 
 .. image:: assets/destroy_pipeline.JPG

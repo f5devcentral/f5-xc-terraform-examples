@@ -1,6 +1,8 @@
 Getting Started With Terraform Automation of connecting and securing distributed Generative AI applications with F5 XC AppConnect and XC WAF
 ############################################################################################################################################
 
+NOTE: THIS AUTOMATION IS NOT A HYBRID USE CASE AS IT'S NOT DEPLOYING NGINX INGRESS CONTROLLER. IF YOU ARE LOOKING FOR HYBRID USE CASE CHECK THIS `LINK <https://github.com/f5devcentral/f5-hybrid-security-architectures/blob/main/workflow-guides/smcn/hybrid-genai-appconnect-waf/automation-demo-guide.rst>`__
+
 Prerequisites
 --------------
 

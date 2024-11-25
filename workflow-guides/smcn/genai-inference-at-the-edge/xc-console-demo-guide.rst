@@ -15,7 +15,7 @@ Deployment Steps
 To deploy an AppStack mk8s cluster on an AWS CE Site, steps are categorized as mentioned below.
 
 1. Create mk8s cluster
-2. Create AWS VPC Site and attach the mk8s cluster
+2. Create AWS Appstack VPC Site and attach the mk8s cluster
 3. Deploy the App to mk8s cluster
 4. Configure Origin Pool and HTTPS LB 
 
@@ -101,9 +101,11 @@ To verify the deployment we shall follow the below steps to make sure users can 
 .. figure:: assets/langserve-api.png
 Fig: LangServe API
 
-1. Open the Postman/curl
-2. Enter the domain name of the HTTPS Load Balancer in the URL field. Next add your endpoint to the domain name. For ex ``/ask-a-doc/stream``
-3. Generate a POST request to your application by providing valid body as below and validate response is returned
+
+Validation Steps:
+       1. Open the Postman/curl
+       2. Enter the domain name of the HTTPS Load Balancer in the URL field. Next add your endpoint to the domain name. For ex ``/ask-a-doc/stream``
+       3. Generate a POST request to your application by providing valid body as below and validate response is returned
 
 .. figure:: assets/curl.JPG
 .. figure:: assets/postman.JPG

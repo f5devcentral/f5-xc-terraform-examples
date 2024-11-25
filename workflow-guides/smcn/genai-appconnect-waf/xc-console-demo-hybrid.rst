@@ -1,6 +1,8 @@
 Manual step by step process to connect and secure distributed Generative AI applications with F5 XC AppConnect and XC WAF
 ============================================================================================================================
 
+NOTE: JUST FOR REFERENCE WE HAVE KEPT THIS FILE. THIS IS A HYBRID USE CASE WHICH USES NGINX INGRESS CONTROLLER AND F5 XC. IF YOU ARE LOOKING FOR HYBRID USE CASE AUTOMATION, CHECK THIS `LINK <https://github.com/f5devcentral/f5-hybrid-security-architectures/blob/main/workflow-guides/smcn/hybrid-genai-appconnect-waf/automation-demo-guide.rst>`__
+
 Prerequisites
 **************
 - F5 Distributed Cloud Console SaaS account
@@ -24,7 +26,7 @@ To deploy an AppStack mk8s cluster on an AWS CE Site, steps are categorized as m
 5. Using Kubectl, deploy the GenAI front-end application on the GKE cluster
 6. Deploy the Distributed Cloud GCP site Customer Edge workload on the GKE cluster
 7. Publish the LLM service from EKS as a local service in GKE
-8. Advertise externally the GenAI application
+8. Advertise externally the GenAI application using ``NGINX Ingress Controller``
 9. Test the GenAI application for sensitive information disclosure
 10. Enable DataGuard on the HTTP LoadBalancer
 11. Retest the GenAI application for sensitive information disclosure
