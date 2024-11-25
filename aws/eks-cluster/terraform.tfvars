@@ -8,4 +8,4 @@ allow_all_ingress_traffic_to_cluster = true
 eks_version = "1.29"
 
 # needed value: aws-infra [to be set if workspace name is aws-infra]
-aws_waf_ce = "aws-infra" 
+aws_waf_ce = "" 
