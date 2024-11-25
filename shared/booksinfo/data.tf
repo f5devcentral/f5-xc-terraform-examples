@@ -1,6 +1,5 @@
 data "tfe_outputs" "infra" {
   organization = var.tf_cloud_organization
-  workspace = "aws-infra"
   workspace = "${coalesce(var.aws_waf_ce, "aws-infra")}"
 }
 data "tfe_outputs" "eks" {
