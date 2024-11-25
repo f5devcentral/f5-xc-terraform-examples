@@ -1,7 +1,7 @@
 #Global
 #Only set to true if infrastructure is vk8s in XC
 vk8s = false
-xc_project_prefix = "demo"
+xc_project_prefix = "cek8s"
 
 #XC Global
 api_url = "https://treino.console.ves.volterra.io/api"
