@@ -23,7 +23,7 @@ xc_service_discovery = "false"
 
 # pool and LB inputs
 k8s_pool = "true"
-serviceName = "waf-k8s"
+serviceName = "productpage.default"
 serviceport = "9080"
 advertise_sites = "false"
 http_only = "true"
