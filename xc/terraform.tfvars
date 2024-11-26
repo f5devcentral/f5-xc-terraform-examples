@@ -27,9 +27,10 @@ serviceName = "productpage.default"
 serviceport = "9080"
 advertise_sites = "true"
 http_only = "true"
+eks_ce_site = "true"
+
 xc_delegation = "false"
 ip_address_on_site_pool = "false"
-eks_ce_site = "false"
 user_site = "false"
 
 #XC AI/ML Settings for MUD, APIP - NOTE: Only set if using AI/ML settings from the shared namespace
@@ -70,7 +71,6 @@ xc_mud = false
 # CE configs
 gcp_ce_site = "false"
 aws_ce_site = "false"
-site_name = "ce-k8s"
 
 # infra (Needed values: aws-infra, azure-infra, gcp-infra)
 aws   = "aws-infra"
