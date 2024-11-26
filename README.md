@@ -66,7 +66,7 @@ Examples of F5 Distributed Cloud (XC) deployments utilizing Terraform. For more 
   | [Multi-Cloud Networking Course (App Connect)](https://trainingf5cloud.teachable.com/p/automation-examples-mcn-app-connect) | [MCN App Delivery Fabric GIT Repo](https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/smcn/app-delivery-fabric/README.rst)  |
   | [F5 Distributed Cloud Web Application Firewall (WAF) on Customer Edge](https://trainingf5cloud.teachable.com/p/waf-on-ce)          |  [Deploy F5 XC WAF on XC Customer Edge in Azure (SaaS Console, Automation)](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-ce/azure/README.rst) |
   | [F5 Distributed Cloud API Security on Customer Edge](https://trainingf5cloud.teachable.com/p/api_security_on_customer_edge)          |  [Deploy F5 XC API Security on XC Customer Edges (SaaS Console, Automation)](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/api-security/f5-xc-apisec-on-ce-eks/README.rst) |
-  | [Web Application Firewall (WAF) on Customer Edge: AWS]() | [Deploy F5 XC WAF on XC Customer Edge in AWS (SaaS Console, Automation)] (https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-ce/aws/README.rst) |
+  | [Web Application Firewall (WAF) on Customer Edge: AWS]() | [Deploy F5 XC WAF on XC Customer Edge in AWS (SaaS Console, Automation)](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-ce/aws/README.rst) |
 
   
 ## Getting Started
