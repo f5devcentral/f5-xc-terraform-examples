@@ -31,7 +31,7 @@ eks_ce_site = "true"
 
 xc_delegation = "false"
 ip_address_on_site_pool = "false"
-user_site = "false"
+user_site = "true"
 
 #XC AI/ML Settings for MUD, APIP - NOTE: Only set if using AI/ML settings from the shared namespace
 xc_app_type = []
