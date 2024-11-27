@@ -1,7 +1,7 @@
 #Global
 #Only set to true if infrastructure is vk8s in XC
 vk8s = false
-xc_project_prefix = "cek8s"
+xc_project_prefix = ""
 
 #XC Global
 api_url = "https://treino.console.ves.volterra.io/api"
@@ -15,23 +15,25 @@ app_domain = "waf-k8s.f5-hyd-xcdemo.com"
 xc_waf_blocking = true
 xc_data_guard = "false"
 
-#XC Azure CE site creation
-az_ce_site = "false"
-
-#XC Service Discovery
-xc_service_discovery = "false"
-
-# pool and LB inputs
+# k8 pool and LB inputs
 k8s_pool = "true"
 serviceName = "productpage.default"
 serviceport = "9080"
 advertise_sites = "true"
 http_only = "true"
 eks_ce_site = "true"
+user_site = "true"
+
+
 
 xc_delegation = "false"
 ip_address_on_site_pool = "false"
-user_site = "true"
+
+#XC Azure CE site creation
+az_ce_site = "false"
+
+#XC Service Discovery
+xc_service_discovery = "false"
 
 #XC AI/ML Settings for MUD, APIP - NOTE: Only set if using AI/ML settings from the shared namespace
 xc_app_type = []
