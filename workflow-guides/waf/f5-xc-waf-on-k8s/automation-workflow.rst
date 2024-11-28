@@ -166,7 +166,7 @@ f5-xc-waf-on-k8s destroy-waf-k8s
 
 -  k8s_pool = "true if backend is residing in k8s"
 
--  serviceName = "k8s service name of backend. If you are using our demo app set this to productpage.default."
+-  serviceName = "k8s service name of backend. If you are using our demo app set this to **productpage.default**."
 
 -  serviceport = "k8s service port of backend. For bookinfo demo application you can keep this value as 9080."
 
@@ -174,7 +174,7 @@ f5-xc-waf-on-k8s destroy-waf-k8s
 
 -  http_only = "set to true as we want to use only http protocol"
 
-**NOTE: Please don't add ``site_name`` varible once again here as this variable is already added in action secrets. Keep other fields as false**
+**NOTE: Please don't add site_name varible once again here as this variable is already added in action secrets. Keep other fields as false**
 
 Check below file content for sample tfvars data
 
