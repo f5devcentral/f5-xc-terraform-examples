@@ -31,7 +31,8 @@ Create a token
 
 .. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/site-token.jpg
 
-- Create a site token with CE site name and copy the ID & name
+- Create a site token with CE site name and copy the ID & name. 
+**NOTE: MAKE SURE TOKEN IS NEWLY CREATED OR EXISTING TOKEN NOT BEING USED BY OTHER CE SITES FROM REGISTRATIONS PAGE IN SITE MANAGEMENT DROP-DOWN**
 
 
 List of Products Used
@@ -102,7 +103,7 @@ GitHub
    -  TF_CLOUD_ORGANIZATION: Your Terraform Cloud Organization name
    -  TF_CE_LATITUDE: Your CE location latitude
    -  TF_CE_LONGITUDE: Your CE location longitude
-   -  TF_CE_TOKEN: CE token ID generated in Distributed Cloud
+   -  TF_CE_TOKEN: CE token ID generated from above `Create a token` section
    -  TF_VAR_SITE_NAME: CE site name to be registered. **NOTE: Make sure this matches with the token name created in `Create a token` section**
    -  TF_CLOUD_WORKSPACE\_\ *<Workspace Name>*: Create for each
       workspace in your workflow per each job
@@ -172,6 +173,8 @@ f5-xc-waf-on-k8s destroy-waf-k8s
 -  advertise_sites = "set to false if want to advertise on public"
 
 -  http_only = "set to true if want to advertise on http protocol"
+
+**NOTE: Please don't add `site_name` varible once again here as this variable is already added in action secrets. Keep other fields as false**
 
 Check below image for sample data
 
