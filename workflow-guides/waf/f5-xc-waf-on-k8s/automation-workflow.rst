@@ -23,13 +23,15 @@ Prerequisites
 Workflow Steps
 -----------------
 
+Create a token
+-----------------------
 - For deploying WAF on k8s, please copy both yml files in workflow folder to root folder .github/workflows folder. For ex: `waf-k8s-apply.yml <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/.github/workflows/waf-k8s-apply.yml>`__
 
 - Login to Distributed Cloud, click on `Multi-Cloud-Connect`, navigate to `Site Management` and then to `Site Tokens` as shown below
 
 .. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/site-token.jpg
 
-- Create a site token with CE site name (`ce-k8s`) and copy the ID
+- Create a site token with CE site name and copy the ID & name
 
 
 List of Products Used
@@ -101,7 +103,7 @@ GitHub
    -  TF_CE_LATITUDE: Your CE location latitude
    -  TF_CE_LONGITUDE: Your CE location longitude
    -  TF_CE_TOKEN: CE token ID generated in Distributed Cloud
-   -  TF_VAR_SITE_NAME: CE site name to be registered
+   -  TF_VAR_SITE_NAME: CE site name to be registered. **NOTE: Make sure this matches with the token name created in `Create a token` section**
    -  TF_CLOUD_WORKSPACE\_\ *<Workspace Name>*: Create for each
       workspace in your workflow per each job
 
