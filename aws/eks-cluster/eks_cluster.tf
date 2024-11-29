@@ -68,6 +68,7 @@ resource "aws_eks_node_group" "private-node-group-2-tf" {
   subnet_ids = var.skip_private_subnet_creation ? [for i in aws_subnet.eks-external: i.id] : [for i in aws_subnet.eks-internal: i.id]
   ami_type       = "AL2_x86_64"
   instance_types = ["t3.xlarge"]
+  disk_size = 30
  
   scaling_config {
    desired_size = var.desired_size

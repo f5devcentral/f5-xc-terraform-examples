@@ -193,7 +193,7 @@ Testing:
 Step by step process using automation scripts
 #############################################
 
-Coming Soon...
+Check this `readme <./automation-demo-guide.rst>`_ for more details on automation.
 
 
 **Support**

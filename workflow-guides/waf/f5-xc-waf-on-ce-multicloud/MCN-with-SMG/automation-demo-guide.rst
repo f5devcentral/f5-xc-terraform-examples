@@ -192,7 +192,7 @@ Workflow File: `mcn-smg-destroy.yaml </.github/workflows/mcn-smg-destroy.yaml>`_
 
 **STEP 7:** Once CE sites are online, to validate the test infra & demo app accessibility, copy the public IP of CE site in `GCP CE Site View mode`. 
 
-.. image:: assets/gcp-site-ip.jpg
+.. image:: assets/gcp-site-ip-step7.jpg
 
 **STEP 8:** Add this IP in your hosts file mapping to your product page load balancer domain name (or you can create A record in your domain registrar) and you should be able to access the demo application as below
 
