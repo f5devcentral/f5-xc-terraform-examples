@@ -78,7 +78,7 @@ jobs:
         run: exit 1
 
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/deploy-waf-aws-ce' && ( github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+        if: github.ref == 'refs/heads/deploy-waf-aws-ce' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
 
   terraform_eks_creation:
@@ -152,7 +152,7 @@ jobs:
         run: exit 1
 
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/deploy-waf-aws-ce' && ( github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+        if: github.ref == 'refs/heads/deploy-waf-aws-ce' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false  
           
   Boutique_app_deploy:
@@ -225,7 +225,7 @@ jobs:
         run: exit 1
 
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/deploy-waf-aws-ce' && ( github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+        if: github.ref == 'refs/heads/deploy-waf-aws-ce' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
 
   volt_mesh_site_deploy:
@@ -300,5 +300,5 @@ jobs:
         run: exit 1
 
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/deploy-waf-aws-ce' && ( github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+        if: github.ref == 'refs/heads/deploy-waf-aws-ce' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
