@@ -1,4 +1,3 @@
-
 # Create EKS cluster and node groups
 resource "aws_eks_cluster" "eks-tf" {
 
