@@ -46,63 +46,63 @@ jobs:
           EOF
            echo "${{secrets.P12}}" | base64 -d > api.p12
 
-      # - name: Terraform Init
-      #   id: init
-      #   run: terraform inits
+      - name: Terraform Init
+        id: init
+        run: terraform inits
 
-      # - name: Terraform Validate
-      #   id: validate
-      #   run: terraform validate -no-color
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
 
-      # - name: Terraform Plan
-      #   id: plan
-      #   if: github.event_name == 'pull_request'
-      #   run: terraform plan -no-color -input=false
-      #   continue-on-error: true
+      - name: Terraform Plan
+        id: plan
+        if: github.event_name == 'pull_request'
+        run: terraform plan -no-color -input=false
+        continue-on-error: true
 
-      # - uses: actions/github-script@v6
-      #   if: github.event_name == 'pull_request'
-      #   env:
-      #     PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
-      #   with:
-      #     github-token: ${{ secrets.GITHUB_TOKEN }}
-      #     script: |
-      #       const output = `#### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
-      #       #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
-      #       #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
-      #       <details><summary>Show Plan</summary>
-      #       \`\`\`\n
-      #       ${process.env.PLAN}
-      #       \`\`\`
-      #       </details>
-      #       *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
-      #       github.rest.issues.createComment({
-      #         issue_number: context.issue.number,
-      #         owner: context.repo.owner,
-      #         repo: context.repo.repo,
-      #         body: output
-      #       })
-      # - name: Terraform Plan Status
-      #   if: steps.plan.outcome == 'failure'
-      #   run: exit 1
+      - uses: actions/github-script@v6
+        if: github.event_name == 'pull_request'
+        env:
+          PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const output = `#### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+            #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
+            #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+            <details><summary>Show Plan</summary>
+            \`\`\`\n
+            ${process.env.PLAN}
+            \`\`\`
+            </details>
+            *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
+      - name: Terraform Plan Status
+        if: steps.plan.outcome == 'failure'
+        run: exit 1
 
-      # - name: Copy App Manifest
-      #   run: cp ../shared/airline-app/airflask.yaml .
+      - name: Copy App Manifest
+        run: cp ../shared/airline-app/airflask.yaml .
 
-      # - name: Check terraform version
-      #   run: |
-      #     terraform --version
-      #     echo "event name is:" ${{ github.event_name }} 
+      - name: Check terraform version
+        run: |
+          terraform --version
+          echo "event name is:" ${{ github.event_name }} 
         
 
-      # - name: Terraform Apply
-      #   if: github.ref == 'refs/heads/bot-defense-re' && ( github.event_name == 'push' || github.event_name == 'workflow_dispatch')
-      #   run: terraform apply -auto-approve -input=false
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/bot-defense-re' && ( github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+        run: terraform apply -auto-approve -input=false
 
-      # - name: Run Traffic
-      #   run: |
-      #     cp ../tools/run-curl-traffic.sh .
-      #     export cname=$(terraform output -raw lb_cname)
-      #     echo $cname 
-      #     sleep 30 
-      #     sh run-curl-traffic.sh "$cname/user/signin"
+      - name: Run Traffic
+        run: |
+          cp ../tools/run-curl-traffic.sh .
+          export cname=$(terraform output -raw lb_cname)
+          echo $cname 
+          sleep 30 
+          sh run-curl-traffic.sh "$cname/user/signin"
