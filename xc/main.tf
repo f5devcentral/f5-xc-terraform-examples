@@ -1,5 +1,5 @@
-provider "volterra" {
-    #url   = var.api_url
+provider "volterraa" {
+    url   = var.api_url
 }
 
 # Create a random id if infra is xc vk8s
