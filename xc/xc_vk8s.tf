@@ -47,6 +47,7 @@ resource "volterra_virtual_k8s" "this" {
 resource "volterra_api_credential" "this" {
   count = var.vk8s ? 1 : 0
   name                  = substr(volterra_virtual_k8s.this.0.id, 1, 30)
+  created_at = timestamp()
   api_credential_type   = "KUBE_CONFIG"
   expiry_days           = 20
   virtual_k8s_namespace = var.xc_namespace
