@@ -55,10 +55,8 @@ Tools
 Terraform Cloud
 ----------------
 
--  **Workspaces:** Create a CLI or API workspace for each asset in the workflow.
-
--  Login to terraform cloud and create below workspaces for storing the terraform state file of each job.
- aws-infra, xc, eks, bookinfo and ce
+-  **Workspaces:** Login to terraform cloud and create below workspaces for storing the terraform state file of each job.
+     aws-infra, xc, eks, bookinfo and ce
 
 
 -  **Workspace Sharing:** Under the settings for each Workspace, set the **Remote state sharing** to share with each Workspace created.
