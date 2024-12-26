@@ -263,11 +263,15 @@ Check below file content for sample tfvars data
 
 **STEP 5:** Once the pipeline completes, verify your CE, Origin Pool and LB were deployed or destroyed based on your workflow.
 
-**STEP 6:** Open a linux shell or CMD, login to AWS console with your credentials, download the kubectl file for this load balancer and check services. Copy the load balancer DNS with name "lb-ver" and send request with XC LB FQDN as a Host header which should provide the application response as shown below
+**STEP 6:** Open a linux shell or CMD and export your AWS credentials. 
+
+**STEP 7:** Download the kubectl file by running this command ``aws eks update-kubeconfig --name <cluster-name> --region <region-name>`` and check services. 
+
+**STEP 8:** Copy the load balancer DNS with name "lb-ver" and send request with XC LB FQDN as a Host header which should provide the application response as shown below
 
 .. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/lb.jpg
 
 .. image:: /workflow-guides/waf/f5-xc-waf-on-k8s/assets/postman.JPG
 
 
-**STEP 7:** If you want to destroy the entire setup, checkout/create a new branch from ``deploy-waf-k8s`` branch with name ``destroy-waf-k8s`` which will trigger destroy work-flow to remove all resources
+**STEP 9:** If you want to destroy the entire setup, checkout/create a new branch from ``deploy-waf-k8s`` branch with name ``destroy-waf-k8s`` which will trigger destroy work-flow to remove all resources
