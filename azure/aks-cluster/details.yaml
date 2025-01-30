@@ -1,0 +1,7 @@
+# this is a dummy file to replace manifest file content in case of mcn-smg use case
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: dummy-details
+  labels:
+    account: dummy

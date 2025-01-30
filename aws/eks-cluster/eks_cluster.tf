@@ -1,4 +1,3 @@
-
 # Create EKS cluster and node groups
 resource "aws_eks_cluster" "eks-tf" {
 
@@ -25,8 +24,9 @@ resource "aws_eks_node_group" "private-node-group-1-tf" {
   node_group_name = format("%s-private-ng-1-%s", local.project_prefix, local.build_suffix)
   node_role_arn  = aws_iam_role.workernodes.arn
   subnet_ids = var.skip_private_subnet_creation ? [for i in aws_subnet.eks-external: i.id] : [for i in aws_subnet.eks-internal: i.id]
+  disk_size = 30
   instance_types = ["t3.xlarge"]
- 
+
   scaling_config {
    desired_size = var.desired_size
    max_size   = var.max_size

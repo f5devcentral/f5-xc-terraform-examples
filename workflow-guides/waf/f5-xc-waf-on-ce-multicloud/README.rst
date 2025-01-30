@@ -45,6 +45,6 @@ Workflow Instructions
 
 `F5 Distributed Cloud Console Workflow <MCN-with-SMG/xc-console-demo-guide.rst>`__
 
-`F5 Distributed Cloud Automation Workflow (Coming Soon)`
+`F5 Distributed Cloud Automation Workflow <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-ce-multicloud/MCN-with-SMG/automation-demo-guide.rst/>`__
 
 
