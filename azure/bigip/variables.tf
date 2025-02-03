@@ -27,7 +27,7 @@ variable "f5_bigip_image" {
 variable "f5_bigip_password" {
   type    = string
   description = "BIGIP instance password"
-  default     = "P@ssw0rd"
+  default     = "Siddarth@12345"
 }
 
 variable "availability_zone" {

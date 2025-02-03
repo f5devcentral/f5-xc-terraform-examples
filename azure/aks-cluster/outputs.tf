@@ -8,3 +8,9 @@ output "kube_config" {
   sensitive = true
 
 }
+output "cluster_name" {
+  value = azurerm_kubernetes_cluster.ce_waap.name
+}
+output "cluster_id" {
+  value = azurerm_kubernetes_cluster.ce_waap.id
+}

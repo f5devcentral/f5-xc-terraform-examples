@@ -1,5 +1,5 @@
 #Global
-project_prefix = "azbot"
+project_prefix = "salini-azbot"
 
 #Azure INFRA
 azure_region = "southeastasia"
