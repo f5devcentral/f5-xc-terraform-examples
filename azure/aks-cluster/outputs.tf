@@ -16,3 +16,6 @@ output "cluster_id" {
   value = azurerm_kubernetes_cluster.ce_waap.id
   sensitive = true
 }
+output "node_details" {
+  value = azurerm_kubernetes_cluster.ce_waap.default_node_pool.node_network_profile
+}
