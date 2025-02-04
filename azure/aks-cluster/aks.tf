@@ -42,3 +42,13 @@ resource "null_resource" "deploy-yaml" {
     }
   }
 }
+
+resource "null_resource" "fetch_ip" {
+      provisioner "local-exec" {
+      command = "./kubectl get nodes -o wide | grep -o '[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}'  > output.txt"
+      environment = {
+                KUBECONFIG = "./kubeconfig"
+    }
+  }
+
+}

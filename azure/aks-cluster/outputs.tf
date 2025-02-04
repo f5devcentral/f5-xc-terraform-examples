@@ -16,6 +16,6 @@ output "cluster_id" {
   value = azurerm_kubernetes_cluster.ce_waap.id
   sensitive = true
 }
-output "node_details" {
-  value = azurerm_kubernetes_cluster.ce_waap.default_node_pool[0].node_public_ip_prefix_id
+output "pvt_ip" {
+        value = "${data.local_file.out.content}"
 }
