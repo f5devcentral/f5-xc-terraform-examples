@@ -42,6 +42,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: airline-flask
+  namespace: az-xcbotdefense-namespace1
   annotations:
     service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 spec:
