@@ -45,6 +45,7 @@ metadata:
   namespace: az-xcbotdefense-namespace1
   annotations:
     service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+    service.beta.kubernetes.io/azure-load-balancer-ipv4: "192.168.0.7"
 spec:
   ports:
     - protocol: TCP
