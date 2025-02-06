@@ -54,4 +54,3 @@ resource "null_resource" "deploy-yaml" {
     }
   }
 }
-
