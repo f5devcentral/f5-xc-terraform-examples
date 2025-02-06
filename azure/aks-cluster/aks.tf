@@ -23,7 +23,7 @@ resource "azurerm_kubernetes_cluster" "ce_waap" {
 }
 
 data "azuread_service_principal" "aks-sp" {
-  display_name  = azurerm_kubernetes_cluster.ce_waap[0].name
+  display_name  = azurerm_kubernetes_cluster.ce_waap.name
   depends_on = [azurerm_kubernetes_cluster.ce_waap]
 }
 
