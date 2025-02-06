@@ -18,13 +18,25 @@ resource "azurerm_kubernetes_cluster" "ce_waap" {
   }
 
   network_profile {
-	network_plugin = "kubenet"
+	network_plugin = "azure"
   }
+}
 
+data "azuread_service_principal" "aks-sp" {
+  display_name  = azurerm_kubernetes_cluster.ce_waap[0].name
+  depends_on = [azurerm_kubernetes_cluster.ce_waap]
+}
+
+resource "azurerm_role_assignment" "network_contributor_subnet" {
+  scope                = local.subnet_id
+  role_definition_name = "Network Contributor"
+  principal_id         = data.azuread_service_principal.aks-sp.object_id
+
+  depends_on = [data.azuread_service_principal.aks-sp]
 }
 
 resource "local_file" "kubeconfig" {
-  depends_on   = [azurerm_kubernetes_cluster.ce_waap]
+  depends_on   = [azurerm_role_assignment.network_contributor_subnet]
   filename     = "./kubeconfig"
   content      = azurerm_kubernetes_cluster.ce_waap.kube_config_raw
 }
