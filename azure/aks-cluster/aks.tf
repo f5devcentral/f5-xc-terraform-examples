@@ -19,6 +19,7 @@ resource "azurerm_kubernetes_cluster" "ce_waap" {
 
   network_profile {
 	network_plugin = "azure"
+    load_balancer_sku = "basic"
   }
 
 }
