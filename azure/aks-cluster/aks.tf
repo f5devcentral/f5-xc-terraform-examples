@@ -18,7 +18,7 @@ resource "azurerm_kubernetes_cluster" "ce_waap" {
   }
 
   network_profile {
-	network_plugin = "azure"
+	network_plugin = "kubenet"
   }
 
 }
