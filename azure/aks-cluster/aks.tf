@@ -41,7 +41,6 @@ resource "azurerm_virtual_network_peering" "peer_b2a" {
   virtual_network_name         = data.azurerm_resources.vnet.resources[0].name
   remote_virtual_network_id    = local.vnet_id
   allow_virtual_network_access = true
-  provider                     = azurerm.siteb
   depends_on                   = [azurerm_virtual_network_peering.peer_a2b]
 }
 
