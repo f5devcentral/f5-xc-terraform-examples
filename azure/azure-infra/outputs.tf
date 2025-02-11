@@ -52,3 +52,6 @@ output "azure-vm" {
 output "vm_public_ip" {
   value = var.vm_public_ip
 }
+output "vnet_id" {
+  value = azurerm_virtual_network.vnet.id
+}

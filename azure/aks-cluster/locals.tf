@@ -6,6 +6,7 @@ locals {
   subnet_id           = data.tfe_outputs.azure-infra.values.subnet_id
   project_prefix      = data.tfe_outputs.azure-infra.values.project_prefix
   build_suffix        = data.tfe_outputs.azure-infra.values.build_suffix
+  vnet_id             = data.tfe_outputs.azure-infra.values.vnet_id
 }
 
 

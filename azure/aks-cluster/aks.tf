@@ -7,7 +7,7 @@ resource "azurerm_kubernetes_cluster" "ce_waap" {
     name                = "default"
     node_count          = 1
     vm_size             = "Standard_D2_v2"
-    vnet_subnet_id      = local.subnet_id
+    vnet_subnet_id      = var.user_existing_vnet ? local.subnet_id : null
     auto_scaling_enabled= false
     # below field is renamed in latest resource version
     # enable_auto_scaling = false
@@ -21,63 +21,35 @@ resource "azurerm_kubernetes_cluster" "ce_waap" {
 	network_plugin = "azure"
   }
 }
-#data "azurerm_user_assigned_identity" "aks-identity" {
-#  name                = "${azurerm_kubernetes_cluster.kubernetes_cluster[0].name}-agentpool"
-#  resource_group_name = "MC_${module.resource_group_kubernetes_cluster[0].name}_aks-prjx-spoke-dev-eastus-001_eastus"
-#
-#  depends_on          = [module.resource_group_kubernetes_cluster]
-#}
-#
-## Provide ACR Pull permission to AKS SystemAssigned Identity
-#resource "azurerm_role_assignment" "acrpull_role" {
-#  scope                            = module.container_registry[0].id
-#  role_definition_name             = "AcrPull"
-#  principal_id                     = data.azurerm_user_assigned_identity.aks-identity.principal_id
-#  skip_service_principal_aad_check = true
-#
-#  depends_on                       = [
-#    data.azurerm_user_assigned_identity.aks-identity
-#  ]
-#}
-#
-#resource "azurerm_role_assignment" "aks_id_network_contributor_subnet" {
-#  scope                = data.azurerm_subnet.aks-subnet.id
-#  role_definition_name = "Network Contributor"
-#  principal_id         = data.azurerm_user_assigned_identity.aks-identity.principal_id
-#
-#  depends_on = [data.azurerm_user_assigned_identity.aks-identity]
-#}
-#
-#data "azuread_service_principal" "aks-sp" {
-#  display_name  = azurerm_kubernetes_cluster.ce_waap.name
-#  depends_on = [azurerm_kubernetes_cluster.ce_waap]
-#}
-#
-#resource "azurerm_role_assignment" "network_contributor_subnet" {
-#  scope                = local.subnet_id
-#  role_definition_name = "Network Contributor"
-#  principal_id         = data.azuread_service_principal.aks-sp.object_id
-#
-#  depends_on = [data.azuread_service_principal.aks-sp]
-#}
-resource "azurerm_role_assignment" "owner" {
-  principal_id         = azurerm_kubernetes_cluster.ce_waap.identity[0].principal_id
-  role_definition_name = "Owner"
-  scope                = local.subnet_id
+data "azurerm_resources" "vnet" {
+  type                = "Microsoft.Network/virtualNetworks"
+  resource_group_name = azurerm_kubernetes_cluster.ce_waap.node_resource_group
+}
+
+resource "azurerm_virtual_network_peering" "peer_a2b" {
+  name                         = "peer-vnet-a-with-b"
+  resource_group_name          = local.resource_group_name
+  virtual_network_name         = local.vnet_name
+  remote_virtual_network_id    = data.azurerm_resources.vnet.resources[0].id
+  allow_virtual_network_access = true
   depends_on = [azurerm_kubernetes_cluster.ce_waap]
 }
-resource "azurerm_role_assignment" "network-contributor" {
-  principal_id         = azurerm_kubernetes_cluster.ce_waap.identity[0].principal_id
-  role_definition_name = "Network Contributor"
-  scope                = local.subnet_id
-  depends_on = [azurerm_role_assignment.owner]
+# Azure Virtual Network peering between Virtual Network B and A
+resource "azurerm_virtual_network_peering" "peer_b2a" {
+  name                         = "peer-vnet-b-with-a"
+  resource_group_name          = azurerm_kubernetes_cluster.ce_waap.node_resource_group
+  virtual_network_name         = data.azurerm_resources.vnet.resources[0].name
+  remote_virtual_network_id    = local.vnet_id
+  allow_virtual_network_access = true
+  provider                     = azurerm.siteb
+  depends_on                   = [azurerm_virtual_network_peering.peer_a2b]
 }
+
 resource "local_file" "kubeconfig" {
-  depends_on   = [azurerm_role_assignment.network-contributor]
+  depends_on   = [azurerm_virtual_network_peering.peer_b2a]
   filename     = "./kubeconfig"
   content      = azurerm_kubernetes_cluster.ce_waap.kube_config_raw
 }
-
 
 resource "null_resource" "deploy-yaml" {
   depends_on  = [local_file.kubeconfig]
