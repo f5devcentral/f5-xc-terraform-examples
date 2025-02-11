@@ -61,7 +61,7 @@ resource "azurerm_kubernetes_cluster" "ce_waap" {
 #  depends_on = [data.azuread_service_principal.aks-sp]
 #}
 resource "azurerm_role_assignment" "network-contributor" {
-  principal_id         = azurerm_kubernetes_cluster.ce_waap.identity.principal_id
+  principal_id         = azurerm_kubernetes_cluster.ce_waap.identity[0].principal_id
   role_definition_name = "Network Contributor"
   scope                = local.subnet_id
   depends_on = [azurerm_kubernetes_cluster.ce_waap]
