@@ -60,11 +60,17 @@ resource "azurerm_kubernetes_cluster" "ce_waap" {
 #
 #  depends_on = [data.azuread_service_principal.aks-sp]
 #}
+resource "azurerm_role_assignment" "owner" {
+  principal_id         = azurerm_kubernetes_cluster.ce_waap.identity[0].principal_id
+  role_definition_name = "Owner"
+  scope                = local.subnet_id
+  depends_on = [azurerm_kubernetes_cluster.ce_waap]
+}
 resource "azurerm_role_assignment" "network-contributor" {
   principal_id         = azurerm_kubernetes_cluster.ce_waap.identity[0].principal_id
   role_definition_name = "Network Contributor"
   scope                = local.subnet_id
-  depends_on = [azurerm_kubernetes_cluster.ce_waap]
+  depends_on = [azurerm_role_assignment.owner]
 }
 resource "local_file" "kubeconfig" {
   depends_on   = [azurerm_role_assignment.network-contributor]
