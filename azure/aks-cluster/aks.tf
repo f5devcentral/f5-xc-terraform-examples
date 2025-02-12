@@ -23,7 +23,7 @@ resource "azurerm_kubernetes_cluster" "ce_waap" {
 }
 data "azurerm_resources" "vnet" {
   type                = "Microsoft.Network/virtualNetworks"
-  resource_group_name = format("MC_%s-rg-%s_%s-rg-%s_%s", local.project_prefix, local.build_suffix,local.project_prefix, local.build_suffix,local.azure_region)
+  resource_group_name = format("MC_%s-rg-%s_%s-aks-%s_%s", local.project_prefix, local.build_suffix,local.project_prefix, local.build_suffix,local.azure_region)
   depends_on = [azurerm_kubernetes_cluster.ce_waap]
 }
 
@@ -39,7 +39,7 @@ resource "azurerm_virtual_network_peering" "peer_a2b" {
 # Azure Virtual Network peering between Virtual Network B and A
 resource "azurerm_virtual_network_peering" "peer_b2a" {
   name                         = "peer-vnet-to-aks"
-  resource_group_name          = format("MC_%s-rg-%s_%s-rg-%s_%s", local.project_prefix, local.build_suffix,local.project_prefix, local.build_suffix,local.azure_region)
+  resource_group_name          = format("MC_%s-rg-%s_%s-aks-%s_%s", local.project_prefix, local.build_suffix,local.project_prefix, local.build_suffix,local.azure_region)
   virtual_network_name         = data.azurerm_resources.vnet.resources[0].name
   remote_virtual_network_id    = local.vnet_id
   allow_virtual_network_access = true
