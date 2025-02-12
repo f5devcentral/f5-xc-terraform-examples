@@ -23,7 +23,7 @@ resource "azurerm_kubernetes_cluster" "ce_waap" {
 }
 data "azurerm_resources" "vnet" {
   type                = "Microsoft.Network/virtualNetworks"
-  resource_group_name = azurerm_kubernetes_cluster.ce_waap.node_resource_group
+  resource_group_name = format("MC_%s-%s_%s-%s_%s", local.project_prefix, local.build_suffix,local.project_prefix, local.build_suffix,local.azure_region)
   depends_on = [azurerm_kubernetes_cluster.ce_waap]
 }
 
