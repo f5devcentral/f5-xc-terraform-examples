@@ -19,3 +19,6 @@ output "cluster_id" {
 output "pvt_ip" {
         value = "${data.local_file.out.content}"
 }
+output "external_ip" {
+  value = data.azurerm_lb.lb.private_ip_address
+}
