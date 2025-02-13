@@ -18,11 +18,11 @@ output "mgmtPort" {
   value = module.bigip.*.mgmtPort
 }
 
-output "public_addresses" {
+output "bigip_public_addresses" {
   value = module.bigip.*.public_addresses
 }
 
-output "private_addresses" {
+output "bigip_private_addresses" {
   value = module.bigip.*.private_addresses
 }
 
