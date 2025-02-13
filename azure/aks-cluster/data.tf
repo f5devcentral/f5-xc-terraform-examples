@@ -5,3 +5,8 @@ data "tfe_outputs" "azure-infra" {
 data "local_file" "out" {
         filename = "./output.txt"
 }
+data "azurerm_lb" "lb" {
+  name = "kubernetes-internal"
+  resource_group_name = format("MC_%s-rg-%s_%s-aks-%s_%s", local.project_prefix, local.build_suffix,local.project_prefix, local.build_suffix,local.azure_region)
+  depends_on = [null_resource.deploy-yaml]
+}
