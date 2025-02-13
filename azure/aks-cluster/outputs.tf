@@ -16,9 +16,6 @@ output "cluster_id" {
   value = azurerm_kubernetes_cluster.ce_waap.id
   sensitive = true
 }
-output "pvt_ip" {
-        value = "${data.local_file.out.content}"
-}
 output "external_ip" {
   value = data.azurerm_lb.lb.private_ip_address
 }
