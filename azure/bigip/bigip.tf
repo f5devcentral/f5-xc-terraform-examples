@@ -44,7 +44,7 @@ module "bigip" {
 
 resource "azurerm_route_table" "bigip-to-aks" {
   depends_on          = [module.bigip]
-  name                = "bigip-to-aks"
+  name                = "bigip-to-aks-test"
   location            = local.azure_region
   resource_group_name = local.resource_group_name
 
