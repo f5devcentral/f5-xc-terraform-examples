@@ -61,7 +61,8 @@ resource "azurerm_route_table" "bigip-to-aks" {
   }
 }
 
-resource "azurerm_subnet_route_table_association" "bigpi-to-aks-association" {
+resource "azurerm_subnet_route_table_association" "bigip-to-aks-association" {
+  depends_on          = [azurerm_route_table.bigip-to-aks]
   subnet_id      = local.subnet_id
   route_table_id = azurerm_route_table.bigip-to-aks.id
 }
@@ -80,6 +81,6 @@ resource "azurerm_route_table" "aks-to-bigip" {
 }
 
 resource "azurerm_subnet_route_table_association" "example" {
-  subnet_id      = local.subnet_id
+  subnet_id      = local.aks_subnet_id
   route_table_id = azurerm_route_table.aks-to-bigip.id
 }
