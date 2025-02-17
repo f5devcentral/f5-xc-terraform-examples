@@ -4,14 +4,14 @@ resource "bigip_ltm_monitor" "monitor" {
 }
 
 resource "bigip_ltm_node" "node" {
-  name                    = "/Common/terraform_application_node"
+  name                    = "/Common/airline_node"
   address                 = local.app_ip
   monitor                 = "none"
   description             = "Terraform-Node"
 }
 
 resource "bigip_ltm_pool" "pool" {
-  name                      = "/Common/terraform_application_Pool"
+  name                      = "/Common/airline_Pool"
   load_balancing_mode       = "round-robin"
   minimum_active_members    = 1
   monitors                  = [bigip_ltm_monitor.monitor.parent]

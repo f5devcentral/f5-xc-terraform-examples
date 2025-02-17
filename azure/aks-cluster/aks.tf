@@ -21,11 +21,6 @@ resource "azurerm_kubernetes_cluster" "ce_waap" {
 	network_plugin = "azure"
   }
 }
-data "azurerm_resources" "vnet" {
-  type                = "Microsoft.Network/virtualNetworks"
-  resource_group_name = format("MC_%s-rg-%s_%s-aks-%s_%s", local.project_prefix, local.build_suffix,local.project_prefix, local.build_suffix,local.azure_region)
-  depends_on = [azurerm_kubernetes_cluster.ce_waap]
-}
 
 resource "azurerm_virtual_network_peering" "peer_a2b" {
   name                         = "peer-aks-to-vnet"
@@ -64,4 +59,8 @@ resource "null_resource" "deploy-yaml" {
       		KUBECONFIG = "./kubeconfig"
     }
   }
+}
+resource "time_sleep" "wait_10_seconds" {
+  depends_on = [null_resource.deploy-yaml]
+  create_duration = "10s"
 }

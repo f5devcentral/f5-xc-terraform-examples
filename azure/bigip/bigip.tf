@@ -41,3 +41,45 @@ module "bigip" {
   availability_zone           = var.availability_zone
   availabilityZones_public_ip = var.availabilityZones_public_ip
 }
+
+resource "azurerm_route_table" "bigip-to-aks" {
+  depends_on          = [module.bigip]
+  name                = "bigip-to-aks"
+  location            = local.azure_region
+  resource_group_name = local.resource_group_name
+
+  route {
+    name           = "route1"
+    address_prefix = "0.0.0.0/0"
+    next_hop_type  = "VirtualAppliance"
+    next_hop_in_ip_address = local.app_ip
+  }
+  route {
+    name           = "Internet"
+    address_prefix = "0.0.0.0/0"
+    next_hop_type  = "Internet"
+  }
+}
+
+resource "azurerm_subnet_route_table_association" "bigpi-to-aks-association" {
+  subnet_id      = local.subnet_id
+  route_table_id = azurerm_route_table.bigip-to-aks.id
+}
+
+resource "azurerm_route_table" "aks-to-bigip" {
+  name                = "bigip-to-aks"
+  location            = local.azure_region
+  resource_group_name = local.aks_resource_group_name
+
+  route {
+    name           = "route1"
+    address_prefix = local.azure_subnet_cidr
+    next_hop_type  = "VirtualAppliance"
+    next_hop_in_ip_address = module.bigip.*.private_addresses[0]["mgmt_private"]["private_ip"][0]
+  }
+}
+
+resource "azurerm_subnet_route_table_association" "example" {
+  subnet_id      = local.subnet_id
+  route_table_id = azurerm_route_table.aks-to-bigip.id
+}

@@ -5,3 +5,4 @@ provider "azurerm" {
   client_id         = "${var.azure_service_principal_appid}"
   client_secret     = "${var.azure_service_principal_password}"
 }
+provider "time" {}
