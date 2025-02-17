@@ -17,7 +17,7 @@ data "azurerm_virtual_network" "aks-vnet"{
   resource_group_name = local.aks_resource_group_name
 }
 data "azurerm_subnet" "aks-subnet" {
-  name                 = data.azurerm_resources.vnet.resources[0].subnets[0]
+  name                 = data.azurerm_virtual_network.aks-vnet.subnets[0]
   resource_group_name  = local.aks_resource_group_name
   virtual_network_name = data.azurerm_resources.vnet.resources[0].name
 }
