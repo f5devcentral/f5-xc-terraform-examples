@@ -50,7 +50,7 @@ resource "azurerm_route_table" "bigip-to-aks" {
 
   route {
     name           = "route1"
-    address_prefix = "0.0.0.0/0"
+    address_prefix = "10.224.0.0/24"
     next_hop_type  = "VirtualAppliance"
     next_hop_in_ip_address = local.app_ip
   }
