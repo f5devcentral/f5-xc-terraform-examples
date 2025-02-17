@@ -73,7 +73,7 @@ resource "azurerm_route_table" "aks-to-bigip" {
 
   route {
     name           = "route1"
-    address_prefix = str(local.azure_subnet_cidr)
+    address_prefix = "0.0.0.0/0"
     next_hop_type  = "VirtualAppliance"
     next_hop_in_ip_address = module.bigip.*.private_addresses[0]["mgmt_private"]["private_ip"][0]
   }
