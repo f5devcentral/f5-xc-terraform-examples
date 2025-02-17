@@ -30,7 +30,7 @@ output "aks_vnet_id" {
   value = data.azurerm_resources.vnet.resources[0].id
 }
 output "aks_subnet_name" {
-  value = data.azurerm_resources.vnet.resources[0].subnets[0]
+  value = data.azurerm_virtual_network.aks-vnet.subnets[0]
 }
 output "aks_subnet_id" {
   value = data.azurerm_subnet.aks-subnet.id
