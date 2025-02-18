@@ -309,7 +309,7 @@ jobs:
         run: terraform apply -auto-approve -input=false
           terraform output -json > terraform_outputs.json
       - name: Upload Outputs
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
             name: terraform-outputs
             path: terraform_outputs.json
@@ -389,7 +389,7 @@ jobs:
         run: terraform apply -auto-approve -input=false
 
       - name: Download Outputs
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
             name: terraform-outputs
             path: .
