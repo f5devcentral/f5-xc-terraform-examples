@@ -307,3 +307,101 @@ jobs:
       - name: Terraform Apply
         if: github.ref == 'refs/heads/az-botdefense-apply' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
+          terraform output -json > terraform_outputs.json
+      - name: Upload Outputs
+        uses: actions/upload-artifact@v2
+        with:
+            name: terraform-outputs
+            path: terraform_outputs.json
+
+  terraform_test:
+    name: "Test Bot traffic"
+    runs-on: ubuntu-latest
+    needs: [ terraform_bot ]
+    defaults:
+      run:
+        working-directory: ./tools
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Setup Terraform Backend
+        id: backend
+        run: |
+          cat > backend.tf << EOF
+          terraform {
+            cloud {
+              organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
+              workspaces {
+                name = "${{ secrets.TF_CLOUD_WORKSPACE_TEST_BOTDEFENSE }}"
+              }
+            }
+          }
+          EOF
+      - name: Terraform Init
+        id: init
+        run: terraform init
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Terraform Plan
+        id: plan
+        if: github.event_name == 'pull_request'
+        run: terraform plan -no-color -input=false
+        continue-on-error: true
+
+      - uses: actions/github-script@v6
+        if: github.event_name == 'pull_request'
+        env:
+          PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+            #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+            #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
+            #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+            <details><summary>Show Plan</summary>
+            \`\`\`\n
+            ${process.env.PLAN}
+            \`\`\`
+            </details>
+            *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
+      - name: Terraform Plan Status
+        if: steps.plan.outcome == 'failure'
+        run: exit 1
+
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/az-botdefense-apply' && github.event_name == 'push'
+        run: terraform apply -auto-approve -input=false
+
+      - name: Download Outputs
+        uses: actions/download-artifact@v2
+        with:
+            name: terraform-outputs
+            path: .
+      - name: Use Outputs
+        run: |
+          outputs=$(cat terraform_outputs.json)
+#          example_output=$(echo $outputs | jq -r '.your_output_name.value')
+#          echo "The bigip public ip is $example_output"
+
+#      - name: Run Traffic
+#        run: |
+#          export cname=$(terraform output -raw bigip_ip | grep -oE '([0-9]{1,3}\.){3}[0-9]{1,3}' | head -n 1)
+#          echo $cname
+#          sleep 10
+#          bash run-curl-traffic.sh "http://$cname/user/signin"

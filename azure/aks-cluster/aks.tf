@@ -23,6 +23,7 @@ resource "azurerm_kubernetes_cluster" "ce_waap" {
 }
 
 resource "azurerm_virtual_network_peering" "peer_a2b" {
+  count = var.use_existing_vnet ? 0 : 1
   name                         = "peer-aks-to-vnet"
   resource_group_name          = local.resource_group_name
   virtual_network_name         = local.vnet_name
@@ -43,7 +44,7 @@ resource "azurerm_virtual_network_peering" "peer_b2a" {
 }
 
 resource "local_file" "kubeconfig" {
-  depends_on   = [azurerm_virtual_network_peering.peer_b2a]
+  depends_on   = var.use_existing_vnet ? [azurerm_kubernetes_cluster.ce_waap] : [azurerm_virtual_network_peering.peer_b2a]
   filename     = "./kubeconfig"
   content      = azurerm_kubernetes_cluster.ce_waap.kube_config_raw
 }
