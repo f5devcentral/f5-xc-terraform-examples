@@ -68,17 +68,17 @@ resource "bigip_ltm_pool_attachment" "attach_node" {
 #
 ## BINDING AIRLINE APP & XC BOT PROFILE TO VIRTUAL SERVER
 #
-#resource "bigip_ltm_virtual_server" "https_bd" {
-#  name                        = "/Common/terraform_bot_vs"
-#  destination                 = local.bigip_private
+resource "bigip_ltm_virtual_server" "https_bd" {
+  name                        = "/Common/terraform_bot_vs"
+  destination                 = local.bigip_private_ip
 #  description                 = "VS-terraform-xc-bot"
-#  port                        = 80
-#  pool                        = bigip_ltm_pool.pool.name
+  port                        = 80
+  pool                        = bigip_ltm_pool.pool.name
 #  profiles                    = ["/Common/http", bigip_saas_bot_defense_profile.test-bot-defense.name]
-#  client_profiles             = ["/Common/tcp"]
-#  server_profiles             = ["/Common/tcp-lan-optimized"]
-#  persistence_profiles        = ["/Common/source_addr", "/Common/hash"]
-#  source_address_translation  = "automap"
-#  translate_address           = "enabled"
-#  translate_port              = "enabled"
-#}
+  client_profiles             = ["/Common/tcp"]
+  server_profiles             = ["/Common/tcp-lan-optimized"]
+  persistence_profiles        = ["/Common/source_addr", "/Common/hash"]
+  source_address_translation  = "automap"
+  translate_address           = "enabled"
+  translate_port              = "enabled"
+}
