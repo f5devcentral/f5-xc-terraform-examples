@@ -44,7 +44,7 @@ module "bigip" {
 
 resource "azurerm_route_table" "bigip-to-aks" {
   depends_on          = [module.bigip]
-  name                = "bigip-to-aks-test"
+  name                = "bigip-to-aks-tf"
   location            = local.azure_region
   resource_group_name = local.resource_group_name
 
@@ -68,7 +68,7 @@ resource "azurerm_subnet_route_table_association" "bigip-to-aks-association" {
 }
 
 resource "azurerm_route_table" "aks-to-bigip" {
-  name                = "bigip-to-aks"
+  name                = "aks-to-bigip-tf"
   location            = local.azure_region
   resource_group_name = local.aks_resource_group_name
 
@@ -80,7 +80,7 @@ resource "azurerm_route_table" "aks-to-bigip" {
   }
 }
 
-resource "azurerm_subnet_route_table_association" "example" {
+resource "azurerm_subnet_route_table_association" "aks-to-bigip-association" {
   subnet_id      = local.aks_subnet_id
   route_table_id = azurerm_route_table.aks-to-bigip.id
 }

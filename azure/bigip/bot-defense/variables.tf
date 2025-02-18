@@ -30,26 +30,32 @@ variable "f5_bigip_password" {
   default     = "Siddarth@12345"
 }
 # XC Bot Connector Variables
-variable "application_id" {
+variable "xc_application_id" {
   description = "XC Application ID"
   type        = string
   default     = ""
 }
 
-variable "tenant_id" {
+variable "xc_tenant_id" {
   description = "XC Tenant ID"
   type        = string
   default     = ""
 }
 
-variable "telemetry_header_prefix" {
+variable "xc_telemetry_header_prefix" {
   description = "Telemetry Header Prefix"
   type        = string
   default     = ""
 }
 
-variable "api_key" {
+variable "xc_api_key" {
   description = "XC API Key"
+  type        = string
+  default     = ""
+}
+
+variable "xc_web_api_hostname" {
+  description = "XC Web API Hostname"
   type        = string
   default     = ""
 }
