@@ -27,12 +27,12 @@ resource "bigip_ltm_pool_attachment" "attach_node" {
 
 resource "bigip_ltm_monitor" "monitor2" {
   name                    = "/Common/terraform_monitor_bd"
-  parent                  = "/Common/http"
+  parent                  = "/Common/https"
 }
 
 resource "bigip_ltm_node" "node2" {
   name                    = "/Common/botdefense-node"
-  address                 = var.xc_telemetry_header_prefix
+  address                 = var.xc_web_api_hostname
   monitor                 = "none"
   description             = "Terraform-Node-Bot-Defense"
 }
