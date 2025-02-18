@@ -314,7 +314,7 @@ jobs:
     needs: [ terraform_bot ]
     defaults:
       run:
-        working-directory: ./azure/bigip/bot-defense
+        working-directory: ./tools
     steps:
       - name: Checkout
         uses: actions/checkout@v3
