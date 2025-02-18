@@ -44,7 +44,7 @@ resource "azurerm_virtual_network_peering" "peer_b2a" {
 }
 
 resource "local_file" "kubeconfig" {
-  depends_on   = var.use_existing_vnet ? [azurerm_kubernetes_cluster.ce_waap] : [azurerm_virtual_network_peering.peer_b2a]
+  depends_on   = [azurerm_virtual_network_peering.peer_b2a]
   filename     = "./kubeconfig"
   content      = azurerm_kubernetes_cluster.ce_waap.kube_config_raw
 }
