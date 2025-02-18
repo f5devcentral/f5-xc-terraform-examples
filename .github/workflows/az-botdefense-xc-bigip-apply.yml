@@ -307,12 +307,6 @@ jobs:
       - name: Terraform Apply
         if: github.ref == 'refs/heads/az-botdefense-apply' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
-          terraform output -json > terraform_outputs.json
-      - name: Upload Outputs
-        uses: actions/upload-artifact@v3
-        with:
-            name: terraform-outputs
-            path: terraform_outputs.json
 
   terraform_test:
     name: "Test Bot traffic"
@@ -320,7 +314,7 @@ jobs:
     needs: [ terraform_bot ]
     defaults:
       run:
-        working-directory: ./tools
+        working-directory: ./azure/bigip/bot-defense
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -388,20 +382,10 @@ jobs:
         if: github.ref == 'refs/heads/az-botdefense-apply' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
 
-      - name: Download Outputs
-        uses: actions/download-artifact@v3
-        with:
-            name: terraform-outputs
-            path: .
-      - name: Use Outputs
+      - name: Run Traffic
         run: |
-          outputs=$(cat terraform_outputs.json)
-#          example_output=$(echo $outputs | jq -r '.your_output_name.value')
-#          echo "The bigip public ip is $example_output"
-
-#      - name: Run Traffic
-#        run: |
-#          export cname=$(terraform output -raw bigip_ip | grep -oE '([0-9]{1,3}\.){3}[0-9]{1,3}' | head -n 1)
-#          echo $cname
-#          sleep 10
-#          bash run-curl-traffic.sh "http://$cname/user/signin"
+          cp ../../../tools/run-curl-traffic.sh .
+          export cname=$(terraform output -raw bigip_public_ip)
+          echo $cname 
+          sleep 10 
+          bash run-curl-traffic.sh "http://$cname/user/signin"
