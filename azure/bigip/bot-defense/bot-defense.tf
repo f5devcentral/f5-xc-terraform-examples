@@ -27,7 +27,7 @@ resource "bigip_ltm_pool_attachment" "attach_node" {
 
 resource "bigip_ltm_monitor" "monitor2" {
   name                    = "/Common/terraform_monitor_bd"
-  parent                  = "/Common/https"
+  parent                  = "/Common/http"
 }
 
 resource "bigip_ltm_node" "node2" {
