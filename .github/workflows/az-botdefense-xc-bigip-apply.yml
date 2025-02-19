@@ -311,7 +311,7 @@ jobs:
       - name: Run Traffic
         run: |
           cp ../../../tools/run-curl-traffic.sh .
-          export bigip=$(terraform output -raw bigip_public_ip)
-          echo $bigip 
+          export cname=$(terraform output -raw bigip_public_ip | grep -oE '([0-9]{1,3}\.){3}[0-9]{1,3}')
+          echo cname 
           sleep 10 
-          bash run-curl-traffic.sh "http://$bigip/user/signin"
+          bash run-curl-traffic.sh "http://$cname/user/signin"
