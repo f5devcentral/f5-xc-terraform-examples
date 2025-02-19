@@ -16,12 +16,12 @@ data "azurerm_lb" "lb" {
 }
 data "azurerm_virtual_network" "aks-vnet"{
   count = var.use_existing_vnet ? 0 : 1
-  name                = data.azurerm_resources.vnet.resources[0].name
+  name                = data.azurerm_resources.vnet[0].resources[0].name
   resource_group_name = local.aks_resource_group_name
 }
 data "azurerm_subnet" "aks-subnet" {
   count = var.use_existing_vnet ? 0 : 1
-  name                 = data.azurerm_virtual_network.aks-vnet.subnets[0]
+  name                 = data.azurerm_virtual_network.aks-vnet[0].subnets[0]
   resource_group_name  = local.aks_resource_group_name
-  virtual_network_name = data.azurerm_resources.vnet.resources[0].name
+  virtual_network_name = data.azurerm_resources.vnet[0].resources[0].name
 }
