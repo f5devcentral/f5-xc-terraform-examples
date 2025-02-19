@@ -23,7 +23,7 @@ resource "azurerm_kubernetes_cluster" "ce_waap" {
 }
 
 resource "azurerm_virtual_network_peering" "peer_a2b" {
-  count = var.use_existing_vnet ? 0 : 1
+  for_each = var.use_existing_vnet ? [] : [1]
   name                         = "peer-aks-to-vnet"
   resource_group_name          = local.resource_group_name
   virtual_network_name         = local.vnet_name
@@ -34,6 +34,7 @@ resource "azurerm_virtual_network_peering" "peer_a2b" {
 }
 # Azure Virtual Network peering between Virtual Network B and A
 resource "azurerm_virtual_network_peering" "peer_b2a" {
+  for_each = var.use_existing_vnet ? [] : [1]
   name                         = "peer-vnet-to-aks"
   resource_group_name          = format("MC_%s-rg-%s_%s-aks-%s_%s", local.project_prefix, local.build_suffix,local.project_prefix, local.build_suffix,local.azure_region)
   virtual_network_name         = data.azurerm_resources.vnet.resources[0].name
@@ -62,5 +63,6 @@ resource "null_resource" "deploy-yaml" {
   }
 }
 resource "time_sleep" "wait_10_seconds" {
-  depends_on = [null_resource.deploy-yaml]
+  depends_on      = [null_resource.deploy-yaml]
   create_duration = "10s"
+}
