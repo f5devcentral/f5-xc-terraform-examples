@@ -11,7 +11,7 @@ resource "bigip_ltm_node" "node" {
 }
 
 resource "bigip_ltm_pool" "pool" {
-  name                      = "/Common/airline_Pool"
+  name                      = "/Common/airline_pool"
   load_balancing_mode       = "round-robin"
   minimum_active_members    = 1
   monitors                  = [bigip_ltm_monitor.monitor.parent]
