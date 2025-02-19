@@ -27,7 +27,7 @@ resource "azurerm_virtual_network_peering" "peer_a2b" {
   name                         = "peer-aks-to-vnet"
   resource_group_name          = local.resource_group_name
   virtual_network_name         = local.vnet_name
-  remote_virtual_network_id    = data.azurerm_resources.vnet.resources[0].id
+  remote_virtual_network_id    = data.azurerm_resources.vnet[0].resources[0].id
   allow_virtual_network_access = true
   allow_forwarded_traffic      = true
   depends_on = [data.azurerm_resources.vnet]
@@ -37,7 +37,7 @@ resource "azurerm_virtual_network_peering" "peer_b2a" {
   count = var.use_existing_vnet ? 0 : 1
   name                         = "peer-vnet-to-aks"
   resource_group_name          = format("MC_%s-rg-%s_%s-aks-%s_%s", local.project_prefix, local.build_suffix,local.project_prefix, local.build_suffix,local.azure_region)
-  virtual_network_name         = data.azurerm_resources.vnet.resources[0].name
+  virtual_network_name         = data.azurerm_resources.vnet[0].resources[0].name
   remote_virtual_network_id    = local.vnet_id
   allow_virtual_network_access = true
   allow_forwarded_traffic      = true
