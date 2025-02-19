@@ -17,21 +17,21 @@ output "cluster_id" {
   sensitive = true
 }
 output "app_external_ip" {
-  value = data.azurerm_lb.lb.private_ip_address
+  value = data.azurerm_lb.lb[0].private_ip_address
 }
 output "azure_aks_resource_group_name" {
   value = format("MC_%s-rg-%s_%s-aks-%s_%s", local.project_prefix, local.build_suffix,local.project_prefix, local.build_suffix,local.azure_region)
   sensitive = true
 }
 output "aks_vnet_name" {
-  value = data.azurerm_resources.vnet.resources[0].name
+  value = data.azurerm_resources.vnet[0].resources[0].name
 }
 output "aks_vnet_id" {
-  value = data.azurerm_resources.vnet.resources[0].id
+  value = data.azurerm_resources.vnet[0].resources[0].id
 }
 output "aks_subnet_name" {
-  value = data.azurerm_virtual_network.aks-vnet.subnets[0]
+  value = data.azurerm_virtual_network.aks-vnet[0].subnets[0]
 }
 output "aks_subnet_id" {
-  value = data.azurerm_subnet.aks-subnet.id
+  value = data.azurerm_subnet.aks-subnet[0].id
 }
