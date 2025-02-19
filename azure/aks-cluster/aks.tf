@@ -64,4 +64,3 @@ resource "null_resource" "deploy-yaml" {
 resource "time_sleep" "wait_10_seconds" {
   depends_on = [null_resource.deploy-yaml]
   create_duration = "10s"
-}
