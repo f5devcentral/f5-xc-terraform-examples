@@ -54,7 +54,7 @@ resource "bigip_saas_bot_defense_profile" "test-bot-defense" {
   protected_endpoints {
     name                  = "p_endpoint"
     host                  = local.bigip_public_ip
-    endpoint              = "/login"
+    endpoint              = "/user/signin"
     post                  = "enabled"
     put                   = "enabled"
     mitigation_action     = "block"
