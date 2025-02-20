@@ -314,4 +314,4 @@ jobs:
           export cname=$(terraform output -raw bigip_public_ip | grep -oE '([0-9]{1,3}\.){3}[0-9]{1,3}' | head -n 1)
           echo $cname 
           sleep 10 
-          bash run-curl-traffic.sh "http://$cname/user/signin"
+          sh run-curl-traffic.sh "http://$cname/user/signin"
