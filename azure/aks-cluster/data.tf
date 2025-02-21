@@ -12,7 +12,7 @@ data "azurerm_lb" "lb" {
   count = var.use_new_vnet ? 1 : 0
   name = "kubernetes-internal"
   resource_group_name = local.aks_resource_group_name
-  depends_on = [time_sleep.wait_10_seconds]
+  depends_on = [time_sleep.wait_30_seconds]
 }
 data "azurerm_virtual_network" "aks-vnet"{
   count = var.use_new_vnet ? 1 : 0
