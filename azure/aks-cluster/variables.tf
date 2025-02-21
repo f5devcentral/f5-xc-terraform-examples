@@ -19,7 +19,7 @@ variable "azure_service_principal_password" {
   type    = string
 }
 
-variable "use_existing_vnet" {
+variable "use_new_vnet" {
   type = bool
-  default = true
+  default = false
 }
