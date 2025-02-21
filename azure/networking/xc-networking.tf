@@ -4,7 +4,7 @@ locals {
 
 module "xc_azure_vnet" {
   source  = "f5devcentral/azure-vnet-site-networking/xc"
-  version = "0.0.1"
+  version = "0.0.3"
 
   name                            = local.name
   location                        = var.location

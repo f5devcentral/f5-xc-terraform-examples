@@ -1,0 +1,86 @@
+name: "Deploy Gen AI on F5 XC Appstack and Managed k8s"
+
+on:
+  push:
+    branches:
+      - deploy-genai-appstack
+  pull_request:
+
+jobs:
+  terraform_xc:
+    name: "Deploy F5XC Appstack and Managed k8s"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./workflow-guides/smcn/genai-inference-at-the-edge/terraform
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Setup Terraform Backend
+        id: backend
+        run: |
+          cat > backend.tf << EOF
+          terraform { 
+            cloud {
+              organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
+              workspaces {
+                name = "${{ secrets.TF_CLOUD_WORKSPACE_APPSTACK }}"
+              }
+            }
+          }
+          EOF
+          echo "${{secrets.P12}}" | base64 -d > api.p12
+          #cat api.p12
+
+      - name: Terraform Init
+        id: init
+        run: terraform init
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Terraform Plan
+        id: plan
+        if: github.event_name == 'pull_request'
+        run: terraform plan -no-color -input=false
+        continue-on-error: true
+
+      - uses: actions/github-script@v6
+        if: github.event_name == 'pull_request'
+        env:
+          PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const output = `#### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+            #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
+            #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+            <details><summary>Show Plan</summary>
+            \`\`\`\n
+            ${process.env.PLAN}
+            \`\`\`
+            </details>
+            *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
+      - name: Terraform Plan Status
+        if: steps.plan.outcome == 'failure'
+        run: exit 1
+
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/deploy-genai-appstack' && github.event_name == 'push'
+        run: terraform apply -auto-approve -input=false
+        env:
+          TF_VAR_aws_access_key: ${{ secrets.aws_access_key }}
+          TF_VAR_aws_secret_key: ${{ secrets.aws_secret_key }}

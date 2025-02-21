@@ -192,10 +192,6 @@ Viewing the Results in your Load Balancer Security Dashboard:
    :width: 100%
 
 
-Step by step process using automation scripts:
-----------------------------------------------
-
-**Coming soon**
 
 Development
 -----------
