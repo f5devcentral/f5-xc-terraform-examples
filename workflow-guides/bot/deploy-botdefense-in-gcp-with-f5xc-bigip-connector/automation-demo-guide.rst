@@ -175,7 +175,7 @@ Within the <head> tag you should see three lines containing the following: 1) sr
 
 .. image:: assets/js_injection.png
 
-**STEP 6:** As shown below, "Failure" message in the Configure Bot Defense on BIGIP, under Run Traffic confirms the blocking of the Bot Traffic by the XC Bot Connector.
+**STEP 6:** As shown below, "Failure" message in the Configure Bot Defense on BIGIP, under Run Traffic confirms the blocking of the Bot Traffic by XC Bot Connector.
 
 .. image:: assets/xc-bot-verify.png
 
