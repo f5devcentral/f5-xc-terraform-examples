@@ -27,4 +27,3 @@ output "kubernetes_cluster_access_token" {
   value       = nonsensitive(data.google_client_config.provider.access_token)
   description = "GKE Cluster Access Token"
 }
-
