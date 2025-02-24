@@ -4,5 +4,4 @@ locals {
   network_name    = data.tfe_outputs.gcp-infra.values.vpc_name
   subnet_name     = data.tfe_outputs.gcp-infra.values.vpc_subnet
   project_prefix  = data.tfe_outputs.gcp-infra.values.project_prefix
-  project_suffix  = data.tfe_outputs.gcp-infra.values.build_suffix
 }
