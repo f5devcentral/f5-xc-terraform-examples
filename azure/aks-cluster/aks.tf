@@ -45,7 +45,7 @@ resource "azurerm_virtual_network_peering" "peer_b2a" {
 }
 
 resource "local_file" "kubeconfig" {
-  depends_on   = var.use_new_vnet ? [azurerm_virtual_network_peering.peer_b2a] : [azurerm_kubernetes_cluster.ce_waap]
+  depends_on   = [azurerm_kubernetes_cluster.ce_waap]
   filename     = "./kubeconfig"
   content      = azurerm_kubernetes_cluster.ce_waap.kube_config_raw
 }
@@ -64,6 +64,6 @@ resource "null_resource" "deploy-yaml" {
 }
 resource "time_sleep" "wait_30_seconds" {
   count = var.use_new_vnet ? 1 : 0
-  depends_on      = [null_resource.deploy-yaml]
+  depends_on      = [null_resource.deploy-yaml, azurerm_virtual_network_peering.peer_b2a]
   create_duration = "30s"
 }
