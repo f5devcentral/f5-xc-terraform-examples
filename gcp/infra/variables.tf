@@ -14,6 +14,11 @@ variable "gcp_project_id" {
   type    = string
 }
 
+variable "service_account" {
+  type    = string
+  default = ""
+}
+
 variable "project_prefix" {
   type        = string
   description = "This value is inserted at the beginning of each cloud object (alpha-numeric, no special character)"
