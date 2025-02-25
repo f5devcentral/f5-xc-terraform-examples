@@ -48,5 +48,5 @@ variable "availabilityZones_public_ip" {
 }
 
 variable "ssh_key" {
-  type =
+  type = string
 }
