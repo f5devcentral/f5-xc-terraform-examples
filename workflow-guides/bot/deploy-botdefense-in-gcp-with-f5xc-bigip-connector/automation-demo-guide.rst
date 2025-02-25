@@ -119,7 +119,7 @@ Workflow                                       Branch Name
 F5 XC Bot Defense on GCP Deploy                 deploy-bot-defense-gcp
 ================================               =========================
 
-Workflow File: `bot-defense-gcp.yaml  </.github/workflows/bot-defense-gcp.yaml>`__
+Workflow File: `bot-defense-gcp-deploy.yaml  </.github/workflows/bot-defense-gcp-deploy.yaml>`__
 
 **DESTROY**
 
@@ -135,7 +135,7 @@ Workflow File: `bot-defense-gcp-destroy.yaml </.github/workflows/bot-defense-gcp
 
 -  project_prefix = "prefix of your choice"
 
--  gcp_region = “Any GCP region”
+-  gcp_region = “us-west1”
 
 -  gcp_project_id = “Project ID”
 
