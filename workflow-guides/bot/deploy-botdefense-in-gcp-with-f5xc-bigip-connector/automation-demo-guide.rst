@@ -135,7 +135,7 @@ Workflow File: `bot-defense-gcp-destroy.yaml </.github/workflows/bot-defense-gcp
 
 -  project_prefix = "prefix of your choice"
 
--  gcp_region = “Any GCP region”
+-  gcp_region = “us-west1”
 
 -  gcp_project_id = “Project ID”
 
