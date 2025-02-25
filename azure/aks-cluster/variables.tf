@@ -18,3 +18,8 @@ variable "azure_service_principal_appid" {
 variable "azure_service_principal_password" {
   type    = string
 }
+
+variable "use_new_vnet" {
+  type = bool
+  default = false
+}

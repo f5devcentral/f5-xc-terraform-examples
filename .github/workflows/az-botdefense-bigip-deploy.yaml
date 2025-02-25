@@ -1,0 +1,317 @@
+name: "Configure Botdefense on Azure using Big-IP Connector "
+
+on:
+  push:
+    branches:
+      - az-botdefense-deploy
+  pull_request:
+
+jobs:
+
+  terraform_infra:
+    name: "Azure Infra"
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./azure/azure-infra
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Setup Terraform Backend
+        id: backend
+        run: |
+          cat > backend.tf << EOF
+          terraform {
+            cloud {
+              organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
+              workspaces {
+                name = "${{ secrets.TF_CLOUD_WORKSPACE_AZURE_INFRA }}"
+              }
+            }
+          }
+          EOF
+
+      - name: Terraform Init
+        id: init
+        run: terraform init
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Terraform Plan
+        id: plan
+        if: github.event_name == 'pull_request'
+        run: terraform plan -no-color -input=false
+        continue-on-error: true
+
+      - uses: actions/github-script@v6
+        if: github.event_name == 'pull_request'
+        env:
+          PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const output = `#### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+            #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
+            #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+            <details><summary>Show Plan</summary>
+            \`\`\`\n
+            ${process.env.PLAN}
+            \`\`\`
+            </details>
+            *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
+      - name: Terraform Plan Status
+        if: steps.plan.outcome == 'failure'
+        run: exit 1
+
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/az-botdefense-deploy' && github.event_name == 'push'
+        run: terraform apply -auto-approve -input=false
+
+  terraform_aks:
+    name: "Azure AKS and Application"
+    runs-on: ubuntu-latest
+    needs: terraform_infra
+    defaults:
+      run:
+        working-directory: ./azure/aks-cluster
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Setup Terraform Backend
+        id: backend
+        run: |
+          cat > backend.tf << EOF
+          terraform {
+            cloud {
+              organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
+              workspaces {
+                name = "${{ secrets.TF_CLOUD_WORKSPACE_AKS_CLUSTER }}"
+              }
+            }
+          }
+          EOF
+
+      - name: Terraform Init
+        id: init
+        run: terraform init
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Terraform Plan
+        id: plan
+        if: github.event_name == 'pull_request'
+        run: terraform plan -no-color -input=false
+        continue-on-error: true
+
+      - uses: actions/github-script@v6
+        if: github.event_name == 'pull_request'
+        env:
+          PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const output = `#### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+            #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
+            #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+            <details><summary>Show Plan</summary>
+            \`\`\`\n
+            ${process.env.PLAN}
+            \`\`\`
+            </details>
+            *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
+      - name: Terraform Plan Status
+        if: steps.plan.outcome == 'failure'
+        run: exit 1
+
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/az-botdefense-deploy' && github.event_name == 'push'
+        run: |
+          rm -f manifest.yaml
+          mv az-xcbotdefense-app.yaml manifest.yaml
+          cat manifest.yaml
+          terraform apply -auto-approve -input=false
+
+  terraform_bigip:
+      name: "Deploy BIGIP"
+      runs-on: ubuntu-latest
+      needs: terraform_aks
+      defaults:
+        run:
+          working-directory: ./azure/bigip
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v3
+
+        - name: Setup Terraform
+          uses: hashicorp/setup-terraform@v2
+          with:
+            cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+        - name: Setup Terraform Backend
+          id: backend
+          run: |
+            cat > backend.tf << EOF
+            terraform {
+              cloud {
+                organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
+                workspaces {
+                  name = "${{ secrets.TF_CLOUD_WORKSPACE_BIGIP }}"
+                }
+              }
+            }
+            EOF
+        - name: Terraform Init
+          id: init
+          run: terraform init
+
+        - name: Terraform Validate
+          id: validate
+          run: terraform validate -no-color
+
+        - name: Terraform Plan
+          id: plan
+          if: github.event_name == 'pull_request'
+          run: terraform plan -no-color -input=false
+          continue-on-error: true
+
+        - uses: actions/github-script@v6
+          if: github.event_name == 'pull_request'
+          env:
+            PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+          with:
+            github-token: ${{ secrets.GITHUB_TOKEN }}
+            script: |
+              const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+              #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+              #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
+              #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+              <details><summary>Show Plan</summary>
+              \`\`\`\n
+              ${process.env.PLAN}
+              \`\`\`
+              </details>
+              *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: output
+              })
+        - name: Terraform Plan Status
+          if: steps.plan.outcome == 'failure'
+          run: exit 1
+
+        - name: Terraform Apply
+          if: github.ref == 'refs/heads/az-botdefense-deploy' && github.event_name == 'push'
+          run: terraform apply -auto-approve -input=false
+
+
+  terraform_bot:
+    name: "Bot Defense on BIGIP"
+    runs-on: ubuntu-latest
+    needs: [terraform_bigip]
+    defaults:
+      run:
+        working-directory: ./azure/bigip/bot-defense
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+
+      - name: Setup Terraform Backend
+        id: backend
+        run: |
+          cat > backend.tf << EOF
+          terraform {
+            cloud {
+              organization = "${{ secrets.TF_CLOUD_ORGANIZATION }}"
+              workspaces {
+                name = "${{ secrets.TF_CLOUD_WORKSPACE_BIGIP_BOTDEFENSE }}"
+              }
+            }
+          }
+          EOF
+      - name: Terraform Init
+        id: init
+        run: terraform init
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+
+      - name: Terraform Plan
+        id: plan
+        if: github.event_name == 'pull_request'
+        run: terraform plan -no-color -input=false
+        continue-on-error: true
+
+      - uses: actions/github-script@v6
+        if: github.event_name == 'pull_request'
+        env:
+          PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
+            #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
+            #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
+            #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
+            <details><summary>Show Plan</summary>
+            \`\`\`\n
+            ${process.env.PLAN}
+            \`\`\`
+            </details>
+            *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
+      - name: Terraform Plan Status
+        if: steps.plan.outcome == 'failure'
+        run: exit 1
+
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/az-botdefense-deploy' && github.event_name == 'push'
+        run: terraform apply -auto-approve -input=false
+
+      - name: Run Traffic
+        run: |
+          cp ../../../tools/run-curl-traffic.sh .
+          export cname=$(terraform output -raw bigip_public_ip | grep -oE '([0-9]{1,3}\.){3}[0-9]{1,3}' | head -n 1)
+          echo $cname
+          sleep 10
+          bash run-curl-traffic.sh "http://$cname/user/signin"
