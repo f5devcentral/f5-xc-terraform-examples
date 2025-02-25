@@ -1,3 +1,4 @@
+#Create Big-IP in Azure
 module "mgmt-network-security-group" {
   source              = "Azure/network-security-group/azurerm"
   resource_group_name = local.resource_group_name
@@ -42,6 +43,7 @@ module "bigip" {
   availabilityZones_public_ip = var.availabilityZones_public_ip
 }
 
+# Configure Route table for BIG-IP to AKS
 resource "azurerm_route_table" "bigip-to-aks" {
   depends_on          = [module.bigip]
   name                = "bigip-to-aks-tf"
@@ -60,13 +62,13 @@ resource "azurerm_route_table" "bigip-to-aks" {
     next_hop_type  = "Internet"
   }
 }
-
+# Associate the created route table to subnet
 resource "azurerm_subnet_route_table_association" "bigip-to-aks-association" {
   depends_on          = [azurerm_route_table.bigip-to-aks]
   subnet_id      = local.subnet_id
   route_table_id = azurerm_route_table.bigip-to-aks.id
 }
-
+# Configure Route table for AKS to BIG-IP
 resource "azurerm_route_table" "aks-to-bigip" {
   name                = "aks-to-bigip-tf"
   location            = local.azure_region
@@ -79,7 +81,7 @@ resource "azurerm_route_table" "aks-to-bigip" {
     next_hop_in_ip_address = module.bigip.*.private_addresses[0]["mgmt_private"]["private_ip"][0]
   }
 }
-
+# Associate the created route table to subnet
 resource "azurerm_subnet_route_table_association" "aks-to-bigip-association" {
   subnet_id      = local.aks_subnet_id
   route_table_id = azurerm_route_table.aks-to-bigip.id

@@ -22,6 +22,7 @@ resource "azurerm_kubernetes_cluster" "ce_waap" {
   }
 }
 
+# Azure Virtual Network peering between AKS created vnet and Azure Infra created Vnet
 resource "azurerm_virtual_network_peering" "peer_a2b" {
   count = var.use_new_vnet ? 1 : 0
   name                         = "peer-aks-to-vnet"
@@ -32,7 +33,7 @@ resource "azurerm_virtual_network_peering" "peer_a2b" {
   allow_forwarded_traffic      = true
   depends_on = [data.azurerm_resources.vnet]
 }
-# Azure Virtual Network peering between Virtual Network B and A
+
 resource "azurerm_virtual_network_peering" "peer_b2a" {
   count = var.use_new_vnet ? 1 : 0
   name                         = "peer-vnet-to-aks"
@@ -44,12 +45,14 @@ resource "azurerm_virtual_network_peering" "peer_b2a" {
   depends_on                   = [azurerm_virtual_network_peering.peer_a2b]
 }
 
+#Fetch kubeconfig file
 resource "local_file" "kubeconfig" {
   depends_on   = [azurerm_kubernetes_cluster.ce_waap]
   filename     = "./kubeconfig"
   content      = azurerm_kubernetes_cluster.ce_waap.kube_config_raw
 }
 
+# Deploy application using yaml
 resource "null_resource" "deploy-yaml" {
   depends_on  = [local_file.kubeconfig]
   provisioner "local-exec" {
@@ -62,6 +65,7 @@ resource "null_resource" "deploy-yaml" {
     }
   }
 }
+# Wait period while a load balancer gets created and fetch an IP address
 resource "time_sleep" "wait_30_seconds" {
   count = var.use_new_vnet ? 1 : 0
   depends_on      = [null_resource.deploy-yaml, azurerm_virtual_network_peering.peer_b2a]

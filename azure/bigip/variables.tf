@@ -24,10 +24,16 @@ variable "f5_bigip_image" {
   default = "f5-big-best-plus-hourly-25mbps"
 }
 
+variable "f5_bigip_username" {
+  type    = string
+  description = "BIGIP instance Username"
+  default = "bigipuser"
+}
+
 variable "f5_bigip_password" {
   type    = string
   description = "BIGIP instance password"
-  default     = "Siddarth@12345"
+  default = "ApiSecurity@12345"
 }
 
 variable "availability_zone" {
@@ -39,4 +45,8 @@ variable "availabilityZones_public_ip" {
   description = "The availability zone to allocate the Public IP in. Possible values are Zone-Redundant, 1, 2, 3, and No-Zone."
   type        = string
   default     = "Zone-Redundant"
+}
+
+variable "ssh_key" {
+  type =
 }

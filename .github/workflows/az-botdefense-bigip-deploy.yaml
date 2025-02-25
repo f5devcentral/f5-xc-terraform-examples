@@ -1,9 +1,9 @@
-name: "Configure Botdefense"
+name: "Configure Botdefense on Azure using Big-IP Connector "
 
 on:
   push:
     branches:
-      - az-botdefense-apply
+      - az-botdefense-deploy
   pull_request:
 
 jobs:
@@ -78,11 +78,11 @@ jobs:
         run: exit 1
 
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/az-botdefense-apply' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/az-botdefense-deploy' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
 
   terraform_aks:
-    name: "Azure AKS"
+    name: "Azure AKS and Application"
     runs-on: ubuntu-latest
     needs: terraform_infra
     defaults:
@@ -152,7 +152,7 @@ jobs:
         run: exit 1
 
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/az-botdefense-apply' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/az-botdefense-deploy' && github.event_name == 'push'
         run: |
           rm -f manifest.yaml
           mv az-xcbotdefense-app.yaml manifest.yaml
@@ -230,12 +230,12 @@ jobs:
           run: exit 1
 
         - name: Terraform Apply
-          if: github.ref == 'refs/heads/az-botdefense-apply' && github.event_name == 'push'
+          if: github.ref == 'refs/heads/az-botdefense-deploy' && github.event_name == 'push'
           run: terraform apply -auto-approve -input=false
 
 
   terraform_bot:
-    name: "Configure Bot Defense on BIGIP"
+    name: "Bot Defense on BIGIP"
     runs-on: ubuntu-latest
     needs: [terraform_bigip]
     defaults:
@@ -305,7 +305,7 @@ jobs:
         run: exit 1
 
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/az-botdefense-apply' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/az-botdefense-deploy' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
 
       - name: Run Traffic

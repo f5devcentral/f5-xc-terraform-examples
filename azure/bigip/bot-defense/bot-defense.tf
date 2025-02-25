@@ -1,22 +1,23 @@
+# Configure TCP monitor to associate in the pool
 resource "bigip_ltm_monitor" "monitor" {
   name                    = "/Common/terraform_monitor1"
   parent                  = "/Common/tcp"
 }
-
+# Configure node with application IP
 resource "bigip_ltm_node" "node" {
   name                    = "/Common/airline_node"
   address                 = local.app_ip
   monitor                 = "none"
   description             = "Terraform-Node"
 }
-
+# Configure Pool
 resource "bigip_ltm_pool" "pool" {
   name                      = "/Common/airline_pool"
   load_balancing_mode       = "round-robin"
   minimum_active_members    = 1
   monitors                  = [bigip_ltm_monitor.monitor.parent]
 }
-
+# Attach node to the pool
 resource "bigip_ltm_pool_attachment" "attach_node" {
   pool                      = bigip_ltm_pool.pool.name
   node                      = "${bigip_ltm_node.node.name}:80"
@@ -24,7 +25,6 @@ resource "bigip_ltm_pool_attachment" "attach_node" {
 
 
 # CREATING XC BOT DFEENSE PROFILE ON BIGIP
-
 resource "bigip_ltm_monitor" "monitor2" {
   name                    = "/Common/terraform_monitor_bd"
   parent                  = "/Common/http"
@@ -66,8 +66,7 @@ resource "bigip_ltm_pool_attachment" "attach_node2" {
   node                      = "${bigip_ltm_node.node2.name}:443"
 }
 
-# BINDING AIRLINE APP & XC BOT PROFILE TO VIRTUAL SERVER
-
+# BINDING APPLICATION & XC BOT PROFILE TO VIRTUAL SERVER
 resource "bigip_ltm_virtual_server" "https_bd" {
   name                        = "/Common/terraform_bot_vs"
   destination                 = local.bigip_private_ip

@@ -1,1 +1,2 @@
-use_new_vnet = true
+# Set true when you want AKS to create a new Virtual Network
+use_new_vnet = false
