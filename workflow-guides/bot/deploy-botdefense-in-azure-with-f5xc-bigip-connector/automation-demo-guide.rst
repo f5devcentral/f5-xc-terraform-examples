@@ -167,11 +167,11 @@ Workflow File: `az-botdefense-bigip-destroy.yml </.github/workflows/az-botdefens
 
 .. image:: assets/deploy.JPG
 
-**STEP 5:** Once the pipeline completes, fetch the public IP can be found under Deploy BIGIP Job as shown below.
+**STEP 5:** Once the pipeline completes, fetch the public under "Deploy BIGIP" Job as shown below.
 
 .. image:: assets/public_ip.JPG
 
-Access the BIGIP instance IP and observe that the airline demo application is accessible. 
+Open a web browser and verify the access of airline demo application using BIGIP public IP. 
 
 .. image:: assets/airline.JPG
 
