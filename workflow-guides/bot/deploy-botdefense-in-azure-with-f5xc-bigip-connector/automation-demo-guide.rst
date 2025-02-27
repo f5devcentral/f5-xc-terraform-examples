@@ -133,7 +133,7 @@ Workflow                   Branch Name
 az-botdefense-bigip-deploy az-botdefense-deploy
 ========================== =======================
 
-Workflow File: `az-botdefense-bigip-deploy.yml </.github/workflows/az-botdefense-bigip-deploy>`__
+Workflow File: `az-botdefense-bigip-deploy.yaml </.github/workflows/az-botdefense-bigip-deploy>`__
 
 **DESTROY**
 
@@ -143,7 +143,7 @@ Workflow                    Branch Name
 az-botdefense-bigip-destroy az-botdefense-destroy
 =========================== ========================
 
-Workflow File: `az-botdefense-bigip-destroy.yml </.github/workflows/az-botdefense-bigip-destroy.yml>`__
+Workflow File: `az-botdefense-bigip-destroy.yaml </.github/workflows/az-botdefense-bigip-destroy.yml>`__
 
 **Note:** Make sure to comment line no. 16 (# *.tfvars) in ".gitignore" file
 
@@ -175,18 +175,18 @@ To verify the access of airline demo application using BIGIP public IP, open a w
 
 .. image:: assets/airline.JPG
 
-**STEP 5:** Verify the JavaScript injection into the application via the BIG-IP. Make sure you see the below three lines.
+**STEP 6:** Verify the JavaScript injection into the application via the BIG-IP. Make sure you see the below three lines.
 
 .. image:: assets/js_injection.JPG
 
-**STEP 6:** Go to "Bot Defense on BIGIP" job and Expand the Run Traffic section. You should be seeing "Failure" message that confirms the blocking of the Bot Traffic by the XC Bot Connector.
+**STEP 7:** Go to "Bot Defense on BIGIP" job and Expand the Run Traffic section. You should be seeing "Failure" message that confirms the blocking of the Bot Traffic by the XC Bot Connector.
 
 .. image:: assets/bot_failure.JPG
 
-**STEP 7:** To monitor the bot traffic, In F5 XC Console, Navigate to Overview > Monitor section. You can see the bot detections of our newly protected Cloudfront Application. Here you can monitor and respond to events that are identified as Bot traffic
+**STEP 8:** To monitor the bot traffic, In F5 XC Console, Navigate to Overview > Monitor section. You can see the bot detections of our newly protected Cloudfront Application. Here you can monitor and respond to events that are identified as Bot traffic
 
 .. image:: assets/bot_traffic.JPG
 
-**STEP 8:** If you want to destroy the entire setup, checkout a branch with name ``az-botdefense-destroy`` which will trigger destroy workflow and will remove all created resources.
+**STEP 9:** If you want to destroy the entire setup, checkout a branch with name ``az-botdefense-destroy`` which will trigger destroy workflow and will remove all created resources.
 
 .. image:: assets/destroy.JPG
