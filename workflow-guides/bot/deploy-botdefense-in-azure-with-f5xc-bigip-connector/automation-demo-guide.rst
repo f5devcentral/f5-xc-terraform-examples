@@ -133,7 +133,8 @@ Workflow                   Branch Name
 az-botdefense-bigip-deploy az-botdefense-deploy
 ========================== =======================
 
-Workflow File: `az-botdefense-bigip-deploy.yaml </.github/workflows/az-botdefense-bigip-deploy>`__
+Workflow File: `az-botdefense-bigip-deploy.yaml </.github/workflows/az-botdefense-bigip-deploy.yaml>`__
+
 
 **DESTROY**
 
@@ -143,7 +144,7 @@ Workflow                    Branch Name
 az-botdefense-bigip-destroy az-botdefense-destroy
 =========================== ========================
 
-Workflow File: `az-botdefense-bigip-destroy.yaml </.github/workflows/az-botdefense-bigip-destroy.yml>`__
+Workflow File: `az-botdefense-bigip-destroy.yaml </.github/workflows/az-botdefense-bigip-destroy.yaml>`__
 
 **Note:** Make sure to comment line no. 16 (# *.tfvars) in ".gitignore" file
 
