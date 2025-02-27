@@ -171,7 +171,7 @@ Workflow File: `az-botdefense-bigip-destroy.yml </.github/workflows/az-botdefens
 
 .. image:: assets/public_ip.JPG
 
-To verify the access of airline demo application using BIGIP public IP, open a web browser and try to access the application as http://<<public_ip>>. APplication should be accessible.
+To verify the access of airline demo application using BIGIP public IP, open a web browser and try to access the application as http://<<public_ip>>. Application should be accessible.
 
 .. image:: assets/airline.JPG
 
