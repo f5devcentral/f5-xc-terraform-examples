@@ -258,6 +258,7 @@ jobs:
             }
           }
           EOF
+          echo "${{secrets.ssh_key}}" > id_rsa.pub
       - name: Terraform Init
         id: init
         run: terraform init
