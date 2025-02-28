@@ -97,8 +97,7 @@ GitHub
    -  P12: The linux base64 encoded F5XC P12 certificate without spaces. NOTE: you can run `base64 <file-name>` to get this output
    -  TF_API_TOKEN: Your Terraform Cloud API token
    -  TF_CLOUD_ORGANIZATION: Your Terraform Cloud Organization name
-   -  SSH_KEY : Your ssh key for accessing the created resources 
-   -  GOOGLE_CREDENTIALS : Your GCP Credentials
+   -  SSH_KEY : Your ssh key for accessing the created resources
    -  TF_CLOUD_WORKSPACE_APP : f5air
    -  TF_CLOUD_WORKSPACE_BIGIP : bigip
    -  TF_CLOUD_WORKSPACE_BOTDEFENSE : bigip-bd
@@ -119,7 +118,7 @@ Workflow                                       Branch Name
 F5 XC Bot Defense on GCP Deploy                 deploy-bot-defense-gcp
 ================================               =========================
 
-Workflow File: `bot-defense-gcp.yaml  </.github/workflows/bot-defense-gcp.yaml>`__
+Workflow File: `bot-defense-gcp-deploy.yaml  </.github/workflows/bot-defense-gcp-deploy.yaml>`__
 
 **DESTROY**
 
@@ -131,11 +130,13 @@ F5 XC Bot Defense on GCP Destroy                destroy-bot-defense-gcp
 
 Workflow File: `bot-defense-gcp-destroy.yaml </.github/workflows/bot-defense-gcp-destroy.yaml>`__
 
+**Note:** Make sure to comment line no. 16 (# *.tfvars) in ".gitignore" file
+
 **STEP 2:** Rename ``gcp/infra/terraform.tfvars.examples`` to ``gcp/infra/terraform.tfvars`` and add the following data:
 
--  project_prefix = "prefix of your choice"
+-  project_prefix = "Prefix of your choice"
 
--  gcp_region = “Any GCP region”
+-  gcp_region = “Any region of your choice”
 
 -  gcp_project_id = “Project ID”
 
