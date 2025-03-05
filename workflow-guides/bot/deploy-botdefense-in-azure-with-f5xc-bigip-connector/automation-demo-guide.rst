@@ -91,7 +91,7 @@ Terraform Cloud
    +------------------------------------------+--------------+------------------------------------------------------+
    | TF_VAR_xc_tenant_id                      | Environment  | Tenant ID of BOT Connector in XC                     |
    +------------------------------------------+--------------+------------------------------------------------------+
-   | TF_VAR_xc_api_key                           | Environment  | API Key of Bot Conenctor in XC                       |
+   | TF_VAR_xc_api_key                        | Environment  | API Key of Bot Conenctor in XC                       |
    +------------------------------------------+--------------+------------------------------------------------------+
    | TF_VAR_xc_web_api_hostname               | Environment  | Web API hostname of Bot connector in XC              |
    +------------------------------------------+--------------+------------------------------------------------------+
