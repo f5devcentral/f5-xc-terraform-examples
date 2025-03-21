@@ -439,7 +439,7 @@ jobs:
   aws_eks:
     name: "Create AWS EKS"
     if: (inputs.deployment == 'deploy-resources')
-    needs: [apply_variables, aws_networking, azure_networking, aws_vpc_site]
+    needs: [apply_variables, aws_networking, azure_networking]
     runs-on: ubuntu-latest
     defaults:
       run:
