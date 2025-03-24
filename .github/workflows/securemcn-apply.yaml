@@ -453,7 +453,8 @@ jobs:
       TF_VAR_eks_internal_cidrs: ${{ needs.apply_variables.outputs.TF_VAR_eks_internal_cidrs }}
       TF_VAR_aws_vpc_cidr: ${{ needs.aws_networking.outputs.vpc_cidr }}
       # TF_VAR_eks_external_cidrs: "[\"10.10.231.0/24\", \"10.10.232.0/24\"]"
-      TF_VAR_route_table_id: ${{ fromJSON(needs.aws_vpc_site.outputs.workload_route_table_ids)[0] }}
+      #TF_VAR_route_table_id: ${{ fromJSON(needs.aws_vpc_site.outputs.workload_route_table_ids)[0] }}
+      TF_VAR_route_table_id: ${{ fromJSON(needs.aws_networking.outputs.outside_route_table_id) }}
       TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }} 
       TF_CLOUD_ORGANIZATION: ${{ secrets.TF_CLOUD_ORGANIZATION }} 
       AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
