@@ -842,7 +842,7 @@ jobs:
   workload:
     name: "Deploy Demo Workloads"
     if: (inputs.deployment == 'deploy-resources')
-    needs: [apply_variables, gcp_vpc_site, aws_vpc_site, aws_networking, azure_networking, azure_vnet_site, aws_eks, azure_aks, gcp_gke, aws_eks_nic]
+    needs: [apply_variables, aws_networking, azure_networking, azure_aks, gcp_gke, aws_eks, aws_eks_nic]
     runs-on: ubuntu-latest
     defaults:
       run:
