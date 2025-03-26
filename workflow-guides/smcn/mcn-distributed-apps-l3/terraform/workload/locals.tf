@@ -9,7 +9,7 @@ locals {
   # XC WAF Protection
   #------------------------------------------------
 
-  xc_waf = {"true" == var.xc_waf} ? true : false
+  xc_waf = ("true" == var.xc_waf) ? true : false
   xc_waf_policy_name = var.xc_waf_policy_name
 
   #------------------------------------------------
