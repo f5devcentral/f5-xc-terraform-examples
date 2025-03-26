@@ -110,6 +110,18 @@ variable "registry_email" {
   description = "Private docker registry account email address"
 }
 
+# XC WAAP and WAF settings
+variable "xc_waf" {
+  type        = string
+  description = "Enable XC WAF on single LB"
+  default     = "false"
+}
+variable "xc_waf_policy_name" {
+  type        = string
+  description = "Name of the WAF policy"
+  default     = "default"
+}
+
 # XC Malicious User Detection
 variable "xc_mud" {
   type        = string
