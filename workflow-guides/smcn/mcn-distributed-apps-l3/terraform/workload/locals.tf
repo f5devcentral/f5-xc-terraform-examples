@@ -6,6 +6,13 @@ locals {
   f5xc_sd_sa = var.f5xc_sd_sa
 
   #------------------------------------------------
+  # XC WAF Protection
+  #------------------------------------------------
+
+  xc_waf = ("true" == var.xc_waf) ? true : false
+  xc_waf_policy_name = var.xc_waf_policy_name
+
+  #------------------------------------------------
   # XC Malicious User Detection
   #------------------------------------------------
 

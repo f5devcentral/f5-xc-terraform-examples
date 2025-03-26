@@ -180,12 +180,14 @@ resource "volterra_http_loadbalancer" "lb_https" {
         default_security = true
       }
   }
-  /* app_firewall {
-    name = volterra_app_firewall.waap-tf.name
-    namespace = local.namespace
-  } */
-  // disable_waf                     = false
-  disable_waf                     = true
+  dynamic "app_firewall" {
+    for_each = local.xc_waf ? [1] : []
+    content {
+      name = local.xc_waf_policy_name
+      namespace = "shared"
+    }
+  }
+  // disable_waf                     = true
   round_robin                     = true
   service_policies_from_namespace = true
   multi_lb_app = local.xc_multi_lb

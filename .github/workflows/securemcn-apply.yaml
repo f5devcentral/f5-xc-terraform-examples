@@ -106,6 +106,8 @@ jobs:
       TF_VAR_xc_ddos_def: "true"
       TF_VAR_xc_bot_def: ""
       TF_VAR_dns_origin_pool: "true"
+      TF_VAR_xc_waf: ""
+      TF_VAR_xc_api_disc: ""
     outputs:
       TF_CLOUD_WORKSPACE_AWS_CREDENTIALS: ${{ steps.update_output.outputs.TF_CLOUD_WORKSPACE_AWS_CREDENTIALS }}
       TF_CLOUD_WORKSPACE_AWS_NETWORKING: ${{ steps.update_output.outputs.TF_CLOUD_WORKSPACE_AWS_NETWORKING }}
@@ -156,6 +158,8 @@ jobs:
       TF_VAR_xc_ddos_def: ${{ steps.update_output.outputs.TF_VAR_xc_ddos_def }}
       TF_VAR_xc_bot_def: ${{ steps.update_output.outputs.TF_VAR_xc_bot_def }}
       TF_VAR_dns_origin_pool: ${{ steps.update_output.outputs.TF_VAR_dns_origin_pool }}
+      TF_VAR_xc_waf: ${{ steps.update_output.outputs.TF_VAR_xc_waf }}
+      TF_VAR_xc_api_disc: ${{ steps.update_output.outputs.TF_VAR_xc_api_disc }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -439,7 +443,7 @@ jobs:
   aws_eks:
     name: "Create AWS EKS"
     if: (inputs.deployment == 'deploy-resources')
-    needs: [apply_variables, aws_networking, azure_networking, aws_vpc_site]
+    needs: [apply_variables, aws_networking, azure_networking]
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -453,7 +457,8 @@ jobs:
       TF_VAR_eks_internal_cidrs: ${{ needs.apply_variables.outputs.TF_VAR_eks_internal_cidrs }}
       TF_VAR_aws_vpc_cidr: ${{ needs.aws_networking.outputs.vpc_cidr }}
       # TF_VAR_eks_external_cidrs: "[\"10.10.231.0/24\", \"10.10.232.0/24\"]"
-      TF_VAR_route_table_id: ${{ fromJSON(needs.aws_vpc_site.outputs.workload_route_table_ids)[0] }}
+      #TF_VAR_route_table_id: ${{ fromJSON(needs.aws_vpc_site.outputs.workload_route_table_ids)[0] }}
+      TF_VAR_route_table_id: ${{ needs.aws_networking.outputs.outside_route_table_id }}
       TF_API_TOKEN: ${{ secrets.TF_API_TOKEN }} 
       TF_CLOUD_ORGANIZATION: ${{ secrets.TF_CLOUD_ORGANIZATION }} 
       AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
@@ -841,7 +846,7 @@ jobs:
   workload:
     name: "Deploy Demo Workloads"
     if: (inputs.deployment == 'deploy-resources')
-    needs: [apply_variables, gcp_vpc_site, aws_vpc_site, aws_networking, azure_networking, azure_vnet_site, aws_eks, azure_aks, gcp_gke, aws_eks_nic]
+    needs: [apply_variables, aws_networking, azure_networking, azure_aks, gcp_gke, aws_eks, aws_eks_nic]
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -856,6 +861,8 @@ jobs:
       TF_VAR_xc_mud: ${{ needs.apply_variables.outputs.TF_VAR_xc_mud }}
       TF_VAR_xc_ddos_def: ${{ needs.apply_variables.outputs.TF_VAR_xc_ddos_def }}
       TF_VAR_xc_bot_def: ${{ needs.apply_variables.outputs.TF_VAR_xc_bot_def }}
+      TF_VAR_xc_waf: ${{ needs.apply_variables.outputs.TF_VAR_xc_waf }}
+      TF_VAR_xc_api_disc: ${{ needs.apply_variables.outputs.TF_VAR_xc_api_disc }}
       TF_VAR_aws_site_name: ${{ needs.apply_variables.outputs.TF_VAR_aws_vpc_site_name }}
       TF_VAR_nic_external_port: ${{ needs.aws_eks_nic.outputs.external_port }}
       TF_VAR_nic_external_name: ${{ needs.aws_eks_nic.outputs.external_name }}

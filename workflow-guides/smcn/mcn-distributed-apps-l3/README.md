@@ -96,10 +96,12 @@ The following are the default environment variables utilized in the GitHub Actio
 | TF_VAR_namespace              | ""                        | The namespace for the Terraform variable |
 | TF_VAR_app_domain             | "arcadia-mcn.demo.internal" | The FQDN for the application frontend |
 | TF_VAR_f5xc_sd_sa             | "smsn-sd-sa"              | The F5 XC SD SA |
-| TF_VAR_xc_mud                 | "true"                    | The XC Malicious User Detection setting |
-| TF_VAR_xc_ddos_def            | "true"                    | The XC DDoS defense setting |
-| TF_VAR_xc_bot_def             | "true"                    | The XC Bot defense setting |
-|TF_VAR_dns_origin_pool         | "true"                    | The DNS origin pool setting |
+| TF_VAR_xc_api_disc            | "false"                   | The XC API discovery setting |
+| TF_VAR_xc_bot_def             | "false"                   | The XC Bot defense setting |
+| TF_VAR_xc_ddos_def            | "false"                   | The XC DDoS defense setting |
+| TF_VAR_xc_mud                 | "false"                   | The XC Malicious User Detection setting |
+| TF_VAR_xc_waf                 | "false"                   | The XC WAF defense setting |
+| TF_VAR_dns_origin_pool        | "false"                   | The DNS origin pool setting |
 
 ### XC Cloud Credentials
 
