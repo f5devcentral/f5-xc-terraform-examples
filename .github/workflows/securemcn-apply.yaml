@@ -106,6 +106,8 @@ jobs:
       TF_VAR_xc_ddos_def: "true"
       TF_VAR_xc_bot_def: ""
       TF_VAR_dns_origin_pool: "true"
+      TF_VAR_xc_waf: ""
+      TF_VAR_xc_api_disc: ""
     outputs:
       TF_CLOUD_WORKSPACE_AWS_CREDENTIALS: ${{ steps.update_output.outputs.TF_CLOUD_WORKSPACE_AWS_CREDENTIALS }}
       TF_CLOUD_WORKSPACE_AWS_NETWORKING: ${{ steps.update_output.outputs.TF_CLOUD_WORKSPACE_AWS_NETWORKING }}
@@ -156,6 +158,8 @@ jobs:
       TF_VAR_xc_ddos_def: ${{ steps.update_output.outputs.TF_VAR_xc_ddos_def }}
       TF_VAR_xc_bot_def: ${{ steps.update_output.outputs.TF_VAR_xc_bot_def }}
       TF_VAR_dns_origin_pool: ${{ steps.update_output.outputs.TF_VAR_dns_origin_pool }}
+      TF_VAR_xc_waf: ${{ steps.update_output.outputs.TF_VAR_xc_waf }}
+      TF_VAR_xc_api_disc: ${{ steps.update_output.outputs.TF_VAR_xc_api_disc }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -857,6 +861,8 @@ jobs:
       TF_VAR_xc_mud: ${{ needs.apply_variables.outputs.TF_VAR_xc_mud }}
       TF_VAR_xc_ddos_def: ${{ needs.apply_variables.outputs.TF_VAR_xc_ddos_def }}
       TF_VAR_xc_bot_def: ${{ needs.apply_variables.outputs.TF_VAR_xc_bot_def }}
+      TF_VAR_xc_waf: ${{ needs.apply_variables.outputs.TF_VAR_xc_waf }}
+      TF_VAR_xc_api_disc: ${{ needs.apply_variables.outputs.TF_VAR_xc_api_disc }}
       TF_VAR_aws_site_name: ${{ needs.apply_variables.outputs.TF_VAR_aws_vpc_site_name }}
       TF_VAR_nic_external_port: ${{ needs.aws_eks_nic.outputs.external_port }}
       TF_VAR_nic_external_name: ${{ needs.aws_eks_nic.outputs.external_name }}
