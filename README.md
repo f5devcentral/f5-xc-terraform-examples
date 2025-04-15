@@ -56,6 +56,7 @@ Examples of F5 Distributed Cloud (XC) deployments utilizing Terraform. For more 
   | [Using Network Segmentation in F5 XC routed hybrid & multi-cloud environments](https://community.f5.com/kb/technicalarticles/simplify-network-segmentation-for-hybrid-cloud/330876)  |  [Configuring a Secure Network Fabric with Network Segmentation and Cloud Link in a F5 XC routed hybrid and multi-cloud cloud environment](https://github.com/f5devcentral/f5-xc-terraform-examples/tree/main/workflow-guides/smcn/secure-network-fabric)  |  
   | [Scale Your DMZ with F5 Distributed Cloud Services](https://community.f5.com/kb/technicalarticles/scale-your-dmz-with-f5-distributed-cloud-services/340256) | [ Enable DMZ scalability and minimize your​ appliance footprint (Site Mesh Sites on VMware)](https://github.com/f5devcentral/f5-xc-terraform-examples/tree/main/workflow-guides/smcn/application-dmz)  |
   | [Optimizing Networking with F5 Distributed Cloud Services](coming soon)  |  [Addressing IP Overlaps & Optimizing Networking with F5 Distributed Cloud Services {**NEW**}](https://github.com/f5devcentral/f5-xc-terraform-examples/tree/main/workflow-guides/smcn/nat)  | 
+  | :soon: [Automation: Secure Multi-Cloud Networking with Web Application and API Protection](#)  |  [Multi-Cloud Networking (MCN) for Distributed Apps with secure L3 Routing and L4/L7 Services using CE Site Mesh & App Connect](https://github.com/f5devcentral/f5-xc-terraform-examples/tree/main/workflow-guides/smcn/mcn-distributed-apps-l3)  |
 
 ### **F5 Distributed Cloud Teachable** 
 
