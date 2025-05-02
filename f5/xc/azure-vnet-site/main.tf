@@ -1,6 +1,6 @@
 provider "azurerm" {
   features {}
-  resource_resource_provider_registrations = "none"
+  resource_provider_registrations = "none"
 
   client_id       = var.azure_client_id
   client_secret   = var.azure_client_secret
