@@ -63,10 +63,10 @@ Examples of F5 Distributed Cloud (XC) deployments utilizing Terraform. For more 
 
   | **DevCentral Overview Articles**                                                                                                                                                                           | **Use Case / Workflow Guides (SaaS Console, Automation)**                                                                                                                                                                                                        |
   | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-  | [F5 Distributed Cloud Telemetry (Logs) - ELK ]() | [F5 XC Telemetry (Logs) - ELK](https://github.com/f5devcentral/f5-xc-terraform-examples/tree/main/workflow-guides/telemetry/f5-xc-telemetry-elk-Logs/README.rst) |
-  | [F5 Distributed Cloud Telemetry (Metrics) - ELK ]() | [Coming Soon]() |
-  | [F5 Distributed Cloud Telemetry (Logs) - Loki and Grafana ]() | [Coming Soon]() |
-  | [F5 Distributed Cloud Telemetry (Metrics)- Prometheus and Grafana ]() | [Coming Soon]() |
+  | :soon:[F5 Distributed Cloud Telemetry (Logs) - ELK ]() | [F5 XC Telemetry (Logs) - ELK](https://github.com/f5devcentral/f5-xc-terraform-examples/tree/main/workflow-guides/telemetry/f5-xc-telemetry-elk-Logs/README.rst) |
+  | :soon:[F5 Distributed Cloud Telemetry (Metrics) - ELK ]() | [Coming Soon]() |
+  | :soon:[F5 Distributed Cloud Telemetry (Logs) - Loki and Grafana ]() | [Coming Soon]() |
+  | :soon:[F5 Distributed Cloud Telemetry (Metrics)- Prometheus and Grafana ]() | [Coming Soon]() |
 
 
 ### **F5 Distributed Cloud Teachable** 
