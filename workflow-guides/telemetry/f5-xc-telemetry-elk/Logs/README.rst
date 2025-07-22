@@ -112,7 +112,6 @@ Steps of execution:
    |        - terraform apply -auto-approve                                                                         |
    +----------------------------------------------------------------------------------------------------------------+
 
-
 **STEP 4:** Switch to `elk_vm <https://github.com/f5devcentral/f5-xc-terraform-examples/tree/main/telemetry/f5-xc-telemetry-elk/logs/elk_vm>`__ folder.
 
 **STEP 5:** Update `terraform.tfvars` file with your input values and set the bucket name in `backend.tfvars` file.
