@@ -40,7 +40,7 @@ Environment Variables:
    +------------------------------------------+--------------+------------------------------------------------------+
 
 
-Terraform Variables (`gcs_bucket Folder <https://github.com/f5devcentral/f5-xc-terraform-examples/tree/main/telemetry/f5-xc-telemetry-elk/logs/gcs_bucket/terraform.tfvars.examples>`__):
+Terraform Variables (`gcs_bucket <https://github.com/f5devcentral/f5-xc-terraform-examples/tree/main/telemetry/f5-xc-telemetry-elk/logs/gcs_bucket/terraform.tfvars.examples>`__):
 ----------------------------------------
 
    +------------------------------------------+--------------+------------------------------------------------------+
@@ -56,7 +56,7 @@ Terraform Variables (`gcs_bucket Folder <https://github.com/f5devcentral/f5-xc-t
    +------------------------------------------+--------------+------------------------------------------------------+ 
 
 
-Terraform Variables (`elk_vm Folder <https://github.com/f5devcentral/f5-xc-terraform-examples/tree/main/telemetry/f5-xc-telemetry-elk/logs/elk_vm/terraform.tfvars.examples>`__):
+Terraform Variables (`elk_vm <https://github.com/f5devcentral/f5-xc-terraform-examples/tree/main/telemetry/f5-xc-telemetry-elk/logs/elk_vm/terraform.tfvars.examples>`__):
 ------------------------------------
 
    +------------------------------------------+--------------+------------------------------------------------------+
@@ -76,7 +76,7 @@ Terraform Variables (`elk_vm Folder <https://github.com/f5devcentral/f5-xc-terra
    +------------------------------------------+--------------+------------------------------------------------------+ 
 
 
-Terraform Variables (`xc_glr Folder <https://github.com/f5devcentral/f5-xc-terraform-examples/tree/main/telemetry/f5-xc-telemetry-elk/logs/xc_glr/terraform.tfvars.examples>`__):
+Terraform Variables (`xc_glr <https://github.com/f5devcentral/f5-xc-terraform-examples/tree/main/telemetry/f5-xc-telemetry-elk/logs/xc_glr/terraform.tfvars.examples>`__):
 -----------------------------------
 
    +------------------------------------------+--------------+------------------------------------------------------+
