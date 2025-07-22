@@ -40,7 +40,7 @@ Environment Variables:
    +------------------------------------------+--------------+------------------------------------------------------+
 
 
-Terraform Variables (`gcs_bucket Folder <https://github.com/f5devcentral/f5-xc-terraform-examples/tree/main/telemetry/f5-xc-telemetry-elk/logs/gcs_bucket>`__):
+Terraform Variables (`gcs_bucket Folder <https://github.com/f5devcentral/f5-xc-terraform-examples/tree/main/telemetry/f5-xc-telemetry-elk/logs/gcs_bucket/terraform.tfvars.examples>`__):
 ----------------------------------------
 
    +------------------------------------------+--------------+------------------------------------------------------+
@@ -56,7 +56,7 @@ Terraform Variables (`gcs_bucket Folder <https://github.com/f5devcentral/f5-xc-t
    +------------------------------------------+--------------+------------------------------------------------------+ 
 
 
-Terraform Variables (`elk_vm Folder <https://github.com/f5devcentral/f5-xc-terraform-examples/tree/main/telemetry/f5-xc-telemetry-elk/logs/elk_vm>`__):
+Terraform Variables (`elk_vm Folder <https://github.com/f5devcentral/f5-xc-terraform-examples/tree/main/telemetry/f5-xc-telemetry-elk/logs/elk_vm/terraform.tfvars.examples>`__):
 ------------------------------------
 
    +------------------------------------------+--------------+------------------------------------------------------+
@@ -76,7 +76,7 @@ Terraform Variables (`elk_vm Folder <https://github.com/f5devcentral/f5-xc-terra
    +------------------------------------------+--------------+------------------------------------------------------+ 
 
 
-Terraform Variables (`xc_glr Folder <https://github.com/f5devcentral/f5-xc-terraform-examples/tree/main/telemetry/f5-xc-telemetry-elk/logs/xc_glr>`__):
+Terraform Variables (`xc_glr Folder <https://github.com/f5devcentral/f5-xc-terraform-examples/tree/main/telemetry/f5-xc-telemetry-elk/logs/xc_glr/terraform.tfvars.examples>`__):
 -----------------------------------
 
    +------------------------------------------+--------------+------------------------------------------------------+
@@ -101,9 +101,9 @@ Steps of execution:
 
 **STEP 1:** Clone the Repo. Navigate to `gcs_bucket <https://github.com/f5devcentral/f5-xc-terraform-examples/tree/main/telemetry/f5-xc-telemetry-elk/logs/gcs_bucket>`__ folder
 
-**STEP 2:** Update `terraform.tfvars` file with your input values.
-
 **Note:** Set `GOOGLE_APPLICATION_CREDENTIALS` and `VES_P12_PASSWORD` as an environment variables
+
+**STEP 2:** Rename `terraform.tfvars.examples` file to `terraform.tfvars` and update it with your input values.
 
 **STEP 3:** Run terraform commands:
    +----------------------------------------------------------------------------------------------------------------+
@@ -114,7 +114,7 @@ Steps of execution:
 
 **STEP 4:** Switch to `elk_vm <https://github.com/f5devcentral/f5-xc-terraform-examples/tree/main/telemetry/f5-xc-telemetry-elk/logs/elk_vm>`__ folder.
 
-**STEP 5:** Update `terraform.tfvars` file with your input values and set the bucket name in `backend.tfvars` file.
+**STEP 5:** Rename `terraform.tfvars.examples` file to `terraform.tfvars` update it with your input values. Similarly, rename `backend.tfvars.example` file to `backend.tfvars` and set the bucket name.
 
 **STEP 6:** Run terraform commands:
    +----------------------------------------------------------------------------------------------------------------+
