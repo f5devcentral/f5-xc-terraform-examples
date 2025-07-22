@@ -103,7 +103,7 @@ Steps of execution:
 
 **Note:** Set `GOOGLE_APPLICATION_CREDENTIALS` and `VES_P12_PASSWORD` as an environment variables
 
-**STEP 2:** Rename `terraform.tfvars.examples` file to `terraform.tfvars` and update it with your input values.
+**STEP 2:** Rename `terraform.tfvars.examples <https://github.com/f5devcentral/f5-xc-terraform-examples/tree/main/telemetry/f5-xc-telemetry-elk/logs/gcs_bucket/terraform.tfvars.examples>`__ file to `terraform.tfvars` and update it with your input values.
 
 **STEP 3:** Run terraform commands:
    +----------------------------------------------------------------------------------------------------------------+
@@ -114,7 +114,7 @@ Steps of execution:
 
 **STEP 4:** Switch to `elk_vm <https://github.com/f5devcentral/f5-xc-terraform-examples/tree/main/telemetry/f5-xc-telemetry-elk/logs/elk_vm>`__ folder.
 
-**STEP 5:** Rename `terraform.tfvars.examples` file to `terraform.tfvars` update it with your input values. Similarly, rename `backend.tfvars.example` file to `backend.tfvars` and set the bucket name.
+**STEP 5:** Rename `terraform.tfvars.examples <https://github.com/f5devcentral/f5-xc-terraform-examples/tree/main/telemetry/f5-xc-telemetry-elk/logs/elk_vm/terraform.tfvars.examples>`__ file to `terraform.tfvars` update it with your input values. Similarly, rename `backend.tfvars.example <https://github.com/f5devcentral/f5-xc-terraform-examples/tree/main/telemetry/f5-xc-telemetry-elk/logs/elk_vm/backend.tfvars.example>`__ file to `backend.tfvars` and set the bucket name.
 
 **STEP 6:** Run terraform commands:
    +----------------------------------------------------------------------------------------------------------------+
