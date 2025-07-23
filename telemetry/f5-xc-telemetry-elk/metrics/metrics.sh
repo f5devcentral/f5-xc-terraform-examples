@@ -3,7 +3,7 @@
 echo "Enter number of iterations:"
 read itr
 
-echo "Enter flask app ip:"
+echo "Enter flask webserver ip:"
 read ip
 
 echo "Enter sleep interval:"
