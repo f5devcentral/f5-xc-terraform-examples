@@ -1,4 +1,4 @@
-F5 Distributed Cloud WAAP Telemetry (ELK Stack) 
+F5 Distributed Cloud Telemetry: Logs (ELK Stack) 
 #########################################################
 
 Prerequisites:
@@ -9,6 +9,7 @@ Prerequisites:
 -  `SSH key pair <https://cloud.google.com/compute/docs/connect/create-ssh-keys>`__
 -  `GCP Service Account <https://community.f5.com/kb/technicalarticles/creating-a-credential-in-f5-distributed-cloud-for-gcp/298290>`__
 -  `Terraform <https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli>`__
+-  `ELK on docker <https://github.com/deviantony/docker-elk>`__
 
 
 List of Assets:
@@ -98,6 +99,8 @@ Terraform Variables (`xc_glr <https://github.com/f5devcentral/f5-xc-terraform-ex
 
 Steps of execution:
 -------------------
+
+**Note:** Here we have assumed ELK Stack on docker is already deployed
 
 **STEP 1:** Clone the Repo. Navigate to `gcs_bucket <https://github.com/f5devcentral/f5-xc-terraform-examples/tree/main/telemetry/f5-xc-telemetry-elk/logs/gcs_bucket>`__ folder
 
