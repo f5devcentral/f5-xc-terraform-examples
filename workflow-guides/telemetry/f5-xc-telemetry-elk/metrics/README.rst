@@ -6,9 +6,8 @@ Prerequisites:
 --------------
 
 -  `F5 Distributed Cloud (F5 XC) Account <https://console.ves.volterra.io/signup/usage_plan>`__
--  `GCP Account <https://cloud.google.com/docs/get-started>`__
--  `SSH key pair <https://cloud.google.com/compute/docs/connect/create-ssh-keys>`__
 -  `ELK on docker <https://github.com/deviantony/docker-elk>`__
+-   Any cloud account to create VM
 
 
 User Inputs:
