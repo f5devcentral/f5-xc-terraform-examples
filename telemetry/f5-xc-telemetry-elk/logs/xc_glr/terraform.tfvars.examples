@@ -1,0 +1,7 @@
+bucket_name = "" 
+xc_url = ""
+api_p12 = ""
+glr = ""
+all_namespaces = false
+namespace_list = []
+current_namespace = false
