@@ -1,50 +1,33 @@
 F5 Distributed Cloud Telemetry(Metrics) : Prometheus
 #########################################################
 
-Prerequisites:
---------------
+## Prerequisites
+* [F5 Distributed Cloud (F5 XC) Account] (https://console.ves.volterra.io/signup/usage_plan)
+* [GCP Account] (https://cloud.google.com/docs/get-started)
+* [SSH key pair] (https://cloud.google.com/compute/docs/connect/create-ssh-keys)
+* [GCP Service Account] (https://community.f5.com/kb/technicalarticles/creating-a-credential-in-f5-distributed-cloud-for-gcp/298290)
+* [Terraform] (https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
 
--  `F5 Distributed Cloud (F5 XC) Account <https://console.ves.volterra.io/signup/usage_plan>`__
--  `GCP Account <https://cloud.google.com/docs/get-started>`__
--  `SSH key pair <https://cloud.google.com/compute/docs/connect/create-ssh-keys>`__
--  `GCP Service Account <https://community.f5.com/kb/technicalarticles/creating-a-credential-in-f5-distributed-cloud-for-gcp/298290>`__
--  `Terraform <https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli>`__
+## Tools
+* **Cloud Provider:** GCP
+* **IAC:** Terraform
 
-Tools:
-------
+### Terraform Variables (terraform.tfvars)
+| Variable Name          | Type     | Description                                                            |
+|------------------------|----------|------------------------------------------------------------------------|
+| `project_id`           | Secret   | GCP Project ID                                                         |      
+| `region`               | Secret   | GCP region                                                             | 
+| `zone`                 | Secret   | GCP zone in your region                                                |    
+| `gcp_credentials_file` | Secret   | Path of GCP json credentials file                                      | 
+| `ssh_key_path`         | Secret   | Path of SSH key to access VM instance                                  |
+| `f5_api_cert_path`     | Variable | Path of F5 Distributed Cloud API certificate                           | 
+| `f5_api_cert_password` | Variable | F5 Distributed Cloud API certificate password                          | 
+| `f5_tenant`            | Variable | F5 Distributed Cloud tenant name                                       | 
+| `f5_namespace`         | Variable | F5 Distributed Cloud namespace                                         | 
+| `f5_lb_name`           | Variable | F5 Distributed Cloud load balancer name(not LB domain URL)             | 
 
--  **Cloud Provider:** GCP
--  **IAC:** Terraform
 
-Terraform Variables (terraform.tfvars):
------------------------------------
-
-   +------------------------------------------+--------------+------------------------------------------------------+
-   |         **Name**                         |  **Type**    |      **Description**                                 |
-   +==========================================+==============+======================================================+
-   | project_id                               |    string    | GCP Project ID                                       |
-   +------------------------------------------+--------------+------------------------------------------------------+
-   | region                                   |    string    | GCP region                                           |
-   +------------------------------------------+--------------+------------------------------------------------------+
-   | zone                                     |    string    | GCP zone in your region                              |
-   +------------------------------------------+--------------+------------------------------------------------------+
-   | gcp_credentials_file                     |    string    | Path of GCP json credentials file                    |
-   +------------------------------------------+--------------+------------------------------------------------------+
-   | ssh_key_path                             |    string    | Path of SSH key to access VM instance                |
-   +------------------------------------------+--------------+------------------------------------------------------+
-   | f5_api_cert_path                         |    string    | Path of F5 Distributed Cloud API certificate         |
-   +------------------------------------------+--------------+------------------------------------------------------+
-   | f5_api_cert_password                     |    string    | F5 Distributed Cloud API certificate password        |
-   +------------------------------------------+--------------+------------------------------------------------------+
-   | f5_tenant                                |    string    | F5 Distributed Cloud tenant name                     |
-   +------------------------------------------+--------------+------------------------------------------------------+
-   | f5_namespace                             |    string    | F5 Distributed Cloud namespace                       |
-   +------------------------------------------+--------------+------------------------------------------------------+
-   | f5_lb_name                               |    string    | F5 Distributed Cloud load balancer name(not LB domain URL)                 |
-   +------------------------------------------+--------------+------------------------------------------------------+
-
-Steps of execution:
--------------------
+## Steps of execution
 
 ### STEP 1: Clone the repo. Now, navigate to telemetry > f5-xc-telemetry-prometheus
 
