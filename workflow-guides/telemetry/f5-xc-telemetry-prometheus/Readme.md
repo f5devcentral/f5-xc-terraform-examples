@@ -39,9 +39,9 @@ F5 Distributed Cloud Telemetry(Metrics) : Prometheus
 
 ### STEP 3: Run terraform commands
 ```sh
-- terraform init
-- terraform plan
-- terraform apply
+$ terraform init
+$ terraform plan
+$ terraform apply
 ```
 **Note:** This complete execution will take around 5 minutes to complete and script will give you all the required URLs to access Grafana, Prometheus, etc.
 
@@ -55,7 +55,7 @@ You should be seeing different charts of all metrics
 
 ### STEP 5: If you want to destroy the entire setup, run terraform command
 ```sh
-- terraform destroy
+$ terraform destroy
 ```
 
 **Note:** This automation only deals with collecting metrics data from F5 Distributed Cloud(XC), assuming there already exists LBs handling traffic in the namespace provided as user input.
