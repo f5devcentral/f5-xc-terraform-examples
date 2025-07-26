@@ -46,14 +46,15 @@ Terraform Variables (terraform.tfvars):
 Steps of execution:
 -------------------
 
-**STEP 1:** Clone the repo. Now, navigate to telemetry > f5-xc-telemetry-prometheus
-**Note:** `f5_api_certificate.p12` and `gcs.json` won't be available when cloned, I've added into the current directory for my ease and are private to me:
+### STEP 1: Clone the repo. Now, navigate to telemetry > f5-xc-telemetry-prometheus
+
+**Note:** **`f5_api_certificate.p12`** and **`gcs.json`** won't be available when cloned, I've added into the current directory for my ease and are private to me:
 
 .. image:: ./assets/directory-structure.png
 
-**STEP 2:** Rename `terraform.tfvars.example` to `terraform.tfvars` and update all the variables as per your setup
+### STEP 2: Rename **`terraform.tfvars.example`** to **`terraform.tfvars`** and update all the variables as per your setup
 
-**STEP 3:** Run terraform commands
+### STEP 3: Run terraform commands
    +-------------------------------------------------------+
    |        - terraform init                               |
    |        - terraform plan                               |
@@ -63,13 +64,13 @@ Steps of execution:
 
 .. image:: ./assets/f5-prometheus-script-success.png
 
-**STEP 4:** Access the Grafana URL and login using default credentials
+### STEP 4: Access the Grafana URL and login using default credentials
 After logging in, in the Grafana left menu panel, expand "Drilldown" and select "Metrics"
 You should be seeing different charts of all metrics
 
 .. image:: ./assets/f5-prom-grafana-all-graphs.png
 
-**STEP 5:** If you want to destroy the entire setup, run terraform command
+### STEP 5: If you want to destroy the entire setup, run terraform command
    +-------------------------------------------------------+
    |        - terraform destroy                            |
    +-------------------------------------------------------+
