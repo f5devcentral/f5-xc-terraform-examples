@@ -51,7 +51,7 @@ Note: `f5_api_certificate.p12` and `gcs.json` won't be available when cloned, I'
 
 .. image:: ./assets/directory-structure.png
 
-**STEP 2:** Update all the variables in `terraform.tfvars` file as per your setup
+**STEP 2:** Rename `terraform.tfvars.example` to `terraform.tfvars` and update all the variables as per your setup
 
 **STEP 3:** Run terraform commands:
    +-------------------------------------------------------+
