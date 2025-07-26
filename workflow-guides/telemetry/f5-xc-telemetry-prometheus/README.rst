@@ -47,17 +47,17 @@ Steps of execution:
 -------------------
 
 **STEP 1:** Clone the repo. Now, navigate to telemetry > f5-xc-telemetry-prometheus
-Note: `f5_api_certificate.p12` and `gcs.json` won't be available when cloned, I've added into the current directory for my ease and are private to me
+**Note:** `f5_api_certificate.p12` and `gcs.json` won't be available when cloned, I've added into the current directory for my ease and are private to me:
 
 .. image:: ./assets/directory-structure.png
 
 **STEP 2:** Rename `terraform.tfvars.example` to `terraform.tfvars` and update all the variables as per your setup
 
-**STEP 3:** Run terraform commands:
+**STEP 3:** Run terraform commands
    +-------------------------------------------------------+
-   |        $ terraform init                               |
-   |        $ terraform plan                               |
-   |        $ terraform apply                              |
+   |        - terraform init                               |
+   |        - terraform plan                               |
+   |        - terraform apply                              |
    +-------------------------------------------------------+
 **Note:** This complete execution will take around 5 minutes to complete and script will give you all the required URLs to access Grafana, Prometheus, etc.
 
@@ -69,9 +69,9 @@ You should be seeing different charts of all metrics
 
 .. image:: ./assets/f5-prom-grafana-all-graphs.png
 
-**STEP 5:** If you want to destroy the entire setup, run terraform command:
+**STEP 5:** If you want to destroy the entire setup, run terraform command
    +-------------------------------------------------------+
-   |        $ terraform destroy                            |
+   |        - terraform destroy                            |
    +-------------------------------------------------------+
 
 **Note:** This automation only deals with collecting metrics data from F5 Distributed Cloud(XC), assuming there already exists LBs handling traffic in the namespace provided as user input.
