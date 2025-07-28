@@ -47,7 +47,7 @@ Steps of execution
 
 **STEP 1:** Clone the repo and navigate to telemetry -> f5-xc-telemetry-prometheus
 
-**Note:** `f5_api_certificate.p12` and `gcs.json` won't be available when cloned, I've added into the current directory for my ease and are private to me
+**Note:** "f5_api_certificate.p12" and "gcs.json" won't be available when cloned, I've added into the current directory for my ease and are private to me
 
 .. image:: ./assets/directory-structure.png
 
