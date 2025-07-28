@@ -1,0 +1,15 @@
+# Local paths and identifiers for GCP and F5 setup
+local_paths = {
+  project_id            = "<gcp-project-id>"                  # GCP Project ID
+  region                = "asia-south1"                       # GCP region
+  zone                  = "asia-south1-a"                     # GCP zone in your region
+  gcp_credentials_file  = "<gcp-json-credential-file-path>"   # Path of GCP json credentials file
+  ssh_key_path          = "<gcp-vm-ssh-key-path>"             # Path of SSH key to access VM instance
+  f5_api_cert_path      = "<f5-api-certificate-file-path>"    # Path of F5 Distributed Cloud API certificate
+  f5_api_cert_password  = "<f5-api-certificate-password>"     # F5 Distributed Cloud API certificate password
+  f5_tenant             = "<f5-tenant>"                       # F5 Distributed Cloud tenant name
+  f5_namespace          = "<f5-namespace>"                    # F5 Distributed Cloud namespace
+  f5_lb_name            = "<f5-lb-name>"                      # F5 Distributed Cloud load balancer name(not LB domain URL) for which metrics is required
+}
+
+
