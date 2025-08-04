@@ -4,7 +4,7 @@
 
 Examples of F5 Distributed Cloud (XC) deployments utilizing Terraform. For more information on the use cases covered by this project, please see the following articles and workflow guides:
 
-## Application Security ##
+## Application Security
 ### **F5 Distributed Cloud WAF**
 
   | **DevCentral Overview Articles**                                                                                                                          | **Use Case / Workflow Guides (SaaS Console, Automation)**                                                                                                                                                |
@@ -44,7 +44,7 @@ Examples of F5 Distributed Cloud (XC) deployments utilizing Terraform. For more 
 
 ### **F5 Distributed Cloud DDoS Mitigation**
 
-## Application Delivery ##
+## Application Delivery
 
 ### **F5 Distributed Cloud Secure Multi-Cloud Networking (MCN)**
 
