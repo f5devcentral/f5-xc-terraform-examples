@@ -62,7 +62,6 @@ Examples of F5 Distributed Cloud (XC) deployments utilizing Terraform. For more 
   | [Optimizing Networking with F5 Distributed Cloud Services](coming soon)  |  [Addressing IP Overlaps & Optimizing Networking with F5 Distributed Cloud Services {**NEW**}](https://github.com/f5devcentral/f5-xc-terraform-examples/tree/main/workflow-guides/smcn/nat)  | 
   | :soon: [Automation: Secure Multi-Cloud Networking with Web Application and API Protection](#)  |  [Multi-Cloud Networking (MCN) for Distributed Apps with secure L3 Routing and L4/L7 Services using CE Site Mesh & App Connect](https://github.com/f5devcentral/f5-xc-terraform-examples/tree/main/workflow-guides/smcn/mcn-distributed-apps-l3)  |
 
-### **F5 Distributed Cloud Teachable** 
 
 ### **F5 Edge Compute**
 
@@ -78,6 +77,16 @@ Examples of F5 Distributed Cloud (XC) deployments utilizing Terraform. For more 
  | **DevCentral Overview Articles**                                                                                                                                                                           | **Use Case / Workflow Guides (SaaS Console, Automation)**                                                                                                                                                       |
   | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
   | [Demo Guide: F5 Distributed Cloud CDN with WAAP (SaaS Console, Automation)](https://community.f5.com/kb/technicalarticles/demo-guide-f5-distributed-cloud-cdn-with-waap-saas-console-automation/318402) | [F5 Distributed Cloud CDN with WAAP (SaaS Console, Automation)](https://github.com/f5devcentral/xcwaapcdnguide) |
+
+
+### **F5 Distributed Cloud Telemetry**
+
+  | **DevCentral Overview Articles**                                                                                                                                                                           | **Use Case / Workflow Guides (SaaS Console, Automation)**                                                                                                                                                                                                        |
+  | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | :soon:[F5 Distributed Cloud Telemetry (Logs) - ELK ]() | [F5 XC Telemetry (Logs) - ELK](https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/telemetry/f5-xc-telemetry-elk/Logs/README.rst) |
+  | :soon:[F5 Distributed Cloud Telemetry (Metrics) - ELK ]() | [F5 XC Telemetry (Metrics) - ELK](https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/telemetry/f5-xc-telemetry-elk/metrics/README.rst) |
+  | :soon:[F5 Distributed Cloud Telemetry (Logs) - Loki and Grafana ]() | [Coming Soon]() |
+  | :soon:[F5 Distributed Cloud Telemetry (Metrics)- Prometheus and Grafana ]() | [Coming Soon]() |
 
 
 ---   
