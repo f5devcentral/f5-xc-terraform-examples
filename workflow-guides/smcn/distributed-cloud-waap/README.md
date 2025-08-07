@@ -45,7 +45,7 @@ The following can be performed as manual steps within XC Console or automated vi
 
 [Manual: XC Console Workflow](./enable-api-discovery/README-manual.md)
 
-[Automation: API Workflow](./enable-api-discovery/README-manual.md)
+[Automation: API Workflow](./enable-api-discovery/README-automation.md)
 
 ## Additional Related Resources
 
