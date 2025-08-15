@@ -1,15 +1,15 @@
-# Distributed Cloud WAAP (Secure Multi-Cloud Networking)
+# Enable F5 WAF and API Security for F5 Distributed Cloud App Connect Deployments 
 
 ## Overview
 
-This guide provides both the manual and automated steps for configuring Web App & API Protection (WAAP) security for distributed app deployments that use F5 Distributed Cloud (XC) Multi-Cloud Networking (MCN). 
+This guide provides both the manual and automated steps for configuring Web App & API Protection (WAAP) security for distributed app deployments that use **F5 Enterprise Networking** for Secure Multi-Cloud Networking (MCN). 
 
 Specifically, it addresses two related app security tasks:
 
-* apply a single WAAP configuration to multiple Load Balancers (LBs) for different apps running in multiple clouds;
-* apply a configuration to enable API discovery on an F5 XC load-balanced endpoint.
+* apply a single **F5 Distributed Cloud WAF** to multiple Load Balancers (LBs) configured in different clouds by way of **F5 Distributed Cloud App Connect** service;
+* apply a configuration to enable **F5 Distributed Cloud API Security** for a sample load-balanced API endpoint managed via **F5 Distributed Cloud Services**
 
-This is done on different F5 CE (Customer Edge) sites across multiple clouds, demonstrating how a consistent security policy can be easily applied to different applications independent of where they are running, all managed via a single solution: F5 Distributed Cloud.
+This guide addresses the **Application Security** use case, specifically F5's **Web Application and API Protection** solution area by way of configuring F5 WAF and API Security for load-balanced workloads on different F5 Customer Edge (CE) sites across multiple clouds. This demonstrates how a consistent security policy can be easily applied to different applications, independent of where they are running, all managed via a single solution: **F5 Distributed Cloud Services**.
 
 ## Setup Diagram
 
