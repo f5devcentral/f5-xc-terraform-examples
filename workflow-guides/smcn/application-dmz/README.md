@@ -1,4 +1,4 @@
-# DMZ Setup in XC Cloud
+# Secure DMZ Setup with F5 Enterprise Networking and Application Security
 
 # Table of Contents
 
@@ -28,7 +28,18 @@
 
 # Overview
 
-This guide provides the steps for a comprehensive [demilitarized zone (DMZ)](<https://en.wikipedia.org/wiki/DMZ_(computing)>) setup in the [XC Cloud](https://cloud.f5.com) environment. The setup includes the following components:
+This guide provides the steps for a comprehensive [demilitarized zone (DMZ)](<https://en.wikipedia.org/wiki/DMZ_(computing)>) setup with **F5 Distributed Cloud Services** [XC Cloud](https://cloud.f5.com). The services utilize **F5 Distributed Cloud** for:
+
+**Application Delivery**
+- *App Connect*
+
+**Application Security**
+- *WAF*,
+- *Bot Defense*,
+- *DDoS Mitigation*,
+- *API Security*
+  
+The setup includes the following components:
 
 - Configuration of VMWare Data Center with two CE Sites for failover;
 - Demo application deployment in the VMware Data Center;
