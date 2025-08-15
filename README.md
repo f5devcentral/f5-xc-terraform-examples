@@ -41,12 +41,11 @@ Examples of F5 Distributed Cloud (XC) deployments utilizing Terraform. For more 
   | [Deploy Bot Defense as Code (IaC) or SaaS Console Anywhere](https://community.f5.com/t5/technical-articles/deploy-bot-defense-as-code-iac-or-saas-console-anywhere/ta-p/323272) | [Deploy Bot Defense in Azure with BIG-IP Connector for F5 Distributed Cloud (SaaS Console, Automation)](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/tree/main/workflow-guides/bot/deploy-botdefense-in-azure-with-f5xc-bigip-connector)                  |
   | [Deploy Bot Defense as Code (IaC) or SaaS Console Anywhere](https://community.f5.com/t5/technical-articles/deploy-bot-defense-as-code-iac-or-saas-console-anywhere/ta-p/323272)      | [Deploy Bot Defense in GCP Using BIG-IP Connector for F5 Distributed Cloud  (SaaS Console, Automation)](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/tree/main/workflow-guides/bot/deploy-botdefense-in-gcp-with-f5xc-bigip-connector)                     |
 
+### **F5 Distributed Cloud DoS Protection**
+
 
 ---
 ## Application Delivery
-
-### **F5 Distributed Cloud DoS Protection**
-
 
 ### **F5 Distributed Cloud Secure Multi-Cloud Networking (MCN)**
 
