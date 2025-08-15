@@ -28,7 +28,7 @@
 
 # Overview
 
-This guide provides the steps for a comprehensive [demilitarized zone (DMZ)](<https://en.wikipedia.org/wiki/DMZ_(computing)>) setup with **F5 Distributed Cloud Services** [XC Cloud](https://cloud.f5.com). The services utilize **F5 Distributed Cloud** for:
+This guide provides the steps for a comprehensive [demilitarized zone (DMZ)](<https://en.wikipedia.org/wiki/DMZ_(computing)>) setup with **F5 Distributed Cloud Services** [XC Cloud](https://cloud.f5.com). The services utilize **F5 Distributed Cloud Services** to demonstrate the following solutions:
 
 **Application Delivery**
 - *App Connect*
