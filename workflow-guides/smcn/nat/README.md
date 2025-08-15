@@ -1,4 +1,4 @@
-# Addressing IP Overlaps & Optimizing Networking with F5 Distributed Cloud Services
+# Addressing IP overlaps & optimizing Application Delivery with F5 Enterprise Networking
 
 # Table of Contents
 
