@@ -1,4 +1,4 @@
-# Secure Network Fabric (Multi-Cloud Networking)
+# Application Delivery with F5 Distributed Cloud Services (Multi-Cloud Networking)
 
 # Table of Contents
 
@@ -43,7 +43,7 @@
 
 # Overview
 
-This guide provides the steps for a comprehensive Multi-Cloud Network Connect demo focused on:
+This guide demonstrates a comprehensive **Multi-Cloud Networking (MCN)** configuration across multiple clouds using **F5 Enterprise Networking**, with the following key use-cases highlighted:
 
 - Configuration of AWS Environment including creating four AWS VPCs (dev, prod, shared and external) using the AWS Management Console, AWS EC2 instance in each VPC, two cloud credentials for ACME Corp and External Companies, AWS TGW Site to connect VPCs to, Secure Mesh Site and VMware Ubuntu VMs and, finally, Site Mesh Group;
 - Creation of three Cloud Connects for prod, dev and shared VPCs using ACME Corp credentials created in the configuration part. Each Cloud Connect will have a VPC segment inside it to connect VPCs to our AWS TGW Site;
