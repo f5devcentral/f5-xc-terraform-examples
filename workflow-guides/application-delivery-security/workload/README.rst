@@ -30,7 +30,7 @@ Architecture Overview
 
 *Note: This scenario uses VMware On-Prem, but it can also be deployed on GCP and Azure.*
 
-``F5 Distributed Cloud Workload Deployments on VMware[coming soon] <coming soon>`__
+`F5 Distributed Cloud Workload Deployments on VMware[coming soon] <coming soon>`__
 
 **Nutanix on Bare Metal:** Nutanix Community Edition is used as Hypervisor and deployed in Dell PowerEdge-R430 bare metal. A VM is created and booted using the qcow2 image of SMSv2 CE downloaded from F5 Distributed Cloud. Once the CE VM is up and site is online, VM running application workloads are also deployed and connected to CE using Site Local Inside (SLI) subnet and interface, so that applications are not exposed directly.
 
@@ -38,7 +38,7 @@ Architecture Overview
 
 Nutanix Infra Setup
 
-``F5 Distributed Cloud Workload Deployments on Nutanix[coming soon] <coming soon>`__
+`F5 Distributed Cloud Workload Deployments on Nutanix[coming soon] <coming soon>`__
 
 **OpenShift Container Platform (OCP):** 3-node OCP cluster is created on VMware. SMSv2 CE as VM is deployed using KVM (qcow) image in OCP cluster virtualization. VM running application workloads is also deployed and connected to CE using Site Local Inside (SLI) subnet and interface, so that applications are not exposed directly.
 
@@ -46,7 +46,7 @@ Nutanix Infra Setup
 
 OCP Infra Setup
 
-``F5 Distributed Cloud Workload Deployments on OCP[coming soon] <coming soon>`__
+`F5 Distributed Cloud Workload Deployments on OCP[coming soon] <coming soon>`__
 
 **Nutanix on VMware:** <Coming Soon>
 
