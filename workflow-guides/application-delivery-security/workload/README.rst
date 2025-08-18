@@ -56,11 +56,11 @@ Deploy Secure Mesh Site v2 in Nutanix
 
 Note: Similarly, this deployment can be achieved in GCP and AWS using the links below.
 
-AWS -> Deploy Secure Mesh Site v2 on AWS
+AWS -> `Deploy Secure Mesh Site v2 on AWS <https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops>`__
 
-Azure -> Deploy Secure Mesh Site v2 on Azure
+Azure -> `Deploy Secure Mesh Site v2 on Azure <https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops>`__
 
-GCP -> Deploy Secure Mesh Site v2 on GCP
+GCP -> `Deploy Secure Mesh Site v2 on GCP <https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops>`__
 
 Note: Customer Edge Site Sizing Reference
 
@@ -77,14 +77,15 @@ Workloads are distributed across the following environments:
 - OpenShift: App B & App C
 - Nutanix: App B
 
-→ VMware: Add App C
-→ OpenShift: Add App A
-→ Nutanix: Add App A & App C
+- → VMware: Add App C
+- → OpenShift: Add App A
+- → Nutanix: Add App A & App C
 
 Applications being used:
-A → Juice Shop
-B → DVWA
-C → NGINX
+
+- A → Juice Shop
+- B → DVWA
+- C → NGINX
 
 Initial Infrastructure:
 --------------
