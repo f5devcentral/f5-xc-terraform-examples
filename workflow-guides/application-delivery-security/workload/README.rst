@@ -73,9 +73,10 @@ Deploy applications seamlessly across multiple environments based on customer re
 
 Workloads are distributed across the following environments:
 
-VMware: App A & App B
-OpenShift: App B & App C
-Nutanix: App B
+- VMware: App A & App B
+- OpenShift: App B & App C
+- Nutanix: App B
+
 → VMware: Add App C
 → OpenShift: Add App A
 → Nutanix: Add App A & App C
