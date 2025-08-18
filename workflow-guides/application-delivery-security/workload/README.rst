@@ -28,13 +28,13 @@ Architecture Overview
 
 **VMware:** VM is created in VMware ESXi deployed in Dell PowerEdge-R640 bare metal. The VM is booted using the OVF image of SMSv2 CE downloaded from F5 Distributed Cloud. Once the CE VM is up and site is online, VM running application workloads is also deployed in the same ESXi and connected to CE using Site Local Inside (SLI) subnet and interface, so that applications are not exposed directly.
 
-Note: This scenario uses VMware On-Prem, but it can also be deployed on GCP and Azure.
+`Note: This scenario uses VMware On-Prem, but it can also be deployed on GCP and Azure.`
 
 Customer Edge (CE) Setup, Client VM Installation, and Application Access via Load Balancers
 
 **Nutanix on Bare Metal:** Nutanix Community Edition is used as Hypervisor and deployed in Dell PowerEdge-R430 bare metal. A VM is created and booted using the qcow2 image of SMSv2 CE downloaded from F5 Distributed Cloud. Once the CE VM is up and site is online, VM running application workloads are also deployed and connected to CE using Site Local Inside (SLI) subnet and interface, so that applications are not exposed directly.
 
-Note: This scenario uses Nutanix On-Prem, but it can also be deployed on AWS and Azure.
+`Note: This scenario uses Nutanix On-Prem, but it can also be deployed on AWS and Azure.`
 
 Nutanix Infra Setup
 
@@ -42,7 +42,7 @@ Customer Edge (CE) Setup, Client VM Installation, and Application Access via Loa
 
 **OpenShift Container Platform (OCP):** 3-node OCP cluster is created on VMware. SMSv2 CE as VM is deployed using KVM (qcow) image in OCP cluster virtualization. VM running application workloads is also deployed and connected to CE using Site Local Inside (SLI) subnet and interface, so that applications are not exposed directly.
 
-Note: This scenario uses OCP Datacenter (On-Prem), but it can also be deployed on AWS, GCP, IBM and Azure.
+`Note: This scenario uses OCP Datacenter (On-Prem), but it can also be deployed on AWS, GCP, IBM and Azure.`
 
 OCP Infra Setup
 
@@ -54,7 +54,7 @@ Deploy Secure Mesh Site v2 in Nutanix
 
 **Cloud Env:** For this demo Azure is chosen for deploying SMSv2 CE site. In the same resource group where CE VM is deployed, VM running application workloads is also deployed and connected to CE using Site Local Inside (SLI) subnet and interface, so that applications are not exposed directly.
 
-Note: Similarly, this deployment can be achieved in GCP and AWS using the links below.
+`Note: Similarly, this deployment can be achieved in GCP and AWS using the links below.`
 
 AWS -> `Deploy Secure Mesh Site v2 on AWS <https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops>`__
 
@@ -62,7 +62,7 @@ Azure -> `Deploy Secure Mesh Site v2 on Azure <https://docs.cloud.f5.com/docs-v2
 
 GCP -> `Deploy Secure Mesh Site v2 on GCP <https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops>`__
 
-Note: Customer Edge Site Sizing Reference
+Note: `Customer Edge Site Sizing Reference <https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/reference/ce-site-size-ref>`__
 
 Customer Edge (CE) Setup, Client VM Installation, and Application Access via Load Balancers
 
