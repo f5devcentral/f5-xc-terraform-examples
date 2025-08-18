@@ -1,37 +1,38 @@
-# Apply Custom WAF Policy
+# Apply Custom F5 Distributed Cloud WAF Policy
 
-This manual describes how to apply a custom WAF policy to an F5 XC HTTP Load Balancer using the F5 XC Cloud Console.
+This manual describes how to apply a custom F5 WAF policy to an F5 Distributed Cloud HTTP Load Balancer using the F5 Distributed Cloud Console.
 
 ## Prerequisites
 
-* [F5 Distributed Cloud Account (F5XC)](https://console.ves.volterra.io/signup/usage_plan)
-* [HTTP Load Balancer](https://docs.cloud.f5.com/docs/how-to/app-networking/http-load-balancer)
+- [F5 Distributed Cloud Account (F5XC)](https://console.ves.volterra.io/signup/usage_plan)
+- [HTTP Load Balancer](https://docs.cloud.f5.com/docs/how-to/app-networking/http-load-balancer)
 
-### F5 XC Cloud Console Configuration Instructions
+## F5 Distributed Cloud Console Configuration Instructions
 
-## Create WAF Configuration Object
+### Create WAF Configuration Object
 
-1. Navigate to the F5 XC Cloud Console and Sign In:
+1. Navigate to the Console and sign in:
 
 ![alt text](assets/xcconsole-signin.png)
 
 2. Start creating a new WAF Configuration Object
-   - For a configuration available to all namespaces, create the WAF Configuration Object in the `Shared Configuration` section. From the main menu, navigate to `Shared Configuration`.
-     
+
+   - For a configuration available to all namespaces, create the WAF Configuration Object in the `Shared Configuration` service. From the main menu, navigate to `Shared Configuration`.
+
    ![alt text](assets/shared-config.png)
-     
-   Then click on `App Firewall` menu item under `Security` section.
-     
+
+   Then click on `App Firewall` menu item under `Security` service.
+
    ![alt text](assets/shared-appfirewall.png)
-     
+
    - For a configuration available to a specific namespace, navigate to the `Web App & API Protection` section:
 
-   ![alt text](assets/waap-navigate.png) 
+   ![alt text](assets/waap-navigate.png)
 
    Then click on `App Firewall` menu item under `Manage` section. Select the namespace where the WAF Configuration Object should be created.
 
    ![alt text](assets/waap-navigate-specific.png)
-     
+
 3. Click on `Add App Firewall` to create a new WAF Configuration Object
 
 ![alt text](assets/add-app-firewall.png)
@@ -39,12 +40,12 @@ This manual describes how to apply a custom WAF policy to an F5 XC HTTP Load Bal
 4. Specify the `Name` and `Description` for the WAF Configuration Object
 
 ![alt text](assets/firewall-name.png)
-   
+
 5. Select `Blocking` enforcement mode
 
 ![alt text](assets/blocking-enf.png)
 
-6. In the `Detection Settings` section, select the `Custom` security policy
+6. In the `Security Policy Settings` section, select the `Custom` security policy
 
 ![alt text](assets/custom-security.png)
 
@@ -52,21 +53,21 @@ This manual describes how to apply a custom WAF policy to an F5 XC HTTP Load Bal
 
 ![alt text](assets/sign-selection-by-accuracy.png)
 
-7. Change `Signature-Based Bot Protection` to `Custom` and `Block` Suspicious Bots
+8. Change `Signature-Based Bot Protection` to `Custom` and `Block` Suspicious Bots
 
 ![alt text](assets/bot-protection.png)
 
-8. In the `Advanced Configuration` change `Blocking Response Page` to `Custom`, then change `Response Code` to `403`.
+9. In the `Advanced configuration` change `Blocking Response Page` to `Custom`, then change `Response Code` to `403`.
 
 ![alt text](assets/blocking-resp-page.png)
 
-9. Click `Save and Exit` to create the WAF Configuration Object
+10. Click `Add App Firewall` to create the WAF Configuration Object
 
 ![alt text](assets/save-and-exit.png)
 
-## Assign WAF Configuration Object to HTTP Load Balancer
+### Assign WAF Configuration Object to HTTP Load Balancer
 
-1. From the main menu, navigate to `Web App & API Protection` and click on `Load Balancer` -> `HTTP Load Balancers` menu item under `Manage` section
+1. From the main menu, navigate to `Web App & API Protection` and click on `Load Balancers` -> `HTTP Load Balancers` menu item under `Manage` section
 
 ![alt text](assets/lb-navigate.png)
 
@@ -90,17 +91,17 @@ This manual describes how to apply a custom WAF policy to an F5 XC HTTP Load Bal
 
 ![alt text](assets/select-waf.png)
 
-7. Click Save to apply the WAF Configuration Object to the HTTP Load Balancer
+7. Click `Save HTTP Load Balancer` to apply the WAF Configuration Object to the HTTP Load Balancer
 
 ![alt text](assets/lb-save-exit.png)
 
-## Test WAF Configuration
+### Test WAF Configuration
 
 1. Execute a simple XSS attack on the web application behind the HTTP Load Balancer. Use `http://your_domain.example.com?param=<script>alert(1)</script>` to test the WAF configuration. The WAF should block the request and return a `403` response code.
 
 ![Execute a test attack](assets/test-url.png)
 
-2. Check the WAF logs in the F5 XC Cloud Console to verify the WAF configuration is working as expected. From the main menu, navigate to `Web App & API Protection` and click on `Security` menu item under `Overview` section. Select the namespace where the WAF Configuration Object is located. Scroll down and open your HTTP Load Balancer to view the WAF Dashboard and Logs.
+2. Check the WAF logs in the Console to verify the WAF configuration is working as expected. From the main menu, navigate to `Web App & API Protection` and click on `Security` menu item under `Overview` section. Select the namespace where the WAF Configuration Object is located. Scroll down and open your HTTP Load Balancer to view the WAF Dashboard and Logs.
 
 ![Select Load Balancer](assets/test-navigate.png)
 
