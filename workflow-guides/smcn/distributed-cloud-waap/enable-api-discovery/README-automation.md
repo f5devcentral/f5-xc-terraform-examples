@@ -1,6 +1,6 @@
 # Enable F5 Distributed Cloud API Security for HTTP Load Balancer
 
-This [workflow](/actions/workflows/enable-api-discovery.yaml) automatically updates the API discovery setting for selected F5 Distributed Cloud HTTP Load Balancers. The workflow utilizes the F5 Distributed Cloud CLI tool to retrieve the current HTTP Load Balancer configuration and updates the API discovery setting.
+This [workflow](/.github/workflows/enable-api-discovery.yaml) automatically updates the API discovery setting for selected F5 Distributed Cloud HTTP Load Balancers. The workflow utilizes the F5 Distributed Cloud CLI tool to retrieve the current HTTP Load Balancer configuration and updates the API discovery setting.
 
 ## Prerequisites
 
