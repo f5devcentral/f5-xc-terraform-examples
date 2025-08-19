@@ -2,6 +2,8 @@
 
 # Table of Contents
 
+- [Application Delivery with F5 Distributed Cloud Services (Multi-Cloud Networking)](#application-delivery-with-f5-distributed-cloud-services-multi-cloud-networking)
+- [Table of Contents](#table-of-contents)
 - [Overview](#overview)
 - [Setup Diagram](#setup-diagram)
 - [1. Configure Environment](#1-configure-environment)
@@ -123,13 +125,13 @@ More detailed information on Cloud Credentials can be found [here](https://docs.
 
 ![alt text](./assets/navigate-cloud-creds.png)
 
-First, we will add credentials for the ACME Corp company. Give cloud credentials a name and fill in your **Access Key ID** for AWS authentication using access keys. Click the **Save and Exit** button.
+First, we will add credentials for the ACME Corp company. Give cloud credentials a name and fill in your **Access Key ID** for AWS authentication using access keys. Click the **Add Cloud Credentials** button.
 
 ![alt text](./assets/xc_cloud_credentials_acmecorp.png)
 
 ## 1.4 Create AWS TGW Site
 
-Next, we will create the AWS TGW Site. In F5 Distributed Cloud Console navigate to **Site Management** and select **AWS TGW Sites**. Click the **Add AWS TGW Site** button.
+Next, we will create the AWS TGW Site. In the Console navigate to **Site Management** and select **AWS TGW Sites**. Click the **Add AWS TGW Site** button.
 
 ![alt text](./assets/open-aws-tgw.png)
 
@@ -149,7 +151,7 @@ Second, configure region and services VPC: in the drop-down menu select **AWS Re
 
 ![alt text](./assets/aws_tgw_vpc.png)
 
-Scroll down to **Transit Gateway** and make sure to select **New Transit Gateway** and **Automatic** selection of BGP ASN config mode. F5XC will automatically assign a private ASN for TGW and F5XC Site.
+Scroll down to **Transit Gateway** and make sure to select **New Transit Gateway** and **Automatic** selection of BGP ASN config mode. F5 Distributed Cloud Services will automatically assign a private ASN for TGW and the site.
 
 ![alt text](./assets/aws_tgw_tgw.png)
 
@@ -169,7 +171,7 @@ Make sure to select **No Worker Nodes** for deploy on the site and to disable VI
 
 ![alt text](./assets/aws_tgw_details_apply.png)
 
-Take a look at the AWS TGW Site configuration and click **Save and Exit**. AWS TGW Site is created.
+Take a look at the AWS TGW Site configuration and click **Add AWS TGW Site**. AWS TGW Site is created.
 
 ![alt text](./assets/aws_tgw_site_apply.png)
 
@@ -177,7 +179,7 @@ Take a look at the AWS TGW Site configuration and click **Save and Exit**. AWS T
 
 ### 1.5.1 Create Secure Mesh Site
 
-In this part, we are going to create a Secure Mesh Site to use it for registering and managing a site deployed on-premises on VMware. Go back to the F5 Distributed Cloud Console and select **Multi-Cloud Network Connect** service. Navigate to **Site Management** and select **Secure Mesh Sites**. Click **Add Secure Mesh Site**.
+In this part, we are going to create a Secure Mesh Site to use it for registering and managing a site deployed on-premises on VMware. Go back to the Console and select **Multi-Cloud Network Connect** service. Navigate to **Site Management** and select **Secure Mesh Sites**. Click **Add Secure Mesh Site**.
 
 ![alt text](./assets/navigate_sm_site_name.png)
 
@@ -221,7 +223,7 @@ In the **Global Connections** section open the **Site Mesh Group Connection Type
 
 ![alt text](./assets/xc_sm_site_net_apply.png)
 
-Finally, enable **Offline Survivability Mode** and click **Save and Exit**.
+Finally, enable **Offline Survivability Mode** and click **Add Secure Mesh Site**.
 
 ![alt text](./assets/xc_sm_site_apply.png)
 
@@ -288,7 +290,7 @@ Once the VM is deployed, power it on and open the console. You will see the VM b
 
 ### 1.5.4 Site Registration
 
-Go back to F5 Distributed Cloud Console and select **Multi-Cloud Network Connect** service. Navigate to **Site Management** and proceed to **Registrations**. You will see the site with pending registration. Accept the registration.
+Go back to the Console and select **Multi-Cloud Network Connect** service. Navigate to **Site Management** and proceed to **Registrations**. You will see the site with pending registration. Accept the registration.
 
 ![alt text](./assets/xc_sm_site_approve.png)
 
@@ -303,7 +305,7 @@ Attach the VMs to the Internal Network and configure the network settings.
 
 To simplify the process, we will use the same network for both VMs, but we configure them to be in different VLANs.
 
-Below you can see an example of how to create Ubuntu VMs in each VLAN using netplan. In this example, we have two VMs - one in prod VLAN 100 and another in dev VLAN 200. Both VMs are in the same network, but they are configured to be in different VLANs and use XC Site as a default gateway.
+Below you can see an example of how to create Ubuntu VMs in each VLAN using netplan. In this example, we have two VMs - one in prod VLAN 100 and another in dev VLAN 200. Both VMs are in the same network, but they are configured to be in different VLANs and use Distributed Cloud Site as a default gateway.
 
 **Production VM**:
 
@@ -368,7 +370,7 @@ sudo apt install -y nginx
 
 ## 1.8 Create Site Mesh Group
 
-In this step we will, first, create a virtual site and then use it to create a site mesh group. Back in the F5 Distributed Cloud Console navigate to the **Shared Configuration** service. From there, select **Virtual Sites** and click the **Add Virtual Site** button.
+In this step we will, first, create a virtual site and then use it to create a site mesh group. Back in the Console navigate to the **Shared Configuration** service. From there, select **Virtual Sites** and click the **Add Virtual Site** button.
 
 ![alt text](./assets/smg_add.png)
 
@@ -458,7 +460,7 @@ In the **Segment Connectors** section, click **Add Item**.
 
 ![alt text](./assets/xc_segment_connector_add.png)
 
-First, we will add segment connector for prod to shared. For the Source Segment, select the **prod segment** we created earlier. For the Destination Segment, select the **shared segment**. Make sure to select **Direct** connector type. Since segment connectors are bi-directional, we do not need to configure it in reverse direction - from shared to prod for Direct Connectors. Then click **Apply**. 
+First, we will add segment connector for prod to shared. For the Source Segment, select the **prod segment** we created earlier. For the Destination Segment, select the **shared segment**. Make sure to select **Direct** connector type. Since segment connectors are bi-directional, we do not need to configure it in reverse direction - from shared to prod for Direct Connectors. Then click **Apply**.
 
 ![alt text](./assets/xc_segment_connector_add_prod.png)
 
@@ -487,7 +489,7 @@ PING 10.3.10.100 (10.3.10.100) 56(84) bytes of data.
 
 As we can see from the output, the connection is successful.
 
-Next, run the ping from AWS Prod VM to AWS Dev VM. 
+Next, run the ping from AWS Prod VM to AWS Dev VM.
 
 ```bash
 ubuntu@aws-prod-vm:~$ ping 10.2.10.100
@@ -636,7 +638,7 @@ But connection between VMware Prod VM and AWS Dev VM is not established.
 
 There are two ways to connect External Company and solve the ExtraNet problem:
 
-a) Network Centric (outlined in this section) 
+a) Network Centric (outlined in this section)
 
 b) App Centric (outlined in section [ExtraNet: App Centric Method](#8-extranet-app-centric-method) below).
 
@@ -655,7 +657,7 @@ From the main menu, navigate to **Administration** and select **Requests**. Clic
 
 ![alt text](./assets/sts_support_request.png)
 
-Open AWS Management Console and navigate to **IAM**. From there, select **Policies** and click **Create policy**. For the policy, select **JSON** and paste the [following policy](https://docs.cloud.f5.com/docs/reference/cloud-cred-ref/aws-tgw-pol-ref#aws-tgw-policies). If you are using different AWS account, make sure to add "ram:*" to the list of actions. Remote Access Manager (RAM) is a service that enables you to share your resources with other AWS accounts. Click **Next** and give the policy a name. Click **Create policy**. If your policy is too long, you can split it into two or more policies.
+Open AWS Management Console and navigate to **IAM**. From there, select **Policies** and click **Create policy**. For the policy, select **JSON** and paste the [following policy](https://docs.cloud.f5.com/docs/reference/cloud-cred-ref/aws-tgw-pol-ref#aws-tgw-policies). If you are using different AWS account, make sure to add "ram:\*" to the list of actions. Remote Access Manager (RAM) is a service that enables you to share your resources with other AWS accounts. Click **Next** and give the policy a name. Click **Create policy**. If your policy is too long, you can split it into two or more policies.
 
 ![alt text](./assets/sts_create_policy.png)
 
@@ -663,30 +665,28 @@ In the **IAM** service, select **Roles** and click **Create role**. Select **Cus
 
 ```json
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Principal": {
-                "AWS": "arn:aws:iam::<account-number>:root"
-            },
-            "Action": "sts:AssumeRole",
-            "Condition": {
-                "StringEquals": {
-                    "sts:ExternalId": [
-                        "<tenant_id>"
-                    ]
-                }
-            }
-        },
-        {
-            "Effect": "Allow",
-            "Principal": {
-                "AWS": "arn:aws:iam::<account-number>:root"
-            },
-            "Action": "sts:TagSession"
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::<account-number>:root"
+      },
+      "Action": "sts:AssumeRole",
+      "Condition": {
+        "StringEquals": {
+          "sts:ExternalId": ["<tenant_id>"]
         }
-    ]
+      }
+    },
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::<account-number>:root"
+      },
+      "Action": "sts:TagSession"
+    }
+  ]
 }
 ```
 
@@ -828,13 +828,13 @@ Set **Source** to the IP address of the AWS External VM and **Destination** to *
 
 You can see the data flow between the AWS External VM and the AWS Prod VM. From the table, you can see that the http traffic is flowing between the two VMs. Let's create a firewall policy to allow only http traffic between the AWS External VM and the AWS Prod VM.
 
-# 7. Firewall policies 
- 
+# 7. Firewall policies
+
 As we have seen in the last section with flow analysis, pings are also being generated from the external VPC to the Prod VPC in addition to the HTTP/HTTPs which is in alignment with our agreement with the external entity. We need to put a Zero Trust policy to ensure that workloads in the External VPC can only access the intended workload (10.1.10.100) on HTTP/HTTPs while denying all other traffic.
- 
-![alt text](./assets/firewall-overview.gif) 
- 
-## 7.1 Configure Firewall Policies 
+
+![alt text](./assets/firewall-overview.gif)
+
+## 7.1 Configure Firewall Policies
 
 In this part we will create and configure Firewall Policy with two rules - one to allow http traffic from external segment to the prod one, and another - to deny everything else. Then we will assign the policy to our AWS TGW Site and test it. In the **Multi-Cloud Network Connect** service navigate to **Firewall** and select **Enhanced Firewall Policies**. Click the **Add Enhanced Firewall Policy** button.
 
@@ -981,7 +981,7 @@ Remove the external-to-prod segment connector and save the change.
 
 ## 8.2 Create HTTP LB
 
-Next, we will create an HTTP Load Balancer. Open the main menu and select the **Multi-Cloud App Connect** service. 
+Next, we will create an HTTP Load Balancer. Open the main menu and select the **Multi-Cloud App Connect** service.
 
 ![alt text](./assets/app_connect_navigate.png)
 
@@ -1021,7 +1021,7 @@ Type in the **80** origin server port and **Continue**.
 
 ![alt text](./assets/app_connect_httplb_origin_apply.png)
 
-Back on the HTTP configuration form, scroll down to **Other Settings** and select **Custom** for VIP Advertisement. 
+Back on the HTTP configuration form, scroll down to **Other Settings** and select **Custom** for VIP Advertisement.
 
 ![alt text](./assets/app_connect_httplb_origin_adv.png)
 
@@ -1029,7 +1029,7 @@ Click the **Add Item** button to configure List of Sites to Advertise the Load B
 
 ![alt text](./assets/app_connect_httplb_origin_adv_add.png)
 
-Select **Segment on Site** to advertise on a segment on site. In the drop-down menus choose the External Company segment and the AWS TGW Site. Type in **10.1.10.90** for IP address to be used as VIP on the site. 
+Select **Segment on Site** to advertise on a segment on site. In the drop-down menus choose the External Company segment and the AWS TGW Site. Type in **10.1.10.90** for IP address to be used as VIP on the site.
 
 ![alt text](./assets/app_connect_httplb_origin_adv_details.png)
 
@@ -1037,7 +1037,7 @@ Select **Segment on Site** to advertise on a segment on site. In the drop-down m
 
 ![alt text](./assets/app_connect_httplb_adv_apply.png)
 
-Now that the HTTP Load Balancer is configured, click **Save and Exit** to save it. 
+Now that the HTTP Load Balancer is configured, click **Save and Exit** to save it.
 
 ![alt text](./assets/app_connect_httplb_apply.png)
 
