@@ -62,7 +62,7 @@ OCP Infra Setup
 
 Note: `Customer Edge Site Sizing Reference <https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/reference/ce-site-size-ref>`__
 
-Customer Edge (CE) Setup, Client VM Installation, and Application Access via Load Balancers
+`F5 Distributed Cloud Workload Deployments on Azure[coming soon] <coming soon>`__
 
 Scenario: Scalable Enterprise Workload Deployments Across Heterogeneous Environments
 --------------
@@ -89,7 +89,7 @@ Initial Infrastructure:
 
 .. image:: ./assets/ADSP-Workload-Initial.png
 
-VMware: App A & B, OpenShift: App B & C, Nutanix: App B
+*VMware: App A & B, OpenShift: App B & C, Nutanix: App B*
 
 **VMware**
 
@@ -105,7 +105,7 @@ Web Application Firewall (WAF) is enabled, which will prevent any malicious thre
 
 .. image:: ./assets/VMW-waf.png
 
-From the Requests section in Distributed Cloud console for the LB, we can observe that benign requests are reaching the SMSv2 CE site deployed in VMware On-Prem environment and malign requests are being blocked by WAF which won’t reach the origin server.
+From the **Requests** section in Distributed Cloud console for the LB, we can observe that benign requests are reaching the SMSv2 CE site deployed in VMware On-Prem environment and malign requests are being blocked by WAF which won’t reach the origin server.
 
 .. image:: ./assets/VMW-req.png
 
@@ -127,7 +127,7 @@ Web Application Firewall (WAF) is enabled, which will prevent any malicious thre
 
 .. image:: ./assets/OCP-waf.png
 
-From the Requests section in Distributed Cloud console for the LB, we can observe that benign requests are reaching the SMSv2 CE site deployed in OCP On-Prem environment and malign requests are being blocked by WAF which won’t reach the origin server.
+From the **Requests** section in Distributed Cloud console for the LB, we can observe that benign requests are reaching the SMSv2 CE site deployed in OCP On-Prem environment and malign requests are being blocked by WAF which won’t reach the origin server.
 
 .. image:: ./assets/OCP-req.png
 
@@ -149,7 +149,7 @@ Web Application Firewall (WAF) is enabled, which will prevent any malicious thre
 
 .. image:: ./assets/nutanix-waf.png
 
-From the Requests section in Distributed Cloud console for the LB, we can observe that benign requests are reaching the SMSv2 CE site deployed in Nutanix On-Prem environment and malign requests are being blocked by WAF which won’t reach the origin server.
+From the **Requests** section in Distributed Cloud console for the LB, we can observe that benign requests are reaching the SMSv2 CE site deployed in Nutanix On-Prem environment and malign requests are being blocked by WAF which won’t reach the origin server.
 
 .. image:: ./assets/nutanix-req.png
 
@@ -160,7 +160,7 @@ As the F5 Distributed Cloud supports continuous delivery and seamless security f
 
 .. image:: ./assets/ADSP-Workload-After.png
 
-VMware: Add App C, OpenShift: Add App A, Nutanix: Add App A and C
+*VMware: Add App C, OpenShift: Add App A, Nutanix: Add App A and C*
 
 **VMware**
 
@@ -176,7 +176,7 @@ Web Application Firewall (WAF) is enabled, which will prevent any malicious thre
 
 .. image:: ./assets/VMW-C-WAF.png
 
-From the Requests section in Distributed Cloud console for the new workload LB, we can observe that benign requests are reaching the SMSv2 CE site deployed in VMware On-Prem environment and malign requests are being blocked by WAF which won’t reach the origin server.
+From the **Requests** section in Distributed Cloud console for the **new workload** LB, we can observe that benign requests are reaching the SMSv2 CE site deployed in VMware On-Prem environment and malign requests are being blocked by WAF which won’t reach the origin server.
 
 .. image:: ./assets/VMW-add-req.png
 
@@ -194,7 +194,7 @@ Web Application Firewall (WAF) is enabled, which will prevent any malicious thre
 
 .. image:: ./assets/OCP-A-WAF.png
 
-From the Requests section in Distributed Cloud console for the new workload LB, we can observe that benign requests are reaching the SMSv2 CE site deployed in OCP On-Prem environment and malign requests are being blocked by WAF which won’t reach the origin server.
+From the **Requests** section in Distributed Cloud console for the **new workload** LB, we can observe that benign requests are reaching the SMSv2 CE site deployed in OCP On-Prem environment and malign requests are being blocked by WAF which won’t reach the origin server.
 
 .. image:: ./assets/OCP-add-req.png
 
@@ -212,7 +212,7 @@ Web Application Firewall (WAF) is enabled, which will prevent any malicious thre
 
 .. image:: ./assets/nutanix-A-WAF.png
 
-From the Requests section in Distributed Cloud console for the new workload LB, we can observe that benign requests are reaching the SMSv2 CE site deployed in Nutanix On-Prem environment and malign requests are being blocked by WAF which won’t reach the origin server.
+From the **Requests** section in Distributed Cloud console for the **new workload** LB, we can observe that benign requests are reaching the SMSv2 CE site deployed in Nutanix On-Prem environment and malign requests are being blocked by WAF which won’t reach the origin server.
 
 .. image:: ./assets/nutanix-add-req.png
 
@@ -240,7 +240,7 @@ Web Application Firewall (WAF) is enabled, which will prevent any malicious thre
 
 .. image:: ./assets/AZ-WAF1.png
 
-From the Requests section in Distributed Cloud console for the LB, we can observe that benign requests are reaching the SMSv2 CE site deployed in Azure environment and malign requests are being blocked by WAF which won’t reach the origin server.
+From the **Requests** section in Distributed Cloud console for the LB, we can observe that benign requests are reaching the SMSv2 CE site deployed in Azure environment and malign requests are being blocked by WAF which won’t reach the origin server.
 
 .. image:: ./assets/AZ-req1.png
 
@@ -256,7 +256,7 @@ Web Application Firewall (WAF) is enabled, which will prevent any malicious thre
 
 .. image:: ./assets/AZ-WAF2.png
 
-From the Requests section in Distributed Cloud console for the new workload LB, we can observe that benign requests are reaching the SMSv2 CE site deployed in Azure environment and malign requests are being blocked by WAF which won’t reach the origin server.
+From the **Requests** section in Distributed Cloud console for the new workload LB, we can observe that benign requests are reaching the SMSv2 CE site deployed in Azure environment and malign requests are being blocked by WAF which won’t reach the origin server.
 
 .. image:: ./assets/AZ-req2.png
 
