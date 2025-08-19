@@ -1,6 +1,6 @@
 # Apply Custom F5 Distributed Cloud WAF Policy
 
-This [workflow](/actions/workflows/apply-waf-policy.yaml) automatically updates the WAF setting for selected F5 Distributed Cloud HTTP Load Balancers. The workflow utilizes the F5 Distributed Cloud CLI tool to retrieve the current HTTP Load Balancer configuration and updates the WAF setting.
+This [workflow](/.github/workflows/apply-waf-policy.yaml) automatically updates the WAF setting for selected F5 Distributed Cloud HTTP Load Balancers. The workflow utilizes the F5 Distributed Cloud CLI tool to retrieve the current HTTP Load Balancer configuration and updates the WAF setting.
 
 ## Prerequisites
 
