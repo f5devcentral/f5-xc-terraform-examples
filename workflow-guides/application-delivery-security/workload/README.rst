@@ -228,7 +228,7 @@ At the outset, cloud environments do not host any workloads. As new workloads ar
 
 Adding new workloads:
 
-In the Azure environment, Application A has been deployed and connected to a load balancer, forming part of the existing infrastructure. This setup enables the application to handle user traffic securely and efficiently, with delivery and security managed by F5 Distributed Cloud.
+In the Azure environment, Application A and B will be deployed and connected to dedicated load balancers, forming part of the new workload infrastructure. This setup will be secured and managed by F5 Distributed Cloud, ensuring reliable delivery and protection.
 
 .. image:: ./assets/AZ-LB1.png
 
@@ -244,7 +244,7 @@ From the **Requests** section in Distributed Cloud console for the LB, we can ob
 
 .. image:: ./assets/AZ-req1.png
 
-In the Azure environment, an additional application—Application B—will be deployed and connected to a dedicated load balancer, representing a new workload within the existing infrastructure. This setup will be secured and managed by F5 Distributed Cloud, ensuring reliable delivery and protection.
+Application B
 
 .. image:: ./assets/AZ-LB2.png
 
@@ -256,7 +256,7 @@ Web Application Firewall (WAF) is enabled, which will prevent any malicious thre
 
 .. image:: ./assets/AZ-WAF2.png
 
-From the **Requests** section in Distributed Cloud console for the new workload LB, we can observe that benign requests are reaching the SMSv2 CE site deployed in Azure environment and malign requests are being blocked by WAF which won’t reach the origin server.
+From the **Requests** section in Distributed Cloud console for the LB, we can observe that benign requests are reaching the SMSv2 CE site deployed in Azure environment and malign requests are being blocked by WAF which won’t reach the origin server.
 
 .. image:: ./assets/AZ-req2.png
 
