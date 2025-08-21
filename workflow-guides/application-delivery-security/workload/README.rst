@@ -92,7 +92,7 @@ Initial Infrastructure:
 *VMware: App A & B, OpenShift: App B & C, Nutanix: App B*
 
 **VMware**
-
+~~~~~~~~~~
 In the VMware on-premises environment, Applications A and B are deployed and connected to two separate load balancers, forming the existing infrastructure. These applications are actively serving user traffic with delivery and security managed by F5 Distributed Cloud.
 
 .. image:: ./assets/VMW-lb-in.png
@@ -114,7 +114,7 @@ VMware application B (DVWA) deployed on LB **f5-adsp2.f5-hyd-xcdemo.com**
 .. image:: ./assets/VMW-B.png
 
 **OCP (OpenShift Container Platform)**
-
+~~~~~~~~~~
 In the OCP on-premises environment, Applications B and C are deployed and connected to two separate load balancers, forming the existing infrastructure. These applications are actively serving user traffic with delivery and security managed by F5 Distributed Cloud.
 
 .. image:: ./assets/OCP-lb-in.png
@@ -136,7 +136,7 @@ OCP application C (NGINX) deployed on LB **f5-adsp4.f5-hyd-xcdemo.com**
 .. image:: ./assets/OCP-C.png
 
 **Nutanix**
-
+~~~~~~~~~~
 In the Nutanix on-premises environment, Application B is deployed and connected to a dedicated load balancer, representing the existing infrastructure setup. These applications are actively serving user traffic with delivery and security managed by F5 Distributed Cloud.
 
 .. image:: ./assets/nutanx-lb-in.png
@@ -163,7 +163,7 @@ As the F5 Distributed Cloud supports continuous delivery and seamless security f
 *VMware: Add App C, OpenShift: Add App A, Nutanix: Add App A and C*
 
 **VMware**
-
+~~~~~~~~~~
 In the VMware on-premises environment, an additional application—Application C—will be deployed and connected to a dedicated load balancer, representing a new workload within the existing infrastructure. This deployment will be seamlessly integrated with F5 Distributed Cloud for secure and efficient application delivery.
 
 .. image:: ./assets/VMW-lb-add.png
@@ -181,7 +181,7 @@ From the **Requests** section in Distributed Cloud console for the **new workloa
 .. image:: ./assets/VMW-add-req.png
 
 **OCP (OpenShift Container Platform)**
-
+~~~~~~~~~~
 In the OCP on-premises environment, an additional application—Application A—will be deployed and connected to a dedicated load balancer, representing a new workload within the existing infrastructure. This deployment will be seamlessly integrated with F5 Distributed Cloud for secure and efficient application delivery.
 
 .. image:: ./assets/OCP-lb-add.png
@@ -199,7 +199,7 @@ From the **Requests** section in Distributed Cloud console for the **new workloa
 .. image:: ./assets/OCP-add-req.png
 
 **Nutanix**
-
+~~~~~~~~~~
 In the Nutanix on-premises environment, Applications A and C have been deployed and connected to two respective load balancers, representing new workloads added to the existing infrastructure. This deployment will be seamlessly integrated with F5 Distributed Cloud for secure and efficient application delivery.
 
 .. image:: ./assets/nutanix-lb-add.png
@@ -221,12 +221,12 @@ Nutanix application C (Juice Shop) deployed on LB **f5-adsp9.f5-hyd-xcdemo.com**
 .. image:: ./assets/nutanix-C.png
 
 **Cloud Service Provider (Azure)**
-
-Initial Infrastructure:
+--------------
+**Initial Infrastructure:**
 
 At the outset, cloud environments do not host any workloads. As new workloads are deployed based on requirements, F5 Distributed Cloud ensures seamless application delivery and comprehensive security across the infrastructure.
 
-Adding new workloads:
+**Adding new workloads:**
 
 In the Azure environment, Application A and B will be deployed and connected to dedicated load balancers, forming part of the new workload infrastructure. This setup will be secured and managed by F5 Distributed Cloud, ensuring reliable delivery and protection.
 

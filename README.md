@@ -102,7 +102,7 @@ Examples of F5 Distributed Cloud (XC) deployments utilizing Terraform. For more 
   | [F5 Distributed Cloud Web Application Firewall (WAF) on Customer Edge: AWS](https://trainingf5cloud.teachable.com/p/web-application-firewall-waf-on-customer-edge-aws) | [Deploy F5 XC WAF on XC Customer Edge in AWS (SaaS Console, Automation)](https://github.com/f5devcentral/f5-xc-waap-terraform-examples/blob/main/workflow-guides/waf/f5-xc-waf-on-ce/aws/README.rst) |
   | [Bot Defense in GCP using ﻿BIG-IP Connector for F5 Distributed Cloud](https://trainingf5cloud.teachable.com/p/bot-defense-gcp-big-ip-connector) | [Deploying Bot Defense in GCP with BIG-IP Connector for F5 Distributed Cloud (SaaS Console, Automation)](https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/bot/deploy-botdefense-in-gcp-with-f5xc-bigip-connector/README.rst) | 
 
-  
+
 ## Getting Started
 
 ## Prerequisites
