@@ -1,6 +1,7 @@
 module "azure_vnet_site" {
-  source                             = "f5devcentral/azure-vnet-site/xc"
-  version                            = "0.0.7"
+  source = "github.com/f5shemyakin/terraform-xc-azure-vnet-site"
+  # source                             = "f5devcentral/azure-vnet-site/xc"
+  # version                            = "0.0.7"
   site_name                          = ("" != var.prefix) ? format("%s-%s", var.prefix, var.name) : var.name
   azure_rg_name                      = ("" != var.prefix) ? format("%s-%s", var.prefix, var.azure_rg_name) : var.azure_rg_name
   site_description                   = ("" != var.site_description) ? var.site_description : ""

@@ -229,12 +229,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          repository: f5devcentral/f5-xc-terraform-examples
-          
-      - id: apply_variables 
-        uses: "f5devcentral/f5-xc-terraform-examples/.github/actions/apply-variables@main" 
-        with: 
-          vars_json: "${{ toJSON(vars) }}" 
+          repository: f5shemyakin/f5-xc-terraform-examples
+          ref: workflows-dev
+
+      - id: apply_variables
+        uses: "f5shemyakin/f5-xc-terraform-examples/.github/actions/apply-variables@workflows-dev"
+        with:
+          vars_json: "${{ toJSON(vars) }}"
           vars_prefix: "AZN_TF_VAR_"
           inputs_json: "${{ toJSON(inputs) }}" 
 
