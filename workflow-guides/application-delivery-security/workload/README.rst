@@ -36,7 +36,7 @@ Architecture Overview
 
 *Note: This scenario uses Nutanix On-Prem, but it can also be deployed on AWS and Azure.*
 
-Nutanix Infra Setup
+`Nutanix Infra Setup[coming soon] <coming soon>`__
 
 `F5 Distributed Cloud Workload Deployments on Nutanix[coming soon] <coming soon>`__
 
@@ -49,8 +49,6 @@ Nutanix Infra Setup
 `F5 Distributed Cloud Workload Deployments on OCP <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/workload/workload-deployments-on-ocp.rst>`__
 
 **Nutanix on VMware:** <Coming Soon>
-
-`Deploy Secure Mesh Site v2 in Nutanix <https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-nutanix>`__
 
 **Cloud Env:** For this demo Azure is chosen for deploying SMSv2 CE site. In the same resource group where CE VM is deployed, VM running application workloads is also deployed and connected to CE using Site Local Inside (SLI) subnet and interface, so that applications are not exposed directly.
 
