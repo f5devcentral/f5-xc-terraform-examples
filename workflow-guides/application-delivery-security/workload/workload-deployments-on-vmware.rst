@@ -117,18 +117,23 @@ Once the VM is up and online in F5 Distributed Cloud, we need to add internal lo
 .. image:: ./assets/assets-vmware/18.png
 
 6. Click “Edit Configuration”
+
 .. image:: ./assets/assets-vmware/19.png
 
 7. Click on pencil icon beside node hostname under Actions
+
 .. image:: ./assets/assets-vmware/20.png
 
 8. A new interface will be visible with MAC address assigned, click pencil icon
+
 .. image:: ./assets/assets-vmware/21.png
 
 9. Select “Static IP” and provide the IP address in a chosen subnet (192.168.10.0 is chosen for this demo) and select “Site Local Inside (Local VRF)” under Interface Settings and click “Apply”
+
 .. image:: ./assets/assets-vmware/22.png
 
 10. Interfaces and IP address assigned can be verified under “Infrastructure” tab of site
+
 .. image:: ./assets/assets-vmware/23.png
 
 Steps to install VM (Client VM) running application workloads
@@ -137,35 +142,46 @@ Steps to install VM (Client VM) running application workloads
 *Note: UI in below screenshots might change based on version being used*
 
 2. Click “Create/Register VM” and select “Create a new virtual machine” and proceed “Next”
+
 .. image:: ./assets/assets-vmware/24.png
 3. Provide a name and select “OS family” and “OS version”
+
 .. image:: ./assets/assets-vmware/25.png
 4. Select “datastore” having sufficient storage to run VM
+
 .. image:: ./assets/assets-vmware/26.png
 5. Choose desired configuration (CPU, Memory, Disk space) for your VM. In network adapter, two adapters are required, one connected to the Internet (VM Network) and another created locally (internal_network_pg) to connect CE VM and Client VM (ubuntu). Select the “Ubuntu (or any linux image) ISO” in Datastore through which you want the Client VM to boot-up.
+
 .. image:: ./assets/assets-vmware/27.png
 6. Review and click *Finish*
+
 .. image:: ./assets/assets-vmware/28.png
 7. Once the VM is created in ESXi, select the VM and click “Power on”
+
 .. image:: ./assets/assets-vmware/29.png
 8. Open the VM in Web Console through VMware and complete the installation process of Ubuntu.
 
 9. Now interfaces need to be verified, execute “ip add” in Ubuntu CLI. Observe two interfaces(excluding “lo”) should be there, which were attached during VM creation in ESXi.
     A) Interface connected to “VM Network” port group will get IP from DHCP(if configured), which in this demonstration DHCP is present and an IP address with internet connectivity is allocated.
     B) Interface connected to “internal_network_pg” port group won’t be having any IP by default, we need to provide
+
 .. image:: ./assets/assets-vmware/30.png
 10. Select a IP subnet which you want to use for communication (Here 192.168.10.0/24 subnet is used).
 
 11. Execute the ip assigning commands for “ens160” interface and set IP in desired subnet
+
 .. image:: ./assets/assets-vmware/31.png
 12. Verify the connectivity from CE site by pinging to this new IP from F5 Distributed Cloud Console
+
 .. image:: ./assets/assets-vmware/32.png
 13. Now we need to deploy applications in Ubuntu. For this demo docker is used to deploy multiple applications. Execute below commands to install “docker” in Ubuntu.
 **$ sudo apt update**
 **$ sudo apt install docker.io**
+
 .. image:: ./assets/assets-vmware/33.png
 14. Once docker is installed, for this demo “Juice-shop” application is being installed using below docker command
 **$ sudo docker run -d -p 3000:3000 bkimminich/juice-shop**
+
 .. image:: ./assets/assets-vmware/34.png
 
 Accessing applications through Load Balancers
