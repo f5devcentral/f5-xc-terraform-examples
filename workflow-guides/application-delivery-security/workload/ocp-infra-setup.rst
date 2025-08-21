@@ -72,6 +72,7 @@ In this demo below specs are used:
 
     6. VM Options -> Advanced -> Edit Configurations -> Add parameter
 	key -> disk.enableUUID
+
 	value -> TRUE
 
     .. image:: ./assets/assets-ocp-infra/13.png
@@ -103,7 +104,9 @@ In this demo below specs are used:
 
 .. image:: ./assets/assets-ocp-infra/18.png
 
-19. It’ll take around ~1 hour to complete. Make a note of the console login credentials available under “Web Console URL”
+19. It’ll take around ~1 hour to complete.
+
+After **Installation completed successfully**, make a note of the console login credentials available under “Web Console URL”
 
 .. image:: ./assets/assets-ocp-infra/19.png
 
@@ -112,7 +115,7 @@ Click “Not able to access the Web Console” and copy-paste the configuration 
 
 .. image:: ./assets/assets-ocp-infra/20.png
 
-21. Along with those URL mentioned, include cdi-uploadproxy URL as well which is required for uploading images in OCP cluster
+21. Along with those URL mentioned, include *cdi-uploadproxy* URL as well which is required for uploading images in OCP cluster
 
 .. image:: ./assets/assets-ocp-infra/21.png
 
