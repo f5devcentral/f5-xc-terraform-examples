@@ -205,6 +205,7 @@ Creating Origin Pool
 .. image:: ./assets/assets-vmware/36.png
 
 3. Select Origin Server Type IP address of Origin Server on given Sites and provide IP, select VMware site created from the dropdown and make sure Select Network on the site is set to “Inside Network” and click “Apply”
+
 *Note : IP address and Site or Virtual Site might vary based on your configuration*
 
 .. image:: ./assets/assets-vmware/37.png
@@ -222,6 +223,7 @@ Creating Load Balancer
 .. image:: ./assets/assets-vmware/39.png
 
 2. Provide name for LB and domain with valid sub-domain
+
 *Note: You should be having domain to use for LB and it should be able to resolve for the FQDN to be accessible*
 
 .. image:: ./assets/assets-vmware/40.png
