@@ -8,9 +8,6 @@ This article serves as the initial setup for the OCP platform in “F5 Distribut
 
 OCP cluster used in this demonstration is deployed on VMware ESXi hypervisor. Once the OCP cluster is up and running, the next step is to deploy SMSv2 CE.
 
-*Note: Please refer below page for OCP setup on VMware*
-``OCP Infra Setup on VMware <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/workload/ocp-infra-setup.rst>`__
-
 Steps to Deploy Secure Mesh Site v2 on OCP
 --------------
 *Note 1: KVM image is used for this demonstration of OCP*
