@@ -90,14 +90,9 @@ The full input parameters list can be found in the [azure-vnet-site module input
   | local_subnets                            | []                    | Local subnets                                    |
   | inside_subnets                           | []                    | Inside subnets                                   |
   | outside_subnets                          | []                    | Outside subnets                                  |
-  | local_subnets_ipv6                       | []                    | Local subnets IPv6                               |
-  | inside_subnets_ipv6                      | []                    | Inside subnets IPv6                              |
-  | outside_subnets_ipv6                     | []                    | Outside subnets IPv6                             |
   | worker_nodes_per_az                      | 0                     | Number of worker nodes per availability zone     |
   | block_all_services                       | true                  | Block all services                               |
   | blocked_service                          |                       | Blocked service                                  |
-  | apply_action_wait_for_action             | true                  | Apply action: wait for action                    |
-  | apply_action_ignore_on_update            | ture                  | Apply action: ignore on update                   |
   | dc_cluster_group_inside_vn               |                       | DC cluster group inside VN                       |
   | dc_cluster_group_outside_vn              |                       | DC cluster group outside VN                      |
   | active_forward_proxy_policies_list       | []                    | Active forward proxy policies list               |

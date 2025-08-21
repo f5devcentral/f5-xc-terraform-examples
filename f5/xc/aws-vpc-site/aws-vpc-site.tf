@@ -24,11 +24,8 @@ module "aws_vpc_site" {
   egress_virtual_private_gateway           = ("" != var.egress_virtual_private_gateway) ? jsondecode(var.egress_virtual_private_gateway) : null
   enable_internet_vip                      = ("" != var.enable_internet_vip) ? tobool(var.enable_internet_vip) : false
   allowed_vip_port                         = ("" != var.allowed_vip_port) ? jsondecode(var.allowed_vip_port) : { disable_allowed_vip_port = true }
-  allowed_vip_port_sli                     = ("" != var.allowed_vip_port_sli) ? jsondecode(var.allowed_vip_port_sli) : { disable_allowed_vip_port = true }
   log_receiver                             = ("" != var.log_receiver) ? jsondecode(var.log_receiver) : null
   vpc_id                                   = ("" != var.vpc_id) ? var.vpc_id : null
-  vpc_name                                 = ("" != var.vpc_name) ? var.vpc_name : null
-  vpc_allocate_ipv6                        = ("" != var.vpc_allocate_ipv6) ? tobool(var.vpc_allocate_ipv6) : null
   vpc_cidr                                 = ("" != var.vpc_cidr) ? var.vpc_cidr : null
   create_aws_vpc                           = ("" != var.create_aws_vpc) ? tobool(var.create_aws_vpc) : true
   custom_security_group                    = ("" != var.custom_security_group) ? jsondecode(var.custom_security_group) : null
@@ -40,10 +37,6 @@ module "aws_vpc_site" {
   inside_subnets                           = var.inside_subnets
   outside_subnets                          = var.outside_subnets
   workload_subnets                         = var.workload_subnets
-  local_subnets_ipv6                       = var.local_subnets_ipv6
-  inside_subnets_ipv6                      = var.inside_subnets_ipv6
-  outside_subnets_ipv6                     = var.outside_subnets_ipv6
-  workload_subnets_ipv6                    = var.workload_subnets_ipv6
   worker_nodes_per_az                      = ("" != var.worker_nodes_per_az) ? tonumber(var.worker_nodes_per_az) : 0
   block_all_services                       = ("" != var.block_all_services) ? tobool(var.block_all_services) : true
   blocked_service                          = ("" != var.blocked_service) ? jsondecode(var.blocked_service) : null

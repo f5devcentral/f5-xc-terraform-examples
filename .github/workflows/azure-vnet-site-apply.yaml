@@ -186,18 +186,6 @@ on:
         description: "Outside Subnets"
         required: false
         type: string
-      TF_VAR_local_subnets_ipv6:
-        description: "Local Subnets IPv6"
-        required: false
-        type: string
-      TF_VAR_inside_subnets_ipv6:
-        description: "Inside Subnets IPv6"
-        required: false
-        type: string
-      TF_VAR_outside_subnets_ipv6:
-        description: "Outside Subnets IPv6"
-        required: false
-        type: string
       TF_VAR_worker_nodes_per_az:
         description: "Worker Nodes Per AZ"
         required: false
@@ -208,14 +196,6 @@ on:
         type: string
       TF_VAR_blocked_service:
         description: "Blocked Service"
-        required: false
-        type: string
-      TF_VAR_apply_action_wait_for_action:
-        description: "Apply Action Wait For Action"
-        required: false
-        type: string
-      TF_VAR_apply_action_ignore_on_update:
-        description: "Apply Action Ignore On Update"
         required: false
         type: string
       TF_VAR_dc_cluster_group_inside_vn:
@@ -369,14 +349,9 @@ env:
   TF_VAR_local_subnets: "[]"
   TF_VAR_inside_subnets: "[]"
   TF_VAR_outside_subnets: "[]"
-  TF_VAR_local_subnets_ipv6: "[]"
-  TF_VAR_inside_subnets_ipv6: "[]"
-  TF_VAR_outside_subnets_ipv6: "[]"
   TF_VAR_worker_nodes_per_az: ""
   TF_VAR_block_all_services: ""
   TF_VAR_blocked_service: ""
-  TF_VAR_apply_action_wait_for_action: ""
-  TF_VAR_apply_action_ignore_on_update: ""
   TF_VAR_dc_cluster_group_inside_vn: ""
   TF_VAR_dc_cluster_group_outside_vn: ""
   TF_VAR_active_forward_proxy_policies_list: "[]"

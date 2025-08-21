@@ -33,14 +33,9 @@ module "azure_vnet_site" {
   local_subnets                      = var.local_subnets
   inside_subnets                     = var.inside_subnets
   outside_subnets                    = var.outside_subnets
-  local_subnets_ipv6                 = var.local_subnets_ipv6
-  inside_subnets_ipv6                = var.inside_subnets_ipv6
-  outside_subnets_ipv6               = var.outside_subnets_ipv6
   worker_nodes_per_az                = ("" != var.worker_nodes_per_az) ? tonumber(var.worker_nodes_per_az) : 0
   block_all_services                 = ("" != var.block_all_services) ? tobool(var.block_all_services) : true
   blocked_service                    = ("" != var.blocked_service) ? jsondecode(var.blocked_service) : null
-  apply_action_wait_for_action       = ("" != var.apply_action_wait_for_action) ? tobool(var.apply_action_wait_for_action) : true
-  apply_action_ignore_on_update      = ("" != var.apply_action_ignore_on_update) ? tobool(var.apply_action_ignore_on_update) : true
   dc_cluster_group_inside_vn         = ("" != var.dc_cluster_group_inside_vn) ? jsondecode(var.dc_cluster_group_inside_vn) : null
   dc_cluster_group_outside_vn        = ("" != var.dc_cluster_group_outside_vn) ? jsondecode(var.dc_cluster_group_outside_vn) : null
   active_forward_proxy_policies_list = ("" != var.active_forward_proxy_policies_list) ? var.active_forward_proxy_policies_list : null
