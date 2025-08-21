@@ -140,19 +140,3 @@ tar -xvf openshift-client-linux.tar.gz
 
 sudo mv oc /usr/local/bin/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
