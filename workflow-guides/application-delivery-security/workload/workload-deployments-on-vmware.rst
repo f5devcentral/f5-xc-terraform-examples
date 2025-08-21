@@ -98,25 +98,32 @@ Creating New Port Group
 --------------
 Once the VM is up and online in F5 Distributed Cloud, we need to add internal local interface to communicate with Client VM locally, to achieve this new “Virtual switch” and “Port group” needs to be created.
 
-#. Create a “Virtual switch” by Navigating to “Networking” -> “Virtual switches” tab
-.. image:: ./assets/assets-vmware/15.png
-#. Now create a “Port group” using the earlier created “Virtual switch”. Provide VLAN ID so that interfaces using this port group will be distinct.
-.. image:: ./assets/assets-vmware/16.png
-#. Attach this new port group to the CE VM
-.. image:: ./assets/assets-vmware/17.png
-#. Save and Restart the CE site VM in VMware. The site will go down in F5 Distributed Cloud Console and will come up again (~5-10 minutes) with new interface detected, IP address needs to be assigned for the new interface.
+1. This is a numbered list.
+2. It has two items too.
 
-#. Click “Manage Configuration” once the site is up after restarting from VMware ESXi
+#. This is a numbered list.
+#. It has two items too.
+
+
+1. Create a “Virtual switch” by Navigating to “Networking” -> “Virtual switches” tab
+.. image:: ./assets/assets-vmware/15.png
+2. Now create a “Port group” using the earlier created “Virtual switch”. Provide VLAN ID so that interfaces using this port group will be distinct.
+.. image:: ./assets/assets-vmware/16.png
+3. Attach this new port group to the CE VM
+.. image:: ./assets/assets-vmware/17.png
+4. Save and Restart the CE site VM in VMware. The site will go down in F5 Distributed Cloud Console and will come up again (~5-10 minutes) with new interface detected, IP address needs to be assigned for the new interface.
+
+5. Click “Manage Configuration” once the site is up after restarting from VMware ESXi
 .. image:: ./assets/assets-vmware/18.png
-#. Click “Edit Configuration”
+6. Click “Edit Configuration”
 .. image:: ./assets/assets-vmware/19.png
-#. Click on pencil icon beside node hostname under Actions
+7. Click on pencil icon beside node hostname under Actions
 .. image:: ./assets/assets-vmware/20.png
-#. A new interface will be visible with MAC address assigned, click pencil icon
+8. A new interface will be visible with MAC address assigned, click pencil icon
 .. image:: ./assets/assets-vmware/21.png
-#. Select “Static IP” and provide the IP address in a chosen subnet (192.168.10.0 is chosen for this demo) and select “Site Local Inside (Local VRF)” under Interface Settings and click “Apply”
+9. Select “Static IP” and provide the IP address in a chosen subnet (192.168.10.0 is chosen for this demo) and select “Site Local Inside (Local VRF)” under Interface Settings and click “Apply”
 .. image:: ./assets/assets-vmware/22.png
-#. Interfaces and IP address assigned can be verified under “Infrastructure” tab of site
+10. Interfaces and IP address assigned can be verified under “Infrastructure” tab of site
 .. image:: ./assets/assets-vmware/23.png
 
 Steps to install VM (Client VM) running application workloads
