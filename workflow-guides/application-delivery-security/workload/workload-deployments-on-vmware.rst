@@ -139,6 +139,7 @@ Once the VM is up and online in F5 Distributed Cloud, we need to add internal lo
 Steps to install VM (Client VM) running application workloads
 --------------
 1. Login to VMware ESXi client
+
 *Note: UI in below screenshots might change based on version being used*
 
 2. Click “Create/Register VM” and select “Create a new virtual machine” and proceed “Next”
@@ -153,7 +154,7 @@ Steps to install VM (Client VM) running application workloads
 5. Choose desired configuration (CPU, Memory, Disk space) for your VM. In network adapter, two adapters are required, one connected to the Internet (VM Network) and another created locally (internal_network_pg) to connect CE VM and Client VM (ubuntu). Select the “Ubuntu (or any linux image) ISO” in Datastore through which you want the Client VM to boot-up.
 
 .. image:: ./assets/assets-vmware/27.png
-6. Review and click *Finish*
+6. Review and click **Finish**
 
 .. image:: ./assets/assets-vmware/28.png
 7. Once the VM is created in ESXi, select the VM and click “Power on”
@@ -175,18 +176,21 @@ Steps to install VM (Client VM) running application workloads
 
 .. image:: ./assets/assets-vmware/32.png
 13. Now we need to deploy applications in Ubuntu. For this demo docker is used to deploy multiple applications. Execute below commands to install “docker” in Ubuntu.
-**$ sudo apt update**
-**$ sudo apt install docker.io**
+
+- **$ sudo apt update**
+- **$ sudo apt install docker.io**
 
 .. image:: ./assets/assets-vmware/33.png
 14. Once docker is installed, for this demo “Juice-shop” application is being installed using below docker command
-**$ sudo docker run -d -p 3000:3000 bkimminich/juice-shop**
+
+- **$ sudo docker run -d -p 3000:3000 bkimminich/juice-shop**
 
 .. image:: ./assets/assets-vmware/34.png
 
 Accessing applications through Load Balancers
 --------------
 To access the applications installed in the Client machine through SMSv2 Customer Edge (CE), below configurations needs to be followed:
+
 - Creating “Origin Pool”
 - Creating “LB”
 
