@@ -8,9 +8,9 @@ Examples of F5 Distributed Cloud (XC) deployments utilizing Terraform. For more 
 ---
 ## **F5 Distributed Cloud Application Delivery and Security**
 
-  | **DevCentral Overview Articles**                                                                                            | **Use Case / Workflow Guides**                                                                                                                                                |
-  |-----------------------------------------------------------------------------------------------------------------------------| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-  | [F5 XC Application Delivery and Security for Scalable Enterprise Workload Deployments across Heterogeneous Environments] () | [[F5 XC Application Delivery and Security for Scalable Enterprise Workload Deployments across Heterogeneous Environments] (SaaS Console)](https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/workload/README.rst)                        |
+  | **DevCentral Overview Articles**                                                                                           | **Use Case / Workflow Guides**                                                                                                                                                |
+  |----------------------------------------------------------------------------------------------------------------------------| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | [F5 XC Application Delivery and Security for Scalable Enterprise Workload Deployments across Heterogeneous Environments]() | [F5 XC Application Delivery and Security for Scalable Enterprise Workload Deployments across Heterogeneous Environments (SaaS Console)](https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/workload/README.rst)                        |
 
 ---
 ## Application Security
