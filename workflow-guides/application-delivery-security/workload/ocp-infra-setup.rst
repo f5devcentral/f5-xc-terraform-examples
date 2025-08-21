@@ -5,7 +5,7 @@ Creating Cluster from Red Hat Console:
 --------------
 1. Login to Red Hat Hybrid Cloud Console using the link(https://console.redhat.com)
 
-*Note: Valid account having subscription is required to create OpenShift Cluster*
+    *Note: Valid account having subscription is required to create OpenShift Cluster*
 
 2. Select “Red Hat OpenShift” widget
 
@@ -71,9 +71,9 @@ In this demo below specs are used:
     .. image:: ./assets/assets-ocp-infra/12.png
 
     6. VM Options -> Advanced -> Edit Configurations -> Add parameter
-	key -> disk.enableUUID
 
-	value -> TRUE
+	- key -> disk.enableUUID
+    - value -> TRUE
 
     .. image:: ./assets/assets-ocp-infra/13.png
 
