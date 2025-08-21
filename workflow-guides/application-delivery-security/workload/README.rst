@@ -221,7 +221,7 @@ Nutanix application C (Juice Shop) deployed on LB **f5-adsp9.f5-hyd-xcdemo.com**
 .. image:: ./assets/nutanix-C.png
 
 **Cloud Service Provider (Azure)**
-
+--------------
 Initial Infrastructure:
 
 At the outset, cloud environments do not host any workloads. As new workloads are deployed based on requirements, F5 Distributed Cloud ensures seamless application delivery and comprehensive security across the infrastructure.
