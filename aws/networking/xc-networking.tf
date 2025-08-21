@@ -7,6 +7,7 @@ module "xc_aws_vpc" {
   existing_vpc_id                          = ("" != var.existing_vpc_id) ? var.existing_vpc_id : null
   az_names                                 = var.az_names
   create_outside_route_table               = var.create_outside_route_table
+  create_outside_default_route             = var.create_outside_default_route
   create_internet_gateway                  = var.create_internet_gateway
   create_outside_security_group            = var.create_outside_security_group
   create_inside_security_group             = var.create_inside_security_group

@@ -55,6 +55,12 @@ variable "create_outside_route_table" {
   default     = true
 }
 
+variable "create_outside_default_route" {
+  description = "Whether to create a default route in the outside route table."
+  type        = bool
+  default     = false
+}
+
 variable "create_internet_gateway" {
   description = "Whether to create an internet gateway."
   type        = bool

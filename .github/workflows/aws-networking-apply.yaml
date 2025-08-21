@@ -203,6 +203,7 @@ jobs:
       TF_VAR_aws_region: ""
       TF_VAR_existing_vpc_id: ""
       TF_VAR_create_outside_route_table: "true"
+      TF_VAR_create_outside_default_route: "false"
       TF_VAR_create_internet_gateway: "true"
       TF_VAR_create_outside_security_group: "true"
       TF_VAR_create_inside_security_group: "true"
