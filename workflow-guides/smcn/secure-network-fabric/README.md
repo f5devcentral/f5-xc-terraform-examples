@@ -374,7 +374,7 @@ In this step we will, first, create a virtual site and then use it to create a s
 
 ![alt text](./assets/smg_add.png)
 
-Give it a name, click **Add Label** and type in **company**. Assign it as a custom key. Finally, type in **acmecorp** for key value. Click **Save and Exit**.
+Give it a name, click **Add Label** and type in **company**. Assign it as a custom key. Select **In** operator. Finally, type in **acmecorp** for key value. Click **Add Virtual Site**.
 
 ![alt text](./assets/smg_details.png)
 
@@ -396,7 +396,7 @@ In this part of the demo we will create three Cloud Connects - for prod, dev and
 
 After creating AWS TGW Site with three VPCs, we can start creating three cloud connects for prod, dev and shared VPCs. Cloud Connects will let us connect VPCs to our AWS TGW Site.
 
-In the F5 Distributed Cloud Console navigate to **Multi-Cloud Network Connect**. From there, select **Connectors** and choose **Cloud Connects**. Click on **Add Cloud Connect** to open the creation form.
+Back in the Console navigate to **Multi-Cloud Network Connect**. From there, select **Connectors** and choose **Cloud Connects**. Click on **Add Cloud Connect** to open the creation form.
 
 ![alt text](./assets/xc_connector_add.png)
 
@@ -404,19 +404,27 @@ The first cloud connect will be for the prod VPC. Give it a name.
 
 ![alt text](./assets/xc_connector_name.png)
 
-Make sure to select **AWS TGW Site** as provider and then the name of the AWS TGW Site we created earlier. Then select the credentials we added a few steps earlier for the ACME Corp. Proceed to add VPC by clicking the **Add Item** button.
+Make sure **AWS** provider is selected. Then pick the name of the AWS TGW Site and the credentials we added a few steps earlier for the ACME Corp. Proceed to add VPC by clicking the **Configure** button.
 
 ![alt text](./assets/xc_connector_provider_acme.png)
 
-Add the prod VPC ID [created](#11-create-aws-vpc-with-constructor) earlier, make sure to select overriding default routes and click **Apply**. This will connect prod VPC to the AWS TGW Site.
+Proceed by clicking **Add Item**.
+
+![alt text](./assets/vpc-add-item.png)
+
+Add the prod VPC ID [created](#11-create-aws-vpc-using-the-aws-management-console) earlier, make sure to select overriding default routes and click **Apply**. This will connect prod VPC to the AWS TGW Site.
 
 ![alt text](./assets/xc_connector_provider_vpc.png)
 
-The added VPC will appear on the list. And finally, add a segment. Click **Add Item** in the segment drop-down menu.
+The added VPC will appear on the list. Click **Apply** to proceed.
+
+![alt text](./assets/vpc-list-apply.png)
+
+And finally, we will add a segment. Click **Add Item** in the segment drop-down menu.
 
 ![alt text](./assets/xc_connector_provider_vpc_result.png)
 
-Give segment a name and make sure to allow its traffic to internet. Click **Continue**, and then **Save and Exit**. Prod connect will appear on the list.
+Give segment a name and make sure to allow its traffic to internet. Click **Add Segment**, and then **Add Cloud Connect**. Prod connect will appear on the list.
 
 ![alt text](./assets/xc_connector_prod_segment.png)
 
@@ -452,7 +460,7 @@ In this part of the demo we will add two Segment Connectors. One will connect AW
 
 ## 3.1 Create Segment Connector
 
-In this step we will add two segment connectors - prod-to-shared and dev-to-shared. Go back to F5 Distributed Cloud Console and select **Multi-Cloud Network Connect** service. Navigate to **Networking** and proceed to **Segment Connector**. Click the **Manage Segment Connections** button.
+In this step we will add two segment connectors - prod-to-shared and dev-to-shared. Go back to the Console and select **Multi-Cloud Network Connect** service. Navigate to **Networking** and proceed to **Segment Connector**. Click the **Manage Segment Connections** button.
 
 ![alt text](./assets/xc_segment_connector.png)
 
@@ -460,7 +468,7 @@ In the **Segment Connectors** section, click **Add Item**.
 
 ![alt text](./assets/xc_segment_connector_add.png)
 
-First, we will add segment connector for prod to shared. For the Source Segment, select the **prod segment** we created earlier. For the Destination Segment, select the **shared segment**. Make sure to select **Direct** connector type. Since segment connectors are bi-directional, we do not need to configure it in reverse direction - from shared to prod for Direct Connectors. Then click **Apply**.
+First, we will add segment connector for prod to shared. For the Source Segment, select the **prod segment** we created earlier. For the Destination Segment, select the **shared segment**. Make sure **Direct** connector type is specified. Since segment connectors are bi-directional, we do not need to configure it in reverse direction - from shared to prod for Direct Connectors. Then click **Apply**.
 
 ![alt text](./assets/xc_segment_connector_add_prod.png)
 
@@ -468,7 +476,7 @@ Repeat the step above to create one more segment connector for the dev segment. 
 
 ![alt text](./assets/xc_segment_connector_add_dev.png)
 
-Take a look at the configuration and click **Save and Exit**.
+Take a look at the configuration and click **Save Segment connection**.
 
 ![alt text](./assets/xc_segment_connector_apply.png)
 
@@ -508,7 +516,7 @@ In this part of the demo we will configure VMware CE Site by adding two interfac
 
 ## 4.1 Configure VMware CE Site
 
-In this part we will connect VMware to the site and configure its interfaces. Back in the F5 Distributed Cloud Console go to the **Multi-Cloud Network Connect** service and proceed to **Site Management**. Then select **Secure Mesh Sites**. Open the service menu of the [site](#151-create-secure-mesh-site) we created earlier and select **Manage Configuration**.
+In this part we will connect VMware to the site and configure its interfaces. Back in the Console go to the **Multi-Cloud Network Connect** service and proceed to **Site Management**. Then select **Secure Mesh Sites**. Open the service menu of the [site](#151-create-secure-mesh-site) we created earlier and select **Manage Configuration**.
 
 ![alt text](./assets/xc_sm_site_list.png)
 
@@ -528,6 +536,10 @@ In the table below, you can see the interfaces we are going to add.
 | ---- | ------- | --------- | --------------- |
 | Prod | 100     | eth1.100  | 10.200.100.1/24 |
 | Dev  | 200     | eth1.200  | 10.200.200.1/24 |
+
+Proceed by clicking **Edit Configuration**.
+
+![alt text](./assets/xc_sm_site_edit_configuration.png)
 
 You will see the first interface configured earlier. Click **Add Item** to start adding the second **prod** interface.
 
@@ -577,11 +589,11 @@ Take a look at the second interface configuration and click **Apply**.
 
 ![alt text](./assets/xc_sm_site_net_interface_list_vlan200_apply_2.png)
 
-Make sure to select **Site Mesh Group Connection Via Public Ip** and move on by clicking **Apply**.
+Make sure **Site Mesh Group Connection Via Public Ip** is specified and move on by clicking **Apply**.
 
 ![alt text](./assets/xc_sm_site_net_apply.png)
 
-Click **Save and Exit** to apply the changes.
+Click **Save Secure Mesh Site** to apply the changes.
 
 ![alt text](./assets/xc_sm_site_update.png)
 
@@ -648,12 +660,12 @@ In this part we will connect External Company by adding a Cloud Connect/Segment 
 
 ## 5.1 Configure AWS Assume Role
 
-External Org/Company will not share AWS credentials with ACMECorp, however we still need F5 Distributed Cloud to connect & orchestrate the connectivity of the VPC to AWS TGW. In order to solve this, we will create a role within the external account that trusts F5 Distributed Cloud AWS Account & that has the necessary privileges as per our documentation.
+External Org/Company will not share AWS credentials with ACMECorp, however we still need F5 Distributed Cloud Services to connect & orchestrate the connectivity of the VPC to AWS TGW. In order to solve this, we will create a role within the external account that trusts F5 Distributed Cloud AWS Account & that has the necessary privileges as per our documentation.
 
-So, in this part we will create an AWS Assume Role to allow F5 Distributed Cloud to assume the role and access the external company's AWS account. In this case, we don't have direct access to the external company's AWS account, so we need to create an Assume Role to allow F5 Distributed Cloud to access it without providing the credentials.
+So, in this part we will create an AWS Assume Role to allow Distributed Cloud Services to assume the role and access the external company's AWS account. In this case, we don't have direct access to the external company's AWS account, so we need to create an Assume Role to allow Distributed Cloud Services to access it without providing the credentials.
 
-To create an Assume Role, you will need [F5 Distributed Cloud AWS Account Number which you can get by submitting a ticket](https://docs.cloud.f5.com/docs/reference/cloud-cred-ref/aws-tgw-pol-ref#f5-distributed-cloud-assume-role) in the XC portal.
-From the main menu, navigate to **Administration** and select **Requests**. Click the **Add Request** button and fill in the form.
+To create an Assume Role, you will need [F5 Distributed Cloud AWS Account Number which you can get by submitting a ticket](https://docs.cloud.f5.com/docs/reference/cloud-cred-ref/aws-tgw-pol-ref#f5-distributed-cloud-assume-role) in the Console.
+From the main menu, navigate to the **Administration** service and select **Requests** under the **Support** section. Click the **Add Request** button and fill in the form.
 
 ![alt text](./assets/sts_support_request.png)
 
@@ -661,7 +673,7 @@ Open AWS Management Console and navigate to **IAM**. From there, select **Polici
 
 ![alt text](./assets/sts_create_policy.png)
 
-In the **IAM** service, select **Roles** and click **Create role**. Select **Custom trust policy**. For the trust relationship policy, paste the policy below. Make sure to replace `<account-number>` with F5 Distributed Cloud AWS account number and `<tenant_id>` with the values you received from F5 Distributed Cloud.
+In the **IAM** service, select **Roles** and click **Create role**. Select **Custom trust policy**. For the trust relationship policy, paste the policy below. Make sure to replace `<account-number>` with F5 Distributed Cloud AWS account number and `<tenant_id>` with the values you received from Distributed Cloud Services.
 
 ```json
 {
@@ -708,8 +720,8 @@ Open the role you created and copy the **Role ARN**.
 
 ![alt text](./assets/sts_get_arn.png)
 
-Go back to the F5 Distributed Cloud Console and create Cloud Credentials for the External Company. Navigate to **Multi-Cloud Network Connect**, then click **Site Management** and select **Cloud Credentials**. Click **Add Cloud Credentials**.
-In the **Cloud Credentials Type** drop-down menu, select **AWS Assume Role**. Then, paste the **Role ARN** you copied earlier. Add **Role Session Name** and click **Save and Exit**.
+Go back to the Console and create Cloud Credentials for the External Company. Navigate to **Multi-Cloud Network Connect**, then click **Site Management** and select **Cloud Credentials**. Click **Add Cloud Credentials**.
+In the **Cloud Credentials Type** drop-down menu, select **AWS Assume Role**. Then, paste the **Role ARN** you copied earlier. Add **Role Session Name** and click **Add Cloud Credentials**.
 
 ![alt text](./assets/sts_cloud_creds.png)
 
@@ -717,7 +729,7 @@ In the **Cloud Credentials Type** drop-down menu, select **AWS Assume Role**. Th
 
 In this part we will connect External Company by creating a cloud connect for it and adding a segment. After that, we will configure segment connector from external to prod segment. And lastly, we will test the configured connectivity.
 
-Back in the F5 Distributed Cloud Console navigate to **Multi-Cloud Network Connect**. From there, select **Connectors** and choose **Cloud Connects**. Click on **Add Cloud Connect** to open the creation form.
+In the Console select **Connectors** and choose **Cloud Connects**. Click on **Add Cloud Connect** to open the creation form.
 
 ![alt text](./assets/xc_connector_add_external.png)
 
@@ -725,27 +737,35 @@ Name the cloud connect object as **external-connector**.
 
 ![alt text](./assets/xc_connector_name_external.png)
 
-Select **AWS TGW Site** as the provider and choose the [AWS TGW Site](#14-create-aws-tgw-site) we created earlier. Then, select the [credentials](#13-create-aws-cloud-credentials) for the external company. Proceed to add a VPC by clicking the **Add Item** button.
+Make sure **AWS** provider is specified and choose the [AWS TGW Site](#14-create-aws-tgw-site) we created earlier. Then select the [credentials](#51-configure-aws-assume-role) for the external company. Proceed to add a VPC by clicking the **Configure** button.
 
 ![alt text](./assets/xc_connector_provider_external.png)
 
-Add the [external VPC ID](#11-create-aws-vpc-with-constructor) created earlier, make sure to select overriding default routes and click **Apply**.
+Proceed by clicking **Add Item**.
+
+![alt text](./assets/xc_connector_provider_external_add_item.png)
+
+Add the [external VPC ID](#11-create-aws-vpc-using-the-aws-management-console) created earlier, make sure to select overriding default routes and click **Apply**.
 
 ![alt text](./assets/xc_connector_vpc_external.png)
 
-The added VPC will appear on the list. And finally, add a segment. Open the segment drop-down menu and click **Add Item**.
+The added VPC will appear on the list. Click **Apply** to proceed.
+
+![alt text](./assets/xc_connector_vpc_external_apply.png)
+
+And finally, add a segment. Open the segment drop-down menu and click **Add Item**.
 
 ![alt text](./assets/xc_connector_segment_external_add.png)
 
-Give segment a name and make sure to allow its traffic to internet. Click **Continue**.
+Give segment a name and make sure to allow its traffic to internet. Click **Add Segment**.
 
 ![alt text](./assets/xc_connector_segment_external_details.png)
 
-Take a look at the configuration of cloud connect for the External Company. Complete creating by clicking **Save and Exit**.
+Take a look at the configuration of cloud connect for the External Company. Complete creating by clicking **Add Cloud Connect**.
 
 ![alt text](./assets/xc_connector_external_save.png)
 
-Newly created Cloud Connect for the External Company will appear on the list. Make sure to use its special credentials we created [earlier](#13-create-aws-cloud-credentials).
+Newly created Cloud Connect for the External Company will appear on the list. Make sure to use its special credentials we created [earlier](#51-configure-aws-assume-role).
 
 ![alt text](./assets/xc_connector_external_result.png)
 
@@ -755,7 +775,7 @@ Next step is to add a segment connector from External Company to the Prod VPC. N
 
 ![alt text](./assets/xc_segment_connector_external.png)
 
-In the **Segment Connectors** section, you will see two the connectors we added before. Click **Add Item**.
+In the **Segment Connectors** section, you will see two connectors we added before. Click **Add Item**.
 
 ![alt text](./assets/xc_segment_connector_add_external.png)
 
@@ -763,7 +783,7 @@ Select **external-segment** for the source one, and **prod-segment** for the des
 
 ![alt text](./assets/xc_segment_connector_add_external_details.png)
 
-The new segment connector will appear among others. Complete by clicking **Save and Exit**.
+The new segment connector will appear among others. Complete by clicking **Save Segment connection**.
 
 ![alt text](./assets/xc_segment_connector_external_save.png)
 
@@ -810,7 +830,7 @@ As we can see from the output, the connection is successful between the AWS Exte
 
 Now that we have established and tested the connection between the VPCs and VMware Data Center, we can take a look at data flow using the **Flow Analysis** tool. The tool provides a graphical way to visualize the volume of data flow between our workloads across the F5 Distributed Cloud fabric.
 
-Back in the F5 Distributed Cloud Console, in the **Multi-Cloud Network Connect** service go to **Sites**. Click on the created site.
+Back in the Console, in the **Multi-Cloud Network Connect** service go to **Infrastructure** => **Sites**. Click on the created site.
 
 ![alt text](./assets/site_navigate.png)
 
@@ -872,11 +892,11 @@ In the **Select Type of Traffic to Match** choose **Match Application Traffic** 
 
 ![alt text](./assets/xc_fw_rule_add_http_full.png)
 
-Next we will add the second rule to deny everything else. Click the **Add Item** button.
+Next, we will add the second rule to deny everything else. Click the **Add Item** button.
 
 ![alt text](./assets/xc_fw_rule_add_deny.png)
 
-Give it a name, take a look at the configuration and apply it.
+Give it a name, make sure **Deny** action is specified and apply it.
 
 ![alt text](./assets/xc_fw_rule_add_deny_details.png)
 
@@ -884,7 +904,7 @@ Complete configuring the rules by clicking **Apply**.
 
 ![alt text](./assets/xc_fw_rule_add_apply.png)
 
-Scroll down to the **Segment Selector** section. Select **Segments** for both - source and destination ones. Then choose **external-segment** we created earlier for the source, and **prod-segment** for the destination. Complete creating the Enhanced Firewall Policy by clicking **Save and Exit**.
+Scroll down to the **Segment Selector** section. Select **Segments** for both - source and destination ones. Then choose **external-segment** we created earlier for the source, and **prod-segment** for the destination. Complete creating the Enhanced Firewall Policy by clicking **Add Enhanced firewall policy**.
 
 ![alt text](./assets/xc_fw_segments.png)
 
@@ -902,25 +922,17 @@ Scroll down to the **Site Network and Security** section and click **Configure**
 
 ![alt text](./assets/xc_fw_aws_tgw_sec.png)
 
-Select **Active Enhanced Firewall Policies** in the **Manage Firewall Policy** section and click **Configure**.
+Select **Active Enhanced Firewall Policies** in the **Manage Firewall Policy** section, pick the enhanced firewall policy we created earlier and click **Apply**.
 
 ![alt text](./assets/xc_fw_aws_tgw_sec_enh.png)
 
-In the drop-down menu select the policy we created and click **Apply**.
-
-![alt text](./assets/xc_fw_aws_tgw_sec_sel.png)
-
-Take a look at Security Policy configuration and **Apply** it.
-
-![alt text](./assets/xc_fw_aws_tgw_sec_enh_apply.png)
-
-Scroll to the bottom of the configuration page and complete assigning the policy to the site by clicking **Save and Exit**.
+Scroll to the bottom of the configuration page and complete assigning the policy to the site by clicking **Save AWS TGW Site**.
 
 ![alt text](./assets/xc_fw_aws_tgw_save.png)
 
 ## 7.3 Test connectivity between External VPC and Prod VPC
 
-Repeat the test from the [previous step](#53-test-connectivity-between-external-vpc-and-prod-vpc) to check the connectivity between the AWS External VM and AWS Prod VM.
+Repeat the test from the [previous step](#54-test-connectivity-between-external-vpc-and-prod-vpc) to check the connectivity between the AWS External VM and AWS Prod VM.
 
 ```bash
 ubuntu@aws-external-vm:~$ ping 10.1.10.100
@@ -961,7 +973,7 @@ Commercial support is available at
 </html>
 ```
 
-In the output, we can see the response from Nginx server running on the AWS Prod VM. This means that the connection is successful on port 80.
+In the output, we can see the response from NGINX server running on the AWS Prod VM. This means that the connection is successful on port 80.
 
 # 8. ExtraNet: App Centric Method
 
@@ -971,7 +983,7 @@ In this demo earlier we configured the L3 connection for traffic between prod se
 
 ## 8.1 Remove External-Prod Segment Connector
 
-Back in the F5 Distributed Cloud Console navigate to the **Multi-Cloud Network Connect** service. From there, navigate to **Networking** and select **Segment Connector**. Click the **Manage Segment Connections** button.
+Back in the Console navigate to the **Multi-Cloud Network Connect** service. From there, navigate to **Networking** and select **Segment Connector**. Click the **Manage Segment Connections** button.
 
 ![alt text](./assets/app_connect_segment_remove.png)
 
@@ -980,6 +992,8 @@ Remove the external-to-prod segment connector and save the change.
 ![alt text](./assets/app_connect_segment_remove_apply.png)
 
 ## 8.2 Create HTTP LB
+
+TBD
 
 Next, we will create an HTTP Load Balancer. Open the main menu and select the **Multi-Cloud App Connect** service.
 
