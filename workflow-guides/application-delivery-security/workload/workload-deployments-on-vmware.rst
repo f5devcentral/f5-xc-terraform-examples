@@ -17,9 +17,11 @@ VMware Architecture
 Steps to Deploy Secure Mesh Site v2 on VMware
 --------------
 *Note 1: Resources required to create CE VM: Minimum 8 vCPUs, 32 GB RAM, and 80 GB disk storage, please refer below link for more details on sizing and resources:*
+
 `Customer Edge Site Sizing Reference <https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/reference/ce-site-size-ref>`__
 
 *Note 2: For this demonstration ESXi 6.7.0 is used, if vSphere is being used, please refer the below link:*
+
 `Deploy Secure Mesh Site v2 on VMware (ClickOps) <https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-vmw-clickops>`__
 
 Create Site Object
@@ -38,6 +40,7 @@ Create a secure mesh site object in the Distributed Cloud Console and select VMw
 **Step 2: Select the provider name as VMware.**
 
 - Set the Provider Name option to VMware. Keep all other default values.
+
 .. image:: ./assets/assets-vmware/2.png
 
 - Click **Add Secure Mesh Site**
