@@ -23,25 +23,25 @@ Creating Cluster from Red Hat Console:
 
 6. Select “control plane nodes” and “network configuration” and click “Next”
 
-    *Note :- For this demo we’re going with 1 Node and Static IP*
+    *Note: For this demo we’re going with 1 Node and Static IP*
 
 .. image:: ./assets/assets-ocp-infra/4.png
 
 7. In Section 2, provide DNS, Machine network and Default gateway and click “Next”
 
-    *Note :- If you’re not sure, please get these details from your network team and don’t use the below details as it is in screenshot*
+    *Note: If you’re not sure, please get these details from your network team and don’t use the below details as it is in screenshot*
 
 .. image:: ./assets/assets-ocp-infra/5.png
 
 8. Provide Host MAC Adress and IPv4 address and click “Next”
 
-    *Note :- For more than 1 nodes, you need to provide MAC and IPv4 address for all hosts*
+    *Note: For more than 1 nodes, you need to provide MAC and IPv4 address for all hosts*
 
 .. image:: ./assets/assets-ocp-infra/6.png
 
 9. Under the “Operators” section, click “Next”
 
-    *Note :- For more than 1 node, select “Virtualization” and proceed*
+    *Note: For more than 1 node, select “Virtualization” and proceed*
 
 .. image:: ./assets/assets-ocp-infra/7.png
 
@@ -81,7 +81,7 @@ In this demo below specs are used:
 
 14. Once the VM starts booting, wait for some time (~2 minutes), the VM will be visible in “Host discovery” in Red Hat console with MAC Address as hostname.
 
-    *Note :- If more than 1 node is selected, wait for all the nodes to discover and select role.*
+    *Note: If more than 1 node is selected, wait for all the nodes to discover and select role*
 
 .. image:: ./assets/assets-ocp-infra/14.png
 
@@ -91,7 +91,7 @@ In this demo below specs are used:
 
 16. Verify “Networking”
 
-    *Note :- If more than 1 node, IPv4 address for API and Ingress need to be provided in this section*
+    *Note: If more than 1 node, IPv4 address for API and Ingress need to be provided in this section*
 
 .. image:: ./assets/assets-ocp-infra/16.png
 
@@ -124,7 +124,7 @@ Click “Not able to access the Web Console” and copy-paste the configuration 
 
 23. After login, verify the Nodes, CPU, Memory and Filesystem.
 
-    *Note :- To access the cluster from CLI, navigate to “Copy login command” under "kube:admin”*
+    *Note: To access the cluster from CLI, navigate to “Copy login command” under "kube:admin”*
 
 .. image:: ./assets/assets-ocp-infra/23.png
 
