@@ -49,7 +49,7 @@ Creating Cluster from Red Hat Console:
 
 .. image:: ./assets/assets-ocp-infra/8.png
 
-11. Provide SSH key and click “Generate Discovery ISO”
+11. Provide SSH key (optional) and click “Generate Discovery ISO”
 
 .. image:: ./assets/assets-ocp-infra/9.png
 
