@@ -30,7 +30,7 @@ Architecture Overview
 
 *Note: This scenario uses VMware On-Prem, but it can also be deployed on GCP and Azure.*
 
-`F5 Distributed Cloud Workload Deployments on VMware[coming soon] <coming soon>`__
+`F5 Distributed Cloud Workload Deployments on VMware <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/workload/workload-deployments-on-vmware.rst>`__
 
 **Nutanix on Bare Metal:** Nutanix Community Edition is used as Hypervisor and deployed in Dell PowerEdge-R430 bare metal. A VM is created and booted using the qcow2 image of SMSv2 CE downloaded from F5 Distributed Cloud. Once the CE VM is up and site is online, VM running application workloads are also deployed and connected to CE using Site Local Inside (SLI) subnet and interface, so that applications are not exposed directly.
 
@@ -40,13 +40,13 @@ Nutanix Infra Setup
 
 `F5 Distributed Cloud Workload Deployments on Nutanix[coming soon] <coming soon>`__
 
-**OpenShift Container Platform (OCP):** 3-node OCP cluster is created on VMware. SMSv2 CE as VM is deployed using KVM (qcow) image in OCP cluster virtualization. VM running application workloads is also deployed and connected to CE using Site Local Inside (SLI) subnet and interface, so that applications are not exposed directly.
+**OpenShift Container Platform (OCP):** 1-node OCP cluster is created on VMware. SMSv2 CE as VM is deployed using KVM (qcow) image in OCP cluster virtualization. VM running application workloads is also deployed and connected to CE using Site Local Inside (SLI) subnet and interface, so that applications are not exposed directly.
 
 *Note: This scenario uses OCP Datacenter (On-Prem), but it can also be deployed on AWS, GCP, IBM and Azure.*
 
-OCP Infra Setup
+`OCP Infra Setup on VMware <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/workload/ocp-infra-setup.rst>`__
 
-`F5 Distributed Cloud Workload Deployments on OCP[coming soon] <coming soon>`__
+`F5 Distributed Cloud Workload Deployments on OCP <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/workload/workload-deployments-on-ocp.rst>`__
 
 **Nutanix on VMware:** <Coming Soon>
 
