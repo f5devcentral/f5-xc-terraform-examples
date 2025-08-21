@@ -99,17 +99,21 @@ Creating New Port Group
 Once the VM is up and online in F5 Distributed Cloud, we need to add internal local interface to communicate with Client VM locally, to achieve this new “Virtual switch” and “Port group” needs to be created.
 
 1. Create a “Virtual switch” by Navigating to “Networking” -> “Virtual switches” tab
+
 .. image:: ./assets/assets-vmware/15.png
 
 2. Now create a “Port group” using the earlier created “Virtual switch”. Provide VLAN ID so that interfaces using this port group will be distinct.
+
 .. image:: ./assets/assets-vmware/16.png
 
 3. Attach this new port group to the CE VM
+
 .. image:: ./assets/assets-vmware/17.png
 
 4. Save and Restart the CE site VM in VMware. The site will go down in F5 Distributed Cloud Console and will come up again (~5-10 minutes) with new interface detected, IP address needs to be assigned for the new interface.
 
 5. Click “Manage Configuration” once the site is up after restarting from VMware ESXi
+
 .. image:: ./assets/assets-vmware/18.png
 
 6. Click “Edit Configuration”
