@@ -208,10 +208,6 @@ on:
         description: "Blocked Service"
         required: false
         type: string
-      TF_VAR_apply_action_wait_for_action:
-        description: "Apply Action Wait For Action"
-        required: false
-        type: string
       TF_VAR_apply_action_ignore_on_update:
         description: "Apply Action Ignore On Update"
         required: false
@@ -407,7 +403,6 @@ jobs:
       TF_VAR_worker_nodes_per_az: ""
       TF_VAR_block_all_services: ""
       TF_VAR_blocked_service: ""
-      TF_VAR_apply_action_wait_for_action: ""
       TF_VAR_apply_action_ignore_on_update: ""
       TF_VAR_dc_cluster_group_inside_vn: ""
       TF_VAR_dc_cluster_group_outside_vn: ""
