@@ -42,9 +42,9 @@ Download Node Image
 
 KVM uses qcow2 file to store various files associated with a Virtual Machine (VM). F5 Distributed Cloud packages Customer Edge node software in a qcow2 template file that lets you add a pre-configured virtual machine in the OCP cluster.
 
-- Navigate to Manage > Site Management > Secure Mesh Sites v2.
+- Navigate to **Manage > Site Management > Secure Mesh Sites v2**
 
-- From the Secure Mesh Sites page, for your site, click ... > Download Image and then save the image locally.
+- From the Secure Mesh Sites page, for your site, click ... > **Download Image** and then save the image locally.
 
 .. image:: ./assets/assets-ocp/2.png
 
@@ -270,7 +270,7 @@ Steps to install VM (Client VM) running application workloads
 --------------
 Now one more VM to run application workloads needs to be deployed. AlpineOS is used for this demonstration as it is lightweight.
 
-AlpineOS ISO can be downloaded from this link
+AlpineOS ISO can be downloaded from this `link <https://alpinelinux.org/downloads/>`__
 
 *Note: For this demonstration, virtual x86_64 image is chosen.*
 
