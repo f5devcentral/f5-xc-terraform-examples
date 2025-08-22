@@ -172,6 +172,8 @@ Once the image is downloaded follow the below steps:
 
 8. A Network Attachment Definition with type “bridge” is required for having SLI interface on CE VM and IP for SLI
 
+    Save the below configuration as **f5-ce-nad.yaml**
+    Apply by executing **oc apply -f f5-ce-nad.yaml**
 .. code-block:: python
 
     apiVersion: "k8s.cni.cncf.io/v1"
@@ -277,7 +279,7 @@ AlpineOS ISO can be downloaded from this `link <https://alpinelinux.org/download
 
 *Note: For this demonstration, virtual x86_64 image is chosen.*
 
-*Note : Before creating PV, login to node, create a new directory (v2) in the same node where CE is present and provide necessary permission (777) for PV to write content in the node directory.*
+*Note : Before creating PV, login to node, create a new directory (v2 and v3) in the same node where CE is present and provide necessary permission (777) for PV to write content in the node directory.*
 
     - oc debug node/<node-name>
     - chroot /host
