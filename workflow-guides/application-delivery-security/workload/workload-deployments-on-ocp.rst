@@ -79,6 +79,7 @@ Once the image is downloaded follow the below steps:
     Save the below configuration as **f5-ce-pv.yaml**
 
 .. code-block:: python
+
     apiVersion: v1
     kind: PersistentVolume
     metadata:
