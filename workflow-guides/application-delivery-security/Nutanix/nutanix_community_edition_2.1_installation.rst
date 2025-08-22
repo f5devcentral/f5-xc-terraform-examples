@@ -103,7 +103,7 @@ As informed, Nutanix CE is installed on Dell PowerEdge R430 Bare Metal. Login to
 
 Device starts to bootup and navigate to boot settings to initiate the boot from the USB drive imaged with CE.
 
-.. figure:: Assets/idrac_bootup.jpg
+.. figure:: Assets/idrac_bootup.png
 
 Click on F11 bootup process to modify the boot sequence.
 
@@ -149,7 +149,7 @@ Nutanix is a Hyperconverged Platform, it is not only installing AHV Hypervisor b
 
 .. figure:: Assets/ce_installation_process_3.png
 
-A prompt appears to remove CE installation media, Remove the CE installation media depending on your Bare Metal HW (to make sure device does not boot again with installer image). Enter the **y** key and press Enter. 
+A prompt appears to remove CE installation media, Remove the CE installation media depending on your Bare Metal HW (to make sure device does not boot again with installer image). Enter the **Y** key and press Enter. 
 
 .. figure:: Assets/ce_installation_process_4.png
 
@@ -166,6 +166,18 @@ Now the device will be booted with AHV.
 .. figure:: Assets/nutanix_ahv_logs.jpg
 
 **Step 3: Creating and configuring a cluster**
+
+Once you are at the AHV, you can see the login prompt, you can login with default credentials with username as **root** and password as **nutanix/4u** 
+
+It takes sometimes to come up for creating of cluster.
+
+.. figure:: Assets/AHV_login.png
+
+Now, ssh to CVM with the CVM IP address (you can also use CVM internal IP 192.168.5.2) with username: **nutanix** and password as **nutanix/4u**
+
+Once **cluster status** command shows cluster is unconfigured, now you can go ahead and create a cluster.
+
+.. figure:: Assets/ahv_cluster_creation.png
 
 
 
