@@ -484,9 +484,9 @@ Once the ISO is downloaded, follow the same steps from 1 what we did for CE VM i
 
 14. Once docker is installed, for this demo “web-dvwa” application is being installed using below docker command
 
-**$ docker run -d -p 3001:80 vulnerables/web-dvwa**
+    **$ docker run -d -p 3001:80 vulnerables/web-dvwa**
 
-.. image:: ./assets/assets-ocp/18.png
+    .. image:: ./assets/assets-ocp/18.png
 
 Accessing applications through Load Balancers
 --------------
@@ -561,7 +561,7 @@ Adding new application and accessing through Load Balancers
 --------------
 Once the LB URL is verified and application is accessible, we can start scaling by installing one more new application in another port using the docker command in Client machine.
 
-- **$ docker run -d -p 3000:3000 bkimminich/juice-shop**
+    **$ docker run -d -p 3000:3000 bkimminich/juice-shop**
 
 .. image:: ./assets/assets-ocp/32.png
 
