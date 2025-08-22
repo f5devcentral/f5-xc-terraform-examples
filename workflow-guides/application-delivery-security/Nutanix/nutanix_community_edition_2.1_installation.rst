@@ -92,3 +92,4 @@ Before proceeding installing Nutanix CE, gather the following information that i
 * DNS, NTP, and proxy server IP addresses (if applicable)
 
 Step 2: Installing Nutanix CE 2.1 
+
