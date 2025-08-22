@@ -993,8 +993,6 @@ Remove the external-to-prod segment connector and save the change.
 
 ## 8.2 Create HTTP LB
 
-TBD
-
 Next, we will create an HTTP Load Balancer. Open the main menu and select the **Multi-Cloud App Connect** service.
 
 ![alt text](./assets/app_connect_navigate.png)
@@ -1023,11 +1021,11 @@ Give origin pool a name and add an origin server.
 
 ![alt text](./assets/app_connect_httplb_origin_name.png)
 
-Select **IP address of Origin Server on given Sites** as Origin Server type and type in the **10.1.10.100** private IP. In the drop-down menu select the AWS TGW Site we created [earlier](#14-create-aws-tgw-site). Complete the configuration by selecting **Segment** network on the site. Select the **prod-segment** created [here](#21-configure-cloud-connect).
+Select **IP address of Origin Server on given Sites** as Origin Server type and type in the **10.1.10.100** private IP. In the drop-down menu select the AWS TGW Site we created [earlier](#14-create-aws-tgw-site). Complete the configuration by selecting **Segment** network on the site. Select the **prod-segment** created [here](#21-configure-cloud-connect). Apply the configuration.
 
 ![alt text](./assets/app_connect_httplb_origin_details.png)
 
-Type in the **80** origin server port and **Continue**.
+Type in the **80** origin server port and click **Add Origin Pool**.
 
 ![alt text](./assets/app_connect_httplb_origin_details_apply.png)
 
@@ -1047,11 +1045,11 @@ Select **Segment on Site** to advertise on a segment on site. In the drop-down m
 
 ![alt text](./assets/app_connect_httplb_origin_adv_details.png)
 
-**Apply** the Custom Advertise VIP Configuration configuration.
+**Apply** the Custom Advertise VIP Configuration.
 
 ![alt text](./assets/app_connect_httplb_adv_apply.png)
 
-Now that the HTTP Load Balancer is configured, click **Save and Exit** to save it.
+Now that the HTTP Load Balancer is configured, click **Add HTTP Load Balancer** to save it.
 
 ![alt text](./assets/app_connect_httplb_apply.png)
 
