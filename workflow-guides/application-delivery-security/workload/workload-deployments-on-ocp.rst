@@ -173,6 +173,7 @@ Once the image is downloaded follow the below steps:
 8. A Network Attachment Definition with type “bridge” is required for having SLI interface on CE VM and IP for SLI
 
     Save the below configuration as **f5-ce-nad.yaml**
+
     Apply by executing **oc apply -f f5-ce-nad.yaml**
 .. code-block:: python
 
