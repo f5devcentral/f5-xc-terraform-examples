@@ -277,16 +277,16 @@ AlpineOS ISO can be downloaded from this `link <https://alpinelinux.org/download
 
 *Note: For this demonstration, virtual x86_64 image is chosen.*
 
-Once the ISO is downloaded, follow the same steps from 1 what we did for CE VM installation.
-
 *Note : Before creating PV, login to node, create a new directory (v2) in the same node where CE is present and provide necessary permission (777) for PV to write content in the node directory.*
 
     - oc debug node/<node-name>
     - chroot /host
     - mkdir -p /mnt/data/v2 /mnt/data/v3
     - chmod 777 /mnt/data/v2 /mnt/data/v3
+    - exit
+    - exit
 
-1. Create PV with 20-30 GB space, based on your applications size.
+1. Create PV with 5 GB space, to store ISO image.
 
 .. code-block:: python
 
@@ -296,7 +296,7 @@ Once the ISO is downloaded, follow the same steps from 1 what we did for CE VM i
       name: f5-xc-sms-pv3
     spec:
       capacity:
-        storage: 20Gi
+        storage: 5Gi
       accessModes:
         - ReadWriteOnce
       persistentVolumeReclaimPolicy: Retain
@@ -319,7 +319,7 @@ Once the ISO is downloaded, follow the same steps from 1 what we did for CE VM i
       name: f5-xc-sms-pv4
     spec:
       capacity:
-        storage: 20Gi
+        storage: 5Gi
       accessModes:
         - ReadWriteOnce
       persistentVolumeReclaimPolicy: Retain
@@ -342,7 +342,7 @@ Once the ISO is downloaded, follow the same steps from 1 what we did for CE VM i
 
 .. image:: ./assets/assets-ocp/11.png
 
-4. Create a new PV with 20-30 GB space for alpine boot storage
+4. Create a new PV with 20-30 GB space for alpine installation
 
 .. code-block:: python
 
