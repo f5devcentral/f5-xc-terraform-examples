@@ -75,11 +75,12 @@ A node token is required to register a CE Site node to the Distributed Cloud Con
 Once the image is downloaded follow the below steps:
 
 1. Create Persistent Volumes with 100GB capacity and local storage (so that image gets stored in the node path given)
-	- Save the below configuration as f5-ce-pv.yaml
+
+    Save the below configuration as **f5-ce-pv.yaml**
 
 .. code-block:: python
-   :caption: this.py
-   :name: this-py
+    :caption: this.py
+    :name: this-py
 
     apiVersion: v1
     kind: PersistentVolume
@@ -131,23 +132,25 @@ Once the image is downloaded follow the below steps:
 
 2. Before creating PV, login to node
     - oc debug node/<node-name>
-	- chroot /host
+    - chroot /host
 
-Create new interface for SLI
-	- sudo ip link add name br-extvm-1 type bridge
-	- sudo ip link set dev br-extvm-1 up
+    Create new interface for SLI
+        - sudo ip link add name br-extvm-1 type bridge
+        - sudo ip link set dev br-extvm-1 up
 
-*Note – Interface was already added, so “File exists” is showing, when executed for the first time you won’t see this*
+    *Note – Interface was already added, so “File exists” is showing, when executed for the first time you won’t see this*
 
-.. image:: ./assets/assets-ocp/5.png
+    .. image:: ./assets/assets-ocp/5.png
 
-Create a directory and provide necessary permission (777) for PV to write content in the node directory
-	- mkdir -p /mnt/data/v1
-	- chmod 777 /mnt/data/v1
-	- exit
-	- exit
+    Create a directory and provide necessary permission (777) for PV to write content in the node directory
+        - mkdir -p /mnt/data/v1
+        - chmod 777 /mnt/data/v1
+        - exit
+        - exit
 
-3. After creating bridge interface and storage for CE VM in the node, exit the node and apply the OC apply command to create PV using the above .yaml file “oc apply –f f5-ce-pv.yaml”
+3. After creating bridge interface and storage for CE VM in the node, exit the node and apply the OC apply command to create PV using the above .yaml file
+
+    **oc apply –f f5-ce-pv.yaml**
 
 4. Create a “Storage Class” with the configuration below.
 
