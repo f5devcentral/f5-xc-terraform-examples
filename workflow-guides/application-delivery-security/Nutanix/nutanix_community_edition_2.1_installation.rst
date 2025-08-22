@@ -22,3 +22,10 @@ Below are the following hardware requirements for running CE in our environment,
 * Hypervisor Boot Disk: 32GB minimum (for external drives, use USB 3.0) 
 
 * Imaging Software: Open-source imaging software such as Rufus. 
+
+Reference page for [Recommended Hardware for Community Edition](https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Community-Edition-Getting-Started-v2_1:top-sysreqs-ce-r.html) section. 
+
+My setup:
+***************
+
+For my setup, I installed single node cluster on Dell PowerEdge R430 with Intel NIC with following specs,  
