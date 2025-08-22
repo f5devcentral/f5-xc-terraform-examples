@@ -169,8 +169,7 @@ Once the image is downloaded follow the below steps:
 8. A Network Attachment Definition with type “bridge” is required for having SLI interface on CE VM and IP for SLI
 
 .. code-block:: python
-   :caption: this2.py
-   :name: this2-py
+
     apiVersion: "k8s.cni.cncf.io/v1"
     kind: NetworkAttachmentDefinition
     metadata:
@@ -191,6 +190,7 @@ Once the image is downloaded follow the below steps:
 9. YAML file is used for creating the VM which will have PVC name of image, network and token (obtained while F5 Distributed Cloud site creation) details.
 
 .. code-block:: python
+
     apiVersion: kubevirt.io/v1
     kind: VirtualMachine
     metadata:
