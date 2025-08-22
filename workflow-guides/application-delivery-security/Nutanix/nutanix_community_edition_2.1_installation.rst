@@ -10,3 +10,15 @@ Recommended Hardware:
 Below are the following hardware requirements for running CE in our environment, 
 
 * CPU: Intel Sandy Bridge (VT-x or AVX), or AMX Zen or later, 4 cores minimum
+* Memory: 32 GB minimum, 64 GB or greater recommended 
+* NIC: Intel or Realtek, 1 GbE or 2.5 GbE 
+
+* HBA: AHCI SATA or LSI Controller with IT mode (best) or IR mode (Passthrough or Raid-O) 
+
+* Storage device: Data disk with 500 GB minimum, 18 TB maximum (can be SSD or HDD) 
+
+* Storage device: CVM (hot-tier flash) with 200 GB minimum (must be SSD) 
+
+* Hypervisor Boot Disk: 32GB minimum (for external drives, use USB 3.0) 
+
+* Imaging Software: Open-source imaging software such as Rufus. 
