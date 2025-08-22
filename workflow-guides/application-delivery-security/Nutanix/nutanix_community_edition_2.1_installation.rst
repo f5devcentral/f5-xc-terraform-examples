@@ -28,4 +28,22 @@ Reference page for `Recommended Hardware for Community Edition <https://portal.n
 My setup:
 ***************
 
-For my setup, I installed single node cluster on Dell PowerEdge R430 with Intel NIC with following specs,  
+For my setup, I installed single node cluster on Dell PowerEdge R430 with Intel NIC with following specs,
+
+* CPU: 2 x Intel® Xeon® CPU E5-2620 v4 
+
+* Memory: 64 GB 
+
+* NIC: Intel NIC 10 GbE 4P X710 Adapter 
+
+* HBA: AHCI SATA 
+
+* Storage device: Data disk of SSD with 800 GB 
+
+* Storage device: CVM of SSD with 800 GB 
+
+* Hypervisor Boot disk: 32 GB USB 3.0 device 
+
+* Imaging Software: Nutanix ISO booted using Rufus to USB 3.0 drive 
+
+.. figure:: Assets/Nutanix_Dell_PowerEdge_overview.jpeg
