@@ -69,13 +69,13 @@ Make sure that you have a valid `Nutanix Community <https://next.nutanix.com/>`_
 
 Step 1: Preparing installation media
 
-After registering to Nutanix account, go to the `Community Edition discussion forum <https://next.nutanix.com/discussion-forum-14>`__and click the **Download Community Edition** topic.
+After registering to Nutanix account, go to the `Community Edition discussion forum <https://next.nutanix.com/discussion-forum-14>`__ and click the **Download Community Edition** topic.
 
 **Note:** Nutanix recommends using drive with USB 3.0 or later to avoid networking and installation timeouts, but you can use virtual media to perform installation. Nutanix recommends a smaller capacity than all the other drivers (Data & CVM) on the node.
 
 Under **Installer ISO**, click the download link. Image the installation device with the installer ISO file.
 
-Download the latest edition of `Rufus <https://rufus.ie/en/>`__` here and open the application. Select the downloaded ISO image and rest of the configs were set to default, click on start button to image. Once the process is done, eject the USB drive and insert it to selected Bare Metal HW.
+Download the latest edition of `Rufus <https://rufus.ie/en/>`__ here and open the application. Select the downloaded ISO image and rest of the configs were set to default, click on start button to image. Once the process is done, eject the USB drive and insert it to selected Bare Metal HW.
 
 .. figure:: Assets/rufus.jpg
 
