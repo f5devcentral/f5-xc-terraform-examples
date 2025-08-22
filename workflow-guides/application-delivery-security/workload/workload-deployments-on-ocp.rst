@@ -196,6 +196,9 @@ Once the image is downloaded follow the below steps:
 
 9. YAML file is used for creating the VM which will have PVC name of image, network and token (obtained while F5 Distributed Cloud site creation) details.
 
+    Save the below configuration as **f5-ce-vm.yaml**
+
+    Apply by executing **oc apply -f f5-ce-vm.yaml**
 .. code-block:: python
 
     apiVersion: kubevirt.io/v1
@@ -291,6 +294,9 @@ AlpineOS ISO can be downloaded from this `link <https://alpinelinux.org/download
 
 1. Create PV with 5 GB space, to store ISO image.
 
+    Save the below configuration as **f5-ce-pv2.yaml**
+
+    Apply by executing **oc apply -f f5-ce-pv2.yaml**
 .. code-block:: python
 
     apiVersion: v1
@@ -347,6 +353,9 @@ AlpineOS ISO can be downloaded from this `link <https://alpinelinux.org/download
 
 4. Create a new PV with 20-30 GB space for alpine installation
 
+    Save the below configuration as **f5-ce-pv3.yaml**
+
+    Apply by executing **oc apply -f f5-ce-pv3.yaml**
 .. code-block:: python
 
     apiVersion: v1
@@ -374,6 +383,9 @@ AlpineOS ISO can be downloaded from this `link <https://alpinelinux.org/download
 
 5. Create a new PVC for storing the alpine installation, which will bound to the PV created above
 
+    Save the below configuration as **f5-ce-pvc.yaml**
+
+    Apply by executing **oc apply -f f5-ce-pvc.yaml**
 .. code-block:: python
 
     apiVersion: v1
@@ -392,6 +404,9 @@ AlpineOS ISO can be downloaded from this `link <https://alpinelinux.org/download
 
 6. Create the Alpine VM using below yaml file
 
+    Save the below configuration as **f5-ce-vm2.yaml**
+
+    Apply by executing **oc apply -f f5-ce-vm2.yaml**
 .. code-block:: python
 
     apiVersion: kubevirt.io/v1
