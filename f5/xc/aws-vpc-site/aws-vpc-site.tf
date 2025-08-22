@@ -1,7 +1,6 @@
 module "aws_vpc_site" {
-  source = "github.com/f5shemyakin/terraform-xc-aws-vpc-site"
-  # source                                   = "f5devcentral/aws-vpc-site/xc"
-  # version                                  = "0.0.11"
+  source                                   = "f5devcentral/aws-vpc-site/xc"
+  version                                  = "0.0.12"
   site_name                                = ("" != var.prefix) ? format("%s-%s", var.prefix, var.name) : var.name
   aws_region                               = var.aws_region
   aws_cloud_credentials_name               = var.aws_cloud_credentials_name

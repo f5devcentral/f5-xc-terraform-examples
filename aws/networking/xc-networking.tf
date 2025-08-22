@@ -1,7 +1,6 @@
 module "xc_aws_vpc" {
-  source = "github.com/yoctoalex/terraform-xc-aws-vpc-site-networking"
-  # source  = "f5devcentral/aws-vpc-site-networking/xc"
-  # version = "0.0.5"
+  source  = "f5devcentral/aws-vpc-site-networking/xc"
+  version = "0.0.6"
 
   name                                     = ("" != var.prefix) ? format("%s-%s", var.prefix, var.name) : var.name
   existing_vpc_id                          = ("" != var.existing_vpc_id) ? var.existing_vpc_id : null
