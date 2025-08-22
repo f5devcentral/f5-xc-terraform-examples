@@ -47,3 +47,22 @@ For my setup, I installed single node cluster on Dell PowerEdge R430 with Intel 
 * Imaging Software: Nutanix ISO booted using Rufus to USB 3.0 drive 
 
 .. figure:: Assets/Nutanix_Dell_PowerEdge_overview.jpeg
+
+Above screenshot shows the Dell PowerEdge R430 HW that I brought up to install Nutanix CE. After connecting necessary USB drives such as Installer and Hypervisor boot and other HW, I have installed AHV Hypervisor followed by Controller Virtual Machine (CVM) for managing the storing and providing the management plane. Once everything is up and running, we login to CVM or cluster’s external IP address to create virtual machines.
+
+Detailed process of Nutanix CE installation is below.
+
+Procedure to Install Nutanix CE 2.1:
+***************
+
+Below are the series of steps to be followed to install CE on any Bare Metal server,
+
+Make sure that you have a valid `Nutanix Community <https://next.nutanix.com/>`__ account, if not sign up to `Nutanix registration page<https://my.nutanix.com/page/signup>`__.  
+
+1. Prepare installation media 
+
+2. Install Nutanix Community Edition 
+
+3. Create and configure a single-node cluster 
+
+4. Access the Web Console 
