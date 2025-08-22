@@ -57,7 +57,7 @@ Procedure to Install Nutanix CE 2.1:
 
 Below are the series of steps to be followed to install CE on any Bare Metal server,
 
-Make sure that you have a valid `Nutanix Community <https://next.nutanix.com/>`__ account, if not sign up to `Nutanix registration page<https://my.nutanix.com/page/signup>`__.  
+Make sure that you have a valid `Nutanix Community <https://next.nutanix.com/>`__ account, if not sign up to `Nutanix registration page <https://my.nutanix.com/page/signup>`__.  
 
 1. Prepare installation media 
 
@@ -66,3 +66,29 @@ Make sure that you have a valid `Nutanix Community <https://next.nutanix.com/>`_
 3. Create and configure a single-node cluster 
 
 4. Access the Web Console 
+
+Step 1: Preparing installation media
+
+After registering to Nutanix account, go to the `Community Edition discussion forum <https://next.nutanix.com/discussion-forum-14>`__and click the **Download Community Edition** topic.
+
+**Note:** Nutanix recommends using drive with USB 3.0 or later to avoid networking and installation timeouts, but you can use virtual media to perform installation. Nutanix recommends a smaller capacity than all the other drivers (Data & CVM) on the node.
+
+Under **Installer ISO**, click the download link. Image the installation device with the installer ISO file.
+
+Download the latest edition of `Rufus <https://rufus.ie/en/>`__` here and open the application. Select the downloaded ISO image and rest of the configs were set to default, click on start button to image. Once the process is done, eject the USB drive and insert it to selected Bare Metal HW.
+
+.. figure:: Assets/rufus.jpg
+
+Before proceeding installing Nutanix CE, gather the following information that is required during installation process,
+
+* Host IP address (for CE hypervisor host) 
+
+* Controller VM (CVM) IP address 
+
+* Subnet mask 
+
+* Gateway 
+
+* DNS, NTP, and proxy server IP addresses (if applicable)
+
+Step 2: Installing Nutanix CE 2.1 
