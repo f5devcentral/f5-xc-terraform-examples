@@ -23,7 +23,7 @@ Below are the following hardware requirements for running CE in our environment,
 
 * Imaging Software: Open-source imaging software such as Rufus. 
 
-Reference page for [Recommended Hardware for Community Edition](https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Community-Edition-Getting-Started-v2_1:top-sysreqs-ce-r.html) section. 
+Reference page for `Recommended Hardware for Community Edition <https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Community-Edition-Getting-Started-v2_1:top-sysreqs-ce-r.html>`__ section. 
 
 My setup:
 ***************
