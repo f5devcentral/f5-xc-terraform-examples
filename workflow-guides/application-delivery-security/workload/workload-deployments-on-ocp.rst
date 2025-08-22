@@ -74,7 +74,33 @@ A node token is required to register a CE Site node to the Distributed Cloud Con
 
 Once the image is downloaded follow the below steps:
 
-1. Create Persistent Volumes with 100GB capacity and local storage (so that image gets stored in the node path given)
+1. Login to node
+    List the nodes by executing **oc get node** and you'll get node name
+
+        - oc debug node/<node-name>
+        - chroot /host
+
+    Create new interface for SLI
+
+        - sudo ip link add name br-extvm-1 type bridge
+        - sudo ip link set dev br-extvm-1 up
+
+    *Note – Interface was already added, so “File exists” is showing, when executed for the first time you won’t see this*
+
+    .. image:: ./assets/assets-ocp/5.png
+
+    Create a directory and provide necessary permission (777) for PV to write content in the node directory
+
+        - mkdir -p /mnt/data/v1
+        - chmod 777 /mnt/data/v1
+        - exit
+        - exit
+
+2. Create a “Storage Class” with the configuration below.
+
+.. image:: ./assets/assets-ocp/6.png
+
+3. Create Persistent Volumes with 100GB capacity and local storage (so that image gets stored in the node path given)
 
     Save the below configuration as **f5-ce-pv.yaml**
 
@@ -100,7 +126,7 @@ Once the image is downloaded follow the below steps:
                 - key: kubernetes.io/hostname
                   operator: In
                   values:
-                    - aa-bb-cc-dd-ee-01  # The node you want to use
+                    - <node-name>  # The node you want to use
       volumeMode: Filesystem
 
     ---
@@ -125,34 +151,12 @@ Once the image is downloaded follow the below steps:
                 - key: kubernetes.io/hostname
                   operator: In
                   values:
-                    - aa-bb-cc-dd-ee-01  # The node you want to use
+                    - <node-name>  # The node you want to use
       volumeMode: Filesystem
 
-2. Before creating PV, login to node
-    - oc debug node/<node-name>
-    - chroot /host
-
-    Create new interface for SLI
-        - sudo ip link add name br-extvm-1 type bridge
-        - sudo ip link set dev br-extvm-1 up
-
-    *Note – Interface was already added, so “File exists” is showing, when executed for the first time you won’t see this*
-
-    .. image:: ./assets/assets-ocp/5.png
-
-    Create a directory and provide necessary permission (777) for PV to write content in the node directory
-        - mkdir -p /mnt/data/v1
-        - chmod 777 /mnt/data/v1
-        - exit
-        - exit
-
-3. After creating bridge interface and storage for CE VM in the node, exit the node and apply the OC apply command to create PV using the above .yaml file
+4. After creating bridge interface and storage for CE VM in the node, apply the OC apply command to create PV using the above .yaml file
 
     **oc apply –f f5-ce-pv.yaml**
-
-4. Create a “Storage Class” with the configuration below.
-
-.. image:: ./assets/assets-ocp/6.png
 
 5. Now under “Bootable volumes” create volume for the CE image downloaded (from F5 Distributed Cloud site creation) by uploading it.
 
@@ -213,7 +217,7 @@ Once the image is downloaded follow the below steps:
               ]
         spec:
           nodeSelector:
-            kubernetes.io/hostname: aa-bb-cc-dd-ee-01
+            kubernetes.io/hostname: <node-name>
           domain:
             memory:
               guest: 16Gi
@@ -237,7 +241,7 @@ Once the image is downloaded follow the below steps:
           volumes:
             - name: rootdisk
               persistentVolumeClaim:
-                claimName: xc-ce-volume
+                claimName: xc-ce-volume             #PVC name
             - name: cloudinitdisk
               cloudInitNoCloud:
                 userData: |
@@ -247,7 +251,7 @@ Once the image is downloaded follow the below steps:
                       permissions: 644
                       owner: root
                       content: |
-                        token: <your token>
+                        token: <your token>             #token needs to be added
                         #slo_ip: Un-comment and set Static IP/mask for SLO if needed.
                         #slo_gateway: Un-comment and set default gateway for SLO when static IP is  needed.
           networks:
@@ -276,6 +280,7 @@ AlpineOS ISO can be downloaded from this `link <https://alpinelinux.org/download
 Once the ISO is downloaded, follow the same steps from 1 what we did for CE VM installation.
 
 *Note : Before creating PV, login to node, create a new directory (v2) in the same node where CE is present and provide necessary permission (777) for PV to write content in the node directory.*
+
     - oc debug node/<node-name>
     - chroot /host
     - mkdir -p /mnt/data/v2 /mnt/data/v3
@@ -284,8 +289,7 @@ Once the ISO is downloaded, follow the same steps from 1 what we did for CE VM i
 1. Create PV with 20-30 GB space, based on your applications size.
 
 .. code-block:: python
-   :caption: this.py
-   :name: this-py
+
     apiVersion: v1
     kind: PersistentVolume
     metadata:
@@ -306,7 +310,7 @@ Once the ISO is downloaded, follow the same steps from 1 what we did for CE VM i
                 - key: kubernetes.io/hostname
                   operator: In
                   values:
-                    - aa-bb-cc-dd-ee-01  # The node you want to use
+                    - <node-name>  # The node you want to use
       volumeMode: Filesystem
     ---
     apiVersion: v1
@@ -329,7 +333,7 @@ Once the ISO is downloaded, follow the same steps from 1 what we did for CE VM i
                 - key: kubernetes.io/hostname
                   operator: In
                   values:
-                    - aa-bb-cc-dd-ee-01  # The node you want to use
+                    - <node-name>  # The node you want to use
       volumeMode: Filesystem
 
 2. Creating new “Storage Class” is not required, as “tme-storage” created earlier will be used
@@ -341,8 +345,7 @@ Once the ISO is downloaded, follow the same steps from 1 what we did for CE VM i
 4. Create a new PV with 20-30 GB space for alpine boot storage
 
 .. code-block:: python
-   :caption: this.py
-   :name: this-py
+
     apiVersion: v1
     kind: PersistentVolume
     metadata:
@@ -363,14 +366,13 @@ Once the ISO is downloaded, follow the same steps from 1 what we did for CE VM i
                 - key: kubernetes.io/hostname
                   operator: In
                   values:
-                    - aa-bb-cc-dd-ee-01  # The node you want to use
+                    - <node-name>  # The node you want to use
       volumeMode: Filesystem
 
 5. Create a new PVC for storing the alpine installation, which will bound to the PV created above
 
 .. code-block:: python
-   :caption: this.py
-   :name: this-py
+
     apiVersion: v1
     kind: PersistentVolumeClaim
     metadata:
@@ -388,8 +390,7 @@ Once the ISO is downloaded, follow the same steps from 1 what we did for CE VM i
 6. Create the Alpine VM using below yaml file
 
 .. code-block:: python
-   :caption: this.py
-   :name: this-py
+
     apiVersion: kubevirt.io/v1
     kind: VirtualMachine
     metadata:
@@ -412,7 +413,7 @@ Once the ISO is downloaded, follow the same steps from 1 what we did for CE VM i
               ]
         spec:
           nodeSelector:
-            kubernetes.io/hostname: aa-bb-cc-dd-ee-01
+            kubernetes.io/hostname: <node-name>
           domain:
             cpu:
               cores: 2
@@ -436,7 +437,7 @@ Once the ISO is downloaded, follow the same steps from 1 what we did for CE VM i
           volumes:
             - name: rootdisk
               persistentVolumeClaim:
-                claimName: alpine-volume
+                claimName: alpine-volume        # Alpine PVC name
             - name: install-disk
               persistentVolumeClaim:
                 claimName: alpine-install-pvc   # New PVC for installation disk
