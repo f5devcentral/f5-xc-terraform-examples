@@ -52,7 +52,7 @@ Above screenshot shows the Dell PowerEdge R430 HW that I brought up to install N
 
 Detailed process of Nutanix CE installation is below.
 
-Procedure to Install Nutanix CE 2.1 on Bare Metal new:
+Procedure to Install Nutanix CE 2.1 on Bare Metal:
 ***************
 
 Below are the series of steps to be followed to install CE on any Bare Metal server,
