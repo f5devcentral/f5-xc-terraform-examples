@@ -233,11 +233,10 @@ Nutanix CE helps to manage virtual environments with optimized performance and r
 For more details, guidance on Nutanix CE installation, refer to the official documentation below,
 
 https://next.nutanix.com/ 
+
 https://my.nutanix.com/page/signup 
 
 https://www.nutanix.com/products/community-edition/register 
-
- 
 
 https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Community-Edition-Getting-Started:top-sysreqs-ce-r.html 
 
@@ -245,7 +244,6 @@ https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Community-Edi
 
 https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Community-Edition-Getting-Started-v2_1:top-cluster-creating-ce-c.html 
 
-end of test
 
 
 
