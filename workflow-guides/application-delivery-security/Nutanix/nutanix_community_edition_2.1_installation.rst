@@ -179,5 +179,71 @@ Once **cluster status** command shows cluster is unconfigured, now you can go ah
 
 .. figure:: Assets/ahv_cluster_creation.png
 
+Since we are creating a single-node cluster, execute the command **cluster –s <cvm_ip> –-redundancy_factor=1 create**
+
+.. figure:: Assets/cluster_creation.jpg
+
+.. figure:: Assets/cluster_creation_3.png
+
+It takes a few minutes to create the cluster and shows success message that cluster is successfully created.
+
+.. figure:: Assets/cluster_success.jpg
+
+Now, let us configure cluster parameters such as cluster name, external IP address, NTP server etc.
+
+External IP address is with which we access the Nutanix Web console,
+
+Cli to configure an external IP address for the cluster is **ncli cluster set-external-ip-address external-ip-address=<cluster_ip_address>**
+
+I have provided cluster IP as **10.146.20.102**
+
+Now, setup is good and ready to be accessed.
+
+**Step 4: Accessing the web console**
+
+In a web browser, navigate to http:// <External_IP> or <CVM_IP> with port number 9440 to access the Nutanix console.
+
+.. figure:: Assets/nutanix_web_console.png
+
+Sign in with default admin account username and password. 
+
+* Username: admin 
+* Password: nutanix/4u 
+
+When prompted, change the default password.
+
+Sign in with the admin account username and the new password.
+
+Finally, we need to connect our next community account to the cluster by providing the Nutanix Community credentials. If you can’t sign in using your Nutanix community credentials, your account might not be registered to use CE. Complete the `CE registration <https://www.nutanix.com/products/community-edition/register>`__ page to register your account.
+
+.. figure:: Assets/nutanix_account.jpg
+
+Once the login is successfully, you will see the Nutanix dashboard details as shown below,
+
+.. figure:: Assets/nutanix_dashboard.png
+
+This confirms Nutanix CE 2.1 is successfully installed on Bare Metal. Virtual Instances can now be created.
+
+**Conslusion:**
+
+Nutanix CE helps to manage virtual environments with optimized performance and reliability. With the Nutanix CE installed successfully on Dell PowerEdge R430 by following steps mentioned above. Similar process helps in installing Nutanix CE on any Bare Metal.
+
+**Additional Links: **
+
+For more details, guidance on Nutanix CE installation, refer to the official documentation below,
+
+https://next.nutanix.com/ 
+https://my.nutanix.com/page/signup 
+
+https://www.nutanix.com/products/community-edition/register 
+
+ 
+
+https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Community-Edition-Getting-Started:top-sysreqs-ce-r.html 
+
+https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Community-Edition-Getting-Started-v2_1:top-installing-ce-t.html 
+
+https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Community-Edition-Getting-Started-v2_1:top-cluster-creating-ce-c.html 
+
 
 
