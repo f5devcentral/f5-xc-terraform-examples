@@ -115,7 +115,7 @@ jobs:
       TF_VAR_azure_vm_private_ip: ${{ steps.update_output.outputs.TF_VAR_azure_vm_private_ip }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         
       - id: apply_variables 
         uses: "./.github/actions/apply-variables" 
@@ -345,10 +345,10 @@ jobs:
       global_vn_namespace: ${{ steps.output_vars.outputs.global_vn_namespace }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@v3
         with:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
@@ -378,7 +378,7 @@ jobs:
         run: terraform validate -no-color
 
       - name: Terraform Apply
-        run: terraform apply -lock=false -no-color -auto-approve -input=false
+        run: terraform apply -no-color -auto-approve -input=false
 
       - name: Set output vars
         id: output_vars
@@ -479,7 +479,7 @@ jobs:
         working-directory: "./teachable/01-mcn-networkconnect/terraform/global-network"
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Test Connection
         run: |
@@ -525,10 +525,10 @@ jobs:
       namespace: ${{ steps.output_vars.outputs.namespace }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@v3
         with:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
@@ -558,7 +558,7 @@ jobs:
         run: terraform validate -no-color
 
       - name: Terraform Apply
-        run: terraform apply -lock=false -no-color -auto-approve -input=false
+        run: terraform apply -no-color -auto-approve -input=false
 
       - name: Set output vars
         id: output_vars
@@ -616,7 +616,7 @@ jobs:
         working-directory: "./teachable/01-mcn-networkconnect/terraform/enhanced-firewall"
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Test Connection
         run: |

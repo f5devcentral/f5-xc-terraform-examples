@@ -30,27 +30,25 @@ Architecture Overview
 
 *Note: This scenario uses VMware On-Prem, but it can also be deployed on GCP and Azure.*
 
-`F5 Distributed Cloud Workload Deployments on VMware[coming soon] <coming soon>`__
+`F5 Distributed Cloud Workload Deployments on VMware <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/workload/workload-deployments-on-vmware.rst>`__
+
+**OpenShift Container Platform (OCP):** 1-node OCP cluster is created on VMware. SMSv2 CE as VM is deployed using KVM (qcow) image in OCP cluster virtualization. VM running application workloads is also deployed and connected to CE using Site Local Inside (SLI) subnet and interface, so that applications are not exposed directly.
+
+*Note: This scenario uses OCP Datacenter (On-Prem), but it can also be deployed on AWS, GCP, IBM and Azure.*
+
+`OCP Infra Setup on VMware <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/workload/ocp-infra-setup.rst>`__
+
+`F5 Distributed Cloud Workload Deployments on OCP <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/workload/workload-deployments-on-ocp.rst>`__
 
 **Nutanix on Bare Metal:** Nutanix Community Edition is used as Hypervisor and deployed in Dell PowerEdge-R430 bare metal. A VM is created and booted using the qcow2 image of SMSv2 CE downloaded from F5 Distributed Cloud. Once the CE VM is up and site is online, VM running application workloads are also deployed and connected to CE using Site Local Inside (SLI) subnet and interface, so that applications are not exposed directly.
 
 *Note: This scenario uses Nutanix On-Prem, but it can also be deployed on AWS and Azure.*
 
-Nutanix Infra Setup
+`Nutanix Infra Setup[coming soon] <coming soon>`__
 
 `F5 Distributed Cloud Workload Deployments on Nutanix[coming soon] <coming soon>`__
 
-**OpenShift Container Platform (OCP):** 3-node OCP cluster is created on VMware. SMSv2 CE as VM is deployed using KVM (qcow) image in OCP cluster virtualization. VM running application workloads is also deployed and connected to CE using Site Local Inside (SLI) subnet and interface, so that applications are not exposed directly.
-
-*Note: This scenario uses OCP Datacenter (On-Prem), but it can also be deployed on AWS, GCP, IBM and Azure.*
-
-OCP Infra Setup
-
-`F5 Distributed Cloud Workload Deployments on OCP[coming soon] <coming soon>`__
-
 **Nutanix on VMware:** <Coming Soon>
-
-`Deploy Secure Mesh Site v2 in Nutanix <https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-nutanix>`__
 
 **Cloud Env:** For this demo Azure is chosen for deploying SMSv2 CE site. In the same resource group where CE VM is deployed, VM running application workloads is also deployed and connected to CE using Site Local Inside (SLI) subnet and interface, so that applications are not exposed directly.
 
@@ -92,7 +90,7 @@ Initial Infrastructure:
 *VMware: App A & B, OpenShift: App B & C, Nutanix: App B*
 
 **VMware**
-
+~~~~~~~~~~
 In the VMware on-premises environment, Applications A and B are deployed and connected to two separate load balancers, forming the existing infrastructure. These applications are actively serving user traffic with delivery and security managed by F5 Distributed Cloud.
 
 .. image:: ./assets/VMW-lb-in.png
@@ -114,7 +112,7 @@ VMware application B (DVWA) deployed on LB **f5-adsp2.f5-hyd-xcdemo.com**
 .. image:: ./assets/VMW-B.png
 
 **OCP (OpenShift Container Platform)**
-
+~~~~~~~~~~
 In the OCP on-premises environment, Applications B and C are deployed and connected to two separate load balancers, forming the existing infrastructure. These applications are actively serving user traffic with delivery and security managed by F5 Distributed Cloud.
 
 .. image:: ./assets/OCP-lb-in.png
@@ -136,7 +134,7 @@ OCP application C (NGINX) deployed on LB **f5-adsp4.f5-hyd-xcdemo.com**
 .. image:: ./assets/OCP-C.png
 
 **Nutanix**
-
+~~~~~~~~~~
 In the Nutanix on-premises environment, Application B is deployed and connected to a dedicated load balancer, representing the existing infrastructure setup. These applications are actively serving user traffic with delivery and security managed by F5 Distributed Cloud.
 
 .. image:: ./assets/nutanx-lb-in.png
@@ -163,7 +161,7 @@ As the F5 Distributed Cloud supports continuous delivery and seamless security f
 *VMware: Add App C, OpenShift: Add App A, Nutanix: Add App A and C*
 
 **VMware**
-
+~~~~~~~~~~
 In the VMware on-premises environment, an additional application—Application C—will be deployed and connected to a dedicated load balancer, representing a new workload within the existing infrastructure. This deployment will be seamlessly integrated with F5 Distributed Cloud for secure and efficient application delivery.
 
 .. image:: ./assets/VMW-lb-add.png
@@ -181,7 +179,7 @@ From the **Requests** section in Distributed Cloud console for the **new workloa
 .. image:: ./assets/VMW-add-req.png
 
 **OCP (OpenShift Container Platform)**
-
+~~~~~~~~~~
 In the OCP on-premises environment, an additional application—Application A—will be deployed and connected to a dedicated load balancer, representing a new workload within the existing infrastructure. This deployment will be seamlessly integrated with F5 Distributed Cloud for secure and efficient application delivery.
 
 .. image:: ./assets/OCP-lb-add.png
@@ -199,7 +197,7 @@ From the **Requests** section in Distributed Cloud console for the **new workloa
 .. image:: ./assets/OCP-add-req.png
 
 **Nutanix**
-
+~~~~~~~~~~
 In the Nutanix on-premises environment, Applications A and C have been deployed and connected to two respective load balancers, representing new workloads added to the existing infrastructure. This deployment will be seamlessly integrated with F5 Distributed Cloud for secure and efficient application delivery.
 
 .. image:: ./assets/nutanix-lb-add.png
@@ -221,12 +219,12 @@ Nutanix application C (Juice Shop) deployed on LB **f5-adsp9.f5-hyd-xcdemo.com**
 .. image:: ./assets/nutanix-C.png
 
 **Cloud Service Provider (Azure)**
-
-Initial Infrastructure:
+--------------
+**Initial Infrastructure:**
 
 At the outset, cloud environments do not host any workloads. As new workloads are deployed based on requirements, F5 Distributed Cloud ensures seamless application delivery and comprehensive security across the infrastructure.
 
-Adding new workloads:
+**Adding new workloads:**
 
 In the Azure environment, Application A and B will be deployed and connected to dedicated load balancers, forming part of the new workload infrastructure. This setup will be secured and managed by F5 Distributed Cloud, ensuring reliable delivery and protection.
 

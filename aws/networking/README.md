@@ -58,6 +58,7 @@ The full input parameters list can be found in the [aws-vpc-site-networking modu
   | TF_VAR_aws_region                               | us-east-1              | AWS region for the resources                     |
   | TF_VAR_existing_vpc_id                          |                        | ID of an existing VPC                            |
   | TF_VAR_create_outside_route_table               | true                   | Whether to create an outside route table         |
+  | TF_VAR_create_outside_default_route             | false                  | Whether to create a default route in the outside route table |
   | TF_VAR_create_internet_gateway                  | true                   | Whether to create an internet gateway            |
   | TF_VAR_create_outside_security_group            | ture                   | Whether to create an outside security group      |
   | TF_VAR_create_inside_security_group             | ture                   | Whether to create an inside security group       |

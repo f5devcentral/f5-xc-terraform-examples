@@ -7,7 +7,6 @@ provider "aws" {
 
 provider "azurerm" {
   features {}
-  skip_provider_registration = "true"
 
   client_id       = var.azure_client_id
   client_secret   = var.azure_client_secret
