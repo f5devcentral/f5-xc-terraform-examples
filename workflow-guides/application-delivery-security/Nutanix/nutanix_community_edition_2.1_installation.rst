@@ -228,7 +228,7 @@ This confirms Nutanix CE 2.1 is successfully installed on Bare Metal. Virtual In
 
 Nutanix CE helps to manage virtual environments with optimized performance and reliability. With the Nutanix CE installed successfully on Dell PowerEdge R430 by following steps mentioned above. Similar process helps in installing Nutanix CE on any Bare Metal.
 
-**Additional Links: **
+** Additional Links: **
 
 For more details, guidance on Nutanix CE installation, refer to the official documentation below,
 
