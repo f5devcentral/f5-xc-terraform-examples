@@ -61,11 +61,9 @@ The full input parameters list can be found in the [azure-vnet-site-networking m
   | TF_VAR_resource_group_name             | azure-networking | Resource group name                         |
   | TF_VAR_create_vnet                     | true             | Create VNet flag                            |
   | TF_VAR_create_resource_group           | true             | Create resource group flag                  |
-  | TF_VAR_create_outside_route_table      | true             | Create outside route table flag             |
   | TF_VAR_create_outside_security_group   | true             | Create outside security group flag          |
   | TF_VAR_create_inside_route_table       | true             | Create inside route table flag              |
   | TF_VAR_create_inside_security_group    | true             | Create inside security group flag           |
-  | TF_VAR_create_udp_security_group_rules | true             | Create UDP security group rules flag        |
   | TF_VAR_tags                            | {}               | Tags for the resources                      |
   | TF_VAR_local_subnets                   | ["10.172.11.0/24", "10.172.12.0/24", "10.172.13.0/24"] | Local subnets   |
   | TF_VAR_inside_subnets                  | ["10.172.21.0/24", "10.172.22.0/24", "10.172.23.0/24"] | Inside subnets  |
