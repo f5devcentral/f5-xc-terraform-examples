@@ -10,6 +10,7 @@ Examples of F5 Distributed Cloud (XC) deployments utilizing Terraform. For more 
   | **DevCentral Overview Articles**                                                                                           | **Use Case / Workflow Guides**                                                                                                                                                |
   |----------------------------------------------------------------------------------------------------------------------------| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
   | [F5 XC Application Delivery and Security for Scalable Enterprise Workload Deployments across Heterogeneous Environments]() | [F5 XC Application Delivery and Security for Scalable Enterprise Workload Deployments across Heterogeneous Environments (SaaS Console)](https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/workload/README.rst)                        |
+  | [Nutanix Community Edition 2.1 installation on Bare Metal ]() | [Nutanix Community Edition 2.1 installation on Bare Metal ](https://github.com/f5devcentral/f5-xc-terraform-examples-teachables/blob/nutanix_ce/workflow-guides/application-delivery-security/Nutanix/nutanix_community_edition_2.1_installation.rst)                        |
 
 ---
 ## Application Security
