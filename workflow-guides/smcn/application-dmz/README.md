@@ -131,7 +131,7 @@ Select the network for the VM. Make sure to select the External Network for the 
 Complete the **Additional settings** section where:
 
 - hostname: node-0
-- token: your Secure Mesh Site [node token](#12-create-secure-mesh-site-in-xc-cloud) generated earlier
+- token: your Secure Mesh Site [node token](#12-create-secure-mesh-site-in-distributed-cloud-services) generated earlier
 - password: your password to access the Secure Mesh Site
 
 Take a look at the settings and click **Next** to proceed.
@@ -200,7 +200,7 @@ Let's start with adding a virtual site. Back in the Console, navigate to the **S
 
 ![Virtual Site](./assets/virtual_site_add.png)
 
-In the opened form give virtual site a name that we specified as [label](#12-create-secure-mesh-site-in-xc-cloud) for Secure Mesh Sites. Then make sure to select the **CE** site type. After that add selector expression specifying its name as value and complete by clicking the **Add Virtual site** button.
+In the opened form give virtual site a name that we specified as [label](#12-create-secure-mesh-site-in-distributed-cloud-services) for Secure Mesh Sites. Then make sure to select the **CE** site type. After that add selector expression specifying its name as value and complete by clicking the **Add Virtual site** button.
 
 ![Virtual Site](./assets/virtual_site_config.png)
 
