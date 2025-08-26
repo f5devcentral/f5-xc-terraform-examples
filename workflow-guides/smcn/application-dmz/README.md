@@ -320,9 +320,13 @@ Click the **Add Item** button which will open the creation form.
 
 ![Configure](./assets/configure_bot_add_endpoint.png)
 
-Let's configure the endpoint. First, give it a name. Then select HTTP methods and choose specifying endpoint label category. Specify **Authentication** as flow label category and select **Login** for flow label. Move on and specify path prefix - **/trading/auth**. Select **Block** for the Bot Mitigation action and save the configuration by clicking **Apply**.
+Let's configure the endpoint. First, give it a name. Then select HTTP methods and choose specifying endpoint label category. Specify **Authentication** as flow label category and select **Login** for flow label.
 
 ![Configure](./assets/configure_bot_endpoint_config.png)
+
+Move on and specify path prefix **/trading/auth**. Select **Block** for the Bot Mitigation action and save the configuration by clicking **Apply**.
+
+![Configure](./assets/configure_bot_endpoint_config2.png)
 
 Take a look at the created App Endpoint and apply its configuration.
 
@@ -344,7 +348,7 @@ In the **API Protection** part enable API Discovery and enable learning fom redi
 
 ## 3.4 Configure DDoS Protection
 
-Go to the **DoS Protection** section and select serving JavaScript challenge to suspicious sources. Proceed and select **Custom** for Slow DDoS Mitigation.
+Go to the **DoS Settings** and select serving JavaScript challenge to suspicious sources. Proceed and select **Custom** for Slow DDoS Mitigation.
 
 ![Configure](./assets/configure_ddos.png)
 
@@ -354,7 +358,7 @@ In the **Common Security Controls** section enable IP Reputation service and Mal
 
 ![Configure](./assets/configure_other.png)
 
-The whole safety configuration is done. Take a look at it and click **Save and Exit**.
+The whole safety configuration is done. Take a look at it and click **Save HTTP Load Balancer**.
 
 ![Configure](./assets/configure_save.png)
 
@@ -408,7 +412,7 @@ Now that we have setup the first Data Center with two Secure Mesh Sites for fail
 
 ## 4.1 Configure Second Data Center
 
-First, we will need to create and deploy two Secure Mesh Sites for the second Data Center. Follows steps [1.2](#12-create-secure-mesh-site-in-xc-cloud) and [1.3](#13-deploy-the-secure-mesh-site) above to do that. Specify the name of the Virtual Site that we will create in the next step as Secure Mesh Sites' label.
+First, we will need to create and deploy two Secure Mesh Sites for the second Data Center. Follow steps [1.2](#12-create-secure-mesh-site-in-distributed-cloud-services) and [1.3](#13-deploy-secure-mesh-site) above to do that. Specify the name of the Virtual Site that we will create in the next step as Secure Mesh Sites' label.
 
 ![Second DC](./assets/secure_mesh_dc2.png)
 
@@ -418,9 +422,9 @@ In this step we will configure the second Virtual Site that will combine both Se
 
 ![Second DC](./assets/virtual_site_dc2.png)
 
-In the F5 Distributed Cloud Console, navigate to the **Shared Configuration** service. From there, select **Virtual Sites** and click the **Add Virtual Site** button.
+Back in the Console, navigate to the **Shared Configuration** service. From there, select **Virtual Sites** and click the **Add Virtual Site** button.
 
-In the opened form fill in a name specified as label for Secure Mesh Sites of this Data Center. Then make sure to select the **CE** site type. After that add selector expression specifying its name as value and complete by clicking the **Save and Exit** button.
+In the opened form fill in a name specified as label for Secure Mesh Sites of this Data Center. Then make sure to select the **CE** site type. After that add selector expression specifying its name as value and complete by clicking the **Add Virtual site** button.
 
 ![Second DC](./assets/dc2_vsite.png)
 
@@ -428,7 +432,7 @@ In the opened form fill in a name specified as label for Secure Mesh Sites of th
 
 Finally, we will configure HTTP Load Balancer by creating the second origin pool for the second Data Center and configuring it.
 
-To do that go to the F5 Distributed Cloud Console and select **Manage Configuration** in the service menu of the earlier [created HTTP Load Balancer](#22-create-http-load-balancer).
+To do that, navigate to the **Multi-Cloud App Connect** service => **Load Balancers** in the Console and select **Manage Configuration** in the service menu of the earlier [created HTTP Load Balancer](#22-create-http-load-balancer).
 
 ![Second DC](./assets/dc2_manage.png)
 
@@ -460,7 +464,7 @@ Type in the **8080** origin server port.
 
 ![Second DC](./assets/dc2_port.png)
 
-Scroll down and click **Continue**.
+Scroll down and click **Add Origin Pool**.
 
 ![Second DC](./assets/dc2_save_pool.png)
 
@@ -472,6 +476,6 @@ The second configured origin pool will appear on the list.
 
 ![Second DC](./assets/dc2_pool_result.png)
 
-Now that we have added and configured the second origin pool of the HTTP Load Balancer for the second Data Center, click **Save and Exit** to save it.
+Now that we have added and configured the second origin pool of the HTTP Load Balancer for the second Data Center, click **Save HTTP Load Balancer** to save it.
 
 Congrats! You've just completed the extended use-cases with two Data Centers exposed to the Internet and protected by Web Application Firewall (WAF), DDoS Protection, Bot Protection, and API Discovery.
