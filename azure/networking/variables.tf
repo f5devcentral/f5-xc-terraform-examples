@@ -77,12 +77,6 @@ variable "create_resource_group" {
   default     = true
 }
 
-variable "create_outside_route_table" {
-  description = "Whether to create an outside route table for the outside or local subnets."
-  type        = bool
-  default     = true
-}
-
 variable "create_outside_security_group" {
   description = "Whether to create an outside security group."
   type        = bool
@@ -97,12 +91,6 @@ variable "create_inside_route_table" {
 
 variable "create_inside_security_group" {
   description = "Whether to create an inside security group."
-  type        = bool
-  default     = true
-}
-
-variable "create_udp_security_group_rules" {
-  description = "Whether to create UDP security group rules."
   type        = bool
   default     = true
 }
