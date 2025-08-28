@@ -68,10 +68,6 @@ on:
         description: "Create Resource Group"
         required: false
         type: string
-      TF_VAR_create_outside_route_table:
-        description: "Create Outside Route Table"
-        required: false
-        type: string
       TF_VAR_create_outside_security_group:
         description: "Create Outside Security Group"
         required: false
@@ -82,10 +78,6 @@ on:
         type: string
       TF_VAR_create_inside_security_group:
         description: "Create Inside Security Group"
-        required: false
-        type: string
-      TF_VAR_create_udp_security_group_rules:
-        description: "Create UDP Security Group Rules"
         required: false
         type: string
       TF_VAR_tags:
@@ -195,11 +187,9 @@ jobs:
       TF_VAR_resource_group_name: ""
       TF_VAR_create_vnet: "true"
       TF_VAR_create_resource_group: "true"
-      TF_VAR_create_outside_route_table: "true"
       TF_VAR_create_outside_security_group: "true"
       TF_VAR_create_inside_route_table: "true"
       TF_VAR_create_inside_security_group: "true"
-      TF_VAR_create_udp_security_group_rules: "true"
       TF_VAR_tags: "{}"
       TF_VAR_local_subnets: ""
       TF_VAR_inside_subnets: ""
@@ -227,7 +217,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: f5devcentral/f5-xc-terraform-examples
           
@@ -239,7 +229,7 @@ jobs:
           inputs_json: "${{ toJSON(inputs) }}" 
 
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@v3
         with:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 

@@ -281,24 +281,6 @@ variable "outside_subnets" {
   default     = []
 }
 
-variable "local_subnets_ipv6" {
-  description = "Local Subnets for the Site."
-  type        = list(string)
-  default     = []
-}
-
-variable "inside_subnets_ipv6" {
-  description = "Inside Subnets for the Site."
-  type        = list(string)
-  default     = []
-}
-
-variable "outside_subnets_ipv6" {
-  description = "Outside Subnets for the Site."
-  type        = list(string)
-  default     = []
-}
-
 #-----------------------------------------------------------
 # Worker Nodes
 #-----------------------------------------------------------
@@ -322,22 +304,6 @@ variable "block_all_services" {
 
 variable "blocked_service" {
   description = "Use custom blocked services configuration."
-  type        = string
-  default     = ""
-}
-
-#-----------------------------------------------------------
-# Apply Action
-#-----------------------------------------------------------
-
-variable "apply_action_wait_for_action" {
-  description = "Wait for terraform action job to complete."
-  type        = string
-  default     = ""
-}
-
-variable "apply_action_ignore_on_update" {
-  description = "Ignore action to perform during update."
   type        = string
   default     = ""
 }

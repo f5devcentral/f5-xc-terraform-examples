@@ -60,7 +60,7 @@ jobs:
       TF_CLOUD_WORKSPACE_TEACHABLE_MCN_FW: ${{ steps.update_output.outputs.TF_CLOUD_WORKSPACE_TEACHABLE_MCN_FW }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         
       - id: apply_variables 
         uses: "./.github/actions/apply-variables" 
@@ -87,7 +87,7 @@ jobs:
   workloads:
     name: "Global Network Workloads"
     runs-on: ubuntu-latest
-    needs: [apply_variables]
+    needs: [apply_variables, aws_vpc_site, azure_vnet_site]
     defaults:
       run:
         working-directory: "./teachable/01-mcn-networkconnect/terraform/global-network"
@@ -117,10 +117,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@v3
         with:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
@@ -166,10 +166,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@v3
         with:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
@@ -200,7 +200,7 @@ jobs:
 
   aws_vpc_site: 
     uses: ./.github/workflows/aws-vpc-site-destroy.yaml 
-    needs: [apply_variables, workloads]
+    needs: [apply_variables]
     name: "AWS VPC Site"
     with: 
       TF_CLOUD_WORKSPACE_AWS_VPC_SITE: ${{ needs.apply_variables.outputs.TF_CLOUD_WORKSPACE_AWS_VPC_SITE }}
@@ -276,7 +276,7 @@ jobs:
 
   azure_vnet_site: 
     uses: ./.github/workflows/azure-vnet-site-destroy.yaml 
-    needs: [apply_variables, workloads]
+    needs: [apply_variables]
     name: "Azure VNET Site"
     with: 
       TF_CLOUD_WORKSPACE_AZURE_VNET_SITE: ${{ needs.apply_variables.outputs.TF_CLOUD_WORKSPACE_AZURE_VNET_SITE }}

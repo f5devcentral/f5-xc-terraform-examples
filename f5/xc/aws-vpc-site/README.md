@@ -80,11 +80,8 @@ The full input parameters list can be found in the [aws-vpc-site module inputs](
   | TF_VAR_egress_virtual_private_gateway           |                        | Egress virtual private gateway configuration     |
   | TF_VAR_enable_internet_vip                      |                        | Enable internet VIP                              |
   | TF_VAR_allowed_vip_port                         | { "disable_allowed_vip_port": true }  | Allowed VIP port                  |
-  | TF_VAR_allowed_vip_port_sli                     | { "disable_allowed_vip_port": true }  | Allowed VIP port SLI              |
   | TF_VAR_log_receiver                             |                        | Log receiver                                     |
   | TF_VAR_vpc_id                                   |                        | VPC ID                                           |
-  | TF_VAR_vpc_name                                 |                        | VPC name                                         |
-  | TF_VAR_vpc_allocate_ipv6                        |                        | Allocate IPv6 for the VPC                        |
   | TF_VAR_vpc_cidr                                 |                        | VPC CIDR                                         |
   | TF_VAR_create_aws_vpc                           | true                   | Create AWS VPC                                   |
   | TF_VAR_custom_security_group                    |                        | Custom security group                            |
@@ -96,14 +93,9 @@ The full input parameters list can be found in the [aws-vpc-site module inputs](
   | TF_VAR_inside_subnets                           | []                     | Inside subnets                                   |
   | TF_VAR_outside_subnets                          | []                     | Outside subnets                                  |
   | TF_VAR_workload_subnets                         | []                     | Workload subnets                                 |
-  | TF_VAR_local_subnets_ipv6                       | []                     | Local subnets IPv6                               |
-  | TF_VAR_inside_subnets_ipv6                      | []                     | Inside subnets IPv6                              |
-  | TF_VAR_outside_subnets_ipv6                     | []                     | Outside subnets IPv6                             |
-  | TF_VAR_workload_subnets_ipv6                    | []                     | Workload subnets IPv6                            |
   | TF_VAR_worker_nodes_per_az                      | 0                      | Number of worker nodes per availability zone     |
   | TF_VAR_block_all_services                       | true                   | Block all services                               |
   | TF_VAR_blocked_service                          |                        | Blocked service                                  |
-  | TF_VAR_apply_action_wait_for_action             | true                   | Wait for action on apply                         |
   | TF_VAR_apply_action_ignore_on_update            | true                   | Ignore on update on apply                        |
   | TF_VAR_dc_cluster_group_inside_vn               |                        | DC cluster group inside VN                       |
   | TF_VAR_dc_cluster_group_outside_vn              |                        | DC cluster group outside VN                      |
