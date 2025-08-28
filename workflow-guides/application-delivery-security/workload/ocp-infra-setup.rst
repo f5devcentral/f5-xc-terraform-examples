@@ -22,8 +22,8 @@ Creating Cluster from Red Hat Console:
 .. image:: ./assets/assets-ocp-infra/3.png
 
 6. Select “control plane nodes” and “network configuration” and click “Next”
-
-    *Note: For this demo we’re going with 1 Node and Static IP*
+    *Note1: For deploying CE in OCP cluster, 3 nodes are recommended*
+    *Note2: For this demo we’re going with 1 Node and Static IP*
 
 .. image:: ./assets/assets-ocp-infra/4.png
 

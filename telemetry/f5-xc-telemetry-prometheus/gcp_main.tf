@@ -73,7 +73,6 @@ resource "google_compute_instance" "f5_vm_prometheus" {
   # Provisioner to execute commands on the remote EC2 instance
   provisioner "remote-exec" {
     inline = [
-      "nohup python3 exporter_prometheus.py > python.log 2>&1 &",
       "sudo apt-get update -qq && sudo apt-get upgrade -y -qq",
       "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -",
       "echo | sudo add-apt-repository \"deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\"",
