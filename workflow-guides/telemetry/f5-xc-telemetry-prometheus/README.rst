@@ -74,4 +74,4 @@ You should be seeing different charts of all metrics
    |        - terraform destroy                                                                                     |
    +----------------------------------------------------------------------------------------------------------------+
 
-**Note:** This automation only deals with collecting metrics data from F5 Distributed Cloud(XC), assuming there already exists LBs handling traffic in the namespace provided as user input.
+**Note: This automation only deals with collecting metrics data from F5 Distributed Cloud(XC), assuming there already exists LBs handling traffic in the namespace provided as user input**
