@@ -1,0 +1,8 @@
+# Local paths and identifiers for GCP and F5 setup
+local_paths = {
+  project_id            = "<gcp-project-id>"                  # GCP Project ID
+  region                = "asia-south1"                       # GCP region
+  zone                  = "asia-south1-a"                     # GCP zone in your region
+  gcp_credentials_file  = "<gcp-json-credential-file-path>"   # Path of GCP json credentials file
+  ssh_key_path          = "<gcp-vm-ssh-key-path>"             # Path of SSH key to access VM instance
+}
