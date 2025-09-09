@@ -1,14 +1,16 @@
-# Addressing IP Overlaps & Optimizing Networking with F5 Distributed Cloud Services
+# Addressing IP overlaps & optimizing Application Delivery with F5 Enterprise Networking
 
 # Table of Contents
 
-- [Prerequisites](#prerequisites)
-- [Solution 1: Resolving Overlapping IPs](#solution-1-resolving-overlapping-ips)
-- [Solution 2: Masking the Source IP Address](#solution-2-masking-the-source-ip-address)
-- [Solution 3: SNAT for Internet Access](#solution-3-snat-for-internet-access)
-- [Conclusion](#conclusion)
+- [Addressing IP overlaps \& optimizing Application Delivery with F5 Enterprise Networking](#addressing-ip-overlaps--optimizing-application-delivery-with-f5-enterprise-networking)
+- [Table of Contents](#table-of-contents)
+  - [Prerequisites](#prerequisites)
+  - [Solution 1: Resolving Overlapping IPs](#solution-1-resolving-overlapping-ips)
+  - [Solution 2: Masking the Source IP Address](#solution-2-masking-the-source-ip-address)
+  - [Solution 3: SNAT for Internet Access](#solution-3-snat-for-internet-access)
+  - [Conclusion](#conclusion)
 
-The guide provides three solutions to solve networking challenges that are connected via F5 Multi-Cloud Network (MCN). The first solution demonstrates how to use Virtual Subnets to solve the IP overlapping issue (1). The second solution demonstrates how to mask the source IP address (2) of the traffic that is sent from an AWS to VMware. The third solution demonstrates how to configure SNAT for internet access (3). The traffic will be sent from an AWS using an Elastic IP address assigned to the AWS TGW site. The source IP address of the traffic will be translated to the Elastic IP address before it is sent to the internet.
+The guide provides three solutions to solve networking challenges that are connected via F5 Multi-Cloud Network (MCN) using **F5 Hybrid Multicloud Application Delivery** and **Secure Multicloud Networking** solutions. The first solution demonstrates how to use Virtual Subnets to solve the IP overlapping issue (1). The second solution demonstrates how to mask the source IP address (2) of the traffic that is sent from an AWS to VMware. The third solution demonstrates how to configure SNAT for internet access (3). The traffic will be sent from an AWS using an Elastic IP address assigned to the AWS TGW site. The source IP address of the traffic will be translated to the Elastic IP address before it is sent to the internet.
 
 ![solution](./assets/solution_overview.png)
 
@@ -38,8 +40,8 @@ AWS Network Configuration:
 
 VMware Network Configuration:
 
-| Subnet CIDR   | VM IP       | Segment      | Vlan (optional) |
-| ------------- | ----------- | ------------ | --------------- |
+| Subnet CIDR   | VM IP        | Segment      | Vlan (optional) |
+| ------------- | ------------ | ------------ | --------------- |
 | 10.5.200.0/24 | 10.5.200.100 | prod-segment | vlan200         |
 
 ## Solution 1: Resolving Overlapping IPs
@@ -172,13 +174,7 @@ Specify the source `10.1.10.0/24` and destination `10.5.200.0/24` IPs, where `So
 
 ![nat](./assets/nat_rule_1_3.png)
 
-Leave other fields as default.
-
-![nat](./assets/nat_rule_1_4.png)
-
-Next, configure `Action` to `Source NAT` with `SNAT Pool`. Add `192.168.100.0/24` as the address range.
-
-Click `Apply` to save the rule. After that, click `Save` to save the NAT policy.
+Next, make sure `Source NAT` is specified for `NAT` with `SNAT Pool` selected. Add `192.168.100.0/24` as the address range. Click `Apply` to save the rule. After that, click `Add Nat policy` to save the NAT policy.
 
 ![nat](./assets/nat_rule_1_5.png)
 
@@ -212,15 +208,15 @@ As you can see, the IP address is translated to `192.168.100.25`. This means tha
 
 ## Solution 3: SNAT for Internet Access
 
-This solution demonstrates how to configure SNAT for internet access. Traffic flows from the VM through the AWS TGW CE site, where the CE instance is assigned a private IP. SNAT translates the VM’s private IP to the private IP of the AWS TGW CE. For internet-bound traffic, this private IP is mapped to an Elastic IP, ensuring seamless internet egress. The solution is useful when you want to mask the source IP address of traffic sent from AWS to the internet, which can enhance security, simplify network management, and ensure compliance with policies that require a consistent public-facing IP. 
+This solution demonstrates how to configure SNAT for internet access. Traffic flows from the VM through the AWS TGW CE site, where the CE instance is assigned a private IP. SNAT translates the VM’s private IP to the private IP of the AWS TGW CE. For internet-bound traffic, this private IP is mapped to an Elastic IP, ensuring seamless internet egress. The solution is useful when you want to mask the source IP address of traffic sent from AWS to the internet, which can enhance security, simplify network management, and ensure compliance with policies that require a consistent public-facing IP.
 
 ![solution](./assets/solution_3_snat_internet.gif)
 
-Log into F5 Distributed Cloud Console and select `Multi-Cloud Network Connect` service. Navigate to `Networking` and select `Cloud Elastic IPs`. Click `Add Cloud Elastic IP`.
+Log into the Console and select `Multi-Cloud Network Connect` service. Navigate to `Networking` and select `Cloud Elastic IPs`. Click `Add Cloud Elastic IP`.
 
 ![eip](./assets/eip_1_1.png)
 
-First, give it a name. Then, select your AWS TGW Site as reference and click the `Save and Exit` button.
+First, give it a name. Then, select your AWS TGW Site as reference and click the `Add Cloud elastic IP` button.
 
 ![eip](./assets/eip_1_2.png)
 
@@ -246,7 +242,7 @@ Give the Virtual Network a name.
 
 ![net](./assets/net_name.png)
 
-Select `Site Local (Outside) Network` as the Virtual Network Type. Then click `Save and Exit` to save the Virtual Network.
+Select `Site Local (Outside) Network` as the Virtual Network Type. Then click `Add Virtual network` to save the Virtual Network.
 
 ![net](./assets/net_type.png)
 
@@ -270,17 +266,17 @@ Select your vpc-shared as Cloud Connect.
 
 ![eip](./assets/snat_eip_rule_1_2.png)
 
-Specify the source `10.1.0.0/16` IP where `Source` is the source IP address of the traffic that will be NATed.
+First, enable showing advanced fields. Then specify the source `10.1.0.0/16` IP where `Source` is the source IP address of the traffic that will be NATed.
 
 ![eip](./assets/snat_eip_rule_1_3.png)
 
-In the `Virtual Network` section, select the `outside-network` Virtual Network that we created in the previous step.
+In the `Destination Network` section, select the `outside-network` Virtual Network that we created in the previous step.
 
 ![eip](./assets/snat_eip_rule_1_4.png)
 
 Lastly, configure `Action` to `Source NAT` with `Cloud Elastic IP Object`. In the dropdown menu select the cloud Elastic IP we created in the previous step.
 
-Click `Apply` to save the rule. After that, click `Save` to save the NAT policy.
+Click `Apply` to save the rule. After that, click `Add Nat policy` to save the NAT policy.
 
 ![eip](./assets/snat_eip_rule_1_5.png)
 
