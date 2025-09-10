@@ -1,14 +1,14 @@
-# DMZ Setup in XC Cloud
+# Secure DMZ Setup with F5 Enterprise Networking and Application Security
 
 # Table of Contents
 
-- [DMZ Setup in XC Cloud](#dmz-setup-in-xc-cloud)
+- [Secure DMZ Setup with F5 Enterprise Networking and Application Security](#secure-dmz-setup-with-f5-enterprise-networking-and-application-security)
 - [Table of Contents](#table-of-contents)
 - [Overview](#overview)
 - [Setup Diagram](#setup-diagram)
 - [1. Configure Environment](#1-configure-environment)
   - [1.1 Prerequisites](#11-prerequisites)
-  - [1.2 Create Secure Mesh Site in XC Cloud](#12-create-secure-mesh-site-in-xc-cloud)
+  - [1.2 Create Secure Mesh Site in Distributed Cloud Services](#12-create-secure-mesh-site-in-distributed-cloud-services)
   - [1.3 Deploy Secure Mesh Site](#13-deploy-secure-mesh-site)
   - [1.4 Create Application VM](#14-create-application-vm)
 - [2. Expose Application to the Internet](#2-expose-application-to-the-internet)
@@ -28,7 +28,20 @@
 
 # Overview
 
-This guide provides the steps for a comprehensive [demilitarized zone (DMZ)](<https://en.wikipedia.org/wiki/DMZ_(computing)>) setup in the [XC Cloud](https://cloud.f5.com) environment. The setup includes the following components:
+This guide provides the steps for a comprehensive [demilitarized zone (DMZ)](<https://en.wikipedia.org/wiki/DMZ_(computing)>) setup with **F5 Distributed Cloud Services** [XC Cloud](https://cloud.f5.com). The services utilize **F5 Distributed Cloud Services** to demonstrate the following solutions:
+
+**Application Delivery**
+
+- _App Connect_
+
+**Application Security**
+
+- _WAF_,
+- _Bot Defense_,
+- _DDoS Mitigation_,
+- _API Security_
+
+The setup includes the following components:
 
 - Configuration of VMWare Data Center with two CE Sites for failover;
 - Demo application deployment in the VMware Data Center;
@@ -49,7 +62,7 @@ The objective of this setup is to create a secure DMZ environment for the applic
 
 The following components are required to complete the setup:
 
-- Access to the [XC Cloud](https://cloud.f5.com) with the following services enabled:
+- Access to the [Distributed Cloud Services](https://cloud.f5.com) with the following services enabled:
   - ability to create Sites
   - Bot Protect
   - DDoS Protect
@@ -59,7 +72,7 @@ The following components are required to complete the setup:
   - ability to create at least two VMs
   - two networks (internal and external)
 
-## 1.2 Create Secure Mesh Site in XC Cloud
+## 1.2 Create Secure Mesh Site in Distributed Cloud Services
 
 We will start with creating a Secure Mesh Site that will later be combined with the second one by a Virtual Site and exposed to the Internet. You can see the setup in the diagram below.
 
@@ -73,11 +86,11 @@ First, give it a name. Then click **Add Label** and type in a custom key, then a
 
 ![Secure Mesh Site](./assets/secure_mesh_meta.png)
 
-Next, move on to the **Provider** configuration. Select the **VMWare** provider name and **Not Managed By F5XC** orchestration mode.
+Next, move on to the **Provider** configuration. Make sure **VMWare** provider and **Not Managed By F5XC** orchestration mode are selected.
 
 ![Secure Mesh Site](./assets/secure_mesh_provider.png)
 
-Take a look at the default settings and click the **Save and Exit** button to complete the creation of the first Secure Mesh Site.
+Take a look at other settings and click the **Add Secure Mesh Site** button to complete the creation of the first Secure Mesh Site.
 
 ![Secure Mesh Site](./assets/secure_mesh_save.png)
 
@@ -118,7 +131,7 @@ Select the network for the VM. Make sure to select the External Network for the 
 Complete the **Additional settings** section where:
 
 - hostname: node-0
-- token: your Secure Mesh Site [node token](#12-create-secure-mesh-site-in-xc-cloud) generated earlier
+- token: your Secure Mesh Site [node token](#12-create-secure-mesh-site-in-distributed-cloud-services) generated earlier
 - password: your password to access the Secure Mesh Site
 
 Take a look at the settings and click **Next** to proceed.
@@ -151,15 +164,15 @@ From the network list, select the **Internal interface (SLI)** and click **Edit*
 
 ![Secure Mesh Site](./assets/ip_sli_edit.png)
 
-In the IP Configuration section, select **Static** and type in the IP address. Click **Apply** to save the settings. Then click **Save and Exit** to complete the configuration.
+In the IP Configuration section, select **Static** and type in the IP address. Click **Apply** to save the settings. Then click **Save Secure Mesh Site** to complete the configuration.
 
 ![Secure Mesh Site](./assets/ip_static.png)
 
-Once the Secure Mesh Site is deployed, we can proceed to the F5 Distributed Cloud Console, navigate to **Sites** and verify the created site status. As you can see in the image below, site health score is 100 and the state is online. The deployed site is up and running.
+Once the Secure Mesh Site is deployed, we can proceed to **Infrastructure** => **Sites** and verify the created site status. As you can see in the image below, site health score is 100 and the state is online. The deployed site is up and running.
 
 ![Secure Mesh Site](./assets/vmware_ready.png)
 
-We have just created and deployed the first Secure Mesh Site for the first Data Center. For the failover setup, we will need to create and deploy the second Secure Mesh Site. Follow the steps [1.2](#12-create-secure-mesh-site-in-xc-cloud) and [1.3](#13-deploy-the-secure-mesh-site) above to do that.
+We have just created and deployed the first Secure Mesh Site for the first Data Center. For the failover setup, we will need to create and deploy the second Secure Mesh Site. Follow the steps [1.2](#12-create-secure-mesh-site-in-distributed-cloud-services) and [1.3](#13-deploy-secure-mesh-site) above to do that.
 
 ## 1.4 Create Application VM
 
@@ -183,11 +196,11 @@ In order to expose our application with two Secure Mesh Sites for failover to th
 
 ![Virtual Site](./assets/virtual_site_dc1.png)
 
-Let's start with adding a virtual site. Back in the F5 Distributed Cloud Console, navigate to the **Shared Configuration** service. From there, select **Virtual Sites** and click the **Add Virtual Site** button.
+Let's start with adding a virtual site. Back in the Console, navigate to the **Shared Configuration** service. From there, select **Virtual Sites** and click the **Add Virtual Site** button.
 
 ![Virtual Site](./assets/virtual_site_add.png)
 
-In the opened form give virtual site a name that we specified as [label](#12-create-secure-mesh-site-in-xc-cloud) for Secure Mesh Sites. Then make sure to select the **CE** site type. After that add selector expression specifying its name as value and complete by clicking the **Save and Exit** button.
+In the opened form give virtual site a name that we specified as [label](#12-create-secure-mesh-site-in-distributed-cloud-services) for Secure Mesh Sites. Then make sure to select the **CE** site type. After that add selector expression specifying its name as value and complete by clicking the **Add Virtual site** button.
 
 ![Virtual Site](./assets/virtual_site_config.png)
 
@@ -205,7 +218,7 @@ First, give HTTP Load Balancer a name.
 
 ![HTTP LB](./assets/http_lb_name.png)
 
-Then we will configure **Domains and LB Type** section. Type in the **arcadia-dmz.f5-cloud-demo.com** domain and select **HTTPS with Automatic Certificate** as Load Balancer Type. Make sure to enable HTTP redirect to HTTPS and add HSTS header.
+Then we will configure **Domains and LB Type** section. Type in the **arcadia-dmz.f5-cloud-demo.com** domain. Make sure **HTTPS with Automatic Certificate** is specified as Load Balancer Type. Enable HTTP redirect to HTTPS and add HSTS header.
 
 ![HTTP LB](./assets/http_lb_domain.png)
 
@@ -237,11 +250,11 @@ Scroll down to the **Health Checks** section and click the **Add Item** button t
 
 ![HTTP LB](./assets/http_lb_health_add.png)
 
-Give health check a name and leave the default settings. Then click **Continue** to save the health check configuration.
+Give health check a name and leave the default settings. Then click **Add Health Check** to save the health check configuration.
 
 ![HTTP LB](./assets/http_lb_health_details.png)
 
-Scroll down and click **Continue**.
+Scroll down and click **Add Origin Pool**.
 
 ![HTTP LB](./assets/http_lb_pool_save.png)
 
@@ -249,7 +262,7 @@ Scroll down and click **Continue**.
 
 ![HTTP LB](./assets/http_lb_pool_apply.png)
 
-Now that the HTTP Load Balancer is configured, click **Save and Exit** to save it.
+Now that the HTTP Load Balancer is configured, click **Add HTTP Load Balancer** to save it.
 
 ![HTTP LB](./assets/http_lb_save.png)
 
@@ -259,7 +272,7 @@ Now that we have exposed the Virtual Site with two Secure Mesh Sites to the Inte
 
 ![Protect](./assets/protect_overview.png)
 
-To do that go back to the F5 Distributed Cloud Console and select **Manage Configuration** in the service menu of the created HTTP Load Balancer.
+To do that, back in the Console select **Manage Configuration** in the service menu of the created HTTP Load Balancer.
 
 ![Configure](./assets/configure_manage.png)
 
@@ -281,11 +294,15 @@ Select **Blocking** mode in the drop-down menu to log and block threats.
 
 ![Configure](./assets/configure_waf_mode.png)
 
-Proceed to **Detection Settings**. Select **Custom** Security Policy and take a look at its settings. Then scroll down to the **Signature-Based Bot Protection** and select **Custom**.
+Proceed to **Security Policy Settings**. Select **Custom** Security Policy and take a look at its settings.
 
 ![Configure](./assets/configure_waf_detection.png)
 
-Finally, let's configure **Blocking Response Page** in **Advanced configuration**. Select **Custom** and configure as needed. Click **Continue** to complete WAF configuration and go back to the HTTP configuration page.
+Then scroll down to the **Signature-Based Bot Protection** and select **Custom**.
+
+![Configure](./assets/configure_waf_detection_sig_based_bot.png)
+
+Finally, let's configure **Blocking Response Page** in **Advanced configuration**. Select **Custom** and configure as needed. Click **Add App Firewall** to complete WAF configuration and go back to the HTTP configuration page.
 
 ![Configure](./assets/configure_waf_advanced.png)
 
@@ -303,9 +320,13 @@ Click the **Add Item** button which will open the creation form.
 
 ![Configure](./assets/configure_bot_add_endpoint.png)
 
-Let's configure the endpoint. First, give it a name. Then select HTTP methods and choose specifying endpoint label category. Specify **Authentication** as flow label category and select **Login** for flow label. Move on and specify path prefix - **/trading/auth**. Select **Block** for the Bot Mitigation action and save the configuration by clicking **Apply**.
+Let's configure the endpoint. First, give it a name. Then select HTTP methods and choose specifying endpoint label category. Specify **Authentication** as flow label category and select **Login** for flow label.
 
 ![Configure](./assets/configure_bot_endpoint_config.png)
+
+Move on and specify path prefix **/trading/auth**. Select **Block** for the Bot Mitigation action and save the configuration by clicking **Apply**.
+
+![Configure](./assets/configure_bot_endpoint_config2.png)
 
 Take a look at the created App Endpoint and apply its configuration.
 
@@ -327,7 +348,7 @@ In the **API Protection** part enable API Discovery and enable learning fom redi
 
 ## 3.4 Configure DDoS Protection
 
-Go to the **DoS Protection** section and select serving JavaScript challenge to suspicious sources. Proceed and select **Custom** for Slow DDoS Mitigation.
+Go to the **DoS Settings** and select serving JavaScript challenge to suspicious sources. Proceed and select **Custom** for Slow DDoS Mitigation.
 
 ![Configure](./assets/configure_ddos.png)
 
@@ -337,7 +358,7 @@ In the **Common Security Controls** section enable IP Reputation service and Mal
 
 ![Configure](./assets/configure_other.png)
 
-The whole safety configuration is done. Take a look at it and click **Save and Exit**.
+The whole safety configuration is done. Take a look at it and click **Save HTTP Load Balancer**.
 
 ![Configure](./assets/configure_save.png)
 
@@ -391,7 +412,7 @@ Now that we have setup the first Data Center with two Secure Mesh Sites for fail
 
 ## 4.1 Configure Second Data Center
 
-First, we will need to create and deploy two Secure Mesh Sites for the second Data Center. Follows steps [1.2](#12-create-secure-mesh-site-in-xc-cloud) and [1.3](#13-deploy-the-secure-mesh-site) above to do that. Specify the name of the Virtual Site that we will create in the next step as Secure Mesh Sites' label.
+First, we will need to create and deploy two Secure Mesh Sites for the second Data Center. Follow steps [1.2](#12-create-secure-mesh-site-in-distributed-cloud-services) and [1.3](#13-deploy-secure-mesh-site) above to do that. Specify the name of the Virtual Site that we will create in the next step as Secure Mesh Sites' label.
 
 ![Second DC](./assets/secure_mesh_dc2.png)
 
@@ -401,9 +422,9 @@ In this step we will configure the second Virtual Site that will combine both Se
 
 ![Second DC](./assets/virtual_site_dc2.png)
 
-In the F5 Distributed Cloud Console, navigate to the **Shared Configuration** service. From there, select **Virtual Sites** and click the **Add Virtual Site** button.
+Back in the Console, navigate to the **Shared Configuration** service. From there, select **Virtual Sites** and click the **Add Virtual Site** button.
 
-In the opened form fill in a name specified as label for Secure Mesh Sites of this Data Center. Then make sure to select the **CE** site type. After that add selector expression specifying its name as value and complete by clicking the **Save and Exit** button.
+In the opened form fill in a name specified as label for Secure Mesh Sites of this Data Center. Then make sure to select the **CE** site type. After that add selector expression specifying its name as value and complete by clicking the **Add Virtual site** button.
 
 ![Second DC](./assets/dc2_vsite.png)
 
@@ -411,7 +432,7 @@ In the opened form fill in a name specified as label for Secure Mesh Sites of th
 
 Finally, we will configure HTTP Load Balancer by creating the second origin pool for the second Data Center and configuring it.
 
-To do that go to the F5 Distributed Cloud Console and select **Manage Configuration** in the service menu of the earlier [created HTTP Load Balancer](#22-create-http-load-balancer).
+To do that, navigate to the **Multi-Cloud App Connect** service => **Load Balancers** in the Console and select **Manage Configuration** in the service menu of the earlier [created HTTP Load Balancer](#22-create-http-load-balancer).
 
 ![Second DC](./assets/dc2_manage.png)
 
@@ -443,7 +464,7 @@ Type in the **8080** origin server port.
 
 ![Second DC](./assets/dc2_port.png)
 
-Scroll down and click **Continue**.
+Scroll down and click **Add Origin Pool**.
 
 ![Second DC](./assets/dc2_save_pool.png)
 
@@ -455,6 +476,6 @@ The second configured origin pool will appear on the list.
 
 ![Second DC](./assets/dc2_pool_result.png)
 
-Now that we have added and configured the second origin pool of the HTTP Load Balancer for the second Data Center, click **Save and Exit** to save it.
+Now that we have added and configured the second origin pool of the HTTP Load Balancer for the second Data Center, click **Save HTTP Load Balancer** to save it.
 
 Congrats! You've just completed the extended use-cases with two Data Centers exposed to the Internet and protected by Web Application Firewall (WAF), DDoS Protection, Bot Protection, and API Discovery.

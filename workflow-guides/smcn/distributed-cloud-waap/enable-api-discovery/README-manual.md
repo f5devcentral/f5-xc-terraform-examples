@@ -1,17 +1,17 @@
-# Enable API Discovery for F5 XC HTTP LoadBalancer
+# Enable F5 Distributed Cloud API Security for HTTP Load Balancer
 
-This manual describes how to enable API discovery for an F5 XC HTTP Load Balancer using the F5 XC Cloud Console.
+This manual describes how to enable API discovery for an HTTP Load Balancer using the F5 Distributed Cloud Console.
 
 ## Prerequisites
 
-* [F5 Distributed Cloud Account (F5XC)](https://console.ves.volterra.io/signup/usage_plan)
-* [HTTP Load Balancer](https://docs.cloud.f5.com/docs/how-to/app-networking/http-load-balancer)
+- [F5 Distributed Cloud Account (F5XC)](https://console.ves.volterra.io/signup/usage_plan)
+- [HTTP Load Balancer](https://docs.cloud.f5.com/docs/how-to/app-networking/http-load-balancer)
 
-### F5 XC Cloud Console Configuration Instructions
+## F5 Distributed Cloud Console Configuration Instructions
 
-## Enable API Discovery for HTTP Load Balancer
+### Enable API Discovery for HTTP Load Balancer
 
-1. From the main menu, navigate to `Web App & API Protection` and click on `Load Balancer` -> `HTTP Load Balancers` menu item under `Manage` section
+1. From the main menu, navigate to `Web App & API Protection` and click on `Load Balancers` -> `HTTP Load Balancers` menu item under `Manage` section
 
 ![alt text](assets/lb-navigate.png)
 
@@ -35,14 +35,15 @@ This manual describes how to enable API discovery for an F5 XC HTTP Load Balance
 
 ![alt text](assets/enable-learning.png)
 
-7. Click Save to apply the WAF Configuration Object to the HTTP Load Balancer
+7. Click `Save HTTP Load Balancer` to apply the configuration to the HTTP Load Balancer
 
-![alt text](assets/lb-save-exit.png) 
+![alt text](assets/lb-save-exit.png)
 
-## Review API Discovery Dashboard
+### Review API Discovery Dashboard
 
 1. Start sending traffic to the HTTP Load Balancer. The API discovery feature will start learning the API endpoints and traffic patterns.
-2. Check the Discovery in the F5 XC Cloud Console, 
+2. Check the Discovery in the Console,
+
    - From the main menu, navigate to `Web App & API Protection`
 
    ![alt text](assets/waap-navigate.png)
@@ -51,12 +52,12 @@ This manual describes how to enable API discovery for an F5 XC HTTP Load Balance
 
    ![alt text](assets/navigate-security.png)
 
-   - Scroll down and open your HTTP Load Balancer in the `Load Balancers` section.
+   - Scroll down and open your HTTP Load Balancer in the `Delivery Resources` section.
 
    ![alt text](assets/test-navigate.png)
 
-   - Click on `API Endpoint` to view the API Discovery Dashboard.
+   - Click on `API Endpoints` to view the API Discovery Dashboard.
 
    ![alt text](assets/test-discovery.png)
-   
-2. It takes a couple of hours for the API discovery feature to learn the API endpoints and traffic patterns. Once the learning is complete, the API endpoints will be visible in the API Discovery Dashboard.
+
+3. It takes a couple of hours for the API discovery feature to learn the API endpoints and traffic patterns. Once the learning is complete, the API endpoints will be visible in the API Discovery Dashboard.
