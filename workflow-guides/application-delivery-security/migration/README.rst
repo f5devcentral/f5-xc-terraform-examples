@@ -73,15 +73,15 @@ In this scenario, application traffic is being migrated from VMware (On-Prem) en
 
     VMware weight - 1 and Nutanix weight - 3
 
-.. image:: .assets/1-1.png
+.. image:: ./assets/1-1.png
 
 Scenario 1: Case A – Genuine requests
 ~~~~~~~~~~
 Once the setup including the site, origin pool, and load balancer is complete and weights are assigned, genuine requests reaching the load balancer are distributed across environments based on those weights. Here, cURL is used to demonstrate sending multiple requests to the load balancer.
 
-.. image:: .assets/1-2.png
+.. image:: ./assets/1-2.png
 
-.. image:: .assets/curl-benign.png
+.. image:: ./assets/curl-benign.png
 
 **Case A Observation** - From the ”Requests” section in Distributed Cloud console for the LB, majority of the requests are directed towards Nutanix which has higher weightage
 
@@ -89,9 +89,9 @@ Scenario 1: Case B – Malicious requests
 ~~~~~~~~~~
 In this case, we'll send malicious requests to the same load balancer and observe how F5 Distributed Cloud mitigates them.
 
-.. image:: .assets/curl-malicious.png
+.. image:: ./assets/curl-malicious.png
 
-.. image:: .assets/1-3.png
+.. image:: ./assets/1-3.png
 
 **Case B Observation** - From the “Requests” section in Distributed Cloud console for the LB, malicious requests blocked by Web Application Firewall (WAF) which won’t reach the origin server.
 
@@ -104,15 +104,15 @@ In this scenario, application traffic is being migrated from VMware (On-Prem) en
 
     VMware weight - 1 and OCP weight - 3
 
-.. image:: .assets/2-1.png
+.. image:: ./assets/2-1.png
 
 Scenario 2: Case A – Genuine requests
 ~~~~~~~~~~
 Once the setup including the site, origin pool, and load balancer is complete and weights are assigned, genuine requests reaching the load balancer are distributed across environments based on those weights. Here, cURL is used to demonstrate sending multiple requests to the load balancer.
 
-.. image:: .assets/2-2.png
+.. image:: ./assets/2-2.png
 
-.. image:: .assets/curl-benign.png
+.. image:: ./assets/curl-benign.png
 
 **Case A Observation** - From the ”Requests” section in Distributed Cloud console for the LB, majority of the requests are directed towards OCP which has higher weightage
 
@@ -120,9 +120,9 @@ Scenario 2: Case B – Malicious requests
 ~~~~~~~~~~
 In this case, we'll send malicious requests to the same load balancer and observe how F5 Distributed Cloud mitigates them.
 
-.. image:: .assets/curl-malicious.png
+.. image:: ./assets/curl-malicious.png
 
-.. image:: .assets/2-3.png
+.. image:: ./assets/2-3.png
 
 **Case B Observation** - From the “Requests” section in Distributed Cloud console for the LB, malicious requests blocked by Web Application Firewall (WAF) which won’t reach the origin server.
 
@@ -135,15 +135,15 @@ In this scenario, application traffic is being migrated from VMware (On-Prem) en
 
     VMware weight - 1, Nutanix weight - 3 and OCP weight - 3
 
-.. image:: .assets/3-1.png
+.. image:: ./assets/3-1.png
 
 Scenario 3: Case A – Genuine requests
 ~~~~~~~~~~
 Once the setup including the site, origin pool, and load balancer is complete and weights are assigned, genuine requests reaching the load balancer are distributed across environments based on those weights. Here, cURL is used to demonstrate sending multiple requests to the load balancer.
 
-.. image:: .assets/3-2.png
+.. image:: ./assets/3-2.png
 
-.. image:: .assets/curl-benign.png
+.. image:: ./assets/curl-benign.png
 
 **Case A Observation** - From the ”Requests” section in Distributed Cloud console for the LB, majority of the requests are directed towards Nutanix and OCP which has higher weightage
 
@@ -151,9 +151,9 @@ Scenario 3: Case B – Malicious requests
 ~~~~~~~~~~
 In this case, we'll send malicious requests to the same load balancer and observe how F5 Distributed Cloud mitigates them.
 
-.. image:: .assets/curl-malicious.png
+.. image:: ./assets/curl-malicious.png
 
-.. image:: .assets/3-3.png
+.. image:: ./assets/3-3.png
 
 **Case B Observation** - From the “Requests” section in Distributed Cloud console for the LB, malicious requests blocked by Web Application Firewall (WAF) which won’t reach the origin server.
 
@@ -166,15 +166,15 @@ In this scenario, application traffic is being migrated from VMware (On-Prem) en
 
     VMware weight - 1 and Azure weight - 3
 
-.. image:: .assets/4-1.png
+.. image:: ./assets/4-1.png
 
 Scenario 4: Case A – Genuine requests
 ~~~~~~~~~~
 Once the setup including the site, origin pool, and load balancer is complete and weights are assigned, genuine requests reaching the load balancer are distributed across environments based on those weights. Here, cURL is used to demonstrate sending multiple requests to the load balancer.
 
-.. image:: .assets/4-2.png
+.. image:: ./assets/4-2.png
 
-.. image:: .assets/curl-benign.png
+.. image:: ./assets/curl-benign.png
 
 **Case A Observation** - From the ”Requests” section in Distributed Cloud console for the LB, majority of the requests are directed towards Azure which has higher weightage
 
@@ -182,9 +182,9 @@ Scenario 4: Case B – Malicious requests
 ~~~~~~~~~~
 In this case, we'll send malicious requests to the same load balancer and observe how F5 Distributed Cloud mitigates them.
 
-.. image:: .assets/curl-malicious.png
+.. image:: ./assets/curl-malicious.png
 
-.. image:: .assets/4-3.png
+.. image:: ./assets/4-3.png
 
 **Case B Observation** - From the “Requests” section in Distributed Cloud console for the LB, malicious requests blocked by Web Application Firewall (WAF) which won’t reach the origin server.
 
