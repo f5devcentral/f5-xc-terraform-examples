@@ -13,7 +13,7 @@
   - [1.4 Create AWS TGW Site](#14-create-aws-tgw-site)
   - [1.5. Secure Mesh Site](#15-secure-mesh-site)
     - [1.5.1 Create Secure Mesh Site](#151-create-secure-mesh-site)
-    - [1.5.2 Add Site Token](#152-add-site-token)
+    - [1.5.2 Generate Node Token](#152-generate-node-token)
     - [1.5.3 Create VMware CE Site](#153-create-vmware-ce-site)
     - [1.5.4 Site Registration](#154-site-registration)
   - [1.6 Create VMware Ubuntu VMs](#16-create-vmware-ubuntu-vms)
@@ -179,7 +179,7 @@ Take a look at the AWS TGW Site configuration and click **Add AWS TGW Site**. AW
 
 ### 1.5.1 Create Secure Mesh Site
 
-In this part, we are going to create a Secure Mesh Site to use it for registering and managing a site deployed on-premises on VMware. Go back to the Console and select **Multi-Cloud Network Connect** service. Navigate to **Site Management** and select **Secure Mesh Sites**. Click **Add Secure Mesh Site**.
+In this part, we are going to create a Secure Mesh Site to use it for registering and managing a site deployed on-premises on VMware. Go back to the Console and select **Multi-Cloud Network Connect** service. Navigate to **Site Management** and select **Secure Mesh Sites v2**. Click **Add Secure Mesh Site**.
 
 ![alt text](./assets/navigate_sm_site_name.png)
 
@@ -187,57 +187,25 @@ First, give it a name. Then click **Add Label** and type in **company**. Assign 
 
 ![alt text](./assets/xc_sm_site_name.png)
 
-Next, move on to **Basic Configuration**. Open the **Generic Server Certified Hardware** drop-down menu and select **vmware-regular-nic-voltmesh**. Then type in **master-0** master node name. Lastly, fill in your public IP address. In this demo, we use **203.0.113.15** as a Public IP.
+Next, move on to the **Provider** configuration. Make sure **VMWare** provider and **Not Managed By F5XC** orchestration mode are selected.
 
 ![alt text](./assets/xc_sm_site_basic_config.png)
 
-Scroll down to **Network Configuration** and select **Custom Network Configuration** in its drop-down menu. Proceed to **View Configuration**.
-
-![alt text](./assets/xc_sm_site_net_config.png)
-
-Scroll down to the **Interface Configuration** section. Select **List of Interface** to add all interfaces belonging to the site. Click **Configure**.
+Take a look at other settings and click the **Add Secure Mesh Site** button to complete the creation of the first Secure Mesh Site.
 
 ![alt text](./assets/xc_sm_site_net_interface_list.png)
 
-Click **Add Item** to start adding the first interface.
+### 1.5.2 Generate Node Token
 
-![alt text](./assets/xc_sm_site_net_interface_list_add.png)
-
-Fill in interface description **eth0** and move on to configuring **Ethernet Interface**.
-
-![alt text](./assets/xc_sm_site_net_interface_list_add_eth0.png)
-
-Click in the **Ethernet Device** field and see suggestions. Select the one we added. Take a look at the configuration and click **Apply**.
-
-![alt text](./assets/xc_sm_site_net_interface_list_add_eth0_details.png)
-
-Proceed by clicking the **Apply** button.
-
-![alt text](./assets/xc_sm_site_net_interface_list_add_eth0_apply.png)
-
-Review the configured List of Interface and click **Apply**.
-
-![alt text](./assets/xc_sm_site_net_interface_list_eth0_apply.png)
-
-In the **Global Connections** section open the **Site Mesh Group Connection Type** drop-down menu and select **Site Mesh Group Connection Via Public Ip** which will use statically configured Public IPs. After that, click **Apply** to apply the configured Network Configuration.
-
-![alt text](./assets/xc_sm_site_net_apply.png)
-
-Finally, enable **Offline Survivability Mode** and click **Add Secure Mesh Site**.
-
-![alt text](./assets/xc_sm_site_apply.png)
-
-### 1.5.2 Add Site Token
-
-In the **Multi-Cloud Network Connect** service navigate to **Site Management** and select **Site Tokens**. Start adding a token by clicking the **Add Site Token** button.
+You will see the created Secure Mesh Site. After that we will need to generate a node token that will be used for its deployment later. Open Secure Mesh Site service menu and select **Generate Node Token**. This will open the token creation page.
 
 ![alt text](./assets/site-tokens-add.png)
 
-Give token a name and click **Save and Exit**.
+You will see the generated token. Copy and save it to use later. Close the token page.
 
 ![alt text](./assets/xc_sm_site_token.png)
 
-Expand the created token to see and copy its UID.
+Finally, let's download the image for VMWare. In the Secure Mesh Site service menu select **Download Image**. This will start the download.
 
 ![alt text](./assets/xc_sm_site_token_details.png)
 
@@ -253,13 +221,13 @@ For the internal network, we create a Virtual Switch with port **Internal Networ
 
 Next, we will create VMware CE Site.
 
-If you use VMware vShpere Client, navigate to **Hosts and Clusters**. Right-click on the **Cluster** and select **Deploy OVF Template**.
+If you are using VMware vShpere Client, navigate to **Hosts and Clusters**. Right-click on the **Cluster** and select **Deploy OVF Template**.
 
-If you use VMware ESXI, navigate to **Virtual Machines** and select **Create/Register VM**, then select **Deploy a virtual machine from an OVF or OVA file**.
+If you are using VMware ESXI, navigate to **Virtual Machines** and select **Create/Register VM**, then select **Deploy a virtual machine from an OVF or OVA file**.
 
 ![alt text](./assets/vmware_site_ova.png)
 
-Open [F5 Distributed Cloud Console Documentation](https://docs.cloud.f5.com/docs/images/node-vmware-images) and download the **OVA Image** file. Use the downloaded file to deploy the VM. Set **vmware-ce-site** as the name of the VM.
+Fill in virtual machine name and upload the downloaded Secure Mesh Site image to deploy the VM. Click **Next**.
 
 ![alt text](./assets/vmware_site_ova_image.png)
 
@@ -274,7 +242,7 @@ Select the network for the VM. Make sure to select the **External Network** for 
 Complete additional settings section where:
 
 - hostname: master-0
-- token: your Site Token UID from the [previous step](#152-add-site-token)
+- token: your Secure Mesh Site [node token](#152-generate-node-token) generated earlier
 - password: your password to access the CE Site
 - cluster name: your [Secure Mesh Site name](#151-create-secure-mesh-site)
 - certified hardware: vmware-regular-nic-voltmesh
@@ -516,7 +484,7 @@ In this part of the demo we will configure VMware CE Site by adding two interfac
 
 ## 4.1 Configure VMware CE Site
 
-In this part we will connect VMware to the site and configure its interfaces. Back in the Console go to the **Multi-Cloud Network Connect** service and proceed to **Site Management**. Then select **Secure Mesh Sites**. Open the service menu of the [site](#151-create-secure-mesh-site) we created earlier and select **Manage Configuration**.
+In this part we will connect VMware to the site and configure its interfaces. Back in the Console go to the **Multi-Cloud Network Connect** service and proceed to **Site Management**. Then select **Secure Mesh Sites v2**. Open the service menu of the [site](#151-create-secure-mesh-site) we created earlier and select **Manage Configuration**.
 
 ![alt text](./assets/xc_sm_site_list.png)
 
@@ -524,7 +492,7 @@ Click **Edit Configuration**.
 
 ![alt text](./assets/xc_sm_site_edit.png)
 
-Scroll down to the **Network Configuration** and click **Edit Configuration**.
+Scroll down to the **Provider** section and click the node edit button.
 
 ![alt text](./assets/xc_sm_site_edit_config.png)
 
@@ -537,19 +505,11 @@ In the table below, you can see the interfaces we are going to add.
 | Prod | 100     | eth1.100  | 10.200.100.1/24 |
 | Dev  | 200     | eth1.200  | 10.200.200.1/24 |
 
-Proceed by clicking **Edit Configuration**.
-
-![alt text](./assets/xc_sm_site_edit_configuration.png)
-
-You will see the first interface configured earlier. Click **Add Item** to start adding the second **prod** interface.
+Click **Add Item** under the **Interface** section.
 
 ![alt text](./assets/xc_sm_site_net_interface_list_add_1.png)
 
-Fill in interface description and click **Configure** Ethernet Interface.
-
-![alt text](./assets/xc_sm_site_net_interface_list_add_vlan100.png)
-
-In the suggestions for Ethernet Device, select the added name. Then select **Specific Node** to apply configuration only to a device on node **master-0** added earlier. Lastly, select **VLAN Id** to configure a VLAN tagged ethernet interface and type in **100**.
+Give it a name. Then select **VLAN Interface** interface type. Specify **eth1** parent interface. Lastly, type in **VLAN ID** **100**.
 
 ![alt text](./assets/xc_sm_site_net_interface_list_add_vlan100_conf.png)
 
@@ -557,23 +517,15 @@ Scroll down to the **IP Configuration** section and select **Static IP** configu
 
 ![alt text](./assets/xc_sm_site_net_interface_list_add_vlan100_ip.png)
 
-Next, in the **Virtual Network** section, choose the **Segment** option. From the drop-down menu, select **system/prod-segment**. Click **Apply** to proceed.
+Next, in the **Interface Settings** section, choose the **Segment (Global VRF)** option. From the drop-down menu, select **system/prod-segment**. Click **Apply** to proceed.
 
 ![alt text](./assets/segment-vn-prod.png)
 
-Take a look at the second interface configuration and click **Apply**.
-
-![alt text](./assets/xc_sm_site_net_interface_list_add_vlan100_apply_2.png)
-
-You will see a list of two interfaces. Click **Add Item** to add the third one - for dev.
+Click **Add Item** to add one more interface - for dev.
 
 ![alt text](./assets/xc_sm_site_net_interface_list_add_2.png)
 
-Give the third interface a name and move on to configuring **Ethernet Interface**.
-
-![alt text](./assets/xc_sm_site_net_interface_list_vlan200.png)
-
-In the suggestions for Ethernet Device, select the added name. Then select **Specific Node** to apply configuration only to a device on node **master-0** added earlier. Lastly, select **VLAN Id** to configure a VLAN tagged ethernet interface and type in **200**.
+Give it a name. Then select **VLAN Interface** interface type. Specify **eth1** parent interface. Lastly, type in **VLAN ID** **200**.
 
 ![alt text](./assets/xc_sm_site_net_interface_list_vlan200_basic.png)
 
@@ -581,19 +533,15 @@ Scroll down to the **IP Configuration** section and select **Static IP** configu
 
 ![alt text](./assets/xc_sm_site_net_interface_list_vlan200_ip.png)
 
-Next, in the **Virtual Network** section, choose the **Segment** option. From the drop-down menu, select **system/dev-segment**. Click **Apply** to proceed.
+Next, in the **Interface Settings** section, choose the **Segment (Global VRF)** option. From the drop-down menu, select **system/dev-segment**. Click **Apply** to proceed.
 
 ![alt text](./assets/segment-vn-dev.png)
 
-Take a look at the second interface configuration and click **Apply**.
+Take a look at the configured interfaces and click **Apply**.
 
 ![alt text](./assets/xc_sm_site_net_interface_list_vlan200_apply_2.png)
 
-Make sure **Site Mesh Group Connection Via Public Ip** is specified and move on by clicking **Apply**.
-
-![alt text](./assets/xc_sm_site_net_apply.png)
-
-Click **Save Secure Mesh Site** to apply the changes.
+Make sure **Site Mesh Group Connection Via Public Ip** is specified in the **Site to Site Connectivity** section. Click **Save Secure Mesh Site** to apply the changes.
 
 ![alt text](./assets/xc_sm_site_update.png)
 
