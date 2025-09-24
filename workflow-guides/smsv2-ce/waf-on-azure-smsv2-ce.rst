@@ -16,12 +16,12 @@ Contents
 
 Prerequisites
 --------------
-Access to Azure portal
-Access to F5 Distributed Cloud (XC) account
+- Access to Azure portal
+- Access to F5 Distributed Cloud (XC) account
 
 Steps to deploy Secure Mesh Site v2 in Azure
 --------------
-To deploy Secure Mesh Site v2 (SMSv2) in Azure, follow this link
+To deploy Secure Mesh Site v2 (SMSv2) in Azure, follow this `link <https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops>` --
 
 .. image:: ./assets/azure/smsv2-azure-site.png
 
@@ -77,17 +77,17 @@ Steps to deploy VM (Client VM) running application workloads
 
 9. Once the connection is established between CE site and VM, connect to the VM through SSH to deploy application. Execute below commands to deploy a vulnerable application (here “JuiceShop” is used)
 
-$ sudo apt update
-$ sudo apt install docker.io
-$ sudo docker run -d -p 3000:3000 bkimminich/juice-shop
+    - $ sudo apt update
+    - $ sudo apt install docker.io
+    - $ sudo  docker run -d -p 3000:3000 bkimminich/juice-shop
 
 Accessing applications through Load Balancers
 --------------
 To access the applications installed in the Client machine through SMSv2 Customer Edge (CE), below configurations needs to be followed:
 
-    - Creating “Origin Pool”
-    - Creating “LB”
-    - Creating “WAF” (recommended for security) and applying on the load balancer
+    1. Creating “Origin Pool”
+    2. Creating “LB”
+    3. Creating “WAF” (recommended for security) and applying on the load balancer
 
 Creating Origin Pool
 --------------
@@ -101,7 +101,7 @@ Creating Origin Pool
 
 3. Select Origin Server Type IP address of Origin Server on given Sites and provide IP, select VMware site created from the dropdown and make sure Select Network on the site is set to “Inside Network” and click “Apply”
 
-Note: IP address and Site might vary based on your configuration
+*Note: IP address and Site might vary based on your configuration*
 
 .. image:: ./assets/azure/smsv2-azure-op3.png
 
@@ -119,7 +119,7 @@ Creating Load Balancer
 
 2. Provide name for LB and domain with valid sub-domain
 
-Note: You should be having domain to use for LB and it should be able to resolve for the FQDN to be accessible
+*Note: You should be having domain to use for LB and it should be able to resolve for the FQDN to be accessible*
 
 .. image:: ./assets/azure/smsv2-azure-lb2.png
 
