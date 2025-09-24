@@ -147,7 +147,7 @@ Creating Load Balancer
 
 .. image:: ./assets/azure/smsv2-azure-lb8.png
 
-9. Click “Add HTTP Load Balancer” and wait for around ~5 minutes for LB to provision and come up completely.
+9. Access the LB URL and Juice-Shop application should be available which is deployed in Client (Ubuntu) VM using docker and exposed through port 3000
 
 .. image:: ./assets/azure/smsv2-azure-lb9.png
 
