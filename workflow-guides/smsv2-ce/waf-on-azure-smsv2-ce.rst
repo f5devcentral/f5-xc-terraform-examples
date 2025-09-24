@@ -1,11 +1,11 @@
 F5 Distributed Cloud SMSv2 CE on Azure with WAF
 #########################################################
 Introduction
---------------
+*****
 This demo guide provides step-by-step walkthrough for enabling Web Application Firewall (WAF) on Secure Mesh Site v2 (SMSv2) Customer Edge (CE) site manually using F5 Distributed Cloud (XC) console.
 
 Contents
---------------
+====
 - Deploying SMSv2 CE in Azure
 - Deploying Client VM and applications for testing
 - Verifying Connectivity between CE site and Client VM through SLI
@@ -15,7 +15,7 @@ Contents
 - Verifying WAF with malicious requests
 
 Prerequisites
---------------
+----
 - Access to Azure portal
 - Access to F5 Distributed Cloud (XC) account
 
