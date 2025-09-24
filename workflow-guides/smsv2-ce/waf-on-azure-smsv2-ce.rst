@@ -21,7 +21,7 @@ Prerequisites
 
 Steps to deploy Secure Mesh Site v2 in Azure
 --------------
-To deploy Secure Mesh Site v2 (SMSv2) in Azure, follow this `link <https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops>` --
+To deploy Secure Mesh Site v2 (SMSv2) in Azure, follow this `link <https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops>`__
 
 .. image:: ./assets/azure/smsv2-azure-site.png
 
@@ -90,7 +90,7 @@ To access the applications installed in the Client machine through SMSv2 Custome
     3. Creating “WAF” (recommended for security) and applying on the load balancer
 
 Creating Origin Pool
---------------
+============
 1. Under “Multi-Cloud App Connect”, select Load Balancers-> Origin Pools. Click “Add Origin Pool”
 
 .. image:: ./assets/azure/smsv2-azure-op1.png
@@ -112,7 +112,7 @@ Creating Origin Pool
 5. After creating the Origin Pool, this can be used in Load Balancer to access the application.
 
 Creating Load Balancer
---------------
+============
 1. Under “Multi-Cloud App Connect”, select Load Balancers-> HTTP Load Balancers. Click “Add HTTP Load Balancer”
 
 .. image:: ./assets/azure/smsv2-azure-lb1.png
