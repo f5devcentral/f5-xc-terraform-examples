@@ -146,13 +146,13 @@ Logs show the installation of Nutanix CE and take couple of minutes to get to in
 
     In the screenshot mentioned above, Hypervisor selection is AHV, and Hard disks were selected for CVM boot disk and others as Data disk. Use Tab to navigate to the Disk Selection field.  
     
-    Use the up arrow and down arrow keys to navigate between the disk selection, use C to confirm the CVM boot disk, H to confirm the hypervisor boot disk selection, Similarly D for Data Disk. 
+    Use the up arrow and down arrow keys to navigate between the disk selection, use **C** to confirm the CVM boot disk, **H** to confirm the hypervisor boot disk selection, Similarly **D** for Data Disk. 
     
     Provide the networking information such as Host IP address, CVM IP Address, Subnet Mask and Gateway that you gathered. 
     
     Press Tab to select Next Page and press Enter. 
 
-    Read the end-user license agreement (EULA). Use the up arrow and down arrow keys to scroll. Press Tab to navigate to the I accept the end user license agreement checkbox.
+    Read the end-user license agreement (EULA). Use the up arrow and down arrow keys to scroll. Press Tab to navigate to the **I accept the end user license agreement** checkbox.
 
     .. figure:: Assets/eula-license-aggrement.jpg
 
