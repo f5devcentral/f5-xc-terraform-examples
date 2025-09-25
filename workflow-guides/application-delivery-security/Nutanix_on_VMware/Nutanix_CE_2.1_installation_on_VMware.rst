@@ -51,7 +51,7 @@ Below are the steps to create a virtual machine with Nutanix CE ISO uploaded to 
 
 .. figure:: Assets/create-register-vm.jpg  
 
-* Click on **create a new virtual machine** and click next.
+* Click on **Create a new virtual machine** and click next.
 
 .. figure:: Assets/create-vm.jpg  
 
@@ -90,7 +90,7 @@ Below are the steps to create a virtual machine with Nutanix CE ISO uploaded to 
 .. figure:: Assets/vm-creation-vm-edit-configs.jpg
 
 * Under the Advanced section, Click on Edit Configuration.
-* Scroll down to the bottom and Click on Add Parameter, you can ne able to see **Click to edit key** and **click to edit value**. 
+* Scroll down to the bottom and Click on Add Parameter, you can be able to see **Click to edit key** and **click to edit value**. 
 
 .. figure:: Assets/vm-creation-vm-option-app-parameters-2.jpg
 
@@ -98,19 +98,20 @@ Below are the steps to create a virtual machine with Nutanix CE ISO uploaded to 
 
 .. figure:: Assets/vm-creation-vm-option-app-parameters-key-value.jpg
 
-* Click on okay.
+* Click on **OK**.
 
 .. figure:: Assets/vm-creation-save-configs.jpg
 
 * Click on Save.  
-* Click on Power on to switch on the virtual machine. 
+* Click on **Power on** to switch on the virtual machine. 
 
 .. figure:: Assets/vm-creation-power-on.jpg
 
 Once instance is powered on, click on console to access the instance for CE installation. 
+
 .. figure:: Assets/vm-creation-console-access.jpg
 
-Logs show the installation on Nutanix CE and take couple of minutes to get to installer screen. 
+Logs show the installation of Nutanix CE and take couple of minutes to get to installer screen. 
 
 **Note:** Make sure you set Promiscuous mode, MAC address changes, Forged transmit to Accept in virtual switch settings, 
 
@@ -120,6 +121,7 @@ Logs show the installation on Nutanix CE and take couple of minutes to get to in
 **Step 3: Installing Nutanix CE on VMware**
     **Step 3.1: Installing CE on VMware**
     Below are the steps gives detailed steps to configure single node cluster on VMware ESXi. 
+    
     Before proceeding for the installation, make sure you have a list of IP-Addresses available on your own LAN, 
 
     * 2 IP addresses for AHV and CVM
