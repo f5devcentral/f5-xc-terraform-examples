@@ -224,7 +224,7 @@ Logs show the installation of Nutanix CE and take couple of minutes to get to in
 
 **Step 4: Accessing the Web Console**
 
-We can be able to access the Nutanix console using CVM IP or External IP provided during cluster creation. 
+We can be able to access the Nutanix console with https:// <External_IP> or <CVM_IP> with port number 9440 provided during cluster creation. 
 
 .. figure:: Assets/cluster-access.jpg
 

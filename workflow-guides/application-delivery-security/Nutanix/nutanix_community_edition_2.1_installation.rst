@@ -5,7 +5,7 @@ Installation of Nutanix Community Edition 2.1 on Bare Metal
 Introduction:
 ***************
 Nutanix Community Edition (CE) 2.1 is a community supported version of Nutanix’s hyperconverged software. It allows to deploy and testing new workloads using Nutanix’s Acropolis Hypervisor (AHV). AHV offers an intuitive and easy way to manage virtual environments with optimized performance and reliability.
-The installation of Nutanix CE mentioned in this documenet is based on the commercial version AOS 6.8.1 and AHV 20230302.101026.
+The installation of Nutanix CE mentioned in this document is based on the commercial version AOS 6.8.1 and AHV 20230302.101026.
 
 Recommended Hardware:
 ***************
@@ -203,7 +203,7 @@ Now, setup is good and ready to be accessed.
 
 **Step 4: Accessing the web console**
 
-In a web browser, navigate to http:// <External_IP> or <CVM_IP> with port number 9440 to access the Nutanix console.
+In a web browser, navigate to https:// <External_IP> or <CVM_IP> with port number 9440 to access the Nutanix console.
 
 .. figure:: Assets/nutanix_web_console.png
 
