@@ -51,13 +51,13 @@ Below are the steps to create a virtual machine with Nutanix CE ISO uploaded to 
 
 .. figure:: Assets/create-register-vm.jpg  
 
-* Click on create a new virtual machine and click next.
+* Click on **create a new virtual machine** and click next.
 
 .. figure:: Assets/create-vm.jpg  
 
 * Enter a valid name for your virtual machine. 
-* Select the appropriate compatibility for your environment, I have selected ESXi 6.7 virtual machine. 
-* Choose Guest OS family as Linux. 
+* Select the appropriate compatibility for your environment, I have selected **ESXi 6.7 virtual machine**. 
+* Choose Guest OS family as **Linux**. 
 * Select guest OS version as Centos 7 (64-bit) or above. I have selected Centos 8 (64-bit). Click on Next. 
 
 .. figure:: Assets/vm-creation-guest-os.jpg  
@@ -72,7 +72,7 @@ Below are the steps to create a virtual machine with Nutanix CE ISO uploaded to 
 
 .. figure:: Assets/vm-creation-customize-settings-1.jpg  
 
-* Scroll down a bit and hover over to CD/DVD Drive 1 and select Datastore ISO file from the dropdown menu. 
+* Scroll down a bit and hover over to **CD/DVD Drive 1** and select **Datastore ISO file** from the dropdown menu. 
 
 .. figure:: Assets/vm-creation-cd-dvd-selection.jpg
 
@@ -82,7 +82,7 @@ Below are the steps to create a virtual machine with Nutanix CE ISO uploaded to 
 
 .. figure:: Assets/vm-creation-image-uploaded.jpg
 
-* Click on VM options to add disk.EnableUUID=TRUE in the VMX file manually. This is needed to get the disk serials populated during Nutanix bootup process. 
+* Click on **VM options** to add **disk.EnableUUID=TRUE** in the VMX file manually. This is needed to get the disk serials populated during Nutanix bootup process. 
 
 .. figure:: Assets/vm-creation-customize-settings-vmoptions.jpg
 
@@ -90,11 +90,11 @@ Below are the steps to create a virtual machine with Nutanix CE ISO uploaded to 
 .. figure:: Assets/vm-creation-vm-edit-configs.jpg
 
 * Under the Advanced section, Click on Edit Configuration.
-* Scroll down to the bottom and Click on Add Parameter, you can able to see Click to edit key and click to edit value. 
+* Scroll down to the bottom and Click on Add Parameter, you can ne able to see **Click to edit key** and **click to edit value**. 
 
 .. figure:: Assets/vm-creation-vm-option-app-parameters-2.jpg
 
-* Enter the key as disk.EnableUUID and value as TRUE. 
+* Enter the key as **disk.EnableUUID** and value as **TRUE**. 
 
 .. figure:: Assets/vm-creation-vm-option-app-parameters-key-value.jpg
 
@@ -130,9 +130,9 @@ Logs show the installation on Nutanix CE and take couple of minutes to get to in
 
     I have configured my setup details as below,
 
-        * 10.144.126.61, 10.144.125.62 for AHV and CVM 
-        * 10.144.126.63 for Cluster IP 
-        * 10.144.126.254 and 255.255.255.0 as Gateway and Netmask 
+    * 10.144.126.61, 10.144.125.62 for AHV and CVM 
+    * 10.144.126.63 for Cluster IP 
+    * 10.144.126.254 and 255.255.255.0 as Gateway and Netmask 
 
     Installer screen logs shown as below, 
 
