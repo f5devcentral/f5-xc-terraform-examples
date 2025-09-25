@@ -188,17 +188,17 @@ Logs show the installation of Nutanix CE and take couple of minutes to get to in
 
     **Step 3.2: Creating and configuring single node cluster**
 
-    Once you are at the AHV, you can see the login prompt, you can login with default credentials with username as root and password as nutanix/4u 
+    Once you are at the AHV, you can see the login prompt, you can login with default credentials with username as **root** and password as **nutanix/4u** 
 
     It takes sometimes to come up for creating of cluster. 
 
     .. figure:: Assets/cluster-creation-login.jpg
 
-    Now, ssh to CVM with the CVM IP address (you can also use CVM internal IP 192.168.5.2) with username: nutanix and password as nutanix/4u
+    Now, ssh to CVM with the CVM IP address (you can also use CVM internal IP 192.168.5.2) with username: **nutanix** and password as **nutanix/4u**
 
     .. figure:: Assets/cluster-creation-process-1.jpg
     
-        * Execute “watch -d genesis status” command to check if genesis is running. 
+    * Execute “watch -d genesis status” command to check if genesis is running. 
     
     .. figure:: Assets/cluster-creation-genesis-status.jpg
 
