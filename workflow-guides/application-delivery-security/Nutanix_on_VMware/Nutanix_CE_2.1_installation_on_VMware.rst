@@ -186,7 +186,98 @@ Logs show the installation on Nutanix CE and take couple of minutes to get to in
 
     **Step 3.2: Creating and configuring single node cluster**
 
+    Once you are at the AHV, you can see the login prompt, you can login with default credentials with username as root and password as nutanix/4u 
+
+    It takes sometimes to come up for creating of cluster. 
+
+    .. figure:: Assets/cluster-creation-login.jpg
+
+    Now, ssh to CVM with the CVM IP address (you can also use CVM internal IP 192.168.5.2) with username: nutanix and password as nutanix/4u
+
+    .. figure:: Assets/cluster-creation-process-1.jpg
     
+        * Execute “watch -d genesis status” command to check if genesis is running. 
+    
+    .. figure:: Assets/cluster-creation-genesis-status.jpg
+
+    This confirms genesis is running (there are pids behind the service name). Press CTRL + C to quit watch. 
+
+    Now, we are good to execute command for single node creation, 
+
+        * For a single node cluster, the command is: **cluster -s <cvm_ip> --redundancy_factor=1 –-cluster_external_ip=<cluster_ip>**
+
+    It may take a while as the cluster is created, and all services are started on the CVM.
+
+    .. figure:: Assets/cluster-creation-cluster-cmd.jpg
+
+    .. figure:: Assets/cluster-creation-cluster-success.jpg
+
+    This confirms cluster is successfully created as shown in above screenshot. 
+
+        * Execute the ncli cluster cmd to add name server to the cluster: **ncli cluster add-to-name-servers servers=<name_server_ip>**
+
+    .. figure:: Assets/cluster-creation-name-server.jpg
+
+    Cluster is created successfully and ready to be accessed.
+
+**Step 4: Accessing the Web Console**
+
+We can be able to access the Nutanix console using CVM IP or External IP provided during cluster creation. 
+
+.. figure:: Assets/cluster-access.jpg
+
+Sign in with default admin account username and password. 
+    * Username: admin 
+    * Password: nutanix/4u 
+
+When prompted, change the default password. 
+
+Sign in with the admin account username and the new password. 
+
+After login with the new password, you will see the page details as below, 
+
+.. figure:: Assets/cluster-access-next-credentials.jpg
+
+You need to login with your Nutanix Community account.  
+
+Click Create account if you have not joined the Next Community. Community Edition check to ensure that the Community Edition role associated with your account is enabled. To enable the community Edition role, register at `Nutanix Website <https://www.nutanix.com/products/register>`__. 
+
+If you have already registered to the Nutanix community, Click on Activate button on Community Edition tile and enter your registered email id for registration. 
+
+Now, login to above prompt with Nutanix credentials and page takes you to Nutanix dashboard.
+
+.. figure:: Assets/nutanix_console_login.jpg
+
+Now, VM instance can be created from the console. 
+
+**Conslusion:**
+
+Creating virtual machines becomes easier within Nutanix Community Edition and helps in connecting these services to Nutanix Cloud Cluster (NC2) as well. As mentioned in this documentation on creating Nutanix CE with detailed steps helps in bringing up the setup for deploying virtual machines in it. 
+
+**Additional Links:**
+
+For more details, guidance on Nutanix CE installation, refer to the official documentation below,
+
+https://www.jeroentielen.nl/installing-nutanix-community-edition-ce-on-vmware-workstation/
+
+https://next.nutanix.com/ 
+
+https://my.nutanix.com/page/signup 
+
+https://www.nutanix.com/products/community-edition/register 
+
+https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Community-Edition-Getting-Started:top-sysreqs-ce-r.html 
+
+https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Community-Edition-Getting-Started-v2_1:top-installing-ce-t.html 
+
+https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Community-Edition-Getting-Started-v2_1:top-cluster-creating-ce-c.html 
+
+    
+
+    
+
+
+
 
 
 
