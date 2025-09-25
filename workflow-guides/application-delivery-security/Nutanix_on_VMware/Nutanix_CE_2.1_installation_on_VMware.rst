@@ -43,7 +43,7 @@ Once the upload is complete, refresh the Datastore Browser to see the uploaded I
 .. figure:: Assets/ce_image_upload_success.jpg  
 
 
-**Step 2: Creating a virtual machine **
+**Step 2: Creating a virtual machine**
 
 Below are the steps to create a virtual machine with Nutanix CE ISO uploaded to VMware ESXi machine, 
 
@@ -92,7 +92,7 @@ Below are the steps to create a virtual machine with Nutanix CE ISO uploaded to 
 * Under the Advanced section, Click on Edit Configuration.
 * Scroll down to the bottom and Click on Add Parameter, you can able to see Click to edit key and click to edit value. 
 
-.. figure:: Assets/vvm-creation-vm-option-app-parameters-2.jpg
+.. figure:: Assets/vm-creation-vm-option-app-parameters-2.jpg
 
 * Enter the key as disk.EnableUUID and value as TRUE. 
 
@@ -115,3 +115,79 @@ Logs show the installation on Nutanix CE and take couple of minutes to get to in
 **Note:** Make sure you set Promiscuous mode, MAC address changes, Forged transmit to Accept in virtual switch settings, 
 
 .. figure:: Assets/virtual_switch_config_promiscuous_mode.jpg
+
+
+**Step 3: Installing Nutanix CE on VMware**
+    **Step 3.1: Installing CE on VMware**
+    Below are the steps gives detailed steps to configure single node cluster on VMware ESXi. 
+    Before proceeding for the installation, make sure you have a list of IP-Addresses available on your own LAN, 
+
+    * 2 IP addresses for AHV and CVM
+    * 1 IP address for cluster 
+    * Gateway and Netmask address details 
+
+    These IP addresses should be on the same network as where your machine is available in. We are going to use the bridge network functionality from VMware ESXi so that AHV, CVM and cluster IP are available on your network.
+
+    I have configured my setup details as below,
+
+        * 10.144.126.61, 10.144.125.62 for AHV and CVM 
+        * 10.144.126.63 for Cluster IP 
+        * 10.144.126.254 and 255.255.255.0 as Gateway and Netmask 
+
+    Installer screen logs shown as below, 
+
+    .. figure:: Assets/ce-install.jpg
+    
+    When the boot sequence finishes, the CE installer dialog appears,
+
+    .. figure:: Assets/ce-install-dialog.jpg
+
+    In the screenshot mentioned above, Hypervisor selection is AHV, and Hard disks were selected for CVM boot disk and others as Data disk. Use Tab to navigate to the Disk Selection field.  
+    
+    Use the up arrow and down arrow keys to navigate between the disk selection, use C to confirm the CVM boot disk, H to confirm the hypervisor boot disk selection, Similarly D for Data Disk. 
+    
+    Provide the networking information such as Host IP address, CVM IP Address, Subnet Mask and Gateway that you gathered. 
+    
+    Press Tab to select Next Page and press Enter. 
+
+    Read the end-user license agreement (EULA). Use the up arrow and down arrow keys to scroll. Press Tab to navigate to the I accept the end user license agreement checkbox.
+
+    .. figure:: Assets/eula-license-aggrement.jpg
+
+    Press the spacebar to select the checkbox. Use the arrow keys to navigate to Start and press Enter to start the installation process. 
+
+    Installation process as follows, 
+
+    .. figure:: Assets/ce-install-process-1.jpg
+
+    .. figure:: Assets/ce-install-process-2.jpg
+
+    .. figure:: Assets/ce-install-process-3.jpg
+    
+    Before proceeding to the bootup, need to initiate the boot sequence from AHV virtual disk, to get it done, we are going to disable the CD/DVD drive 1 from which initial boot sequence was initiated. 
+
+    * Disabled Connect at power on checkbox. 
+    
+    .. figure:: Assets/ce-install-disable-power-on.jpg
+    
+    * A pop up shows, ejecting the CD-ROM to initiate the bootup process, 
+
+    * Click on Yes and click on Answer. 
+
+    .. figure:: Assets/ce-install-dialog-answer.jpg
+
+    * Enter the Y key and press Enter. 
+
+    .. figure:: Assets/ce-install-enable-y.jpg
+    
+    Now the VM will be booted with AHV. 
+
+    .. figure:: Assets/nutanix_ce_install.jpg
+
+    **Step 3.2: Creating and configuring single node cluster**
+
+    
+
+
+
+    
