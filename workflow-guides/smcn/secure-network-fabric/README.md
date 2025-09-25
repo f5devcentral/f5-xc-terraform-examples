@@ -13,7 +13,7 @@
   - [1.4 Create AWS TGW Site](#14-create-aws-tgw-site)
   - [1.5. Secure Mesh Site](#15-secure-mesh-site)
     - [1.5.1 Create Secure Mesh Site](#151-create-secure-mesh-site)
-    - [1.5.2 Add Site Token](#152-add-site-token)
+    - [1.5.2 Generate Node Token](#152-generate-node-token)
     - [1.5.3 Create VMware CE Site](#153-create-vmware-ce-site)
     - [1.5.4 Site Registration](#154-site-registration)
   - [1.6 Create VMware Ubuntu VMs](#16-create-vmware-ubuntu-vms)
@@ -45,18 +45,18 @@
 
 # Overview
 
-This guide demonstrates a comprehensive **Multi-Cloud Networking (MCN)** configuration across multiple clouds using **F5 Enterprise Networking**, with the following key use-cases highlighted:
+This guide demonstrates a comprehensive **Multi-Cloud Networking (MCN)** configuration across multiple clouds using **F5 Enterprise Networking**, with the following key use cases highlighted:
 
-- Configuration of AWS Environment including creating four AWS VPCs (dev, prod, shared and external) using the AWS Management Console, AWS EC2 instance in each VPC, two cloud credentials for ACME Corp and External Companies, AWS TGW Site to connect VPCs to, Secure Mesh Site and VMware Ubuntu VMs and, finally, Site Mesh Group;
-- Creation of three Cloud Connects for prod, dev and shared VPCs using ACME Corp credentials created in the configuration part. Each Cloud Connect will have a VPC segment inside it to connect VPCs to our AWS TGW Site;
+- Configuration of the AWS Environment including creating four AWS VPCs (dev, prod, shared, and external) using the AWS Management Console, an AWS EC2 instance in each VPC, two cloud credentials for ACME Corp and External Companies, an AWS TGW Site to connect VPCs to, a Secure Mesh Site and VMware Ubuntu VMs, and finally, a Site Mesh Group;
+- Creation of three Cloud Connects for prod, dev, and shared VPCs using ACME Corp credentials created in the configuration part. Each Cloud Connect will have a VPC segment inside it to connect VPCs to our AWS TGW Site;
 - Configuration of two Segment Connectors - prod to shared and dev to shared;
-- Connection of VMware Data Center to ACME Corp by adding prod and dev interfaces;
-- Creating of cloud connect for External Company and then adding a segment for it. Connection of external segment to prod one within segment connector;
-- Configuration of Enhanced Firewall Policy with two rules and assigning it to the AWS TGW Site to allow http and https traffic and deny the rest.
+- Connection of the VMware Data Center to ACME Corp by adding prod and dev interfaces;
+- Creation of a cloud connect for the External Company and then adding a segment for it. Connection of the external segment to the prod one within a segment connector;
+- Configuration of an Enhanced Firewall Policy with two rules and assigning it to the AWS TGW Site to allow HTTP and HTTPS traffic and deny the rest.
 
 # Setup Diagram
 
-The objective of the demo is to demonstrate the connection of different VPCs from different accounts in one region. As a result of the demo, we will have AWS TGW Site with three VPCs (prod, dev and shared) connected to it. We will also have VMware CE Site with two VLANs (prod and dev) connected to the AWS TGW Site. We will connect an External Company to the prod VPC and VMware prod. Finally, we will configure Enhanced Firewall Policy and assign it to the site to control the traffic.
+The objective of the demo is to demonstrate the connection of different VPCs from different accounts in one region. As a result of the demo, we will have an AWS TGW Site with three VPCs (prod, dev, and shared) connected to it. We will also have a VMware CE Site with two VLANs (prod and dev) connected to the AWS TGW Site. We will connect an External Company to the prod VPC and VMware prod. Finally, we will configure an Enhanced Firewall Policy and assign it to the site to control the traffic.
 
 ![alt text](./assets/setup-diagram.png)
 
@@ -64,9 +64,9 @@ The objective of the demo is to demonstrate the connection of different VPCs fro
 
 ## 1.1 Create AWS VPC using the AWS Management Console
 
-First, we will need to create four VPCs to connect to our AWS TGW Site: prod, dev, shared and external ones. We will use the AWS Management Console to do that since it lets us create a VPC plus the additional VPC resources that we need to run our application. Then we will create AWS EC2 instance in each created VPC.
+First, we will need to create four VPCs to connect to our AWS TGW Site: prod, dev, shared, and external ones. We will use the AWS Management Console to do that since it lets us create a VPC plus the additional VPC resources that we need to run our application. Then we will create an AWS EC2 instance in each created VPC.
 
-In order to create dev, prod, shared and external VPCs we will use the following CIDR and Subnets:
+In order to create dev, prod, shared, and external VPCs, we will use the following CIDR and subnets:
 
 | Name     | CIDR          | Subnets        |
 | -------- | ------------- | -------------- |
@@ -87,23 +87,23 @@ Make sure NAT Gateways and VPC endpoints are **None**. **Enable** both DNS optio
 
 ![alt text](./assets/aws_cloud_vpc_constructor2.png)
 
-Repeat the step above to create three more VPCs - Dev, Shared and External.
+Repeat the step above to create three more VPCs - Dev, Shared, and External.
 
 ![alt text](./assets/aws_cloud_vpc_list.png)
 
 ## 1.2 Create AWS EC2 instance in each VPC
 
-Now we will create AWS EC2 instances in each VPC created in the previous step. First, we will configure and create prod VM.
+Now we will create AWS EC2 instances in each VPC created in the previous step. First, we will configure and create the prod VM.
 
-Start creating VM. In **Network Settings** select the created **VPC**, **subnet** and enable **Auto-assign public IP** in case you want to access the VM from the internet.
+Start creating the VM. In **Network Settings** select the created **VPC**, **subnet** and enable **Auto-assign public IP** in case you want to access the VM from the internet.
 
 ![alt text](./assets/aws_cloud_ec2_network.png)
 
-Next, we will create a Firewall security group. Select **Create security group** and give it a name. We will also need to write description for the group.
+Next, we will create a firewall security group. Select **Create security group** and give it a name. We will also need to write a description for the group.
 
 ![alt text](./assets/aws_cloud_ec2_network-3.png)
 
-Scroll down and configure inbound security group rule to allow all traffic to come to this instance. Select **All traffic** from **Anywhere**. Optionally, you can specify the private IP address of the instance in the Network settings. Finally, click **Launch instance**. Repeat the same process for dev, shared and external VMs.
+Scroll down and configure an inbound security group rule to allow all traffic to come to this instance. Select **All traffic** from **Anywhere**. Optionally, you can specify the private IP address of the instance in the Network settings. Finally, click **Launch instance**. Repeat the same process for dev, shared, and external VMs.
 
 ![alt text](./assets/aws_cloud_ec2_network-1.png)
 
@@ -115,7 +115,7 @@ Let's drill down into the prod VM to see more details. Click on it to expand the
 
 ![alt text](./assets/aws_cloud_ec2_security.png)
 
-Now that we have configured AWS environment, we can move on to creating AWS Cloud Credentials and AWS TGW Site to which we will later connect VPCs.
+Now that we have configured the AWS environment, we can move on to creating AWS Cloud Credentials and an AWS TGW Site to which we will later connect VPCs.
 
 ## 1.3 Create AWS Cloud Credentials
 
@@ -125,7 +125,7 @@ More detailed information on Cloud Credentials can be found [here](https://docs.
 
 ![alt text](./assets/navigate-cloud-creds.png)
 
-First, we will add credentials for the ACME Corp company. Give cloud credentials a name and fill in your **Access Key ID** for AWS authentication using access keys. Click the **Add Cloud Credentials** button.
+First, we will add credentials for the ACME Corp company. Give the cloud credentials a name and fill in your **Access Key ID** for AWS authentication using access keys. Click the **Add Cloud Credentials** button.
 
 ![alt text](./assets/xc_cloud_credentials_acmecorp.png)
 
@@ -135,7 +135,7 @@ Next, we will create the AWS TGW Site. In the Console navigate to **Site Managem
 
 ![alt text](./assets/open-aws-tgw.png)
 
-Give site a name. Then click **Add Label** and type in **company**. Assign it as a custom key. Next, type in **acmecorp** for key value.
+Give the site a name. Then click **Add Label** and type in **company**. Assign it as a custom key. Next, type in **acmecorp** for the key value.
 
 ![alt text](./assets/aws_tgw_name.png)
 
@@ -147,7 +147,7 @@ In AWS Resources, first open the **Credential Reference** drop-down menu and sel
 
 ![alt text](./assets/aws_tgw_creds.png)
 
-Second, configure region and services VPC: in the drop-down menu select **AWS Region**. Then select choosing VPC name and specify site name we just created. Finally, enter Primary IPv4 CIDR block - **10.100.0.0/16** for this flow.
+Second, configure the region and services VPC: in the drop-down menu select the **AWS Region**. Then select choosing VPC name and specify the site name we just created. Finally, enter the Primary IPv4 CIDR block - **10.100.0.0/16** for this flow.
 
 ![alt text](./assets/aws_tgw_vpc.png)
 
@@ -155,23 +155,23 @@ Scroll down to **Transit Gateway** and make sure to select **New Transit Gateway
 
 ![alt text](./assets/aws_tgw_tgw.png)
 
-After Transit Gateway, move on to **Site Node Parameters**. Click the **Add Item** button to add a node.
+After the Transit Gateway, move on to **Site Node Parameters**. Click the **Add Item** button to add a node.
 
 ![alt text](./assets/aws_tgw_site_node.png)
 
-Select AWS availability zone. Then fill in **10.100.10.0/24** IPv4 Subnet for Workload Subnet and **10.100.20.0/24** for Outside Interface. For Subnet for Inside Interface select specifying new subnet and fill in **10.100.30.0/24** for IPv4 Subnet. Click **Apply**.
+Select the AWS availability zone. Then fill in **10.100.10.0/24** IPv4 Subnet for Workload Subnet and **10.100.20.0/24** for Outside Interface. For Subnet for Inside Interface select specifying new subnet and fill in **10.100.30.0/24** for IPv4 Subnet. Click **Apply**.
 
 ![alt text](./assets/aws_tgw_site_node_details.png)
 
-Paste your Public SSH key for accessing nodes of the site.
+Paste your public SSH key for accessing nodes of the site.
 
 ![alt text](./assets/aws_tgw_ssh.png)
 
-Make sure to select **No Worker Nodes** for deploy on the site and to disable VIP Advertisement to Internet on Site. Click **Apply**.
+Make sure to select **No Worker Nodes** for deployment on the site and to disable VIP Advertisement to Internet on Site. Click **Apply**.
 
 ![alt text](./assets/aws_tgw_details_apply.png)
 
-Take a look at the AWS TGW Site configuration and click **Add AWS TGW Site**. AWS TGW Site is created.
+Take a look at the AWS TGW Site configuration and click **Add AWS TGW Site**. The AWS TGW Site is created.
 
 ![alt text](./assets/aws_tgw_site_apply.png)
 
@@ -179,65 +179,33 @@ Take a look at the AWS TGW Site configuration and click **Add AWS TGW Site**. AW
 
 ### 1.5.1 Create Secure Mesh Site
 
-In this part, we are going to create a Secure Mesh Site to use it for registering and managing a site deployed on-premises on VMware. Go back to the Console and select **Multi-Cloud Network Connect** service. Navigate to **Site Management** and select **Secure Mesh Sites**. Click **Add Secure Mesh Site**.
+In this part, we are going to create a Secure Mesh Site to use it for registering and managing a site deployed on-premises on VMware. Go back to the Console and select **Multi-Cloud Network Connect** service. Navigate to **Site Management** and select **Secure Mesh Sites v2**. Click **Add Secure Mesh Site**.
 
 ![alt text](./assets/navigate_sm_site_name.png)
 
-First, give it a name. Then click **Add Label** and type in **company**. Assign it as a custom key. Finally, type in **acmecorp** for key value.
+First, give it a name. Then click **Add Label** and type in **company**. Assign it as a custom key. Finally, type in **acmecorp** for the key value.
 
 ![alt text](./assets/xc_sm_site_name.png)
 
-Next, move on to **Basic Configuration**. Open the **Generic Server Certified Hardware** drop-down menu and select **vmware-regular-nic-voltmesh**. Then type in **master-0** master node name. Lastly, fill in your public IP address. In this demo, we use **203.0.113.15** as a Public IP.
+Next, move on to the **Provider** configuration. Make sure the **VMware** provider and **Not Managed By F5XC** orchestration mode are selected.
 
 ![alt text](./assets/xc_sm_site_basic_config.png)
 
-Scroll down to **Network Configuration** and select **Custom Network Configuration** in its drop-down menu. Proceed to **View Configuration**.
-
-![alt text](./assets/xc_sm_site_net_config.png)
-
-Scroll down to the **Interface Configuration** section. Select **List of Interface** to add all interfaces belonging to the site. Click **Configure**.
+Take a look at other settings and click the **Add Secure Mesh Site** button to complete the creation of the first Secure Mesh Site.
 
 ![alt text](./assets/xc_sm_site_net_interface_list.png)
 
-Click **Add Item** to start adding the first interface.
+### 1.5.2 Generate Node Token
 
-![alt text](./assets/xc_sm_site_net_interface_list_add.png)
-
-Fill in interface description **eth0** and move on to configuring **Ethernet Interface**.
-
-![alt text](./assets/xc_sm_site_net_interface_list_add_eth0.png)
-
-Click in the **Ethernet Device** field and see suggestions. Select the one we added. Take a look at the configuration and click **Apply**.
-
-![alt text](./assets/xc_sm_site_net_interface_list_add_eth0_details.png)
-
-Proceed by clicking the **Apply** button.
-
-![alt text](./assets/xc_sm_site_net_interface_list_add_eth0_apply.png)
-
-Review the configured List of Interface and click **Apply**.
-
-![alt text](./assets/xc_sm_site_net_interface_list_eth0_apply.png)
-
-In the **Global Connections** section open the **Site Mesh Group Connection Type** drop-down menu and select **Site Mesh Group Connection Via Public Ip** which will use statically configured Public IPs. After that, click **Apply** to apply the configured Network Configuration.
-
-![alt text](./assets/xc_sm_site_net_apply.png)
-
-Finally, enable **Offline Survivability Mode** and click **Add Secure Mesh Site**.
-
-![alt text](./assets/xc_sm_site_apply.png)
-
-### 1.5.2 Add Site Token
-
-In the **Multi-Cloud Network Connect** service navigate to **Site Management** and select **Site Tokens**. Start adding a token by clicking the **Add Site Token** button.
+You will see the created Secure Mesh Site. After that we will need to generate a node token that will be used for its deployment later. Open the Secure Mesh Site service menu and select **Generate Node Token**. This will open the token creation page.
 
 ![alt text](./assets/site-tokens-add.png)
 
-Give token a name and click **Save and Exit**.
+You will see the generated token. Copy and save it to use later. Close the token page.
 
 ![alt text](./assets/xc_sm_site_token.png)
 
-Expand the created token to see and copy its UID.
+Finally, let's download the image for VMware. In the Secure Mesh Site service menu select **Download Image**. This will start the download.
 
 ![alt text](./assets/xc_sm_site_token_details.png)
 
@@ -245,21 +213,21 @@ Expand the created token to see and copy its UID.
 
 For the demo we need to create a VMware CE Site with two network interfaces - one for the **External network** and another for the **Internal network**.
 
-External network will be used to connect to the internet and should have DHCP enabled with internet access. Internal network will be used to connect to the VMs in different VLANs.
+The external network will be used to connect to the internet and should have DHCP enabled with internet access. The internal network will be used to connect to the VMs in different VLANs.
 
 For the internal network, we create a Virtual Switch with port **Internal Network** and assign VLAN ID **4095**. Setting 4095 as a VLAN ID will allow the VM to communicate with all VLANs.
 
 ![alt text](./assets/vmware_switch.png)
 
-Next, we will create VMware CE Site.
+Next, we will create the VMware CE Site.
 
-If you use VMware vShpere Client, navigate to **Hosts and Clusters**. Right-click on the **Cluster** and select **Deploy OVF Template**.
+If you are using VMware vSphere Client, navigate to **Hosts and Clusters**. Right-click on the **Cluster** and select **Deploy OVF Template**.
 
-If you use VMware ESXI, navigate to **Virtual Machines** and select **Create/Register VM**, then select **Deploy a virtual machine from an OVF or OVA file**.
+If you are using VMware ESXi, navigate to **Virtual Machines** and select **Create/Register VM**, then select **Deploy a virtual machine from an OVF or OVA file**.
 
 ![alt text](./assets/vmware_site_ova.png)
 
-Open [F5 Distributed Cloud Console Documentation](https://docs.cloud.f5.com/docs/images/node-vmware-images) and download the **OVA Image** file. Use the downloaded file to deploy the VM. Set **vmware-ce-site** as the name of the VM.
+Fill in the virtual machine name and upload the downloaded Secure Mesh Site image to deploy the VM. Click **Next**.
 
 ![alt text](./assets/vmware_site_ova_image.png)
 
@@ -271,10 +239,10 @@ Select the network for the VM. Make sure to select the **External Network** for 
 
 ![alt text](./assets/vmware_site_opt.png)
 
-Complete additional settings section where:
+Complete the additional settings section where:
 
 - hostname: master-0
-- token: your Site Token UID from the [previous step](#152-add-site-token)
+- token: your Secure Mesh Site [node token](#152-generate-node-token) generated earlier
 - password: your password to access the CE Site
 - cluster name: your [Secure Mesh Site name](#151-create-secure-mesh-site)
 - certified hardware: vmware-regular-nic-voltmesh
@@ -374,7 +342,7 @@ In this step we will, first, create a virtual site and then use it to create a s
 
 ![alt text](./assets/smg_add.png)
 
-Give it a name, click **Add Label** and type in **company**. Assign it as a custom key. Select **In** operator. Finally, type in **acmecorp** for key value. Click **Add Virtual Site**.
+Give it a name, click **Add Label** and type in **company**. Assign it as a custom key. Select the **In** operator. Finally, type in **acmecorp** for the key value. Click **Add Virtual Site**.
 
 ![alt text](./assets/smg_details.png)
 
@@ -388,13 +356,13 @@ Give it a name and select the virtual site we created earlier. Save the created 
 
 # 2. Cloud Connect
 
-In this part of the demo we will create three Cloud Connects - for prod, dev and shared, and add a segment to each. Later we will use the segments to establish connection using Segment Connector.
+In this part of the demo we will create three Cloud Connects - for prod, dev, and shared, and add a segment to each. Later we will use the segments to establish connection using Segment Connector.
 
 ![alt text](./assets/cloud-connect-overview.gif)
 
 ## 2.1 Configure Cloud Connect
 
-After creating AWS TGW Site with three VPCs, we can start creating three cloud connects for prod, dev and shared VPCs. Cloud Connects will let us connect VPCs to our AWS TGW Site.
+After creating the AWS TGW Site with three VPCs, we can start creating three cloud connects for prod, dev, and shared VPCs. Cloud Connects will let us connect VPCs to our AWS TGW Site.
 
 Back in the Console navigate to **Multi-Cloud Network Connect**. From there, select **Connectors** and choose **Cloud Connects**. Click on **Add Cloud Connect** to open the creation form.
 
@@ -404,7 +372,7 @@ The first cloud connect will be for the prod VPC. Give it a name.
 
 ![alt text](./assets/xc_connector_name.png)
 
-Make sure **AWS** provider is selected. Then pick the name of the AWS TGW Site and the credentials we added a few steps earlier for the ACME Corp. Proceed to add VPC by clicking the **Configure** button.
+Make sure the **AWS** provider is selected. Then pick the name of the AWS TGW Site and the credentials we added a few steps earlier for the ACME Corp. Proceed to add VPC by clicking the **Configure** button.
 
 ![alt text](./assets/xc_connector_provider_acme.png)
 
@@ -412,7 +380,7 @@ Proceed by clicking **Add Item**.
 
 ![alt text](./assets/vpc-add-item.png)
 
-Add the prod VPC ID [created](#11-create-aws-vpc-using-the-aws-management-console) earlier, make sure to select overriding default routes and click **Apply**. This will connect prod VPC to the AWS TGW Site.
+Add the prod VPC ID [created](#11-create-aws-vpc-using-the-aws-management-console) earlier, make sure to select overriding default routes and click **Apply**. This will connect the prod VPC to the AWS TGW Site.
 
 ![alt text](./assets/xc_connector_provider_vpc.png)
 
@@ -424,11 +392,11 @@ And finally, we will add a segment. Click **Add Item** in the segment drop-down 
 
 ![alt text](./assets/xc_connector_provider_vpc_result.png)
 
-Give segment a name and make sure to allow its traffic to internet. Click **Add Segment**, and then **Add Cloud Connect**. Prod connect will appear on the list.
+Give the segment a name and make sure to allow its traffic to internet. Click **Add Segment**, and then **Add Cloud Connect**. The prod connect will appear on the list.
 
 ![alt text](./assets/xc_connector_prod_segment.png)
 
-Now we can add two more connects for the Dev and Shared VPCs. Follow the steps above and make sure to use correct VPC IDs. As a result, you will have three cloud connect objects added - one for Prod, one for Dev, and one more for Shared VPC.
+Now we can add two more connects for the Dev and Shared VPCs. Follow the steps above and make sure to use the correct VPC IDs. As a result, you will have three cloud connect objects added - one for Prod, one for Dev, and one more for Shared VPC.
 
 ![alt text](./assets/xc_connector_result.png)
 
@@ -460,7 +428,7 @@ In this part of the demo we will add two Segment Connectors. One will connect AW
 
 ## 3.1 Create Segment Connector
 
-In this step we will add two segment connectors - prod-to-shared and dev-to-shared. Go back to the Console and select **Multi-Cloud Network Connect** service. Navigate to **Networking** and proceed to **Segment Connector**. Click the **Manage Segment Connections** button.
+In this step we will add two segment connectors - prod-to-shared and dev-to-shared. Go back to the Console and select the **Multi-Cloud Network Connect** service. Navigate to **Networking** and proceed to **Segment Connector**. Click the **Manage Segment Connections** button.
 
 ![alt text](./assets/xc_segment_connector.png)
 
@@ -468,7 +436,7 @@ In the **Segment Connectors** section, click **Add Item**.
 
 ![alt text](./assets/xc_segment_connector_add.png)
 
-First, we will add segment connector for prod to shared. For the Source Segment, select the **prod segment** we created earlier. For the Destination Segment, select the **shared segment**. Make sure **Direct** connector type is specified. Since segment connectors are bi-directional, we do not need to configure it in reverse direction - from shared to prod for Direct Connectors. Then click **Apply**.
+First, we will add a segment connector for prod to shared. For the Source Segment, select the **prod segment** we created earlier. For the Destination Segment, select the **shared segment**. Make sure the **Direct** connector type is specified. Since segment connectors are bi-directional, we do not need to configure it in reverse direction - from shared to prod for Direct Connectors. Then click **Apply**.
 
 ![alt text](./assets/xc_segment_connector_add_prod.png)
 
@@ -510,13 +478,13 @@ As expected, there is no connection between AWS Prod VM and AWS Dev VM because w
 
 # 4. Connect VMware Data Center
 
-In this part of the demo we will configure VMware CE Site by adding two interfaces - prod and dev VLANs. As a result, we will have AWS Prod VM connected to VMware Prod VM, and the same for Dev VMs.
+In this part of the demo we will configure the VMware CE Site by adding two interfaces - prod and dev VLANs. As a result, we will have the AWS Prod VM connected to VMware Prod VM, and the same for Dev VMs.
 
 ![alt text](./assets/wmware-overview.gif)
 
 ## 4.1 Configure VMware CE Site
 
-In this part we will connect VMware to the site and configure its interfaces. Back in the Console go to the **Multi-Cloud Network Connect** service and proceed to **Site Management**. Then select **Secure Mesh Sites**. Open the service menu of the [site](#151-create-secure-mesh-site) we created earlier and select **Manage Configuration**.
+In this part we will connect VMware to the site and configure its interfaces. Back in the Console go to the **Multi-Cloud Network Connect** service and proceed to **Site Management**. Then select **Secure Mesh Sites v2**. Open the service menu of the [site](#151-create-secure-mesh-site) we created earlier and select **Manage Configuration**.
 
 ![alt text](./assets/xc_sm_site_list.png)
 
@@ -524,7 +492,7 @@ Click **Edit Configuration**.
 
 ![alt text](./assets/xc_sm_site_edit.png)
 
-Scroll down to the **Network Configuration** and click **Edit Configuration**.
+Scroll down to the **Provider** section and click the node edit button.
 
 ![alt text](./assets/xc_sm_site_edit_config.png)
 
@@ -537,69 +505,49 @@ In the table below, you can see the interfaces we are going to add.
 | Prod | 100     | eth1.100  | 10.200.100.1/24 |
 | Dev  | 200     | eth1.200  | 10.200.200.1/24 |
 
-Proceed by clicking **Edit Configuration**.
-
-![alt text](./assets/xc_sm_site_edit_configuration.png)
-
-You will see the first interface configured earlier. Click **Add Item** to start adding the second **prod** interface.
+Click **Add Item** under the **Interface** section.
 
 ![alt text](./assets/xc_sm_site_net_interface_list_add_1.png)
 
-Fill in interface description and click **Configure** Ethernet Interface.
-
-![alt text](./assets/xc_sm_site_net_interface_list_add_vlan100.png)
-
-In the suggestions for Ethernet Device, select the added name. Then select **Specific Node** to apply configuration only to a device on node **master-0** added earlier. Lastly, select **VLAN Id** to configure a VLAN tagged ethernet interface and type in **100**.
+Give it a name. Then select **VLAN Interface** as the interface type. Specify **eth1** as the parent interface. Lastly, type in **VLAN ID** **100**.
 
 ![alt text](./assets/xc_sm_site_net_interface_list_add_vlan100_conf.png)
 
-Scroll down to the **IP Configuration** section and select **Static IP** configuration of interface IP. Type in **10.200.100.1/24** IP address of the interface and prefix length.
+Scroll down to the **IP Configuration** section and select **Static IP** configuration of interface IP. Type in **10.200.100.1/24** as the IP address of the interface and prefix length.
 
 ![alt text](./assets/xc_sm_site_net_interface_list_add_vlan100_ip.png)
 
-Next, in the **Virtual Network** section, choose the **Segment** option. From the drop-down menu, select **system/prod-segment**. Click **Apply** to proceed.
+Next, in the **Interface Settings** section, choose the **Segment (Global VRF)** option. From the drop-down menu, select **system/prod-segment**. Click **Apply** to proceed.
 
 ![alt text](./assets/segment-vn-prod.png)
 
-Take a look at the second interface configuration and click **Apply**.
-
-![alt text](./assets/xc_sm_site_net_interface_list_add_vlan100_apply_2.png)
-
-You will see a list of two interfaces. Click **Add Item** to add the third one - for dev.
+Click **Add Item** to add one more interface - for dev.
 
 ![alt text](./assets/xc_sm_site_net_interface_list_add_2.png)
 
-Give the third interface a name and move on to configuring **Ethernet Interface**.
-
-![alt text](./assets/xc_sm_site_net_interface_list_vlan200.png)
-
-In the suggestions for Ethernet Device, select the added name. Then select **Specific Node** to apply configuration only to a device on node **master-0** added earlier. Lastly, select **VLAN Id** to configure a VLAN tagged ethernet interface and type in **200**.
+Give it a name. Then select **VLAN Interface** as the interface type. Specify **eth1** as the parent interface. Lastly, type in **VLAN ID** **200**.
 
 ![alt text](./assets/xc_sm_site_net_interface_list_vlan200_basic.png)
 
-Scroll down to the **IP Configuration** section and select **Static IP** configuration of interface IP. Type in **10.200.200.1/24** IP address of the interface and prefix length.
+Scroll down to the **IP Configuration** section and select **Static IP** configuration of interface IP. Type in **10.200.200.1/24** as the IP address of the interface and prefix length.
 
 ![alt text](./assets/xc_sm_site_net_interface_list_vlan200_ip.png)
 
-Next, in the **Virtual Network** section, choose the **Segment** option. From the drop-down menu, select **system/dev-segment**. Click **Apply** to proceed.
+Next, in the **Interface Settings** section, choose the **Segment (Global VRF)** option. From the drop-down menu, select **system/dev-segment**. Click **Apply** to proceed.
 
 ![alt text](./assets/segment-vn-dev.png)
 
-Take a look at the second interface configuration and click **Apply**.
+Take a look at the configured interfaces and click **Apply**.
 
 ![alt text](./assets/xc_sm_site_net_interface_list_vlan200_apply_2.png)
 
-Make sure **Site Mesh Group Connection Via Public Ip** is specified and move on by clicking **Apply**.
-
-![alt text](./assets/xc_sm_site_net_apply.png)
-
-Click **Save Secure Mesh Site** to apply the changes.
+Make sure **Site Mesh Group Connection Via Public IP** is specified in the **Site to Site Connectivity** section. Click **Save Secure Mesh Site** to apply the changes.
 
 ![alt text](./assets/xc_sm_site_update.png)
 
 ## 4.2 Test connectivity between AWS and VMware
 
-Now that we have configured VMware CE Site, we can test the connectivity between AWS and VMware.
+Now that we have configured the VMware CE Site, we can test the connectivity between AWS and VMware.
 
 Sign in to the AWS Prod VM and run the following pings:
 
@@ -621,7 +569,7 @@ PING 10.200.200.100 (10.200.200.100) 56(84) bytes of data.
 4 packets transmitted, 0 received, 100% packet loss, time 4010ms
 ```
 
-As we can see from the output, the connection is successful between AWS Prod VM and VMware Prod VM. However, there is no connection between AWS Prod VM and VMware Dev VM because two segments Prod and Dev are not connected. This means that the VLANs are isolated from each other.
+As we can see from the output, the connection is successful between the AWS Prod VM and VMware Prod VM. However, there is no connection between the AWS Prod VM and VMware Dev VM because the two segments Prod and Dev are not connected. This means that the VLANs are isolated from each other.
 
 Sign in to the VMware Prod VM and run the following pings:
 
@@ -643,8 +591,8 @@ PING 10.2.10.100 (10.3.10.100) 56(84) bytes of data.
 4 packets transmitted, 0 received, 100% packet loss, time 4087ms
 ```
 
-From the output, we can see that the connection is successful between VMware Prod VM and AWS Shared VM.
-But connection between VMware Prod VM and AWS Dev VM is not established.
+From the output, we can see that the connection is successful between the VMware Prod VM and AWS Shared VM.
+But the connection between the VMware Prod VM and AWS Dev VM is not established.
 
 # 5. ExtraNet: Network Centric Method
 
@@ -654,13 +602,13 @@ a) Network Centric (outlined in this section)
 
 b) App Centric (outlined in section [ExtraNet: App Centric Method](#8-extranet-app-centric-method) below).
 
-In this part we will connect External Company by adding a Cloud Connect/Segment for it. For this demo, we will assume that our company is offering a service running on the workload in VPC Prod 10.1.10.100 using HTTP/HTTPs to a 3rd party. According to this, workloads in the external VPC need to access an application in the production segment. Thus, we will need a segment connector between External and Prod segments. As a result we will establish connection between External Company VPC and AWS Prod VPC, as well as VMware Prod VM.
+In this part we will connect the External Company by adding a Cloud Connect/Segment for it. For this demo, we will assume that our company is offering a service running on the workload in VPC Prod 10.1.10.100 using HTTP/HTTPS to a 3rd party. According to this, workloads in the external VPC need to access an application in the production segment. Thus, we will need a segment connector between External and Prod segments. As a result we will establish a connection between the External Company VPC and AWS Prod VPC, as well as VMware Prod VM.
 
 ![alt text](./assets/external-overview.gif)
 
 ## 5.1 Configure AWS Assume Role
 
-External Org/Company will not share AWS credentials with ACMECorp, however we still need F5 Distributed Cloud Services to connect & orchestrate the connectivity of the VPC to AWS TGW. In order to solve this, we will create a role within the external account that trusts F5 Distributed Cloud AWS Account & that has the necessary privileges as per our documentation.
+The External Org/Company will not share AWS credentials with ACMECorp, however we still need F5 Distributed Cloud Services to connect & orchestrate the connectivity of the VPC to AWS TGW. In order to solve this, we will create a role within the external account that trusts the F5 Distributed Cloud AWS Account & that has the necessary privileges as per our documentation.
 
 So, in this part we will create an AWS Assume Role to allow Distributed Cloud Services to assume the role and access the external company's AWS account. In this case, we don't have direct access to the external company's AWS account, so we need to create an Assume Role to allow Distributed Cloud Services to access it without providing the credentials.
 
@@ -669,11 +617,11 @@ From the main menu, navigate to the **Administration** service and select **Requ
 
 ![alt text](./assets/sts_support_request.png)
 
-Open AWS Management Console and navigate to **IAM**. From there, select **Policies** and click **Create policy**. For the policy, select **JSON** and paste the [following policy](https://docs.cloud.f5.com/docs/reference/cloud-cred-ref/aws-tgw-pol-ref#aws-tgw-policies). If you are using different AWS account, make sure to add "ram:\*" to the list of actions. Remote Access Manager (RAM) is a service that enables you to share your resources with other AWS accounts. Click **Next** and give the policy a name. Click **Create policy**. If your policy is too long, you can split it into two or more policies.
+Open the AWS Management Console and navigate to **IAM**. From there, select **Policies** and click **Create policy**. For the policy, select **JSON** and paste the [following policy](https://docs.cloud.f5.com/docs/reference/cloud-cred-ref/aws-tgw-pol-ref#aws-tgw-policies). If you are using a different AWS account, make sure to add "ram:\*" to the list of actions. Remote Access Manager (RAM) is a service that enables you to share your resources with other AWS accounts. Click **Next** and give the policy a name. Click **Create policy**. If your policy is too long, you can split it into two or more policies.
 
 ![alt text](./assets/sts_create_policy.png)
 
-In the **IAM** service, select **Roles** and click **Create role**. Select **Custom trust policy**. For the trust relationship policy, paste the policy below. Make sure to replace `<account-number>` with F5 Distributed Cloud AWS account number and `<tenant_id>` with the values you received from Distributed Cloud Services.
+In the **IAM** service, select **Roles** and click **Create role**. Select **Custom trust policy**. For the trust relationship policy, paste the policy below. Make sure to replace `<account-number>` with the F5 Distributed Cloud AWS account number and `<tenant_id>` with the values you received from Distributed Cloud Services.
 
 ```json
 {
@@ -721,13 +669,13 @@ Open the role you created and copy the **Role ARN**.
 ![alt text](./assets/sts_get_arn.png)
 
 Go back to the Console and create Cloud Credentials for the External Company. Navigate to **Multi-Cloud Network Connect**, then click **Site Management** and select **Cloud Credentials**. Click **Add Cloud Credentials**.
-In the **Cloud Credentials Type** drop-down menu, select **AWS Assume Role**. Then, paste the **Role ARN** you copied earlier. Add **Role Session Name** and click **Add Cloud Credentials**.
+In the **Cloud Credentials Type** drop-down menu, select **AWS Assume Role**. Then, paste the **Role ARN** you copied earlier. Add the **Role Session Name** and click **Add Cloud Credentials**.
 
 ![alt text](./assets/sts_cloud_creds.png)
 
 ## 5.2 Configure Cloud Connect
 
-In this part we will connect External Company by creating a cloud connect for it and adding a segment. After that, we will configure segment connector from external to prod segment. And lastly, we will test the configured connectivity.
+In this part we will connect the External Company by creating a cloud connect for it and adding a segment. After that, we will configure a segment connector from external to prod segment. And lastly, we will test the configured connectivity.
 
 In the Console select **Connectors** and choose **Cloud Connects**. Click on **Add Cloud Connect** to open the creation form.
 
@@ -737,7 +685,7 @@ Name the cloud connect object as **external-connector**.
 
 ![alt text](./assets/xc_connector_name_external.png)
 
-Make sure **AWS** provider is specified and choose the [AWS TGW Site](#14-create-aws-tgw-site) we created earlier. Then select the [credentials](#51-configure-aws-assume-role) for the external company. Proceed to add a VPC by clicking the **Configure** button.
+Make sure the **AWS** provider is specified and choose the [AWS TGW Site](#14-create-aws-tgw-site) we created earlier. Then select the [credentials](#51-configure-aws-assume-role) for the external company. Proceed to add a VPC by clicking the **Configure** button.
 
 ![alt text](./assets/xc_connector_provider_external.png)
 
@@ -757,21 +705,21 @@ And finally, add a segment. Open the segment drop-down menu and click **Add Item
 
 ![alt text](./assets/xc_connector_segment_external_add.png)
 
-Give segment a name and make sure to allow its traffic to internet. Click **Add Segment**.
+Give the segment a name and make sure to allow its traffic to internet. Click **Add Segment**.
 
 ![alt text](./assets/xc_connector_segment_external_details.png)
 
-Take a look at the configuration of cloud connect for the External Company. Complete creating by clicking **Add Cloud Connect**.
+Take a look at the configuration of the cloud connect for the External Company. Complete creating by clicking **Add Cloud Connect**.
 
 ![alt text](./assets/xc_connector_external_save.png)
 
-Newly created Cloud Connect for the External Company will appear on the list. Make sure to use its special credentials we created [earlier](#51-configure-aws-assume-role).
+The newly created Cloud Connect for the External Company will appear on the list. Make sure to use its special credentials we created [earlier](#51-configure-aws-assume-role).
 
 ![alt text](./assets/xc_connector_external_result.png)
 
 ## 5.3 Configure Segment Connector
 
-Next step is to add a segment connector from External Company to the Prod VPC. Navigate to **Networking** and proceed to **Segment Connector**. Click the **Manage Segment Connections** button.
+The next step is to add a segment connector from the External Company to the Prod VPC. Navigate to **Networking** and proceed to **Segment Connector**. Click the **Manage Segment Connections** button.
 
 ![alt text](./assets/xc_segment_connector_external.png)
 
@@ -779,7 +727,7 @@ In the **Segment Connectors** section, you will see two connectors we added befo
 
 ![alt text](./assets/xc_segment_connector_add_external.png)
 
-Select **external-segment** for the source one, and **prod-segment** for the destination. Make sure to use **Direct** Connector Type and click **Apply**.
+Select **external-segment** for the source one, and **prod-segment** for the destination. Make sure to use the **Direct** Connector Type and click **Apply**.
 
 ![alt text](./assets/xc_segment_connector_add_external_details.png)
 
@@ -850,13 +798,13 @@ You can see the data flow between the AWS External VM and the AWS Prod VM. From 
 
 # 7. Firewall policies
 
-As we have seen in the last section with flow analysis, pings are also being generated from the external VPC to the Prod VPC in addition to the HTTP/HTTPs which is in alignment with our agreement with the external entity. We need to put a Zero Trust policy to ensure that workloads in the External VPC can only access the intended workload (10.1.10.100) on HTTP/HTTPs while denying all other traffic.
+As we have seen in the last section with flow analysis, pings are also being generated from the external VPC to the Prod VPC in addition to the HTTP/HTTPS which is in alignment with our agreement with the external entity. We need to put a Zero Trust policy to ensure that workloads in the External VPC can only access the intended workload (10.1.10.100) on HTTP/HTTPS while denying all other traffic.
 
 ![alt text](./assets/firewall-overview.gif)
 
 ## 7.1 Configure Firewall Policies
 
-In this part we will create and configure Firewall Policy with two rules - one to allow http traffic from external segment to the prod one, and another - to deny everything else. Then we will assign the policy to our AWS TGW Site and test it. In the **Multi-Cloud Network Connect** service navigate to **Firewall** and select **Enhanced Firewall Policies**. Click the **Add Enhanced Firewall Policy** button.
+In this part we will create and configure a Firewall Policy with two rules - one to allow HTTP traffic from the external segment to the prod one, and another - to deny everything else. Then we will assign the policy to our AWS TGW Site and test it. In the **Multi-Cloud Network Connect** service navigate to **Firewall** and select **Enhanced Firewall Policies**. Click the **Add Enhanced Firewall Policy** button.
 
 ![alt text](./assets/xc_fw_open.png)
 
@@ -872,15 +820,15 @@ Proceed by clicking **Add Item**.
 
 ![alt text](./assets/xc_fw_rule_add.png)
 
-First, let's give it an explanatory name, something like **allow-http-traffic**. Then, let's add some description. You can see an example in the image below. After that, open the **Action** drop-down menu to select **Allow**. And finally, select **IP Prefix List** for Source Traffic Filter.
+First, let's give it an explanatory name, something like **allow-http-traffic**. Then, let's add some description. You can see an example in the image below. After that, open the **Action** drop-down menu to select **Allow**. And finally, select **IP Prefix List** for the Source Traffic Filter.
 
 ![alt text](./assets/xc_fw_rule_add_http_name.png)
 
-Let's now configure IPv4 Prefix List. Type in **10.150.0.0/16** and click **Apply**.
+Let's now configure the IPv4 Prefix List. Type in **10.150.0.0/16** and click **Apply**.
 
 ![alt text](./assets/xc_fw_rule_add_http_src.png)
 
-Next, we will configure Destination Traffic Filter. Select **IPv4 Prefix List** and click **Configure**.
+Next, we will configure the Destination Traffic Filter. Select **IPv4 Prefix List** and click **Configure**.
 
 ![alt text](./assets/xc_fw_rule_add_http_dst.png)
 
@@ -896,7 +844,7 @@ Next, we will add the second rule to deny everything else. Click the **Add Item*
 
 ![alt text](./assets/xc_fw_rule_add_deny.png)
 
-Give it a name, make sure **Deny** action is specified and apply it.
+Give it a name, make sure the **Deny** action is specified and apply it.
 
 ![alt text](./assets/xc_fw_rule_add_deny_details.png)
 
@@ -904,13 +852,13 @@ Complete configuring the rules by clicking **Apply**.
 
 ![alt text](./assets/xc_fw_rule_add_apply.png)
 
-Scroll down to the **Segment Selector** section. Select **Segments** for both - source and destination ones. Then choose **external-segment** we created earlier for the source, and **prod-segment** for the destination. Complete creating the Enhanced Firewall Policy by clicking **Add Enhanced firewall policy**.
+Scroll down to the **Segment Selector** section. Select **Segments** for both - source and destination ones. Then choose the **external-segment** we created earlier for the source, and **prod-segment** for the destination. Complete creating the Enhanced Firewall Policy by clicking **Add Enhanced firewall policy**.
 
 ![alt text](./assets/xc_fw_segments.png)
 
 ## 7.2 Assign Policies to AWS TGW Site
 
-Now that the Enhanced Firewall Policy with two rules is created, we can assign it to our AWS TGW Site. Go to **Site Management** and select **AWS TGW Sites**. Open service menu of our site and choose **Manage Configuration**.
+Now that the Enhanced Firewall Policy with two rules is created, we can assign it to our AWS TGW Site. Go to **Site Management** and select **AWS TGW Sites**. Open the service menu of our site and choose **Manage Configuration**.
 
 ![alt text](./assets/xc_fw_aws_tgw.png)
 
@@ -918,7 +866,7 @@ Click **Edit Configuration** to enable the editing mode.
 
 ![alt text](./assets/xc_fw_aws_tgw_edit.png)
 
-Scroll down to the **Site Network and Security** section and click **Configure** site security.
+Scroll down to the **Site Network and Security** section and click **Configure** for site security.
 
 ![alt text](./assets/xc_fw_aws_tgw_sec.png)
 
@@ -973,11 +921,11 @@ Commercial support is available at
 </html>
 ```
 
-In the output, we can see the response from NGINX server running on the AWS Prod VM. This means that the connection is successful on port 80.
+In the output, we can see the response from the NGINX server running on the AWS Prod VM. This means that the connection is successful on port 80.
 
 # 8. ExtraNet: App Centric Method
 
-In this demo earlier we configured the L3 connection for traffic between prod segment and external segment. In this section we will add an HTTP Load Balancer that will let us expose L7 traffic from prod to external segment. To do that, we will first need to remove the external-to-prod segment connector, then create an HTTP LB and create an A DNS record.
+In this demo earlier we configured the L3 connection for traffic between the prod segment and external segment. In this section we will add an HTTP Load Balancer that will let us expose L7 traffic from prod to the external segment. To do that, we will first need to remove the external-to-prod segment connector, then create an HTTP LB and create an A DNS record.
 
 ![alt text](./assets/app-centric-overview.gif)
 
@@ -1001,15 +949,15 @@ Select your namespace, navigate to **Load Balancers** and proceed to **HTTP Load
 
 ![alt text](./assets/app_connect_navigate_add.png)
 
-First, give LB a name.
+First, give the LB a name.
 
 ![alt text](./assets/app_connect_httplb_name.png)
 
-Then we will configure **Domains and LB Type** section. Type in the **prod-app.acme.internal** domain and select **HTTP** as Load Balancer Type.
+Then we will configure the **Domains and LB Type** section. Type in the **prod-app.acme.internal** domain and select **HTTP** as the Load Balancer Type.
 
 ![alt text](./assets/app_connect_httplb_domain.png)
 
-Scroll down to the **Origins** section and add an origin pool by clickcing the **Add Item** button.
+Scroll down to the **Origins** section and add an origin pool by clicking the **Add Item** button.
 
 ![alt text](./assets/app_connect_httplb_origin.png)
 
@@ -1017,11 +965,11 @@ Open the **Origin Pool** drop-down menu and click **Add Item** to add an origin 
 
 ![alt text](./assets/app_connect_httplb_origin_add.png)
 
-Give origin pool a name and add an origin server.
+Give the origin pool a name and add an origin server.
 
 ![alt text](./assets/app_connect_httplb_origin_name.png)
 
-Select **IP address of Origin Server on given Sites** as Origin Server type and type in the **10.1.10.100** private IP. In the drop-down menu select the AWS TGW Site we created [earlier](#14-create-aws-tgw-site). Complete the configuration by selecting **Segment** network on the site. Select the **prod-segment** created [here](#21-configure-cloud-connect). Apply the configuration.
+Select **IP address of Origin Server on given Sites** as the Origin Server type and type in the **10.1.10.100** private IP. In the drop-down menu select the AWS TGW Site we created [earlier](#14-create-aws-tgw-site). Complete the configuration by selecting **Segment** network on the site. Select the **prod-segment** created [here](#21-configure-cloud-connect). Apply the configuration.
 
 ![alt text](./assets/app_connect_httplb_origin_details.png)
 
@@ -1029,7 +977,7 @@ Type in the **80** origin server port and click **Add Origin Pool**.
 
 ![alt text](./assets/app_connect_httplb_origin_details_apply.png)
 
-**Apply** origin pool configuration.
+**Apply** the origin pool configuration.
 
 ![alt text](./assets/app_connect_httplb_origin_apply.png)
 
@@ -1037,11 +985,11 @@ Back on the HTTP configuration form, scroll down to **Other Settings** and selec
 
 ![alt text](./assets/app_connect_httplb_origin_adv.png)
 
-Click the **Add Item** button to configure List of Sites to Advertise the Load Balancer.
+Click the **Add Item** button to configure the List of Sites to Advertise the Load Balancer.
 
 ![alt text](./assets/app_connect_httplb_origin_adv_add.png)
 
-Select **Segment on Site** to advertise on a segment on site. In the drop-down menus choose the External Company segment and the AWS TGW Site. Type in **10.1.10.90** for IP address to be used as VIP on the site.
+Select **Segment on Site** to advertise on a segment on site. In the drop-down menus choose the External Company segment and the AWS TGW Site. Type in **10.1.10.90** for the IP address to be used as VIP on the site.
 
 ![alt text](./assets/app_connect_httplb_origin_adv_details.png)
 
@@ -1096,5 +1044,5 @@ Next, run the following `curl` for the direct connection and see from the output
 ```bash
 ubuntu@aws-external-vm:~$ curl http://10.1.10.100
 
-curl: (28) Failed to connect to 10.1.10.100 port 80 after 134047 ms: Couldn't connect to **server**
+curl: (28) Failed to connect to 10.1.10.100 port 80 after 134047 ms: Couldn't connect to server
 ```
