@@ -28,7 +28,7 @@ Make sure that you have a valid `Nutanix Community <https://next.nutanix.com/>`_
 3. Install Nutanix CE 
 4. Access the web console
 
-**Step 1: Uploading Image to datastore **
+**Step 1: Preparing installation media**
 
 At first, we need to download the image from `Community Edition Discussion Form <https://next.nutanix.com/discussion-forum-14>`__ and click the Download Community Edition topic. Under Installer ISO, click the download link and Image gets downloaded to the local machine. 
 
