@@ -248,6 +248,8 @@ If you have already registered to the Nutanix community, Click on **Activate** b
 
 Now, login to above prompt with Nutanix credentials and page takes you to Nutanix dashboard.
 
+.. figure:: Assets/nutanix_on_vmware_dashboard.jpg
+
 .. figure:: Assets/nutanix_console_login.jpg
 
 Now, VM instance can be created from the console. 
