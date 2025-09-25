@@ -29,8 +29,9 @@ Make sure that you have a valid `Nutanix Community <https://next.nutanix.com/>`_
 4. Access the web console
 
 **Step 1: Uploading Image to datastore **
-At first, we need to download the image from `Community Edition Discussion Form <https://next.nutanix.com/discussion-forum-14>`__` and click the Download Community Edition topic. Under Installer ISO, click the download link and Image gets downloaded to the local machine. 
+
+At first, we need to download the image from `Community Edition Discussion Form <https://next.nutanix.com/discussion-forum-14>`__ and click the Download Community Edition topic. Under Installer ISO, click the download link and Image gets downloaded to the local machine. 
 
 Once the download is successful, Login to VMware ESXi host with credentials and navigate to Storage > Datastores, select the target datastore, open the Datastore browser, click Upload, and then select the ISO file from your local machine to begin the transfer.
 
-.. figure:: Assets/vmware_login_page.jpeg
+.. figure:: Assets/vmware_login_page.jpg
