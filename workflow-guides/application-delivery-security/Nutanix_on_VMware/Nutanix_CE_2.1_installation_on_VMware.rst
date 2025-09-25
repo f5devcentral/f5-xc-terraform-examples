@@ -206,7 +206,7 @@ Logs show the installation of Nutanix CE and take couple of minutes to get to in
 
     Now, we are good to execute command for single node creation, 
 
-        * For a single node cluster, the command is: **cluster -s <cvm_ip> --redundancy_factor=1 –-cluster_external_ip=<cluster_ip>**
+        * For a single node cluster, the command is: **cluster -s <cvm_ip> --redundancy_factor=1 –-cluster_external_ip=<cluster_ip> create**
 
     It may take a while as the cluster is created, and all services are started on the CVM.
 
