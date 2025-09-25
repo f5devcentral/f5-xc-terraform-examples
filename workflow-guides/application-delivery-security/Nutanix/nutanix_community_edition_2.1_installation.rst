@@ -207,7 +207,7 @@ In a web browser, navigate to https:// <External_IP> or <CVM_IP> with port numbe
 
 .. figure:: Assets/nutanix_web_console.png
 
-Sign in with default admin account username and password. 
+Signin with default admin account username and password. 
 
 * Username: admin 
 * Password: nutanix/4u 

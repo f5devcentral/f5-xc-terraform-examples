@@ -234,7 +234,7 @@ Sign in with default admin account username and password.
 
 When prompted, change the default password. 
 
-Sign in with the admin account username and the new password. 
+Signin with the admin account username and the new password. 
 
 After login with the new password, you will see the page details as below, 
 
@@ -242,9 +242,9 @@ After login with the new password, you will see the page details as below,
 
 You need to login with your Nutanix Community account.  
 
-Click Create account if you have not joined the Next Community. Community Edition check to ensure that the Community Edition role associated with your account is enabled. To enable the community Edition role, register at `Nutanix Website <https://www.nutanix.com/products/register>`__. 
+Click **Create account** if you have not joined the Next Community. Community Edition check to ensure that the Community Edition role associated with your account is enabled. To enable the community Edition role, register at `Nutanix Website <https://www.nutanix.com/products/register>`__. 
 
-If you have already registered to the Nutanix community, Click on Activate button on Community Edition tile and enter your registered email id for registration. 
+If you have already registered to the Nutanix community, Click on **Activate** button on Community Edition tile and enter your registered email id for registration. 
 
 Now, login to above prompt with Nutanix credentials and page takes you to Nutanix dashboard.
 
@@ -254,7 +254,7 @@ Now, VM instance can be created from the console.
 
 **Conslusion:**
 
-Creating virtual machines becomes easier within Nutanix Community Edition and helps in connecting these services to Nutanix Cloud Cluster (NC2) as well. As mentioned in this documentation on creating Nutanix CE with detailed steps helps in bringing up the setup for deploying virtual machines in it. 
+Creating virtual machines becomes easier within Nutanix CE. As mentioned in this documentation on creating Nutanix CE with detailed steps helps in bringing up the setup for deploying virtual machines in it. 
 
 **Additional Links:**
 
