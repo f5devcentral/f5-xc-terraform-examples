@@ -256,7 +256,7 @@ Now, VM instance can be created from the console.
 
 **Conslusion:**
 
-Creating virtual machines becomes easier within Nutanix CE. As mentioned in this documentation on creating Nutanix CE with detailed steps helps in bringing up the setup for deploying virtual machines in it. 
+Creating virtual machines becomes easier with Nutanix CE. As mentioned in this documentation on creating Nutanix CE with detailed steps helps in bringing up the setup for deploying virtual machines in it. 
 
 **Additional Links:**
 
