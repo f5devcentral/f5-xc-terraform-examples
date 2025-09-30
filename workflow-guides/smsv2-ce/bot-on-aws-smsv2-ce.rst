@@ -7,8 +7,11 @@ This demo guide provides step-by-step walkthrough for enabling Bot Defense on Se
 Contents
 --------------
 ✅ Deploying SMSv2 CE in AWS
+
 -✅ Deploying Client VM and applications for testing
+
 - ✅ Verifying Connectivity between CE site and Client VM through SLI
+
 - Creating Origin Pool in Distributed Cloud
 - Creating Load Balancer in Distributed Cloud
 - Creating Bot Defense configuration and assigning it to LB
