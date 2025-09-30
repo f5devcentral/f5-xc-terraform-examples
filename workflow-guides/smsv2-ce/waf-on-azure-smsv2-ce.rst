@@ -17,6 +17,7 @@ Contents
 Prerequisites
 --------------
 ✅ Access to Azure portal
+
 ✅ Access to F5 Distributed Cloud (XC) account
 
 Steps to deploy Secure Mesh Site v2 in Azure

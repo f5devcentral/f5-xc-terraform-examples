@@ -150,10 +150,3 @@ Conclusion
 --------------
 This guide demonstrated how to enable Bot Defense on an SMSv2 CE site using the F5 Distributed Cloud console. You deployed the CE in AWS, set up a test client, and configured origin pools and load balancers. Bot Defense was successfully applied and verified with test attacks. This setup also supports additional security services like API Security, WAF, and DDoS protection, allowing for flexible and robust application protection.
 
-
-
-
-
-
-
-
