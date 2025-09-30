@@ -16,8 +16,9 @@ Contents
 
 Prerequisites
 --------------
-- Access to Azure portal
-- Access to F5 Distributed Cloud (XC) account
+✅ Access to Azure portal
+
+✅ Access to F5 Distributed Cloud (XC) account
 
 Steps to deploy Secure Mesh Site v2 in Azure
 --------------
@@ -87,7 +88,7 @@ To access the applications installed in the Client machine through SMSv2 Custome
 
     1. Creating “Origin Pool”
     2. Creating “LB”
-    3. Creating “WAF” (recommended for security) and applying on the load balancer
+    3. Configuring “WAF” and applying on the load balancer
 
 Creating Origin Pool
 ============
