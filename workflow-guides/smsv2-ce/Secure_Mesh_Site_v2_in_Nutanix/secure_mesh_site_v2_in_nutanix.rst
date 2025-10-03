@@ -7,21 +7,21 @@ F5 and Nutanix are collaborating to deliver customers’ need on applications de
 
 F5 XC uses Customer Edge (CE) software seamlessly connect applications and provide consistent security policy enforcement across hybrid cloud environments and can be controlled by F5 XC console. With one of the modes of CE deployment as Mesh site, CE deployment creates a secure network to connect different environments over the internet or a private network with centralized management.
 
-CE deployment using Secure Mesh Site:
+CE deployment using Secure Mesh Site v2:
 ***************
 Deploying CE as Secure Mesh Site version 2 (SMSv2) makes deployment and operations faster, simpler and more reliable.
 
-In the article, we explain detail steps to deploy F5 XC CE site as SMSv2 on Nutanix platform. 
+In the article, we explain detailed steps to deploy F5 XC CE site as SMSv2 on th Nutanix platform. 
 
 Below are the steps to deploy CE on Nutanix, 
 
-1.  Prerequisites on Nutanix platform 
+1.  Prepare prerequisites on Nutanix platform 
 2.  Deploy F5 XC CE on Nutanix 
 3.  Deploy Ubuntu VM along with an application 
-4.  Add SLI interface to CE node in XC 
-5.  LB configuration 
+4.  Add the SLI interface to CE node in XC 
+5.  Configure the Load balancer
 
-**Step 1: Prerequisites on Nutanix platform**
+**Step 1: Prepare prerequisites on Nutanix platform**
 
 To successfully create a virtual machine in Nutanix, you must complete following prerequisites, 
 
@@ -344,7 +344,7 @@ Similarly, ping the IP address assigned to servers’ interface i.e Ubuntu data 
 
 This confirms connectivity between CE node and the web server and with this we can proceed to configure Load Balance configuration in XC console.
 
-**Step 5: Load Balancer configurations**
+**Step 5: Configure the Load balancer**
 
 In this step, we configure Origin Pool and Load Balancer and create a WAF policy and generate an attack and observe its behavior,
 
