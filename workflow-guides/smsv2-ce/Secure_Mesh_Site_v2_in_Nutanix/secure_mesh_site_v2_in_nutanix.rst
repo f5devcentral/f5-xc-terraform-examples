@@ -312,7 +312,7 @@ From the XC console, select the site to which SLI interface will be added,
 
 * Click on pencil icon for the node under Provider section. 
 
-.. figure:: Assets/sli_edit_configs.jpg
+.. figure:: Assets/sli_edit_node.jpg
 
 * Select pencil icon of the SLI interface to add IP address to it.
 
