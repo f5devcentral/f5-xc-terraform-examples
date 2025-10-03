@@ -46,6 +46,7 @@ In my setup, Eth0 is connected to network with internet connectivity and hence I
     .. figure:: Assets/uplink_configs_2.jpg
         
     Interface Eth0 is successfully associated to virtual switch vs0. Now, we can go ahead to configure subnet. 
+
 **Step 1.2: creating a subnet**
 
     * From the Nutanix console, Go to Network > Network configuration. Click on Subnet and click on Create Subnet. 
@@ -54,7 +55,7 @@ In my setup, Eth0 is connected to network with internet connectivity and hence I
         
     * Provide the necessary information such as DHCP etc, according to the network infrastructure available and click on Save button. 
 
-    .. figure:: Assets/subnet_cofnigs_2.jpg
+    .. figure:: Assets/subnet_configs_2.jpg
 
     I have provided details as per my network infrastructure.
 
