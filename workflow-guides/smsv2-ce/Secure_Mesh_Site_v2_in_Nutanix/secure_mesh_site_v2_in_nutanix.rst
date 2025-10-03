@@ -66,7 +66,7 @@ With subnet being created to host the VMs, we are good to go for CE node creatio
 
 **Step 2: Deploying F5 XC CE on Nutanix**
 
-Below series of steps explains the creation of F5 XC CE node in Nutanix console,
+Below are the series of steps explains the creation of F5 XC CE node in Nutanix console,
 
 **Step 2.1: Create SMSv2 site in F5 XC console**
 
@@ -82,7 +82,7 @@ Below series of steps explains the creation of F5 XC CE node in Nutanix console,
 .. figure:: Assets/smsv2_site_creation.jpg
 
 * Click on Add Secure Mesh Site button. 
-* Site object is created successfully.
+* Site object is created successfully and status show waiting for registation.
 
 .. figure:: Assets/deploy_test_wait_registration.jpg
 
@@ -115,9 +115,9 @@ A one-Time node token is required to register a CE site to the F5 XC console. A 
 
 * Click on Save to start uploading the image. 
 
-**Step 2.5: Create a VM with CE image**
+**Step 2.5: Create a VM with the CE image**
 
-Once the image is uploaded successfully, select VM from the upper left bar, and then click Create VM on the upper right side to create a new VM. 
+Once the image is uploaded successfully, select VM from the upper left bar, and then click Create VM on the upper right side to create a new VM. Make sure VM follows the node requirements mentioned `here <https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-nutanix>`__.
 
 .. figure:: Assets/CE_creation_resource_selection.jpg
 
