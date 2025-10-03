@@ -134,9 +134,9 @@ Once the image is uploaded successfully, select VM from the upper left bar, and 
 
 * In the Type and Past Script field, past the cloud-init information containing site token copied from the Generate Node Token mentioned at step 2.3 
 
-.. figure:: Assets/deploy_test_new.jpg
-
 * Click on save to save the VM configs.
+
+.. figure:: Assets/deploy_test_new.jpg
 
 * Power on the VM.
 
