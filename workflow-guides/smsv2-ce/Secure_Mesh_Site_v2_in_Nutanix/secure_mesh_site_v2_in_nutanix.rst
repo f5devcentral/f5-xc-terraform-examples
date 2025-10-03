@@ -136,6 +136,8 @@ Once the image is uploaded successfully, select VM from the upper left bar, and 
 
 .. figure:: Assets/deploy_test_new.jpg
 
+* Click on save to save the VM configs.
+
 * Power on the VM.
 
 **Step 2.6: Verifying CE site registration**
@@ -400,6 +402,8 @@ Protecting an application residing in Nutanix is seamlessly done by F5 XC servic
 
 Additional Links: 
 ***************
+https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-nutanix
+
 https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-to/create-manage-origin-pools 
 
 https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-to/load-balance/create-http-load-balancer 
