@@ -342,7 +342,7 @@ Result shows ping is successful.
 
 .. figure:: Assets/sli_ce_self_ping.jpg
 
-Similarly, ping the IP address assigned to servers’ interface i.e Ubuntu data interface. 
+Similarly, ping the IP address assigned to servers’ interface i.e Ubuntu VM data interface. 
 
 .. figure:: Assets/sli_ce_dst_ping.jpg
 
