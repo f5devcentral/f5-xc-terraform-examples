@@ -28,7 +28,7 @@ To successfully create a virtual machine in Nutanix, you must complete following
 As mentioned in `the Installation of Nutanix Community Edition 2.1 on Bare Metal | F5 XC Learn <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/Nutanix/nutanix_community_edition_2.1_installation.rst>`__, bare metal you choose to install Nutanix Community Edition requires internet connection and a Nutanix Community account. 
 
     
-Before proceeding to install VM on Nutanix, we need to make sure subnet is created to deploy VMs in that subnet and that subnet should be associated to the Ethernet Interface with internet connectivity to the Bare Metal server.
+Before proceeding to install VM on Nutanix, we need to make sure subnet is created to deploy VMs in that subnet and it should be associated to the Ethernet Interface with internet connectivity to the Bare Metal server.
 
 In my setup, Eth0 is connected to network with internet connectivity and hence I’ll assign Eth0 alone interface to virtual switch and later create a subnet with this virtual switch.
 
@@ -49,6 +49,8 @@ After logging to Nutanix Console, Click on Setting icon to navigate to Global Se
 Interface Eth0 is successfully associated to virtual switch vs0. Now, we can go ahead to configure subnet. 
 
 **Step 1.2: creating a subnet**
+
+**Note:** A Static IP should not be assigned to the CE node; instead, DHCP should be used to assign an IP to the CE node. Ensure the subnet is created accordingly to allign this configuration.
 
 * From the Nutanix console, Go to Network > Network configuration. Click on Subnet and click on Create Subnet. 
 
