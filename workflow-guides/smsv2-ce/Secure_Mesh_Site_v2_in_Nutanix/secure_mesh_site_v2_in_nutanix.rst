@@ -348,7 +348,7 @@ Similarly, ping the IP address assigned to servers’ interface i.e Ubuntu VM da
 
 This confirms connectivity between CE node and the web server si good, and with this we can proceed to configure Load Balance configuration in XC console.
 
-**Step 5: Configure the Load balancer**
+**Step 5: Configuring the Load balancer**
 
 In this step, we configure Origin Pool and Load Balancer and create a WAF policy and generate an attack and observe its behavior,
 
