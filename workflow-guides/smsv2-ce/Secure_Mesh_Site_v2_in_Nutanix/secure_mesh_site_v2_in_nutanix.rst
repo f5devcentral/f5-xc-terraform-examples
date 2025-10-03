@@ -376,7 +376,7 @@ On accessing the domain name in web browser, we can see juice shop app getting d
 
 .. figure:: Assets/domain_access.jpg
 
-Step 5.3: Create a WAF Policy 
+**Step 5.3: Create a WAF Policy**
 
 Create a WAF policy and assign to the LB.
 
