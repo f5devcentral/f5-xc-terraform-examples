@@ -386,7 +386,7 @@ Once waf policy is created, assign the WAF policy to the LB.
 
 .. figure:: Assets/waf_policy_to_lb.jpg
 
-On accessing test.exe file, which generates an attack of file type violation on applicable, request gets blocked due to WAF firewall,
+On accessing test.exe file, which generates an attack of file type violation on application, request gets blocked due to WAF firewall,
 
 .. figure:: Assets/waf_attack.jpg
 
