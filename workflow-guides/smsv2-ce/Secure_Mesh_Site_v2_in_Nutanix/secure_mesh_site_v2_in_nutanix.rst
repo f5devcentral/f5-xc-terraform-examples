@@ -56,11 +56,12 @@ Interface Eth0 is successfully associated to virtual switch vs0. Now, we can go 
         
 * Provide the necessary information such as DHCP etc, according to the network infrastructure available and click on Save button. 
 
-.. figure:: Assets/subnet_configs_2.jpg
+.. figure:: Assets/subnet_dhcp.jpg
 
 I have provided details as per my network infrastructure.
 
 With subnet being created to host the VMs, we are good to go for CE node creation in Nutanix console. 
+
 
 
 
