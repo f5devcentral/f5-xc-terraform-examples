@@ -32,11 +32,8 @@ Before proceeding to install VM on Nutanix, we need to make sure subnet is creat
 
 In my setup, Eth0 is connected to network with internet connectivity and hence I’ll assign Eth0 alone interface to virtual switch and later create a subnet with this virtual switch.
 
-**Step 3: Installing Nutanix CE on VMware**
-    **Step 3.1: Installing CE on VMware**
-    Below are the steps gives detailed steps to configure single node cluster on VMware ESXi. 
-    
-**Step 1.1: Updating virtual switch (vs0) configs in Nutanix Console**
+    **Step 1.1: Updating virtual switch (vs0) configs in Nutanix Console**
+
     After logging to Nutanix Console, Click on Setting icon to navigate to Global Settings.
 
     * Go to Network > Network configuration. The Network Configuration window appears. 
