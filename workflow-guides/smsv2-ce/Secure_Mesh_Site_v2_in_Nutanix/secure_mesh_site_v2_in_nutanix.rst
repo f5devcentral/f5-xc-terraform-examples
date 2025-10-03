@@ -32,7 +32,7 @@ Before proceeding to install VM on Nutanix, we need to make sure subnet is creat
 
 In my setup, Eth0 is connected to network with internet connectivity and hence I’ll assign Eth0 alone interface to virtual switch and later create a subnet with this virtual switch.
 
-**Step 1.1: Updating virtual switch (vs0) configs in Nutanix Console**
+    **Step 1.1: Updating virtual switch (vs0) configs in Nutanix Console**
     After logging to Nutanix Console, Click on Setting icon to navigate to Global Settings.
 
     * Go to Network > Network configuration. The Network Configuration window appears. 
@@ -47,7 +47,7 @@ In my setup, Eth0 is connected to network with internet connectivity and hence I
         
     Interface Eth0 is successfully associated to virtual switch vs0. Now, we can go ahead to configure subnet. 
 
-**Step 1.2: creating a subnet**
+    **Step 1.2: creating a subnet**
 
     * From the Nutanix console, Go to Network > Network configuration. Click on Subnet and click on Create Subnet. 
 
