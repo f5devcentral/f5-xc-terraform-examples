@@ -32,33 +32,33 @@ Before proceeding to install VM on Nutanix, we need to make sure subnet is creat
 
 In my setup, Eth0 is connected to network with internet connectivity and hence I’ll assign Eth0 alone interface to virtual switch and later create a subnet with this virtual switch.
 
-    **Step 1.1: Updating virtual switch (vs0) configs in Nutanix Console**
-        After logging to Nutanix Console, Click on Setting icon to navigate to Global Settings.
+**Step 1.1: Updating virtual switch (vs0) configs in Nutanix Console**
+    After logging to Nutanix Console, Click on Setting icon to navigate to Global Settings.
 
-        * Go to Network > Network configuration. The Network Configuration window appears. 
+    * Go to Network > Network configuration. The Network Configuration window appears. 
 
-        * Click on Virtual Switch to update the **virtual switch** configurations and click on pencil icon to edit the configs. 
+    * Click on Virtual Switch to update the **virtual switch** configurations and click on pencil icon to edit the configs. 
 
-        .. figure:: Assets/virtual_switch_configs.jpg
+    .. figure:: Assets/virtual_switch_configs.jpg
 
-        * Under Uplink Configuration tab, make sure Bond Type is set as **No Uplink Bond** and select the interface that is connected to Bare Metal’s NIC **(eth0 in my case)** and click on Save. Respective interface will be associated to virtual switch vs0. Rest of the configs were set to default. 
+    * Under Uplink Configuration tab, make sure Bond Type is set as **No Uplink Bond** and select the interface that is connected to Bare Metal’s NIC **(eth0 in my case)** and click on Save. Respective interface will be associated to virtual switch vs0. Rest of the configs were set to default. 
 
-        .. figure:: Assets/uplink_configs_2.jpg
+    .. figure:: Assets/uplink_configs_2.jpg
         
-        Interface Eth0 is successfully associated to virtual switch vs0. Now, we can go ahead to configure subnet. 
-    **Step 1.2: creating a subnet**
+    Interface Eth0 is successfully associated to virtual switch vs0. Now, we can go ahead to configure subnet. 
+**Step 1.2: creating a subnet**
 
-        * From the Nutanix console, Go to Network > Network configuration. Click on Subnet and click on Create Subnet. 
+    * From the Nutanix console, Go to Network > Network configuration. Click on Subnet and click on Create Subnet. 
 
-        .. figure:: Assets/subnet_configs.jpg
+    .. figure:: Assets/subnet_configs.jpg
         
-        * Provide the necessary information such as DHCP etc, according to the network infrastructure available and click on Save button. 
+    * Provide the necessary information such as DHCP etc, according to the network infrastructure available and click on Save button. 
 
-        .. figure:: Assets/subnet_cofnigs_2.jpg
+    .. figure:: Assets/subnet_cofnigs_2.jpg
 
-        I have provided details as per my network infrastructure.
+    I have provided details as per my network infrastructure.
 
-        With subnet being created to host the VMs, we are good to go for CE node creation in Nutanix console. 
+    With subnet being created to host the VMs, we are good to go for CE node creation in Nutanix console. 
 
 
 
