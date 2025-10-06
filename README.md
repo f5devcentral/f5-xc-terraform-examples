@@ -15,7 +15,7 @@ Examples of F5 Distributed Cloud (XC) deployments utilizing Terraform. For more 
 
 ---
 ## **F5 XC CE Deployment using Secure Mesh Site v2 (SMSv2)**
-Deploying CE as Secure Mesh Site version 2 (SMSv2) makes deployment and operations faster, simpler and more reliable. This version also provides flexibility of adding interfaces without the need of certificate provisioning in accordance to hardware. Test
+Deploying CE as Secure Mesh Site version 2 (SMSv2) makes deployment and operations faster, simpler and more reliable. This version also provides flexibility of adding interfaces without the need of certificate provisioning in accordance to hardware.
   | **DevCentral Overview Articles**                                                                                           | **Use Case / Workflow Guides**                                                                                                                                                |
   |----------------------------------------------------------------------------------------------------------------------------| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
   | [F5 XC CE deploy on Nutanix using SMS v2](#) | [F5 XC CE deploy on Nutanix using SMS v2  (SaaS Console)](https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/smsv2-ce/Secure_Mesh_Site_v2_in_Nutanix/secure_mesh_site_v2_in_nutanix.rst)                        |
