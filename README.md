@@ -14,6 +14,12 @@ Examples of F5 Distributed Cloud (XC) deployments utilizing Terraform. For more 
   | [Nutanix Community Edition 2.1 installation on VMware ]() | [Nutanix Community Edition 2.1 installation on VMware ](https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/Nutanix_on_VMware/Nutanix_CE_2.1_installation_on_VMware.rst)                        |
 
 ---
+## **F5 XC Deployment using Secure Mesh Site v2 (SMSv2)**
+
+  | **DevCentral Overview Articles**                                                                                           | **Use Case / Workflow Guides**                                                                                                                                                |
+  |----------------------------------------------------------------------------------------------------------------------------| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | [F5 XC Application Delivery and Security for Scalable Enterprise Workload Deployments across Heterogeneous Environments](https://community.f5.com/kb/technicalarticles/f5-scalable-app-delivery--security-for-hybrid-environments/343182) | [F5 XC Application Delivery and Security for Scalable Enterprise Workload Deployments across Heterogeneous Environments (SaaS Console)](https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/workload/README.rst)                        |
+
 ## Application Security
 ### **F5 Distributed Cloud WAF**
 
