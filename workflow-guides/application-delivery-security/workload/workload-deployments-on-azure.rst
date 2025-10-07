@@ -281,6 +281,7 @@ Steps to install VM (Client VM) running application workloads
 .. image:: ./assets/assets-azure/smsv2-azure-cvm-2.png
 
 4. Provide OS disk details under “Disks” tab based on requirement and click “Next : Networking >”
+
 .. image:: ./assets/assets-azure/smsv2-azure-cvm-3.png
 
 5. Under “Networking” tab:
@@ -293,6 +294,7 @@ Steps to install VM (Client VM) running application workloads
     .. image:: ./assets/assets-azure/smsv2-azure-cvm-4.png
 
 6. Under “Review + create” tab, wait for the “Validation passed” message, review the configurations and click “Create”
+
 .. image:: ./assets/assets-azure/smsv2-azure-cvm-5.png
 
 7. Wait for a few minutes for the deployment to succeed and VM to start running.
@@ -301,6 +303,7 @@ Steps to install VM (Client VM) running application workloads
 .. image:: ./assets/assets-azure/smsv2-azure-cvm-6.png
 
 8. Navigate to the CE site in F5 Distributed Cloud and ping the client VM private IP, it should be reachable
+
 .. image:: ./assets/assets-azure/smsv2-azure-cvm-7.png
 
 9. Once the connection is established between CE site and VM, connect to the VM through SSH to deploy application. Execute below commands to deploy a vulnerable application (here “JuiceShop” is used)
@@ -342,41 +345,41 @@ Creating Load Balancer
 --------------
 1. Under “Multi-Cloud App Connect”, select Load Balancers-> HTTP Load Balancers. Click “Add HTTP Load Balancer”
 
-.. image:: ./assets/assets-vmware/smsv2-azure-lb1.png
+.. image:: ./assets/assets-azure/smsv2-azure-lb1.png
 
 2. Provide name for LB and domain with valid sub-domain
 
 *Note: You should be having domain to use for LB and it should be able to resolve for the FQDN to be accessible*
 
-.. image:: ./assets/assets-vmware/smsv2-azure-lb2.png
+.. image:: ./assets/assets-azure/smsv2-azure-lb2.png
 
 3. Click on “Add Item” under Origin Pool
 
-.. image:: ./assets/assets-vmware/smsv2-azure-lb3.png
+.. image:: ./assets/assets-azure/smsv2-azure-lb3.png
 
 4. Select the origin pool created earlier and click “Apply”
 
-.. image:: ./assets/assets-vmware/smsv2-azure-lb4.png
+.. image:: ./assets/assets-azure/smsv2-azure-lb4.png
 
 5. Enable “Web Application Firewall (WAF)” and click “Add item”
 
-.. image:: ./assets/assets-vmware/smsv2-azure-lb5.png
+.. image:: ./assets/assets-azure/smsv2-azure-lb5.png
 
 6. Create a new WAF with below configurations and click “Add App Firewall”
 
-.. image:: ./assets/assets-vmware/smsv2-azure-lb6.png
+.. image:: ./assets/assets-azure/smsv2-azure-lb6.png
 
 7. Select the WAF added and verify the Origin Pool and WAF in LB configuration
 
-.. image:: ./assets/assets-vmware/smsv2-azure-lb7.png
+.. image:: ./assets/assets-azure/smsv2-azure-lb7.png
 
 8. Click “Add HTTP Load Balancer” and wait for around ~5 minutes for LB to provision and come up completely.
 
-.. image:: ./assets/assets-vmware/smsv2-azure-lb8.png
+.. image:: ./assets/assets-azure/smsv2-azure-lb8.png
 
 9. Access the LB URL and Juice-Shop application should be available which is deployed in port 3000 in Ubuntu VM using docker
 
-.. image:: ./assets/assets-vmware/smsv2-azure-lb9.png
+.. image:: ./assets/assets-azure/smsv2-azure-lb9.png
 
 Adding new application and accessing through Load Balancers
 --------------
