@@ -9,10 +9,10 @@ This article serves as the initial setup for the Azure platform in “F5 Distrib
 For this demo Azure was chosen for deploying SMSv2 CE site. In the same resource group where CE VM is deployed, VM running application workloads are also deployed and connected to CE using Site Local Inside (SLI) subnet and interface, so that applications are not exposed directly.
 
 *Note: Similarly, this deployment can be achieved in GCP and AWS using the links below.*
-- AWS -> Deploy Secure Mesh Site v2 on AWS
-- Azure -> Deploy Secure Mesh Site v2 on Azure
-- GCP -> Deploy Secure Mesh Site v2 on GCP
-- Customer Edge Site Sizing Reference
+
+- AWS -> `Deploy Secure Mesh Site v2 on AWS <https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-aws-clickops>`__
+- Azure -> `Deploy Secure Mesh Site v2 on Azure <https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops>`__
+- GCP -> `Deploy Secure Mesh Site v2 on GCP <https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-gcp-clickops>`__
 
 Steps to Deploy Secure Mesh Site v2 on Azure
 --------------
@@ -407,7 +407,10 @@ By following the same steps mentioned earlier for creating Origin Pool and LB, w
 
 .. image:: ./assets/assets-azure/az-new-wl4.png
 
+References:
+--------------
+`Deploy Secure Mesh Site v2 on Azure (ClickOps) <https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops>`__
 
+`Create Origin Pools <https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-to/create-manage-origin-pools>`__
 
-
-
+`Create HTTP Load Balancer <https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-to/load-balance/create-http-load-balancer>`__
