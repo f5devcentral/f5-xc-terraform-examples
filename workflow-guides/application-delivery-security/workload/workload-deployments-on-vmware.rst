@@ -263,7 +263,7 @@ Adding new application and accessing through Load Balancers
 --------------
 Once the LB URL is verified and application is accessible, we can start scaling by installing one more new application in another port using the docker command in Ubuntu machine.
 
-- **$ sudo docker run -d -p 3001:80 vulnerables/web-dvwa**
+    **$ sudo docker run -d -p 3001:80 vulnerables/web-dvwa**
 
 .. image:: ./assets/assets-vmware/48.png
 
@@ -274,6 +274,7 @@ By following the same steps mentioned earlier for creating Origin Pool and LB, w
 .. image:: ./assets/assets-vmware/49.png
 
 2. Create a new LB with a distinct Domain URL and select this Origin Pool.
+
 *Note: Other settings like WAF remains same used earlier*
 
 .. image:: ./assets/assets-vmware/50.png
