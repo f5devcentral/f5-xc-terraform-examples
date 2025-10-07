@@ -589,7 +589,7 @@ By following the same steps mentioned earlier for creating Origin Pool and LB, w
 
 .. image:: ./assets/assets-ocp/33.png
 
-2. Create a new LB with a distinct Domain URL and select this Origin Pool.
+2. Create a new LB with a distinct Domain URL and select this Origin Pool created in above step
 
 *Note: Other settings like WAF remains same used earlier*
 
