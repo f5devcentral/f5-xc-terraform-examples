@@ -387,21 +387,25 @@ Once the LB URL is verified and application is accessible, we can start scaling 
 
     **$ sudo docker run -d -p 3001:80 vulnerables/web-dvwa**
 
+.. image:: ./assets/assets-azure/az-new-wl1.png
+
 By following the same steps mentioned earlier for creating Origin Pool and LB, we need to create one more new Origin pool and LB for the new application.
 
 1. Create a new Origin pool with the port (3001) where new application is exposed, same Origin Servers settings are used in this Origin Pool as well.
-.. image::
+
+.. image:: ./assets/assets-azure/az-new-wl2.png
 
 2. Create a new LB with a distinct Domain URL and select this Origin Pool.
 
 *Note: Other settings like WAF remains same used earlier*
-.. image::
+
+.. image:: ./assets/assets-azure/az-new-wl3.png
 
 3. Click “Add HTTP Load Balancer” and wait for around ~5 minutes for LB to provision and come up completely
 
 4. Access the LB URL and DVWA application should be available which is deployed in port 3001 in Ubuntu VM using docker
-.. image::
 
+.. image:: ./assets/assets-azure/az-new-wl4.png
 
 
 
