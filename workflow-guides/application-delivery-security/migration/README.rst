@@ -73,6 +73,7 @@ In this scenario, application traffic is being migrated from VMware (On-Prem) en
 
     VMware weight - 3 and Nutanix weight - 1
 
+
 .. image:: ./assets/origin_pool_configs.jpg
 
 .. image:: ./assets/start_traffic_to_vmware.jpg
