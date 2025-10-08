@@ -78,7 +78,7 @@ In this scenario, application traffic is being migrated from VMware (On-Prem) en
 
 .. image:: ./assets/start_traffic_to_vmware.jpg
 
-From the above screenshot, you can able to see a small portion of traffic is reaching the Nutanix platform from application is well accessible using F5 XC.
+From the above screenshot, you can able to see a small portion (highlighted in green) of traffic is reaching the Nutanix platform and application in it is well accessible using F5 XC.
 
 Now, we further steer more traffic to the Nutanix by modifying the weight as below, which will lead to complete migration of traffic from VMware to Nutanix platform,
 
