@@ -64,7 +64,7 @@ Architecture Overview
 
 Note: `Customer Edge Site Sizing Reference <https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/reference/ce-site-size-ref>`__
 
-`F5 Distributed Cloud Workload Deployments on Azure[coming soon] <coming soon>`__
+`F5 Distributed Cloud Workload Deployments on Azure <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/workload/workload-deployments-on-azure.rst>`__
 
 Scenario: Scalable Enterprise Workload Deployments Across Heterogeneous Environments
 --------------
