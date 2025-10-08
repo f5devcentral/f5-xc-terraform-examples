@@ -73,6 +73,8 @@ In this scenario, application traffic is being migrated from VMware (On-Prem) en
 
     VMware weight - 3 and Nutanix weight - 1
 
+.. image:: ./assets/origin_pool_configs.jpg
+
 .. image:: ./assets/start_traffic_to_vmware.jpg
 
 From the above screenshot, you can able to see a small portion of traffic is reaching the Nutanix platform from application is well accessible using F5 XC.
@@ -82,8 +84,6 @@ Now, we further steer more traffic to the Nutanix by modifying the weight as bel
     VMware weight - 0 and Nutanix weight - 3
 
 .. image:: ./assets/migrated_to_nutanix.jpg
-
-.. image:: ./assets/1-1.png
 
 Scenario 1: Case A – Genuine requests
 ~~~~~~~~~~
