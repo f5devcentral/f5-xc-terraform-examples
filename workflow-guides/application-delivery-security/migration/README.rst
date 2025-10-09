@@ -69,7 +69,7 @@ Scenario 1: Migration from VMware to Nutanix
 
 .. image:: ./assets/1.png
 
-In this scenario, application traffic is being migrated from VMware (On-Prem) environment to Nutanix (On-Prem) environment. This is achieved by deploying the same application in both environments and gradually shifting traffic by adjusting the weight assigned to each environment. At fist, we start sending the traffic to newly integrated platform, which is Nutanix in this case, upon success, we steer the traffic propotionally. We set weights initially as follows:
+In this scenario, application traffic is being migrated from VMware (On-Prem) environment to Nutanix (On-Prem) environment. This is achieved by deploying the same application in both environments and gradually shifting traffic by adjusting the weight assigned to each environment. At fist, we start sending the traffic to newly integrated platform, which is Nutanix in this case, upon success, then we steer the traffic proportionally. We set weights initially as follows:
 
     VMware weight - 3 and Nutanix weight - 1
 
@@ -86,7 +86,7 @@ Now, we further steer more traffic to the Nutanix by modifying the weight as bel
 
 .. image:: ./assets/migrated_to_nutanix.jpg
 
-As we can see from the above screenshot, all the traffic is migrated to Nutanix platform and no request is made to flow through VMware.
+As we can see from the above screenshot, all the traffic is migrated to Nutanix platform and no request is flowing throsugh VMware.
 
 Scenario 1: Case B – Malicious requests
 ~~~~~~~~~~
@@ -103,11 +103,23 @@ Scenario 2: Migration from VMware to OCP
 
 .. image:: ./assets/2.png
 
-In this scenario, application traffic is being migrated from VMware (On-Prem) environment to OpenShift Container Platform (On-Prem) environment. This is achieved by deploying the same application in both environments and gradually shifting traffic by adjusting the weight assigned to each environment. For this migration, we have set the weights as follows:
+In this scenario, application traffic is being migrated from VMware (On-Prem) environment to OpenShift Container Platform (On-Prem) environment. This is achieved by deploying the same application in both environments and gradually shifting traffic by adjusting the weight assigned to each environment. Initially, we start sending traffic to newly integrated platform, which is OCP in this case, then we steer traffic proportionally. we have set the weights as follows:
 
-    VMware weight - 1 and OCP weight - 3
+    VMware weight - 3 and OCP weight - 1
 
-.. image:: ./assets/2-1.png
+.. image:: ./assets/origin_pool_vmware_to_ocp.jpg
+
+.. image:: ./assets/vmware_to_ocp.jpg
+
+From the above screenshot, you can able to see a small portion of traffic is reaching the OCP platform and application in it is well accessible using F5 XC.
+
+Now, we further steer more traffic to OCP by modifying the weight as below, which will lead to complete migration of traffic from VMware to OCP platform,
+
+    VMware weight - 0 and OCP weight - 3
+
+
+As we can see from the above screenshot, all the traffic is migrated to Nutanix platform and no request is flowing throsugh VMware.
+
 
 Scenario 2: Case A – Genuine requests
 ~~~~~~~~~~
