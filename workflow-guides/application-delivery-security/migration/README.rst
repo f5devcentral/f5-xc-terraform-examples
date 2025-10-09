@@ -86,13 +86,7 @@ Now, we further steer more traffic to the Nutanix by modifying the weight as bel
 
 .. image:: ./assets/migrated_to_nutanix.jpg
 
-Scenario 1: Case A – Genuine requests
-~~~~~~~~~~
-Once the setup including the site, origin pool, and load balancer is complete and weights are assigned, genuine requests reaching the load balancer are distributed across environments based on those weights. Here, cURL is used to demonstrate sending multiple requests to the load balancer.
-
-.. image:: ./assets/1-2.png
-
-.. image:: ./assets/curl-benign.png
+As we can see from the above screenshot, all the traffic is migrated to Nutanix platform and no request is made to flow through VMware.
 
 **Case A Observation** - From the ”Requests” section in Distributed Cloud console for the LB, majority of the requests are directed towards Nutanix which has higher weightage
 
