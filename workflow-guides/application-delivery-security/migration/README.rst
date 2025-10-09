@@ -117,8 +117,9 @@ Now, we further steer more traffic to OCP by modifying the weight as below, whic
 
     VMware weight - 0 and OCP weight - 3
 
+.. image:: ./assets/traffic_migrated_to_ocp.jpg
 
-As we can see from the above screenshot, all the traffic is migrated to Nutanix platform and no request is flowing throsugh VMware.
+As we can see from the above screenshot, all the traffic is migrated to Nutanix platform and no request is flowing through VMware.
 
 
 Scenario 2: Case A – Genuine requests
