@@ -121,17 +121,6 @@ Now, we further steer more traffic to OCP by modifying the weight as below, whic
 
 As we can see from the above screenshot, all the traffic is migrated to Nutanix platform and no request is flowing through VMware.
 
-
-Scenario 2: Case A – Genuine requests
-~~~~~~~~~~
-Once the setup including the site, origin pool, and load balancer is complete and weights are assigned, genuine requests reaching the load balancer are distributed across environments based on those weights. Here, cURL is used to demonstrate sending multiple requests to the load balancer.
-
-.. image:: ./assets/2-2.png
-
-.. image:: ./assets/curl-benign.png
-
-**Case A Observation** - From the ”Requests” section in Distributed Cloud console for the LB, majority of the requests are directed towards OCP which has higher weightage
-
 Scenario 2: Case B – Malicious requests
 ~~~~~~~~~~
 In this case, we'll send malicious requests to the same load balancer and observe how F5 Distributed Cloud mitigates them.
