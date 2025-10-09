@@ -88,8 +88,6 @@ Now, we further steer more traffic to the Nutanix by modifying the weight as bel
 
 As we can see from the above screenshot, all the traffic is migrated to Nutanix platform and no request is made to flow through VMware.
 
-**Case A Observation** - From the ”Requests” section in Distributed Cloud console for the LB, majority of the requests are directed towards Nutanix which has higher weightage
-
 Scenario 1: Case B – Malicious requests
 ~~~~~~~~~~
 In this case, we'll send malicious requests to the same load balancer and observe how F5 Distributed Cloud mitigates them.
