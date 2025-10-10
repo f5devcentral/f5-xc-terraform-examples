@@ -41,7 +41,7 @@ Distributed Cloud CE is managed centrally using the Distributed Cloud Console. D
 
 `F5 Distributed Cloud Workload Deployments on Red Hat OpenShift | F5 XC Solutions <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/workload/workload-deployments-on-ocp.rst>`__
 
-**Nutanix on Bare Metal:** Nutanix Community Edition is used as Hypervisor and deployed in Dell PowerEdge-R430 bare metal. A VM is created and booted using the qcow2 image of SMSv2 CE downloaded from F5 Distributed Cloud. Once the CE VM is up and site is online, VM running application workloads are also deployed and connected to CE using Site Local Inside (SLI) subnet and interface, so that applications are not exposed directly.
+**Nutanix on Bare Metal:** Nutanix Community Edition with Acropolis Hypervisor (AHV) is deployed on Dell PowerEdge-R430 bare metal. A VM is created and booted using the qcow2 image of SMSv2 CE downloaded from F5 Distributed Cloud. Once the CE VM is up and site is online, VM running application workloads are also deployed and connected to CE using Site Local Inside (SLI) subnet and interface, so that applications are not exposed directly.
 
 *Note: This scenario uses Nutanix On-Prem, but it can also be deployed on AWS and Azure.*
 
