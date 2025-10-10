@@ -202,7 +202,7 @@ In summary, F5 Distributed Cloud provides a simple, repeatable pattern for migra
 
 References:
 --------------
-For more details, guidance on deploying XC CE on On-Prem and cloud platforms and configuring Origin Pool and Load balancer, refet to the official documentation below,
+For more details, guidance on deploying XC CE on On-Prem and cloud platforms and configuring Origin Pool and Load balancer, refer to the official documentation below,
 
 https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-to/create-manage-origin-pools
 
