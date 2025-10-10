@@ -119,7 +119,7 @@ Now, we further steer more traffic to OCP by modifying the weight as below, whic
 
 .. image:: ./assets/traffic_migrated_to_ocp.jpg
 
-As we can see from the above screenshot, all the traffic is migrated to Nutanix platform and no request is flowing through VMware.
+As we can see from the above screenshot, all the traffic is migrated to OCP platform and no request is flowing through VMware.
 
 Scenario 2: Case B – Malicious requests
 ~~~~~~~~~~
@@ -136,21 +136,23 @@ Scenario 3: Migration from VMware to Nutanix + OpenShift Container Platform (OCP
 
 .. image:: ./assets/3.png
 
-In this scenario, application traffic is being migrated from VMware (On-Prem) environment to Nutanix (On-Prem) + OCP (On-Prem) environment. This is achieved by deploying the same application in all the 3 environments and gradually shifting traffic by adjusting the weight assigned to each environment. For this migration, we have set the weights as follows:
+In this scenario, application traffic is being migrated from VMware (On-Prem) environment to Nutanix (On-Prem) + OCP (On-Prem) environment. This is achieved by deploying the same application in all the 3 environments and gradually shifting traffic by adjusting the weight assigned to each environment. Initially, we start sending traffic to newly integrated platform, which is Nutanix and OCP in this case, then we steer traffic proportionally. we have set the weights as follows:
 
-    VMware weight - 1, Nutanix weight - 3 and OCP weight - 3
+    VMware weight - 3, Nutanix weight - 1 and OCP weight - 1
 
-.. image:: ./assets/3-1.png
+.. image:: ./assets/op_configs_vmware_to_nutanix_ocp.jpg
 
-Scenario 3: Case A – Genuine requests
-~~~~~~~~~~
-Once the setup including the site, origin pool, and load balancer is complete and weights are assigned, genuine requests reaching the load balancer are distributed across environments based on those weights. Here, cURL is used to demonstrate sending multiple requests to the load balancer.
+.. image:: ./assets/vmware_to_nutanix_ocp.jpg
 
-.. image:: ./assets/3-2.png
+From the above screenshot, you can able to see a small portion of traffic is reaching Nutanix and OCP platform and application in it is well accessible using F5 XC.
 
-.. image:: ./assets/curl-benign.png
+Now, we further steer more traffic to Nutanix and OCP by modifying the weight as below, which will lead to complete migration of traffic from VMware to OCP platform,
 
-**Case A Observation** - From the ”Requests” section in Distributed Cloud console for the LB, majority of the requests are directed towards Nutanix and OCP which has higher weightage
+     VMware weight - 0, Nutanix weight - 1 and OCP weight - 1
+
+.. image:: ./assets/logs_vmware_to_nutanix_ocp.jpg
+
+As we can see from the above screenshot, all the traffic is migrated to Nutanix ad OCP platform and no request is flowing through VMware.
 
 Scenario 3: Case B – Malicious requests
 ~~~~~~~~~~
