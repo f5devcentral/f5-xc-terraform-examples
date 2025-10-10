@@ -133,7 +133,7 @@ Scenario 3: Migration from VMware to Nutanix + OpenShift Container Platform (OCP
 
 .. image:: ./assets/3.png
 
-In this scenario, application traffic is being migrated from VMware (On-Prem) environment to Nutanix (On-Prem) + OCP (On-Prem) environment. This is achieved by deploying the same application in all the 3 environments and gradually shifting traffic by adjusting the weight assigned to each environment. Initially, we start sending traffic to newly integrated platform, which is Nutanix and OCP in this case, then we steer traffic proportionally. we have set the weights as follows:
+In this scenario, application traffic is being migrated from VMware (On-Prem) environment to Nutanix (On-Prem) + OCP (On-Prem) environment. This is achieved by deploying the same application in all the 3 environments and gradually shifting traffic by adjusting the weight assigned to each environment. Initially, we start sending traffic to newly integrated platforms, which is Nutanix and OCP in this case, then we steer traffic proportionally. we have set the weights as follows:
 
     VMware weight - 3, Nutanix weight - 1 and OCP weight - 1
 
@@ -141,7 +141,7 @@ In this scenario, application traffic is being migrated from VMware (On-Prem) en
 
 .. image:: ./assets/vmware_to_nutanix_ocp.jpg
 
-From the above screenshot, you can able to see a small portion of traffic (highlighted above) is reaching Nutanix and OCP platform and application in it is well accessible using F5 XC.
+From the above screenshot, you can able to see a small portion of traffic (highlighted above) is reaching Nutanix and OCP platforms and application in it is well accessible using F5 XC.
 
 Now, we further steer more traffic to Nutanix and OCP by modifying the weight as below, which will lead to complete migration of traffic from VMware to OCP platform,
 
@@ -170,7 +170,7 @@ In this scenario, application traffic is being migrated from VMware (On-Prem) en
 
     VMware weight - 3 and Azure weight - 1
 
-.. image:: ./assets/op_config_vmware_to_azure.jpg
+.. image:: ./assets/op_configs_vmware_to_azure.jpg
 
 .. image:: ./assets/start_traffic_to_azure.jpg
 
