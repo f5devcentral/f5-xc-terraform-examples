@@ -38,15 +38,12 @@ Architecture Overview
 
 `F5 Distributed Cloud Application Migration Setup on OCP <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/migration/application-migration-setup-ocp.rst>`__
 
-**Nutanix on Bare Metal:** Nutanix Community Edition is used as Hypervisor and deployed in Dell PowerEdge-R430 bare metal. A VM is created and booted using the qcow2 image of SMSv2 CE downloaded from F5 Distributed Cloud. Once the CE VM is up and site is online, VM running application workloads are also deployed and connected to CE using Site Local Inside (SLI) subnet and interface, so that applications are not exposed directly.
+**Nutanix on VMware:** Nutanix Community Edition 2.1 is installed as VM in VMware ESXi. Nutanix console can be accessed by accessing this VM. This gives flexibility to scale RAM, hard disk to the Nutanix VM, and helps in adding multiple application instances in it. A CE node using SMSv2 is deployed in Nutanix along with an application(s) and is connected using SLI there by protecting application(s) in the Nutanix platform. F5 XC protects these application VMs deployed in Nutanix using XC security solutions such as WAF, DDoS, API and Bot defense etc.
 
-*Note: This scenario uses Nutanix On-Prem, but it can also be deployed on AWS and Azure.*
+`Installation of Nutanix Community Edition on VMware ESXi | F5 XC Learn <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/Nutanix_on_VMware/Nutanix_CE_2.1_installation_on_VMware.rst>`__
 
-`Nutanix Infra Setup[coming soon] <coming soon>`__
+`F5 Distributed Cloud Workload Deployment on Nutanix on VMware ESXi | F5 XC Solutions <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/smsv2-ce/Secure_Mesh_Site_v2_in_Nutanix/secure_mesh_site_v2_in_nutanix.rst>`__
 
-`F5 Distributed Cloud Application Migration Setup on Nutanix[coming soon] <coming soon>`__
-
-**Nutanix on VMware:** <Coming Soon>
 
 **Cloud Env:** For this demo Azure is chosen for deploying SMSv2 CE site. In the same resource group where CE VM is deployed, VM running application workloads is also deployed and connected to CE using Site Local Inside (SLI) subnet and interface, so that applications are not exposed directly.
 
@@ -82,7 +79,7 @@ From the above screenshot, you can able to see a small portion (highlighted in g
 
 Now, we further steer more traffic to the Nutanix by modifying the weight as below, which will lead to complete migration of traffic from VMware to Nutanix platform,
 
-    VMware weight - 0 and Nutanix weight - 3
+    VMware weight - 0 and Nutanix weight - 1
 
 .. image:: ./assets/migrated_to_nutanix.jpg
 
@@ -115,7 +112,7 @@ From the above screenshot, you can able to see a small portion of traffic is rea
 
 Now, we further steer more traffic to OCP by modifying the weight as below, which will lead to complete migration of traffic from VMware to OCP platform,
 
-    VMware weight - 0 and OCP weight - 3
+    VMware weight - 0 and OCP weight - 1
 
 .. image:: ./assets/traffic_migrated_to_ocp.jpg
 
