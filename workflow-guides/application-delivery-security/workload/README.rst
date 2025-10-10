@@ -18,41 +18,42 @@ This article examines enterprise-scale application deployment patterns that resu
 
 F5 Distributed Cloud helps organizations manage these deployments by ensuring uniform application delivery and security policies across all instances—regardless of the underlying platform.
 
-As illustrated in the diagram, when new application workloads are provisioned across environments such as AWS, Azure, GCP, VMware (on-prem), Nutanix (on-prem), and OpenShift Container Platform (on-prem), F5 Distributed Cloud ensures seamless integration with existing services. Using Secure Mesh Site v2 (SMSv2) with Customer Edge (CE) nodes, each location maintains secure, low-latency connectivity with F5’s globally distributed Regional Edges (RE) to support real-time traffic management, security enforcement, and observability.
-
-Distributed Cloud CE is managed centrally using the Distributed Cloud Console. Distributed Cloud CE can be deployed as a standalone virtual machine (VM) or as a Kubernetes containerized service in any environment. It orchestrates the local control plane and data plane components to route, encrypt, and secure traffic. Distributed Cloud CE operates as a highly available edge gateway that can securely extend application connectivity and networks across sites, without the need to establish additional physical connectivity.
-
 Architecture Overview
 --------------
 .. image:: ./assets/ADSP-Growth-Architecture-New.png
+
+As illustrated in the diagram below, when new application workloads are provisioned across environments such as AWS, Azure, GCP, VMware (on-prem), Nutanix (on-prem), and OpenShift Container Platform (on-prem), F5 Distributed Cloud ensures seamless integration with existing services. Using Secure Mesh Site v2 (SMSv2) with Customer Edge (CE) nodes, each location maintains secure, low-latency connectivity with F5’s globally distributed Regional Edges (RE) to support real-time traffic management, security enforcement, and observability.
+
+Distributed Cloud CE is managed centrally using the Distributed Cloud Console. Distributed Cloud CE can be deployed as a standalone virtual machine (VM) or as a Kubernetes containerized service in any environment. It orchestrates the local control plane and data plane components to route, encrypt, and secure traffic. Distributed Cloud CE operates as a highly available edge gateway that can securely extend application connectivity and networks across sites, without the need to establish additional physical connectivity.
+
 
 **VMware:** VM is created in VMware ESXi deployed in Dell PowerEdge-R640 bare metal. The VM is booted using the OVF image of SMSv2 CE downloaded from F5 Distributed Cloud. Once the CE VM is up and site is online, VM running application workloads is also deployed in the same ESXi and connected to CE using Site Local Inside (SLI) subnet and interface, so that applications are not exposed directly.
 
 *Note: This scenario uses VMware On-Prem, but it can also be deployed on GCP and Azure.*
 
-`F5 Distributed Cloud Workload Deployments on VMware <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/workload/workload-deployments-on-vmware.rst>`__
+`F5 Distributed Cloud Workload Deployments on VMware | F5 XC Solutions <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/workload/workload-deployments-on-vmware.rst>`__
 
 **OpenShift Container Platform (OCP):** 3-node OCP cluster is created on VMware. SMSv2 CE as VM is deployed using KVM (qcow) image in OCP cluster virtualization. VM running application workloads is also deployed and connected to CE using Site Local Inside (SLI) subnet and interface, so that applications are not exposed directly.
 
 *Note: This scenario uses OCP Datacenter (On-Prem), but it can also be deployed on AWS, GCP, IBM and Azure.*
 
-`OCP Infra Setup on VMware <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/workload/ocp-infra-setup.rst>`__
+`Installation of Red Hat OpenShift Infra Setup on VMware ESXi | F5 XC Learn <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/workload/ocp-infra-setup.rst>`__
 
-`F5 Distributed Cloud Workload Deployments on OCP <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/workload/workload-deployments-on-ocp.rst>`__
+`F5 Distributed Cloud Workload Deployments on Red Hat OpenShift | F5 XC Solutions <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/workload/workload-deployments-on-ocp.rst>`__
 
 **Nutanix on Bare Metal:** Nutanix Community Edition is used as Hypervisor and deployed in Dell PowerEdge-R430 bare metal. A VM is created and booted using the qcow2 image of SMSv2 CE downloaded from F5 Distributed Cloud. Once the CE VM is up and site is online, VM running application workloads are also deployed and connected to CE using Site Local Inside (SLI) subnet and interface, so that applications are not exposed directly.
 
 *Note: This scenario uses Nutanix On-Prem, but it can also be deployed on AWS and Azure.*
 
-`Installation of Nutanix Community Edition on Bare Metal <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/Nutanix/nutanix_community_edition_2.1_installation.rst>`__
+`Installation of Nutanix Community Edition on Bare Metal | F5 XC Learn <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/Nutanix/nutanix_community_edition_2.1_installation.rst>`__
 
-`F5 Distributed Cloud Workload Deployments on Nutanix <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/smsv2-ce/Secure_Mesh_Site_v2_in_Nutanix/secure_mesh_site_v2_in_nutanix.rst>`__
+`F5 Distributed Cloud Workload Deployments on Nutanix | F5 XC Solutions <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/smsv2-ce/Secure_Mesh_Site_v2_in_Nutanix/secure_mesh_site_v2_in_nutanix.rst>`__
 
 **Nutanix on VMware:** Nutanix Community Edition 2.1 is installed as VM in VMware ESXi. Nutanix console can be accessed by accessing this VM. This gives flexibility to scale RAM, hard disk to the Nutanix VM, and helps in adding multiple application instances in it. A CE node using SMSv2 is deployed in Nutanix along with an application(s) and is connected using SLI there by protecting application(s) in the Nutanix platform. F5 XC protects these application VMs deployed in Nutanix using XC security solutions such as WAF, DDoS, API and Bot defense etc.
 
-`Installation of Nutanix Community Edition on VMware ESXi <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/Nutanix_on_VMware/Nutanix_CE_2.1_installation_on_VMware.rst>`__
+`Installation of Nutanix Community Edition on VMware ESXi | F5 XC Learn <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/Nutanix_on_VMware/Nutanix_CE_2.1_installation_on_VMware.rst>`__
 
-`F5 Distributed Cloud Workload Deployment on Nutanix on VMware ESXi <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/smsv2-ce/Secure_Mesh_Site_v2_in_Nutanix/secure_mesh_site_v2_in_nutanix.rst>`__
+`F5 Distributed Cloud Workload Deployment on Nutanix on VMware ESXi | F5 XC Solutions <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/smsv2-ce/Secure_Mesh_Site_v2_in_Nutanix/secure_mesh_site_v2_in_nutanix.rst>`__
 
 **Cloud Env:** For this demo Azure is chosen for deploying SMSv2 CE site. In the same resource group where CE VM is deployed, VM running application workloads is also deployed and connected to CE using Site Local Inside (SLI) subnet and interface, so that applications are not exposed directly.
 
@@ -64,7 +65,7 @@ Architecture Overview
 
 Note: `Customer Edge Site Sizing Reference <https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/reference/ce-site-size-ref>`__
 
-`F5 Distributed Cloud Workload Deployments on Azure <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/workload/workload-deployments-on-azure.rst>`__
+`F5 Distributed Cloud Workload Deployments on Azure | F5 XC Solutions <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/workload/workload-deployments-on-azure.rst>`__
 
 Scenario: Scalable Enterprise Workload Deployments Across Heterogeneous Environments
 --------------
