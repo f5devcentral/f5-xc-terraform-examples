@@ -22,7 +22,7 @@ Architecture Overview
 --------------
 .. image:: ./assets/ADSP-Growth-Architecture-New.png
 
-As illustrated in the diagram below, when new application workloads are provisioned across environments such as AWS, Azure, GCP, VMware (on-prem), Nutanix (on-prem), and OpenShift Container Platform (on-prem), F5 Distributed Cloud ensures seamless integration with existing services. Using Secure Mesh Site v2 (SMSv2) with Customer Edge (CE) nodes, each location maintains secure, low-latency connectivity with F5’s globally distributed Regional Edges (RE) to support real-time traffic management, security enforcement, and observability.
+As illustrated in the diagram above, when new application workloads are provisioned across environments such as AWS, Azure, GCP, VMware (on-prem), Nutanix (on-prem), and OpenShift Container Platform (on-prem), F5 Distributed Cloud ensures seamless integration with existing services. Using Secure Mesh Site v2 (SMSv2) with Customer Edge (CE) nodes, each location maintains secure, low-latency connectivity with F5’s globally distributed Regional Edges (RE) to support real-time traffic management, security enforcement, and observability.
 
 Distributed Cloud CE is managed centrally using the Distributed Cloud Console. Distributed Cloud CE can be deployed as a standalone virtual machine (VM) or as a Kubernetes containerized service in any environment. It orchestrates the local control plane and data plane components to route, encrypt, and secure traffic. Distributed Cloud CE operates as a highly available edge gateway that can securely extend application connectivity and networks across sites, without the need to establish additional physical connectivity.
 
