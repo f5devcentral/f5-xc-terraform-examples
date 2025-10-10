@@ -202,6 +202,8 @@ In summary, F5 Distributed Cloud provides a simple, repeatable pattern for migra
 
 References:
 --------------
+For more details, guidance on deploying XC CE on On-Prem and cloud platforms, refet to the official documentation below,
+
 `F5 Application Delivery and Security Platform <https://www.f5.com/products/f5-application-delivery-and-security-platform>`__
 
 `F5 CE Data Sheet <https://www.f5.com/pdf/data-sheet/f5-distributed-cloud-customer-edge-ce-deployable-software.pdf>`__
