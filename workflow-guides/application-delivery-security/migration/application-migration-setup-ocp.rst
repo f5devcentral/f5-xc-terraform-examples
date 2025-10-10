@@ -3,7 +3,7 @@ F5 Distributed Cloud Application Migration on OCP
 This article serves as the initial setup for the OCP platform in “F5 Distributed Cloud Application Migration across Heterogeneous Environments” scenario. This document covers:
 
 - Customer Edge (CE) Setup
-- Client VM Installation
+- Deploy Alpine VM along with an application
 - Creating Origin Pool
 
 OCP cluster used in this demonstration is deployed on VMware ESXi hypervisor. Once the OCP cluster is up and running, the next step is to deploy SMSv2 CE.
@@ -275,7 +275,7 @@ Once the image is downloaded follow the below steps:
 
 .. image:: ../workload/assets/assets-ocp/10.png
 
-Steps to install VM (Client VM) running application workloads
+Steps to Alpine VM running application workloads
 --------------
 Now one more VM to run application workloads needs to be deployed. AlpineOS is used for this demonstration as it is lightweight.
 
@@ -508,7 +508,7 @@ AlpineOS ISO can be downloaded from this `link <https://alpinelinux.org/download
 
 Create an Origin Pool for the application
 --------------
-To access the applications installed in the Client machine through SMSv2 Customer Edge (CE), an origin pool needs to be created.
+To access the applications installed in the Alpine machine through SMSv2 Customer Edge (CE), an origin pool needs to be created.
 
 1. Under “Multi-Cloud App Connect”, select Load Balancers-> Origin Pools. Click “Add Origin Pool
 

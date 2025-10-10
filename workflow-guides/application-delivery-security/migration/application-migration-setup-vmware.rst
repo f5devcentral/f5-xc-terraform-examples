@@ -3,7 +3,7 @@ F5 Distributed Cloud Application Migration on VMware
 This article serves as the initial setup for the VMware platform in “F5 Distributed Cloud Application Migration across Heterogeneous Environments” scenario. This document covers:
 
 - Customer Edge (CE) Setup
-- Client VM(Ubuntu) Installation
+- Deploy Ubuntu VM along with an application
 - Creating Origin Pool
 
 VMware ESXi used in this demonstration is deployed on Dell PowerEdge-R640 bare metal. The CE VM is booted using the OVF image of SMSv2 CE downloaded from F5 Distributed Cloud. Once the CE VM is up and site is online, VM running application workloads (Ubuntu VM) is also deployed in the same ESXi and connected to CE using Site Local Inside (internal_network_pg) interface, so that applications are not exposed directly.
@@ -99,7 +99,7 @@ A node token is required to register a CE Site node to the Distributed Cloud Con
 
 Creating New Port Group
 --------------
-Once the VM is up and online in F5 Distributed Cloud, we need to add internal local interface to communicate with Client VM locally, to achieve this new “Virtual switch” and “Port group” needs to be created.
+Once the VM is up and online in F5 Distributed Cloud, we need to add internal local interface to communicate with Ubuntu VM locally, to achieve this new “Virtual switch” and “Port group” needs to be created.
 
 1. Create a “Virtual switch” by Navigating to “Networking” -> “Virtual switches” tab
 
@@ -139,9 +139,9 @@ Once the VM is up and online in F5 Distributed Cloud, we need to add internal lo
 
 .. image:: ../workload/assets/assets-vmware/23.png
 
-Steps to install VM (Client VM) running application workloads
+Steps to deploy Ubuntu VM running application workloads
 --------------
-1. Login to VMware ESXi client
+1. Login to VMware ESXi
 
 *Note: UI in below screenshots might change based on version being used*
 
@@ -154,7 +154,7 @@ Steps to install VM (Client VM) running application workloads
 4. Select “datastore” having sufficient storage to run VM
 
 .. image:: ../workload/assets/assets-vmware/26.png
-5. Choose desired configuration (CPU, Memory, Disk space) for your VM. In network adapter, two adapters are required, one connected to the Internet (VM Network) and another created locally (internal_network_pg) to connect CE VM and Client VM (ubuntu). Select the “Ubuntu (or any linux image) ISO” in Datastore through which you want the Client VM to boot-up.
+5. Choose desired configuration (CPU, Memory, Disk space) for your VM. In network adapter, two adapters are required, one connected to the Internet (VM Network) and another created locally (internal_network_pg) to connect CE VM and Ubuntu VM. Select the “Ubuntu (or any linux image) ISO” in Datastore through which you want the VM to boot-up.
 
 .. image:: ../workload/assets/assets-vmware/27.png
 6. Review and click **Finish**
@@ -192,7 +192,7 @@ Steps to install VM (Client VM) running application workloads
 
 Create an Origin Pool for the application
 --------------
-To access the applications installed in the Client machine through SMSv2 Customer Edge (CE), an origin pool needs to be created.
+To access the applications installed in the Ubuntu machine through SMSv2 Customer Edge (CE), an origin pool needs to be created.
 
 1. Under “Multi-Cloud App Connect”, select Load Balancers-> Origin Pools. Click “Add Origin Pool
 
