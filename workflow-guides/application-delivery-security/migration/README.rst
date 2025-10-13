@@ -28,25 +28,22 @@ Architecture Overview
 
 *Note: This scenario uses VMware On-Prem, but it can also be deployed on GCP and Azure.*
 
-`F5 Distributed Cloud Application Migration Setup on VMware <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/migration/application-migration-setup-vmware.rst>`__
+`F5 Distributed Cloud Application Migration Setup on VMware | F5 XC Solutions <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/migration/application-migration-setup-vmware.rst>`__
 
 **OpenShift Container Platform (OCP):** 3-node OCP cluster is created on VMware. SMSv2 CE as VM is deployed using KVM (qcow) image in OCP cluster virtualization. VM running application workloads is also deployed and connected to CE using Site Local Inside (SLI) subnet and interface, so that applications are not exposed directly.
 
 *Note: This scenario uses OCP Datacenter (On-Prem), but it can also be deployed on AWS, GCP, IBM and Azure.*
 
-`OCP Infra Setup on VMware <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/workload/ocp-infra-setup.rst>`__
+`Installation of Red Hat OpenShift Infra Setup on VMware ESXi | F5 XC Learn <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/workload/ocp-infra-setup.rst>`__
 
-`F5 Distributed Cloud Application Migration Setup on OCP <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/migration/application-migration-setup-ocp.rst>`__
+`F5 Distributed Cloud Application Migration Setup on OCP | F5 XC Solutions <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/migration/application-migration-setup-ocp.rst>`__
 
-**Nutanix on Bare Metal:** Nutanix Community Edition is used as Hypervisor and deployed in Dell PowerEdge-R430 bare metal. A VM is created and booted using the qcow2 image of SMSv2 CE downloaded from F5 Distributed Cloud. Once the CE VM is up and site is online, VM running application workloads are also deployed and connected to CE using Site Local Inside (SLI) subnet and interface, so that applications are not exposed directly.
+**Nutanix on VMware:** Nutanix Community Edition 2.1 is installed as VM in VMware ESXi. Nutanix console can be accessed by accessing this VM. This gives flexibility to scale RAM, hard disk to the Nutanix VM, and helps in adding multiple application instances in it. A CE node using SMSv2 is deployed in Nutanix along with an application(s) and is connected using SLI there by protecting application(s) in the Nutanix platform. F5 XC protects these application VMs deployed in Nutanix using XC security solutions such as WAF, DDoS, API and Bot defense etc.
 
-*Note: This scenario uses Nutanix On-Prem, but it can also be deployed on AWS and Azure.*
+`Installation of Nutanix Community Edition on VMware ESXi | F5 XC Learn <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/Nutanix_on_VMware/Nutanix_CE_2.1_installation_on_VMware.rst>`__
 
-`Nutanix Infra Setup[coming soon] <coming soon>`__
+`F5 Distributed Cloud Workload Deployment on Nutanix on VMware ESXi | F5 XC Solutions <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/smsv2-ce/Secure_Mesh_Site_v2_in_Nutanix/secure_mesh_site_v2_in_nutanix.rst>`__
 
-`F5 Distributed Cloud Application Migration Setup on Nutanix[coming soon] <coming soon>`__
-
-**Nutanix on VMware:** <Coming Soon>
 
 **Cloud Env:** For this demo Azure is chosen for deploying SMSv2 CE site. In the same resource group where CE VM is deployed, VM running application workloads is also deployed and connected to CE using Site Local Inside (SLI) subnet and interface, so that applications are not exposed directly.
 
@@ -58,32 +55,35 @@ Architecture Overview
 
 Note: `Customer Edge Site Sizing Reference <https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/reference/ce-site-size-ref>`__
 
-`F5 Distributed Cloud Application Migration Setup on Azure[coming soon] <coming soon>`__
+`F5 Distributed Cloud Application Migration Setup on Azure | F5 XC Solutions [coming soon] <coming soon>`__
 
 Scenario:
 --------------
-Migration use case – Common application (NGINX) is deployed across all the environments (VMware, Nutanix, OCP and Azure), using F5 Distributed Cloud Console migration can be carried out by including the environments in Origin Pool and adjusting the weights based on which user traffic will be routed.
+Migration use case – Common application (Juice shop) is deployed across all the environments (VMware, Nutanix, OCP and Azure), using F5 Distributed Cloud Console migration can be carried out by including the environments in Origin Pool and adjusting the weights based on which user traffic will be routed.
 
 Scenario 1: Migration from VMware to Nutanix
 --------------
 
 .. image:: ./assets/1.png
 
-In this scenario, application traffic is being migrated from VMware (On-Prem) environment to Nutanix (On-Prem) environment. This is achieved by deploying the same application in both environments and gradually shifting traffic by adjusting the weight assigned to each environment. For this migration, we have set the weights as follows:
+In this scenario, application traffic is being migrated from VMware (On-Prem) environment to Nutanix (On-Prem) environment. This is achieved by deploying the same application in both environments and gradually shifting traffic by adjusting the weight assigned to each environment. At fist, we start sending the traffic to newly integrated platform, which is Nutanix in this case, upon success, then we steer the traffic proportionally. We set weights initially as follows:
 
-    VMware weight - 1 and Nutanix weight - 3
+    VMware weight - 3 and Nutanix weight - 1
 
-.. image:: ./assets/1-1.png
 
-Scenario 1: Case A – Genuine requests
-~~~~~~~~~~
-Once the setup including the site, origin pool, and load balancer is complete and weights are assigned, genuine requests reaching the load balancer are distributed across environments based on those weights. Here, cURL is used to demonstrate sending multiple requests to the load balancer.
+.. image:: ./assets/origin_pool_configs.jpg
 
-.. image:: ./assets/1-2.png
+.. image:: ./assets/start_traffic_to_vmware.jpg
 
-.. image:: ./assets/curl-benign.png
+From the above screenshot, you can able to see a small portion (highlighted in green) of traffic is reaching the Nutanix platform and application in it is well accessible using F5 XC.
 
-**Case A Observation** - From the ”Requests” section in Distributed Cloud console for the LB, majority of the requests are directed towards Nutanix which has higher weightage
+Now, we further steer more traffic to the Nutanix by modifying the weight as below, which will lead to complete migration of traffic from VMware to Nutanix platform,
+
+    VMware weight - 0 and Nutanix weight - 1
+
+.. image:: ./assets/migrated_to_nutanix.jpg
+
+As we can see from the above screenshot, all the traffic is migrated to Nutanix platform and no request is flowing throsugh VMware.
 
 Scenario 1: Case B – Malicious requests
 ~~~~~~~~~~
@@ -100,21 +100,23 @@ Scenario 2: Migration from VMware to OCP
 
 .. image:: ./assets/2.png
 
-In this scenario, application traffic is being migrated from VMware (On-Prem) environment to OpenShift Container Platform (On-Prem) environment. This is achieved by deploying the same application in both environments and gradually shifting traffic by adjusting the weight assigned to each environment. For this migration, we have set the weights as follows:
+In this scenario, application traffic is being migrated from VMware (On-Prem) environment to OpenShift Container Platform (On-Prem) environment. This is achieved by deploying the same application in both environments and gradually shifting traffic by adjusting the weight assigned to each environment. Initially, we start sending traffic to newly integrated platform, which is OCP in this case, then we steer traffic proportionally. we have set the weights as follows:
 
-    VMware weight - 1 and OCP weight - 3
+    VMware weight - 3 and OCP weight - 1
 
-.. image:: ./assets/2-1.png
+.. image:: ./assets/origin_pool_vmware_to_ocp.jpg
 
-Scenario 2: Case A – Genuine requests
-~~~~~~~~~~
-Once the setup including the site, origin pool, and load balancer is complete and weights are assigned, genuine requests reaching the load balancer are distributed across environments based on those weights. Here, cURL is used to demonstrate sending multiple requests to the load balancer.
+.. image:: ./assets/vmware_to_ocp.jpg
 
-.. image:: ./assets/2-2.png
+From the above screenshot, you can able to see a small portion of traffic is reaching the OCP platform and application in it is well accessible using F5 XC.
 
-.. image:: ./assets/curl-benign.png
+Now, we further steer more traffic to OCP by modifying the weight as below, which will lead to complete migration of traffic from VMware to OCP platform,
 
-**Case A Observation** - From the ”Requests” section in Distributed Cloud console for the LB, majority of the requests are directed towards OCP which has higher weightage
+    VMware weight - 0 and OCP weight - 1
+
+.. image:: ./assets/traffic_migrated_to_ocp.jpg
+
+As we can see from the above screenshot, all the traffic is migrated to OCP platform and no request is flowing through VMware.
 
 Scenario 2: Case B – Malicious requests
 ~~~~~~~~~~
@@ -131,21 +133,23 @@ Scenario 3: Migration from VMware to Nutanix + OpenShift Container Platform (OCP
 
 .. image:: ./assets/3.png
 
-In this scenario, application traffic is being migrated from VMware (On-Prem) environment to Nutanix (On-Prem) + OCP (On-Prem) environment. This is achieved by deploying the same application in all the 3 environments and gradually shifting traffic by adjusting the weight assigned to each environment. For this migration, we have set the weights as follows:
+In this scenario, application traffic is being migrated from VMware (On-Prem) environment to Nutanix (On-Prem) + OCP (On-Prem) environment. This is achieved by deploying the same application in all the 3 environments and gradually shifting traffic by adjusting the weight assigned to each environment. Initially, we start sending traffic to newly integrated platforms, which is Nutanix and OCP in this case, then we steer traffic proportionally. we have set the weights as follows:
 
-    VMware weight - 1, Nutanix weight - 3 and OCP weight - 3
+    VMware weight - 3, Nutanix weight - 1 and OCP weight - 1
 
-.. image:: ./assets/3-1.png
+.. image:: ./assets/op_configs_vmware_to_nutanix_ocp.jpg
 
-Scenario 3: Case A – Genuine requests
-~~~~~~~~~~
-Once the setup including the site, origin pool, and load balancer is complete and weights are assigned, genuine requests reaching the load balancer are distributed across environments based on those weights. Here, cURL is used to demonstrate sending multiple requests to the load balancer.
+.. image:: ./assets/vmware_to_nutanix_ocp.jpg
 
-.. image:: ./assets/3-2.png
+From the above screenshot, you can able to see a small portion of traffic (highlighted above) is reaching Nutanix and OCP platforms and application in it is well accessible using F5 XC.
 
-.. image:: ./assets/curl-benign.png
+Now, we further steer more traffic to Nutanix and OCP by modifying the weight as below, which will lead to complete migration of traffic from VMware to OCP platform,
 
-**Case A Observation** - From the ”Requests” section in Distributed Cloud console for the LB, majority of the requests are directed towards Nutanix and OCP which has higher weightage
+     VMware weight - 0, Nutanix weight - 1 and OCP weight - 1
+
+.. image:: ./assets/logs_vmware_to_nutanix_ocp.jpg
+
+As we can see from the above screenshot, all the traffic is migrated to Nutanix and OCP platform and no request is flowing through VMware.
 
 Scenario 3: Case B – Malicious requests
 ~~~~~~~~~~
@@ -162,21 +166,23 @@ Scenario 4: Migration from VMware to Azure
 
 .. image:: ./assets/4.png
 
-In this scenario, application traffic is being migrated from VMware (On-Prem) environment to Azure environment. This is achieved by deploying the same application in both environments and gradually shifting traffic by adjusting the weight assigned to each environment. For this migration, we have set the weights as follows:
+In this scenario, application traffic is being migrated from VMware (On-Prem) environment to Azure environment. This is achieved by deploying the same application in both environments and gradually shifting traffic by adjusting the weight assigned to each environment. Initially, we start sending traffic to newly integrated platform, which is Nutanix and OCP in this case, then we steer traffic proportionally. we have set the weights as follows:
 
-    VMware weight - 1 and Azure weight - 3
+    VMware weight - 3 and Azure weight - 1
 
-.. image:: ./assets/4-1.png
+.. image:: ./assets/op_configs_vmware_to_azure.jpg
 
-Scenario 4: Case A – Genuine requests
-~~~~~~~~~~
-Once the setup including the site, origin pool, and load balancer is complete and weights are assigned, genuine requests reaching the load balancer are distributed across environments based on those weights. Here, cURL is used to demonstrate sending multiple requests to the load balancer.
+.. image:: ./assets/start_traffic_to_azure.jpg
 
-.. image:: ./assets/4-2.png
+From the above screenshot, you can able to see a small portion of traffic is reaching Azure and application in it is well accessible using F5 XC.
 
-.. image:: ./assets/curl-benign.png
+Now, we further steer more traffic to Azure by modifying the weight as below, which will lead to complete migration of traffic from VMware to Azure,
 
-**Case A Observation** - From the ”Requests” section in Distributed Cloud console for the LB, majority of the requests are directed towards Azure which has higher weightage
+    VMware weight - 0 and OCP weight - 1
+
+.. image:: ./assets/traffic_migrate_to_azure.jpg
+
+As we can see from the above screenshot, all the traffic is migrated to Azure and no request is flowing through VMware.
 
 Scenario 4: Case B – Malicious requests
 ~~~~~~~~~~
@@ -196,8 +202,11 @@ In summary, F5 Distributed Cloud provides a simple, repeatable pattern for migra
 
 References:
 --------------
-`F5 Application Delivery and Security Platform <https://www.f5.com/products/f5-application-delivery-and-security-platform>`__
+For more details, guidance on deploying XC CE on On-Prem and cloud platforms and configuring Origin Pool and Load balancer, refer to the official documentation below,
 
-`F5 CE Data Sheet <https://www.f5.com/pdf/data-sheet/f5-distributed-cloud-customer-edge-ce-deployable-software.pdf>`__
+https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-to/create-manage-origin-pools
 
-`F5 CE Docs <https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/concepts/f5-xc-customer-edge>`__
+https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-to/load-balance/create-http-load-balancer
+
+https://docs.cloud.f5.com/docs-v2/web-app-and-api-protection/how-to/app-security/application-firewall
+
