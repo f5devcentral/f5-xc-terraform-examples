@@ -3,7 +3,7 @@ F5 Distributed Cloud Workload Deployments on OCP
 This article serves as the initial setup for the OCP platform in “F5 Distributed Cloud Application Delivery and Security for Scalable Enterprise Workload Deployments across Heterogeneous Environments” scenario. This document covers:
 
 - Customer Edge (CE) Setup
-- Client VM(Ubuntu) Installation
+- Deploy Alpine VM along with an application
 - Application Access via Load Balancers
 
 OCP cluster used in this demonstration is deployed on VMware ESXi hypervisor. Once the OCP cluster is up and running, the next step is to deploy SMSv2 CE.
@@ -275,9 +275,9 @@ Once the image is downloaded follow the below steps:
 
 .. image:: ./assets/assets-ocp/10.png
 
-Steps to install VM (Client VM) running application workloads
+Steps to Alpine VM running application workloads
 --------------
-Now one more VM to run application workloads needs to be deployed. AlpineOS is used for this demonstration as it is lightweight.
+Now one more VM to run application workloads needs to be deployed. This VM will be connected to SMSv2 CE VM through SLI subnet which is private network. AlpineOS is used for this demonstration as it is lightweight.
 
 AlpineOS ISO can be downloaded from this `link <https://alpinelinux.org/downloads/>`__
 
@@ -508,7 +508,7 @@ AlpineOS ISO can be downloaded from this `link <https://alpinelinux.org/download
 
 Accessing applications through Load Balancers
 --------------
-To access the applications installed in the Client machine through SMSv2 Customer Edge (CE), below configurations needs to be followed:
+To access the applications installed in the Alpine machine through SMSv2 Customer Edge (CE), below configurations needs to be followed:
 
 - Creating “Origin Pool”
 - Creating “LB”
@@ -577,7 +577,7 @@ Creating Load Balancer
 
 Adding new application and accessing through Load Balancers
 --------------
-Once the LB URL is verified and application is accessible, we can start scaling by installing one more new application in another port using the docker command in Client machine.
+Once the LB URL is verified and application is accessible, we can start scaling by installing one more new application in another port using the docker command in Alpine machine.
 
     **$ docker run -d -p 3000:3000 bkimminich/juice-shop**
 
