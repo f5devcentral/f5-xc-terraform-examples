@@ -178,7 +178,7 @@ From the above screenshot, you can able to see a small portion of traffic is rea
 
 Now, we further steer more traffic to Azure by modifying the weight as below, which will lead to complete migration of traffic from VMware to Azure,
 
-    VMware weight - 0 and OCP weight - 1
+    VMware weight - 0 and Azure weight - 1
 
 .. image:: ./assets/traffic_migrate_to_azure.jpg
 
