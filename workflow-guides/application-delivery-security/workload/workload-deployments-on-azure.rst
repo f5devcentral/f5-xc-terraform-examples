@@ -3,7 +3,7 @@ F5 Distributed Cloud Workload Deployments on Azure
 This article serves as the initial setup for the Azure platform in “F5 Distributed Cloud Application Delivery and Security for Scalable Enterprise Workload Deployments across Heterogeneous Environments” scenario. This document covers:
 
 - Customer Edge (CE) Setup
-- Client VM(Ubuntu) Installation
+- Deploy Ubuntu VM along with an application
 - Application Access via Load Balancers
 
 For this demo Azure was chosen for deploying SMSv2 CE site. In the same resource group where CE VM is deployed, VM running application workloads are also deployed and connected to CE using Site Local Inside (SLI) subnet and interface, so that applications are not exposed directly.
@@ -263,15 +263,17 @@ Add New Interface
 - Visually verify the same information from the Distributed Cloud Console by navigating to Multi-Cloud Network Connect > Overview > Infrastructure > Sites and selecting your Site name. Select the Infrastructure tab and view the Interfaces table.
 .. image:: ./assets/assets-azure/az-smsv2-25.png
 
-Steps to install VM (Client VM) running application workloads
+Steps to Ubuntu VM running application workloads
 --------------
+Now one more VM to run application workloads needs to be deployed. This VM will be connected to SMSv2 CE VM through SLI subnet which is private network.
+
 1. Login to Azure portal
 
 2. Search for “Virtal Machines” in search bar and click “Create”
 
 3. Provide the required basic details for creating VM under “Basics” tab
     - Select the resource group already created for CE
-    - Provide a name for the client VM
+    - Provide a name for the Ubuntu VM
     - Select the region where you want to deploy
     - Select the OS image to be deployed in VM
     - Choose VM size based on requirements
@@ -302,7 +304,7 @@ Steps to install VM (Client VM) running application workloads
     - Private IP should be assigned from SLI subnet selected
 .. image:: ./assets/assets-azure/smsv2-azure-cvm-6.png
 
-8. Navigate to the CE site in F5 Distributed Cloud and ping the client VM private IP, it should be reachable
+8. Navigate to the CE site in F5 Distributed Cloud and ping the Ubuntu VM private IP, it should be reachable
 
 .. image:: ./assets/assets-azure/smsv2-azure-cvm-7.png
 
@@ -314,7 +316,7 @@ Steps to install VM (Client VM) running application workloads
 
 Accessing applications through Load Balancers
 --------------
-To access the applications installed in the Client machine through SMSv2 Customer Edge (CE), below configurations needs to be followed:
+To access the applications installed in the Ubuntu machine through SMSv2 Customer Edge (CE), below configurations needs to be followed:
 
 - Creating “Origin Pool”
 - Creating “LB”

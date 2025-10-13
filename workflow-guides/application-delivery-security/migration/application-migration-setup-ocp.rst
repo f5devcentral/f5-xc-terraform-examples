@@ -277,7 +277,7 @@ Once the image is downloaded follow the below steps:
 
 Steps to Alpine VM running application workloads
 --------------
-Now one more VM to run application workloads needs to be deployed. AlpineOS is used for this demonstration as it is lightweight.
+Now one more VM to run application workloads needs to be deployed. This VM will be connected to SMSv2 CE VM through SLI subnet which is private network. AlpineOS is used for this demonstration as it is lightweight.
 
 AlpineOS ISO can be downloaded from this `link <https://alpinelinux.org/downloads/>`__
 

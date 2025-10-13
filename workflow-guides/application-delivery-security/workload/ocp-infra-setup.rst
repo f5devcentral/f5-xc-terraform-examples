@@ -64,7 +64,7 @@ In this demo below specs are used:
     .. image:: ./assets/assets-ocp-infra/11.png
 
     2. Memory -> 32 GB RAM
-    3. Hard disk 1 -> 200 GB (Screenshots shows 100GB, recommended to use 200 GB as Client VM also needs to be installed)
+    3. Hard disk 1 -> 200 GB (Screenshots shows 100GB, recommended to use 200 GB as Alpine VM also needs to be installed)
     4. Network Adapter 1 -> Default VM Network with MAC Address set to the one defined earlier while creating cluster in step 8
     5. CD/DVD Drive 1 -> Select “Datastore ISO file”, where OCP ISO file downloaded should be uploaded and used for VM. Enable “Connect at power on”
 
