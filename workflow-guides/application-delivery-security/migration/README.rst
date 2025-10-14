@@ -128,6 +128,10 @@ In this step, we verify that the F5 Distributed Cloud WAF continues to protect t
 
 From the “Requests” section in Distributed Cloud console for the LB, we can see that malicious requests are blocked by Web Application Firewall (WAF) which won’t reach the origin server.
 
+**For detailed steps, follow the below link**
+
+`Migrating Applications Traffic from VMware to OCP <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/migration/migrating-traffic-from-vmware-to-ocp.rst>`__
+
 Scenario 3: Migration from VMware to Nutanix + OpenShift Container Platform (OCP)
 --------------
 
