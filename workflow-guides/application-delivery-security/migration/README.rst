@@ -55,7 +55,7 @@ Architecture Overview
 
 Note: `Customer Edge Site Sizing Reference <https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/reference/ce-site-size-ref>`__
 
-`F5 Distributed Cloud Application Migration Setup on Azure | F5 XC Solutions [coming soon] <coming soon>`__
+`F5 Distributed Cloud Application Migration Setup on Azure | F5 XC Solutions <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/migration/application-migration-setup-azure.rst>`__
 
 Scenario:
 --------------
