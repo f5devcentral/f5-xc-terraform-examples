@@ -5,7 +5,6 @@ Accessing applications through Load Balancers
 ----
 Origin pools are created for applications deployed in VMware and OCP CE site. Origin pools will be used in load balancer to migrate traffic based on weights.
 
-
 Creating Load Balancer
 ----
 1. Under “Multi-Cloud App Connect”, select Load Balancers-> HTTP Load Balancers. Click “Add HTTP Load Balancer”
@@ -47,7 +46,7 @@ Note : OCP is the new environment where traffic needs to be migrated, so more we
 
 Verifying the Migration
 ----
-1. Access the LB URL and Juice-Shop application should be available which is deployed in port 3000 in Client VM using docker
+1. Access the LB URL and Juice-Shop application should be available which is deployed in OCP cluster port 3000 of Alpine VM using docker
 
 .. image:: ./assets/vmw-to-ocp/uc2-lb-6.png
 
@@ -57,8 +56,26 @@ Verifying the Migration
 
 3. Now access the application with some malicious requests and observe requests are being blocked
 
-.. image:: ./assets/vmw-to-ocp/uc2-lb-6.png
+.. image:: ./assets/vmw-to-ocp/uc2-lb-7.png
 
 4. Send multiple malicious requests and F5 Distributed Cloud WAF will block these requests, and these requests won’t reach the origin server
 
 .. image:: ./assets/vmw-to-ocp/UC2-S2-Req2.png
+
+Conclusion
+----
+This process demonstrates a seamless approach to migrating application traffic from a VMware environment to an OpenShift (OCP) environment using F5 Distributed Cloud. By leveraging weighted origin pools in HTTP Load Balancers, traffic can be gradually shifted. The integration of Web Application Firewall (WAF) ensures that security is maintained consistently before, during, and after migration. Through validation steps, we confirmed that malicious requests are effectively blocked by the WAF, providing robust protection while supporting continuous delivery. This approach enables secure, flexible, and controlled application migration across hybrid environments.
+
+References:
+--------------
+`Create Origin Pools <https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-to/create-manage-origin-pools>`__
+
+`Create HTTP Load Balancer <https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-to/load-balance/create-http-load-balancer>`__
+
+`Create Web Application Firewall <https://docs.cloud.f5.com/docs-v2/web-app-and-api-protection/how-to/app-security/application-firewall>`__
+
+`F5 Distributed Cloud Application Migration Setup on VMware <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/migration/application-migration-setup-vmware.rst>`__
+
+`Installation of Red Hat OpenShift Infra Setup on VMware ESXi <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/workload/ocp-infra-setup.rst>`__
+
+`F5 Distributed Cloud Application Migration Setup on OCP <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/migration/application-migration-setup-ocp.rst>`__
