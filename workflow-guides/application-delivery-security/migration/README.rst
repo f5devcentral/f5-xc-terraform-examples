@@ -66,7 +66,7 @@ Scenario 1: Migration from VMware to Nutanix
 
 .. image:: ./assets/1.png
 
-In this scenario, application traffic is being migrated from VMware (On-Prem) environment to Nutanix (On-Prem) environment. This is achieved by deploying the same application in both environments and gradually shifting traffic by adjusting the weight assigned to each environment. At fist, we start sending the traffic to newly integrated platform, which is Nutanix in this case, upon success, then we steer the traffic proportionally. We set weights initially as follows:
+In this scenario, application traffic is being migrated from VMware (On-Prem) environment to Nutanix (On-Prem) environment. This is achieved by deploying the same application in both environments and gradually shifting traffic by adjusting the weight assigned to each environment. At first, we start sending the traffic to newly integrated platform, which is Nutanix in this case, upon success, then we steer the traffic proportionally. We set weights initially as follows:
 
     VMware weight - 3 and Nutanix weight - 1
 

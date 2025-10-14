@@ -139,7 +139,7 @@ Once the VM is up and online in F5 Distributed Cloud, we need to add internal lo
 
 .. image:: ./assets/assets-vmware/23.png
 
-Steps to Ubuntu VM running application workloads
+Steps to deploy Ubuntu VM running application workloads
 --------------
 Now one more VM to run application workloads needs to be deployed. This VM will be connected to SMSv2 CE VM through SLI subnet which is private network.
 
