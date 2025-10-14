@@ -314,13 +314,6 @@ Now one more VM to run application workloads needs to be deployed. This VM will 
     - $ sudo apt install docker.io
     - $ sudo docker run -d -p 3000:3000 bkimminich/juice-shop
 
-Accessing applications through Load Balancers
---------------
-To access the applications installed in the Ubuntu machine through SMSv2 Customer Edge (CE), below configurations needs to be followed:
-
-- Creating “Origin Pool”
-- Creating “LB”
-
 Creating Origin Pool
 --------------
 1. Under “Multi-Cloud App Connect”, select Load Balancers-> Origin Pools. Click “Add Origin Pool
@@ -343,76 +336,8 @@ Creating Origin Pool
 
 5. After creating the Origin Pool, this can be used in Load Balancer to access the application.
 
-Creating Load Balancer
---------------
-1. Under “Multi-Cloud App Connect”, select Load Balancers-> HTTP Load Balancers. Click “Add HTTP Load Balancer”
-
-.. image:: ./assets/assets-azure/smsv2-azure-lb1.png
-
-2. Provide name for LB and domain with valid sub-domain
-
-*Note: You should be having domain to use for LB and it should be able to resolve for the FQDN to be accessible*
-
-.. image:: ./assets/assets-azure/smsv2-azure-lb2.png
-
-3. Click on “Add Item” under Origin Pool
-
-.. image:: ./assets/assets-azure/smsv2-azure-lb3.png
-
-4. Select the origin pool created earlier and click “Apply”
-
-.. image:: ./assets/assets-azure/smsv2-azure-lb4.png
-
-5. Enable “Web Application Firewall (WAF)” and click “Add item”
-
-.. image:: ./assets/assets-azure/smsv2-azure-lb5.png
-
-6. Create a new WAF with below configurations and click “Add App Firewall”
-
-.. image:: ./assets/assets-azure/smsv2-azure-lb6.png
-
-7. Select the WAF added and verify the Origin Pool and WAF in LB configuration
-
-.. image:: ./assets/assets-azure/smsv2-azure-lb7.png
-
-8. Click “Add HTTP Load Balancer” and wait for around ~5 minutes for LB to provision and come up completely.
-
-.. image:: ./assets/assets-azure/smsv2-azure-lb8.png
-
-9. Access the LB URL and Juice-Shop application should be available which is deployed in port 3000 in Ubuntu VM using docker
-
-.. image:: ./assets/assets-azure/smsv2-azure-lb9.png
-
-Adding new application and accessing through Load Balancers
---------------
-Once the LB URL is verified and application is accessible, we can start scaling by installing one more new application in another port using the docker command in Ubuntu machine.
-
-    **$ sudo docker run -d -p 3001:80 vulnerables/web-dvwa**
-
-.. image:: ./assets/assets-azure/az-new-wl1.png
-
-By following the same steps mentioned earlier for creating Origin Pool and LB, we need to create one more new Origin pool and LB for the new application.
-
-1. Create a new Origin pool with the port (3001) where new application is exposed, same Origin Servers settings are used in this Origin Pool as well.
-
-.. image:: ./assets/assets-azure/az-new-wl2.png
-
-2. Create a new LB with a distinct Domain URL and select the Origin Pool created in above step
-
-*Note: Other settings like WAF remains same used earlier*
-
-.. image:: ./assets/assets-azure/az-new-wl3.png
-
-3. Click “Add HTTP Load Balancer” and wait for around ~5 minutes for LB to provision and come up completely
-
-4. Access the LB URL and DVWA application should be available which is deployed in port 3001 in Ubuntu VM using docker
-
-.. image:: ./assets/assets-azure/az-new-wl4.png
-
 References:
 --------------
 `Deploy Secure Mesh Site v2 on Azure (ClickOps) <https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/deploy-sms-az-clickops>`__
 
 `Create Origin Pools <https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-to/create-manage-origin-pools>`__
-
-`Create HTTP Load Balancer <https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-to/load-balance/create-http-load-balancer>`__

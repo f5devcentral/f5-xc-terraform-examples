@@ -275,7 +275,7 @@ Once the image is downloaded follow the below steps:
 
 .. image:: ../workload/assets/assets-ocp/10.png
 
-Steps to Alpine VM running application workloads
+Steps to deploy Alpine VM running application workloads
 --------------
 Now one more VM to run application workloads needs to be deployed. This VM will be connected to SMSv2 CE VM through SLI subnet which is private network. AlpineOS is used for this demonstration as it is lightweight.
 
