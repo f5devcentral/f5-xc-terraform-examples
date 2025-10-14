@@ -36,7 +36,7 @@ Create a secure mesh site object in the Distributed Cloud Console and select Azu
 **Step 2: Select the provider name as Azure.**
 
 - Set the Provider Name option to Azure. Keep all other default values.
-.. image:: ./assets/assets-azure/az-smsv2-1.png
+.. image:: ../workload/assets/assets-azure/az-smsv2-1.png
 
 - Click **Add Secure Mesh Site**
 
@@ -47,7 +47,7 @@ The CE site’s instance security is internally managed by the CE data path. The
 **Step 1: Navigate to security group creation page.**
 
 - In Azure Console, navigate to the Network security groups service.
-.. image:: ./assets/assets-azure/az-smsv2-2.png
+.. image:: ../workload/assets/assets-azure/az-smsv2-2.png
 
 **Step 2: Create and configure security group.**
 
@@ -60,7 +60,7 @@ The CE site’s instance security is internally managed by the CE data path. The
 - Click Review + create.
 
 - After you create the network security group, click on it to set up the inbound and outbound rules.
-.. image:: ./assets/assets-azure/az-smsv2-3.png
+.. image:: ../workload/assets/assets-azure/az-smsv2-3.png
 
 **Step 3: Create inbound rules.**
 
@@ -73,17 +73,17 @@ Make sure you add rules for the following:
 - Allowed TCP Port 65500 for the local UI on the CE.
 
 - For three-node clusters, ensure that traffic is allowed between the nodes.
-.. image:: ./assets/assets-azure/az-smsv2-4.png
+.. image:: ../workload/assets/assets-azure/az-smsv2-4.png
 
 **Step 4: Create outbound rules.**
 
 - Create an allow-all policy for egress traffic. This is the default configuration.
-.. image:: ./assets/assets-azure/az-smsv2-5.png
+.. image:: ../workload/assets/assets-azure/az-smsv2-5.png
 
 **Step 5: Verify rules created.**
 
 - In the overview section for your network security group, you can see all the rules that have been created. Confirm the rules are as desired.
-.. image:: ./assets/assets-azure/az-smsv2-6.png
+.. image:: ../workload/assets/assets-azure/az-smsv2-6.png
 
 Create SSH Key Pair
 --------------
@@ -102,7 +102,7 @@ You need to create a key pair for SSH login into the virtual machine for trouble
 - In the Key pair name field, enter a name.
 
 - Click Review + create.
-.. image:: ./assets/assets-azure/az-smsv2-7.png
+.. image:: ../workload/assets/assets-azure/az-smsv2-7.png
 
 - After successful validation, click Create.
 
@@ -112,14 +112,14 @@ Existing Resource Group Details
 --------------
 In this procedure, dual interface single-node and multi-node CE sites are being deployed. Therefore, you need two subnets: SLI (Site Local Inside) and SLO (Site Local Outside). Note that workload subnets are generally used but are not a requirement to deploy a CE Site.
 
-.. image:: ./assets/assets-azure/az-smsv2-8.png
+.. image:: ../workload/assets/assets-azure/az-smsv2-8.png
 
 Create Public IP Address
 --------------
 In Azure Console, create a public IP address. You will need to create one public IP address for each node that is being deployed for the CE site. In other words, for a single-node CE Site, you will create one public IP and for a CE Site with high availability (HA), you will need to create three public IP addresses.
 
 - Navigate to the Public IP addresses creation page and click Create.
-.. image:: ./assets/assets-azure/az-smsv2-9.png
+.. image:: ../workload/assets/assets-azure/az-smsv2-9.png
 
 - Under Configuration details, in the Name field, enter a name for the public IP.
 
@@ -138,12 +138,12 @@ A one-time node token is required to register a CE Site node to the Distributed 
 - Navigate to Manage > Site Management > Secure Mesh Sites v2.
 
 - For your Site, click ... > Generate Node Token.
-.. image:: ./assets/assets-azure/az-smsv2-10.png
+.. image:: ../workload/assets/assets-azure/az-smsv2-10.png
 
 - Click Copy.
 
 - Save the value locally. This token will be used later. The token value is hidden for security purposes.
-.. image:: ./assets/assets-azure/az-smsv2-11.png
+.. image:: ../workload/assets/assets-azure/az-smsv2-11.png
 
 - Click Close.
 
@@ -162,25 +162,25 @@ This procedure uses Standard_D8_v4 as an example. To find your right size and re
 - Navigate to Manage > Site Management > Secure Mesh Sites v2.
 
 - For your Site, click ... > Launch Instance. This action will open the CE image listing on Azure Marketplace in a new browser tab.
-.. image:: ./assets/assets-azure/az-smsv2-12.png
+.. image:: ../workload/assets/assets-azure/az-smsv2-12.png
 
 - Click Create to launch a new CE virtual machine.
-.. image:: ./assets/assets-azure/az-smsv2-13.png
+.. image:: ../workload/assets/assets-azure/az-smsv2-13.png
 
 **Step 2: Configure new virtual machine.**
 
 - Enter a VM name.
 
 - Ensure the correct region and availability zone are selected.
-.. image:: ./assets/assets-azure/az-smsv2-14.png
+.. image:: ../workload/assets/assets-azure/az-smsv2-14.png
 
 - From the Size menu, choose the instance type. This procedure uses Standard_D8_v4 as an example.
-.. image:: ./assets/assets-azure/az-smsv2-15.png
+.. image:: ../workload/assets/assets-azure/az-smsv2-15.png
 
 - From the SSH public key source menu, assign the previously created SSH key pair.
 
 - In the Username field, enter cloud-user as the default user to SSH log into the CE instance.
-.. image:: ./assets/assets-azure/az-smsv2-16.png
+.. image:: ../workload/assets/assets-azure/az-smsv2-16.png
 
 - Click Next:Disk.
 
@@ -203,14 +203,14 @@ This procedure uses Standard_D8_v4 as an example. To find your right size and re
 - From the Configure network security group menu, select the security group previously created.
 
 - Select the Delete NIC when VM is deleted option.
-.. image:: ./assets/assets-azure/az-smsv2-17.png
+.. image:: ../workload/assets/assets-azure/az-smsv2-17.png
 
 **Step 4: Configure advanced settings.**
 
 - Click the Advanced tab to skip the management and monitoring configuration.
 
 - In the Custom data field, paste the cloud-init information (which includes the Site token) copied from the Generate Node Token section.
-.. image:: ./assets/assets-azure/az-smsv2-18.png
+.. image:: ../workload/assets/assets-azure/az-smsv2-18.png
 
 **Step 5: Complete creation.**
 
@@ -221,14 +221,14 @@ Verify CE Site Registration
 - In Distributed Cloud Console, navigate to Multi-Cloud Network Connect > Overview > Infrastructure > Sites.
 
 - Select your Site. The Dashboard tab should clearly show that the CE Site has registered successfully with the System Health of 100% as well as Data Plane/Control Plane both being up.
-.. image:: ./assets/assets-azure/az-smsv2-19.png
+.. image:: ../workload/assets/assets-azure/az-smsv2-19.png
 
 Add New Interface
 --------------
 - In Azure portal, select your VM and click Stop.
 
 - After the VM stops, click Network settings. Then click Attach network interface.
-.. image:: ./assets/assets-azure/az-smsv2-20.png
+.. image:: ../workload/assets/assets-azure/az-smsv2-20.png
 
 - Click Create and attach the network interface.
 
@@ -237,10 +237,10 @@ Add New Interface
 - In the Name field, enter a new name for this second interface.
 
 - In the Subnet field, select the internal subnet created earlier. Make sure to reference that this is an internal interface since the external interface was previously created.
-.. image:: ./assets/assets-azure/az-smsv2-21.png
+.. image:: ../workload/assets/assets-azure/az-smsv2-21.png
 
 - Click Create.
-.. image:: ./assets/assets-azure/az-smsv2-22.png
+.. image:: ../workload/assets/assets-azure/az-smsv2-22.png
 
 - After the second interface is attached to your VM, start the VM.
 
@@ -249,19 +249,19 @@ Add New Interface
 - After the Site is back online, click Manage Configuration. Then, in the wizard, click Edit Configuration.
 
 - Under the Interfaces subsection, click the pencil icon under Actions to edit. In the current release, additional interfaces, including SLI interface, need to be configured with a static IP address which in this case must be same as that allocated by Azure.
-.. image:: ./assets/assets-azure/az-smsv2-23.png
+.. image:: ../workload/assets/assets-azure/az-smsv2-23.png
 
 - Select Static IP as the IPv4 Interface Address Method.
 
 - Enter the IPv4 address with prefix length. This must be same as that allocated by Azure.
 
 - Click Apply.
-.. image:: ./assets/assets-azure/az-smsv2-24.png
+.. image:: ../workload/assets/assets-azure/az-smsv2-24.png
 
 - Click Save Secure Mesh Site.
 
 - Visually verify the same information from the Distributed Cloud Console by navigating to Multi-Cloud Network Connect > Overview > Infrastructure > Sites and selecting your Site name. Select the Infrastructure tab and view the Interfaces table.
-.. image:: ./assets/assets-azure/az-smsv2-25.png
+.. image:: ../workload/assets/assets-azure/az-smsv2-25.png
 
 Steps to deploy Ubuntu VM running application workloads
 --------------
@@ -279,34 +279,34 @@ Now one more VM to run application workloads needs to be deployed. This VM will 
     - Choose VM size based on requirements
     - Enter username and SSH key details to access the VM
     - Click “Next : Disks >”
-.. image:: ./assets/assets-azure/smsv2-azure-cvm-1.png
-.. image:: ./assets/assets-azure/smsv2-azure-cvm-2.png
+.. image:: ../workload/assets/assets-azure/smsv2-azure-cvm-1.png
+.. image:: ../workload/assets/assets-azure/smsv2-azure-cvm-2.png
 
 4. Provide OS disk details under “Disks” tab based on requirement and click “Next : Networking >”
 
-.. image:: ./assets/assets-azure/smsv2-azure-cvm-3.png
+.. image:: ../workload/assets/assets-azure/smsv2-azure-cvm-3.png
 
 5. Under “Networking” tab:
     - Choose the “Virtual Network” created earlier for the CE
     - Select the same “SLI” subnet which is attached to the CE
     - Create a “Public IP” to access the VM and deploy applications
     - Choose the “Network Security Group” created for this VM which has minimal access based on rules created
-    .. image:: ./assets/assets-azure/azure-client-nsg.png
+    .. image:: ../workload/assets/assets-azure/azure-client-nsg.png
     - Click “Review + create”
-    .. image:: ./assets/assets-azure/smsv2-azure-cvm-4.png
+    .. image:: ../workload/assets/assets-azure/smsv2-azure-cvm-4.png
 
 6. Under “Review + create” tab, wait for the “Validation passed” message, review the configurations and click “Create”
 
-.. image:: ./assets/assets-azure/smsv2-azure-cvm-5.png
+.. image:: ../workload/assets/assets-azure/smsv2-azure-cvm-5.png
 
 7. Wait for a few minutes for the deployment to succeed and VM to start running.
     - Public IP should be available, which is used for accessing the VM through SSH
     - Private IP should be assigned from SLI subnet selected
-.. image:: ./assets/assets-azure/smsv2-azure-cvm-6.png
+.. image:: ../workload/assets/assets-azure/smsv2-azure-cvm-6.png
 
 8. Navigate to the CE site in F5 Distributed Cloud and ping the Ubuntu VM private IP, it should be reachable
 
-.. image:: ./assets/assets-azure/smsv2-azure-cvm-7.png
+.. image:: ../workload/assets/assets-azure/smsv2-azure-cvm-7.png
 
 9. Once the connection is established between CE site and VM, connect to the VM through SSH to deploy application. Execute below commands to deploy a vulnerable application (here “JuiceShop” is used)
 
@@ -318,21 +318,21 @@ Creating Origin Pool
 --------------
 1. Under “Multi-Cloud App Connect”, select Load Balancers-> Origin Pools. Click “Add Origin Pool
 
-.. image:: ./assets/assets-azure/smsv2-azure-op1.png
+.. image:: ../workload/assets/assets-azure/smsv2-azure-op1.png
 
 2. Provide a name to the Origin Pool and click “Add Item” under Origin Servers
 
-.. image:: ./assets/assets-azure/smsv2-azure-op2.png
+.. image:: ../workload/assets/assets-azure/smsv2-azure-op2.png
 
 3. Select Origin Server Type IP address of Origin Server on given Sites and provide IP, select VMware site created from the dropdown and make sure Select Network on the site is set to “Inside Network” and click “Apply”
 
 *Note : IP address and Site or Virtual Site might vary based on your configuration*
 
-.. image:: ./assets/assets-azure/smsv2-azure-op3.png
+.. image:: ../workload/assets/assets-azure/smsv2-azure-op3.png
 
 4. Origin Server details will populate in the Origin Pool page, provide the port of the Ubuntu machine where the application is exposed (in this case 3000)
 
-.. image:: ./assets/assets-azure/smsv2-azure-op4.png
+.. image:: ../workload/assets/assets-azure/smsv2-azure-op4.png
 
 5. After creating the Origin Pool, this can be used in Load Balancer to access the application.
 

@@ -83,17 +83,17 @@ Now, we further steer more traffic to the Nutanix by modifying the weight as bel
 
 .. image:: ./assets/migrated_to_nutanix.jpg
 
-As we can see from the above screenshot, all the traffic is migrated to Nutanix platform and no request is flowing throsugh VMware.
+As we can see from the above screenshot, all the traffic is migrated to Nutanix platform and no request is flowing through VMware.
 
-Scenario 1: Case B – Malicious requests
+Verifying WAF security
 ~~~~~~~~~~
-In this case, we'll send malicious requests to the same load balancer and observe how F5 Distributed Cloud mitigates them.
+In this step, we verify that the F5 Distributed Cloud WAF continues to protect the integrated platform from attacks before, during, and after migration. To validate this, we send a series of malicious requests that should be consistently blocked by the WAF to ensure continuous delivery and security.
 
 .. image:: ./assets/curl-malicious.png
 
 .. image:: ./assets/1-3.png
 
-**Case B Observation** - From the “Requests” section in Distributed Cloud console for the LB, malicious requests blocked by Web Application Firewall (WAF) which won’t reach the origin server.
+From the “Requests” section in Distributed Cloud console for the LB, we can see that malicious requests are blocked by Web Application Firewall (WAF) which won’t reach the origin server.
 
 Scenario 2: Migration from VMware to OCP
 --------------
@@ -118,15 +118,15 @@ Now, we further steer more traffic to OCP by modifying the weight as below, whic
 
 As we can see from the above screenshot, all the traffic is migrated to OCP platform and no request is flowing through VMware.
 
-Scenario 2: Case B – Malicious requests
+Verifying WAF security
 ~~~~~~~~~~
-In this case, we'll send malicious requests to the same load balancer and observe how F5 Distributed Cloud mitigates them.
+In this step, we verify that the F5 Distributed Cloud WAF continues to protect the integrated platform from attacks before, during, and after migration. To validate this, we send a series of malicious requests that should be consistently blocked by the WAF to ensure continuous delivery and security.
 
 .. image:: ./assets/curl-malicious.png
 
 .. image:: ./assets/2-3.png
 
-**Case B Observation** - From the “Requests” section in Distributed Cloud console for the LB, malicious requests blocked by Web Application Firewall (WAF) which won’t reach the origin server.
+From the “Requests” section in Distributed Cloud console for the LB, we can see that malicious requests are blocked by Web Application Firewall (WAF) which won’t reach the origin server.
 
 Scenario 3: Migration from VMware to Nutanix + OpenShift Container Platform (OCP)
 --------------
@@ -151,15 +151,15 @@ Now, we further steer more traffic to Nutanix and OCP by modifying the weight as
 
 As we can see from the above screenshot, all the traffic is migrated to Nutanix and OCP platform and no request is flowing through VMware.
 
-Scenario 3: Case B – Malicious requests
+Verifying WAF security
 ~~~~~~~~~~
-In this case, we'll send malicious requests to the same load balancer and observe how F5 Distributed Cloud mitigates them.
+In this step, we verify that the F5 Distributed Cloud WAF continues to protect the integrated platform from attacks before, during, and after migration. To validate this, we send a series of malicious requests that should be consistently blocked by the WAF to ensure continuous delivery and security.
 
 .. image:: ./assets/curl-malicious.png
 
 .. image:: ./assets/3-3.png
 
-**Case B Observation** - From the “Requests” section in Distributed Cloud console for the LB, malicious requests blocked by Web Application Firewall (WAF) which won’t reach the origin server.
+From the “Requests” section in Distributed Cloud console for the LB, we can see that malicious requests are blocked by Web Application Firewall (WAF) which won’t reach the origin server.
 
 Scenario 4: Migration from VMware to Azure
 --------------
@@ -184,29 +184,27 @@ Now, we further steer more traffic to Azure by modifying the weight as below, wh
 
 As we can see from the above screenshot, all the traffic is migrated to Azure and no request is flowing through VMware.
 
-Scenario 4: Case B – Malicious requests
+Verifying WAF security
 ~~~~~~~~~~
-In this case, we'll send malicious requests to the same load balancer and observe how F5 Distributed Cloud mitigates them.
+In this step, we verify that the F5 Distributed Cloud WAF continues to protect the integrated platform from attacks before, during, and after migration. To validate this, we send a series of malicious requests that should be consistently blocked by the WAF to ensure continuous delivery and security.
 
 .. image:: ./assets/curl-malicious.png
 
 .. image:: ./assets/4-3.png
 
-**Case B Observation** - From the “Requests” section in Distributed Cloud console for the LB, malicious requests blocked by Web Application Firewall (WAF) which won’t reach the origin server.
+From the “Requests” section in Distributed Cloud console for the LB, we can see that malicious requests are blocked by Web Application Firewall (WAF) which won’t reach the origin server.
 
 Conclusion:
 --------------
 In summary, F5 Distributed Cloud provides a simple, repeatable pattern for migrating application traffic across heterogeneous environments with confidence and control. By leveraging global load balancing, origin pools, and traffic weighting, enterprises can gradually or instantly shift users between VMware, Nutanix, OpenShift, and public clouds while preserving security policies, compliance, and performance.  With unified observability and policy consistency across sites, teams can modernize, optimize costs, and decommission legacy platforms at their own pace—reducing risk and accelerating transformation across hybrid and multicloud infrastructures.
 
-
-
 References:
 --------------
 For more details, guidance on deploying XC CE on On-Prem and cloud platforms and configuring Origin Pool and Load balancer, refer to the official documentation below,
 
-https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-to/create-manage-origin-pools
+`Create Origin Pools <https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-to/create-manage-origin-pools>`__
 
-https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-to/load-balance/create-http-load-balancer
+`Create HTTP Load Balancer <https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-to/load-balance/create-http-load-balancer>`__
 
-https://docs.cloud.f5.com/docs-v2/web-app-and-api-protection/how-to/app-security/application-firewall
+`Create Web Application Firewall <https://docs.cloud.f5.com/docs-v2/web-app-and-api-protection/how-to/app-security/application-firewall>`__
 
