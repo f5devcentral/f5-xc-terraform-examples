@@ -52,7 +52,7 @@ Verifying the Migration
 
 2. Access the URL/application multiple times and observe the traffic distributed across environments based on weights assigned
 
-.. image:: ./assets/vmw-to-ocp/UC2-S2-Req.png
+.. image:: ./assets/start_traffic_to_azure.jpg.png
 
 3. Now access the application with some malicious requests and observe requests are being blocked
 
@@ -60,7 +60,7 @@ Verifying the Migration
 
 4. Send multiple malicious requests and F5 Distributed Cloud WAF will block these requests, and these requests won’t reach the origin server
 
-.. image:: ./assets/vmw-to-ocp/UC2-S2-Req2.png
+.. image:: ./assets/4-3.png
 
 Conclusion
 ----
