@@ -52,7 +52,7 @@ Verifying the Migration
 
 2. Access the URL/application multiple times and observe the traffic distributed across environments based on weights assigned
 
-.. image:: ./assets/start_traffic_to_azure.jpg.png
+.. image:: ./assets/start_traffic_to_azure.jpg
 
 3. Now access the application with some malicious requests and observe requests are being blocked
 
