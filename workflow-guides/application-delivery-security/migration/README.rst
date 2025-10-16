@@ -188,6 +188,10 @@ Now, we further steer more traffic to Azure by modifying the weight as below, wh
 
 As we can see from the above screenshot, all the traffic is migrated to Azure and no request is flowing through VMware.
 
+**For detailed steps, follow the below link**
+
+`Migrating Applications Traffic from VMware to Azure <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/migration/migrating-traffic-from-vmware-to-azure.rst>`__
+
 Verifying WAF security
 ~~~~~~~~~~
 In this step, we verify that the F5 Distributed Cloud WAF continues to protect the integrated platform from attacks before, during, and after migration. To validate this, we send a series of malicious requests that should be consistently blocked by the WAF to ensure continuous delivery and security.
