@@ -2,9 +2,9 @@ Application Migration across Heterogeneous Environments using F5 Distributed Clo
 #########################################################
 Scope
 --------------
-As the functionality and usage of the applications increase drastically to serve user demands, organizations are needed to deploy and scale the applications across multiple heterogeneous cloud platforms. This diversification of apps across cloud platforms are based on the parameters such as services, favourable pricing, improve scalability and flexibility by the cloud vendors. This makes organization to innovate and faster deploy of apps across the cloud platforms. 
+As the usage and functionality of the applications increase drastically to serve user demands, organizations are needed to deploy and scale the applications across multiple heterogeneous cloud platforms. This diversification of apps across cloud platforms are based on the parameters such as services, favourable pricing, improve scalability and flexibility by the cloud vendors. This makes organization to innovate and faster deploy of apps across the cloud platforms. 
 
-After the creation of apps there arises the challenge of migrating services from one cloud platform to an another. This involves security risks, loss of data, Networking changes, and compatibility issue arises for successful migration.
+Once the apps were deployed on suitable platform, there arises the challenge of migrating from one cloud platform to an another. This involves security risks, loss of data, Networking changes, and compatibility issue arises for successful migration.
 
 F5 Distributed Cloud (F5 XC) provides a unified solution to migrate applications seamlessly across hybrid and multi-cloud platforms. It helps organizations to migrate apps by steering the ratio of traffic proportionally without compromising on security, visibility or performance throughout the migration process. 
 
