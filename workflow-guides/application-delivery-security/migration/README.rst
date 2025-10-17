@@ -31,7 +31,7 @@ Architecture Overview
 
 As illustrated in the diagram above, F5 XC has ability to deploy applications across multiple cloud platforms such as AWS, Azure, GCP, VMware (on-prem), Nutanix (on-prem and NC2) and OpenShift Container Platform (on-prem) and more, and this makes easy to migrate from one to another. Deployment of applications on platforms requires to deploy XC’s Customer Edge (CE) site to act as a gateway between XC global network and application residing in that platform.  
 
-Below are the paltforms on which Secure Mesh Site V2 (SMSv2) CE is deployed on,
+Below are the platforms on which Secure Mesh Site V2 (SMSv2) CE is deployed on,
 
 **VMware:** VM is created in VMware ESXi deployed in Dell PowerEdge-R640 bare metal. The VM is booted using the OVF image of SMSv2 CE downloaded from F5 Distributed Cloud. Once the CE VM is up and site is online, VM running application workloads is also deployed in the same ESXi and connected to CE using Site Local Inside (SLI) subnet and interface, so that applications are not exposed directly.
 
