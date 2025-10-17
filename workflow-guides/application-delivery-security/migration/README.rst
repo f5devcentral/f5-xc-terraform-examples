@@ -2,23 +2,28 @@ Application Migration across Heterogeneous Environments using F5 Distributed Clo
 #########################################################
 Scope
 --------------
-As enterprises evolve their infrastructure strategies, migrating application traffic across heterogeneous environments becomes critical for modernization, cost optimization, compliance, or decommissioning legacy platforms. Often, the same application is deployed across multiple platforms—including VMware, Nutanix, OpenShift, and public clouds—creating a foundation for flexible and resilient traffic distribution.
+As the functionality and usage of the applications increase drastically to serve user demands, organizations are needed to deploy and scale the applications across multiple heterogeneous cloud platforms. This diversification of apps across cloud platforms are based on the parameters such as services, favourable pricing, improve scalability and flexibility by the cloud vendors. This makes organization to innovate and faster deploy of apps across the cloud platforms. 
 
-F5 Distributed Cloud simplifies application traffic migration by enabling unified traffic management through its global load balancing and Origin Pool capabilities. By including multiple environments within the same Origin Pool and adjusting traffic weights, organizations can dynamically shift user traffic from one environment to another—whether gradually or instantly—without impacting application availability or performance. This approach ensures controlled, secure, and observable migration of workloads across cloud and on-premises infrastructures.
+After the creation of apps there arises the challenge of migrating services from one cloud platform to an another. This involves security risks, loss of data, Networking changes, and compatibility issue arises for successful migration.
+
+F5 Distributed Cloud (F5 XC) provides a unified solution to migrate applications seamlessly across hybrid and multi-cloud platforms. It helps organizations to migrate apps by steering the ratio of traffic proportionally without compromising on security, visibility or performance throughout the migration process. 
+
 
 Introduction
 --------------
 This article examines the challenges and strategies for migrating application traffic across heterogeneous environments in enterprise-scale infrastructures. Common migration scenarios include:
 
-- Moving critical applications from VMware on-prem to Nutanix infrastructure, optimizing for performance, availability, and cost efficiency while maintaining security and compliance.
+- To migrate the application from VMware services to the other cloud platform to meet their business requirements that suits best for the organization 
 
-- Migrating workloads from VMware on-premises to OpenShift Container Platform (OCP), ensuring smooth transitions between traditional VMware environments and modern Kubernetes-based platforms.
+- Microservice of an application can be moved from on-prem to the cloud platform which works best for it and can be integrated to actual application chain.
 
-- Shifting applications from VMware clusters to public clouds (AWS, GCP, and Azure), enabling greater scalability, global reach, and flexibility while ensuring minimal disruption during migration.
+- To leverage the on-prem applications with the services offered by Nutanix on-prem, NC2 and public cloud platforms (AWS, Azure, GCP) to scale up and to reduce the complexity 
 
-F5 Distributed Cloud enables organizations to seamlessly manage traffic migration by dynamically adjusting routing policies without affecting application performance or security. By utilizing Origin Pools and traffic weighting within the F5 Distributed Cloud Console, enterprises can migrate user traffic between environments such as AWS, Azure, GCP, VMware, Nutanix, and OpenShift with complete visibility and control.
+- To perform maintenance and network related operations during down time till the traffic is redirected back to the original platform 
 
-As shown in the diagram under each scenario, when migrating traffic between different platforms, F5 Distributed Cloud orchestrates the smooth handoff of traffic, ensuring consistency in security policies, real-time observability, and the continued performance of applications during the migration process.
+- Apps deployed across multiple cloud platforms serves as a high availability to prevent a single point of failure.
+
+F5 XC helps organizations to seamlessly migrate from one platform to other by ensuring uniform application delivery and security policies across all applications regardless of the underlying platform. 
 
 Architecture Overview
 --------------
