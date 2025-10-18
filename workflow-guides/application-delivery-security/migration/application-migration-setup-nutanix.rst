@@ -48,8 +48,6 @@ Load balancer is created successfully and accessible.
 
 **Step 2: Integrating Nutanix origin pool to the VMware load balancer**
 
-Step 2.1: Creating origin pool for app in Nutanix
-
 From **Multi-Cloud Network Connect** and navigate to Manage > Origin Pools to create an origin pool.
 
 .. image:: ./assets/mig_vmware_to_nutanix_op_creation.jpg
