@@ -90,7 +90,7 @@ Update the weight to 3, which defines majority of the traffic will be flowing to
 
 Click on Save HTTP Load Balancer button to save the configs.
 
-.. image:: ./assets/mig_vmware_to_nutanix_save_mig_lb.jpg 
+.. image:: ./assets/mig_nutanix_op_configs_save_mig_lb.jpg 
 
 On accessing the domain name of the LB, most of the traffic flows to the existing application residing in VMware and a small portion of traffic is made to pass through Nutanix based on F5 XC LB configurations,
 
