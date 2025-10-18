@@ -3,13 +3,13 @@ Migrating Application Traffic from VMware to Nutanix
 
 Objective:
 --------------
-This document provides the step by step process to migrate the traffic from applicaiton running in VMware to application running in Nutanix
+This document provides the step by step process to migrate the traffic from applicaiton running in VMware to application running in Nutanix.
 
 General Prerequisites:
 --------------
-Deployment of application on Nutanix platform using SMSv2 is covered in the document `F5 XC CE deploy on Nutanix using SMSv2(SaaS Console) | F5 XC Solutions <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/smsv2-ce/Secure_Mesh_Site_v2_in_Nutanix/secure_mesh_site_v2_in_nutanix.rst>`__
+Deployment of applicaiton on VMware using SMSv2 is covered in the document `F5 XC CE deploy on Nutanix using SMSv2(SaaS Console) | F5 XC Solutions  <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/migration/application-migration-setup-vmware.rst>`__
 
-Similarly, deployment of applicaiton on VMware using SMSv2 is covered in the document `F5 XC CE deploy on Nutanix using SMSv2(SaaS Console) | F5 XC Solutions  <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/application-delivery-security/migration/application-migration-setup-vmware.rst>`__
+Similarly, deployment of application on Nutanix platform using SMSv2 is covered in the document `F5 XC CE deploy on Nutanix using SMSv2(SaaS Console) | F5 XC Solutions <https://github.com/f5devcentral/f5-xc-terraform-examples/blob/main/workflow-guides/smsv2-ce/Secure_Mesh_Site_v2_in_Nutanix/secure_mesh_site_v2_in_nutanix.rst>`__
 
 Configuration Overview:
 --------------
@@ -106,7 +106,8 @@ Image shows below represents complete migration of traffic, this results in migr
 
 Conclusion:
 --------------
-As mentioned in this document, above are the steps to seemelsly integrate apps running in newly deployed cloud platform to the existing infrastrucure configured in F5 XC.
+As mentioned in this document, above are the steps to seemelesly integrate apps running in newly deployed cloud platform to the existing infrastrucure configured in F5 XC.
+As mentioned in this document, above are the steps results in migrating application traffic from VMware to Nutanix. 
 
 
 
