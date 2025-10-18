@@ -1,4 +1,5 @@
-Migrating Application Traffic from VMware to Nutanix 
+Migrating Application Traffic from VMware to Nutanix
+#########################################################
 
 Objective:
 --------------
@@ -86,6 +87,16 @@ Select the pencil icon for the VMware origin pool under Origin Pool section to u
 Update the weight to 3, which defines majority of the traffic will be flowing to VMware and a small portion of traffic will be flowing through Nutanix. Click on Apply.
 
 .. image:: ./assets/mig_vmware_to_nutanix_weight.jpg
+
+Click on Save HTTP Load Balancer button to save the configs.
+
+.. image:: ./assets/mig_vmware_to_nutanix_save_mig_lb.jpg 
+
+On accessing the domain name of the LB, most of the traffic flows to the existing application residing in VMware and a small portion of traffic is made to pass through Nutanix based on F5 XC LB configurations,
+
+.. image:: ./assets/dc_initiate_traffic_to_nutanix.jpg
+
+By further steering the traffic to the Nutanix, traffic increases proportionally to the Nutanix platform
 
 
 
