@@ -96,7 +96,17 @@ On accessing the domain name of the LB, most of the traffic flows to the existin
 
 .. image:: ./assets/dc_initiate_traffic_to_nutanix.jpg
 
-By further steering the traffic to the Nutanix, traffic increases proportionally to the Nutanix platform
+By further steering the traffic to the Nutanix, traffic increases proportionally and by further adjusting the weights i.e origin pool associating to VMware is set to 0 and Nutanix to 1, results in complete migration of traffic from VMware to Nutanix,
+
+.. image:: ./assets/mig_vmware_to_nutanix_weights_final.jpg
+
+Image shows below represents complete migration of traffic, this results in migration of apps from VMware to Nutanix,
+
+.. image:: ./assets/dc_migrated_to_nutanix_2.jpg
+
+Conclusion:
+--------------
+As mentioned in this document, above are the steps to seemelsly integrate apps running in newly deployed cloud platform to the existing infrastrucure configured in F5 XC.
 
 
 
