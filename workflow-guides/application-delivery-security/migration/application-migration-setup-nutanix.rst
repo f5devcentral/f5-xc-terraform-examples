@@ -44,7 +44,7 @@ Select the WAF firewall created and click on **Add HTTP Load Balancer** to creat
 
 Load balancer is created successfully and accessible.
 
-.. image:: ./assets/mig_vmware_to_domain_access.jpg
+.. image:: ./assets/mig_vmware_to_nutanix_domain_access.jpg
 
 **Step 2: Integrating Nutanix origin pool to the VMware load balancer**
 
@@ -58,11 +58,11 @@ Click on Add Origin Pool button.
 
 .. image:: ./assets/mig_vmware_to_nutanix_click_op.jpg
 
-.. image:: ./assets/mig_vmware_to_nutanix_click_op_add_item.jpg
+.. image:: ./assets/mig_vmware_to_nutanix_op_add_item.jpg
 
 Provide the details of the application in document above,
 
-.. image:: ./assets/mig_nutanix_op_configs
+.. image:: ./assets/mig_nutanix_op_configs.jpg
 
 Click on Apply and enter the port number at which application is running and click on Save origin pool.
 
@@ -98,7 +98,7 @@ On accessing the domain name of the LB, most of the traffic flows to the existin
 
 By further steering the traffic to the Nutanix, traffic increases proportionally and by further adjusting the weights i.e origin pool associating to VMware is set to 0 and Nutanix to 1, results in complete migration of traffic from VMware to Nutanix,
 
-.. image:: ./assets/mig_vmware_to_nutanix_weights_final.jpg
+.. image:: ./assets/mig_nutanix_op_configs_weights_final.jpg
 
 Image shows below represents complete migration of traffic, this results in migration of apps from VMware to Nutanix,
 
