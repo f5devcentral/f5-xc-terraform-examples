@@ -104,7 +104,6 @@ Image shows below represents complete migration of traffic, this results in migr
 
 Conclusion:
 --------------
-As mentioned in this document, above are the steps to seemelesly integrate apps running in newly deployed cloud platform to the existing infrastrucure configured in F5 XC.
 As mentioned in this document, above are the steps results in migrating application traffic from VMware to Nutanix. 
 
 
