@@ -104,7 +104,7 @@ Image shows below represents complete migration of traffic, this results in migr
 
 Conclusion:
 --------------
-As mentioned in this document, above are the steps results in migrating application traffic from VMware to Nutanix. 
+As mentioned in this document, following steps mentioned above results in migrating from VMware to Nutanix. 
 
 
 
