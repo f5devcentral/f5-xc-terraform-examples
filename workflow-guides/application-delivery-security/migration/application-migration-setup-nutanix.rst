@@ -90,7 +90,7 @@ Click on Save HTTP Load Balancer button to save the configs.
 
 .. image:: ./assets/mig_nutanix_op_configs_save_mig_lb.jpg 
 
-On accessing the domain name of the LB, most of the traffic flows to the existing application residing in VMware and a small portion of traffic is made to pass through Nutanix based on F5 XC LB configurations,
+On accessing the domain name of the LB, most of the traffic flows to the existing application residing in VMware and a small portion of traffic is made to pass through Nutanix, based on F5 XC LB configurations,
 
 .. image:: ./assets/dc_initiate_traffic_to_nutanix.jpg
 
@@ -98,7 +98,7 @@ By further steering the traffic to the Nutanix, traffic increases proportionally
 
 .. image:: ./assets/mig_nutanix_op_configs_weights_final.jpg
 
-Image shows below represents complete migration of traffic, this results in migration of apps from VMware to Nutanix,
+Image shows below represents complete migration of traffic, this results in migrating from VMware to Nutanix.
 
 .. image:: ./assets/dc_migrated_to_nutanix_2.jpg
 
