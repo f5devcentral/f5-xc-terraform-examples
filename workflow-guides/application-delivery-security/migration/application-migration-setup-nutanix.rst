@@ -104,7 +104,7 @@ Image shows below represents complete migration of traffic, this results in migr
 
 Conclusion:
 --------------
-As mentioned in this document, following steps mentioned above results in migrating from VMware to Nutanix. 
+As mentioned in this document, following steps mentioned above results in migration from VMware to Nutanix. 
 
 
 
