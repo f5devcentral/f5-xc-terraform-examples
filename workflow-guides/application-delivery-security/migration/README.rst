@@ -2,27 +2,36 @@ Application Migration across Heterogeneous Environments using F5 Distributed Clo
 #########################################################
 Scope
 --------------
-As enterprises evolve their infrastructure strategies, migrating application traffic across heterogeneous environments becomes critical for modernization, cost optimization, compliance, or decommissioning legacy platforms. Often, the same application is deployed across multiple platforms—including VMware, Nutanix, OpenShift, and public clouds—creating a foundation for flexible and resilient traffic distribution.
+As the usage and functionality of the applications increase drastically to serve user demands, organizations are needed to deploy and scale the applications across multiple heterogeneous cloud platforms. This diversification of apps across cloud platforms are based on the parameters such as services, favourable pricing, improve scalability and flexibility by the cloud vendors. This makes organization to innovate and faster deploy of apps across the cloud platforms. 
 
-F5 Distributed Cloud simplifies application traffic migration by enabling unified traffic management through its global load balancing and Origin Pool capabilities. By including multiple environments within the same Origin Pool and adjusting traffic weights, organizations can dynamically shift user traffic from one environment to another—whether gradually or instantly—without impacting application availability or performance. This approach ensures controlled, secure, and observable migration of workloads across cloud and on-premises infrastructures.
+Once the apps were deployed on suitable platform, there arises the challenge of migrating from one cloud platform to an another. This involves security risks, loss of data, network infrastucture changes, and compatibility issue arises for successful migration.
+
+F5 Distributed Cloud (F5 XC) provides a unified solution to migrate applications seamlessly across hybrid and multi-cloud platforms. It helps organizations to migrate apps by steering the ratio of traffic proportionally without compromising on security, visibility or performance throughout the migration process. 
+
 
 Introduction
 --------------
 This article examines the challenges and strategies for migrating application traffic across heterogeneous environments in enterprise-scale infrastructures. Common migration scenarios include:
 
-- Moving critical applications from VMware on-prem to Nutanix infrastructure, optimizing for performance, availability, and cost efficiency while maintaining security and compliance.
+- To migrate the application from VMware services to the other cloud platform to meet their business requirements that suits best for the organization 
 
-- Migrating workloads from VMware on-premises to OpenShift Container Platform (OCP), ensuring smooth transitions between traditional VMware environments and modern Kubernetes-based platforms.
+- Microservice of an application can be moved from on-prem to the cloud platform which works best for it and can be integrated to actual application chain.
 
-- Shifting applications from VMware clusters to public clouds (AWS, GCP, and Azure), enabling greater scalability, global reach, and flexibility while ensuring minimal disruption during migration.
+- To leverage the on-prem applications with the services offered by Nutanix on-prem, NC2 and public cloud platforms (AWS, Azure, GCP) to scale up and to reduce the complexity 
 
-F5 Distributed Cloud enables organizations to seamlessly manage traffic migration by dynamically adjusting routing policies without affecting application performance or security. By utilizing Origin Pools and traffic weighting within the F5 Distributed Cloud Console, enterprises can migrate user traffic between environments such as AWS, Azure, GCP, VMware, Nutanix, and OpenShift with complete visibility and control.
+- To perform maintenance and network related operations during down time till the traffic is redirected back to the original platform 
 
-As shown in the diagram under each scenario, when migrating traffic between different platforms, F5 Distributed Cloud orchestrates the smooth handoff of traffic, ensuring consistency in security policies, real-time observability, and the continued performance of applications during the migration process.
+- Apps deployed across multiple cloud platforms serves as a high availability to prevent a single point of failure.
+
+F5 XC helps organizations to seamlessly migrate from one platform to other by ensuring uniform application delivery and security policies across all applications regardless of the underlying platform. 
 
 Architecture Overview
 --------------
 .. image:: ../workload/assets/ADSP-Growth-Architecture-New.png
+
+As illustrated in the diagram above, F5 XC has ability to deploy applications across multiple cloud platforms such as AWS, Azure, GCP, VMware (on-prem), Nutanix (on-prem and NC2) and OpenShift Container Platform (on-prem) and more, and this makes easy to migrate from one to another. Deployment of applications on platforms requires to deploy XC’s Customer Edge (CE) site to act as a gateway between XC global network and application residing in that platform.  
+
+Below are the platforms on which Secure Mesh Site V2 (SMSv2) CE is deployed on,
 
 **VMware:** VM is created in VMware ESXi deployed in Dell PowerEdge-R640 bare metal. The VM is booted using the OVF image of SMSv2 CE downloaded from F5 Distributed Cloud. Once the CE VM is up and site is online, VM running application workloads is also deployed in the same ESXi and connected to CE using Site Local Inside (SLI) subnet and interface, so that applications are not exposed directly.
 
@@ -210,9 +219,11 @@ References:
 --------------
 For more details, guidance on deploying XC CE on On-Prem and cloud platforms and configuring Origin Pool and Load balancer, refer to the official documentation below,
 
-`Create Origin Pools <https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-to/create-manage-origin-pools>`__
+https://docs.cloud.f5.com/docs-v2/multi-cloud-network-connect/how-to/site-management/create-secure-mesh-site-v2 
 
-`Create HTTP Load Balancer <https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-to/load-balance/create-http-load-balancer>`__
+https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-to/load-balance/create-http-load-balancer 
 
-`Create Web Application Firewall <https://docs.cloud.f5.com/docs-v2/web-app-and-api-protection/how-to/app-security/application-firewall>`__
+https://docs.cloud.f5.com/docs-v2/multi-cloud-app-connect/how-to/create-manage-origin-pools
+
+https://docs.cloud.f5.com/docs-v2/web-app-and-api-protection/how-to/app-security/application-firewall
 
