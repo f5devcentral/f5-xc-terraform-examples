@@ -7,8 +7,8 @@ This demo guide provides step-by-step walkthrough for enabling Web Application F
 Contents
 --------------
 - Deploying SMSv2 CE in Azure
-- Deploying Client VM and applications for testing
-- Verifying Connectivity between CE site and Client VM through SLI
+- Deploying Ubuntu VM and applications for testing
+- Verifying Connectivity between CE site and Ubuntu VM through SLI
 - Creating Origin Pool in Distributed Cloud
 - Creating Load Balancer in Distributed Cloud
 - Creating WAF configuration and assigning it to LB
@@ -26,7 +26,7 @@ To deploy Secure Mesh Site v2 (SMSv2) in Azure, follow this `link <https://docs.
 
 .. image:: ./assets/azure/smsv2-azure-site.png
 
-Steps to deploy VM (Client VM) running application workloads
+Steps to deploy VM running application workloads
 --------------
 
 1. Login to Azure portal
@@ -35,7 +35,7 @@ Steps to deploy VM (Client VM) running application workloads
 
 3. Provide the required basic details for creating VM under “Basics” tab
     - Select the resource group already created for CE
-    - Provide a name for the client VM
+    - Provide a name for the Ubuntu VM
     - Select the region where you want to deploy
     - Select the OS image to be deployed in VM
     - Choose VM size based on requirements
@@ -72,7 +72,7 @@ Steps to deploy VM (Client VM) running application workloads
 
 .. image:: ./assets/azure/smsv2-azure-cvm-6.png
 
-8. Navigate to the CE site in F5 Distributed Cloud and ping the client VM private IP, it should be reachable
+8. Navigate to the CE site in F5 Distributed Cloud and ping the Ubuntu VM private IP, it should be reachable
 
 .. image:: ./assets/azure/smsv2-azure-cvm-7.png
 
@@ -84,7 +84,7 @@ Steps to deploy VM (Client VM) running application workloads
 
 Accessing applications through Load Balancers
 --------------
-To access the applications installed in the Client machine through SMSv2 Customer Edge (CE), below configurations needs to be followed:
+To access the applications installed in the Ubuntu machine through SMSv2 Customer Edge (CE), below configurations needs to be followed:
 
     1. Creating “Origin Pool”
     2. Creating “LB”
@@ -148,7 +148,7 @@ Creating Load Balancer
 
 .. image:: ./assets/azure/smsv2-azure-lb8.png
 
-9. Access the LB URL and Juice-Shop application should be available which is deployed in Client (Ubuntu) VM using docker and exposed through port 3000
+9. Access the LB URL and Juice-Shop application should be available which is deployed in Ubuntu VM using docker and exposed through port 3000
 
 .. image:: ./assets/azure/smsv2-azure-lb9.png
 
@@ -158,4 +158,4 @@ Creating Load Balancer
 
 Conclusion
 --------------
-This guide demonstrated how to enable WAF on an SMSv2 CE site using the F5 Distributed Cloud console. You deployed the CE in Azure, set up a test client, and configured origin pools and load balancers. WAF was successfully applied and verified with test attacks. This setup also supports additional security services like API Security, Bot Defense, and DDoS protection, allowing for flexible and robust application protection.
+This guide demonstrated how to enable WAF on an SMSv2 CE site using the F5 Distributed Cloud console. You deployed the CE in Azure, set up a test Ubuntu VM, and configured origin pools and load balancers. WAF was successfully applied and verified with test attacks. This setup also supports additional security services like API Security, Bot Defense, and DDoS protection, allowing for flexible and robust application protection.

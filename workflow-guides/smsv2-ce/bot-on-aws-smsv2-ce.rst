@@ -7,8 +7,8 @@ This demo guide provides step-by-step walkthrough for enabling Bot Defense on Se
 Contents
 --------------
 - Deploying SMSv2 CE in AWS
-- Deploying Client VM and applications for testing
-- Verifying Connectivity between CE site and Client VM through SLI
+- Deploying Ubuntu VM and applications for testing
+- Verifying Connectivity between CE site and Ubuntu VM through SLI
 - Creating Origin Pool in Distributed Cloud
 - Creating Load Balancer in Distributed Cloud
 - Creating Bot Defense configuration and assigning it to LB
@@ -26,7 +26,7 @@ To deploy Secure Mesh Site v2 (SMSv2) in AWS, follow this `link <https://docs.cl
 
 .. image:: ./assets/aws/AWS-SITE.png
 
-Steps to deploy VM (Client VM) running application workloads
+Steps to deploy VM running application workloads
 --------------
 
 1. Login to AWS portal
@@ -41,9 +41,9 @@ Steps to deploy VM (Client VM) running application workloads
     - “Instance Type”
     - “Key pair” for accessing the instance
     - VPC created earlier for SMSv2 CE
-    - Select SLI subnet to communicate between the CE and Client VM
+    - Select SLI subnet to communicate between the CE and Ubuntu VM
     - Enable “Auto-assign public IP” to access the instance through SSH
-    - Firewall (security groups) -> Click “Select existing security group” and select the security group created for Client VM which has minimal access based on rules created
+    - Firewall (security groups) -> Click “Select existing security group” and select the security group created for Ubuntu VM which has minimal access based on rules created
     - Configure storage -> Select storage based on requirement
     - Click “Launch instance”
 
@@ -53,7 +53,7 @@ Steps to deploy VM (Client VM) running application workloads
 
 5. Wait for some time for the instance to launch and start running
 
-6. Once the instance is up and running, check the private IP assigned and ping from SMSv2 CE site, as both SMSv2 CE and Client VM are connected to the same VPC and SLI subnet, ping should succeed, and 0% packet loss should be observed.
+6. Once the instance is up and running, check the private IP assigned and ping from SMSv2 CE site, as both SMSv2 CE and Ubuntu VM are connected to the same VPC and SLI subnet, ping should succeed, and 0% packet loss should be observed.
 
 .. image:: ./assets/aws/AWS-BOT-4.png
 
@@ -64,7 +64,7 @@ Steps to deploy VM (Client VM) running application workloads
 
 Accessing applications through Load Balancers
 --------------
-To access the applications installed in the Client machine through SMSv2 Customer Edge (CE), below configurations needs to be followed:
+To access the applications installed in the Ubuntu machine through SMSv2 Customer Edge (CE), below configurations needs to be followed:
 
     1. Creating “Origin Pool”
     2. Creating “LB”
@@ -132,7 +132,7 @@ Creating Load Balancer
 
 .. image:: ./assets/aws/smsv2-aws-lb11.png
 
-9. Access the LB URL and DVWA application should be available which is deployed in Client (Ubuntu) VM using docker and exposed through port 3000. Login by entering default credentials (admin/admin). Observe login is successful though browser
+9. Access the LB URL and DVWA application should be available which is deployed in Ubuntu VM using docker and exposed through port 3000. Login by entering default credentials (admin/admin). Observe login is successful though browser
 
 .. image:: ./assets/aws/smsv2-aws-lb12.png
 
@@ -148,5 +148,5 @@ Creating Load Balancer
 
 Conclusion
 --------------
-This guide demonstrated how to enable Bot Defense on an SMSv2 CE site using the F5 Distributed Cloud console. You deployed the CE in AWS, set up a test client, and configured origin pools and load balancers. Bot Defense was successfully applied and verified with test attacks. This setup also supports additional security services like API Security, WAF, and DDoS protection, allowing for flexible and robust application protection.
+This guide demonstrated how to enable Bot Defense on an SMSv2 CE site using the F5 Distributed Cloud console. You deployed the CE in AWS, set up a test Ubuntu VM, and configured origin pools and load balancers. Bot Defense was successfully applied and verified with test attacks. This setup also supports additional security services like API Security, WAF, and DDoS protection, allowing for flexible and robust application protection.
 
