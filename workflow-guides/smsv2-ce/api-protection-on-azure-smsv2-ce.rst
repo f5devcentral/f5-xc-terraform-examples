@@ -78,7 +78,7 @@ Steps to deploy VM running application workloads
 
 .. image:: ./assets/azure-api/9-ping-to-vm-from-ce.png
 
-9. Once the connection is established between CE site and VM, connect to the VM through SSH to deploy application. Execute below commands to deploy a vulnerable application (here “JuiceShop” is used)
+9. Once the connection is established between CE site and VM, connect to the VM through SSH to deploy application. Execute below commands to deploy a vulnerable application (here `crAPI <https://github.com/OWASP/crAPI/tree/develop>`__ is used)
 
     - $ sudo apt update; sudo apt install docker.io
     - $ sudo apt install docker-compose
@@ -113,7 +113,7 @@ Creating Origin Pool
 
 .. image:: ./assets/azure-api/12-azure-vm-ip-op-os.png
 
-4. Origin Server details will populate in the Origin Pool page, provide the port of the Ubuntu machine where the application is exposed (in this case 3000) and click “Add Origin Pool”
+4. Origin Server details will populate in the Origin Pool page, provide the port of the Ubuntu machine where the application is exposed (in this case 8888) and click “Add Origin Pool”
 
 .. image:: ./assets/azure-api/13-origin-pool-8888.png
 
