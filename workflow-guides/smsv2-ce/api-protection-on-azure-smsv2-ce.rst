@@ -76,13 +76,15 @@ Steps to deploy VM running application workloads
 
 8. Navigate to the CE site in F5 Distributed Cloud and ping the Ubuntu VM private IP, it should be reachable
 
-.. image:: ./assets/azure-api/9-smsv2-azure-cvm-7.png
+.. image:: ./assets/azure-api/9-ping-to-vm-from-ce.png
 
 9. Once the connection is established between CE site and VM, connect to the VM through SSH to deploy application. Execute below commands to deploy a vulnerable application (here “JuiceShop” is used)
 
-    - $ sudo apt update
-    - $ sudo apt install docker.io
-    - $ sudo  docker run -d -p 3000:3000 bkimminich/juice-shop
+    - $ sudo apt update; sudo apt install docker.io
+    - $ sudo apt install docker-compose
+    - $ curl -o docker-compose.yml https://raw.githubusercontent.com/OWASP/crAPI/main/deploy/docker/docker-compose.yml
+    - $ sudo docker-compose -f docker-compose.yml --compatibility up –d
+    - $ sudo docker ps
 
 .. image:: ./assets/azure-api/crapi-docker-ps.png
 
@@ -92,8 +94,8 @@ To access the applications installed in the Ubuntu machine through SMSv2 Custome
 
     1. Creating “Origin Pool”
     2. Creating “LB”
-    3. Configuring “API Protection”
-    4. Configuring “WAF” and applying on the load balancer
+    3. Configuring “WAF”
+    4. Configuring “API Protection” and applying on the load balancer
 
 Creating Origin Pool
 ============
@@ -109,11 +111,11 @@ Creating Origin Pool
 
 *Note: IP address and Site might vary based on your configuration*
 
-.. image:: ./assets/azure-api/12-1smsv2-azure-op3.png
+.. image:: ./assets/azure-api/12-azure-vm-ip-op-os.png
 
 4. Origin Server details will populate in the Origin Pool page, provide the port of the Ubuntu machine where the application is exposed (in this case 3000) and click “Add Origin Pool”
 
-.. image:: ./assets/azure-api/13-smsv2-azure-op4.png
+.. image:: ./assets/azure-api/13-origin-pool-8888.png
 
 5. After creating the Origin Pool, this can be used in Load Balancer to access the application.
 
@@ -158,7 +160,8 @@ Creating Load Balancer
 .. image:: ./assets/azure-api/15-upload-openapi-file.png
 
 10. Enter a name and upload the open API/ swagger file for your application (for this demonstration crAPI is used where “minimum” quantity is configured in OpenAPI file which was missing in original file causing the API issue)
-GitHub link - https://github.com/OWASP/crAPI/blob/develop/openapi-spec/crapi-openapi-spec.json
+
+    - GitHub link - https://github.com/OWASP/crAPI/blob/develop/openapi-spec/crapi-openapi-spec.json
 
 .. image:: ./assets/azure-api/16-openapi-file-configuration.jpeg
 
@@ -237,4 +240,4 @@ GitHub link - https://github.com/OWASP/crAPI/blob/develop/openapi-spec/crapi-ope
 
 Conclusion
 --------------
-This guide demonstrated how to enable WAF on an SMSv2 CE site using the F5 Distributed Cloud console. You deployed the CE in Azure, set up a test ubuntu, and configured origin pools and load balancers. WAF was successfully applied and verified with test attacks. This setup also supports additional security services like API Security, Bot Defense, and DDoS protection, allowing for flexible and robust application protection.
+This guide demonstrated how to enable API Security on an SMSv2 CE site using the F5 Distributed Cloud console. You deployed the CE in Azure, set up a test Ubuntu VM, deployed an application in the VM, and configured origin pools and load balancers. API Protection was successfully applied and verified with tampered requests. Additionally, you enabled “API Discovery” to automatically detect and classify APIs in your environment, and verified its functionality. This setup also enhances protection against API-specific threats such as malicious payloads, unauthorized access, and abusive behavior, while integrating seamlessly with additional security features, when enabled, like WAF, Bot Defense, and DDoS protection, ensuring comprehensive and robust application security.
