@@ -1,8 +1,23 @@
 F5 Distributed Cloud SMSv2 CE on AWS with Bot Defense
 #########################################################
+Scope
+---------
+Bots make the Internet work—from search engine crawlers that bring the world to your fingertips to chatbots that engage and influence your customers early in the buyer’s journey. These are good bots. But then there are malicious bots. These bad bots scale automated attacks that cause significant financial pain, slow web and app performance, scalp goods, and hoard inventory. Malicious bots not only lead to customer frustration, they also enumerate gift cards to steal balances, create fake accounts to commit fraud, and carry out account takeovers via credential stuffing.
+
+Your ability to identify and thwart fraud will be tested by a wide range of creative, complex, and stealthy tactics used by cybercriminals looking to exploit any possible attack surfaces that may exist across your websites and apps. With F5® Distributed Cloud Bot Defense, your sites and apps are guarded against bot attacks
+
 Introduction
 --------------
+F5 Distributed Cloud Bot Defense protects web properties from automated attacks by detecting and mitigating malicious bots using JavaScript and API-based telemetry within the Distributed Cloud global network. It integrates effortlessly with applications, either through native support in Distributed Cloud Mesh HTTP load balancers or connectors for common insertion points in modern architectures.
+
+Once configured, Bot Defense provides detailed traffic and transaction insights via its dashboard in the Distributed Cloud Console, enabling real-time identification and mitigation of malicious users. As part of the F5 Web Application and API Protection (WAAP) service, Bot Defense delivers advanced security for protecting web apps and APIs from a wide range of real-time threats.
+
 This demo guide provides step-by-step walkthrough for enabling Bot Defense on Secure Mesh Site v2 (SMSv2) Customer Edge (CE) site manually using F5 Distributed Cloud (XC) console.
+
+Architectural diagram
+--------------
+
+.. image:: ./assets/smsv2-ce-aws.png
 
 Contents
 --------------
