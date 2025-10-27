@@ -1,8 +1,23 @@
 F5 Distributed Cloud SMSv2 CE on Azure with API Protection
 #########################################################
+Scope
+-------
+APIs power apps, but without proper attention, they can expose organizations to significant risks. APIs are a fundamental building block of modern application development, powering apps that impact lives. As modern applications have evolved, dependencies on APIs have increased. That’s because by enabling disparate systems to work collectively, APIs can speed up time-to-market for application development and deliver improved user experiences. API endpoints increase an application’s attack surface area and introduce new risks and vulnerabilities that traditional app security tools struggle to mitigate.
+
+F5 Distributed Cloud API Security is a comprehensive solution to securely manage APIs across any data center or cloud using a simple, fast, and scalable architecture. It helps drive business velocity by enabling automated API deployments and management, while also protecting against API-specific threats.
+
 Introduction
 --------------
+F5 Distributed Cloud Web App and API Protection (WAAP) offers a comprehensive security solution, including WAF, DDoS prevention, API security, and bot mitigation, to protect modern applications. This solution integrates seamlessly with the data plane workflow, and in this example, showcases API security implementation within a customer's existing Azure infrastructure using F5 Distributed Cloud services.
+
+Distributed Cloud API Security, a key part of WAAP, provides robust API protection through discovery, monitoring, and enforcement. It enables organizations to identify unknown APIs, continuously monitor and secure them, and enforce schema compliance. The service offers insight into the full API ecosystem, mapping endpoints, communication paths, and shadow or outdated APIs for complete visibility.
+
 This demo guide provides step-by-step walkthrough for enabling API Protection on Secure Mesh Site v2 (SMSv2) Customer Edge (CE) site manually using F5 Distributed Cloud (XC) console.
+
+Architectural diagram
+--------------
+
+.. image:: ./assets/smsv2-ce-azure.png
 
 Contents
 --------------

@@ -1,8 +1,23 @@
 F5 Distributed Cloud SMSv2 CE on Azure with WAF
 #########################################################
+Scope
+--------
+Securing applications and infrastructure is demanding work. Tracking sophisticated, multi-vector attacks is extremely difficult. It takes experienced professionals, powerful tools, and vast expertise to do it well. With F5, an industry-leading provider, advanced WAF technology is more accessible and affordable than ever before and includes threat campaign protection to thwart potential attacks.
+
+Protect web apps in any cloud, edge, and on-premises with a comprehensive WAF as a Service from F5 Distributed Cloud Services, leveraging F5’s best-in-class Advanced Web Application Firewall.
+
 Introduction
 --------------
+The F5 Distributed Cloud WAF, part of the SaaS-based F5 Distributed Cloud Web Application & API Protection (WAAP) solution, secures web applications from threats like SQL injections, cross-site scripting, L7 DDoS attacks, and malicious bots. It provides multi-layer protection for applications deployed anywhere, enabling dynamic defenses against common vulnerabilities.
+
+Leveraging advanced machine learning, behavioral analysis, and threat intelligence from F5 Labs, the WAF delivers real-time protection against emerging risks. F5’s centralized cloud platform further simplifies audits, ensures scalable security policies, and aligns protections with application-specific threats.
+
 This demo guide provides step-by-step walkthrough for enabling Web Application Firewall (WAF) on Secure Mesh Site v2 (SMSv2) Customer Edge (CE) site manually using F5 Distributed Cloud (XC) console.
+
+Architectural diagram
+--------------
+
+.. image:: ./assets/smsv2-ce-azure.png
 
 Contents
 --------------
