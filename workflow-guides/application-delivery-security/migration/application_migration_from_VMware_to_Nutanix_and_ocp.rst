@@ -3,7 +3,7 @@ Migrating Application Traffic from VMware to Nutanix and OCP
 
 Objective:
 --------------
-This document provides the step by step process to migrate the traffic from applicaiton running in VMware to load balance the traffic among Nutanix and OCP cloud platforms.
+This document provides the step by step process to migrate the traffic from application running in VMware to load balance the traffic among Nutanix and OCP cloud platforms.
 
 General Prerequisites:
 --------------
@@ -43,11 +43,11 @@ On accessing the domain name of this Load balancer, we can able to see a small p
 
 .. image:: ./assets/dc_initiate_traffic_to_ocp_n_nutanix.jpg
 
-We can steer proportianlly by adjusting the weights, but now set the weight of VMware origin pool to 0, but the weights of Nutanix and OCP origin pool remains same, i.e 1 and save the Load Balancer.
+We can steer proportionally by adjusting the weights, but now we will set the weight of VMware origin pool to 0, but the weights of Nutanix and OCP origin pool remains same, i.e 1 and save the Load Balancer.
 
 .. image:: ./assets/mig_vmware_to_nutanix_ocp_vmware_zero.jpg
 
-By sending traffic, we can able to see all the requests reaches Nutanix and OCP but not VMware.
+By sending traffic, we can able to see all the requests reaches Nutanix and OCP but not to VMware.
 
 .. image:: ./assets/logs_vmware_to_nutanix_ocp.jpg
 
