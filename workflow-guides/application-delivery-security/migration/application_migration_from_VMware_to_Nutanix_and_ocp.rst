@@ -27,7 +27,31 @@ Click on Apply button.
 
 Similarly, Add the OCP load balancer to the Origin pool.
 
-Click on Pencil icon of VMware origin pool to update the weight to it.
+Click on Pencil icon of VMware origin pool to update the weight, so that majority portion of traffic flows through VMware and small portion of traffic flows through Nutanix and OCP.
 
 .. image:: ./assets/mig_vmware_to_nutanix_ocp_weight_update.jpg
+
+Update the Weight to 3, and click on Apply button.
+
+.. image:: ./assets/mig_vmware_to_nutanix_weight.jpg
+
+.. image:: ./assets/mig_vmware_to_nutanix_ocp_save_lb.jpg
+
+On accessing the domain name of this LB, we can able to see a small portion of traffic flowing through the Nutanix and OCP, but majority still flows through VMware.
+
+.. image:: ./assets/dc_initiate_traffic_to_ocp_n_nutanix.jpg
+
+Now, we steer traffic further by adjusting the weight of VMware to 0, but the weights of Nutanix and OCP origin pool remains same, i.e 1 and save the Load Balancer.
+
+.. image:: ./assets/mig_vmware_to_nutanix_ocp_vmware_zero.jpg
+
+By sending traffic, we can able to see all the requests reaches Nutanix and OCP but not VMware.
+
+.. image:: ./assets/logs_vmware_to_nutanix_ocp.jpg
+
+Conclusion:
+--------------
+As mentioned in this document, following steps mentioned above results in migration from VMware to Nutanix and OCP.
+
+
 
