@@ -1,4 +1,4 @@
-F5 Distributed Cloud Application Delivery and Security for Scalable Enterprise Workload Deployments across Heterogeneous Environments
+App Delivery & Security for Hybrid Environments using F5 Distributed Cloud
 #########################################################
 Scope
 --------------
