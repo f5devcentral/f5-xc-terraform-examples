@@ -17,11 +17,9 @@ This article examines the challenges and strategies for migrating application tr
 
 - Microservice of an application can be moved from on-prem to the cloud platform which works best for it and can be integrated to actual application chain.
 
-- To leverage the on-prem applications with the services offered by Nutanix on-prem, NC2 and public cloud platforms (AWS, Azure, GCP) to scale up and to reduce the complexity 
+- To leverage the on-prem applications with the services offered by Nutanix on-prem, NC2 and public cloud platforms (AWS, Azure, GCP) to scale up and to reduce the complexity.
 
-- To perform maintenance and network related operations during down time till the traffic is redirected back to the original platform 
-
-- Apps deployed across multiple cloud platforms serves as a high availability to prevent a single point of failure.
+- Apps deployed across multiple cloud platforms serves as an additional/backup service to provide continuity and extend availability.
 
 F5 XC helps organizations to seamlessly migrate from one platform to other by ensuring uniform application delivery and security policies across all applications regardless of the underlying platform. 
 
