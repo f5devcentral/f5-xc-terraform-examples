@@ -476,9 +476,9 @@ AlpineOS ISO can be downloaded from this `link <https://alpinelinux.org/download
 
 .. image:: ./assets/assets-ocp/13a.png
 
-8. At the end of the setup, the VM will prompt you to reboot for the installation to complete and boot from the new disk. The configurations highlighted in “RED” in the above VM YAML file need to be removed to prevent the VM from booting the ISO again.
+8. At the end of the setup, the VM will prompt you to reboot for the installation to complete and boot from the new disk. Only the configurations highlighted in “RED” in the above VM YAML file should be *retained* to prevent the VM from booting the ISO again. Disk and Volume related to *rootdisk* needs to be removed.
 
-9. To remove them, go to the “YAML” tab under the VM, delete the highlighted configurations, save the changes, and then restart the VM.
+9. To remove them, go to the “YAML” tab under the VM, delete the *rootdisk* related configurations, save the changes, and then restart the VM.
 
 .. image:: ./assets/assets-ocp/14.png
 
