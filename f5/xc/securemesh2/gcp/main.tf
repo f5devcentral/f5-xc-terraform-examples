@@ -11,6 +11,7 @@ resource "google_compute_instance" "smv2_instance" {
   name = "${var.goog_cm_deployment_name}-${random_id.rand_id.hex}-${count.index + 1}"
   machine_type = var.machine_type
   zone = var.zones[count.index]
+  allow_stopping_for_update = true
 
   tags = var.network_tags
 
