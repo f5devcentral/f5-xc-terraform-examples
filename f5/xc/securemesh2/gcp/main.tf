@@ -11,6 +11,7 @@ resource "google_compute_instance" "smv2_instance" {
   name = "${var.goog_cm_deployment_name}-${random_id.rand_id.hex}-${count.index + 1}"
   machine_type = var.machine_type
   zone = var.zones[count.index]
+  allow_stopping_for_update = true
 
   tags = var.network_tags
 
@@ -58,5 +59,18 @@ resource "google_compute_instance" "smv2_instance" {
       "https://www.googleapis.com/auth/service.management.readonly",
       "https://www.googleapis.com/auth/servicecontrol"
     ])
+  }
+  
+  lifecycle {
+    ignore_changes = [
+      machine_type,
+      min_cpu_platform,
+      service_account,
+      enable_display,
+      shielded_instance_config,
+      scheduling[0].node_affinities,
+      scheduling[0].max_run_duration,
+      network_interface,
+    ]
   }
 }
