@@ -60,4 +60,17 @@ resource "google_compute_instance" "smv2_instance" {
       "https://www.googleapis.com/auth/servicecontrol"
     ])
   }
+  
+  lifecycle {
+    ignore_changes = [
+      machine_type,
+      min_cpu_platform,
+      service_account,
+      enable_display,
+      shielded_instance_config,
+      scheduling[0].node_affinities,
+      scheduling[0].max_run_duration,
+      network_interface,
+    ]
+  }
 }
